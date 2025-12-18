@@ -1,0 +1,156 @@
+/// Arcane Jaspr - A Jaspr port of the Arcane UI component library
+/// Supabase-inspired design with switchable accent colors
+library arcane_jaspr;
+
+// Re-export Jaspr core for convenience
+export 'package:jaspr/jaspr.dart';
+
+// Re-export Jaspr DOM for HTML elements (div, span, button, text, etc.)
+// Hide types that conflict with our custom implementations
+export 'package:jaspr/dom.dart'
+    hide
+        Color,
+        ColorScheme,
+        Colors,
+        Selector,
+        Gap,
+        Padding,
+        TextAlign,
+        TextOverflow,
+        Border,
+        BorderRadius,
+        BoxShadow,
+        FontWeight;
+
+// ============================================================================
+// Utilities
+// ============================================================================
+export 'util/appearance/colors.dart';
+export 'util/appearance/color_scheme.dart';
+export 'util/appearance/theme.dart';
+export 'util/arcane.dart';
+export 'util/tools/styles.dart';
+
+// ============================================================================
+// Support components
+// ============================================================================
+export 'component/support/app.dart';
+
+// ============================================================================
+// Typography components
+// ============================================================================
+export 'component/typography/headline.dart';
+
+// ============================================================================
+// Layout components
+// ============================================================================
+export 'component/layout/section.dart';
+export 'component/layout/gutter.dart';
+export 'component/layout/flow.dart';
+export 'component/layout/carpet.dart';
+export 'component/layout/button_panel.dart';
+export 'component/layout/radio_cards.dart';
+export 'component/layout/tabs.dart';
+export 'component/layout/hero_section.dart' hide EdgeInsets;
+export 'component/layout/footer.dart';
+export 'component/layout/logo_carousel.dart';
+export 'component/layout/cta_banner.dart';
+
+// ============================================================================
+// Input components
+// ============================================================================
+export 'component/input/button.dart';
+export 'component/input/icon_button.dart';
+export 'component/input/cycle_button.dart';
+export 'component/input/search.dart';
+export 'component/input/selector.dart';
+export 'component/input/fab.dart';
+export 'component/input/toggle_switch.dart';
+export 'component/input/text_input.dart' hide TextInput;
+export 'component/input/slider.dart';
+export 'component/input/checkbox.dart';
+export 'component/input/theme_toggle.dart';
+
+// ============================================================================
+// View components
+// ============================================================================
+export 'component/view/bar.dart';
+export 'component/view/glass.dart';
+export 'component/view/card.dart';
+export 'component/view/card_section.dart';
+export 'component/view/tile.dart';
+export 'component/view/expander.dart' hide AccordionItem, Accordion;
+export 'component/view/center_body.dart';
+export 'component/view/data_table.dart';
+export 'component/view/static_table.dart';
+export 'component/view/badge.dart';
+export 'component/view/feature_card.dart';
+export 'component/view/pricing_card.dart';
+export 'component/view/testimonial_card.dart';
+export 'component/view/integration_card.dart';
+export 'component/view/game_tile.dart';
+export 'component/view/divider.dart' hide Divider;
+export 'component/view/code_snippet.dart';
+export 'component/view/avatar.dart';
+export 'component/view/progress_bar.dart';
+export 'component/view/rating_stars.dart';
+export 'component/view/stat_card.dart';
+export 'component/view/timeline.dart';
+export 'component/view/stepper.dart';
+export 'component/view/skeleton.dart';
+export 'component/view/chip.dart';
+export 'component/view/status_indicator.dart';
+export 'component/view/animated_counter.dart';
+export 'component/view/gradient_text.dart';
+export 'component/view/social_icons.dart';
+
+// ============================================================================
+// Navigation components
+// ============================================================================
+export 'component/navigation/sidebar.dart';
+export 'component/navigation/bottom_navigation_bar.dart';
+export 'component/navigation/header.dart';
+export 'component/navigation/dropdown_menu.dart';
+export 'component/navigation/mobile_menu.dart';
+
+// ============================================================================
+// Screen components
+// ============================================================================
+export 'component/screen/screen.dart';
+export 'component/screen/fill_screen.dart';
+export 'component/screen/navigation_screen.dart';
+
+// ============================================================================
+// Dialog components
+// ============================================================================
+export 'component/dialog/dialog.dart';
+export 'component/dialog/confirm.dart';
+export 'component/dialog/text.dart';
+export 'component/dialog/toast.dart';
+
+// ============================================================================
+// Form components
+// ============================================================================
+export 'component/form/field.dart';
+export 'component/form/field_wrapper.dart';
+export 'component/form/provider.dart';
+export 'component/form/newsletter_form.dart';
+
+// ============================================================================
+// Feedback components
+// ============================================================================
+export 'component/feedback/alert_banner.dart';
+export 'component/feedback/tooltip.dart';
+export 'component/feedback/loader.dart';
+
+// ============================================================================
+// Interactive components
+// ============================================================================
+export 'component/interactive/accordion.dart';
+export 'component/interactive/back_to_top.dart';
+
+// ============================================================================
+// Collection components
+// ============================================================================
+export 'component/collection/collection.dart' hide Axis;
+export 'component/collection/card_carousel.dart' hide CardCarouselTheme;
