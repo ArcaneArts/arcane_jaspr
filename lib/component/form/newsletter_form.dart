@@ -322,7 +322,7 @@ class _WaitlistFormState extends State<WaitlistForm> {
         }),
         [
           div(
-            [text('🎉')],
+            [text('!')],
             styles: Styles(raw: {
               'font-size': '2rem',
               'margin-bottom': ArcaneSpacing.md,

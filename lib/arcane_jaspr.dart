@@ -62,6 +62,8 @@ export 'component/layout/hero_section.dart' hide EdgeInsets;
 export 'component/layout/footer.dart';
 export 'component/layout/logo_carousel.dart';
 export 'component/layout/cta_banner.dart';
+export 'component/layout/dashboard_layout.dart';
+export 'component/layout/auth_layout.dart';
 
 // ============================================================================
 // Input components
@@ -110,6 +112,7 @@ export 'component/view/status_indicator.dart';
 export 'component/view/animated_counter.dart';
 export 'component/view/gradient_text.dart';
 export 'component/view/social_icons.dart';
+export 'component/view/settings_section.dart';
 
 // ============================================================================
 // Navigation components
@@ -161,3 +164,4 @@ export 'component/interactive/back_to_top.dart';
 // ============================================================================
 export 'component/collection/collection.dart' hide Axis;
 export 'component/collection/card_carousel.dart' hide CardCarouselTheme;
+export 'component/collection/infinite_carousel.dart';

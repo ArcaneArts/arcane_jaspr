@@ -112,10 +112,11 @@ class GameTile extends StatelessComponent {
             else
               span(
                 styles: Styles(raw: {
-                  'font-size': ArcaneTypography.font2xl,
+                  'font-size': ArcaneTypography.fontXl,
                   'color': ArcaneColors.muted,
+                  'font-weight': ArcaneTypography.weightBold,
                 }),
-                [text('🎮')],
+                [text(name.isNotEmpty ? name[0].toUpperCase() : '?')],
               ),
           ],
         ),
@@ -151,10 +152,7 @@ class GameTile extends StatelessComponent {
               'font-size': ArcaneTypography.fontXs,
               'color': ArcaneColors.warning,
             }),
-            [
-              span([text('⭐')]),
-              text('Popular'),
-            ],
+            [text('Popular')],
           ),
       ],
     );
@@ -367,9 +365,11 @@ class GameCard extends StatelessComponent {
                     else
                       span(
                         styles: Styles(raw: {
-                          'font-size': ArcaneTypography.fontXl,
+                          'font-size': ArcaneTypography.fontLg,
+                          'color': ArcaneColors.muted,
+                          'font-weight': ArcaneTypography.weightBold,
                         }),
-                        [text('🎮')],
+                        [text(name.isNotEmpty ? name[0].toUpperCase() : '?')],
                       ),
                   ],
                 ),
