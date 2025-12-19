@@ -243,6 +243,7 @@ class _StringFieldBuilder extends StatelessComponent {
 
     if (isMultiline) {
       return textarea(
+        classes: 'arcane-field-textarea',
         attributes: {
           'placeholder': placeholder ?? '',
           'rows': '${maxLines ?? 3}',
@@ -273,6 +274,7 @@ class _StringFieldBuilder extends StatelessComponent {
 
     return input(
       type: InputType.text,
+      classes: 'arcane-field-input',
       attributes: {
         'value': value,
         'placeholder': placeholder ?? '',
@@ -297,14 +299,6 @@ class _StringFieldBuilder extends StatelessComponent {
       },
     );
   }
-
-  @css
-  static final List<StyleRule> styles = [
-    css('textarea:focus, input:focus').styles(raw: {
-      'border-color': ArcaneColors.accent,
-      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
-    }),
-  ];
 }
 
 /// Internal bool field builder component.
@@ -379,6 +373,7 @@ class _SelectFieldBuilder<T> extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return select(
+      classes: 'arcane-field-select',
       styles: Styles(raw: {
         'width': '100%',
         'padding': '10px ${ArcaneSpacing.md}',
@@ -411,10 +406,19 @@ class _SelectFieldBuilder<T> extends StatelessComponent {
       ],
     );
   }
+}
+
+/// Static styles for ArcaneField components (public for @css annotation)
+class ArcaneFieldStyles {
+  ArcaneFieldStyles._();
 
   @css
   static final List<StyleRule> styles = [
-    css('select:focus').styles(raw: {
+    css('.arcane-field-textarea:focus, .arcane-field-input:focus').styles(raw: {
+      'border-color': ArcaneColors.accent,
+      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
+    }),
+    css('.arcane-field-select:focus').styles(raw: {
       'border-color': ArcaneColors.accent,
       'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
     }),
