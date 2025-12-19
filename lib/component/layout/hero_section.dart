@@ -1,38 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 import '../typography/headline.dart';
-
-/// Simple edge insets for padding
-class EdgeInsets {
-  final double top;
-  final double right;
-  final double bottom;
-  final double left;
-
-  const EdgeInsets.all(double value)
-      : top = value,
-        right = value,
-        bottom = value,
-        left = value;
-
-  const EdgeInsets.symmetric({double vertical = 0, double horizontal = 0})
-      : top = vertical,
-        bottom = vertical,
-        left = horizontal,
-        right = horizontal;
-
-  const EdgeInsets.only({
-    this.top = 0,
-    this.right = 0,
-    this.bottom = 0,
-    this.left = 0,
-  });
-
-  String get padding => '${top}px ${right}px ${bottom}px ${left}px';
-}
 
 /// A hero section component (Supabase-style)
 class HeroSection extends StatelessComponent {
@@ -85,7 +55,7 @@ class HeroSection extends StatelessComponent {
         'flex-direction': 'column',
         'align-items': centered ? 'center' : 'flex-start',
         'text-align': centered ? 'center' : 'left',
-        'padding': '${verticalPadding}px 24px',
+        'padding': '${verticalPadding}px ${ArcaneSpacing.lg}',
       }),
       [
         // Content wrapper
@@ -96,7 +66,7 @@ class HeroSection extends StatelessComponent {
             'display': 'flex',
             'flex-direction': 'column',
             'align-items': centered ? 'center' : 'flex-start',
-            'gap': '24px',
+            'gap': ArcaneSpacing.lg,
           }),
           [
             // Badge
@@ -123,8 +93,8 @@ class HeroSection extends StatelessComponent {
                 styles: Styles(raw: {
                   'display': 'flex',
                   'flex-wrap': 'wrap',
-                  'gap': '12px',
-                  'margin-top': '8px',
+                  'gap': ArcaneSpacing.sm,
+                  'margin-top': ArcaneSpacing.sm,
                   if (centered) 'justify-content': 'center',
                 }),
                 [
@@ -140,7 +110,7 @@ class HeroSection extends StatelessComponent {
           div(
             classes: 'arcane-hero-media',
             styles: Styles(raw: {
-              'margin-top': '48px',
+              'margin-top': ArcaneSpacing.xxl,
               'width': '100%',
               'max-width': '1200px',
             }),
@@ -186,75 +156,6 @@ class CtaGroup extends StatelessComponent {
       [
         primaryCta,
         if (secondaryCta != null) secondaryCta!,
-      ],
-    );
-  }
-}
-
-/// A CTA banner with gradient background
-class CtaBanner extends StatelessComponent {
-  /// Banner headline
-  final String headline;
-
-  /// Banner description
-  final String? description;
-
-  /// CTA button
-  final Component? cta;
-
-  /// Whether to use gradient background
-  final bool gradient;
-
-  /// Padding
-  final EdgeInsets padding;
-
-  const CtaBanner({
-    required this.headline,
-    this.description,
-    this.cta,
-    this.gradient = true,
-    this.padding = const EdgeInsets.symmetric(vertical: 48, horizontal: 24),
-    super.key,
-  });
-
-  @override
-  Component build(BuildContext context) {
-    return section(
-      classes: 'arcane-cta-banner',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'align-items': 'center',
-        'text-align': 'center',
-        'padding': padding.padding,
-        'border-radius': 'var(--arcane-radius-xl)',
-        if (gradient)
-          'background': 'linear-gradient(135deg, var(--arcane-accent-container) 0%, var(--arcane-surface-variant) 100%)'
-        else
-          'background-color': 'var(--arcane-surface-variant)',
-        'border': '1px solid var(--arcane-border)',
-      }),
-      [
-        Headline.h2(
-          headline,
-          align: 'center',
-        ),
-        if (description != null)
-          div(
-            styles: Styles(raw: {'margin-top': '12px'}),
-            [
-              Subheadline(
-                description!,
-                size: 'md',
-                align: 'center',
-              ),
-            ],
-          ),
-        if (cta != null)
-          div(
-            styles: Styles(raw: {'margin-top': '24px'}),
-            [cta!],
-          ),
       ],
     );
   }

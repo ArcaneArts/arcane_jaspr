@@ -1,8 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// An accordion item data model
 class AccordionItem {
@@ -43,7 +42,7 @@ class Accordion extends StatefulComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-accordion-trigger:hover').styles(raw: {
-      'background-color': 'var(--arcane-surface-variant)',
+      'background-color': ArcaneColors.surfaceVariant,
     }),
   ];
 }
@@ -55,7 +54,7 @@ class _AccordionState extends State<Accordion> {
   void initState() {
     super.initState();
     _openItems = {};
-    for (var i = 0; i < component.items.length; i++) {
+    for (int i = 0; i < component.items.length; i++) {
       if (component.items[i].defaultOpen) {
         _openItems.add(i);
       }
@@ -82,27 +81,26 @@ class _AccordionState extends State<Accordion> {
       styles: Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        if (component.bordered) 'border': '1px solid var(--arcane-border)',
-        if (component.bordered) 'border-radius': 'var(--arcane-radius)',
+        if (component.bordered) 'border': '1px solid ${ArcaneColors.border}',
+        if (component.bordered) 'border-radius': ArcaneRadius.md,
         'overflow': 'hidden',
       }),
       [
-        for (var i = 0; i < component.items.length; i++)
+        for (int i = 0; i < component.items.length; i++)
           _buildItem(i, component.items[i]),
       ],
     );
   }
 
   Component _buildItem(int index, AccordionItem item) {
-    final isOpen = _openItems.contains(index);
-    final isFirst = index == 0;
-    final isLast = index == component.items.length - 1;
+    final bool isOpen = _openItems.contains(index);
+    final bool isFirst = index == 0;
 
     return div(
       classes: 'arcane-accordion-item ${isOpen ? 'open' : ''}',
       styles: Styles(raw: {
         if (!isFirst && component.bordered)
-          'border-top': '1px solid var(--arcane-border)',
+          'border-top': '1px solid ${ArcaneColors.border}',
       }),
       [
         // Header/trigger
@@ -117,15 +115,15 @@ class _AccordionState extends State<Accordion> {
             'align-items': 'center',
             'justify-content': 'space-between',
             'width': '100%',
-            'padding': '16px 20px',
+            'padding': '${ArcaneSpacing.lg} 20px',
             'background': 'none',
             'border': 'none',
             'text-align': 'left',
-            'font-size': '0.9375rem',
-            'font-weight': '500',
-            'color': 'var(--arcane-on-surface)',
+            'font-size': ArcaneTypography.fontBase,
+            'font-weight': ArcaneTypography.weightMedium,
+            'color': ArcaneColors.onSurface,
             'cursor': 'pointer',
-            'transition': 'background-color var(--arcane-transition-fast)',
+            'transition': ArcaneEffects.transitionFast,
           }),
           events: {
             'click': (e) => _toggleItem(index),
@@ -135,10 +133,10 @@ class _AccordionState extends State<Accordion> {
             span(
               classes: 'arcane-accordion-icon',
               styles: Styles(raw: {
-                'font-size': '0.75rem',
-                'color': 'var(--arcane-muted)',
+                'font-size': ArcaneTypography.fontXs,
+                'color': ArcaneColors.muted,
                 'transform': isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                'transition': 'transform var(--arcane-transition-fast)',
+                'transition': ArcaneEffects.transitionFast,
               }),
               [text('▼')],
             ),
@@ -150,15 +148,15 @@ class _AccordionState extends State<Accordion> {
           classes: 'arcane-accordion-panel',
           styles: Styles(raw: {
             'display': isOpen ? 'block' : 'none',
-            'padding': '0 20px 16px',
+            'padding': '0 20px ${ArcaneSpacing.lg}',
           }),
           [
             div(
               classes: 'arcane-accordion-content',
               styles: Styles(raw: {
-                'font-size': '0.875rem',
-                'line-height': '1.6',
-                'color': 'var(--arcane-muted)',
+                'font-size': ArcaneTypography.fontSm,
+                'line-height': ArcaneTypography.lineHeightRelaxed,
+                'color': ArcaneColors.muted,
               }),
               [
                 if (item.customContent != null)

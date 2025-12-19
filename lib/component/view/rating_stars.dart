@@ -1,42 +1,59 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
-import '../../util/tools/styles.dart';
+
+import '../../util/tokens/tokens.dart';
 
 /// Star rating display component
 class ArcaneRatingStars extends StatelessComponent {
-  final double rating; // 0.0 to 5.0
+  /// Rating value (0.0 to 5.0)
+  final double rating;
+
+  /// Total number of stars
   final int totalStars;
+
+  /// Star size
   final String size;
-  final String filledColor;
-  final String emptyColor;
+
+  /// Color when filled
+  final String? filledColor;
+
+  /// Color when empty
+  final String? emptyColor;
+
+  /// Whether to show the numeric value
   final bool showValue;
 
   const ArcaneRatingStars({
     required this.rating,
     this.totalStars = 5,
     this.size = '20px',
-    this.filledColor = '#F59E0B',
-    this.emptyColor = '#3F3F46',
+    this.filledColor,
+    this.emptyColor,
     this.showValue = false,
+    super.key,
   });
 
   @override
   Component build(BuildContext context) {
+    final String effectiveFilledColor = filledColor ?? ArcaneColors.warning;
+    final String effectiveEmptyColor = emptyColor ?? ArcaneColors.muted;
+
     return div(
+      classes: 'arcane-rating-stars',
       styles: Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': '4px',
+        'gap': ArcaneSpacing.xs,
       }),
       [
-        for (var i = 0; i < totalStars; i++) _buildStar(i),
+        for (var i = 0; i < totalStars; i++) _buildStar(i, effectiveFilledColor, effectiveEmptyColor),
         if (showValue)
           span(
             styles: Styles(raw: {
-              'margin-left': '8px',
-              'color': '#FAFAFA',
-              'font-weight': '600',
-              'font-size': '14px',
+              'margin-left': ArcaneSpacing.sm,
+              'color': ArcaneColors.onSurface,
+              'font-weight': ArcaneTypography.weightSemibold,
+              'font-size': ArcaneTypography.fontSm,
             }),
             [text(rating.toStringAsFixed(1))],
           ),
@@ -44,8 +61,8 @@ class ArcaneRatingStars extends StatelessComponent {
     );
   }
 
-  Component _buildStar(int index) {
-    final fill = rating - index;
+  Component _buildStar(int index, String filledColor, String emptyColor) {
+    final double fill = rating - index;
     String color;
     if (fill >= 1) {
       color = filledColor;

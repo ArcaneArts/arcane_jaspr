@@ -1,7 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A versatile collection widget for managing and displaying groups of items.
 ///
@@ -54,11 +54,11 @@ class Collection extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final items = builder != null
+    final List<Component> items = builder != null
         ? List.generate(childCount ?? 0, (i) => builder!(context, i))
         : children;
 
-    final containerStyles = <String, String>{
+    final Map<String, String> containerStyles = {
       'display': 'flex',
       'flex-direction': direction == Axis.vertical ? 'column' : 'row',
       if (gap > 0) 'gap': '${gap}px',
@@ -128,7 +128,7 @@ class ListView extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final items = builder != null
+    final List<Component> items = builder != null
         ? List.generate(itemCount ?? 0, (i) => builder!(context, i))
         : children;
 
@@ -192,11 +192,11 @@ class GridView extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final items = builder != null
+    final List<Component> items = builder != null
         ? List.generate(itemCount ?? 0, (i) => builder!(context, i))
         : children;
 
-    final gridTemplateColumns = minItemWidth != null
+    final String gridTemplateColumns = minItemWidth != null
         ? 'repeat(auto-fit, minmax(${minItemWidth}px, 1fr))'
         : 'repeat($crossAxisCount, 1fr)';
 

@@ -1,9 +1,9 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
-import '../../util/appearance/theme.dart';
 import '../../util/arcane.dart';
-import '../../util/tools/styles.dart';
+import '../../util/appearance/colors.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A background container component that provides a subtle surface layer.
 ///
@@ -35,17 +35,16 @@ class Carpet extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-    final effectivePadding = padding ?? const EdgeInsets.all(16);
-    final effectiveRadius = radius ?? theme.borderRadiusPx;
+    final EdgeInsets effectivePadding = padding ?? const EdgeInsets.all(16);
+    final String effectiveRadius = radius != null ? '${radius}px' : ArcaneRadius.md;
 
     return div(
       classes: 'arcane-carpet',
       styles: Styles(raw: {
-        'background-color': color?.css ?? 'var(--arcane-surface-variant)',
-        'border-radius': '${effectiveRadius}px',
+        'background-color': color?.css ?? ArcaneColors.surfaceVariant,
+        'border-radius': effectiveRadius,
         'padding': effectivePadding.padding,
-        if (border) 'border': '1px solid var(--arcane-outline-variant)',
+        if (border) 'border': '1px solid ${ArcaneColors.border}',
       }),
       [child],
     );
@@ -73,8 +72,7 @@ class Surface extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-    final effectiveRadius = radius ?? theme.borderRadiusPx;
+    final String effectiveRadius = radius != null ? '${radius}px' : ArcaneRadius.md;
 
     // Generate shadow based on elevation
     String boxShadow;
@@ -83,31 +81,28 @@ class Surface extends StatelessComponent {
         boxShadow = 'none';
         break;
       case 1:
-        boxShadow = '0 1px 2px rgba(0, 0, 0, 0.05)';
+        boxShadow = ArcaneEffects.shadowXs;
         break;
       case 2:
-        boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06)';
+        boxShadow = ArcaneEffects.shadowSm;
         break;
       case 3:
-        boxShadow =
-            '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
+        boxShadow = ArcaneEffects.shadowMd;
         break;
       case 4:
-        boxShadow =
-            '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
+        boxShadow = ArcaneEffects.shadowLg;
         break;
       default:
-        boxShadow =
-            '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
+        boxShadow = ArcaneEffects.shadowXl;
     }
 
     return div(
       classes: 'arcane-surface',
       styles: Styles(raw: {
-        'background-color': color?.css ?? 'var(--arcane-surface)',
-        'border-radius': '${effectiveRadius}px',
+        'background-color': color?.css ?? ArcaneColors.surface,
+        'border-radius': effectiveRadius,
         if (padding != null) 'padding': padding!.padding,
-        if (border) 'border': '1px solid var(--arcane-outline-variant)',
+        if (border) 'border': '1px solid ${ArcaneColors.border}',
         'box-shadow': boxShadow,
       }),
       [child],
@@ -139,7 +134,7 @@ class Divider extends StatelessComponent {
         classes: 'arcane-divider-vertical',
         styles: Styles(raw: {
           'width': '${thickness ?? 1}px',
-          'background-color': color?.css ?? 'var(--arcane-outline-variant)',
+          'background-color': color?.css ?? ArcaneColors.border,
           'align-self': 'stretch',
           if (indent != null) 'margin-top': '${indent}px',
           if (endIndent != null) 'margin-bottom': '${endIndent}px',
@@ -151,7 +146,7 @@ class Divider extends StatelessComponent {
         classes: 'arcane-divider',
         styles: Styles(raw: {
           'height': '${thickness ?? 1}px',
-          'background-color': color?.css ?? 'var(--arcane-outline-variant)',
+          'background-color': color?.css ?? ArcaneColors.border,
           'width': '100%',
           if (indent != null) 'margin-left': '${indent}px',
           if (endIndent != null) 'margin-right': '${endIndent}px',

@@ -1,8 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 import '../input/button.dart';
 import 'dialog.dart';
 
@@ -57,24 +56,22 @@ class ConfirmDialog extends StatelessComponent {
           'flex-direction': 'column',
           'align-items': 'center',
           'text-align': 'center',
-          'gap': '16px',
+          'gap': ArcaneSpacing.md,
         }),
         [
           if (icon != null)
             div(
               styles: Styles(raw: {
                 'font-size': '3rem',
-                'color': destructive
-                    ? 'var(--arcane-error)'
-                    : 'var(--arcane-primary)',
+                'color': destructive ? ArcaneColors.error : ArcaneColors.accent,
               }),
               [icon!],
             ),
           div(
             styles: Styles(raw: {
-              'color': 'var(--arcane-on-surface)',
-              'font-size': '0.9375rem',
-              'line-height': '1.5',
+              'color': ArcaneColors.onSurface,
+              'font-size': ArcaneTypography.fontSm,
+              'line-height': ArcaneTypography.lineHeightRelaxed,
             }),
             [text(message)],
           ),
@@ -128,22 +125,22 @@ class AlertDialog extends StatelessComponent {
           'flex-direction': 'column',
           'align-items': 'center',
           'text-align': 'center',
-          'gap': '16px',
+          'gap': ArcaneSpacing.md,
         }),
         [
           if (icon != null)
             div(
               styles: Styles(raw: {
                 'font-size': '3rem',
-                'color': 'var(--arcane-primary)',
+                'color': ArcaneColors.accent,
               }),
               [icon!],
             ),
           div(
             styles: Styles(raw: {
-              'color': 'var(--arcane-on-surface)',
-              'font-size': '0.9375rem',
-              'line-height': '1.5',
+              'color': ArcaneColors.onSurface,
+              'font-size': ArcaneTypography.fontSm,
+              'line-height': ArcaneTypography.lineHeightRelaxed,
             }),
             [text(message)],
           ),

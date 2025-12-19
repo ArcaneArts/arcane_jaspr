@@ -2,7 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
 import '../../util/arcane.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A panel component for action buttons, typically used in dialogs or footers.
 ///
@@ -34,7 +34,7 @@ class ButtonPanel extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final effectivePadding = padding ?? const EdgeInsets.symmetric(vertical: 8);
+    final EdgeInsets effectivePadding = padding ?? const EdgeInsets.symmetric(vertical: 8);
 
     return div(
       classes: 'arcane-button-panel',
@@ -70,7 +70,7 @@ class Toolbar extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final effectivePadding =
+    final EdgeInsets effectivePadding =
         padding ?? const EdgeInsets.symmetric(horizontal: 8, vertical: 4);
 
     return div(

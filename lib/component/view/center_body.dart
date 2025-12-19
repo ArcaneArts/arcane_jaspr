@@ -2,7 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
 import '../../util/arcane.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A component that centers its content both horizontally and vertically.
 class CenterBody extends StatelessComponent {
@@ -106,15 +106,15 @@ class EmptyState extends StatelessComponent {
           'flex-direction': 'column',
           'align-items': 'center',
           'text-align': 'center',
-          'padding': '48px 24px',
-          'gap': '16px',
+          'padding': '${ArcaneSpacing.massive} ${ArcaneSpacing.xl}',
+          'gap': ArcaneSpacing.lg,
         }),
         [
           if (icon != null)
             div(
               styles: Styles(raw: {
-                'color': 'var(--arcane-on-surface-variant)',
-                'font-size': '3rem',
+                'color': ArcaneColors.muted,
+                'font-size': ArcaneTypography.font4xl,
                 'opacity': '0.5',
               }),
               [icon!],
@@ -122,17 +122,17 @@ class EmptyState extends StatelessComponent {
           if (title != null)
             div(
               styles: Styles(raw: {
-                'font-size': '1.25rem',
-                'font-weight': '600',
-                'color': 'var(--arcane-on-surface)',
+                'font-size': ArcaneTypography.fontXl,
+                'font-weight': ArcaneTypography.weightSemibold,
+                'color': ArcaneColors.onSurface,
               }),
               [text(title!)],
             ),
           if (message != null)
             div(
               styles: Styles(raw: {
-                'font-size': '0.875rem',
-                'color': 'var(--arcane-on-surface-variant)',
+                'font-size': ArcaneTypography.fontSm,
+                'color': ArcaneColors.muted,
                 'max-width': '400px',
               }),
               [text(message!)],
@@ -140,7 +140,7 @@ class EmptyState extends StatelessComponent {
           if (action != null)
             div(
               styles: Styles(raw: {
-                'margin-top': '8px',
+                'margin-top': ArcaneSpacing.sm,
               }),
               [action!],
             ),
@@ -168,8 +168,8 @@ class LoadingState extends StatelessComponent {
           'display': 'flex',
           'flex-direction': 'column',
           'align-items': 'center',
-          'gap': '16px',
-          'padding': '48px 24px',
+          'gap': ArcaneSpacing.lg,
+          'padding': '${ArcaneSpacing.massive} ${ArcaneSpacing.xl}',
         }),
         [
           // Spinner
@@ -178,9 +178,9 @@ class LoadingState extends StatelessComponent {
             styles: Styles(raw: {
               'width': '40px',
               'height': '40px',
-              'border': '3px solid var(--arcane-outline-variant)',
-              'border-top-color': 'var(--arcane-primary)',
-              'border-radius': '50%',
+              'border': '3px solid ${ArcaneColors.border}',
+              'border-top-color': ArcaneColors.accent,
+              'border-radius': ArcaneRadius.full,
               'animation': 'arcane-spin 0.75s linear infinite',
             }),
             [],
@@ -188,8 +188,8 @@ class LoadingState extends StatelessComponent {
           if (message != null)
             div(
               styles: Styles(raw: {
-                'font-size': '0.875rem',
-                'color': 'var(--arcane-on-surface-variant)',
+                'font-size': ArcaneTypography.fontSm,
+                'color': ArcaneColors.muted,
               }),
               [text(message!)],
             ),
@@ -230,32 +230,32 @@ class ErrorState extends StatelessComponent {
           'flex-direction': 'column',
           'align-items': 'center',
           'text-align': 'center',
-          'padding': '48px 24px',
-          'gap': '16px',
+          'padding': '${ArcaneSpacing.massive} ${ArcaneSpacing.xl}',
+          'gap': ArcaneSpacing.lg,
         }),
         [
           // Error icon
           div(
             styles: Styles(raw: {
-              'color': 'var(--arcane-error)',
-              'font-size': '3rem',
+              'color': ArcaneColors.error,
+              'font-size': ArcaneTypography.font4xl,
             }),
             [text('⚠')],
           ),
           if (title != null)
             div(
               styles: Styles(raw: {
-                'font-size': '1.25rem',
-                'font-weight': '600',
-                'color': 'var(--arcane-on-surface)',
+                'font-size': ArcaneTypography.fontXl,
+                'font-weight': ArcaneTypography.weightSemibold,
+                'color': ArcaneColors.onSurface,
               }),
               [text(title!)],
             ),
           if (message != null)
             div(
               styles: Styles(raw: {
-                'font-size': '0.875rem',
-                'color': 'var(--arcane-on-surface-variant)',
+                'font-size': ArcaneTypography.fontSm,
+                'color': ArcaneColors.muted,
                 'max-width': '400px',
               }),
               [text(message!)],
@@ -263,7 +263,7 @@ class ErrorState extends StatelessComponent {
           if (action != null)
             div(
               styles: Styles(raw: {
-                'margin-top': '8px',
+                'margin-top': ArcaneSpacing.sm,
               }),
               [action!],
             ),

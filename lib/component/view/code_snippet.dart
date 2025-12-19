@@ -1,8 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A code snippet component with copy button (Supabase-style)
 class CodeSnippet extends StatefulComponent {
@@ -40,8 +39,8 @@ class CodeSnippet extends StatefulComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-code-copy-btn:hover').styles(raw: {
-      'color': 'var(--arcane-on-surface)',
-      'background-color': 'var(--arcane-surface-variant)',
+      'color': ArcaneColors.onSurface,
+      'background-color': ArcaneColors.surfaceVariant,
     }),
   ];
 }
@@ -50,23 +49,20 @@ class _CodeSnippetState extends State<CodeSnippet> {
   bool _copied = false;
 
   void _copyToClipboard() {
-    // In Jaspr/web, we use the clipboard API
-    // This will be handled via JavaScript interop
     setState(() => _copied = true);
-    // Reset after 2 seconds would need a timer
   }
 
   @override
   Component build(BuildContext context) {
-    final lines = component.code.split('\n');
+    final List<String> lines = component.code.split('\n');
 
     return div(
       classes: 'arcane-code-snippet',
       styles: Styles(raw: {
         'position': 'relative',
-        'background-color': 'var(--arcane-code-bg)',
-        'border': '1px solid var(--arcane-border)',
-        'border-radius': 'var(--arcane-radius)',
+        'background-color': ArcaneColors.codeBackground,
+        'border': '1px solid ${ArcaneColors.border}',
+        'border-radius': ArcaneRadius.md,
         'overflow': 'hidden',
       }),
       [
@@ -78,9 +74,9 @@ class _CodeSnippetState extends State<CodeSnippet> {
               'display': 'flex',
               'align-items': 'center',
               'justify-content': 'space-between',
-              'padding': '8px 12px',
-              'background-color': 'var(--arcane-surface-variant)',
-              'border-bottom': '1px solid var(--arcane-border)',
+              'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
+              'background-color': ArcaneColors.surfaceVariant,
+              'border-bottom': '1px solid ${ArcaneColors.border}',
             }),
             [
               // Title/Language
@@ -88,24 +84,24 @@ class _CodeSnippetState extends State<CodeSnippet> {
                 styles: Styles(raw: {
                   'display': 'flex',
                   'align-items': 'center',
-                  'gap': '8px',
+                  'gap': ArcaneSpacing.sm,
                 }),
                 [
                   if (component.title != null)
                     span(
                       styles: Styles(raw: {
-                        'font-size': '0.8125rem',
-                        'font-weight': '500',
-                        'color': 'var(--arcane-on-surface)',
+                        'font-size': ArcaneTypography.fontSm,
+                        'font-weight': ArcaneTypography.weightMedium,
+                        'color': ArcaneColors.onSurface,
                       }),
                       [text(component.title!)],
                     )
                   else if (component.language != null)
                     span(
                       styles: Styles(raw: {
-                        'font-size': '0.75rem',
-                        'font-weight': '500',
-                        'color': 'var(--arcane-muted)',
+                        'font-size': ArcaneTypography.fontXs,
+                        'font-weight': ArcaneTypography.weightMedium,
+                        'color': ArcaneColors.muted,
                         'text-transform': 'uppercase',
                       }),
                       [text(component.language!)],
@@ -126,15 +122,15 @@ class _CodeSnippetState extends State<CodeSnippet> {
                     'display': 'flex',
                     'align-items': 'center',
                     'gap': '6px',
-                    'padding': '4px 8px',
-                    'font-size': '0.75rem',
-                    'font-weight': '500',
-                    'color': _copied ? 'var(--arcane-success)' : 'var(--arcane-muted)',
-                    'background': 'transparent',
-                    'border': '1px solid var(--arcane-border)',
-                    'border-radius': 'var(--arcane-radius-sm)',
+                    'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
+                    'font-size': ArcaneTypography.fontXs,
+                    'font-weight': ArcaneTypography.weightMedium,
+                    'color': _copied ? ArcaneColors.success : ArcaneColors.muted,
+                    'background': ArcaneColors.transparent,
+                    'border': '1px solid ${ArcaneColors.border}',
+                    'border-radius': ArcaneRadius.sm,
                     'cursor': 'pointer',
-                    'transition': 'var(--arcane-transition-fast)',
+                    'transition': ArcaneEffects.transitionFast,
                   }),
                   events: {
                     'click': (e) => _copyToClipboard(),
@@ -159,7 +155,7 @@ class _CodeSnippetState extends State<CodeSnippet> {
               classes: 'arcane-code-pre',
               styles: Styles(raw: {
                 'margin': '0',
-                'padding': '16px',
+                'padding': ArcaneSpacing.lg,
                 'overflow-x': 'auto',
               }),
               children: [
@@ -176,19 +172,19 @@ class _CodeSnippetState extends State<CodeSnippet> {
                         styles: Styles(raw: {
                           'display': 'flex',
                           'flex-direction': 'column',
-                          'padding-right': '16px',
-                          'border-right': '1px solid var(--arcane-border)',
-                          'margin-right': '16px',
+                          'padding-right': ArcaneSpacing.lg,
+                          'border-right': '1px solid ${ArcaneColors.border}',
+                          'margin-right': ArcaneSpacing.lg,
                           'user-select': 'none',
                         }),
                         [
                           for (var i = 0; i < lines.length; i++)
                             span(
                               styles: Styles(raw: {
-                                'font-family': 'var(--arcane-font-mono)',
-                                'font-size': '0.8125rem',
-                                'line-height': '1.6',
-                                'color': 'var(--arcane-muted)',
+                                'font-family': ArcaneTypography.fontFamilyMono,
+                                'font-size': ArcaneTypography.fontSm,
+                                'line-height': ArcaneTypography.leadingRelaxed,
+                                'color': ArcaneColors.muted,
                                 'text-align': 'right',
                                 'min-width': '${lines.length.toString().length * 8 + 8}px',
                               }),
@@ -203,10 +199,10 @@ class _CodeSnippetState extends State<CodeSnippet> {
                             ? 'arcane-code language-${component.language}'
                             : 'arcane-code',
                         styles: Styles(raw: {
-                          'font-family': 'var(--arcane-font-mono)',
-                          'font-size': '0.8125rem',
-                          'line-height': '1.6',
-                          'color': 'var(--arcane-on-surface)',
+                          'font-family': ArcaneTypography.fontFamilyMono,
+                          'font-size': ArcaneTypography.fontSm,
+                          'line-height': ArcaneTypography.leadingRelaxed,
+                          'color': ArcaneColors.onSurface,
                           'white-space': 'pre',
                         }),
                         children: [text(component.code)],
@@ -220,10 +216,10 @@ class _CodeSnippetState extends State<CodeSnippet> {
                         ? 'arcane-code language-${component.language}'
                         : 'arcane-code',
                     styles: Styles(raw: {
-                      'font-family': 'var(--arcane-font-mono)',
-                      'font-size': '0.8125rem',
-                      'line-height': '1.6',
-                      'color': 'var(--arcane-on-surface)',
+                      'font-family': ArcaneTypography.fontFamilyMono,
+                      'font-size': ArcaneTypography.fontSm,
+                      'line-height': ArcaneTypography.leadingRelaxed,
+                      'color': ArcaneColors.onSurface,
                       'white-space': 'pre',
                     }),
                     children: [text(component.code)],
@@ -252,11 +248,11 @@ class InlineCode extends StatelessComponent {
       styles: Styles(raw: {
         'display': 'inline',
         'padding': '2px 6px',
-        'font-family': 'var(--arcane-font-mono)',
+        'font-family': ArcaneTypography.fontFamilyMono,
         'font-size': '0.875em',
-        'background-color': 'var(--arcane-surface-variant)',
-        'border-radius': 'var(--arcane-radius-sm)',
-        'color': 'var(--arcane-accent)',
+        'background-color': ArcaneColors.surfaceVariant,
+        'border-radius': ArcaneRadius.sm,
+        'color': ArcaneColors.accent,
       }),
       children: [text(code)],
     );
@@ -287,14 +283,14 @@ class Terminal extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final allCommands = commands.join('\n');
+    final String allCommands = commands.join('\n');
 
     return div(
       classes: 'arcane-terminal',
       styles: Styles(raw: {
-        'background-color': '#0A0A0B',
-        'border': '1px solid var(--arcane-border)',
-        'border-radius': 'var(--arcane-radius)',
+        'background-color': ArcaneColors.codeBackground,
+        'border': '1px solid ${ArcaneColors.border}',
+        'border-radius': ArcaneRadius.md,
         'overflow': 'hidden',
       }),
       [
@@ -305,29 +301,29 @@ class Terminal extends StatelessComponent {
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'space-between',
-            'padding': '10px 14px',
-            'background-color': '#18181B',
-            'border-bottom': '1px solid var(--arcane-border)',
+            'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
+            'background-color': ArcaneColors.surfaceVariant,
+            'border-bottom': '1px solid ${ArcaneColors.border}',
           }),
           [
             // Window controls
             div(
               styles: Styles(raw: {
                 'display': 'flex',
-                'gap': '8px',
+                'gap': ArcaneSpacing.sm,
               }),
               [
-                _windowDot('#EF4444'),
-                _windowDot('#F59E0B'),
-                _windowDot('#10B981'),
+                _windowDot(ArcaneColors.error),
+                _windowDot(ArcaneColors.warning),
+                _windowDot(ArcaneColors.success),
               ],
             ),
             // Title
             if (title != null)
               span(
                 styles: Styles(raw: {
-                  'font-size': '0.8125rem',
-                  'color': '#71717A',
+                  'font-size': ArcaneTypography.fontSm,
+                  'color': ArcaneColors.muted,
                 }),
                 [text(title!)],
               )
@@ -343,14 +339,14 @@ class Terminal extends StatelessComponent {
                   'data-code': allCommands,
                 },
                 styles: Styles(raw: {
-                  'padding': '4px 8px',
-                  'font-size': '0.75rem',
-                  'color': '#71717A',
-                  'background': 'transparent',
-                  'border': '1px solid #27272A',
-                  'border-radius': '4px',
+                  'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
+                  'font-size': ArcaneTypography.fontXs,
+                  'color': ArcaneColors.muted,
+                  'background': ArcaneColors.transparent,
+                  'border': '1px solid ${ArcaneColors.border}',
+                  'border-radius': ArcaneRadius.sm,
                   'cursor': 'pointer',
-                  'transition': 'color 0.15s, border-color 0.15s',
+                  'transition': ArcaneEffects.transitionFast,
                 }),
                 [text('Copy')],
               )
@@ -364,24 +360,24 @@ class Terminal extends StatelessComponent {
           classes: 'arcane-terminal-content',
           styles: Styles(raw: {
             'margin': '0',
-            'padding': '16px',
+            'padding': ArcaneSpacing.lg,
             'overflow-x': 'auto',
           }),
           children: [
             for (final cmd in commands) ...[
               span(
                 styles: Styles(raw: {
-                  'color': '#10B981',
-                  'font-family': 'var(--arcane-font-mono)',
-                  'font-size': '0.875rem',
+                  'color': ArcaneColors.success,
+                  'font-family': ArcaneTypography.fontFamilyMono,
+                  'font-size': ArcaneTypography.fontSm,
                 }),
                 [text('$prompt ')],
               ),
               span(
                 styles: Styles(raw: {
-                  'color': '#FAFAFA',
-                  'font-family': 'var(--arcane-font-mono)',
-                  'font-size': '0.875rem',
+                  'color': ArcaneColors.onSurface,
+                  'font-family': ArcaneTypography.fontFamilyMono,
+                  'font-size': ArcaneTypography.fontSm,
                 }),
                 [text(cmd)],
               ),
@@ -398,7 +394,7 @@ class Terminal extends StatelessComponent {
       styles: Styles(raw: {
         'width': '12px',
         'height': '12px',
-        'border-radius': '50%',
+        'border-radius': ArcaneRadius.full,
         'background-color': color,
       }),
       [],
@@ -408,8 +404,8 @@ class Terminal extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-terminal-copy:hover').styles(raw: {
-      'color': '#FAFAFA',
-      'border-color': '#3F3F46',
+      'color': ArcaneColors.onSurface,
+      'border-color': ArcaneColors.muted,
     }),
   ];
 }

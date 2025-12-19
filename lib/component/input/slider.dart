@@ -1,8 +1,18 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
-import '../../util/tools/styles.dart';
+
+import '../../util/tokens/tokens.dart';
+import '../../util/tokens/style_presets.dart';
 
 /// Range slider input component
+///
+/// Use style presets for cleaner code:
+/// ```dart
+/// Slider(
+///   value: 50,
+///   style: SliderStyle.success,
+/// )
+/// ```
 class Slider extends StatelessComponent {
   final double value;
   final double min;
@@ -11,8 +21,8 @@ class Slider extends StatelessComponent {
   final bool showValue;
   final String? valuePrefix;
   final String? valueSuffix;
-  final String trackColor;
-  final String activeColor;
+  final SliderStyle? style;
+  final void Function(double)? onChanged;
 
   const Slider({
     required this.value,
@@ -22,12 +32,40 @@ class Slider extends StatelessComponent {
     this.showValue = true,
     this.valuePrefix,
     this.valueSuffix,
-    this.trackColor = '#27272A',
-    this.activeColor = '#10B981',
+    this.style,
+    this.onChanged,
+    super.key,
   });
+
+  /// Primary slider
+  const Slider.primary({
+    required this.value,
+    this.min = 0,
+    this.max = 100,
+    this.label,
+    this.showValue = true,
+    this.valuePrefix,
+    this.valueSuffix,
+    this.onChanged,
+    super.key,
+  }) : style = SliderStyle.primary;
+
+  /// Success slider
+  const Slider.success({
+    required this.value,
+    this.min = 0,
+    this.max = 100,
+    this.label,
+    this.showValue = true,
+    this.valuePrefix,
+    this.valueSuffix,
+    this.onChanged,
+    super.key,
+  }) : style = SliderStyle.success;
 
   @override
   Component build(BuildContext context) {
+    final effectiveStyle = style ?? SliderStyle.primary;
     final percentage = ((value - min) / (max - min) * 100).clamp(0, 100);
 
     return div(
@@ -41,24 +79,24 @@ class Slider extends StatelessComponent {
               'display': 'flex',
               'justify-content': 'space-between',
               'align-items': 'center',
-              'margin-bottom': '12px',
+              'margin-bottom': ArcaneSpacing.sm,
             }),
             [
               if (label != null)
                 span(
                   styles: Styles(raw: {
-                    'font-size': '14px',
-                    'font-weight': '500',
-                    'color': '#FAFAFA',
+                    'font-size': ArcaneTypography.fontMd,
+                    'font-weight': ArcaneTypography.weightMedium,
+                    'color': ArcaneColors.onSurface,
                   }),
                   [text(label!)],
                 ),
               if (showValue)
                 span(
                   styles: Styles(raw: {
-                    'font-size': '14px',
-                    'color': activeColor,
-                    'font-weight': '600',
+                    'font-size': ArcaneTypography.fontMd,
+                    'color': effectiveStyle.activeColor,
+                    'font-weight': ArcaneTypography.weightSemibold,
                   }),
                   [
                     text(
@@ -73,8 +111,8 @@ class Slider extends StatelessComponent {
             'position': 'relative',
             'width': '100%',
             'height': '8px',
-            'background': trackColor,
-            'border-radius': '999px',
+            'background': effectiveStyle.trackColor,
+            'border-radius': ArcaneRadius.full,
           }),
           [
             // Active track
@@ -85,8 +123,8 @@ class Slider extends StatelessComponent {
                 'top': '0',
                 'width': '$percentage%',
                 'height': '100%',
-                'background': activeColor,
-                'border-radius': '999px',
+                'background': effectiveStyle.activeColor,
+                'border-radius': ArcaneRadius.full,
               }),
               [],
             ),
@@ -99,9 +137,9 @@ class Slider extends StatelessComponent {
                 'transform': 'translateY(-50%)',
                 'width': '20px',
                 'height': '20px',
-                'background': '#FAFAFA',
-                'border-radius': '50%',
-                'box-shadow': '0 2px 8px rgba(0,0,0,0.3)',
+                'background': effectiveStyle.thumbColor,
+                'border-radius': ArcaneRadius.full,
+                'box-shadow': ArcaneEffects.shadowMd,
                 'cursor': 'pointer',
               }),
               [],
@@ -120,8 +158,8 @@ class RangeSlider extends StatelessComponent {
   final double min;
   final double max;
   final String? label;
-  final String trackColor;
-  final String activeColor;
+  final SliderStyle? style;
+  final void Function(double, double)? onChanged;
 
   const RangeSlider({
     required this.minValue,
@@ -129,12 +167,14 @@ class RangeSlider extends StatelessComponent {
     this.min = 0,
     this.max = 100,
     this.label,
-    this.trackColor = '#27272A',
-    this.activeColor = '#10B981',
+    this.style,
+    this.onChanged,
+    super.key,
   });
 
   @override
   Component build(BuildContext context) {
+    final effectiveStyle = style ?? SliderStyle.primary;
     final minPercent = ((minValue - min) / (max - min) * 100).clamp(0, 100);
     final maxPercent = ((maxValue - min) / (max - min) * 100).clamp(0, 100);
 
@@ -149,21 +189,21 @@ class RangeSlider extends StatelessComponent {
               'display': 'flex',
               'justify-content': 'space-between',
               'align-items': 'center',
-              'margin-bottom': '12px',
+              'margin-bottom': ArcaneSpacing.sm,
             }),
             [
               span(
                 styles: Styles(raw: {
-                  'font-size': '14px',
-                  'font-weight': '500',
-                  'color': '#FAFAFA',
+                  'font-size': ArcaneTypography.fontMd,
+                  'font-weight': ArcaneTypography.weightMedium,
+                  'color': ArcaneColors.onSurface,
                 }),
                 [text(label!)],
               ),
               span(
                 styles: Styles(raw: {
-                  'font-size': '14px',
-                  'color': '#A1A1AA',
+                  'font-size': ArcaneTypography.fontMd,
+                  'color': ArcaneColors.muted,
                 }),
                 [
                   text(
@@ -178,8 +218,8 @@ class RangeSlider extends StatelessComponent {
             'position': 'relative',
             'width': '100%',
             'height': '8px',
-            'background': trackColor,
-            'border-radius': '999px',
+            'background': effectiveStyle.trackColor,
+            'border-radius': ArcaneRadius.full,
           }),
           [
             // Active range
@@ -189,8 +229,8 @@ class RangeSlider extends StatelessComponent {
                 'left': '$minPercent%',
                 'width': '${maxPercent - minPercent}%',
                 'height': '100%',
-                'background': activeColor,
-                'border-radius': '999px',
+                'background': effectiveStyle.activeColor,
+                'border-radius': ArcaneRadius.full,
               }),
               [],
             ),
@@ -203,9 +243,9 @@ class RangeSlider extends StatelessComponent {
                 'transform': 'translateY(-50%)',
                 'width': '20px',
                 'height': '20px',
-                'background': '#FAFAFA',
-                'border-radius': '50%',
-                'box-shadow': '0 2px 8px rgba(0,0,0,0.3)',
+                'background': effectiveStyle.thumbColor,
+                'border-radius': ArcaneRadius.full,
+                'box-shadow': ArcaneEffects.shadowMd,
                 'cursor': 'pointer',
                 'z-index': '2',
               }),
@@ -220,9 +260,9 @@ class RangeSlider extends StatelessComponent {
                 'transform': 'translateY(-50%)',
                 'width': '20px',
                 'height': '20px',
-                'background': '#FAFAFA',
-                'border-radius': '50%',
-                'box-shadow': '0 2px 8px rgba(0,0,0,0.3)',
+                'background': effectiveStyle.thumbColor,
+                'border-radius': ArcaneRadius.full,
+                'box-shadow': ArcaneEffects.shadowMd,
                 'cursor': 'pointer',
                 'z-index': '2',
               }),

@@ -1,59 +1,137 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
-import '../../util/tools/styles.dart';
+
+import '../../util/tokens/tokens.dart';
+import '../../util/tokens/style_presets.dart';
+
+/// Avatar size presets
+enum AvatarSize {
+  xs,
+  sm,
+  md,
+  lg,
+  xl,
+}
 
 /// Avatar component for displaying user images or initials
+///
+/// Use style presets for cleaner code:
+/// ```dart
+/// ArcaneAvatar(
+///   initials: 'JD',
+///   style: AvatarStyle.circle,
+///   size: AvatarSize.lg,
+/// )
+/// ```
 class ArcaneAvatar extends StatelessComponent {
   final String? imageUrl;
   final String? initials;
-  final String size;
+  final AvatarSize size;
+  final AvatarStyle? style;
   final String? borderColor;
   final bool showStatus;
-  final String statusColor;
+  final String? statusColor;
+  final void Function()? onTap;
 
   const ArcaneAvatar({
     this.imageUrl,
     this.initials,
-    this.size = '48px',
+    this.size = AvatarSize.md,
+    this.style,
     this.borderColor,
     this.showStatus = false,
-    this.statusColor = '#10B981',
+    this.statusColor,
+    this.onTap,
+    super.key,
   });
+
+  /// Circle avatar (default)
+  const ArcaneAvatar.circle({
+    this.imageUrl,
+    this.initials,
+    this.size = AvatarSize.md,
+    this.borderColor,
+    this.showStatus = false,
+    this.statusColor,
+    this.onTap,
+    super.key,
+  }) : style = AvatarStyle.circle;
+
+  /// Rounded square avatar
+  const ArcaneAvatar.rounded({
+    this.imageUrl,
+    this.initials,
+    this.size = AvatarSize.md,
+    this.borderColor,
+    this.showStatus = false,
+    this.statusColor,
+    this.onTap,
+    super.key,
+  }) : style = AvatarStyle.rounded;
+
+  /// Square avatar
+  const ArcaneAvatar.square({
+    this.imageUrl,
+    this.initials,
+    this.size = AvatarSize.md,
+    this.borderColor,
+    this.showStatus = false,
+    this.statusColor,
+    this.onTap,
+    super.key,
+  }) : style = AvatarStyle.square;
 
   @override
   Component build(BuildContext context) {
+    final effectiveStyle = style ?? AvatarStyle.circle;
+
+    final (dimension, fontSize, statusSize) = switch (size) {
+      AvatarSize.xs => ('24px', ArcaneTypography.fontXs, '8px'),
+      AvatarSize.sm => ('32px', ArcaneTypography.fontSm, '10px'),
+      AvatarSize.md => ('48px', ArcaneTypography.fontReg, '12px'),
+      AvatarSize.lg => ('64px', ArcaneTypography.fontXl, '14px'),
+      AvatarSize.xl => ('96px', ArcaneTypography.font2xl, '18px'),
+    };
+
     return div(
+      classes: 'arcane-avatar',
       styles: Styles(raw: {
         'position': 'relative',
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'width': size,
-        'height': size,
-        'border-radius': '50%',
-        'overflow': 'hidden',
+        'width': dimension,
+        'height': dimension,
+        ...effectiveStyle.styles,
         'background': imageUrl != null
             ? 'url($imageUrl) center/cover no-repeat'
-            : 'linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%)',
-        'border': borderColor != null ? '2px solid $borderColor' : 'none',
-        'color': '#FFFFFF',
-        'font-weight': '600',
-        'font-size': 'calc($size / 2.5)',
+            : 'linear-gradient(135deg, ${ArcaneColors.accent} 0%, ${ArcaneColors.accentHover} 100%)',
+        if (borderColor != null) 'border': '2px solid $borderColor',
+        'color': ArcaneColors.accentForeground,
+        'font-weight': ArcaneTypography.weightSemibold,
+        'font-size': fontSize,
         'flex-shrink': '0',
+        if (onTap != null) 'cursor': 'pointer',
       }),
+      events: onTap != null
+          ? {
+              'click': (event) => onTap!(),
+            }
+          : null,
       [
         if (imageUrl == null && initials != null) text(initials!),
         if (showStatus)
           div(
+            classes: 'arcane-avatar-status',
             styles: Styles(raw: {
               'position': 'absolute',
               'bottom': '0',
               'right': '0',
-              'width': 'calc($size / 4)',
-              'height': 'calc($size / 4)',
-              'border-radius': '50%',
-              'background': statusColor,
-              'border': '2px solid #0A0A0B',
+              'width': statusSize,
+              'height': statusSize,
+              'border-radius': ArcaneRadius.full,
+              'background': statusColor ?? ArcaneColors.success,
+              'border': '2px solid ${ArcaneColors.background}',
             }),
             [],
           ),
@@ -66,12 +144,13 @@ class ArcaneAvatar extends StatelessComponent {
 class AvatarGroup extends StatelessComponent {
   final List<ArcaneAvatar> avatars;
   final int maxVisible;
-  final String size;
+  final AvatarSize size;
 
   const AvatarGroup({
     required this.avatars,
     this.maxVisible = 4,
-    this.size = '40px',
+    this.size = AvatarSize.md,
+    super.key,
   });
 
   @override
@@ -79,7 +158,16 @@ class AvatarGroup extends StatelessComponent {
     final visible = avatars.take(maxVisible).toList();
     final overflow = avatars.length - maxVisible;
 
+    final dimension = switch (size) {
+      AvatarSize.xs => '24px',
+      AvatarSize.sm => '32px',
+      AvatarSize.md => '48px',
+      AvatarSize.lg => '64px',
+      AvatarSize.xl => '96px',
+    };
+
     return div(
+      classes: 'arcane-avatar-group',
       styles: Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
@@ -96,19 +184,20 @@ class AvatarGroup extends StatelessComponent {
           ),
         if (overflow > 0)
           div(
+            classes: 'arcane-avatar-overflow',
             styles: Styles(raw: {
               'margin-left': '-12px',
               'display': 'flex',
               'align-items': 'center',
               'justify-content': 'center',
-              'width': size,
-              'height': size,
-              'border-radius': '50%',
-              'background': '#27272A',
-              'border': '2px solid #0A0A0B',
-              'color': '#A1A1AA',
-              'font-size': '12px',
-              'font-weight': '500',
+              'width': dimension,
+              'height': dimension,
+              'border-radius': ArcaneRadius.full,
+              'background': ArcaneColors.surfaceVariant,
+              'border': '2px solid ${ArcaneColors.background}',
+              'color': ArcaneColors.muted,
+              'font-size': ArcaneTypography.fontSm,
+              'font-weight': ArcaneTypography.weightMedium,
             }),
             [text('+$overflow')],
           ),

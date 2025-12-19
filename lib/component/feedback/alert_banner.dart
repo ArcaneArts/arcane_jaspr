@@ -1,8 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// Alert/banner variants
 enum AlertVariant {
@@ -101,68 +100,68 @@ class AlertBanner extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final (bgColor, borderColor, textColor, iconColor) = switch (variant) {
+    final (String bgColor, String borderColor, String textColor, String iconColor) = switch (variant) {
       AlertVariant.info => filled
           ? (
-              'var(--arcane-info)',
-              'var(--arcane-info)',
-              'var(--arcane-info-foreground)',
-              'var(--arcane-info-foreground)',
+              ArcaneColors.info,
+              ArcaneColors.info,
+              ArcaneColors.infoForeground,
+              ArcaneColors.infoForeground,
             )
           : (
-              'transparent',
-              'var(--arcane-info)',
-              'var(--arcane-on-surface)',
-              'var(--arcane-info)',
+              ArcaneColors.transparent,
+              ArcaneColors.info,
+              ArcaneColors.onSurface,
+              ArcaneColors.info,
             ),
       AlertVariant.success => filled
           ? (
-              'var(--arcane-success)',
-              'var(--arcane-success)',
-              'var(--arcane-success-foreground)',
-              'var(--arcane-success-foreground)',
+              ArcaneColors.success,
+              ArcaneColors.success,
+              ArcaneColors.successForeground,
+              ArcaneColors.successForeground,
             )
           : (
-              'transparent',
-              'var(--arcane-success)',
-              'var(--arcane-on-surface)',
-              'var(--arcane-success)',
+              ArcaneColors.transparent,
+              ArcaneColors.success,
+              ArcaneColors.onSurface,
+              ArcaneColors.success,
             ),
       AlertVariant.warning => filled
           ? (
-              'var(--arcane-warning)',
-              'var(--arcane-warning)',
-              'var(--arcane-warning-foreground)',
-              'var(--arcane-warning-foreground)',
+              ArcaneColors.warning,
+              ArcaneColors.warning,
+              ArcaneColors.warningForeground,
+              ArcaneColors.warningForeground,
             )
           : (
-              'transparent',
-              'var(--arcane-warning)',
-              'var(--arcane-on-surface)',
-              'var(--arcane-warning)',
+              ArcaneColors.transparent,
+              ArcaneColors.warning,
+              ArcaneColors.onSurface,
+              ArcaneColors.warning,
             ),
       AlertVariant.error => filled
           ? (
-              'var(--arcane-destructive)',
-              'var(--arcane-destructive)',
-              'var(--arcane-destructive-foreground)',
-              'var(--arcane-destructive-foreground)',
+              ArcaneColors.error,
+              ArcaneColors.error,
+              ArcaneColors.errorForeground,
+              ArcaneColors.errorForeground,
             )
           : (
-              'transparent',
-              'var(--arcane-destructive)',
-              'var(--arcane-on-surface)',
-              'var(--arcane-destructive)',
+              ArcaneColors.transparent,
+              ArcaneColors.error,
+              ArcaneColors.onSurface,
+              ArcaneColors.error,
             ),
       AlertVariant.neutral => (
-          'var(--arcane-surface-variant)',
-          'var(--arcane-border)',
-          'var(--arcane-on-surface)',
-          'var(--arcane-muted)',
+          ArcaneColors.surfaceVariant,
+          ArcaneColors.border,
+          ArcaneColors.onSurface,
+          ArcaneColors.muted,
         ),
     };
 
-    final defaultIcon = switch (variant) {
+    final String defaultIcon = switch (variant) {
       AlertVariant.info => 'ℹ',
       AlertVariant.success => '✓',
       AlertVariant.warning => '⚠',
@@ -175,11 +174,11 @@ class AlertBanner extends StatelessComponent {
       styles: Styles(raw: {
         'display': 'flex',
         'align-items': 'flex-start',
-        'gap': '12px',
-        'padding': '16px',
+        'gap': ArcaneSpacing.md,
+        'padding': ArcaneSpacing.lg,
         'background-color': bgColor,
         'border': '1px solid $borderColor',
-        'border-radius': 'var(--arcane-radius)',
+        'border-radius': ArcaneRadius.md,
         'color': textColor,
       }),
       [
@@ -206,17 +205,17 @@ class AlertBanner extends StatelessComponent {
               div(
                 classes: 'arcane-alert-title',
                 styles: Styles(raw: {
-                  'font-weight': '600',
-                  'font-size': '0.9375rem',
-                  'margin-bottom': '4px',
+                  'font-weight': ArcaneTypography.weightSemibold,
+                  'font-size': ArcaneTypography.fontBase,
+                  'margin-bottom': ArcaneSpacing.xs,
                 }),
                 [text(title!)],
               ),
             div(
               classes: 'arcane-alert-message',
               styles: Styles(raw: {
-                'font-size': '0.875rem',
-                'line-height': '1.5',
+                'font-size': ArcaneTypography.fontSm,
+                'line-height': ArcaneTypography.lineHeightRelaxed,
               }),
               [text(message)],
             ),
@@ -236,7 +235,7 @@ class AlertBanner extends StatelessComponent {
             },
             styles: Styles(raw: {
               'flex-shrink': '0',
-              'padding': '4px',
+              'padding': ArcaneSpacing.xs,
               'background': 'none',
               'border': 'none',
               'color': 'inherit',
@@ -244,7 +243,7 @@ class AlertBanner extends StatelessComponent {
               'cursor': 'pointer',
               'font-size': '1rem',
               'line-height': '1',
-              'transition': 'opacity var(--arcane-transition-fast)',
+              'transition': ArcaneEffects.transitionFast,
             }),
             events: {
               'click': (e) => onDismiss?.call(),
@@ -289,7 +288,7 @@ class ProgressBar extends StatelessComponent {
       styles: Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': '12px',
+        'gap': ArcaneSpacing.md,
       }),
       [
         div(
@@ -297,8 +296,8 @@ class ProgressBar extends StatelessComponent {
           styles: Styles(raw: {
             'flex': '1',
             'height': '${height}px',
-            'background-color': 'var(--arcane-surface-variant)',
-            'border-radius': 'var(--arcane-radius-full)',
+            'background-color': ArcaneColors.surfaceVariant,
+            'border-radius': ArcaneRadius.full,
             'overflow': 'hidden',
           }),
           [
@@ -307,11 +306,11 @@ class ProgressBar extends StatelessComponent {
               styles: Styles(raw: {
                 'height': '100%',
                 'width': indeterminate ? '50%' : '${value.clamp(0, 100)}%',
-                'background-color': color ?? 'var(--arcane-accent)',
-                'border-radius': 'var(--arcane-radius-full)',
+                'background-color': color ?? ArcaneColors.accent,
+                'border-radius': ArcaneRadius.full,
                 'transition': indeterminate
                     ? 'none'
-                    : 'width var(--arcane-transition)',
+                    : ArcaneEffects.transition,
                 if (indeterminate) 'animation': 'arcane-progress-indeterminate 1.5s ease-in-out infinite',
               }),
               [],
@@ -322,9 +321,9 @@ class ProgressBar extends StatelessComponent {
           span(
             classes: 'arcane-progress-label',
             styles: Styles(raw: {
-              'font-size': '0.8125rem',
-              'font-weight': '500',
-              'color': 'var(--arcane-muted)',
+              'font-size': ArcaneTypography.fontXs,
+              'font-weight': ArcaneTypography.weightMedium,
+              'color': ArcaneColors.muted,
               'min-width': '40px',
               'text-align': 'right',
             }),
@@ -368,7 +367,7 @@ class Loader extends StatelessComponent {
       styles: Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': '12px',
+        'gap': ArcaneSpacing.md,
       }),
       [
         div(
@@ -376,9 +375,9 @@ class Loader extends StatelessComponent {
           styles: Styles(raw: {
             'width': '${size}px',
             'height': '${size}px',
-            'border': '2px solid var(--arcane-border)',
-            'border-top-color': color ?? 'var(--arcane-accent)',
-            'border-radius': '50%',
+            'border': '2px solid ${ArcaneColors.border}',
+            'border-top-color': color ?? ArcaneColors.accent,
+            'border-radius': ArcaneRadius.full,
             'animation': 'arcane-spin 0.8s linear infinite',
           }),
           [],
@@ -387,8 +386,8 @@ class Loader extends StatelessComponent {
           span(
             classes: 'arcane-loader-text',
             styles: Styles(raw: {
-              'font-size': '0.875rem',
-              'color': 'var(--arcane-muted)',
+              'font-size': ArcaneTypography.fontSm,
+              'color': ArcaneColors.muted,
             }),
             [text(label!)],
           ),

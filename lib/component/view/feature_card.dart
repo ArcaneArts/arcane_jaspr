@@ -1,8 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A feature card component (Supabase-style)
 /// Used for showcasing product features with icon, title, and description
@@ -41,9 +40,9 @@ class FeatureCard extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final isClickable = href != null || onTap != null;
+    final bool isClickable = href != null || onTap != null;
 
-    final content = [
+    final List<Component> content = [
       // Icon
       if (icon != null)
         div(
@@ -54,11 +53,11 @@ class FeatureCard extends StatelessComponent {
             'justify-content': 'center',
             'width': '48px',
             'height': '48px',
-            'border-radius': 'var(--arcane-radius)',
-            'background-color': 'var(--arcane-accent-container)',
-            'color': 'var(--arcane-accent)',
+            'border-radius': ArcaneRadius.md,
+            'background-color': ArcaneColors.accentContainer,
+            'color': ArcaneColors.accent,
             'flex-shrink': '0',
-            if (!horizontal) 'margin-bottom': '16px',
+            if (!horizontal) 'margin-bottom': ArcaneSpacing.lg,
           }),
           [icon!],
         ),
@@ -76,11 +75,11 @@ class FeatureCard extends StatelessComponent {
             styles: Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': '8px',
-              'font-size': '1.125rem',
-              'font-weight': '600',
-              'color': 'var(--arcane-on-surface)',
-              'margin-bottom': '8px',
+              'gap': ArcaneSpacing.sm,
+              'font-size': ArcaneTypography.fontLg,
+              'font-weight': ArcaneTypography.weightSemibold,
+              'color': ArcaneColors.onSurface,
+              'margin-bottom': ArcaneSpacing.sm,
             }),
             [
               text(title),
@@ -88,7 +87,7 @@ class FeatureCard extends StatelessComponent {
                 span(
                   classes: 'arcane-feature-card-arrow',
                   styles: Styles(raw: {
-                    'transition': 'transform var(--arcane-transition-fast)',
+                    'transition': ArcaneEffects.transitionFast,
                   }),
                   [text('→')],
                 ),
@@ -99,9 +98,9 @@ class FeatureCard extends StatelessComponent {
           p(
             classes: 'arcane-feature-card-description',
             styles: Styles(raw: {
-              'font-size': '0.9375rem',
-              'line-height': '1.6',
-              'color': 'var(--arcane-muted)',
+              'font-size': ArcaneTypography.fontMd,
+              'line-height': ArcaneTypography.leadingRelaxed,
+              'color': ArcaneColors.muted,
               'margin': '0',
             }),
             [text(description)],
@@ -110,15 +109,15 @@ class FeatureCard extends StatelessComponent {
       ),
     ];
 
-    final cardStyles = <String, String>{
+    final Map<String, String> cardStyles = {
       'display': 'flex',
       'flex-direction': horizontal ? 'row' : 'column',
-      'gap': horizontal ? '16px' : '0',
-      'padding': '24px',
-      'background-color': 'var(--arcane-card)',
-      'border': '1px solid var(--arcane-border)',
-      'border-radius': 'var(--arcane-radius-lg)',
-      'transition': 'var(--arcane-transition)',
+      'gap': horizontal ? ArcaneSpacing.lg : '0',
+      'padding': ArcaneSpacing.xl,
+      'background-color': ArcaneColors.card,
+      'border': '1px solid ${ArcaneColors.border}',
+      'border-radius': ArcaneRadius.xl,
+      'transition': ArcaneEffects.transition,
       if (isClickable) 'cursor': 'pointer',
     };
 
@@ -142,6 +141,7 @@ class FeatureCard extends StatelessComponent {
         styles: Styles(raw: {
           ...cardStyles,
           'text-align': 'left',
+          'border': '1px solid ${ArcaneColors.border}',
         }),
         events: {'click': (e) => onTap!()},
         content,
@@ -158,7 +158,7 @@ class FeatureCard extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-feature-card:hover').styles(raw: {
-      'border-color': 'var(--arcane-accent)',
+      'border-color': ArcaneColors.accent,
     }),
     css('.arcane-feature-card:hover .arcane-feature-card-arrow').styles(raw: {
       'transform': 'translateX(4px)',
@@ -194,9 +194,9 @@ class IconCard extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final isClickable = href != null || onTap != null;
+    final bool isClickable = href != null || onTap != null;
 
-    final content = [
+    final List<Component> content = [
       div(
         classes: 'arcane-icon-card-icon',
         styles: Styles(raw: {
@@ -205,19 +205,19 @@ class IconCard extends StatelessComponent {
           'justify-content': 'center',
           'width': '40px',
           'height': '40px',
-          'border-radius': 'var(--arcane-radius)',
-          'background-color': 'var(--arcane-surface-variant)',
-          'color': 'var(--arcane-accent)',
-          'margin-bottom': '12px',
+          'border-radius': ArcaneRadius.md,
+          'background-color': ArcaneColors.surfaceVariant,
+          'color': ArcaneColors.accent,
+          'margin-bottom': ArcaneSpacing.md,
         }),
         [icon],
       ),
       span(
         classes: 'arcane-icon-card-title',
         styles: Styles(raw: {
-          'font-size': '0.9375rem',
-          'font-weight': '500',
-          'color': 'var(--arcane-on-surface)',
+          'font-size': ArcaneTypography.fontMd,
+          'font-weight': ArcaneTypography.weightMedium,
+          'color': ArcaneColors.onSurface,
         }),
         [text(title)],
       ),
@@ -225,24 +225,24 @@ class IconCard extends StatelessComponent {
         span(
           classes: 'arcane-icon-card-subtitle',
           styles: Styles(raw: {
-            'font-size': '0.8125rem',
-            'color': 'var(--arcane-muted)',
-            'margin-top': '4px',
+            'font-size': ArcaneTypography.fontSm,
+            'color': ArcaneColors.muted,
+            'margin-top': ArcaneSpacing.xs,
           }),
           [text(subtitle!)],
         ),
     ];
 
-    final cardStyles = <String, String>{
+    final Map<String, String> cardStyles = {
       'display': 'flex',
       'flex-direction': 'column',
       'align-items': 'center',
       'text-align': 'center',
-      'padding': '20px',
-      'background-color': 'var(--arcane-card)',
-      'border': '1px solid var(--arcane-border)',
-      'border-radius': 'var(--arcane-radius)',
-      'transition': 'var(--arcane-transition)',
+      'padding': ArcaneSpacing.lg,
+      'background-color': ArcaneColors.card,
+      'border': '1px solid ${ArcaneColors.border}',
+      'border-radius': ArcaneRadius.md,
+      'transition': ArcaneEffects.transition,
       if (isClickable) 'cursor': 'pointer',
     };
 
@@ -263,7 +263,10 @@ class IconCard extends StatelessComponent {
       return button(
         classes: 'arcane-icon-card',
         attributes: {'type': 'button'},
-        styles: Styles(raw: cardStyles),
+        styles: Styles(raw: {
+          ...cardStyles,
+          'border': '1px solid ${ArcaneColors.border}',
+        }),
         events: {'click': (e) => onTap!()},
         content,
       );
@@ -279,8 +282,8 @@ class IconCard extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-icon-card:hover').styles(raw: {
-      'border-color': 'var(--arcane-accent)',
-      'background-color': 'var(--arcane-surface-variant)',
+      'border-color': ArcaneColors.accent,
+      'background-color': ArcaneColors.surfaceVariant,
     }),
   ];
 }

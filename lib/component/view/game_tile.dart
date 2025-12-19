@@ -1,8 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A game tile component for game server selection
 class GameTile extends StatelessComponent {
@@ -51,13 +50,13 @@ class GameTile extends StatelessComponent {
         'display': 'flex',
         'flex-direction': 'column',
         'align-items': 'center',
-        'gap': '12px',
-        'padding': '20px 16px',
-        'background-color': selected ? 'var(--arcane-accent-container)' : 'var(--arcane-surface)',
-        'border': '2px solid ${selected ? 'var(--arcane-accent)' : 'var(--arcane-border)'}',
-        'border-radius': 'var(--arcane-radius)',
+        'gap': ArcaneSpacing.md,
+        'padding': '${ArcaneSpacing.lg} ${ArcaneSpacing.lg}',
+        'background-color': selected ? ArcaneColors.accentContainer : ArcaneColors.surface,
+        'border': '2px solid ${selected ? ArcaneColors.accent : ArcaneColors.border}',
+        'border-radius': ArcaneRadius.md,
         'cursor': 'pointer',
-        'transition': 'all var(--arcane-transition-fast)',
+        'transition': ArcaneEffects.transitionFast,
         'position': 'relative',
         'overflow': 'hidden',
       }),
@@ -71,15 +70,15 @@ class GameTile extends StatelessComponent {
             classes: 'arcane-game-tile-badge',
             styles: Styles(raw: {
               'position': 'absolute',
-              'top': '8px',
-              'right': '8px',
-              'padding': '2px 8px',
-              'font-size': '0.6875rem',
-              'font-weight': '600',
+              'top': ArcaneSpacing.sm,
+              'right': ArcaneSpacing.sm,
+              'padding': '2px ${ArcaneSpacing.sm}',
+              'font-size': ArcaneTypography.fontXs,
+              'font-weight': ArcaneTypography.weightSemibold,
               'text-transform': 'uppercase',
-              'color': 'var(--arcane-accent-foreground)',
-              'background-color': 'var(--arcane-accent)',
-              'border-radius': 'var(--arcane-radius-full)',
+              'color': ArcaneColors.accentForeground,
+              'background-color': ArcaneColors.accent,
+              'border-radius': ArcaneRadius.full,
             }),
             [text(badge!)],
           ),
@@ -93,8 +92,8 @@ class GameTile extends StatelessComponent {
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'center',
-            'background-color': 'var(--arcane-surface-variant)',
-            'border-radius': 'var(--arcane-radius)',
+            'background-color': ArcaneColors.surfaceVariant,
+            'border-radius': ArcaneRadius.md,
             'overflow': 'hidden',
           }),
           [
@@ -113,8 +112,8 @@ class GameTile extends StatelessComponent {
             else
               span(
                 styles: Styles(raw: {
-                  'font-size': '1.5rem',
-                  'color': 'var(--arcane-muted)',
+                  'font-size': ArcaneTypography.font2xl,
+                  'color': ArcaneColors.muted,
                 }),
                 [text('🎮')],
               ),
@@ -124,9 +123,9 @@ class GameTile extends StatelessComponent {
         // Name
         div(
           styles: Styles(raw: {
-            'font-size': '0.9375rem',
-            'font-weight': '600',
-            'color': selected ? 'var(--arcane-accent)' : 'var(--arcane-on-surface)',
+            'font-size': ArcaneTypography.fontMd,
+            'font-weight': ArcaneTypography.weightSemibold,
+            'color': selected ? ArcaneColors.accent : ArcaneColors.onSurface,
             'text-align': 'center',
           }),
           [text(name)],
@@ -136,8 +135,8 @@ class GameTile extends StatelessComponent {
         if (subtitle != null)
           div(
             styles: Styles(raw: {
-              'font-size': '0.75rem',
-              'color': 'var(--arcane-muted)',
+              'font-size': ArcaneTypography.fontXs,
+              'color': ArcaneColors.muted,
             }),
             [text(subtitle!)],
           ),
@@ -148,9 +147,9 @@ class GameTile extends StatelessComponent {
             styles: Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': '4px',
-              'font-size': '0.75rem',
-              'color': 'var(--arcane-warning)',
+              'gap': ArcaneSpacing.xs,
+              'font-size': ArcaneTypography.fontXs,
+              'color': ArcaneColors.warning,
             }),
             [
               span([text('⭐')]),
@@ -164,13 +163,13 @@ class GameTile extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-game-tile:hover').styles(raw: {
-      'border-color': 'var(--arcane-accent)',
-      'box-shadow': 'var(--arcane-shadow-md)',
+      'border-color': ArcaneColors.accent,
+      'box-shadow': ArcaneEffects.shadowMd,
     }),
     css('.arcane-game-tile:focus').styles(raw: {
       'outline': 'none',
-      'border-color': 'var(--arcane-accent)',
-      'box-shadow': '0 0 0 2px var(--arcane-accent-container)',
+      'border-color': ArcaneColors.accent,
+      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
     }),
   ];
 }
@@ -208,7 +207,7 @@ class GameSelector extends StatelessComponent {
       styles: Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '24px',
+        'gap': ArcaneSpacing.xl,
       }),
       [
         if (title != null || description != null)
@@ -216,23 +215,23 @@ class GameSelector extends StatelessComponent {
             styles: Styles(raw: {
               'display': 'flex',
               'flex-direction': 'column',
-              'gap': '8px',
+              'gap': ArcaneSpacing.sm,
             }),
             [
               if (title != null)
                 div(
                   styles: Styles(raw: {
-                    'font-size': '1.25rem',
-                    'font-weight': '600',
-                    'color': 'var(--arcane-on-surface)',
+                    'font-size': ArcaneTypography.fontXl,
+                    'font-weight': ArcaneTypography.weightSemibold,
+                    'color': ArcaneColors.onSurface,
                   }),
                   [text(title!)],
                 ),
               if (description != null)
                 div(
                   styles: Styles(raw: {
-                    'font-size': '0.875rem',
-                    'color': 'var(--arcane-muted)',
+                    'font-size': ArcaneTypography.fontSm,
+                    'color': ArcaneColors.muted,
                   }),
                   [text(description!)],
                 ),
@@ -300,11 +299,11 @@ class GameCard extends StatelessComponent {
       styles: Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'background-color': 'var(--arcane-surface)',
-        'border': '1px solid var(--arcane-border)',
-        'border-radius': 'var(--arcane-radius)',
+        'background-color': ArcaneColors.surface,
+        'border': '1px solid ${ArcaneColors.border}',
+        'border-radius': ArcaneRadius.md,
         'overflow': 'hidden',
-        'transition': 'border-color var(--arcane-transition-fast), box-shadow var(--arcane-transition-fast)',
+        'transition': ArcaneEffects.transitionFast,
         if (onTap != null) 'cursor': 'pointer',
       }),
       events: {
@@ -317,7 +316,7 @@ class GameCard extends StatelessComponent {
           styles: Styles(raw: {
             'position': 'relative',
             'height': '120px',
-            'background-color': 'var(--arcane-surface-variant)',
+            'background-color': ArcaneColors.surfaceVariant,
             if (backgroundUrl != null) 'background-image': 'url($backgroundUrl)',
             'background-size': 'cover',
             'background-position': 'center',
@@ -328,7 +327,7 @@ class GameCard extends StatelessComponent {
               styles: Styles(raw: {
                 'position': 'absolute',
                 'inset': '0',
-                'background': 'linear-gradient(to top, var(--arcane-surface) 0%, transparent 100%)',
+                'background': 'linear-gradient(to top, ${ArcaneColors.surface} 0%, transparent 100%)',
               }),
               [],
             ),
@@ -347,9 +346,9 @@ class GameCard extends StatelessComponent {
                     'display': 'flex',
                     'align-items': 'center',
                     'justify-content': 'center',
-                    'background-color': 'var(--arcane-surface)',
-                    'border': '2px solid var(--arcane-border)',
-                    'border-radius': 'var(--arcane-radius)',
+                    'background-color': ArcaneColors.surface,
+                    'border': '2px solid ${ArcaneColors.border}',
+                    'border-radius': ArcaneRadius.md,
                     'overflow': 'hidden',
                   }),
                   [
@@ -368,7 +367,7 @@ class GameCard extends StatelessComponent {
                     else
                       span(
                         styles: Styles(raw: {
-                          'font-size': '1.25rem',
+                          'font-size': ArcaneTypography.fontXl,
                         }),
                         [text('🎮')],
                       ),
@@ -382,10 +381,10 @@ class GameCard extends StatelessComponent {
         // Content
         div(
           styles: Styles(raw: {
-            'padding': '32px 20px 20px',
+            'padding': '${ArcaneSpacing.xxl} ${ArcaneSpacing.lg} ${ArcaneSpacing.lg}',
             'display': 'flex',
             'flex-direction': 'column',
-            'gap': '12px',
+            'gap': ArcaneSpacing.md,
           }),
           [
             // Name and status
@@ -398,17 +397,17 @@ class GameCard extends StatelessComponent {
               [
                 div(
                   styles: Styles(raw: {
-                    'font-size': '1.125rem',
-                    'font-weight': '600',
-                    'color': 'var(--arcane-on-surface)',
+                    'font-size': ArcaneTypography.fontLg,
+                    'font-weight': ArcaneTypography.weightSemibold,
+                    'color': ArcaneColors.onSurface,
                   }),
                   [text(name)],
                 ),
                 if (status != null)
                   span(
                     styles: Styles(raw: {
-                      'font-size': '0.75rem',
-                      'color': 'var(--arcane-success)',
+                      'font-size': ArcaneTypography.fontXs,
+                      'color': ArcaneColors.success,
                     }),
                     [text(status!)],
                   ),
@@ -419,9 +418,9 @@ class GameCard extends StatelessComponent {
             if (description != null)
               div(
                 styles: Styles(raw: {
-                  'font-size': '0.875rem',
-                  'line-height': '1.5',
-                  'color': 'var(--arcane-muted)',
+                  'font-size': ArcaneTypography.fontSm,
+                  'line-height': ArcaneTypography.leadingNormal,
+                  'color': ArcaneColors.muted,
                 }),
                 [text(description!)],
               ),
@@ -432,18 +431,18 @@ class GameCard extends StatelessComponent {
                 styles: Styles(raw: {
                   'display': 'flex',
                   'flex-wrap': 'wrap',
-                  'gap': '8px',
-                  'margin-top': '4px',
+                  'gap': ArcaneSpacing.sm,
+                  'margin-top': ArcaneSpacing.xs,
                 }),
                 [
                   for (final feature in features!)
                     span(
                       styles: Styles(raw: {
-                        'padding': '4px 8px',
-                        'font-size': '0.75rem',
-                        'color': 'var(--arcane-muted)',
-                        'background-color': 'var(--arcane-surface-variant)',
-                        'border-radius': 'var(--arcane-radius-sm)',
+                        'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
+                        'font-size': ArcaneTypography.fontXs,
+                        'color': ArcaneColors.muted,
+                        'background-color': ArcaneColors.surfaceVariant,
+                        'border-radius': ArcaneRadius.sm,
                       }),
                       [text(feature)],
                     ),
@@ -455,16 +454,16 @@ class GameCard extends StatelessComponent {
               button(
                 attributes: {'type': 'button'},
                 styles: Styles(raw: {
-                  'margin-top': '8px',
-                  'padding': '10px 16px',
-                  'font-size': '0.875rem',
-                  'font-weight': '500',
-                  'color': 'var(--arcane-accent-foreground)',
-                  'background-color': 'var(--arcane-accent)',
+                  'margin-top': ArcaneSpacing.sm,
+                  'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.lg}',
+                  'font-size': ArcaneTypography.fontSm,
+                  'font-weight': ArcaneTypography.weightMedium,
+                  'color': ArcaneColors.accentForeground,
+                  'background-color': ArcaneColors.accent,
                   'border': 'none',
-                  'border-radius': 'var(--arcane-radius)',
+                  'border-radius': ArcaneRadius.md,
                   'cursor': 'pointer',
-                  'transition': 'background-color var(--arcane-transition-fast)',
+                  'transition': ArcaneEffects.transitionFast,
                 }),
                 [text(ctaText!)],
               ),
@@ -477,8 +476,8 @@ class GameCard extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-game-card:hover').styles(raw: {
-      'border-color': 'var(--arcane-accent)',
-      'box-shadow': 'var(--arcane-shadow-md)',
+      'border-color': ArcaneColors.accent,
+      'box-shadow': ArcaneEffects.shadowMd,
     }),
   ];
 }

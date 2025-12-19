@@ -1,10 +1,11 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
+import '../../util/tokens/style_presets.dart';
 
-/// Badge variants
+/// Badge variants (legacy - prefer using BadgeStyle presets)
+@Deprecated('Use style parameter with BadgeStyle presets instead')
 enum BadgeVariant {
   /// Default/neutral badge
   default_,
@@ -22,7 +23,15 @@ enum BadgeVariant {
   outline,
 }
 
-/// A pill-shaped badge/label component (Supabase-style)
+/// Badge size
+enum BadgeSize { sm, md, lg }
+
+/// A pill-shaped badge/label component
+///
+/// Use style presets for cleaner code:
+/// ```dart
+/// Badge('Active', style: BadgeStyle.success)
+/// ```
 class Badge extends StatelessComponent {
   /// The badge text
   final String label;
@@ -30,17 +39,22 @@ class Badge extends StatelessComponent {
   /// Optional leading icon
   final Component? icon;
 
-  /// Badge variant
-  final BadgeVariant variant;
+  /// Style preset (preferred over variant)
+  final BadgeStyle? style;
 
-  /// Badge size (sm, md, lg)
-  final String size;
+  /// Badge variant (legacy - use style instead)
+  @Deprecated('Use style parameter with BadgeStyle presets instead')
+  final BadgeVariant? variant;
+
+  /// Badge size
+  final BadgeSize size;
 
   const Badge(
     this.label, {
     this.icon,
-    this.variant = BadgeVariant.default_,
-    this.size = 'md',
+    this.style,
+    @Deprecated('Use style parameter instead') this.variant,
+    this.size = BadgeSize.md,
     super.key,
   });
 
@@ -48,108 +62,113 @@ class Badge extends StatelessComponent {
   const Badge.primary(
     this.label, {
     this.icon,
-    this.size = 'md',
+    this.size = BadgeSize.md,
     super.key,
-  }) : variant = BadgeVariant.primary;
+  })  : style = BadgeStyle.primary,
+        variant = null;
 
   /// Success badge
   const Badge.success(
     this.label, {
     this.icon,
-    this.size = 'md',
+    this.size = BadgeSize.md,
     super.key,
-  }) : variant = BadgeVariant.success;
+  })  : style = BadgeStyle.success,
+        variant = null;
 
   /// Warning badge
   const Badge.warning(
     this.label, {
     this.icon,
-    this.size = 'md',
+    this.size = BadgeSize.md,
     super.key,
-  }) : variant = BadgeVariant.warning;
+  })  : style = BadgeStyle.warning,
+        variant = null;
 
-  /// Destructive badge
+  /// Error/destructive badge
+  const Badge.error(
+    this.label, {
+    this.icon,
+    this.size = BadgeSize.md,
+    super.key,
+  })  : style = BadgeStyle.error,
+        variant = null;
+
+  /// Alias for error
   const Badge.destructive(
     this.label, {
     this.icon,
-    this.size = 'md',
+    this.size = BadgeSize.md,
     super.key,
-  }) : variant = BadgeVariant.destructive;
+  })  : style = BadgeStyle.error,
+        variant = null;
+
+  /// Info badge
+  const Badge.info(
+    this.label, {
+    this.icon,
+    this.size = BadgeSize.md,
+    super.key,
+  })  : style = BadgeStyle.info,
+        variant = null;
 
   /// Outline badge
   const Badge.outline(
     this.label, {
     this.icon,
-    this.size = 'md',
+    this.size = BadgeSize.md,
     super.key,
-  }) : variant = BadgeVariant.outline;
+  })  : style = BadgeStyle.outline,
+        variant = null;
+
+  /// Convert legacy variant to style preset
+  BadgeStyle _variantToStyle(BadgeVariant v) {
+    return switch (v) {
+      BadgeVariant.default_ => BadgeStyle.standard,
+      BadgeVariant.primary => BadgeStyle.primary,
+      BadgeVariant.secondary => BadgeStyle.secondary,
+      BadgeVariant.success => BadgeStyle.success,
+      BadgeVariant.warning => BadgeStyle.warning,
+      BadgeVariant.destructive => BadgeStyle.error,
+      BadgeVariant.outline => BadgeStyle.outline,
+    };
+  }
 
   @override
   Component build(BuildContext context) {
+    // Resolve effective style
+    final effectiveStyle = style ??
+        (variant != null ? _variantToStyle(variant!) : BadgeStyle.standard);
+
     // Get size-specific styles
     final (paddingH, paddingV, fontSize) = switch (size) {
-      'sm' => (6.0, 2.0, '0.6875rem'),
-      'md' => (8.0, 3.0, '0.75rem'),
-      'lg' => (12.0, 4.0, '0.8125rem'),
-      _ => (8.0, 3.0, '0.75rem'),
-    };
-
-    // Get variant-specific colors
-    final (bgColor, textColor, borderColor) = switch (variant) {
-      BadgeVariant.default_ => (
-          'var(--arcane-surface-variant)',
-          'var(--arcane-on-surface)',
-          'transparent',
-        ),
-      BadgeVariant.primary => (
-          'var(--arcane-accent-container)',
-          'var(--arcane-accent)',
-          'transparent',
-        ),
-      BadgeVariant.secondary => (
-          'var(--arcane-secondary-container)',
-          'var(--arcane-on-secondary-container)',
-          'transparent',
-        ),
-      BadgeVariant.success => (
-          'var(--arcane-success)',
-          'var(--arcane-success-foreground)',
-          'transparent',
-        ),
-      BadgeVariant.warning => (
-          'var(--arcane-warning)',
-          'var(--arcane-warning-foreground)',
-          'transparent',
-        ),
-      BadgeVariant.destructive => (
-          'var(--arcane-destructive)',
-          'var(--arcane-destructive-foreground)',
-          'transparent',
-        ),
-      BadgeVariant.outline => (
-          'transparent',
-          'var(--arcane-on-surface)',
-          'var(--arcane-border)',
-        ),
+      BadgeSize.sm => (ArcaneSpacing.xs, '2px', ArcaneTypography.fontXs),
+      BadgeSize.md => (ArcaneSpacing.sm, '3px', ArcaneTypography.fontXs),
+      BadgeSize.lg => (ArcaneSpacing.sm, ArcaneSpacing.xs, ArcaneTypography.fontSm),
     };
 
     return span(
-      classes: 'arcane-badge arcane-badge-${variant.name}',
+      classes: 'arcane-badge',
       styles: Styles(raw: {
+        // Layout
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': '4px',
-        'padding': '${paddingV}px ${paddingH}px',
+        'gap': ArcaneSpacing.xs,
+
+        // Size
+        'padding': '$paddingV $paddingH',
         'font-size': fontSize,
-        'font-weight': '500',
+
+        // Typography
+        'font-weight': ArcaneTypography.weightMedium,
         'line-height': '1',
-        'border-radius': 'var(--arcane-radius-full)',
-        'background-color': bgColor,
-        'color': textColor,
-        'border': borderColor == 'transparent'
-            ? 'none'
-            : '1px solid $borderColor',
         'white-space': 'nowrap',
+
+        // Appearance from style preset
+        ...effectiveStyle.styles,
+
+        // Border radius (pill shape)
+        'border-radius': ArcaneRadius.full,
       }),
       [
         if (icon != null) icon!,

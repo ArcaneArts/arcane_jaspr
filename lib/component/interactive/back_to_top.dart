@@ -1,8 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A back to top button (Supabase-style)
 class BackToTop extends StatelessComponent {
@@ -52,12 +51,12 @@ class BackToTop extends StatelessComponent {
         'justify-content': 'center',
         'width': '${size}px',
         'height': '${size}px',
-        'background-color': 'var(--arcane-surface)',
-        'border': '1px solid var(--arcane-border)',
-        'border-radius': 'var(--arcane-radius-full)',
-        'box-shadow': 'var(--arcane-shadow-lg)',
+        'background-color': ArcaneColors.surface,
+        'border': '1px solid ${ArcaneColors.border}',
+        'border-radius': ArcaneRadius.full,
+        'box-shadow': ArcaneEffects.shadowLg,
         'cursor': 'pointer',
-        'transition': 'transform var(--arcane-transition-fast), box-shadow var(--arcane-transition-fast)',
+        'transition': ArcaneEffects.transitionFast,
         'animation': 'arcane-back-to-top-fade 0.2s ease-out',
       }),
       events: {
@@ -67,9 +66,9 @@ class BackToTop extends StatelessComponent {
         span(
           styles: Styles(raw: {
             'font-size': '1.25rem',
-            'color': 'var(--arcane-muted)',
+            'color': ArcaneColors.muted,
             'transform': 'rotate(-90deg)',
-            'transition': 'color var(--arcane-transition-fast)',
+            'transition': ArcaneEffects.transitionFast,
           }),
           [text('→')],
         ),
@@ -85,10 +84,10 @@ class BackToTop extends StatelessComponent {
     }),
     css('.arcane-back-to-top:hover').styles(raw: {
       'transform': 'translateY(-4px)',
-      'box-shadow': 'var(--arcane-shadow-xl)',
+      'box-shadow': ArcaneEffects.shadowXl,
     }),
     css('.arcane-back-to-top:hover span').styles(raw: {
-      'color': 'var(--arcane-accent)',
+      'color': ArcaneColors.accent,
     }),
   ];
 }
@@ -126,7 +125,7 @@ class ScrollProgress extends StatelessComponent {
         'width': '100%',
         'height': '${height}px',
         'z-index': '1000',
-        'background-color': 'var(--arcane-surface-variant)',
+        'background-color': ArcaneColors.surfaceVariant,
       }),
       [
         div(
@@ -134,7 +133,7 @@ class ScrollProgress extends StatelessComponent {
           styles: Styles(raw: {
             'height': '100%',
             'width': '${progress.clamp(0, 100)}%',
-            'background-color': color ?? 'var(--arcane-accent)',
+            'background-color': color ?? ArcaneColors.accent,
             'transition': 'width 0.1s ease-out',
           }),
           [],
@@ -191,17 +190,17 @@ class FloatingActionButton extends StatelessComponent {
         'display': 'flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': '8px',
+        'gap': ArcaneSpacing.sm,
         if (label == null) 'width': '${size}px',
         'height': '${size}px',
         if (label != null) 'padding': '0 20px',
-        'background-color': accent ? 'var(--arcane-accent)' : 'var(--arcane-surface)',
-        'color': accent ? 'var(--arcane-accent-foreground)' : 'var(--arcane-on-surface)',
-        'border': accent ? 'none' : '1px solid var(--arcane-border)',
-        'border-radius': label != null ? 'var(--arcane-radius-full)' : 'var(--arcane-radius-full)',
-        'box-shadow': 'var(--arcane-shadow-lg)',
+        'background-color': accent ? ArcaneColors.accent : ArcaneColors.surface,
+        'color': accent ? ArcaneColors.accentForeground : ArcaneColors.onSurface,
+        'border': accent ? 'none' : '1px solid ${ArcaneColors.border}',
+        'border-radius': ArcaneRadius.full,
+        'box-shadow': ArcaneEffects.shadowLg,
         'cursor': 'pointer',
-        'transition': 'transform var(--arcane-transition-fast), box-shadow var(--arcane-transition-fast), background-color var(--arcane-transition-fast)',
+        'transition': ArcaneEffects.transitionFast,
       }),
       events: {
         if (onTap != null) 'click': (e) => onTap!(),
@@ -211,8 +210,8 @@ class FloatingActionButton extends StatelessComponent {
         if (label != null)
           span(
             styles: Styles(raw: {
-              'font-size': '0.875rem',
-              'font-weight': '500',
+              'font-size': ArcaneTypography.fontSm,
+              'font-weight': ArcaneTypography.weightMedium,
             }),
             [text(label!)],
           ),
@@ -224,7 +223,7 @@ class FloatingActionButton extends StatelessComponent {
   static final List<StyleRule> styles = [
     css('.arcane-fab:hover').styles(raw: {
       'transform': 'scale(1.05)',
-      'box-shadow': 'var(--arcane-shadow-xl)',
+      'box-shadow': ArcaneEffects.shadowXl,
     }),
     css('.arcane-fab:active').styles(raw: {
       'transform': 'scale(0.98)',

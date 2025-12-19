@@ -1,11 +1,26 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
+import '../../util/tokens/style_presets.dart';
 import 'button.dart';
 
+/// Icon button size variants
+enum IconButtonSize {
+  small,
+  medium,
+  large,
+}
+
 /// An icon-only button component.
+///
+/// Use style presets for cleaner code:
+/// ```dart
+/// ArcaneIconButton(
+///   icon: Icon(Icons.close),
+///   style: IconButtonStyle.ghost,
+/// )
+/// ```
 class ArcaneIconButton extends StatelessComponent {
   /// The icon to display
   final Component icon;
@@ -13,11 +28,15 @@ class ArcaneIconButton extends StatelessComponent {
   /// Click handler
   final void Function()? onPressed;
 
-  /// Button variant
-  final ButtonVariant variant;
+  /// Style preset (preferred)
+  final IconButtonStyle? style;
+
+  /// Button variant (legacy - use style instead)
+  @Deprecated('Use style parameter with IconButtonStyle presets instead')
+  final ButtonVariant? variant;
 
   /// Button size
-  final ButtonSize size;
+  final IconButtonSize size;
 
   /// Whether the button is disabled
   final bool disabled;
@@ -31,78 +50,94 @@ class ArcaneIconButton extends StatelessComponent {
   const ArcaneIconButton({
     required this.icon,
     this.onPressed,
-    this.variant = ButtonVariant.ghost,
-    this.size = ButtonSize.medium,
+    this.style,
+    @Deprecated('Use style parameter instead') this.variant,
+    this.size = IconButtonSize.medium,
     this.disabled = false,
     this.loading = false,
     this.tooltip,
     super.key,
   });
 
+  /// Primary icon button
+  const ArcaneIconButton.primary({
+    required this.icon,
+    this.onPressed,
+    this.size = IconButtonSize.medium,
+    this.disabled = false,
+    this.loading = false,
+    this.tooltip,
+    super.key,
+  })  : style = IconButtonStyle.primary,
+        variant = null;
+
+  /// Ghost icon button (default minimal style)
+  const ArcaneIconButton.ghost({
+    required this.icon,
+    this.onPressed,
+    this.size = IconButtonSize.medium,
+    this.disabled = false,
+    this.loading = false,
+    this.tooltip,
+    super.key,
+  })  : style = IconButtonStyle.ghost,
+        variant = null;
+
+  /// Outline icon button
+  const ArcaneIconButton.outline({
+    required this.icon,
+    this.onPressed,
+    this.size = IconButtonSize.medium,
+    this.disabled = false,
+    this.loading = false,
+    this.tooltip,
+    super.key,
+  })  : style = IconButtonStyle.outline,
+        variant = null;
+
+  /// Destructive icon button
+  const ArcaneIconButton.destructive({
+    required this.icon,
+    this.onPressed,
+    this.size = IconButtonSize.medium,
+    this.disabled = false,
+    this.loading = false,
+    this.tooltip,
+    super.key,
+  })  : style = IconButtonStyle.destructive,
+        variant = null;
+
+  /// Convert legacy variant to style preset
+  IconButtonStyle _variantToStyle(ButtonVariant v) {
+    return switch (v) {
+      ButtonVariant.primary => IconButtonStyle.primary,
+      ButtonVariant.secondary => IconButtonStyle.secondary,
+      ButtonVariant.outline => IconButtonStyle.outline,
+      ButtonVariant.ghost => IconButtonStyle.ghost,
+      ButtonVariant.destructive => IconButtonStyle.destructive,
+      ButtonVariant.success => IconButtonStyle.success,
+      ButtonVariant.warning => IconButtonStyle.warning,
+      ButtonVariant.link => IconButtonStyle.ghost,
+    };
+  }
+
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
     final isDisabled = disabled || loading;
 
+    // Resolve effective style
+    final effectiveStyle = style ??
+        (variant != null ? _variantToStyle(variant!) : IconButtonStyle.ghost);
+
     // Get size-specific dimensions
-    final dimension = switch (size) {
-      ButtonSize.small => 28.0,
-      ButtonSize.medium => 36.0,
-      ButtonSize.large => 44.0,
-    };
-
-    final iconSize = switch (size) {
-      ButtonSize.small => 14.0,
-      ButtonSize.medium => 18.0,
-      ButtonSize.large => 22.0,
-    };
-
-    // Get variant-specific styles
-    final (bgColor, textColor, borderColor) = switch (variant) {
-      ButtonVariant.primary => (
-          'var(--arcane-primary)',
-          'var(--arcane-on-primary)',
-          'transparent',
-        ),
-      ButtonVariant.secondary => (
-          'var(--arcane-secondary)',
-          'var(--arcane-on-secondary)',
-          'transparent',
-        ),
-      ButtonVariant.outline => (
-          'transparent',
-          'var(--arcane-on-surface)',
-          'var(--arcane-outline)',
-        ),
-      ButtonVariant.ghost => (
-          'transparent',
-          'var(--arcane-on-surface-variant)',
-          'transparent',
-        ),
-      ButtonVariant.destructive => (
-          'var(--arcane-error)',
-          'var(--arcane-on-error)',
-          'transparent',
-        ),
-      ButtonVariant.link => (
-          'transparent',
-          'var(--arcane-primary)',
-          'transparent',
-        ),
-      ButtonVariant.success => (
-          'rgb(34, 197, 94)',
-          'rgb(255, 255, 255)',
-          'transparent',
-        ),
-      ButtonVariant.warning => (
-          'rgb(251, 191, 36)',
-          'rgb(0, 0, 0)',
-          'transparent',
-        ),
+    final (dimension, iconSize) = switch (size) {
+      IconButtonSize.small => (28.0, 14.0),
+      IconButtonSize.medium => (36.0, 18.0),
+      IconButtonSize.large => (44.0, 22.0),
     };
 
     return button(
-      classes: 'arcane-icon-button arcane-icon-button-${variant.name} ${isDisabled ? 'disabled' : ''}',
+      classes: 'arcane-icon-button ${isDisabled ? 'disabled' : ''}',
       attributes: {
         if (isDisabled) 'disabled': 'true',
         'type': 'button',
@@ -110,21 +145,24 @@ class ArcaneIconButton extends StatelessComponent {
         if (tooltip != null) 'aria-label': tooltip!,
       },
       styles: Styles(raw: {
+        // Layout
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
         'width': '${dimension}px',
         'height': '${dimension}px',
-        'border-radius': theme.borderRadiusCss,
-        'background-color': bgColor,
-        'color': textColor,
-        'border': borderColor == 'transparent'
-            ? 'none'
-            : '1px solid $borderColor',
+        'flex-shrink': '0',
+
+        // Appearance from style preset
+        ...effectiveStyle.base,
+
+        // Shape
+        'border-radius': ArcaneRadius.md,
+
+        // Interaction
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         'opacity': isDisabled ? '0.5' : '1',
-        'transition': 'all 150ms ease',
-        'flex-shrink': '0',
+        'transition': ArcaneEffects.transitionFast,
       }),
       events: {
         'click': (event) {
@@ -159,27 +197,25 @@ class ArcaneIconButton extends StatelessComponent {
         'width': '${size}px',
         'height': '${size}px',
         'border': '2px solid currentColor',
-        'border-right-color': 'transparent',
-        'border-radius': '50%',
+        'border-right-color': ArcaneColors.transparent,
+        'border-radius': ArcaneRadius.full,
         'animation': 'arcane-spin 0.75s linear infinite',
       }),
       [],
     );
   }
-
-  // TODO: Fix @css section for Jaspr 0.22.0
-  // @css
-  // static final List<StyleRule> styles = [...];
 }
 
 /// A close button (X icon)
 class CloseButton extends StatelessComponent {
   final void Function()? onPressed;
-  final ButtonSize size;
+  final IconButtonSize size;
+  final IconButtonStyle? style;
 
   const CloseButton({
     this.onPressed,
-    this.size = ButtonSize.medium,
+    this.size = IconButtonSize.medium,
+    this.style,
     super.key,
   });
 
@@ -188,7 +224,7 @@ class CloseButton extends StatelessComponent {
     return ArcaneIconButton(
       icon: _buildCloseIcon(),
       onPressed: onPressed,
-      variant: ButtonVariant.ghost,
+      style: style ?? IconButtonStyle.ghost,
       size: size,
       tooltip: 'Close',
     );

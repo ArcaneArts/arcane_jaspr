@@ -1,9 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
 import '../../util/arcane.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// Back button display mode
 enum BarBackButtonMode {
@@ -68,20 +67,19 @@ class Bar extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-    final effectiveHeight = height ?? 56.0;
-    final effectivePadding =
+    final double effectiveHeight = height ?? 56.0;
+    final EdgeInsets effectivePadding =
         padding ?? const EdgeInsets.symmetric(horizontal: 16);
 
     // Build title section
-    final titleWidget = title ??
+    final Component? titleWidget = title ??
         (titleText != null
             ? span(
                 classes: 'arcane-bar-title',
                 styles: Styles(raw: {
-                  'font-size': '1.125rem',
-                  'font-weight': '600',
-                  'color': 'var(--arcane-on-surface)',
+                  'font-size': ArcaneTypography.fontLg,
+                  'font-weight': ArcaneTypography.weightSemibold,
+                  'color': ArcaneColors.onSurface,
                   'white-space': 'nowrap',
                   'overflow': 'hidden',
                   'text-overflow': 'ellipsis',
@@ -90,13 +88,13 @@ class Bar extends StatelessComponent {
               )
             : null);
 
-    final subtitleWidget = subtitle ??
+    final Component? subtitleWidget = subtitle ??
         (subtitleText != null
             ? span(
                 classes: 'arcane-bar-subtitle',
                 styles: Styles(raw: {
-                  'font-size': '0.75rem',
-                  'color': 'var(--arcane-on-surface-variant)',
+                  'font-size': ArcaneTypography.fontXs,
+                  'color': ArcaneColors.muted,
                   'white-space': 'nowrap',
                   'overflow': 'hidden',
                   'text-overflow': 'ellipsis',
@@ -106,7 +104,7 @@ class Bar extends StatelessComponent {
             : null);
 
     // Show back button?
-    final showBack = backButton == BarBackButtonMode.always ||
+    final bool showBack = backButton == BarBackButtonMode.always ||
         (backButton == BarBackButtonMode.auto && onBack != null);
 
     return header(
@@ -114,13 +112,13 @@ class Bar extends StatelessComponent {
       styles: Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': '12px',
+        'gap': ArcaneSpacing.md,
         'height': '${effectiveHeight}px',
         'padding': effectivePadding.padding,
         'background-color':
-            transparent ? 'transparent' : 'var(--arcane-surface)',
+            transparent ? ArcaneColors.transparent : ArcaneColors.surface,
         if (!transparent)
-          'border-bottom': '1px solid var(--arcane-outline-variant)',
+          'border-bottom': '1px solid ${ArcaneColors.border}',
         'flex-shrink': '0',
       }),
       [
@@ -131,7 +129,7 @@ class Bar extends StatelessComponent {
             styles: Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': '8px',
+              'gap': ArcaneSpacing.sm,
             }),
             [
               if (showBack) _buildBackButton(context),
@@ -163,7 +161,7 @@ class Bar extends StatelessComponent {
             styles: Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': '8px',
+              'gap': ArcaneSpacing.sm,
             }),
             trailing!,
           ),
@@ -181,11 +179,12 @@ class Bar extends StatelessComponent {
         'justify-content': 'center',
         'width': '36px',
         'height': '36px',
-        'border-radius': '50%',
-        'background': 'transparent',
-        'color': 'var(--arcane-on-surface)',
+        'border-radius': ArcaneRadius.full,
+        'background': ArcaneColors.transparent,
+        'border': 'none',
+        'color': ArcaneColors.onSurface,
         'cursor': 'pointer',
-        'transition': 'background-color 150ms ease',
+        'transition': ArcaneEffects.transitionFast,
       }),
       events: {
         'click': (event) {
@@ -197,7 +196,7 @@ class Bar extends StatelessComponent {
       [
         span(
           styles: Styles(raw: {
-            'font-size': '1.25rem',
+            'font-size': ArcaneTypography.fontXl,
           }),
           [text('←')],
         ),
@@ -208,7 +207,7 @@ class Bar extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-bar-back:hover').styles(raw: {
-      'background-color': 'var(--arcane-surface-variant)',
+      'background-color': ArcaneColors.surfaceVariant,
     }),
   ];
 }
@@ -232,16 +231,16 @@ class DialogBar extends StatelessComponent {
         'display': 'flex',
         'align-items': 'center',
         'justify-content': 'space-between',
-        'padding': '16px',
-        'border-bottom': '1px solid var(--arcane-outline-variant)',
+        'padding': ArcaneSpacing.lg,
+        'border-bottom': '1px solid ${ArcaneColors.border}',
       }),
       [
         if (title != null)
           span(
             styles: Styles(raw: {
-              'font-size': '1.125rem',
-              'font-weight': '600',
-              'color': 'var(--arcane-on-surface)',
+              'font-size': ArcaneTypography.fontLg,
+              'font-weight': ArcaneTypography.weightSemibold,
+              'color': ArcaneColors.onSurface,
             }),
             [text(title!)],
           )
@@ -256,12 +255,13 @@ class DialogBar extends StatelessComponent {
               'justify-content': 'center',
               'width': '32px',
               'height': '32px',
-              'border-radius': '50%',
-              'background': 'transparent',
-              'color': 'var(--arcane-on-surface-variant)',
+              'border-radius': ArcaneRadius.full,
+              'background': ArcaneColors.transparent,
+              'border': 'none',
+              'color': ArcaneColors.muted,
               'cursor': 'pointer',
-              'transition': 'all 150ms ease',
-              'font-size': '1.25rem',
+              'transition': ArcaneEffects.transitionFast,
+              'font-size': ArcaneTypography.fontXl,
             }),
             events: {
               'click': (event) => onClose!(),

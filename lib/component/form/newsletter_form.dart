@@ -1,8 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A newsletter signup form (Supabase-style)
 class NewsletterForm extends StatefulComponent {
@@ -40,11 +39,11 @@ class NewsletterForm extends StatefulComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-newsletter-input:focus').styles(raw: {
-      'border-color': 'var(--arcane-accent)',
-      'box-shadow': '0 0 0 2px var(--arcane-accent-container)',
+      'border-color': ArcaneColors.accent,
+      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
     }),
     css('.arcane-newsletter-button:hover').styles(raw: {
-      'background-color': 'var(--arcane-accent-hover)',
+      'filter': 'brightness(1.1)',
     }),
   ];
 }
@@ -81,14 +80,13 @@ class _NewsletterFormState extends State<NewsletterForm> {
         styles: Styles(raw: {
           'display': 'flex',
           'align-items': 'center',
-          'gap': '8px',
-          'padding': '12px 16px',
-          'background-color': 'var(--arcane-success)',
-          'background-opacity': '0.1',
-          'border': '1px solid var(--arcane-success)',
-          'border-radius': 'var(--arcane-radius)',
-          'color': 'var(--arcane-success)',
-          'font-size': '0.875rem',
+          'gap': ArcaneSpacing.sm,
+          'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.lg}',
+          'background-color': ArcaneColors.successContainer,
+          'border': '1px solid ${ArcaneColors.success}',
+          'border-radius': ArcaneRadius.md,
+          'color': ArcaneColors.success,
+          'font-size': ArcaneTypography.fontSm,
         }),
         [
           span([text('✓')]),
@@ -97,9 +95,9 @@ class _NewsletterFormState extends State<NewsletterForm> {
       );
     }
 
-    final inputHeight = component.compact ? '36px' : '44px';
-    final inputPadding = component.compact ? '8px 12px' : '10px 14px';
-    final buttonPadding = component.compact ? '8px 16px' : '10px 20px';
+    final String inputHeight = component.compact ? '36px' : '44px';
+    final String inputPadding = component.compact ? '${ArcaneSpacing.sm} ${ArcaneSpacing.md}' : '10px 14px';
+    final String buttonPadding = component.compact ? '${ArcaneSpacing.sm} ${ArcaneSpacing.lg}' : '10px 20px';
 
     if (component.inline) {
       return div(
@@ -107,13 +105,13 @@ class _NewsletterFormState extends State<NewsletterForm> {
         styles: Styles(raw: {
           'display': 'flex',
           'flex-direction': 'column',
-          'gap': '8px',
+          'gap': ArcaneSpacing.sm,
         }),
         [
           div(
             styles: Styles(raw: {
               'display': 'flex',
-              'gap': '8px',
+              'gap': ArcaneSpacing.sm,
             }),
             [
               input(
@@ -126,24 +124,24 @@ class _NewsletterFormState extends State<NewsletterForm> {
                   'flex': '1',
                   'height': inputHeight,
                   'padding': inputPadding,
-                  'font-size': '0.875rem',
-                  'background-color': 'var(--arcane-surface)',
-                  'border': '1px solid ${_error != null ? 'var(--arcane-destructive)' : 'var(--arcane-border)'}',
-                  'border-radius': 'var(--arcane-radius)',
-                  'color': 'var(--arcane-on-surface)',
+                  'font-size': ArcaneTypography.fontSm,
+                  'background-color': ArcaneColors.surface,
+                  'border': '1px solid ${_error != null ? ArcaneColors.error : ArcaneColors.border}',
+                  'border-radius': ArcaneRadius.md,
+                  'color': ArcaneColors.onSurface,
                   'outline': 'none',
-                  'transition': 'border-color var(--arcane-transition-fast)',
+                  'transition': ArcaneEffects.transitionFast,
                 }),
                 events: {
                   'input': (e) {
-                    final target = e.target as dynamic;
+                    final dynamic target = e.target;
                     setState(() {
                       _email = target.value as String;
                       _error = null;
                     });
                   },
                   'keypress': (e) {
-                    final keyEvent = e as dynamic;
+                    final dynamic keyEvent = e;
                     if (keyEvent.key == 'Enter') {
                       _handleSubmit();
                     }
@@ -157,15 +155,15 @@ class _NewsletterFormState extends State<NewsletterForm> {
                 styles: Styles(raw: {
                   'height': inputHeight,
                   'padding': buttonPadding,
-                  'font-size': '0.875rem',
-                  'font-weight': '500',
-                  'color': 'var(--arcane-accent-foreground)',
-                  'background-color': 'var(--arcane-accent)',
+                  'font-size': ArcaneTypography.fontSm,
+                  'font-weight': ArcaneTypography.weightMedium,
+                  'color': ArcaneColors.accentForeground,
+                  'background-color': ArcaneColors.accent,
                   'border': 'none',
-                  'border-radius': 'var(--arcane-radius)',
+                  'border-radius': ArcaneRadius.md,
                   'cursor': 'pointer',
                   'white-space': 'nowrap',
-                  'transition': 'background-color var(--arcane-transition-fast)',
+                  'transition': ArcaneEffects.transitionFast,
                 }),
                 events: {
                   'click': (e) => _handleSubmit(),
@@ -177,8 +175,8 @@ class _NewsletterFormState extends State<NewsletterForm> {
             span(
               [text(_error!)],
               styles: Styles(raw: {
-                'font-size': '0.8125rem',
-                'color': 'var(--arcane-destructive)',
+                'font-size': ArcaneTypography.fontXs,
+                'color': ArcaneColors.error,
               }),
             ),
         ],
@@ -191,7 +189,7 @@ class _NewsletterFormState extends State<NewsletterForm> {
       styles: Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '12px',
+        'gap': ArcaneSpacing.md,
       }),
       [
         input(
@@ -204,16 +202,16 @@ class _NewsletterFormState extends State<NewsletterForm> {
             'width': '100%',
             'height': inputHeight,
             'padding': inputPadding,
-            'font-size': '0.875rem',
-            'background-color': 'var(--arcane-surface)',
-            'border': '1px solid ${_error != null ? 'var(--arcane-destructive)' : 'var(--arcane-border)'}',
-            'border-radius': 'var(--arcane-radius)',
-            'color': 'var(--arcane-on-surface)',
+            'font-size': ArcaneTypography.fontSm,
+            'background-color': ArcaneColors.surface,
+            'border': '1px solid ${_error != null ? ArcaneColors.error : ArcaneColors.border}',
+            'border-radius': ArcaneRadius.md,
+            'color': ArcaneColors.onSurface,
             'outline': 'none',
           }),
           events: {
             'input': (e) {
-              final target = e.target as dynamic;
+              final dynamic target = e.target;
               setState(() {
                 _email = target.value as String;
                 _error = null;
@@ -225,9 +223,9 @@ class _NewsletterFormState extends State<NewsletterForm> {
           span(
             [text(_error!)],
             styles: Styles(raw: {
-              'font-size': '0.8125rem',
-              'color': 'var(--arcane-destructive)',
-              'margin-top': '-4px',
+              'font-size': ArcaneTypography.fontXs,
+              'color': ArcaneColors.error,
+              'margin-top': '-${ArcaneSpacing.xs}',
             }),
           ),
         button(
@@ -238,14 +236,14 @@ class _NewsletterFormState extends State<NewsletterForm> {
             'width': '100%',
             'height': inputHeight,
             'padding': buttonPadding,
-            'font-size': '0.875rem',
-            'font-weight': '500',
-            'color': 'var(--arcane-accent-foreground)',
-            'background-color': 'var(--arcane-accent)',
+            'font-size': ArcaneTypography.fontSm,
+            'font-weight': ArcaneTypography.weightMedium,
+            'color': ArcaneColors.accentForeground,
+            'background-color': ArcaneColors.accent,
             'border': 'none',
-            'border-radius': 'var(--arcane-radius)',
+            'border-radius': ArcaneRadius.md,
             'cursor': 'pointer',
-            'transition': 'background-color var(--arcane-transition-fast)',
+            'transition': ArcaneEffects.transitionFast,
           }),
           events: {
             'click': (e) => _handleSubmit(),
@@ -316,25 +314,25 @@ class _WaitlistFormState extends State<WaitlistForm> {
       return div(
         classes: 'arcane-waitlist-success',
         styles: Styles(raw: {
-          'padding': '24px',
+          'padding': ArcaneSpacing.xl,
           'text-align': 'center',
-          'background-color': 'var(--arcane-surface)',
-          'border': '1px solid var(--arcane-success)',
-          'border-radius': 'var(--arcane-radius)',
+          'background-color': ArcaneColors.surface,
+          'border': '1px solid ${ArcaneColors.success}',
+          'border-radius': ArcaneRadius.md,
         }),
         [
           div(
             [text('🎉')],
             styles: Styles(raw: {
               'font-size': '2rem',
-              'margin-bottom': '12px',
+              'margin-bottom': ArcaneSpacing.md,
             }),
           ),
           div(
             [text(component.successMessage)],
             styles: Styles(raw: {
-              'font-size': '1rem',
-              'color': 'var(--arcane-on-surface)',
+              'font-size': ArcaneTypography.fontBase,
+              'color': ArcaneColors.onSurface,
             }),
           ),
         ],
@@ -346,29 +344,29 @@ class _WaitlistFormState extends State<WaitlistForm> {
       styles: Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '16px',
-        'padding': '24px',
-        'background-color': 'var(--arcane-surface)',
-        'border': '1px solid var(--arcane-border)',
-        'border-radius': 'var(--arcane-radius)',
+        'gap': ArcaneSpacing.lg,
+        'padding': ArcaneSpacing.xl,
+        'background-color': ArcaneColors.surface,
+        'border': '1px solid ${ArcaneColors.border}',
+        'border-radius': ArcaneRadius.md,
       }),
       [
         if (component.title != null)
           div(
             [text(component.title!)],
             styles: Styles(raw: {
-              'font-size': '1.25rem',
-              'font-weight': '600',
-              'color': 'var(--arcane-on-surface)',
+              'font-size': ArcaneTypography.fontLg,
+              'font-weight': ArcaneTypography.weightSemibold,
+              'color': ArcaneColors.onSurface,
             }),
           ),
         if (component.description != null)
           div(
             [text(component.description!)],
             styles: Styles(raw: {
-              'font-size': '0.875rem',
-              'color': 'var(--arcane-muted)',
-              'line-height': '1.5',
+              'font-size': ArcaneTypography.fontSm,
+              'color': ArcaneColors.muted,
+              'line-height': ArcaneTypography.lineHeightRelaxed,
             }),
           ),
         if (component.collectName)
@@ -379,16 +377,16 @@ class _WaitlistFormState extends State<WaitlistForm> {
               'width': '100%',
               'height': '44px',
               'padding': '10px 14px',
-              'font-size': '0.875rem',
-              'background-color': 'var(--arcane-surface-variant)',
-              'border': '1px solid var(--arcane-border)',
-              'border-radius': 'var(--arcane-radius)',
-              'color': 'var(--arcane-on-surface)',
+              'font-size': ArcaneTypography.fontSm,
+              'background-color': ArcaneColors.surfaceVariant,
+              'border': '1px solid ${ArcaneColors.border}',
+              'border-radius': ArcaneRadius.md,
+              'color': ArcaneColors.onSurface,
               'outline': 'none',
             }),
             events: {
               'input': (e) {
-                final target = e.target as dynamic;
+                final dynamic target = e.target;
                 setState(() => _name = target.value as String);
               },
             },
@@ -400,16 +398,16 @@ class _WaitlistFormState extends State<WaitlistForm> {
             'width': '100%',
             'height': '44px',
             'padding': '10px 14px',
-            'font-size': '0.875rem',
-            'background-color': 'var(--arcane-surface-variant)',
-            'border': '1px solid ${_error != null ? 'var(--arcane-destructive)' : 'var(--arcane-border)'}',
-            'border-radius': 'var(--arcane-radius)',
-            'color': 'var(--arcane-on-surface)',
+            'font-size': ArcaneTypography.fontSm,
+            'background-color': ArcaneColors.surfaceVariant,
+            'border': '1px solid ${_error != null ? ArcaneColors.error : ArcaneColors.border}',
+            'border-radius': ArcaneRadius.md,
+            'color': ArcaneColors.onSurface,
             'outline': 'none',
           }),
           events: {
             'input': (e) {
-              final target = e.target as dynamic;
+              final dynamic target = e.target;
               setState(() {
                 _email = target.value as String;
                 _error = null;
@@ -421,8 +419,8 @@ class _WaitlistFormState extends State<WaitlistForm> {
           span(
             [text(_error!)],
             styles: Styles(raw: {
-              'font-size': '0.8125rem',
-              'color': 'var(--arcane-destructive)',
+              'font-size': ArcaneTypography.fontXs,
+              'color': ArcaneColors.error,
             }),
           ),
         button(
@@ -431,14 +429,14 @@ class _WaitlistFormState extends State<WaitlistForm> {
           styles: Styles(raw: {
             'width': '100%',
             'height': '44px',
-            'font-size': '0.875rem',
-            'font-weight': '500',
-            'color': 'var(--arcane-accent-foreground)',
-            'background-color': 'var(--arcane-accent)',
+            'font-size': ArcaneTypography.fontSm,
+            'font-weight': ArcaneTypography.weightMedium,
+            'color': ArcaneColors.accentForeground,
+            'background-color': ArcaneColors.accent,
             'border': 'none',
-            'border-radius': 'var(--arcane-radius)',
+            'border-radius': ArcaneRadius.md,
             'cursor': 'pointer',
-            'transition': 'background-color var(--arcane-transition-fast)',
+            'transition': ArcaneEffects.transitionFast,
           }),
           events: {
             'click': (e) => _handleSubmit(),

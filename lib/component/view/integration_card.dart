@@ -1,8 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// An integration/partner card (Supabase-style)
 class IntegrationCard extends StatelessComponent {
@@ -44,17 +43,17 @@ class IntegrationCard extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final content = div(
+    final Component content = div(
       classes: 'arcane-integration-card ${featured ? 'featured' : ''}',
       styles: Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '16px',
-        'padding': '24px',
-        'background-color': 'var(--arcane-surface)',
-        'border': '1px solid ${featured ? 'var(--arcane-accent)' : 'var(--arcane-border)'}',
-        'border-radius': 'var(--arcane-radius)',
-        'transition': 'border-color var(--arcane-transition-fast), box-shadow var(--arcane-transition-fast)',
+        'gap': ArcaneSpacing.lg,
+        'padding': ArcaneSpacing.xl,
+        'background-color': ArcaneColors.surface,
+        'border': '1px solid ${featured ? ArcaneColors.accent : ArcaneColors.border}',
+        'border-radius': ArcaneRadius.md,
+        'transition': ArcaneEffects.transitionFast,
         'cursor': (href != null || onTap != null) ? 'pointer' : 'default',
       }),
       [
@@ -75,8 +74,8 @@ class IntegrationCard extends StatelessComponent {
                 'display': 'flex',
                 'align-items': 'center',
                 'justify-content': 'center',
-                'background-color': 'var(--arcane-surface-variant)',
-                'border-radius': 'var(--arcane-radius)',
+                'background-color': ArcaneColors.surfaceVariant,
+                'border-radius': ArcaneRadius.md,
                 'overflow': 'hidden',
               }),
               [
@@ -95,9 +94,9 @@ class IntegrationCard extends StatelessComponent {
                 else
                   span(
                     styles: Styles(raw: {
-                      'font-size': '1.25rem',
-                      'font-weight': '600',
-                      'color': 'var(--arcane-muted)',
+                      'font-size': ArcaneTypography.fontXl,
+                      'font-weight': ArcaneTypography.weightSemibold,
+                      'color': ArcaneColors.muted,
                     }),
                     [text(name.substring(0, 1).toUpperCase())],
                   ),
@@ -108,14 +107,14 @@ class IntegrationCard extends StatelessComponent {
             if (category != null)
               span(
                 styles: Styles(raw: {
-                  'padding': '4px 8px',
-                  'font-size': '0.6875rem',
-                  'font-weight': '500',
+                  'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
+                  'font-size': ArcaneTypography.fontXs,
+                  'font-weight': ArcaneTypography.weightMedium,
                   'text-transform': 'uppercase',
                   'letter-spacing': '0.05em',
-                  'color': 'var(--arcane-muted)',
-                  'background-color': 'var(--arcane-surface-variant)',
-                  'border-radius': 'var(--arcane-radius-full)',
+                  'color': ArcaneColors.muted,
+                  'background-color': ArcaneColors.surfaceVariant,
+                  'border-radius': ArcaneRadius.full,
                 }),
                 [text(category!)],
               ),
@@ -127,15 +126,15 @@ class IntegrationCard extends StatelessComponent {
           styles: Styles(raw: {
             'display': 'flex',
             'flex-direction': 'column',
-            'gap': '8px',
+            'gap': ArcaneSpacing.sm,
           }),
           [
             // Name
             div(
               styles: Styles(raw: {
-                'font-size': '1rem',
-                'font-weight': '600',
-                'color': 'var(--arcane-on-surface)',
+                'font-size': ArcaneTypography.fontMd,
+                'font-weight': ArcaneTypography.weightSemibold,
+                'color': ArcaneColors.onSurface,
               }),
               [text(name)],
             ),
@@ -144,9 +143,9 @@ class IntegrationCard extends StatelessComponent {
             if (description != null)
               div(
                 styles: Styles(raw: {
-                  'font-size': '0.875rem',
-                  'line-height': '1.5',
-                  'color': 'var(--arcane-muted)',
+                  'font-size': ArcaneTypography.fontSm,
+                  'line-height': ArcaneTypography.leadingNormal,
+                  'color': ArcaneColors.muted,
                 }),
                 [text(description!)],
               ),
@@ -159,11 +158,11 @@ class IntegrationCard extends StatelessComponent {
             styles: Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': '4px',
+              'gap': ArcaneSpacing.xs,
               'margin-top': 'auto',
-              'font-size': '0.875rem',
-              'font-weight': '500',
-              'color': 'var(--arcane-accent)',
+              'font-size': ArcaneTypography.fontSm,
+              'font-weight': ArcaneTypography.weightMedium,
+              'color': ArcaneColors.accent,
             }),
             [
               text('Learn more'),
@@ -198,8 +197,8 @@ class IntegrationCard extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-integration-card:hover').styles(raw: {
-      'border-color': 'var(--arcane-accent)',
-      'box-shadow': 'var(--arcane-shadow-md)',
+      'border-color': ArcaneColors.accent,
+      'box-shadow': ArcaneEffects.shadowMd,
     }),
   ];
 }
@@ -237,7 +236,7 @@ class IntegrationGrid extends StatelessComponent {
       styles: Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '32px',
+        'gap': ArcaneSpacing.xxl,
       }),
       [
         if (title != null || description != null)
@@ -245,23 +244,23 @@ class IntegrationGrid extends StatelessComponent {
             styles: Styles(raw: {
               'display': 'flex',
               'flex-direction': 'column',
-              'gap': '8px',
+              'gap': ArcaneSpacing.sm,
             }),
             [
               if (title != null)
                 div(
                   styles: Styles(raw: {
-                    'font-size': '1.5rem',
-                    'font-weight': '600',
-                    'color': 'var(--arcane-on-surface)',
+                    'font-size': ArcaneTypography.font2xl,
+                    'font-weight': ArcaneTypography.weightSemibold,
+                    'color': ArcaneColors.onSurface,
                   }),
                   [text(title!)],
                 ),
               if (description != null)
                 div(
                   styles: Styles(raw: {
-                    'font-size': '1rem',
-                    'color': 'var(--arcane-muted)',
+                    'font-size': ArcaneTypography.fontMd,
+                    'color': ArcaneColors.muted,
                   }),
                   [text(description!)],
                 ),

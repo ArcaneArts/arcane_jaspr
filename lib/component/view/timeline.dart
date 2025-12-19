@@ -1,14 +1,26 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
-import '../../util/tools/styles.dart';
+
+import '../../util/tokens/tokens.dart';
 
 /// Timeline item data class
 class TimelineItem {
+  /// Item title
   final String title;
+
+  /// Subtitle (e.g., date, time)
   final String? subtitle;
+
+  /// Description text
   final String? description;
+
+  /// Icon to display
   final String? icon;
+
+  /// Custom icon color
   final String? iconColor;
+
+  /// Whether this item is completed
   final bool completed;
 
   const TimelineItem({
@@ -23,40 +35,52 @@ class TimelineItem {
 
 /// Timeline component for showing progression or history
 class Timeline extends StatelessComponent {
+  /// Timeline items
   final List<TimelineItem> items;
-  final String lineColor;
-  final String activeColor;
+
+  /// Line color
+  final String? lineColor;
+
+  /// Active/completed item color
+  final String? activeColor;
 
   const Timeline({
     required this.items,
-    this.lineColor = '#3F3F46',
-    this.activeColor = '#10B981',
+    this.lineColor,
+    this.activeColor,
+    super.key,
   });
 
   @override
   Component build(BuildContext context) {
+    final String effectiveLineColor = lineColor ?? ArcaneColors.border;
+    final String effectiveActiveColor = activeColor ?? ArcaneColors.success;
+
     return div(
+      classes: 'arcane-timeline',
       styles: Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
         'position': 'relative',
       }),
       [
-        for (var i = 0; i < items.length; i++) _buildItem(items[i], i),
+        for (var i = 0; i < items.length; i++)
+          _buildItem(items[i], i, effectiveLineColor, effectiveActiveColor),
       ],
     );
   }
 
-  Component _buildItem(TimelineItem item, int index) {
-    final isLast = index == items.length - 1;
-    final dotColor = item.completed ? activeColor : lineColor;
+  Component _buildItem(TimelineItem item, int index, String lineColor, String activeColor) {
+    final bool isLast = index == items.length - 1;
+    final String dotColor = item.completed ? activeColor : lineColor;
 
     return div(
+      classes: 'arcane-timeline-item',
       styles: Styles(raw: {
         'display': 'flex',
-        'gap': '20px',
+        'gap': ArcaneSpacing.lg,
         'position': 'relative',
-        'padding-bottom': isLast ? '0' : '32px',
+        'padding-bottom': isLast ? '0' : ArcaneSpacing.xxl,
       }),
       [
         // Timeline dot and line
@@ -73,8 +97,8 @@ class Timeline extends StatelessComponent {
               styles: Styles(raw: {
                 'width': '16px',
                 'height': '16px',
-                'border-radius': '50%',
-                'background': item.completed ? dotColor : '#0A0A0B',
+                'border-radius': ArcaneRadius.full,
+                'background': item.completed ? dotColor : ArcaneColors.background,
                 'border': '2px solid $dotColor',
                 'display': 'flex',
                 'align-items': 'center',
@@ -85,9 +109,9 @@ class Timeline extends StatelessComponent {
                 if (item.completed)
                   span(
                     styles: Styles(raw: {
-                      'color': '#0A0A0B',
-                      'font-size': '10px',
-                      'font-weight': '700',
+                      'color': ArcaneColors.background,
+                      'font-size': ArcaneTypography.fontXs,
+                      'font-weight': ArcaneTypography.weightBold,
                     }),
                     [text('✓')],
                   ),
@@ -119,23 +143,23 @@ class Timeline extends StatelessComponent {
               styles: Styles(raw: {
                 'display': 'flex',
                 'align-items': 'center',
-                'gap': '12px',
-                'margin-bottom': '4px',
+                'gap': ArcaneSpacing.md,
+                'margin-bottom': ArcaneSpacing.xs,
               }),
               [
                 span(
                   styles: Styles(raw: {
-                    'font-size': '16px',
-                    'font-weight': '600',
-                    'color': '#FAFAFA',
+                    'font-size': ArcaneTypography.fontMd,
+                    'font-weight': ArcaneTypography.weightSemibold,
+                    'color': ArcaneColors.onSurface,
                   }),
                   [text(item.title)],
                 ),
                 if (item.subtitle != null)
                   span(
                     styles: Styles(raw: {
-                      'font-size': '13px',
-                      'color': '#71717A',
+                      'font-size': ArcaneTypography.fontSm,
+                      'color': ArcaneColors.muted,
                     }),
                     [text(item.subtitle!)],
                   ),
@@ -144,9 +168,9 @@ class Timeline extends StatelessComponent {
             if (item.description != null)
               div(
                 styles: Styles(raw: {
-                  'font-size': '14px',
-                  'color': '#A1A1AA',
-                  'line-height': '1.6',
+                  'font-size': ArcaneTypography.fontSm,
+                  'color': ArcaneColors.muted,
+                  'line-height': ArcaneTypography.leadingRelaxed,
                 }),
                 [text(item.description!)],
               ),

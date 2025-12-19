@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
-import '../../util/tools/styles.dart';
+
+import '../../util/tokens/tokens.dart';
 
 /// Call-to-action banner with gradient background
 class ArcaneCtaBanner extends StatelessComponent {
@@ -20,18 +21,20 @@ class ArcaneCtaBanner extends StatelessComponent {
     this.gradientStart,
     this.gradientEnd,
     this.backgroundImage,
+    super.key,
   });
 
   @override
   Component build(BuildContext context) {
-    final start = gradientStart ?? '#10B981';
-    final end = gradientEnd ?? '#059669';
+    final String start = gradientStart ?? ArcaneColors.success;
+    final String end = gradientEnd ?? ArcaneColors.successHover;
 
     return div(
+      classes: 'arcane-cta-banner',
       styles: Styles(raw: {
         'position': 'relative',
         'padding': '64px 32px',
-        'border-radius': '24px',
+        'border-radius': ArcaneRadius.xl,
         'background': backgroundImage != null
             ? 'url($backgroundImage) center/cover no-repeat'
             : 'linear-gradient(135deg, $start 0%, $end 100%)',
@@ -62,10 +65,10 @@ class ArcaneCtaBanner extends StatelessComponent {
             // Title
             h2(
               styles: Styles(raw: {
-                'font-size': '36px',
-                'font-weight': '700',
+                'font-size': ArcaneTypography.font3xl,
+                'font-weight': ArcaneTypography.weightBold,
                 'color': '#FFFFFF',
-                'margin': '0 0 16px 0',
+                'margin': '0 0 ${ArcaneSpacing.md} 0',
               }),
               [text(title)],
             ),
@@ -73,10 +76,10 @@ class ArcaneCtaBanner extends StatelessComponent {
             if (subtitle != null)
               p(
                 styles: Styles(raw: {
-                  'font-size': '18px',
+                  'font-size': ArcaneTypography.fontLg,
                   'color': 'rgba(255, 255, 255, 0.9)',
-                  'margin': '0 0 32px 0',
-                  'line-height': '1.6',
+                  'margin': '0 0 ${ArcaneSpacing.xl} 0',
+                  'line-height': ArcaneTypography.lineHeightRelaxed,
                 }),
                 [text(subtitle!)],
               ),
@@ -86,7 +89,7 @@ class ArcaneCtaBanner extends StatelessComponent {
                 styles: Styles(raw: {
                   'display': 'flex',
                   'justify-content': 'center',
-                  'gap': '16px',
+                  'gap': ArcaneSpacing.md,
                   'flex-wrap': 'wrap',
                 }),
                 [

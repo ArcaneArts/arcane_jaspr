@@ -1,9 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/arcane.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A bottom navigation bar component.
 class BottomNavigationBar extends StatelessComponent {
@@ -37,8 +35,6 @@ class BottomNavigationBar extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-
     return nav(
       classes: 'arcane-bottom-nav',
       styles: Styles(raw: {
@@ -46,23 +42,21 @@ class BottomNavigationBar extends StatelessComponent {
         'align-items': 'center',
         'justify-content': 'space-around',
         'height': '${height}px',
-        'background-color': 'var(--arcane-surface)',
-        'border-top': '1px solid var(--arcane-outline-variant)',
-        'padding': '0 8px',
+        'background-color': ArcaneColors.surface,
+        'border-top': '1px solid ${ArcaneColors.border}',
+        'padding': '0 ${ArcaneSpacing.sm}',
         'flex-shrink': '0',
       }),
       [
         for (var i = 0; i < items.length; i++)
-          _buildItem(context, theme, i, items[i]),
+          _buildItem(context, i, items[i]),
       ],
     );
   }
 
-  Component _buildItem(
-      BuildContext context, ArcaneTheme theme, int index, BottomNavItem item) {
-    final isSelected = index == selectedIndex;
-    final shouldShowLabel =
-        showLabels || (showSelectedLabels && isSelected);
+  Component _buildItem(BuildContext context, int index, BottomNavItem item) {
+    final bool isSelected = index == selectedIndex;
+    final bool shouldShowLabel = showLabels || (showSelectedLabels && isSelected);
 
     return button(
       classes: 'arcane-bottom-nav-item ${isSelected ? 'selected' : ''}',
@@ -75,16 +69,15 @@ class BottomNavigationBar extends StatelessComponent {
         'flex-direction': 'column',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': '4px',
+        'gap': ArcaneSpacing.xs,
         'flex': '1',
         'height': '100%',
-        'padding': '8px',
-        'background': 'transparent',
-        'color': isSelected
-            ? 'var(--arcane-primary)'
-            : 'var(--arcane-on-surface-variant)',
+        'padding': ArcaneSpacing.sm,
+        'background': ArcaneColors.transparent,
+        'border': 'none',
+        'color': isSelected ? ArcaneColors.accent : ArcaneColors.muted,
         'cursor': 'pointer',
-        'transition': 'all 150ms ease',
+        'transition': ArcaneEffects.transitionFast,
         'position': 'relative',
       }),
       events: {
@@ -105,10 +98,9 @@ class BottomNavigationBar extends StatelessComponent {
             'justify-content': 'center',
             'width': '48px',
             'height': '32px',
-            'border-radius': '16px',
-            'background-color':
-                isSelected ? 'var(--arcane-primary-container)' : 'transparent',
-            'transition': 'background-color 150ms ease',
+            'border-radius': ArcaneRadius.lg,
+            'background-color': isSelected ? ArcaneColors.accentContainer : ArcaneColors.transparent,
+            'transition': ArcaneEffects.transitionFast,
           }),
           [
             div(
@@ -127,15 +119,15 @@ class BottomNavigationBar extends StatelessComponent {
                 styles: Styles(raw: {
                   'position': 'absolute',
                   'top': '0',
-                  'right': '4px',
+                  'right': ArcaneSpacing.xs,
                   'min-width': '16px',
                   'height': '16px',
-                  'padding': '0 4px',
-                  'background-color': 'var(--arcane-error)',
-                  'color': 'var(--arcane-on-error)',
+                  'padding': '0 ${ArcaneSpacing.xs}',
+                  'background-color': ArcaneColors.error,
+                  'color': ArcaneColors.errorForeground,
                   'font-size': '0.625rem',
-                  'font-weight': '600',
-                  'border-radius': '8px',
+                  'font-weight': ArcaneTypography.weightSemibold,
+                  'border-radius': ArcaneRadius.sm,
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'center',
@@ -150,8 +142,8 @@ class BottomNavigationBar extends StatelessComponent {
           span(
             classes: 'arcane-bottom-nav-label',
             styles: Styles(raw: {
-              'font-size': '0.75rem',
-              'font-weight': isSelected ? '600' : '500',
+              'font-size': ArcaneTypography.fontXs,
+              'font-weight': isSelected ? ArcaneTypography.weightSemibold : ArcaneTypography.weightMedium,
               'white-space': 'nowrap',
               'overflow': 'hidden',
               'text-overflow': 'ellipsis',
@@ -167,7 +159,7 @@ class BottomNavigationBar extends StatelessComponent {
   static final List<StyleRule> styles = [
     css('.arcane-bottom-nav-item:hover:not(.selected) .arcane-bottom-nav-icon')
         .styles(raw: {
-      'background-color': 'var(--arcane-surface-variant)',
+      'background-color': ArcaneColors.surfaceVariant,
     }),
   ];
 }

@@ -1,9 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
 import '../../util/arcane.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A list tile component for displaying items in a list.
 class Tile extends StatelessComponent {
@@ -57,7 +56,6 @@ class Tile extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
     final effectivePadding = padding ??
         EdgeInsets.symmetric(
           horizontal: 16,
@@ -65,21 +63,21 @@ class Tile extends StatelessComponent {
         );
 
     return div(
-      classes: 'arcane-tile ${selected ? 'selected' : ''} ${disabled ? 'disabled' : ''} ${onTap != null ? 'clickable' : ''}',
+      classes:
+          'arcane-tile ${selected ? 'selected' : ''} ${disabled ? 'disabled' : ''} ${onTap != null ? 'clickable' : ''}',
       styles: Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': '12px',
+        'gap': ArcaneSpacing.sm,
         'padding': effectivePadding.padding,
-        'background-color': selected
-            ? 'var(--arcane-primary-container)'
-            : 'transparent',
+        'background-color':
+            selected ? ArcaneColors.accentContainer : ArcaneColors.transparent,
         'cursor': disabled
             ? 'not-allowed'
             : (onTap != null ? 'pointer' : 'default'),
         'opacity': disabled ? '0.5' : '1',
-        'transition': 'background-color 150ms ease',
-        'border-radius': '${theme.borderRadiusPx * 0.5}px',
+        'transition': ArcaneEffects.transitionFast,
+        'border-radius': ArcaneRadius.md,
       }),
       events: onTap != null && !disabled
           ? {
@@ -96,9 +94,7 @@ class Tile extends StatelessComponent {
               'display': 'flex',
               'align-items': 'center',
               'justify-content': 'center',
-              'color': selected
-                  ? 'var(--arcane-on-primary-container)'
-                  : 'var(--arcane-on-surface-variant)',
+              'color': selected ? ArcaneColors.accent : ArcaneColors.muted,
             }),
             [leading!],
           ),
@@ -111,7 +107,7 @@ class Tile extends StatelessComponent {
             'min-width': '0',
             'display': 'flex',
             'flex-direction': 'column',
-            'gap': dense ? '2px' : '4px',
+            'gap': dense ? '2px' : ArcaneSpacing.xs,
           }),
           [
             // Title
@@ -121,11 +117,9 @@ class Tile extends StatelessComponent {
               span(
                 classes: 'arcane-tile-title',
                 styles: Styles(raw: {
-                  'font-size': dense ? '0.875rem' : '0.9375rem',
-                  'font-weight': '500',
-                  'color': selected
-                      ? 'var(--arcane-on-primary-container)'
-                      : 'var(--arcane-on-surface)',
+                  'font-size': dense ? ArcaneTypography.fontSm : ArcaneTypography.fontMd,
+                  'font-weight': ArcaneTypography.weightMedium,
+                  'color': selected ? ArcaneColors.accent : ArcaneColors.onSurface,
                   'white-space': 'nowrap',
                   'overflow': 'hidden',
                   'text-overflow': 'ellipsis',
@@ -140,10 +134,8 @@ class Tile extends StatelessComponent {
               span(
                 classes: 'arcane-tile-subtitle',
                 styles: Styles(raw: {
-                  'font-size': dense ? '0.75rem' : '0.8125rem',
-                  'color': selected
-                      ? 'var(--arcane-on-primary-container)'
-                      : 'var(--arcane-on-surface-variant)',
+                  'font-size': dense ? ArcaneTypography.fontXs : ArcaneTypography.fontSm,
+                  'color': selected ? ArcaneColors.accent : ArcaneColors.muted,
                   'white-space': 'nowrap',
                   'overflow': 'hidden',
                   'text-overflow': 'ellipsis',
@@ -161,9 +153,7 @@ class Tile extends StatelessComponent {
               'flex-shrink': '0',
               'display': 'flex',
               'align-items': 'center',
-              'color': selected
-                  ? 'var(--arcane-on-primary-container)'
-                  : 'var(--arcane-on-surface-variant)',
+              'color': selected ? ArcaneColors.accent : ArcaneColors.muted,
             }),
             [trailing!],
           ),
@@ -174,10 +164,10 @@ class Tile extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-tile.clickable:hover:not(.disabled)').styles(raw: {
-      'background-color': 'var(--arcane-surface-variant)',
+      'background-color': ArcaneColors.surfaceVariant,
     }),
     css('.arcane-tile.clickable.selected:hover:not(.disabled)').styles(raw: {
-      'background-color': 'var(--arcane-primary-container)',
+      'background-color': ArcaneColors.accentContainer,
     }),
   ];
 }
@@ -203,10 +193,9 @@ class NavTile extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-
     return button(
-      classes: 'arcane-nav-tile ${selected ? 'selected' : ''} ${disabled ? 'disabled' : ''}',
+      classes:
+          'arcane-nav-tile ${selected ? 'selected' : ''} ${disabled ? 'disabled' : ''}',
       attributes: {
         'type': 'button',
         if (disabled) 'disabled': 'true',
@@ -214,22 +203,22 @@ class NavTile extends StatelessComponent {
       styles: Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': '12px',
+        'gap': ArcaneSpacing.sm,
         'width': '100%',
-        'padding': '10px 12px',
-        'background-color': selected
-            ? 'var(--arcane-primary-container)'
-            : 'transparent',
-        'color': selected
-            ? 'var(--arcane-on-primary-container)'
-            : 'var(--arcane-on-surface)',
-        'border-radius': '${theme.borderRadiusPx}px',
+        'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
+        'background-color':
+            selected ? ArcaneColors.accentContainer : ArcaneColors.transparent,
+        'color': selected ? ArcaneColors.accent : ArcaneColors.onSurface,
+        'border-radius': ArcaneRadius.md,
+        'border': 'none',
         'cursor': disabled ? 'not-allowed' : 'pointer',
         'opacity': disabled ? '0.5' : '1',
-        'transition': 'all 150ms ease',
+        'transition': ArcaneEffects.transitionFast,
         'text-align': 'left',
-        'font-size': '0.875rem',
-        'font-weight': selected ? '600' : '500',
+        'font-size': ArcaneTypography.fontMd,
+        'font-weight': selected
+            ? ArcaneTypography.weightSemibold
+            : ArcaneTypography.weightMedium,
       }),
       events: {
         'click': (event) {
@@ -264,12 +253,12 @@ class NavTile extends StatelessComponent {
           span(
             classes: 'arcane-nav-tile-badge',
             styles: Styles(raw: {
-              'background-color': 'var(--arcane-primary)',
-              'color': 'var(--arcane-on-primary)',
-              'font-size': '0.75rem',
+              'background-color': ArcaneColors.accent,
+              'color': ArcaneColors.accentForeground,
+              'font-size': ArcaneTypography.fontXs,
               'padding': '2px 6px',
-              'border-radius': '9999px',
-              'font-weight': '500',
+              'border-radius': ArcaneRadius.full,
+              'font-weight': ArcaneTypography.weightMedium,
             }),
             [text(badge!)],
           ),
@@ -280,7 +269,7 @@ class NavTile extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-nav-tile:hover:not(:disabled):not(.selected)').styles(raw: {
-      'background-color': 'var(--arcane-surface-variant)',
+      'background-color': ArcaneColors.surfaceVariant,
     }),
   ];
 }

@@ -1,11 +1,11 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
-import '../../util/appearance/theme.dart';
-import '../../util/arcane.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
+import '../../util/tokens/style_presets.dart';
 
-/// Button style variants
+/// Button style variants (legacy - prefer using ButtonStyle presets)
+@Deprecated('Use style parameter with ButtonStyle presets instead')
 enum ButtonVariant {
   /// Primary action button with accent color
   primary,
@@ -33,6 +33,14 @@ enum ButtonSize {
 }
 
 /// A styled button component.
+///
+/// Use style presets for cleaner code:
+/// ```dart
+/// ArcaneButton(
+///   label: 'Delete',
+///   style: ButtonStyle.destructive,
+/// )
+/// ```
 class ArcaneButton extends StatelessComponent {
   /// Button label text
   final String? label;
@@ -49,8 +57,12 @@ class ArcaneButton extends StatelessComponent {
   /// Click handler
   final void Function()? onPressed;
 
-  /// Button variant
-  final ButtonVariant variant;
+  /// Style preset (preferred over variant)
+  final ButtonStyle? style;
+
+  /// Button variant (legacy - use style instead)
+  @Deprecated('Use style parameter with ButtonStyle presets instead')
+  final ButtonVariant? variant;
 
   /// Button size
   final ButtonSize size;
@@ -70,7 +82,8 @@ class ArcaneButton extends StatelessComponent {
     this.icon,
     this.trailing,
     this.onPressed,
-    this.variant = ButtonVariant.primary,
+    this.style,
+    @Deprecated('Use style parameter instead') this.variant,
     this.size = ButtonSize.medium,
     this.disabled = false,
     this.loading = false,
@@ -90,7 +103,8 @@ class ArcaneButton extends StatelessComponent {
     this.loading = false,
     this.fullWidth = false,
     super.key,
-  }) : variant = ButtonVariant.primary;
+  })  : style = ButtonStyle.primary,
+        variant = null;
 
   /// Secondary button constructor
   const ArcaneButton.secondary({
@@ -104,7 +118,8 @@ class ArcaneButton extends StatelessComponent {
     this.loading = false,
     this.fullWidth = false,
     super.key,
-  }) : variant = ButtonVariant.secondary;
+  })  : style = ButtonStyle.secondary,
+        variant = null;
 
   /// Outline button constructor
   const ArcaneButton.outline({
@@ -118,7 +133,8 @@ class ArcaneButton extends StatelessComponent {
     this.loading = false,
     this.fullWidth = false,
     super.key,
-  }) : variant = ButtonVariant.outline;
+  })  : style = ButtonStyle.outline,
+        variant = null;
 
   /// Ghost button constructor
   const ArcaneButton.ghost({
@@ -132,7 +148,8 @@ class ArcaneButton extends StatelessComponent {
     this.loading = false,
     this.fullWidth = false,
     super.key,
-  }) : variant = ButtonVariant.ghost;
+  })  : style = ButtonStyle.ghost,
+        variant = null;
 
   /// Destructive button constructor
   const ArcaneButton.destructive({
@@ -146,7 +163,38 @@ class ArcaneButton extends StatelessComponent {
     this.loading = false,
     this.fullWidth = false,
     super.key,
-  }) : variant = ButtonVariant.destructive;
+  })  : style = ButtonStyle.destructive,
+        variant = null;
+
+  /// Warning button constructor
+  const ArcaneButton.warning({
+    this.label,
+    this.child,
+    this.icon,
+    this.trailing,
+    this.onPressed,
+    this.size = ButtonSize.medium,
+    this.disabled = false,
+    this.loading = false,
+    this.fullWidth = false,
+    super.key,
+  })  : style = ButtonStyle.warning,
+        variant = null;
+
+  /// Success button constructor
+  const ArcaneButton.success({
+    this.label,
+    this.child,
+    this.icon,
+    this.trailing,
+    this.onPressed,
+    this.size = ButtonSize.medium,
+    this.disabled = false,
+    this.loading = false,
+    this.fullWidth = false,
+    super.key,
+  })  : style = ButtonStyle.success,
+        variant = null;
 
   /// Link button constructor
   const ArcaneButton.link({
@@ -160,98 +208,86 @@ class ArcaneButton extends StatelessComponent {
     this.loading = false,
     this.fullWidth = false,
     super.key,
-  }) : variant = ButtonVariant.link;
+  })  : style = ButtonStyle.link,
+        variant = null;
+
+  /// Convert legacy variant to style preset
+  ButtonStyle _variantToStyle(ButtonVariant v) {
+    return switch (v) {
+      ButtonVariant.primary => ButtonStyle.primary,
+      ButtonVariant.secondary => ButtonStyle.secondary,
+      ButtonVariant.outline => ButtonStyle.outline,
+      ButtonVariant.ghost => ButtonStyle.ghost,
+      ButtonVariant.destructive => ButtonStyle.destructive,
+      ButtonVariant.success => ButtonStyle.success,
+      ButtonVariant.warning => ButtonStyle.warning,
+      ButtonVariant.link => ButtonStyle.link,
+    };
+  }
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
     final isDisabled = disabled || loading;
 
-    // Get size-specific styles (Supabase-style sizing)
-    final (paddingH, paddingV, fontSize, minHeight, gap) = switch (size) {
-      ButtonSize.small => (12.0, 6.0, 0.8125, 32.0, 6.0),
-      ButtonSize.medium => (16.0, 10.0, 0.875, 40.0, 8.0),
-      ButtonSize.large => (24.0, 12.0, 1.0, 48.0, 10.0),
+    // Resolve effective style (prefer style, fall back to variant, default to primary)
+    final effectiveStyle = style ??
+        (variant != null ? _variantToStyle(variant!) : ButtonStyle.primary);
+
+    // Get size-specific values using tokens
+    final sizeStyle = switch (size) {
+      ButtonSize.small => ButtonSizeStyle.sm,
+      ButtonSize.medium => ButtonSizeStyle.md,
+      ButtonSize.large => ButtonSizeStyle.lg,
     };
 
-    // Get variant-specific styles (Supabase-inspired)
-    final (bgColor, textColor, borderColor) = switch (variant) {
-      ButtonVariant.primary => (
-          'var(--arcane-accent)',
-          'var(--arcane-accent-foreground)',
-          'transparent',
-        ),
-      ButtonVariant.secondary => (
-          'var(--arcane-surface-variant)',
-          'var(--arcane-on-surface)',
-          'var(--arcane-border)',
-        ),
-      ButtonVariant.outline => (
-          'transparent',
-          'var(--arcane-on-surface)',
-          'var(--arcane-border)',
-        ),
-      ButtonVariant.ghost => (
-          'transparent',
-          'var(--arcane-on-surface)',
-          'transparent',
-        ),
-      ButtonVariant.destructive => (
-          'var(--arcane-destructive)',
-          'var(--arcane-destructive-foreground)',
-          'transparent',
-        ),
-      ButtonVariant.success => (
-          'var(--arcane-success)',
-          'var(--arcane-success-foreground)',
-          'transparent',
-        ),
-      ButtonVariant.warning => (
-          'var(--arcane-warning)',
-          'var(--arcane-warning-foreground)',
-          'transparent',
-        ),
-      ButtonVariant.link => (
-          'transparent',
-          'var(--arcane-accent)',
-          'transparent',
-        ),
+    // Check if this is a link style
+    final isLink = effectiveStyle == ButtonStyle.link;
+
+    // Build the complete style map using tokens
+    final Map<String, String> buttonStyles = {
+      // Layout
+      'display': 'inline-flex',
+      'align-items': 'center',
+      'justify-content': 'center',
+
+      // Size
+      ...sizeStyle.styles,
+
+      // Typography
+      'font-weight': ArcaneTypography.weightMedium,
+      'letter-spacing': ArcaneTypography.letterSpacingTight,
+      'line-height': ArcaneTypography.lineHeightNormal,
+
+      // Appearance from style preset
+      ...effectiveStyle.base,
+
+      // Border radius
+      'border-radius': ArcaneRadius.md,
+
+      // Interaction
+      'cursor': isDisabled ? 'not-allowed' : 'pointer',
+      'opacity': isDisabled ? '0.5' : '1',
+      'transition': ArcaneEffects.transitionFast,
+      'white-space': 'nowrap',
+      'user-select': 'none',
+      '-webkit-user-select': 'none',
+
+      // Conditional styles
+      if (fullWidth) 'width': '100%',
+
+      // Link-specific overrides
+      if (isLink) 'padding': '0',
+      if (isLink) 'min-height': 'auto',
+      if (isLink) 'border-radius': '0',
     };
 
     return button(
-      classes: 'arcane-button arcane-button-${variant.name} ${isDisabled ? 'disabled' : ''}',
+      classes: 'arcane-button ${isDisabled ? 'disabled' : ''}',
       attributes: {
         if (isDisabled) 'disabled': 'true',
         'type': 'button',
       },
-      styles: Styles(raw: {
-        'display': 'inline-flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'gap': '${gap}px',
-        'padding': '${paddingV}px ${paddingH}px',
-        'min-height': '${minHeight}px',
-        'font-size': '${fontSize}rem',
-        'font-weight': '500',
-        'letter-spacing': '-0.01em',
-        'line-height': '1.5',
-        'border-radius': 'var(--arcane-radius)',
-        'background-color': bgColor,
-        'color': textColor,
-        'border': borderColor == 'transparent'
-            ? 'none'
-            : '1px solid $borderColor',
-        'cursor': isDisabled ? 'not-allowed' : 'pointer',
-        'opacity': isDisabled ? '0.5' : '1',
-        'transition': 'var(--arcane-transition-fast)',
-        'white-space': 'nowrap',
-        'user-select': 'none',
-        '-webkit-user-select': 'none',
-        if (fullWidth) 'width': '100%',
-        if (variant == ButtonVariant.link) 'text-decoration': 'underline',
-        if (variant == ButtonVariant.link) 'padding': '0',
-        if (variant == ButtonVariant.link) 'min-height': 'auto',
-      }),
+      styles: Styles(raw: buttonStyles),
       events: {
         'click': (event) {
           if (!isDisabled && onPressed != null) {
@@ -279,15 +315,11 @@ class ArcaneButton extends StatelessComponent {
         'width': '16px',
         'height': '16px',
         'border': '2px solid currentColor',
-        'border-right-color': 'transparent',
-        'border-radius': '50%',
+        'border-right-color': ArcaneColors.transparent,
+        'border-radius': ArcaneRadius.full,
         'animation': 'arcane-spin 0.75s linear infinite',
       }),
       [],
     );
   }
-
-  // TODO: Fix @css section for Jaspr 0.22.0
-  // @css
-  // static final List<StyleRule> styles = [...];
 }

@@ -1,8 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A logo item for the carousel
 class LogoItem {
@@ -59,14 +58,14 @@ class LogoCarousel extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final animationName = reverse ? 'arcane-scroll-reverse' : 'arcane-scroll';
+    final String animationName = reverse ? 'arcane-scroll-reverse' : 'arcane-scroll';
 
     return div(
       classes: 'arcane-logo-carousel',
       styles: Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '24px',
+        'gap': ArcaneSpacing.lg,
         'width': '100%',
         'overflow': 'hidden',
       }),
@@ -77,9 +76,9 @@ class LogoCarousel extends StatelessComponent {
             classes: 'arcane-logo-carousel-title',
             styles: Styles(raw: {
               'text-align': 'center',
-              'font-size': '0.875rem',
-              'font-weight': '500',
-              'color': 'var(--arcane-muted)',
+              'font-size': ArcaneTypography.fontSm,
+              'font-weight': ArcaneTypography.weightMedium,
+              'color': ArcaneColors.muted,
               'text-transform': 'uppercase',
               'letter-spacing': '0.05em',
             }),
@@ -121,7 +120,7 @@ class LogoCarousel extends StatelessComponent {
   }
 
   Component _buildLogo(LogoItem logo) {
-    final logoContent = logo.customLogo ??
+    final Component logoContent = logo.customLogo ??
         (logo.imageUrl != null
             ? img(
                 src: logo.imageUrl!,
@@ -132,14 +131,14 @@ class LogoCarousel extends StatelessComponent {
                   'object-fit': 'contain',
                   if (grayscale) 'filter': 'grayscale(100%)',
                   'opacity': grayscale ? '0.6' : '1',
-                  'transition': 'filter var(--arcane-transition-fast), opacity var(--arcane-transition-fast)',
+                  'transition': ArcaneEffects.transitionFast,
                 }),
               )
             : span(
                 styles: Styles(raw: {
-                  'font-size': '1.25rem',
-                  'font-weight': '600',
-                  'color': 'var(--arcane-muted)',
+                  'font-size': ArcaneTypography.fontLg,
+                  'font-weight': ArcaneTypography.weightSemibold,
+                  'color': ArcaneColors.muted,
                   if (grayscale) 'filter': 'grayscale(100%)',
                   'opacity': grayscale ? '0.6' : '1',
                 }),
@@ -198,7 +197,7 @@ class LogoCarousel extends StatelessComponent {
     css('.arcane-logo-carousel-item:hover span').styles(raw: {
       'filter': 'grayscale(0%)',
       'opacity': '1',
-      'color': 'var(--arcane-on-surface)',
+      'color': ArcaneColors.onSurface,
     }),
   ];
 }
@@ -240,16 +239,16 @@ class LogoGrid extends StatelessComponent {
       styles: Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '24px',
+        'gap': ArcaneSpacing.lg,
       }),
       [
         if (title != null)
           div(
             styles: Styles(raw: {
               'text-align': 'center',
-              'font-size': '0.875rem',
-              'font-weight': '500',
-              'color': 'var(--arcane-muted)',
+              'font-size': ArcaneTypography.fontSm,
+              'font-weight': ArcaneTypography.weightMedium,
+              'color': ArcaneColors.muted,
               'text-transform': 'uppercase',
               'letter-spacing': '0.05em',
             }),
@@ -286,15 +285,15 @@ class LogoGrid extends StatelessComponent {
                         'object-fit': 'contain',
                         if (grayscale) 'filter': 'grayscale(100%)',
                         'opacity': grayscale ? '0.6' : '1',
-                        'transition': 'filter var(--arcane-transition-fast), opacity var(--arcane-transition-fast)',
+                        'transition': ArcaneEffects.transitionFast,
                       }),
                     )
                   else
                     span(
                       styles: Styles(raw: {
-                        'font-size': '1rem',
-                        'font-weight': '600',
-                        'color': 'var(--arcane-muted)',
+                        'font-size': ArcaneTypography.fontMd,
+                        'font-weight': ArcaneTypography.weightSemibold,
+                        'color': ArcaneColors.muted,
                       }),
                       [text(logo.name)],
                     ),

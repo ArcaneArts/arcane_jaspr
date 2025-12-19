@@ -1,8 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
+import '../../util/tokens/style_presets.dart';
 
 /// A dropdown selector component.
 class Selector<T> extends StatefulComponent {
@@ -33,6 +33,9 @@ class Selector<T> extends StatefulComponent {
   /// Error message
   final String? error;
 
+  /// Style preset
+  final InputStyle? style;
+
   const Selector({
     required this.options,
     this.value,
@@ -43,6 +46,7 @@ class Selector<T> extends StatefulComponent {
     this.searchable = false,
     this.label,
     this.error,
+    this.style,
     super.key,
   });
 
@@ -74,7 +78,6 @@ class _SelectorState<T> extends State<Selector<T>> {
     setState(() {
       _isOpen = false;
     });
-    // Note: Can't set to null with generic, caller needs to handle
   }
 
   List<SelectorOption<T>> get _filteredOptions {
@@ -87,7 +90,7 @@ class _SelectorState<T> extends State<Selector<T>> {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
+    final effectiveStyle = component.style ?? InputStyle.standard;
     final hasError = component.error != null;
 
     final selectedOption = component.value != null
@@ -102,7 +105,7 @@ class _SelectorState<T> extends State<Selector<T>> {
       styles: Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '4px',
+        'gap': ArcaneSpacing.xs,
         'position': 'relative',
       }),
       [
@@ -111,16 +114,17 @@ class _SelectorState<T> extends State<Selector<T>> {
           label(
             classes: 'arcane-selector-label',
             styles: Styles(raw: {
-              'font-size': '0.875rem',
-              'font-weight': '500',
-              'color': 'var(--arcane-on-surface)',
+              'font-size': ArcaneTypography.fontMd,
+              'font-weight': ArcaneTypography.weightMedium,
+              'color': ArcaneColors.onSurface,
             }),
             [text(component.label!)],
           ),
 
         // Trigger button
         button(
-          classes: 'arcane-selector ${hasError ? 'error' : ''} ${component.disabled ? 'disabled' : ''} ${_isOpen ? 'open' : ''}',
+          classes:
+              'arcane-selector ${hasError ? 'error' : ''} ${component.disabled ? 'disabled' : ''} ${_isOpen ? 'open' : ''}',
           attributes: {
             'type': 'button',
             if (component.disabled) 'disabled': 'true',
@@ -129,17 +133,13 @@ class _SelectorState<T> extends State<Selector<T>> {
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'space-between',
-            'gap': '8px',
-            'padding': '8px 12px',
-            'min-height': '40px',
-            'background-color': 'var(--arcane-surface)',
-            'border': hasError
-                ? '1px solid var(--arcane-error)'
-                : '1px solid var(--arcane-outline-variant)',
-            'border-radius': theme.borderRadiusCss,
+            'gap': ArcaneSpacing.sm,
+            'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
+            'min-height': ArcaneLayout.inputHeightMd,
+            ...effectiveStyle.base,
+            if (hasError) ...effectiveStyle.error,
             'cursor': component.disabled ? 'not-allowed' : 'pointer',
-            'opacity': component.disabled ? '0.5' : '1',
-            'transition': 'all 150ms ease',
+            if (component.disabled) ...effectiveStyle.disabled,
             'text-align': 'left',
             'width': '100%',
           }),
@@ -151,10 +151,9 @@ class _SelectorState<T> extends State<Selector<T>> {
             span(
               styles: Styles(raw: {
                 'flex': '1',
-                'color': selectedOption != null
-                    ? 'var(--arcane-on-surface)'
-                    : 'var(--arcane-on-surface-variant)',
-                'font-size': '0.875rem',
+                'color':
+                    selectedOption != null ? ArcaneColors.onSurface : ArcaneColors.muted,
+                'font-size': ArcaneTypography.fontMd,
                 'overflow': 'hidden',
                 'text-overflow': 'ellipsis',
                 'white-space': 'nowrap',
@@ -174,7 +173,7 @@ class _SelectorState<T> extends State<Selector<T>> {
                 styles: Styles(raw: {
                   'display': 'flex',
                   'align-items': 'center',
-                  'color': 'var(--arcane-on-surface-variant)',
+                  'color': ArcaneColors.muted,
                 }),
                 events: {
                   'click': (event) {
@@ -188,8 +187,8 @@ class _SelectorState<T> extends State<Selector<T>> {
             // Arrow indicator
             span(
               styles: Styles(raw: {
-                'color': 'var(--arcane-on-surface-variant)',
-                'transition': 'transform 150ms ease',
+                'color': ArcaneColors.muted,
+                'transition': ArcaneEffects.transitionFast,
                 'transform': _isOpen ? 'rotate(180deg)' : 'rotate(0)',
               }),
               [text('▼')],
@@ -206,13 +205,12 @@ class _SelectorState<T> extends State<Selector<T>> {
               'top': '100%',
               'left': '0',
               'right': '0',
-              'z-index': '100',
-              'margin-top': '4px',
-              'background-color': 'var(--arcane-surface)',
-              'border': '1px solid var(--arcane-outline-variant)',
-              'border-radius': theme.borderRadiusCss,
-              'box-shadow':
-                  '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+              'z-index': '${ArcaneZIndex.dropdown}',
+              'margin-top': ArcaneSpacing.xs,
+              'background-color': ArcaneColors.surface,
+              'border': '1px solid ${ArcaneColors.border}',
+              'border-radius': ArcaneRadius.md,
+              'box-shadow': ArcaneEffects.shadowLg,
               'max-height': '300px',
               'overflow-y': 'auto',
             }),
@@ -222,8 +220,8 @@ class _SelectorState<T> extends State<Selector<T>> {
                 div(
                   classes: 'arcane-selector-search',
                   styles: Styles(raw: {
-                    'padding': '8px',
-                    'border-bottom': '1px solid var(--arcane-outline-variant)',
+                    'padding': ArcaneSpacing.sm,
+                    'border-bottom': '1px solid ${ArcaneColors.border}',
                   }),
                   [
                     input(
@@ -234,12 +232,12 @@ class _SelectorState<T> extends State<Selector<T>> {
                       },
                       styles: Styles(raw: {
                         'width': '100%',
-                        'padding': '6px 8px',
-                        'border': '1px solid var(--arcane-outline-variant)',
-                        'border-radius': '${theme.borderRadiusPx * 0.5}px',
-                        'background': 'transparent',
-                        'color': 'var(--arcane-on-surface)',
-                        'font-size': '0.875rem',
+                        'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
+                        'border': '1px solid ${ArcaneColors.border}',
+                        'border-radius': ArcaneRadius.sm,
+                        'background': ArcaneColors.transparent,
+                        'color': ArcaneColors.onSurface,
+                        'font-size': ArcaneTypography.fontMd,
                         'outline': 'none',
                       }),
                       events: {
@@ -261,22 +259,22 @@ class _SelectorState<T> extends State<Selector<T>> {
               div(
                 classes: 'arcane-selector-options',
                 styles: Styles(raw: {
-                  'padding': '4px',
+                  'padding': ArcaneSpacing.xs,
                 }),
                 [
                   if (_filteredOptions.isEmpty)
                     div(
                       styles: Styles(raw: {
-                        'padding': '8px 12px',
-                        'color': 'var(--arcane-on-surface-variant)',
-                        'font-size': '0.875rem',
+                        'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
+                        'color': ArcaneColors.muted,
+                        'font-size': ArcaneTypography.fontMd,
                         'text-align': 'center',
                       }),
                       [text('No options found')],
                     )
                   else
                     for (final option in _filteredOptions)
-                      _buildOption(context, theme, option),
+                      _buildOption(context, option),
                 ],
               ),
             ],
@@ -287,8 +285,8 @@ class _SelectorState<T> extends State<Selector<T>> {
           span(
             classes: 'arcane-selector-error',
             styles: Styles(raw: {
-              'font-size': '0.75rem',
-              'color': 'var(--arcane-error)',
+              'font-size': ArcaneTypography.fontSm,
+              'color': ArcaneColors.error,
             }),
             [text(component.error!)],
           ),
@@ -296,13 +294,13 @@ class _SelectorState<T> extends State<Selector<T>> {
     );
   }
 
-  Component _buildOption(
-      BuildContext context, ArcaneTheme theme, SelectorOption<T> option) {
+  Component _buildOption(BuildContext context, SelectorOption<T> option) {
     final isSelected = option.value == component.value;
     final isDisabled = option.disabled;
 
     return button(
-      classes: 'arcane-selector-option ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
+      classes:
+          'arcane-selector-option ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
       attributes: {
         'type': 'button',
         if (isDisabled) 'disabled': 'true',
@@ -310,21 +308,19 @@ class _SelectorState<T> extends State<Selector<T>> {
       styles: Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': '8px',
+        'gap': ArcaneSpacing.sm,
         'width': '100%',
-        'padding': '8px 12px',
-        'background-color': isSelected
-            ? 'var(--arcane-primary-container)'
-            : 'transparent',
-        'color': isSelected
-            ? 'var(--arcane-on-primary-container)'
-            : 'var(--arcane-on-surface)',
-        'border-radius': '${theme.borderRadiusPx * 0.5}px',
+        'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
+        'background-color':
+            isSelected ? ArcaneColors.accentContainer : ArcaneColors.transparent,
+        'color': isSelected ? ArcaneColors.accent : ArcaneColors.onSurface,
+        'border': 'none',
+        'border-radius': ArcaneRadius.sm,
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         'opacity': isDisabled ? '0.5' : '1',
-        'transition': 'background-color 100ms ease',
+        'transition': ArcaneEffects.transitionFast,
         'text-align': 'left',
-        'font-size': '0.875rem',
+        'font-size': ArcaneTypography.fontMd,
       }),
       events: {
         'click': (event) {
@@ -342,25 +338,21 @@ class _SelectorState<T> extends State<Selector<T>> {
         if (option.subtitle != null)
           span(
             styles: Styles(raw: {
-              'font-size': '0.75rem',
-              'color': 'var(--arcane-on-surface-variant)',
+              'font-size': ArcaneTypography.fontSm,
+              'color': ArcaneColors.muted,
             }),
             [text(option.subtitle!)],
           ),
         if (isSelected)
           span(
             styles: Styles(raw: {
-              'color': 'var(--arcane-primary)',
+              'color': ArcaneColors.accent,
             }),
             [text('✓')],
           ),
       ],
     );
   }
-
-  // TODO: Fix @css section for Jaspr 0.22.0
-  // @css
-  // static final List<StyleRule> styles = [...];
 }
 
 /// An option for Selector

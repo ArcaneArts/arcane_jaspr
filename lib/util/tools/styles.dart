@@ -2,6 +2,9 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import 'package:jaspr/dom.dart' as dom;
 import '../appearance/colors.dart';
 import '../arcane.dart';
+import '../tokens/tokens.dart';
+import '../tokens/style_presets.dart';
+import '../tokens/common_styles.dart';
 
 /// Helper class for building inline CSS styles
 class ArcaneStyles {
@@ -277,11 +280,231 @@ class ArcaneStyles {
     return this;
   }
 
+  // ===========================================================================
+  // TOKEN-AWARE METHODS
+  // ===========================================================================
+
+  /// Merge a map of styles into this builder
+  ArcaneStyles mergeMap(Map<String, String> styles) {
+    _styles.addAll(styles);
+    return this;
+  }
+
+  /// Apply a ButtonStyle preset
+  ArcaneStyles applyButtonStyle(ButtonStyle style) {
+    _styles.addAll(style.base);
+    return this;
+  }
+
+  /// Apply a ButtonSizeStyle preset
+  ArcaneStyles applyButtonSize(ButtonSizeStyle size) {
+    _styles.addAll(size.styles);
+    return this;
+  }
+
+  /// Apply a BadgeStyle preset
+  ArcaneStyles applyBadgeStyle(BadgeStyle style) {
+    _styles.addAll(style.styles);
+    return this;
+  }
+
+  /// Apply a CardStyle preset
+  ArcaneStyles applyCardStyle(CardStyle style) {
+    _styles.addAll(style.styles);
+    return this;
+  }
+
+  /// Apply an InputStyle preset (base styles)
+  ArcaneStyles applyInputStyle(InputStyle style) {
+    _styles.addAll(style.base);
+    return this;
+  }
+
+  /// Apply an InputSizeStyle preset
+  ArcaneStyles applyInputSize(InputSizeStyle size) {
+    _styles.addAll(size.styles);
+    return this;
+  }
+
+  /// Apply an AlertStyle preset
+  ArcaneStyles applyAlertStyle(AlertStyle style) {
+    _styles.addAll(style.styles);
+    return this;
+  }
+
+  /// Apply a ChipStyle preset
+  ArcaneStyles applyChipStyle(ChipStyle style) {
+    _styles.addAll(style.styles);
+    return this;
+  }
+
+  // ===========================================================================
+  // COMMON STYLE SHORTCUTS
+  // ===========================================================================
+
+  /// Apply card styling with optional elevation
+  ArcaneStyles cardStyle({int elevation = 0}) {
+    _styles.addAll(ArcaneCommonStyles.cardWithShadow(elevation: elevation));
+    return this;
+  }
+
+  /// Apply flex row layout
+  ArcaneStyles flexRowLayout({double? gapPx}) {
+    _styles.addAll(ArcaneCommonStyles.flexRow);
+    if (gapPx != null) _styles['gap'] = '${gapPx}px';
+    return this;
+  }
+
+  /// Apply flex row with spacing
+  ArcaneStyles flexRowSpacedLayout() {
+    _styles.addAll(ArcaneCommonStyles.flexRowSpaced);
+    return this;
+  }
+
+  /// Apply flex column layout
+  ArcaneStyles flexColLayout({double? gapPx}) {
+    _styles.addAll(ArcaneCommonStyles.flexCol);
+    if (gapPx != null) _styles['gap'] = '${gapPx}px';
+    return this;
+  }
+
+  /// Apply flex center layout
+  ArcaneStyles flexCenterLayout() {
+    _styles.addAll(ArcaneCommonStyles.flexCenter);
+    return this;
+  }
+
+  /// Apply inline flex layout
+  ArcaneStyles inlineFlexLayout({double? gapPx}) {
+    _styles.addAll(ArcaneCommonStyles.inlineFlex);
+    if (gapPx != null) _styles['gap'] = '${gapPx}px';
+    return this;
+  }
+
+  /// Apply grid layout with N columns
+  ArcaneStyles gridLayout(int cols, {String gap = ArcaneSpacing.md}) {
+    _styles.addAll(ArcaneCommonStyles.grid(cols, gap: gap));
+    return this;
+  }
+
+  /// Apply auto-fit grid layout
+  ArcaneStyles gridAutoLayout({String minWidth = '300px', String gap = ArcaneSpacing.md}) {
+    _styles.addAll(ArcaneCommonStyles.gridAuto(minWidth: minWidth, gap: gap));
+    return this;
+  }
+
+  /// Apply heading text style
+  ArcaneStyles headingStyle() {
+    _styles.addAll(ArcaneCommonStyles.heading);
+    return this;
+  }
+
+  /// Apply body text style
+  ArcaneStyles bodyStyle() {
+    _styles.addAll(ArcaneCommonStyles.bodyText);
+    return this;
+  }
+
+  /// Apply muted text style
+  ArcaneStyles mutedStyle() {
+    _styles.addAll(ArcaneCommonStyles.mutedText);
+    return this;
+  }
+
+  /// Apply label text style
+  ArcaneStyles labelStyle() {
+    _styles.addAll(ArcaneCommonStyles.labelText);
+    return this;
+  }
+
+  /// Apply container layout
+  ArcaneStyles containerLayout({String maxWidth = ArcaneLayout.maxWidthContainer}) {
+    _styles.addAll(ArcaneCommonStyles.container(maxWidth: maxWidth));
+    return this;
+  }
+
+  /// Apply section padding
+  ArcaneStyles sectionLayout({String? background}) {
+    _styles.addAll(ArcaneCommonStyles.section(background: background));
+    return this;
+  }
+
+  /// Apply text truncation
+  ArcaneStyles truncateText() {
+    _styles.addAll(ArcaneCommonStyles.truncate);
+    return this;
+  }
+
+  /// Apply clickable styles
+  ArcaneStyles clickableStyle() {
+    _styles.addAll(ArcaneCommonStyles.clickable);
+    return this;
+  }
+
+  /// Apply disabled styles
+  ArcaneStyles disabledStyle() {
+    _styles.addAll(ArcaneCommonStyles.disabled);
+    return this;
+  }
+
+  // ===========================================================================
+  // TOKEN-BASED SETTERS
+  // ===========================================================================
+
+  /// Set gap using token
+  ArcaneStyles gapToken(String token) => set('gap', token);
+
+  /// Set padding using token
+  ArcaneStyles paddingToken(String token) => set('padding', token);
+
+  /// Set margin using token
+  ArcaneStyles marginToken(String token) => set('margin', token);
+
+  /// Set background color using token
+  ArcaneStyles bgToken(String token) => set('background-color', token);
+
+  /// Set background (including gradients) using token
+  ArcaneStyles backgroundToken(String token) => set('background', token);
+
+  /// Set text color using token
+  ArcaneStyles textColorToken(String token) => set('color', token);
+
+  /// Set border color using token
+  ArcaneStyles borderColorToken(String token) => set('border-color', token);
+
+  /// Set font size using token
+  ArcaneStyles fontSizeToken(String token) => set('font-size', token);
+
+  /// Set font weight using token
+  ArcaneStyles fontWeightToken(String token) => set('font-weight', token);
+
+  /// Set line height using token
+  ArcaneStyles lineHeightToken(String token) => set('line-height', token);
+
+  /// Set border radius using token
+  ArcaneStyles radiusToken(String token) => set('border-radius', token);
+
+  /// Set box shadow using token
+  ArcaneStyles shadowToken(String token) => set('box-shadow', token);
+
+  /// Set transition using token
+  ArcaneStyles transitionToken(String token) => set('transition', token);
+
+  // ===========================================================================
+  // OUTPUT METHODS
+  // ===========================================================================
+
   /// Convert to CSS string
   String get css => _styles.entries.map((e) => '${e.key}: ${e.value}').join('; ');
 
   /// Convert to style attribute map
   Map<String, String> get attributes => {'style': css};
+
+  /// Get the raw style map
+  Map<String, String> get raw => Map.unmodifiable(_styles);
+
+  /// Convert to Jaspr Styles object
+  dom.Styles toStyles() => dom.Styles(raw: _styles);
 
   @override
   String toString() => css;

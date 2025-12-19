@@ -1,9 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/arcane.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A sidebar navigation component.
 class Sidebar extends StatefulComponent {
@@ -53,7 +51,7 @@ class Sidebar extends StatefulComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-sidebar-toggle:hover').styles(raw: {
-      'background-color': 'var(--arcane-surface-variant)',
+      'background-color': ArcaneColors.surfaceVariant,
     }),
   ];
 }
@@ -84,8 +82,7 @@ class _SidebarState extends State<Sidebar> {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-    final currentWidth = _isCollapsed ? component.collapsedWidth : component.width;
+    final double currentWidth = _isCollapsed ? component.collapsedWidth : component.width;
 
     return aside(
       classes: 'arcane-sidebar ${_isCollapsed ? 'collapsed' : ''} ${component.rightSide ? 'right' : 'left'}',
@@ -94,9 +91,8 @@ class _SidebarState extends State<Sidebar> {
         'flex-direction': 'column',
         'width': '${currentWidth}px',
         'height': '100%',
-        'background-color': 'var(--arcane-surface)',
-        'border-${component.rightSide ? 'left' : 'right'}':
-            '1px solid var(--arcane-outline-variant)',
+        'background-color': ArcaneColors.surface,
+        'border-${component.rightSide ? 'left' : 'right'}': '1px solid ${ArcaneColors.border}',
         'transition': 'width 200ms ease',
         'flex-shrink': '0',
         'overflow': 'hidden',
@@ -107,8 +103,8 @@ class _SidebarState extends State<Sidebar> {
           div(
             classes: 'arcane-sidebar-header',
             styles: Styles(raw: {
-              'padding': _isCollapsed ? '16px 8px' : '16px',
-              'border-bottom': '1px solid var(--arcane-outline-variant)',
+              'padding': _isCollapsed ? '${ArcaneSpacing.md} ${ArcaneSpacing.sm}' : ArcaneSpacing.md,
+              'border-bottom': '1px solid ${ArcaneColors.border}',
               'flex-shrink': '0',
             }),
             [component.header!],
@@ -121,7 +117,7 @@ class _SidebarState extends State<Sidebar> {
             'flex': '1',
             'overflow-y': 'auto',
             'overflow-x': 'hidden',
-            'padding': _isCollapsed ? '8px' : '8px 12px',
+            'padding': _isCollapsed ? ArcaneSpacing.sm : '${ArcaneSpacing.sm} ${ArcaneSpacing.sm}',
           }),
           component.children,
         ),
@@ -130,8 +126,8 @@ class _SidebarState extends State<Sidebar> {
         div(
           classes: 'arcane-sidebar-footer',
           styles: Styles(raw: {
-            'padding': _isCollapsed ? '8px' : '8px 12px',
-            'border-top': '1px solid var(--arcane-outline-variant)',
+            'padding': _isCollapsed ? ArcaneSpacing.sm : '${ArcaneSpacing.sm} ${ArcaneSpacing.sm}',
+            'border-top': '1px solid ${ArcaneColors.border}',
             'flex-shrink': '0',
           }),
           [
@@ -150,12 +146,13 @@ class _SidebarState extends State<Sidebar> {
                   'width': _isCollapsed ? '40px' : '100%',
                   'height': '40px',
                   'margin': _isCollapsed ? '0 auto' : '0',
-                  'margin-top': component.footer != null && !_isCollapsed ? '8px' : '0',
-                  'border-radius': '${theme.borderRadiusPx}px',
-                  'background': 'transparent',
-                  'color': 'var(--arcane-on-surface-variant)',
+                  'margin-top': component.footer != null && !_isCollapsed ? ArcaneSpacing.sm : '0',
+                  'border-radius': ArcaneRadius.md,
+                  'background': ArcaneColors.transparent,
+                  'border': 'none',
+                  'color': ArcaneColors.muted,
                   'cursor': 'pointer',
-                  'transition': 'all 150ms ease',
+                  'transition': ArcaneEffects.transitionFast,
                 }),
                 events: {
                   'click': (event) => _toggleCollapse(),
@@ -173,8 +170,8 @@ class _SidebarState extends State<Sidebar> {
                   if (!_isCollapsed)
                     span(
                       styles: Styles(raw: {
-                        'margin-left': '8px',
-                        'font-size': '0.875rem',
+                        'margin-left': ArcaneSpacing.sm,
+                        'font-size': ArcaneTypography.fontSm,
                       }),
                       [text('Collapse')],
                     ),
@@ -205,19 +202,19 @@ class SidebarGroup extends StatelessComponent {
     return div(
       classes: 'arcane-sidebar-group',
       styles: Styles(raw: {
-        'margin-bottom': '16px',
+        'margin-bottom': ArcaneSpacing.md,
       }),
       [
         if (label != null && !collapsed)
           div(
             classes: 'arcane-sidebar-group-label',
             styles: Styles(raw: {
-              'font-size': '0.75rem',
-              'font-weight': '600',
-              'color': 'var(--arcane-on-surface-variant)',
+              'font-size': ArcaneTypography.fontXs,
+              'font-weight': ArcaneTypography.weightSemibold,
+              'color': ArcaneColors.muted,
               'text-transform': 'uppercase',
               'letter-spacing': '0.05em',
-              'padding': '8px 12px',
+              'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.sm}',
             }),
             [text(label!)],
           ),
@@ -226,7 +223,7 @@ class SidebarGroup extends StatelessComponent {
           styles: Styles(raw: {
             'display': 'flex',
             'flex-direction': 'column',
-            'gap': '4px',
+            'gap': ArcaneSpacing.xs,
           }),
           children,
         ),
@@ -258,8 +255,6 @@ class SidebarItem extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-
     return button(
       classes: 'arcane-sidebar-item ${selected ? 'selected' : ''} ${disabled ? 'disabled' : ''}',
       attributes: {
@@ -271,22 +266,19 @@ class SidebarItem extends StatelessComponent {
         'display': 'flex',
         'align-items': 'center',
         'justify-content': collapsed ? 'center' : 'flex-start',
-        'gap': '12px',
+        'gap': ArcaneSpacing.sm,
         'width': '100%',
-        'padding': collapsed ? '10px' : '10px 12px',
-        'background-color': selected
-            ? 'var(--arcane-primary-container)'
-            : 'transparent',
-        'color': selected
-            ? 'var(--arcane-on-primary-container)'
-            : 'var(--arcane-on-surface)',
-        'border-radius': '${theme.borderRadiusPx}px',
+        'padding': collapsed ? '10px' : '10px ${ArcaneSpacing.sm}',
+        'background-color': selected ? ArcaneColors.accentContainer : ArcaneColors.transparent,
+        'color': selected ? ArcaneColors.accent : ArcaneColors.onSurface,
+        'border-radius': ArcaneRadius.md,
+        'border': 'none',
         'cursor': disabled ? 'not-allowed' : 'pointer',
         'opacity': disabled ? '0.5' : '1',
-        'transition': 'all 150ms ease',
+        'transition': ArcaneEffects.transitionFast,
         'text-align': 'left',
-        'font-size': '0.875rem',
-        'font-weight': selected ? '600' : '500',
+        'font-size': ArcaneTypography.fontSm,
+        'font-weight': selected ? ArcaneTypography.weightSemibold : ArcaneTypography.weightMedium,
       }),
       events: {
         'click': (event) {
@@ -322,12 +314,12 @@ class SidebarItem extends StatelessComponent {
           span(
             classes: 'arcane-sidebar-item-badge',
             styles: Styles(raw: {
-              'background-color': 'var(--arcane-primary)',
-              'color': 'var(--arcane-on-primary)',
-              'font-size': '0.75rem',
+              'background-color': ArcaneColors.accent,
+              'color': ArcaneColors.accentForeground,
+              'font-size': ArcaneTypography.fontXs,
               'padding': '2px 6px',
-              'border-radius': '9999px',
-              'font-weight': '500',
+              'border-radius': ArcaneRadius.full,
+              'font-weight': ArcaneTypography.weightMedium,
             }),
             [text(badge!)],
           ),
@@ -338,7 +330,7 @@ class SidebarItem extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-sidebar-item:hover:not(:disabled):not(.selected)').styles(raw: {
-      'background-color': 'var(--arcane-surface-variant)',
+      'background-color': ArcaneColors.surfaceVariant,
     }),
   ];
 }

@@ -1,10 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 import '../input/button.dart';
-import '../input/search.dart';
 import 'dialog.dart';
 
 /// A text input dialog component.
@@ -67,12 +65,12 @@ class TextInputDialog extends StatefulComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-text-input-dialog-input input:focus').styles(raw: {
-      'border-color': 'var(--arcane-primary)',
-      'box-shadow': '0 0 0 2px var(--arcane-primary-container)',
+      'border-color': ArcaneColors.accent,
+      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
     }),
     css('.arcane-text-input-dialog-input textarea:focus').styles(raw: {
-      'border-color': 'var(--arcane-primary)',
-      'box-shadow': '0 0 0 2px var(--arcane-primary-container)',
+      'border-color': ArcaneColors.accent,
+      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
     }),
   ];
 }
@@ -89,7 +87,7 @@ class _TextInputDialogState extends State<TextInputDialog> {
 
   void _handleConfirm() {
     if (component.validator != null) {
-      final error = component.validator!(_value);
+      final String? error = component.validator!(_value);
       if (error != null) {
         setState(() {
           _error = error;
@@ -102,8 +100,7 @@ class _TextInputDialogState extends State<TextInputDialog> {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-    final isMultiline = component.maxLines > 1;
+    final bool isMultiline = component.maxLines > 1;
 
     return ArcaneDialog(
       title: component.title,
@@ -114,15 +111,15 @@ class _TextInputDialogState extends State<TextInputDialog> {
         styles: Styles(raw: {
           'display': 'flex',
           'flex-direction': 'column',
-          'gap': '16px',
+          'gap': ArcaneSpacing.md,
         }),
         [
           if (component.message != null)
             div(
               styles: Styles(raw: {
-                'color': 'var(--arcane-on-surface-variant)',
-                'font-size': '0.875rem',
-                'line-height': '1.5',
+                'color': ArcaneColors.muted,
+                'font-size': ArcaneTypography.fontSm,
+                'line-height': ArcaneTypography.lineHeightRelaxed,
               }),
               [text(component.message!)],
             ),
@@ -133,7 +130,7 @@ class _TextInputDialogState extends State<TextInputDialog> {
             styles: Styles(raw: {
               'display': 'flex',
               'flex-direction': 'column',
-              'gap': '4px',
+              'gap': ArcaneSpacing.xs,
             }),
             [
               if (isMultiline)
@@ -146,24 +143,24 @@ class _TextInputDialogState extends State<TextInputDialog> {
                   },
                   styles: Styles(raw: {
                     'width': '100%',
-                    'padding': '10px 12px',
+                    'padding': '10px ${ArcaneSpacing.sm}',
                     'border': _error != null
-                        ? '1px solid var(--arcane-error)'
-                        : '1px solid var(--arcane-outline-variant)',
-                    'border-radius': theme.borderRadiusCss,
-                    'background-color': 'var(--arcane-surface)',
-                    'color': 'var(--arcane-on-surface)',
-                    'font-size': '0.875rem',
+                        ? '1px solid ${ArcaneColors.error}'
+                        : '1px solid ${ArcaneColors.border}',
+                    'border-radius': ArcaneRadius.md,
+                    'background-color': ArcaneColors.surface,
+                    'color': ArcaneColors.onSurface,
+                    'font-size': ArcaneTypography.fontSm,
                     'resize': 'vertical',
                     'font-family': 'inherit',
                     'outline': 'none',
                   }),
                   events: {
                     'input': (event) {
-                      final target = event.target;
+                      final dynamic target = event.target;
                       if (target != null) {
                         setState(() {
-                          _value = (target as dynamic).value ?? '';
+                          _value = target.value ?? '';
                           _error = null;
                         });
                       }
@@ -185,22 +182,22 @@ class _TextInputDialogState extends State<TextInputDialog> {
                   },
                   styles: Styles(raw: {
                     'width': '100%',
-                    'padding': '10px 12px',
+                    'padding': '10px ${ArcaneSpacing.sm}',
                     'border': _error != null
-                        ? '1px solid var(--arcane-error)'
-                        : '1px solid var(--arcane-outline-variant)',
-                    'border-radius': theme.borderRadiusCss,
-                    'background-color': 'var(--arcane-surface)',
-                    'color': 'var(--arcane-on-surface)',
-                    'font-size': '0.875rem',
+                        ? '1px solid ${ArcaneColors.error}'
+                        : '1px solid ${ArcaneColors.border}',
+                    'border-radius': ArcaneRadius.md,
+                    'background-color': ArcaneColors.surface,
+                    'color': ArcaneColors.onSurface,
+                    'font-size': ArcaneTypography.fontSm,
                     'outline': 'none',
                   }),
                   events: {
                     'input': (event) {
-                      final target = event.target;
+                      final dynamic target = event.target;
                       if (target != null) {
                         setState(() {
-                          _value = (target as dynamic).value ?? '';
+                          _value = target.value ?? '';
                           _error = null;
                         });
                       }
@@ -216,8 +213,8 @@ class _TextInputDialogState extends State<TextInputDialog> {
               if (_error != null)
                 span(
                   styles: Styles(raw: {
-                    'color': 'var(--arcane-error)',
-                    'font-size': '0.75rem',
+                    'color': ArcaneColors.error,
+                    'font-size': ArcaneTypography.fontXs,
                   }),
                   [text(_error!)],
                 ),

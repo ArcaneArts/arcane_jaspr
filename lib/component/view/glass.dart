@@ -1,9 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
 import '../../util/arcane.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A glassmorphism container component.
 ///
@@ -27,9 +26,6 @@ class Glass extends StatelessComponent {
   /// Whether to show a border
   final bool border;
 
-  /// Custom background color
-  final Color? color;
-
   const Glass({
     required this.child,
     this.blur = 12.0,
@@ -37,36 +33,23 @@ class Glass extends StatelessComponent {
     this.padding,
     this.radius,
     this.border = true,
-    this.color,
     super.key,
   });
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-    final effectiveRadius = radius ?? theme.borderRadiusPx;
-    final isDark = theme.brightness == Brightness.dark;
-
-    // Calculate background color with opacity
-    final bgColor = color ?? (isDark
-        ? Colors.gray900.withOpacity(opacity)
-        : Colors.white.withOpacity(opacity));
+    final effectiveRadius = radius != null ? '${radius}px' : ArcaneRadius.lg;
 
     return div(
       classes: 'arcane-glass',
       styles: Styles(raw: {
-        'background-color': bgColor.css,
+        'background-color': 'rgba(24, 24, 27, $opacity)',
         'backdrop-filter': 'blur(${blur}px)',
         '-webkit-backdrop-filter': 'blur(${blur}px)',
-        'border-radius': '${effectiveRadius}px',
+        'border-radius': effectiveRadius,
         if (padding != null) 'padding': padding!.padding,
-        if (border)
-          'border': '1px solid ${isDark
-              ? 'rgba(255, 255, 255, 0.1)'
-              : 'rgba(0, 0, 0, 0.1)'}',
-        'box-shadow': isDark
-            ? '0 4px 6px -1px rgba(0, 0, 0, 0.3)'
-            : '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+        if (border) 'border': '1px solid rgba(255, 255, 255, 0.1)',
+        'box-shadow': ArcaneEffects.shadowMd,
       }),
       [child],
     );
@@ -110,7 +93,7 @@ class GlassCard extends StatelessComponent {
         classes: 'arcane-glass-card clickable',
         styles: Styles(raw: {
           'cursor': 'pointer',
-          'transition': 'transform 150ms ease',
+          'transition': ArcaneEffects.transitionFast,
         }),
         events: {
           'click': (event) => onTap!(),
@@ -125,7 +108,7 @@ class GlassCard extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-glass-card.clickable:hover').styles(raw: {
-      'transform': 'translateY(-2px)',
+      'transform': ArcaneEffects.hoverLift,
     }),
     css('.arcane-glass-card.clickable:active').styles(raw: {
       'transform': 'translateY(0)',
@@ -137,7 +120,8 @@ class GlassCard extends StatelessComponent {
 class GradientGlass extends StatelessComponent {
   final Component child;
   final double blur;
-  final List<Color> colors;
+  final String? gradientStart;
+  final String? gradientEnd;
   final double opacity;
   final EdgeInsets? padding;
   final double? radius;
@@ -146,7 +130,8 @@ class GradientGlass extends StatelessComponent {
   const GradientGlass({
     required this.child,
     this.blur = 12.0,
-    this.colors = const [Colors.indigo, Colors.purple],
+    this.gradientStart,
+    this.gradientEnd,
     this.opacity = 0.2,
     this.padding,
     this.radius,
@@ -156,20 +141,17 @@ class GradientGlass extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-    final effectiveRadius = radius ?? theme.borderRadiusPx;
-
-    final gradientColors = colors
-        .map((c) => c.withOpacity(opacity).css)
-        .join(', ');
+    final effectiveRadius = radius != null ? '${radius}px' : ArcaneRadius.lg;
+    final start = gradientStart ?? ArcaneColors.accent;
+    final end = gradientEnd ?? ArcaneColors.accentHover;
 
     return div(
       classes: 'arcane-gradient-glass',
       styles: Styles(raw: {
-        'background': 'linear-gradient($direction, $gradientColors)',
+        'background': 'linear-gradient($direction, color-mix(in srgb, $start ${(opacity * 100).toInt()}%, transparent), color-mix(in srgb, $end ${(opacity * 100).toInt()}%, transparent))',
         'backdrop-filter': 'blur(${blur}px)',
         '-webkit-backdrop-filter': 'blur(${blur}px)',
-        'border-radius': '${effectiveRadius}px',
+        'border-radius': effectiveRadius,
         if (padding != null) 'padding': padding!.padding,
         'border': '1px solid rgba(255, 255, 255, 0.2)',
       }),

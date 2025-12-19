@@ -1,9 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
-import '../../util/appearance/theme.dart';
 import '../../util/arcane.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A card with section-style content organization.
 class CardSection extends StatelessComponent {
@@ -41,11 +40,10 @@ class CardSection extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-    final effectiveRadius = radius ?? theme.borderRadiusPx;
-    final effectivePadding = padding ?? const EdgeInsets.all(16);
+    final String effectiveRadius = radius != null ? '${radius}px' : ArcaneRadius.lg;
+    final EdgeInsets effectivePadding = padding ?? const EdgeInsets.all(16);
 
-    final headerWidget = headerComponent ??
+    final Component? headerWidget = headerComponent ??
         (header != null
             ? div(
                 classes: 'arcane-card-section-header',
@@ -53,15 +51,15 @@ class CardSection extends StatelessComponent {
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'space-between',
-                  'gap': '12px',
+                  'gap': ArcaneSpacing.md,
                   'margin-bottom': '${gap}px',
                 }),
                 [
                   span(
                     styles: Styles(raw: {
-                      'font-size': '0.875rem',
-                      'font-weight': '600',
-                      'color': 'var(--arcane-on-surface-variant)',
+                      'font-size': ArcaneTypography.fontSm,
+                      'font-weight': ArcaneTypography.weightSemibold,
+                      'color': ArcaneColors.muted,
                       'text-transform': 'uppercase',
                       'letter-spacing': '0.05em',
                     }),
@@ -71,7 +69,7 @@ class CardSection extends StatelessComponent {
                     div(
                       styles: Styles(raw: {
                         'display': 'flex',
-                        'gap': '8px',
+                        'gap': ArcaneSpacing.sm,
                       }),
                       trailing!,
                     ),
@@ -82,9 +80,9 @@ class CardSection extends StatelessComponent {
     return div(
       classes: 'arcane-card-section',
       styles: Styles(raw: {
-        'background-color': 'var(--arcane-surface)',
-        'border-radius': '${effectiveRadius}px',
-        'border': '1px solid var(--arcane-outline-variant)',
+        'background-color': ArcaneColors.surface,
+        'border-radius': effectiveRadius,
+        'border': '1px solid ${ArcaneColors.border}',
         'padding': effectivePadding.padding,
       }),
       [
@@ -120,15 +118,14 @@ class ListCard extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-    final effectiveRadius = radius ?? theme.borderRadiusPx;
+    final String effectiveRadius = radius != null ? '${radius}px' : ArcaneRadius.lg;
 
     return div(
       classes: 'arcane-list-card',
       styles: Styles(raw: {
-        'background-color': 'var(--arcane-surface)',
-        'border-radius': '${effectiveRadius}px',
-        'border': '1px solid var(--arcane-outline-variant)',
+        'background-color': ArcaneColors.surface,
+        'border-radius': effectiveRadius,
+        'border': '1px solid ${ArcaneColors.border}',
         'overflow': 'hidden',
       }),
       [
@@ -136,12 +133,12 @@ class ListCard extends StatelessComponent {
           div(
             classes: 'arcane-list-card-header',
             styles: Styles(raw: {
-              'padding': '12px 16px',
-              'font-size': '0.875rem',
-              'font-weight': '600',
-              'color': 'var(--arcane-on-surface-variant)',
-              'border-bottom': '1px solid var(--arcane-outline-variant)',
-              'background-color': 'var(--arcane-surface-variant)',
+              'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.lg}',
+              'font-size': ArcaneTypography.fontSm,
+              'font-weight': ArcaneTypography.weightSemibold,
+              'color': ArcaneColors.muted,
+              'border-bottom': '1px solid ${ArcaneColors.border}',
+              'background-color': ArcaneColors.surfaceVariant,
             }),
             [text(header!)],
           ),
@@ -151,8 +148,8 @@ class ListCard extends StatelessComponent {
             div(
               styles: Styles(raw: {
                 'height': '1px',
-                'background-color': 'var(--arcane-outline-variant)',
-                'margin': '0 16px',
+                'background-color': ArcaneColors.border,
+                'margin': '0 ${ArcaneSpacing.lg}',
               }),
               [],
             ),

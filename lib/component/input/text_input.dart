@@ -1,36 +1,30 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
+import '../../util/tokens/style_presets.dart';
 
-/// Input variants
-enum InputVariant {
-  default_,
-  filled,
-  ghost,
-}
-
-/// Input sizes
-enum InputSize {
-  sm,
-  md,
-  lg,
-}
-
-/// A styled text input component (Supabase-style)
-class TextInput extends StatelessComponent {
+/// A styled text input component
+///
+/// Use style presets for cleaner code:
+/// ```dart
+/// ArcaneTextInput(
+///   style: InputStyle.standard,
+///   size: InputSizeStyle.md,
+/// )
+/// ```
+class ArcaneTextInput extends StatelessComponent {
   /// Input placeholder
   final String? placeholder;
 
   /// Input type
   final InputType type;
 
-  /// Input variant
-  final InputVariant variant;
+  /// Style preset (preferred)
+  final InputStyle? style;
 
-  /// Input size
-  final InputSize size;
+  /// Size preset
+  final InputSizeStyle size;
 
   /// Whether input is disabled
   final bool disabled;
@@ -74,14 +68,17 @@ class TextInput extends StatelessComponent {
   /// Blur callback
   final void Function()? onBlur;
 
+  /// Submit callback
+  final void Function(String)? onSubmit;
+
   /// Full width
   final bool fullWidth;
 
-  const TextInput({
+  const ArcaneTextInput({
     this.placeholder,
     this.type = InputType.text,
-    this.variant = InputVariant.default_,
-    this.size = InputSize.md,
+    this.style,
+    this.size = InputSizeStyle.md,
     this.disabled = false,
     this.required = false,
     this.readOnly = false,
@@ -96,49 +93,27 @@ class TextInput extends StatelessComponent {
     this.onChange,
     this.onFocus,
     this.onBlur,
+    this.onSubmit,
     this.fullWidth = false,
     super.key,
   });
 
   @override
   Component build(BuildContext context) {
-    final (height, fontSize, padding) = switch (size) {
-      InputSize.sm => ('32px', '0.8125rem', '8px 10px'),
-      InputSize.md => ('40px', '0.875rem', '10px 14px'),
-      InputSize.lg => ('48px', '1rem', '12px 16px'),
-    };
+    final effectiveStyle = style ?? InputStyle.standard;
+    final hasError = error != null;
 
-    final (bgColor, borderColor) = switch (variant) {
-      InputVariant.default_ => (
-          'var(--arcane-surface)',
-          error != null ? 'var(--arcane-destructive)' : 'var(--arcane-border)',
-        ),
-      InputVariant.filled => (
-          'var(--arcane-surface-variant)',
-          error != null ? 'var(--arcane-destructive)' : 'transparent',
-        ),
-      InputVariant.ghost => (
-          'transparent',
-          error != null ? 'var(--arcane-destructive)' : 'transparent',
-        ),
-    };
-
-    final inputStyles = Styles(raw: {
+    // Build input styles
+    final Map<String, String> inputStyles = {
       'flex': '1',
-      'height': height,
-      'padding': padding,
-      'font-size': fontSize,
       'font-family': 'inherit',
-      'background-color': bgColor,
-      'border': '1px solid $borderColor',
-      'border-radius': 'var(--arcane-radius)',
-      'color': 'var(--arcane-on-surface)',
       'outline': 'none',
-      'transition': 'border-color var(--arcane-transition-fast), box-shadow var(--arcane-transition-fast)',
-      if (disabled) 'opacity': '0.5',
-      if (disabled) 'cursor': 'not-allowed',
+      ...size.styles,
+      ...effectiveStyle.base,
+      if (hasError) ...effectiveStyle.error,
+      if (disabled) ...effectiveStyle.disabled,
       if (fullWidth) 'width': '100%',
-    });
+    };
 
     final inputElement = input(
       type: type,
@@ -152,25 +127,37 @@ class TextInput extends StatelessComponent {
         if (required) 'required': 'true',
         if (readOnly) 'readonly': 'true',
       },
-      styles: inputStyles,
+      styles: Styles(raw: inputStyles),
       events: {
-        if (onChange != null) 'input': (e) {
-          final target = e.target as dynamic;
-          onChange!(target.value as String);
-        },
+        if (onChange != null)
+          'input': (e) {
+            final target = e.target as dynamic;
+            onChange!(target.value as String);
+          },
         if (onFocus != null) 'focus': (e) => onFocus!(),
         if (onBlur != null) 'blur': (e) => onBlur!(),
+        if (onSubmit != null)
+          'keydown': (e) {
+            if ((e as dynamic).key == 'Enter') {
+              final target = e.target as dynamic;
+              onSubmit!(target.value as String);
+            }
+          },
       },
     );
 
     // Build with wrapper if prefix/suffix or label
-    if (prefix != null || suffix != null || label != null || error != null || helperText != null) {
+    if (prefix != null ||
+        suffix != null ||
+        label != null ||
+        error != null ||
+        helperText != null) {
       return div(
         classes: 'arcane-text-input-wrapper',
         styles: Styles(raw: {
           'display': 'flex',
           'flex-direction': 'column',
-          'gap': '6px',
+          'gap': ArcaneSpacing.xs,
           if (fullWidth) 'width': '100%',
         }),
         [
@@ -180,9 +167,9 @@ class TextInput extends StatelessComponent {
               tag: 'label',
               attributes: id != null ? {'for': id!} : null,
               styles: Styles(raw: {
-                'font-size': '0.875rem',
-                'font-weight': '500',
-                'color': 'var(--arcane-on-surface)',
+                'font-size': ArcaneTypography.fontMd,
+                'font-weight': ArcaneTypography.weightMedium,
+                'color': ArcaneColors.onSurface,
               }),
               children: [
                 text(label!),
@@ -190,8 +177,8 @@ class TextInput extends StatelessComponent {
                   span(
                     [text('*')],
                     styles: Styles(raw: {
-                      'color': 'var(--arcane-destructive)',
-                      'margin-left': '4px',
+                      'color': ArcaneColors.error,
+                      'margin-left': ArcaneSpacing.xs,
                     }),
                   ),
               ],
@@ -204,11 +191,9 @@ class TextInput extends StatelessComponent {
               styles: Styles(raw: {
                 'display': 'flex',
                 'align-items': 'center',
-                'background-color': bgColor,
-                'border': '1px solid $borderColor',
-                'border-radius': 'var(--arcane-radius)',
+                ...effectiveStyle.base,
+                if (hasError) ...effectiveStyle.error,
                 'overflow': 'hidden',
-                'transition': 'border-color var(--arcane-transition-fast)',
               }),
               [
                 if (prefix != null)
@@ -218,8 +203,8 @@ class TextInput extends StatelessComponent {
                     styles: Styles(raw: {
                       'display': 'flex',
                       'align-items': 'center',
-                      'padding-left': '12px',
-                      'color': 'var(--arcane-muted)',
+                      'padding-left': ArcaneSpacing.sm,
+                      'color': ArcaneColors.muted,
                     }),
                   ),
                 input(
@@ -236,20 +221,18 @@ class TextInput extends StatelessComponent {
                   },
                   styles: Styles(raw: {
                     'flex': '1',
-                    'height': height,
-                    'padding': padding,
-                    'font-size': fontSize,
-                    'font-family': 'inherit',
-                    'background': 'transparent',
+                    ...size.styles,
+                    'background': ArcaneColors.transparent,
                     'border': 'none',
-                    'color': 'var(--arcane-on-surface)',
+                    'color': ArcaneColors.onSurface,
                     'outline': 'none',
                   }),
                   events: {
-                    if (onChange != null) 'input': (e) {
-                      final target = e.target as dynamic;
-                      onChange!(target.value as String);
-                    },
+                    if (onChange != null)
+                      'input': (e) {
+                        final target = e.target as dynamic;
+                        onChange!(target.value as String);
+                      },
                     if (onFocus != null) 'focus': (e) => onFocus!(),
                     if (onBlur != null) 'blur': (e) => onBlur!(),
                   },
@@ -261,8 +244,8 @@ class TextInput extends StatelessComponent {
                     styles: Styles(raw: {
                       'display': 'flex',
                       'align-items': 'center',
-                      'padding-right': '12px',
-                      'color': 'var(--arcane-muted)',
+                      'padding-right': ArcaneSpacing.sm,
+                      'color': ArcaneColors.muted,
                     }),
                   ),
               ],
@@ -276,8 +259,8 @@ class TextInput extends StatelessComponent {
               [text(error!)],
               classes: 'arcane-text-input-error',
               styles: Styles(raw: {
-                'font-size': '0.8125rem',
-                'color': 'var(--arcane-destructive)',
+                'font-size': ArcaneTypography.fontSm,
+                'color': ArcaneColors.error,
               }),
             )
           else if (helperText != null)
@@ -285,8 +268,8 @@ class TextInput extends StatelessComponent {
               [text(helperText!)],
               classes: 'arcane-text-input-helper',
               styles: Styles(raw: {
-                'font-size': '0.8125rem',
-                'color': 'var(--arcane-muted)',
+                'font-size': ArcaneTypography.fontSm,
+                'color': ArcaneColors.muted,
               }),
             ),
         ],
@@ -299,29 +282,29 @@ class TextInput extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-text-input:focus').styles(raw: {
-      'border-color': 'var(--arcane-accent)',
-      'box-shadow': '0 0 0 2px var(--arcane-accent-container)',
+      'border-color': ArcaneColors.accent,
+      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
     }),
     css('.arcane-text-input::placeholder').styles(raw: {
-      'color': 'var(--arcane-muted)',
+      'color': ArcaneColors.muted,
     }),
     css('.arcane-text-input-container:focus-within').styles(raw: {
-      'border-color': 'var(--arcane-accent)',
-      'box-shadow': '0 0 0 2px var(--arcane-accent-container)',
+      'border-color': ArcaneColors.accent,
+      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
     }),
   ];
 }
 
 /// A textarea component
-class TextArea extends StatelessComponent {
+class ArcaneTextArea extends StatelessComponent {
   /// Placeholder text
   final String? placeholder;
 
   /// Number of rows
   final int rows;
 
-  /// Input variant
-  final InputVariant variant;
+  /// Style preset
+  final InputStyle? style;
 
   /// Whether disabled
   final bool disabled;
@@ -356,10 +339,10 @@ class TextArea extends StatelessComponent {
   /// Full width
   final bool fullWidth;
 
-  const TextArea({
+  const ArcaneTextArea({
     this.placeholder,
     this.rows = 4,
-    this.variant = InputVariant.default_,
+    this.style,
     this.disabled = false,
     this.required = false,
     this.resizable = true,
@@ -376,20 +359,8 @@ class TextArea extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final (bgColor, borderColor) = switch (variant) {
-      InputVariant.default_ => (
-          'var(--arcane-surface)',
-          error != null ? 'var(--arcane-destructive)' : 'var(--arcane-border)',
-        ),
-      InputVariant.filled => (
-          'var(--arcane-surface-variant)',
-          error != null ? 'var(--arcane-destructive)' : 'transparent',
-        ),
-      InputVariant.ghost => (
-          'transparent',
-          error != null ? 'var(--arcane-destructive)' : 'transparent',
-        ),
-    };
+    final effectiveStyle = style ?? InputStyle.standard;
+    final hasError = error != null;
 
     final textareaElement = Component.element(
       tag: 'textarea',
@@ -404,25 +375,22 @@ class TextArea extends StatelessComponent {
       },
       styles: Styles(raw: {
         'width': '100%',
-        'padding': '10px 14px',
-        'font-size': '0.875rem',
+        'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
+        'font-size': ArcaneTypography.fontMd,
         'font-family': 'inherit',
-        'line-height': '1.5',
-        'background-color': bgColor,
-        'border': '1px solid $borderColor',
-        'border-radius': 'var(--arcane-radius)',
-        'color': 'var(--arcane-on-surface)',
+        'line-height': ArcaneTypography.lineHeightRelaxed,
+        ...effectiveStyle.base,
+        if (hasError) ...effectiveStyle.error,
         'outline': 'none',
         'resize': resizable ? 'vertical' : 'none',
-        'transition': 'border-color var(--arcane-transition-fast)',
-        if (disabled) 'opacity': '0.5',
-        if (disabled) 'cursor': 'not-allowed',
+        if (disabled) ...effectiveStyle.disabled,
       }),
       events: {
-        if (onChange != null) 'input': (e) {
-          final target = e.target as dynamic;
-          onChange!(target.value as String);
-        },
+        if (onChange != null)
+          'input': (e) {
+            final target = e.target as dynamic;
+            onChange!(target.value as String);
+          },
       },
       children: value != null ? [text(value!)] : [],
     );
@@ -433,7 +401,7 @@ class TextArea extends StatelessComponent {
         styles: Styles(raw: {
           'display': 'flex',
           'flex-direction': 'column',
-          'gap': '6px',
+          'gap': ArcaneSpacing.xs,
           if (fullWidth) 'width': '100%',
         }),
         [
@@ -442,9 +410,9 @@ class TextArea extends StatelessComponent {
               tag: 'label',
               attributes: id != null ? {'for': id!} : null,
               styles: Styles(raw: {
-                'font-size': '0.875rem',
-                'font-weight': '500',
-                'color': 'var(--arcane-on-surface)',
+                'font-size': ArcaneTypography.fontMd,
+                'font-weight': ArcaneTypography.weightMedium,
+                'color': ArcaneColors.onSurface,
               }),
               children: [
                 text(label!),
@@ -452,8 +420,8 @@ class TextArea extends StatelessComponent {
                   span(
                     [text('*')],
                     styles: Styles(raw: {
-                      'color': 'var(--arcane-destructive)',
-                      'margin-left': '4px',
+                      'color': ArcaneColors.error,
+                      'margin-left': ArcaneSpacing.xs,
                     }),
                   ),
               ],
@@ -463,16 +431,16 @@ class TextArea extends StatelessComponent {
             span(
               [text(error!)],
               styles: Styles(raw: {
-                'font-size': '0.8125rem',
-                'color': 'var(--arcane-destructive)',
+                'font-size': ArcaneTypography.fontSm,
+                'color': ArcaneColors.error,
               }),
             )
           else if (helperText != null)
             span(
               [text(helperText!)],
               styles: Styles(raw: {
-                'font-size': '0.8125rem',
-                'color': 'var(--arcane-muted)',
+                'font-size': ArcaneTypography.fontSm,
+                'color': ArcaneColors.muted,
               }),
             ),
         ],
@@ -485,17 +453,17 @@ class TextArea extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-textarea:focus').styles(raw: {
-      'border-color': 'var(--arcane-accent)',
-      'box-shadow': '0 0 0 2px var(--arcane-accent-container)',
+      'border-color': ArcaneColors.accent,
+      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
     }),
     css('.arcane-textarea::placeholder').styles(raw: {
-      'color': 'var(--arcane-muted)',
+      'color': ArcaneColors.muted,
     }),
   ];
 }
 
 /// A select/dropdown input component
-class SelectInput extends StatelessComponent {
+class ArcaneSelect extends StatelessComponent {
   /// Options list
   final List<SelectOption> options;
 
@@ -505,8 +473,11 @@ class SelectInput extends StatelessComponent {
   /// Placeholder text
   final String? placeholder;
 
-  /// Input size
-  final InputSize size;
+  /// Size preset
+  final InputSizeStyle size;
+
+  /// Style preset
+  final InputStyle? style;
 
   /// Whether disabled
   final bool disabled;
@@ -532,11 +503,12 @@ class SelectInput extends StatelessComponent {
   /// Full width
   final bool fullWidth;
 
-  const SelectInput({
+  const ArcaneSelect({
     required this.options,
     this.value,
     this.placeholder,
-    this.size = InputSize.md,
+    this.size = InputSizeStyle.md,
+    this.style,
     this.disabled = false,
     this.required = false,
     this.name,
@@ -550,11 +522,8 @@ class SelectInput extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final (height, fontSize, padding) = switch (size) {
-      InputSize.sm => ('32px', '0.8125rem', '8px 10px'),
-      InputSize.md => ('40px', '0.875rem', '10px 14px'),
-      InputSize.lg => ('48px', '1rem', '12px 16px'),
-    };
+    final effectiveStyle = style ?? InputStyle.standard;
+    final hasError = error != null;
 
     final selectElement = Component.element(
       tag: 'select',
@@ -566,31 +535,26 @@ class SelectInput extends StatelessComponent {
         if (required) 'required': 'true',
       },
       styles: Styles(raw: {
-        'height': height,
-        'padding': padding,
+        ...size.styles,
         'padding-right': '36px',
-        'font-size': fontSize,
         'font-family': 'inherit',
-        'background-color': 'var(--arcane-surface)',
-        'border': '1px solid ${error != null ? 'var(--arcane-destructive)' : 'var(--arcane-border)'}',
-        'border-radius': 'var(--arcane-radius)',
-        'color': 'var(--arcane-on-surface)',
-        'outline': 'none',
+        ...effectiveStyle.base,
+        if (hasError) ...effectiveStyle.error,
         'cursor': 'pointer',
         'appearance': 'none',
-        'background-image': 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 12 12\'%3E%3Cpath fill=\'%2371717A\' d=\'M2.5 4.5L6 8l3.5-3.5\'/%3E%3C/svg%3E")',
+        'background-image':
+            'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 12 12\'%3E%3Cpath fill=\'%2371717A\' d=\'M2.5 4.5L6 8l3.5-3.5\'/%3E%3C/svg%3E")',
         'background-repeat': 'no-repeat',
         'background-position': 'right 12px center',
-        'transition': 'border-color var(--arcane-transition-fast)',
         if (fullWidth) 'width': '100%',
-        if (disabled) 'opacity': '0.5',
-        if (disabled) 'cursor': 'not-allowed',
+        if (disabled) ...effectiveStyle.disabled,
       }),
       events: {
-        if (onChange != null) 'change': (e) {
-          final target = e.target as dynamic;
-          onChange!(target.value as String);
-        },
+        if (onChange != null)
+          'change': (e) {
+            final target = e.target as dynamic;
+            onChange!(target.value as String);
+          },
       },
       children: [
         if (placeholder != null)
@@ -618,7 +582,7 @@ class SelectInput extends StatelessComponent {
         styles: Styles(raw: {
           'display': 'flex',
           'flex-direction': 'column',
-          'gap': '6px',
+          'gap': ArcaneSpacing.xs,
           if (fullWidth) 'width': '100%',
         }),
         [
@@ -627,9 +591,9 @@ class SelectInput extends StatelessComponent {
               tag: 'label',
               attributes: id != null ? {'for': id!} : null,
               styles: Styles(raw: {
-                'font-size': '0.875rem',
-                'font-weight': '500',
-                'color': 'var(--arcane-on-surface)',
+                'font-size': ArcaneTypography.fontMd,
+                'font-weight': ArcaneTypography.weightMedium,
+                'color': ArcaneColors.onSurface,
               }),
               children: [
                 text(label!),
@@ -637,8 +601,8 @@ class SelectInput extends StatelessComponent {
                   span(
                     [text('*')],
                     styles: Styles(raw: {
-                      'color': 'var(--arcane-destructive)',
-                      'margin-left': '4px',
+                      'color': ArcaneColors.error,
+                      'margin-left': ArcaneSpacing.xs,
                     }),
                   ),
               ],
@@ -648,8 +612,8 @@ class SelectInput extends StatelessComponent {
             span(
               [text(error!)],
               styles: Styles(raw: {
-                'font-size': '0.8125rem',
-                'color': 'var(--arcane-destructive)',
+                'font-size': ArcaneTypography.fontSm,
+                'color': ArcaneColors.error,
               }),
             ),
         ],
@@ -662,8 +626,8 @@ class SelectInput extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-select:focus').styles(raw: {
-      'border-color': 'var(--arcane-accent)',
-      'box-shadow': '0 0 0 2px var(--arcane-accent-container)',
+      'border-color': ArcaneColors.accent,
+      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
     }),
   ];
 }

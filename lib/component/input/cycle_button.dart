@@ -1,11 +1,20 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
+import '../../util/tokens/style_presets.dart';
 import 'button.dart';
 
 /// A button that cycles through a list of values on each click.
+///
+/// Use style presets for cleaner code:
+/// ```dart
+/// CycleButton(
+///   options: [CycleOption(value: 1, label: 'One'), ...],
+///   value: 1,
+///   style: ButtonStyle.outline,
+/// )
+/// ```
 class CycleButton<T> extends StatefulComponent {
   /// The available options
   final List<CycleOption<T>> options;
@@ -16,8 +25,8 @@ class CycleButton<T> extends StatefulComponent {
   /// Callback when value changes
   final void Function(T value)? onChanged;
 
-  /// Button variant
-  final ButtonVariant variant;
+  /// Button style preset (preferred)
+  final ButtonStyle? style;
 
   /// Button size
   final ButtonSize size;
@@ -29,7 +38,7 @@ class CycleButton<T> extends StatefulComponent {
     required this.options,
     required this.value,
     this.onChanged,
-    this.variant = ButtonVariant.outline,
+    this.style,
     this.size = ButtonSize.medium,
     this.disabled = false,
     super.key,
@@ -43,69 +52,24 @@ class _CycleButtonState<T> extends State<CycleButton<T>> {
   void _cycle() {
     if (component.disabled || component.onChanged == null) return;
 
-    final currentIndex = component.options
-        .indexWhere((opt) => opt.value == component.value);
+    final currentIndex = component.options.indexWhere((opt) => opt.value == component.value);
     final nextIndex = (currentIndex + 1) % component.options.length;
     component.onChanged!(component.options[nextIndex].value);
   }
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
+    final effectiveStyle = component.style ?? ButtonStyle.outline;
     final currentOption = component.options.firstWhere(
       (opt) => opt.value == component.value,
       orElse: () => component.options.first,
     );
 
     // Get size-specific styles
-    final (paddingH, paddingV, fontSize, height) = switch (component.size) {
-      ButtonSize.small => (12.0, 6.0, 0.75, 32.0),
-      ButtonSize.medium => (16.0, 8.0, 0.875, 40.0),
-      ButtonSize.large => (24.0, 12.0, 1.0, 48.0),
-    };
-
-    // Get variant-specific styles
-    final (bgColor, textColor, borderColor) = switch (component.variant) {
-      ButtonVariant.primary => (
-          'var(--arcane-primary)',
-          'var(--arcane-on-primary)',
-          'transparent',
-        ),
-      ButtonVariant.secondary => (
-          'var(--arcane-secondary)',
-          'var(--arcane-on-secondary)',
-          'transparent',
-        ),
-      ButtonVariant.outline => (
-          'transparent',
-          'var(--arcane-on-surface)',
-          'var(--arcane-outline)',
-        ),
-      ButtonVariant.ghost => (
-          'transparent',
-          'var(--arcane-on-surface)',
-          'transparent',
-        ),
-      ButtonVariant.destructive => (
-          'var(--arcane-error)',
-          'var(--arcane-on-error)',
-          'transparent',
-        ),
-      ButtonVariant.link => (
-          'transparent',
-          'var(--arcane-primary)',
-          'transparent',
-        ),
-      ButtonVariant.success => (
-          'rgb(34, 197, 94)',
-          'rgb(255, 255, 255)',
-          'transparent',
-        ),
-      ButtonVariant.warning => (
-          'rgb(251, 191, 36)',
-          'rgb(0, 0, 0)',
-          'transparent',
-        ),
+    final sizeStyle = switch (component.size) {
+      ButtonSize.small => ButtonSizeStyle.sm,
+      ButtonSize.medium => ButtonSizeStyle.md,
+      ButtonSize.large => ButtonSizeStyle.lg,
     };
 
     return button(
@@ -118,20 +82,14 @@ class _CycleButtonState<T> extends State<CycleButton<T>> {
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': '8px',
-        'padding': '${paddingV}px ${paddingH}px',
-        'height': '${height}px',
-        'font-size': '${fontSize}rem',
-        'font-weight': '500',
-        'border-radius': theme.borderRadiusCss,
-        'background-color': bgColor,
-        'color': textColor,
-        'border': borderColor == 'transparent'
-            ? 'none'
-            : '1px solid $borderColor',
+        'gap': ArcaneSpacing.sm,
+        ...sizeStyle.styles,
+        'font-weight': ArcaneTypography.weightMedium,
+        'border-radius': ArcaneRadius.md,
+        ...effectiveStyle.base,
         'cursor': component.disabled ? 'not-allowed' : 'pointer',
         'opacity': component.disabled ? '0.5' : '1',
-        'transition': 'all 150ms ease',
+        'transition': ArcaneEffects.transitionFast,
         'white-space': 'nowrap',
       }),
       events: {
@@ -187,12 +145,10 @@ class ToggleButton extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-
-    final (paddingH, paddingV, fontSize, height) = switch (size) {
-      ButtonSize.small => (12.0, 6.0, 0.75, 32.0),
-      ButtonSize.medium => (16.0, 8.0, 0.875, 40.0),
-      ButtonSize.large => (24.0, 12.0, 1.0, 48.0),
+    final sizeStyle = switch (size) {
+      ButtonSize.small => ButtonSizeStyle.sm,
+      ButtonSize.medium => ButtonSizeStyle.md,
+      ButtonSize.large => ButtonSizeStyle.lg,
     };
 
     return button(
@@ -206,24 +162,16 @@ class ToggleButton extends StatelessComponent {
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': '8px',
-        'padding': '${paddingV}px ${paddingH}px',
-        'height': '${height}px',
-        'font-size': '${fontSize}rem',
-        'font-weight': '500',
-        'border-radius': theme.borderRadiusCss,
-        'background-color': value
-            ? 'var(--arcane-primary)'
-            : 'transparent',
-        'color': value
-            ? 'var(--arcane-on-primary)'
-            : 'var(--arcane-on-surface)',
-        'border': value
-            ? 'none'
-            : '1px solid var(--arcane-outline)',
+        'gap': ArcaneSpacing.sm,
+        ...sizeStyle.styles,
+        'font-weight': ArcaneTypography.weightMedium,
+        'border-radius': ArcaneRadius.md,
+        'background-color': value ? ArcaneColors.accent : ArcaneColors.transparent,
+        'color': value ? ArcaneColors.accentForeground : ArcaneColors.onSurface,
+        'border': value ? 'none' : '1px solid ${ArcaneColors.border}',
         'cursor': disabled ? 'not-allowed' : 'pointer',
         'opacity': disabled ? '0.5' : '1',
-        'transition': 'all 150ms ease',
+        'transition': ArcaneEffects.transitionFast,
       }),
       events: {
         'click': (event) {

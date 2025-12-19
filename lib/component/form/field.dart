@@ -1,8 +1,7 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
+import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 import 'provider.dart';
 
 /// Metadata class holding descriptive information for an [ArcaneField].
@@ -74,7 +73,7 @@ class _ArcaneFieldState<T> extends State<ArcaneField<T>> {
   }
 
   Future<void> _loadValue() async {
-    final value = await component.provider.getValue(component.meta.effectiveKey);
+    final T value = await component.provider.getValue(component.meta.effectiveKey);
     setState(() {
       _value = value;
       _loading = false;
@@ -240,8 +239,7 @@ class _StringFieldBuilder extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-    final isMultiline = (maxLines ?? 1) > 1;
+    final bool isMultiline = (maxLines ?? 1) > 1;
 
     if (isMultiline) {
       return textarea(
@@ -251,19 +249,19 @@ class _StringFieldBuilder extends StatelessComponent {
         },
         styles: Styles(raw: {
           'width': '100%',
-          'padding': '10px 12px',
-          'border': '1px solid var(--arcane-outline-variant)',
-          'border-radius': theme.borderRadiusCss,
-          'background-color': 'var(--arcane-surface)',
-          'color': 'var(--arcane-on-surface)',
-          'font-size': '0.875rem',
+          'padding': '10px ${ArcaneSpacing.md}',
+          'border': '1px solid ${ArcaneColors.border}',
+          'border-radius': ArcaneRadius.md,
+          'background-color': ArcaneColors.surface,
+          'color': ArcaneColors.onSurface,
+          'font-size': ArcaneTypography.fontSm,
           'resize': 'vertical',
           'font-family': 'inherit',
           'outline': 'none',
         }),
         events: {
           'input': (event) {
-            final target = event.target;
+            final dynamic target = event.target;
             if (target != null) {
               onChanged((target as dynamic).value ?? '');
             }
@@ -281,17 +279,17 @@ class _StringFieldBuilder extends StatelessComponent {
       },
       styles: Styles(raw: {
         'width': '100%',
-        'padding': '10px 12px',
-        'border': '1px solid var(--arcane-outline-variant)',
-        'border-radius': theme.borderRadiusCss,
-        'background-color': 'var(--arcane-surface)',
-        'color': 'var(--arcane-on-surface)',
-        'font-size': '0.875rem',
+        'padding': '10px ${ArcaneSpacing.md}',
+        'border': '1px solid ${ArcaneColors.border}',
+        'border-radius': ArcaneRadius.md,
+        'background-color': ArcaneColors.surface,
+        'color': ArcaneColors.onSurface,
+        'font-size': ArcaneTypography.fontSm,
         'outline': 'none',
       }),
       events: {
         'input': (event) {
-          final target = event.target;
+          final dynamic target = event.target;
           if (target != null) {
             onChanged((target as dynamic).value ?? '');
           }
@@ -299,6 +297,14 @@ class _StringFieldBuilder extends StatelessComponent {
       },
     );
   }
+
+  @css
+  static final List<StyleRule> styles = [
+    css('textarea:focus, input:focus').styles(raw: {
+      'border-color': ArcaneColors.accent,
+      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
+    }),
+  ];
 }
 
 /// Internal bool field builder component.
@@ -319,7 +325,7 @@ class _BoolFieldBuilder extends StatelessComponent {
       styles: Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': '8px',
+        'gap': ArcaneSpacing.sm,
         'cursor': 'pointer',
       }),
       [
@@ -331,12 +337,12 @@ class _BoolFieldBuilder extends StatelessComponent {
           styles: Styles(raw: {
             'width': '18px',
             'height': '18px',
-            'accent-color': 'var(--arcane-primary)',
+            'accent-color': ArcaneColors.accent,
             'cursor': 'pointer',
           }),
           events: {
             'change': (event) {
-              final target = event.target;
+              final dynamic target = event.target;
               if (target != null) {
                 onChanged((target as dynamic).checked ?? false);
               }
@@ -346,8 +352,8 @@ class _BoolFieldBuilder extends StatelessComponent {
         if (labelText != null)
           span(
             styles: Styles(raw: {
-              'color': 'var(--arcane-on-surface)',
-              'font-size': '0.875rem',
+              'color': ArcaneColors.onSurface,
+              'font-size': ArcaneTypography.fontSm,
             }),
             [Component.text(labelText!)],
           ),
@@ -372,25 +378,23 @@ class _SelectFieldBuilder<T> extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-
     return select(
       styles: Styles(raw: {
         'width': '100%',
-        'padding': '10px 12px',
-        'border': '1px solid var(--arcane-outline-variant)',
-        'border-radius': theme.borderRadiusCss,
-        'background-color': 'var(--arcane-surface)',
-        'color': 'var(--arcane-on-surface)',
-        'font-size': '0.875rem',
+        'padding': '10px ${ArcaneSpacing.md}',
+        'border': '1px solid ${ArcaneColors.border}',
+        'border-radius': ArcaneRadius.md,
+        'background-color': ArcaneColors.surface,
+        'color': ArcaneColors.onSurface,
+        'font-size': ArcaneTypography.fontSm,
         'outline': 'none',
         'cursor': 'pointer',
       }),
       events: {
         'change': (event) {
-          final target = event.target;
+          final dynamic target = event.target;
           if (target != null) {
-            final selectedIndex = (target as dynamic).selectedIndex as int? ?? 0;
+            final int selectedIndex = (target as dynamic).selectedIndex as int? ?? 0;
             if (selectedIndex >= 0 && selectedIndex < options.length) {
               onChanged(options[selectedIndex]);
             }
@@ -398,7 +402,7 @@ class _SelectFieldBuilder<T> extends StatelessComponent {
         },
       },
       [
-        for (var i = 0; i < options.length; i++)
+        for (int i = 0; i < options.length; i++)
           option(
             value: i.toString(),
             selected: options[i] == value,
@@ -407,4 +411,12 @@ class _SelectFieldBuilder<T> extends StatelessComponent {
       ],
     );
   }
+
+  @css
+  static final List<StyleRule> styles = [
+    css('select:focus').styles(raw: {
+      'border-color': ArcaneColors.accent,
+      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
+    }),
+  ];
 }

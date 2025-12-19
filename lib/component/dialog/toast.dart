@@ -1,8 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// Toast notification variant
 enum ToastVariant {
@@ -58,31 +57,29 @@ class Toast extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-
-    final (bgColor, textColor, borderColor, defaultIcon) = switch (variant) {
+    final (String bgColor, String textColor, String borderColor, String defaultIcon) = switch (variant) {
       ToastVariant.info => (
-          'var(--arcane-surface)',
-          'var(--arcane-on-surface)',
-          'var(--arcane-outline-variant)',
+          ArcaneColors.surface,
+          ArcaneColors.onSurface,
+          ArcaneColors.border,
           'ℹ',
         ),
       ToastVariant.success => (
-          'var(--arcane-surface)',
-          'var(--arcane-on-surface)',
-          '#22C55E',
+          ArcaneColors.surface,
+          ArcaneColors.onSurface,
+          ArcaneColors.success,
           '✓',
         ),
       ToastVariant.warning => (
-          'var(--arcane-surface)',
-          'var(--arcane-on-surface)',
-          '#F59E0B',
+          ArcaneColors.surface,
+          ArcaneColors.onSurface,
+          ArcaneColors.warning,
           '⚠',
         ),
       ToastVariant.error => (
-          'var(--arcane-surface)',
-          'var(--arcane-on-surface)',
-          'var(--arcane-error)',
+          ArcaneColors.surface,
+          ArcaneColors.onSurface,
+          ArcaneColors.error,
           '✕',
         ),
     };
@@ -96,14 +93,13 @@ class Toast extends StatelessComponent {
       styles: Styles(raw: {
         'display': 'flex',
         'align-items': 'flex-start',
-        'gap': '12px',
-        'padding': '12px 16px',
+        'gap': ArcaneSpacing.sm,
+        'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
         'background-color': bgColor,
         'border': '1px solid $borderColor',
         'border-left': '4px solid $borderColor',
-        'border-radius': theme.borderRadiusCss,
-        'box-shadow':
-            '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+        'border-radius': ArcaneRadius.md,
+        'box-shadow': ArcaneEffects.shadowMd,
         'min-width': '300px',
         'max-width': '450px',
         'animation': 'arcane-toast-in 200ms ease',
@@ -132,17 +128,17 @@ class Toast extends StatelessComponent {
               div(
                 classes: 'arcane-toast-title',
                 styles: Styles(raw: {
-                  'font-weight': '600',
+                  'font-weight': ArcaneTypography.weightSemibold,
                   'color': textColor,
-                  'margin-bottom': '4px',
+                  'margin-bottom': ArcaneSpacing.xs,
                 }),
                 [text(title!)],
               ),
             div(
               classes: 'arcane-toast-message',
               styles: Styles(raw: {
-                'font-size': '0.875rem',
-                'color': 'var(--arcane-on-surface-variant)',
+                'font-size': ArcaneTypography.fontSm,
+                'color': ArcaneColors.muted,
                 'line-height': '1.4',
               }),
               [text(message)],
@@ -150,7 +146,7 @@ class Toast extends StatelessComponent {
             if (action != null)
               div(
                 styles: Styles(raw: {
-                  'margin-top': '8px',
+                  'margin-top': ArcaneSpacing.sm,
                 }),
                 [action!],
               ),
@@ -168,11 +164,12 @@ class Toast extends StatelessComponent {
               'justify-content': 'center',
               'width': '24px',
               'height': '24px',
-              'border-radius': '50%',
-              'background': 'transparent',
-              'color': 'var(--arcane-on-surface-variant)',
+              'border-radius': ArcaneRadius.full,
+              'background': ArcaneColors.transparent,
+              'border': 'none',
+              'color': ArcaneColors.muted,
               'cursor': 'pointer',
-              'transition': 'all 150ms ease',
+              'transition': ArcaneEffects.transitionFast,
               'flex-shrink': '0',
             }),
             events: {
@@ -191,7 +188,7 @@ class Toast extends StatelessComponent {
       'to': 'transform: translateY(0); opacity: 1',
     }),
     css('.arcane-toast-close:hover').styles(raw: {
-      'background-color': 'var(--arcane-surface-variant)',
+      'background-color': ArcaneColors.surfaceVariant,
     }),
   ];
 }
@@ -211,37 +208,37 @@ class ToastContainer extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final positionStyles = switch (position) {
+    final Map<String, String> positionStyles = switch (position) {
       ToastPosition.topLeft => {
-          'top': '24px',
-          'left': '24px',
+          'top': ArcaneSpacing.lg,
+          'left': ArcaneSpacing.lg,
           'align-items': 'flex-start',
         },
       ToastPosition.topCenter => {
-          'top': '24px',
+          'top': ArcaneSpacing.lg,
           'left': '50%',
           'transform': 'translateX(-50%)',
           'align-items': 'center',
         },
       ToastPosition.topRight => {
-          'top': '24px',
-          'right': '24px',
+          'top': ArcaneSpacing.lg,
+          'right': ArcaneSpacing.lg,
           'align-items': 'flex-end',
         },
       ToastPosition.bottomLeft => {
-          'bottom': '24px',
-          'left': '24px',
+          'bottom': ArcaneSpacing.lg,
+          'left': ArcaneSpacing.lg,
           'align-items': 'flex-start',
         },
       ToastPosition.bottomCenter => {
-          'bottom': '24px',
+          'bottom': ArcaneSpacing.lg,
           'left': '50%',
           'transform': 'translateX(-50%)',
           'align-items': 'center',
         },
       ToastPosition.bottomRight => {
-          'bottom': '24px',
-          'right': '24px',
+          'bottom': ArcaneSpacing.lg,
+          'right': ArcaneSpacing.lg,
           'align-items': 'flex-end',
         },
     };

@@ -1,8 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A footer link group
 class FooterLinkGroup {
@@ -82,9 +81,9 @@ class Footer extends StatelessComponent {
       tag: 'footer',
       classes: 'arcane-footer',
       styles: Styles(raw: {
-        'background-color': 'var(--arcane-surface)',
-        'border-top': '1px solid var(--arcane-border)',
-        'padding': '64px 24px 24px',
+        'background-color': ArcaneColors.surface,
+        'border-top': '1px solid ${ArcaneColors.border}',
+        'padding': '64px ${ArcaneSpacing.lg} ${ArcaneSpacing.lg}',
       }),
       children: [
         // Main footer content
@@ -95,7 +94,7 @@ class Footer extends StatelessComponent {
             'margin': '0 auto',
             'display': 'grid',
             'grid-template-columns': 'repeat(auto-fit, minmax(160px, 1fr))',
-            'gap': '48px',
+            'gap': ArcaneSpacing.xxl,
           }),
           [
             // Brand column
@@ -110,11 +109,11 @@ class Footer extends StatelessComponent {
                   if (description != null)
                     p(
                       styles: Styles(raw: {
-                        'margin': '16px 0 0 0',
-                        'font-size': '0.875rem',
-                        'color': 'var(--arcane-muted)',
+                        'margin': '${ArcaneSpacing.md} 0 0 0',
+                        'font-size': ArcaneTypography.fontSm,
+                        'color': ArcaneColors.muted,
                         'max-width': '280px',
-                        'line-height': '1.6',
+                        'line-height': ArcaneTypography.lineHeightRelaxed,
                       }),
                       [text(description!)],
                     ),
@@ -123,8 +122,8 @@ class Footer extends StatelessComponent {
                       classes: 'arcane-footer-social',
                       styles: Styles(raw: {
                         'display': 'flex',
-                        'gap': '16px',
-                        'margin-top': '24px',
+                        'gap': ArcaneSpacing.md,
+                        'margin-top': ArcaneSpacing.lg,
                       }),
                       socialLinks!,
                     ),
@@ -139,10 +138,10 @@ class Footer extends StatelessComponent {
                   div(
                     classes: 'arcane-footer-group-title',
                     styles: Styles(raw: {
-                      'font-size': '0.875rem',
-                      'font-weight': '600',
-                      'color': 'var(--arcane-on-surface)',
-                      'margin-bottom': '16px',
+                      'font-size': ArcaneTypography.fontSm,
+                      'font-weight': ArcaneTypography.weightSemibold,
+                      'color': ArcaneColors.onSurface,
+                      'margin-bottom': ArcaneSpacing.md,
                     }),
                     [text(group.title)],
                   ),
@@ -151,7 +150,7 @@ class Footer extends StatelessComponent {
                     styles: Styles(raw: {
                       'display': 'flex',
                       'flex-direction': 'column',
-                      'gap': '12px',
+                      'gap': ArcaneSpacing.sm,
                     }),
                     [
                       for (final link in group.links)
@@ -168,17 +167,17 @@ class Footer extends StatelessComponent {
                 [
                   div(
                     styles: Styles(raw: {
-                      'font-size': '0.875rem',
-                      'font-weight': '600',
-                      'color': 'var(--arcane-on-surface)',
-                      'margin-bottom': '16px',
+                      'font-size': ArcaneTypography.fontSm,
+                      'font-weight': ArcaneTypography.weightSemibold,
+                      'color': ArcaneColors.onSurface,
+                      'margin-bottom': ArcaneSpacing.md,
                     }),
                     [text('Subscribe to our newsletter')],
                   ),
                   div(
                     styles: Styles(raw: {
                       'display': 'flex',
-                      'gap': '8px',
+                      'gap': ArcaneSpacing.sm,
                     }),
                     [
                       input(
@@ -189,26 +188,26 @@ class Footer extends StatelessComponent {
                         styles: Styles(raw: {
                           'flex': '1',
                           'padding': '10px 14px',
-                          'font-size': '0.875rem',
-                          'background-color': 'var(--arcane-surface-variant)',
-                          'border': '1px solid var(--arcane-border)',
-                          'border-radius': 'var(--arcane-radius)',
-                          'color': 'var(--arcane-on-surface)',
+                          'font-size': ArcaneTypography.fontSm,
+                          'background-color': ArcaneColors.surfaceVariant,
+                          'border': '1px solid ${ArcaneColors.border}',
+                          'border-radius': ArcaneRadius.md,
+                          'color': ArcaneColors.onSurface,
                           'outline': 'none',
                         }),
                       ),
                       button(
                         attributes: {'type': 'submit'},
                         styles: Styles(raw: {
-                          'padding': '10px 16px',
-                          'font-size': '0.875rem',
-                          'font-weight': '500',
-                          'background-color': 'var(--arcane-accent)',
-                          'color': 'var(--arcane-accent-foreground)',
+                          'padding': '10px ${ArcaneSpacing.md}',
+                          'font-size': ArcaneTypography.fontSm,
+                          'font-weight': ArcaneTypography.weightMedium,
+                          'background-color': ArcaneColors.accent,
+                          'color': ArcaneColors.accentForeground,
                           'border': 'none',
-                          'border-radius': 'var(--arcane-radius)',
+                          'border-radius': ArcaneRadius.md,
                           'cursor': 'pointer',
-                          'transition': 'var(--arcane-transition-fast)',
+                          'transition': ArcaneEffects.transitionFast,
                         }),
                         [text(newsletterButtonText)],
                       ),
@@ -224,14 +223,14 @@ class Footer extends StatelessComponent {
           classes: 'arcane-footer-bottom',
           styles: Styles(raw: {
             'max-width': '1200px',
-            'margin': '48px auto 0',
-            'padding-top': '24px',
-            'border-top': '1px solid var(--arcane-border)',
+            'margin': '${ArcaneSpacing.xxl} auto 0',
+            'padding-top': ArcaneSpacing.lg,
+            'border-top': '1px solid ${ArcaneColors.border}',
             'display': 'flex',
             'justify-content': 'space-between',
             'align-items': 'center',
             'flex-wrap': 'wrap',
-            'gap': '16px',
+            'gap': ArcaneSpacing.md,
           }),
           [
             // Copyright
@@ -239,8 +238,8 @@ class Footer extends StatelessComponent {
               span(
                 [text(copyright!)],
                 styles: Styles(raw: {
-                  'font-size': '0.8125rem',
-                  'color': 'var(--arcane-muted)',
+                  'font-size': ArcaneTypography.fontXs,
+                  'color': ArcaneColors.muted,
                 }),
               ),
 
@@ -249,7 +248,7 @@ class Footer extends StatelessComponent {
               div(
                 styles: Styles(raw: {
                   'display': 'flex',
-                  'gap': '24px',
+                  'gap': ArcaneSpacing.lg,
                 }),
                 [
                   for (final link in bottomLinks!) _buildLink(link),
@@ -262,11 +261,11 @@ class Footer extends StatelessComponent {
   }
 
   Component _buildLink(FooterLink link) {
-    final linkStyles = Styles(raw: {
-      'font-size': '0.875rem',
-      'color': 'var(--arcane-muted)',
+    final Styles linkStyles = Styles(raw: {
+      'font-size': ArcaneTypography.fontSm,
+      'color': ArcaneColors.muted,
       'text-decoration': 'none',
-      'transition': 'color var(--arcane-transition-fast)',
+      'transition': ArcaneEffects.transitionFast,
     });
 
     if (link.href != null) {
@@ -285,10 +284,10 @@ class Footer extends StatelessComponent {
       classes: 'arcane-footer-link',
       attributes: {'type': 'button'},
       styles: Styles(raw: {
-        'font-size': '0.875rem',
-        'color': 'var(--arcane-muted)',
+        'font-size': ArcaneTypography.fontSm,
+        'color': ArcaneColors.muted,
         'text-decoration': 'none',
-        'transition': 'color var(--arcane-transition-fast)',
+        'transition': ArcaneEffects.transitionFast,
         'background': 'none',
         'border': 'none',
         'padding': '0',
@@ -302,7 +301,7 @@ class Footer extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-footer-link:hover').styles(raw: {
-      'color': 'var(--arcane-on-surface)',
+      'color': ArcaneColors.onSurface,
     }),
   ];
 }
@@ -331,18 +330,18 @@ class SocialIcon extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final iconStyles = Styles(raw: {
+    final Styles iconStyles = Styles(raw: {
       'display': 'flex',
       'align-items': 'center',
       'justify-content': 'center',
       'width': '36px',
       'height': '36px',
-      'border-radius': 'var(--arcane-radius)',
-      'color': 'var(--arcane-muted)',
+      'border-radius': ArcaneRadius.md,
+      'color': ArcaneColors.muted,
       'background': 'none',
       'border': 'none',
       'cursor': 'pointer',
-      'transition': 'var(--arcane-transition-fast)',
+      'transition': ArcaneEffects.transitionFast,
     });
 
     if (href != null) {
@@ -374,8 +373,8 @@ class SocialIcon extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-social-icon:hover').styles(raw: {
-      'color': 'var(--arcane-on-surface)',
-      'background-color': 'var(--arcane-surface-variant)',
+      'color': ArcaneColors.onSurface,
+      'background-color': ArcaneColors.surfaceVariant,
     }),
   ];
 }

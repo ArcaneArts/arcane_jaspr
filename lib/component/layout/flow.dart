@@ -1,13 +1,11 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
-import '../../util/appearance/theme.dart';
 import '../../util/arcane.dart';
-import '../../util/tools/styles.dart';
+import '../../util/appearance/colors.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A flexible flow layout component that wraps children.
-///
-/// Similar to CSS flexbox with wrap enabled.
 class Flow extends StatelessComponent {
   /// The child components
   final List<Component> children;
@@ -235,7 +233,7 @@ class SizedBox extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final isExpand = width == double.infinity || height == double.infinity;
+    final bool isExpand = width == double.infinity || height == double.infinity;
 
     return div(
       classes: 'arcane-sized-box',
@@ -276,7 +274,7 @@ class Container extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final styles = <String, String>{};
+    final Map<String, String> styles = {};
 
     if (padding != null) styles['padding'] = padding!.padding;
     if (margin != null) styles['margin'] = margin!.margin;
@@ -295,8 +293,7 @@ class Container extends StatelessComponent {
         styles['border'] = decoration!.border!.css;
       }
       if (decoration!.boxShadow != null) {
-        styles['box-shadow'] =
-            decoration!.boxShadow!.map((s) => s.css).join(', ');
+        styles['box-shadow'] = decoration!.boxShadow!.map((s) => s.css).join(', ');
       }
     }
 

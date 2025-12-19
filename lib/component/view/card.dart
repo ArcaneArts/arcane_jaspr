@@ -1,31 +1,44 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
+import '../../util/appearance/colors.dart';
 import '../../util/arcane.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
+import '../../util/tokens/style_presets.dart';
+import '../../util/tokens/common_styles.dart';
 
 /// A card component with consistent styling.
+///
+/// Use style presets for cleaner code:
+/// ```dart
+/// ArcaneCard(
+///   style: CardStyle.elevated,
+///   child: Text('Content'),
+/// )
+/// ```
 class ArcaneCard extends StatelessComponent {
   /// The child component
   final Component child;
 
-  /// Custom padding
+  /// Style preset (preferred)
+  final CardStyle? style;
+
+  /// Custom padding (overrides style)
   final EdgeInsets? padding;
 
-  /// Border radius
+  /// Border radius (overrides style)
   final double? radius;
 
-  /// Whether to show a border
+  /// Whether to show a border (legacy, use CardStyle instead)
   final bool border;
 
-  /// Elevation level (0-5)
+  /// Elevation level (legacy, use CardStyle instead)
   final int elevation;
 
   /// Click handler
   final void Function()? onTap;
 
-  /// Custom background color
+  /// Custom background color (overrides style)
   final Color? color;
 
   /// Whether to fill width
@@ -33,6 +46,7 @@ class ArcaneCard extends StatelessComponent {
 
   const ArcaneCard({
     required this.child,
+    this.style,
     this.padding,
     this.radius,
     this.border = true,
@@ -43,32 +57,114 @@ class ArcaneCard extends StatelessComponent {
     super.key,
   });
 
+  /// Elevated card with shadow
+  const ArcaneCard.elevated({
+    required this.child,
+    this.padding,
+    this.radius,
+    this.onTap,
+    this.color,
+    this.fillWidth = false,
+    super.key,
+  })  : style = CardStyle.elevated,
+        border = true,
+        elevation = 2;
+
+  /// Flat card without shadow
+  const ArcaneCard.flat({
+    required this.child,
+    this.padding,
+    this.radius,
+    this.onTap,
+    this.color,
+    this.fillWidth = false,
+    super.key,
+  })  : style = CardStyle.flat,
+        border = true,
+        elevation = 0;
+
+  /// Outlined card (border only)
+  const ArcaneCard.outlined({
+    required this.child,
+    this.padding,
+    this.radius,
+    this.onTap,
+    this.color,
+    this.fillWidth = false,
+    super.key,
+  })  : style = CardStyle.outlined,
+        border = true,
+        elevation = 0;
+
+  /// Ghost card (no border, no background)
+  const ArcaneCard.ghost({
+    required this.child,
+    this.padding,
+    this.radius,
+    this.onTap,
+    this.color,
+    this.fillWidth = false,
+    super.key,
+  })  : style = CardStyle.ghost,
+        border = false,
+        elevation = 0;
+
+  /// Glass/frosted card
+  const ArcaneCard.glass({
+    required this.child,
+    this.padding,
+    this.radius,
+    this.onTap,
+    this.color,
+    this.fillWidth = false,
+    super.key,
+  })  : style = CardStyle.glass,
+        border = true,
+        elevation = 0;
+
+  /// Interactive card (shows hover effect)
+  const ArcaneCard.interactive({
+    required this.child,
+    this.padding,
+    this.radius,
+    this.onTap,
+    this.color,
+    this.fillWidth = false,
+    super.key,
+  })  : style = CardStyle.interactive,
+        border = true,
+        elevation = 0;
+
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-    final effectiveRadius = radius ?? theme.borderRadiusPx;
-    final effectivePadding = padding ?? const EdgeInsets.all(16);
+    // Build card styles
+    final Map<String, String> cardStyles = {
+      // Start with style preset if provided
+      if (style != null) ...style!.styles,
 
-    // Generate shadow based on elevation (Supabase-style)
-    final boxShadow = switch (elevation) {
-      0 => 'var(--arcane-shadow-sm)',
-      1 => 'var(--arcane-shadow-sm)',
-      2 => 'var(--arcane-shadow)',
-      3 => 'var(--arcane-shadow)',
-      4 => 'var(--arcane-shadow-lg)',
-      _ => 'var(--arcane-shadow-xl)',
-    };
+      // Or use legacy elevation-based approach
+      if (style == null) ...{
+        'background-color': color?.css ?? ArcaneColors.card,
+        'color': ArcaneColors.cardForeground,
+        'border-radius': radius != null ? '${radius}px' : ArcaneRadius.lg,
+        if (border) 'border': '1px solid ${ArcaneColors.border}',
+        'box-shadow': switch (elevation) {
+          0 => ArcaneEffects.shadowNone,
+          1 => ArcaneEffects.shadowSm,
+          2 => ArcaneEffects.shadowMd,
+          3 => ArcaneEffects.shadowLg,
+          _ => ArcaneEffects.shadowXl,
+        },
+        'transition': ArcaneEffects.transitionNormal,
+      },
 
-    final cardStyles = <String, String>{
-      'background-color': color?.css ?? 'var(--arcane-card)',
-      'color': 'var(--arcane-card-foreground)',
-      'border-radius': '${effectiveRadius}px',
-      'padding': effectivePadding.padding,
-      if (border) 'border': '1px solid var(--arcane-border)',
-      'box-shadow': elevation > 0 ? boxShadow : 'none',
+      // Overrides
+      if (color != null) 'background-color': color!.css,
+      if (radius != null) 'border-radius': '${radius}px',
+      if (padding != null) 'padding': padding!.padding,
+      if (padding == null) 'padding': ArcaneSpacing.lg,
       if (fillWidth) 'width': '100%',
       if (onTap != null) 'cursor': 'pointer',
-      'transition': 'var(--arcane-transition)',
     };
 
     if (onTap != null) {
@@ -93,8 +189,8 @@ class ArcaneCard extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-card.clickable:hover').styles(raw: {
-      'border-color': 'var(--arcane-outline)',
-      'transform': 'translateY(-2px)',
+      'border-color': ArcaneColors.outline,
+      'transform': ArcaneEffects.hoverLift,
     }),
     css('.arcane-card.clickable:active').styles(raw: {
       'transform': 'translateY(0)',
@@ -107,6 +203,7 @@ class StructuredCard extends StatelessComponent {
   final Component? header;
   final Component body;
   final Component? footer;
+  final CardStyle? style;
   final EdgeInsets? padding;
   final double? radius;
   final bool border;
@@ -117,6 +214,7 @@ class StructuredCard extends StatelessComponent {
     this.header,
     required this.body,
     this.footer,
+    this.style,
     this.padding,
     this.radius,
     this.border = true,
@@ -127,30 +225,28 @@ class StructuredCard extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-    final effectiveRadius = radius ?? theme.borderRadiusPx;
-
     // Generate shadow based on elevation
     final boxShadow = switch (elevation) {
-      0 => 'none',
-      1 => '0 1px 2px rgba(0, 0, 0, 0.05)',
-      2 => '0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06)',
-      3 =>
-        '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-      _ =>
-        '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+      0 => ArcaneEffects.shadowNone,
+      1 => ArcaneEffects.shadowSm,
+      2 => ArcaneEffects.shadowMd,
+      3 => ArcaneEffects.shadowLg,
+      _ => ArcaneEffects.shadowXl,
     };
 
     return div(
       classes: 'arcane-structured-card',
       styles: Styles(raw: {
-        'background-color': 'var(--arcane-surface)',
-        'border-radius': '${effectiveRadius}px',
-        if (border) 'border': '1px solid var(--arcane-outline-variant)',
-        'box-shadow': boxShadow,
+        // Start with style preset or defaults
+        if (style != null) ...style!.styles else ...{
+          'background-color': ArcaneColors.surface,
+          'border-radius': radius != null ? '${radius}px' : ArcaneRadius.lg,
+          if (border) 'border': '1px solid ${ArcaneColors.outlineVariant}',
+          'box-shadow': boxShadow,
+        },
         'overflow': 'hidden',
         if (onTap != null) 'cursor': 'pointer',
-        if (onTap != null) 'transition': 'all 150ms ease',
+        if (onTap != null) 'transition': ArcaneEffects.transitionFast,
       }),
       events: onTap != null
           ? {
@@ -162,8 +258,8 @@ class StructuredCard extends StatelessComponent {
           div(
             classes: 'arcane-structured-card-header',
             styles: Styles(raw: {
-              'padding': '16px',
-              'border-bottom': '1px solid var(--arcane-outline-variant)',
+              'padding': ArcaneSpacing.md,
+              'border-bottom': '1px solid ${ArcaneColors.outlineVariant}',
             }),
             [header!],
           ),
@@ -178,9 +274,9 @@ class StructuredCard extends StatelessComponent {
           div(
             classes: 'arcane-structured-card-footer',
             styles: Styles(raw: {
-              'padding': '12px 16px',
-              'border-top': '1px solid var(--arcane-outline-variant)',
-              'background-color': 'var(--arcane-surface-variant)',
+              'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
+              'border-top': '1px solid ${ArcaneColors.outlineVariant}',
+              'background-color': ArcaneColors.surfaceVariant,
             }),
             [footer!],
           ),
@@ -214,14 +310,11 @@ class ImageCard extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-    final effectiveRadius = radius ?? theme.borderRadiusPx;
-
     return div(
       classes: 'arcane-image-card ${onTap != null ? 'clickable' : ''}',
       styles: Styles(raw: {
         'position': 'relative',
-        'border-radius': '${effectiveRadius}px',
+        'border-radius': radius != null ? '${radius}px' : ArcaneRadius.lg,
         'overflow': 'hidden',
         if (height != null) 'height': '${height}px',
         if (onTap != null) 'cursor': 'pointer',
@@ -237,8 +330,7 @@ class ImageCard extends StatelessComponent {
           src: imageUrl,
           alt: title ?? '',
           styles: Styles(raw: {
-            'width': '100%',
-            'height': '100%',
+            ...ArcaneCommonStyles.imageCover,
             'object-fit': fit.css,
           }),
         ),
@@ -252,25 +344,25 @@ class ImageCard extends StatelessComponent {
               'bottom': '0',
               'left': '0',
               'right': '0',
-              'padding': '16px',
+              'padding': ArcaneSpacing.md,
               'background': 'linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent)',
-              'color': 'white',
+              'color': ArcaneColors.white,
             }),
             [
               if (title != null)
                 div(
                   styles: Styles(raw: {
-                    'font-size': '1rem',
-                    'font-weight': '600',
+                    'font-size': ArcaneTypography.fontReg,
+                    'font-weight': ArcaneTypography.weightSemibold,
                   }),
                   [text(title!)],
                 ),
               if (subtitle != null)
                 div(
                   styles: Styles(raw: {
-                    'font-size': '0.875rem',
+                    'font-size': ArcaneTypography.fontMd,
                     'opacity': '0.9',
-                    'margin-top': '4px',
+                    'margin-top': ArcaneSpacing.xs,
                   }),
                   [text(subtitle!)],
                 ),
@@ -284,7 +376,7 @@ class ImageCard extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-image-card.clickable:hover').styles(raw: {
-      'transform': 'scale(1.02)',
+      'transform': ArcaneEffects.hoverScale,
       'transition': 'transform 200ms ease',
     }),
   ];

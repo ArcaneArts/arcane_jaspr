@@ -1,9 +1,9 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
-import '../../util/appearance/theme.dart';
 import '../../util/arcane.dart';
-import '../../util/tools/styles.dart';
+import '../../util/appearance/colors.dart';
+import '../../util/tokens/tokens.dart';
 import '../view/bar.dart';
 
 /// A screen that fills the entire viewport.
@@ -66,9 +66,7 @@ class FillScreen extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-
-    final effectiveHeader = header ??
+    final Component? effectiveHeader = header ??
         (title != null
             ? Bar(
                 titleText: title,
@@ -88,7 +86,7 @@ class FillScreen extends StatelessComponent {
         'min-height': '100vh',
         'height': '100%',
         'position': 'relative',
-        'background-color': 'var(--arcane-background)',
+        'background-color': ArcaneColors.background,
       }),
       [
         // Background
@@ -168,7 +166,7 @@ class FillScreen extends StatelessComponent {
       classes: 'arcane-fill-screen-loading',
       styles: Styles(raw: {
         'height': '3px',
-        'background-color': 'var(--arcane-outline-variant)',
+        'background-color': ArcaneColors.border,
         'overflow': 'hidden',
         'flex-shrink': '0',
       }),
@@ -176,7 +174,7 @@ class FillScreen extends StatelessComponent {
         div(
           styles: Styles(raw: {
             'height': '100%',
-            'background-color': 'var(--arcane-primary)',
+            'background-color': ArcaneColors.accent,
             if (!loadingIndeterminate)
               'width': '${(loadingProgress ?? 0) * 100}%',
             if (loadingIndeterminate) 'width': '30%',
@@ -209,7 +207,7 @@ class FullScreen extends StatelessComponent {
         'min-height': '100vh',
         'width': '100%',
         'background-color':
-            backgroundColor?.css ?? 'var(--arcane-background)',
+            backgroundColor?.css ?? ArcaneColors.background,
       }),
       [child],
     );

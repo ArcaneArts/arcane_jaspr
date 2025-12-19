@@ -1,9 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
 import '../../util/arcane.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 import '../view/bar.dart';
 
 /// Base screen component that provides consistent layout structure.
@@ -74,10 +73,8 @@ class Screen extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-
     // Build header if title provided
-    final effectiveHeader = header ??
+    final Component? effectiveHeader = header ??
         (title != null
             ? Bar(
                 titleText: title,
@@ -96,7 +93,7 @@ class Screen extends StatelessComponent {
         'flex-direction': 'column',
         'height': '100%',
         'position': 'relative',
-        'background-color': 'var(--arcane-background)',
+        'background-color': ArcaneColors.background,
       }),
       [
         // Background layer
@@ -126,7 +123,7 @@ class Screen extends StatelessComponent {
           [
             // Loading progress bar
             if (loadingProgress != null || loadingIndeterminate)
-              _buildLoadingBar(theme),
+              _buildLoadingBar(),
 
             // Header
             if (effectiveHeader != null) effectiveHeader,
@@ -187,12 +184,12 @@ class Screen extends StatelessComponent {
     );
   }
 
-  Component _buildLoadingBar(ArcaneTheme theme) {
+  Component _buildLoadingBar() {
     return div(
       classes: 'arcane-screen-loading',
       styles: Styles(raw: {
         'height': '3px',
-        'background-color': 'var(--arcane-outline-variant)',
+        'background-color': ArcaneColors.border,
         'overflow': 'hidden',
         'flex-shrink': '0',
       }),
@@ -201,10 +198,10 @@ class Screen extends StatelessComponent {
           classes: 'arcane-screen-loading-bar ${loadingIndeterminate ? 'indeterminate' : ''}',
           styles: Styles(raw: {
             'height': '100%',
-            'background-color': 'var(--arcane-primary)',
+            'background-color': ArcaneColors.accent,
             if (!loadingIndeterminate)
               'width': '${(loadingProgress ?? 0) * 100}%',
-            if (!loadingIndeterminate) 'transition': 'width 200ms ease',
+            if (!loadingIndeterminate) 'transition': ArcaneEffects.transitionFast,
             if (loadingIndeterminate) 'width': '30%',
             if (loadingIndeterminate)
               'animation': 'arcane-loading-slide 1.5s ease-in-out infinite',

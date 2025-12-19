@@ -1,35 +1,66 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
-import '../../util/tools/styles.dart';
+
+import '../../util/tokens/tokens.dart';
 
 /// Skeleton loading placeholder component
 class Skeleton extends StatelessComponent {
-  final String width;
-  final String height;
-  final String borderRadius;
+  final String? width;
+  final String? height;
+  final String? borderRadius;
   final bool circle;
 
   const Skeleton({
-    this.width = '100%',
-    this.height = '20px',
-    this.borderRadius = '8px',
+    this.width,
+    this.height,
+    this.borderRadius,
     this.circle = false,
+    super.key,
   });
+
+  /// Circle skeleton
+  const Skeleton.circle({
+    this.height,
+    super.key,
+  })  : width = null,
+        borderRadius = null,
+        circle = true;
+
+  /// Text line skeleton
+  const Skeleton.line({
+    this.width,
+    super.key,
+  })  : height = null,
+        borderRadius = null,
+        circle = false;
 
   @override
   Component build(BuildContext context) {
+    final effectiveWidth = circle ? (height ?? '48px') : (width ?? '100%');
+    final effectiveHeight = height ?? '20px';
+    final effectiveRadius = circle ? ArcaneRadius.full : (borderRadius ?? ArcaneRadius.md);
+
     return div(
+      classes: 'arcane-skeleton',
       styles: Styles(raw: {
-        'width': circle ? height : width,
-        'height': height,
-        'border-radius': circle ? '50%' : borderRadius,
-        'background': 'linear-gradient(90deg, #27272A 0%, #3F3F46 50%, #27272A 100%)',
+        'width': effectiveWidth,
+        'height': effectiveHeight,
+        'border-radius': effectiveRadius,
+        'background': 'linear-gradient(90deg, ${ArcaneColors.surfaceVariant} 0%, ${ArcaneColors.surface} 50%, ${ArcaneColors.surfaceVariant} 100%)',
         'background-size': '200% 100%',
-        'animation': 'shimmer 1.5s infinite',
+        'animation': 'arcane-shimmer 1.5s infinite',
       }),
       [],
     );
   }
+
+  @css
+  static final List<StyleRule> styles = [
+    css('@keyframes arcane-shimmer').styles(raw: {
+      '0%': 'background-position: -200% 0',
+      '100%': 'background-position: 200% 0',
+    }),
+  ];
 }
 
 /// Skeleton card placeholder
@@ -40,16 +71,18 @@ class SkeletonCard extends StatelessComponent {
   const SkeletonCard({
     this.showAvatar = true,
     this.lines = 3,
+    super.key,
   });
 
   @override
   Component build(BuildContext context) {
     return div(
+      classes: 'arcane-skeleton-card',
       styles: Styles(raw: {
-        'background': '#18181B',
-        'border': '1px solid rgba(63, 63, 70, 0.5)',
-        'border-radius': '16px',
-        'padding': '24px',
+        'background': ArcaneColors.card,
+        'border': '1px solid ${ArcaneColors.border}',
+        'border-radius': ArcaneRadius.lg,
+        'padding': ArcaneSpacing.lg,
       }),
       [
         // Header with avatar
@@ -58,19 +91,21 @@ class SkeletonCard extends StatelessComponent {
             styles: Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': '16px',
-              'margin-bottom': '20px',
+              'gap': ArcaneSpacing.md,
+              'margin-bottom': ArcaneSpacing.lg,
             }),
             [
-              Skeleton(width: '48px', height: '48px', circle: true),
+              const Skeleton(width: '48px', height: '48px', circle: true),
               div(
                 styles: Styles(raw: {
                   'flex': '1',
+                  'display': 'flex',
+                  'flex-direction': 'column',
+                  'gap': ArcaneSpacing.sm,
                 }),
                 [
-                  Skeleton(width: '40%', height: '16px'),
-                  div(styles: Styles(raw: {'height': '8px'}), []),
-                  Skeleton(width: '60%', height: '14px'),
+                  const Skeleton(width: '40%', height: '16px'),
+                  const Skeleton(width: '60%', height: '14px'),
                 ],
               ),
             ],
@@ -79,7 +114,7 @@ class SkeletonCard extends StatelessComponent {
         for (var i = 0; i < lines; i++)
           div(
             styles: Styles(raw: {
-              'margin-bottom': i < lines - 1 ? '12px' : '0',
+              if (i < lines - 1) 'margin-bottom': ArcaneSpacing.sm,
             }),
             [
               Skeleton(
@@ -93,18 +128,33 @@ class SkeletonCard extends StatelessComponent {
   }
 }
 
-/// Injects the shimmer animation keyframes
-class SkeletonStyles extends StatelessComponent {
+/// Skeleton text block with multiple lines
+class SkeletonText extends StatelessComponent {
+  final int lines;
+  final String? lineHeight;
+
+  const SkeletonText({
+    this.lines = 3,
+    this.lineHeight,
+    super.key,
+  });
+
   @override
   Component build(BuildContext context) {
-    return Component.element(
-      tag: 'style',
-      children: [text('''
-        @keyframes shimmer {
-          0% { background-position: -200% 0; }
-          100% { background-position: 200% 0; }
-        }
-      ''')],
+    return div(
+      classes: 'arcane-skeleton-text',
+      styles: Styles(raw: {
+        'display': 'flex',
+        'flex-direction': 'column',
+        'gap': ArcaneSpacing.sm,
+      }),
+      [
+        for (var i = 0; i < lines; i++)
+          Skeleton(
+            width: i == lines - 1 ? '70%' : '100%',
+            height: lineHeight ?? '16px',
+          ),
+      ],
     );
   }
 }

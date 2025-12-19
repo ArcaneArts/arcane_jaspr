@@ -1,8 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A tab component for switching between views.
 class ArcaneTabs extends StatefulComponent {
@@ -50,8 +49,6 @@ class _ArcaneTabsState extends State<ArcaneTabs> {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-
     return div(
       classes: 'arcane-tabs',
       styles: Styles(raw: {
@@ -66,12 +63,12 @@ class _ArcaneTabsState extends State<ArcaneTabs> {
           attributes: {'role': 'tablist'},
           styles: Styles(raw: {
             'display': 'flex',
-            'border-bottom': '1px solid var(--arcane-outline-variant)',
-            'gap': '4px',
+            'border-bottom': '1px solid ${ArcaneColors.border}',
+            'gap': ArcaneSpacing.xs,
           }),
           [
             for (var i = 0; i < component.tabs.length; i++)
-              _buildTab(context, theme, i, component.tabs[i]),
+              _buildTab(context, i, component.tabs[i]),
           ],
         ),
         // Tab panel
@@ -79,7 +76,7 @@ class _ArcaneTabsState extends State<ArcaneTabs> {
           classes: 'arcane-tabs-panel',
           attributes: {'role': 'tabpanel'},
           styles: Styles(raw: {
-            'padding-top': '16px',
+            'padding-top': ArcaneSpacing.md,
           }),
           [
             if (_selectedIndex < component.tabs.length)
@@ -90,10 +87,9 @@ class _ArcaneTabsState extends State<ArcaneTabs> {
     );
   }
 
-  Component _buildTab(
-      BuildContext context, ArcaneTheme theme, int index, ArcaneTabItem tab) {
-    final isSelected = index == _selectedIndex;
-    final isDisabled = tab.disabled;
+  Component _buildTab(BuildContext context, int index, ArcaneTabItem tab) {
+    final bool isSelected = index == _selectedIndex;
+    final bool isDisabled = tab.disabled;
 
     return button(
       classes: 'arcane-tab ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
@@ -105,22 +101,20 @@ class _ArcaneTabsState extends State<ArcaneTabs> {
       styles: Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': '8px',
-        'padding': '10px 16px',
-        'font-size': '0.875rem',
-        'font-weight': isSelected ? '600' : '500',
-        'color': isSelected
-            ? 'var(--arcane-primary)'
-            : 'var(--arcane-on-surface-variant)',
-        'background': 'transparent',
+        'gap': ArcaneSpacing.sm,
+        'padding': '10px ${ArcaneSpacing.md}',
+        'font-size': ArcaneTypography.fontSm,
+        'font-weight': isSelected ? ArcaneTypography.weightSemibold : ArcaneTypography.weightMedium,
+        'color': isSelected ? ArcaneColors.accent : ArcaneColors.muted,
+        'background': ArcaneColors.transparent,
         'border': 'none',
         'border-bottom': isSelected
-            ? '2px solid var(--arcane-primary)'
-            : '2px solid transparent',
+            ? '2px solid ${ArcaneColors.accent}'
+            : '2px solid ${ArcaneColors.transparent}',
         'margin-bottom': '-1px',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         'opacity': isDisabled ? '0.5' : '1',
-        'transition': 'all 150ms ease',
+        'transition': ArcaneEffects.transitionFast,
         if (component.fill) 'flex': '1',
         if (component.fill) 'justify-content': 'center',
       }),
@@ -138,12 +132,12 @@ class _ArcaneTabsState extends State<ArcaneTabs> {
           span(
             classes: 'arcane-tab-badge',
             styles: Styles(raw: {
-              'background-color': 'var(--arcane-primary)',
-              'color': 'var(--arcane-on-primary)',
-              'font-size': '0.75rem',
+              'background-color': ArcaneColors.accent,
+              'color': ArcaneColors.accentForeground,
+              'font-size': ArcaneTypography.fontXs,
               'padding': '2px 6px',
-              'border-radius': '9999px',
-              'font-weight': '500',
+              'border-radius': ArcaneRadius.full,
+              'font-weight': ArcaneTypography.weightMedium,
             }),
             [Component.text(tab.badge!)],
           ),
@@ -186,45 +180,41 @@ class TabBar extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-
     return div(
       classes: 'arcane-tab-bar',
       attributes: {'role': 'tablist'},
       styles: Styles(raw: {
         'display': 'flex',
-        'border-bottom': '1px solid var(--arcane-outline-variant)',
+        'border-bottom': '1px solid ${ArcaneColors.border}',
       }),
       [
         for (var i = 0; i < tabs.length; i++)
-          _buildTab(context, theme, i, tabs[i]),
+          _buildTab(context, i, tabs[i]),
       ],
     );
   }
 
-  Component _buildTab(
-      BuildContext context, ArcaneTheme theme, int index, TabBarItem tab) {
-    final isSelected = index == selectedIndex;
+  Component _buildTab(BuildContext context, int index, TabBarItem tab) {
+    final bool isSelected = index == selectedIndex;
 
     return button(
       classes: 'arcane-tab-bar-item ${isSelected ? 'selected' : ''}',
       styles: Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': '8px',
-        'padding': '10px 16px',
-        'font-size': '0.875rem',
-        'font-weight': isSelected ? '600' : '500',
-        'color': isSelected
-            ? 'var(--arcane-primary)'
-            : 'var(--arcane-on-surface-variant)',
-        'background': 'transparent',
+        'gap': ArcaneSpacing.sm,
+        'padding': '10px ${ArcaneSpacing.md}',
+        'font-size': ArcaneTypography.fontSm,
+        'font-weight': isSelected ? ArcaneTypography.weightSemibold : ArcaneTypography.weightMedium,
+        'color': isSelected ? ArcaneColors.accent : ArcaneColors.muted,
+        'background': ArcaneColors.transparent,
+        'border': 'none',
         'border-bottom': isSelected
-            ? '2px solid var(--arcane-primary)'
-            : '2px solid transparent',
+            ? '2px solid ${ArcaneColors.accent}'
+            : '2px solid ${ArcaneColors.transparent}',
         'margin-bottom': '-1px',
         'cursor': 'pointer',
-        'transition': 'all 150ms ease',
+        'transition': ArcaneEffects.transitionFast,
         if (fill) 'flex': '1',
         if (fill) 'justify-content': 'center',
       }),

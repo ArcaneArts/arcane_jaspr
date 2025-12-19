@@ -1,8 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
+import '../../util/tokens/style_presets.dart';
 import 'badge.dart';
 
 /// A pricing tier model
@@ -68,16 +68,16 @@ class PricingCard extends StatelessComponent {
       styles: Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'padding': '32px',
+        'padding': ArcaneSpacing.xxl,
         'background-color': tier.isHighlighted
-            ? 'var(--arcane-accent-container)'
-            : 'var(--arcane-card)',
+            ? ArcaneColors.accentContainer
+            : ArcaneColors.card,
         'border': tier.isHighlighted
-            ? '2px solid var(--arcane-accent)'
-            : '1px solid var(--arcane-border)',
-        'border-radius': 'var(--arcane-radius-xl)',
+            ? '2px solid ${ArcaneColors.accent}'
+            : '1px solid ${ArcaneColors.border}',
+        'border-radius': ArcaneRadius.xl,
         'position': 'relative',
-        'transition': 'var(--arcane-transition)',
+        'transition': ArcaneEffects.transition,
       }),
       [
         // Popular badge
@@ -96,10 +96,10 @@ class PricingCard extends StatelessComponent {
         div(
           classes: 'arcane-pricing-name',
           styles: Styles(raw: {
-            'font-size': '1.25rem',
-            'font-weight': '600',
-            'color': 'var(--arcane-on-surface)',
-            'margin-bottom': '8px',
+            'font-size': ArcaneTypography.fontXl,
+            'font-weight': ArcaneTypography.weightSemibold,
+            'color': ArcaneColors.onSurface,
+            'margin-bottom': ArcaneSpacing.sm,
           }),
           [text(tier.name)],
         ),
@@ -110,23 +110,23 @@ class PricingCard extends StatelessComponent {
           styles: Styles(raw: {
             'display': 'flex',
             'align-items': 'baseline',
-            'gap': '4px',
-            'margin-bottom': '8px',
+            'gap': ArcaneSpacing.xs,
+            'margin-bottom': ArcaneSpacing.sm,
           }),
           [
             if (tier.price != null) ...[
               span(
                 styles: Styles(raw: {
-                  'font-size': '0.875rem',
-                  'color': 'var(--arcane-muted)',
+                  'font-size': ArcaneTypography.fontSm,
+                  'color': ArcaneColors.muted,
                 }),
                 [text(tier.currency)],
               ),
               span(
                 styles: Styles(raw: {
-                  'font-size': '3rem',
-                  'font-weight': '700',
-                  'color': 'var(--arcane-on-surface)',
+                  'font-size': ArcaneTypography.font4xl,
+                  'font-weight': ArcaneTypography.weightBold,
+                  'color': ArcaneColors.onSurface,
                   'line-height': '1',
                   'letter-spacing': '-0.02em',
                 }),
@@ -134,17 +134,17 @@ class PricingCard extends StatelessComponent {
               ),
               span(
                 styles: Styles(raw: {
-                  'font-size': '0.875rem',
-                  'color': 'var(--arcane-muted)',
+                  'font-size': ArcaneTypography.fontSm,
+                  'color': ArcaneColors.muted,
                 }),
                 [text('/${tier.period}')],
               ),
             ] else
               span(
                 styles: Styles(raw: {
-                  'font-size': '2rem',
-                  'font-weight': '600',
-                  'color': 'var(--arcane-on-surface)',
+                  'font-size': ArcaneTypography.font2xl,
+                  'font-weight': ArcaneTypography.weightSemibold,
+                  'color': ArcaneColors.onSurface,
                 }),
                 [text('Custom')],
               ),
@@ -155,10 +155,10 @@ class PricingCard extends StatelessComponent {
         p(
           classes: 'arcane-pricing-description',
           styles: Styles(raw: {
-            'font-size': '0.9375rem',
-            'color': 'var(--arcane-muted)',
-            'margin': '0 0 24px 0',
-            'line-height': '1.5',
+            'font-size': ArcaneTypography.fontMd,
+            'color': ArcaneColors.muted,
+            'margin': '0 0 ${ArcaneSpacing.xl} 0',
+            'line-height': ArcaneTypography.leadingNormal,
           }),
           [text(tier.description)],
         ),
@@ -169,22 +169,22 @@ class PricingCard extends StatelessComponent {
           attributes: {'type': 'button'},
           styles: Styles(raw: {
             'width': '100%',
-            'padding': '12px 16px',
-            'font-size': '0.9375rem',
-            'font-weight': '500',
-            'border-radius': 'var(--arcane-radius)',
+            'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.lg}',
+            'font-size': ArcaneTypography.fontMd,
+            'font-weight': ArcaneTypography.weightMedium,
+            'border-radius': ArcaneRadius.md,
             'border': tier.isHighlighted
                 ? 'none'
-                : '1px solid var(--arcane-border)',
+                : '1px solid ${ArcaneColors.border}',
             'background-color': tier.isHighlighted
-                ? 'var(--arcane-accent)'
-                : 'transparent',
+                ? ArcaneColors.accent
+                : ArcaneColors.transparent,
             'color': tier.isHighlighted
-                ? 'var(--arcane-accent-foreground)'
-                : 'var(--arcane-on-surface)',
+                ? ArcaneColors.accentForeground
+                : ArcaneColors.onSurface,
             'cursor': 'pointer',
-            'transition': 'var(--arcane-transition-fast)',
-            'margin-bottom': '24px',
+            'transition': ArcaneEffects.transitionFast,
+            'margin-bottom': ArcaneSpacing.xl,
           }),
           events: {
             'click': (e) => onCtaPressed?.call(),
@@ -198,7 +198,7 @@ class PricingCard extends StatelessComponent {
           styles: Styles(raw: {
             'display': 'flex',
             'flex-direction': 'column',
-            'gap': '12px',
+            'gap': ArcaneSpacing.md,
           }),
           [
             for (final feature in tier.features)
@@ -207,17 +207,17 @@ class PricingCard extends StatelessComponent {
                 styles: Styles(raw: {
                   'display': 'flex',
                   'align-items': 'flex-start',
-                  'gap': '12px',
-                  'font-size': '0.875rem',
-                  'color': 'var(--arcane-on-surface)',
+                  'gap': ArcaneSpacing.md,
+                  'font-size': ArcaneTypography.fontSm,
+                  'color': ArcaneColors.onSurface,
                 }),
                 [
                   // Checkmark
                   span(
                     styles: Styles(raw: {
-                      'color': 'var(--arcane-success)',
+                      'color': ArcaneColors.success,
                       'flex-shrink': '0',
-                      'font-size': '1rem',
+                      'font-size': ArcaneTypography.fontMd,
                     }),
                     [text('✓')],
                   ),
@@ -233,8 +233,8 @@ class PricingCard extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-pricing-card:hover').styles(raw: {
-      'transform': 'translateY(-4px)',
-      'box-shadow': 'var(--arcane-shadow-lg)',
+      'transform': ArcaneEffects.hoverLift,
+      'box-shadow': ArcaneEffects.shadowLg,
     }),
     css('.arcane-pricing-cta:hover').styles(raw: {
       'opacity': '0.9',
@@ -262,14 +262,14 @@ class PricingGrid extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final cols = columns ?? tiers.length.clamp(1, 4);
+    final int cols = columns ?? tiers.length.clamp(1, 4);
 
     return div(
       classes: 'arcane-pricing-grid',
       styles: Styles(raw: {
         'display': 'grid',
         'grid-template-columns': 'repeat($cols, minmax(280px, 1fr))',
-        'gap': '24px',
+        'gap': ArcaneSpacing.xl,
         'align-items': 'start',
       }),
       [

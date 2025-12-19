@@ -1,15 +1,29 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
-import '../../util/tools/styles.dart';
+
+import '../../util/tokens/tokens.dart';
 
 /// Stat card for displaying metrics with optional trend indicator
 class StatCard extends StatelessComponent {
+  /// Label text
   final String label;
+
+  /// Value to display
   final String value;
+
+  /// Optional icon
   final String? icon;
-  final String? trend; // e.g., "+12.5%"
+
+  /// Trend value (e.g., "+12.5%")
+  final String? trend;
+
+  /// Whether the trend is positive
   final bool trendPositive;
+
+  /// Additional description
   final String? description;
+
+  /// Custom icon background
   final String? iconBackground;
 
   const StatCard({
@@ -20,19 +34,21 @@ class StatCard extends StatelessComponent {
     this.trendPositive = true,
     this.description,
     this.iconBackground,
+    super.key,
   });
 
   @override
   Component build(BuildContext context) {
     return div(
+      classes: 'arcane-stat-card',
       styles: Styles(raw: {
-        'background': '#18181B',
-        'border': '1px solid rgba(63, 63, 70, 0.5)',
-        'border-radius': '16px',
-        'padding': '24px',
+        'background': ArcaneColors.card,
+        'border': '1px solid ${ArcaneColors.border}',
+        'border-radius': ArcaneRadius.lg,
+        'padding': ArcaneSpacing.xl,
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '16px',
+        'gap': ArcaneSpacing.lg,
       }),
       [
         // Header with icon and trend
@@ -48,13 +64,13 @@ class StatCard extends StatelessComponent {
                 styles: Styles(raw: {
                   'width': '48px',
                   'height': '48px',
-                  'border-radius': '12px',
+                  'border-radius': ArcaneRadius.md,
                   'background': iconBackground ??
-                      'linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.2) 100%)',
+                      'linear-gradient(135deg, ${ArcaneColors.accentContainer} 0%, ${ArcaneColors.accent}20 100%)',
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'center',
-                  'font-size': '24px',
+                  'font-size': ArcaneTypography.fontXl,
                 }),
                 [text(icon!)],
               ),
@@ -63,15 +79,17 @@ class StatCard extends StatelessComponent {
                 styles: Styles(raw: {
                   'display': 'flex',
                   'align-items': 'center',
-                  'gap': '4px',
-                  'padding': '4px 8px',
-                  'border-radius': '6px',
+                  'gap': ArcaneSpacing.xs,
+                  'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
+                  'border-radius': ArcaneRadius.sm,
                   'background': trendPositive
-                      ? 'rgba(16, 185, 129, 0.1)'
-                      : 'rgba(239, 68, 68, 0.1)',
-                  'color': trendPositive ? '#10B981' : '#EF4444',
-                  'font-size': '13px',
-                  'font-weight': '500',
+                      ? '${ArcaneColors.success}15'
+                      : '${ArcaneColors.error}15',
+                  'color': trendPositive
+                      ? ArcaneColors.success
+                      : ArcaneColors.error,
+                  'font-size': ArcaneTypography.fontSm,
+                  'font-weight': ArcaneTypography.weightMedium,
                 }),
                 [
                   text(trendPositive ? '↑' : '↓'),
@@ -84,18 +102,18 @@ class StatCard extends StatelessComponent {
         div([
           div(
             styles: Styles(raw: {
-              'font-size': '32px',
-              'font-weight': '700',
-              'color': '#FAFAFA',
+              'font-size': ArcaneTypography.font3xl,
+              'font-weight': ArcaneTypography.weightBold,
+              'color': ArcaneColors.onSurface,
               'line-height': '1.2',
             }),
             [text(value)],
           ),
           div(
             styles: Styles(raw: {
-              'font-size': '14px',
-              'color': '#A1A1AA',
-              'margin-top': '4px',
+              'font-size': ArcaneTypography.fontSm,
+              'color': ArcaneColors.muted,
+              'margin-top': ArcaneSpacing.xs,
             }),
             [text(label)],
           ),
@@ -103,14 +121,46 @@ class StatCard extends StatelessComponent {
         if (description != null)
           div(
             styles: Styles(raw: {
-              'font-size': '13px',
-              'color': '#71717A',
-              'padding-top': '12px',
-              'border-top': '1px solid rgba(63, 63, 70, 0.5)',
+              'font-size': ArcaneTypography.fontSm,
+              'color': ArcaneColors.muted,
+              'padding-top': ArcaneSpacing.md,
+              'border-top': '1px solid ${ArcaneColors.border}',
             }),
             [text(description!)],
           ),
       ],
+    );
+  }
+}
+
+/// A row of stat cards
+class StatCardRow extends StatelessComponent {
+  /// Stat cards to display
+  final List<StatCard> cards;
+
+  /// Number of columns
+  final int columns;
+
+  /// Gap between cards
+  final double gap;
+
+  const StatCardRow({
+    required this.cards,
+    this.columns = 4,
+    this.gap = 24,
+    super.key,
+  });
+
+  @override
+  Component build(BuildContext context) {
+    return div(
+      classes: 'arcane-stat-card-row',
+      styles: Styles(raw: {
+        'display': 'grid',
+        'grid-template-columns': 'repeat($columns, 1fr)',
+        'gap': '${gap}px',
+      }),
+      cards,
     );
   }
 }

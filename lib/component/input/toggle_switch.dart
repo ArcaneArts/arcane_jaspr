@@ -1,10 +1,25 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
+import '../../util/tokens/style_presets.dart';
 
-/// A toggle switch component (Supabase-style)
+/// Toggle switch size variants
+enum ToggleSwitchSize {
+  small,
+  medium,
+  large,
+}
+
+/// A toggle switch component
+///
+/// Use style presets for cleaner code:
+/// ```dart
+/// ToggleSwitch(
+///   value: true,
+///   style: ToggleStyle.success,
+/// )
+/// ```
 class ToggleSwitch extends StatefulComponent {
   /// Whether the switch is on
   final bool value;
@@ -15,8 +30,11 @@ class ToggleSwitch extends StatefulComponent {
   /// Whether the switch is disabled
   final bool disabled;
 
-  /// Size of the switch (sm, md, lg)
-  final String size;
+  /// Size of the switch
+  final ToggleSwitchSize size;
+
+  /// Style preset
+  final ToggleStyle? style;
 
   /// Optional label text
   final String? label;
@@ -28,11 +46,34 @@ class ToggleSwitch extends StatefulComponent {
     required this.value,
     this.onChanged,
     this.disabled = false,
-    this.size = 'md',
+    this.size = ToggleSwitchSize.medium,
+    this.style,
     this.label,
     this.labelLeft = false,
     super.key,
   });
+
+  /// Primary toggle
+  const ToggleSwitch.primary({
+    required this.value,
+    this.onChanged,
+    this.disabled = false,
+    this.size = ToggleSwitchSize.medium,
+    this.label,
+    this.labelLeft = false,
+    super.key,
+  }) : style = ToggleStyle.primary;
+
+  /// Success toggle
+  const ToggleSwitch.success({
+    required this.value,
+    this.onChanged,
+    this.disabled = false,
+    this.size = ToggleSwitchSize.medium,
+    this.label,
+    this.labelLeft = false,
+    super.key,
+  }) : style = ToggleStyle.success;
 
   @override
   State<ToggleSwitch> createState() => _ToggleSwitchState();
@@ -41,18 +82,21 @@ class ToggleSwitch extends StatefulComponent {
 class _ToggleSwitchState extends State<ToggleSwitch> {
   @override
   Component build(BuildContext context) {
+    final effectiveStyle = component.style ?? ToggleStyle.primary;
+
     // Get size-specific dimensions
     final (width, height, thumbSize, thumbOffset) = switch (component.size) {
-      'sm' => (36.0, 20.0, 16.0, 2.0),
-      'md' => (44.0, 24.0, 20.0, 2.0),
-      'lg' => (52.0, 28.0, 24.0, 2.0),
-      _ => (44.0, 24.0, 20.0, 2.0),
+      ToggleSwitchSize.small => (36.0, 20.0, 16.0, 2.0),
+      ToggleSwitchSize.medium => (44.0, 24.0, 20.0, 2.0),
+      ToggleSwitchSize.large => (52.0, 28.0, 24.0, 2.0),
     };
 
-    final thumbTranslate = component.value ? (width - thumbSize - thumbOffset * 2) : 0.0;
+    final thumbTranslate =
+        component.value ? (width - thumbSize - thumbOffset * 2) : 0.0;
 
     final switchWidget = button(
-      classes: 'arcane-toggle-switch ${component.value ? 'active' : ''} ${component.disabled ? 'disabled' : ''}',
+      classes:
+          'arcane-toggle-switch ${component.value ? 'active' : ''} ${component.disabled ? 'disabled' : ''}',
       attributes: {
         'type': 'button',
         'role': 'switch',
@@ -67,13 +111,13 @@ class _ToggleSwitchState extends State<ToggleSwitch> {
         'height': '${height}px',
         'padding': '0',
         'border': 'none',
-        'border-radius': 'var(--arcane-radius-full)',
+        'border-radius': ArcaneRadius.full,
         'background-color': component.value
-            ? 'var(--arcane-accent)'
-            : 'var(--arcane-surface-variant)',
+            ? effectiveStyle.activeColor
+            : effectiveStyle.inactiveColor,
         'cursor': component.disabled ? 'not-allowed' : 'pointer',
         'opacity': component.disabled ? '0.5' : '1',
-        'transition': 'background-color var(--arcane-transition-fast)',
+        'transition': ArcaneEffects.transitionFast,
       }),
       events: {
         'click': (event) {
@@ -92,11 +136,11 @@ class _ToggleSwitchState extends State<ToggleSwitch> {
             'left': '${thumbOffset}px',
             'width': '${thumbSize}px',
             'height': '${thumbSize}px',
-            'border-radius': '50%',
-            'background-color': 'white',
-            'box-shadow': '0 1px 3px rgba(0, 0, 0, 0.2)',
+            'border-radius': ArcaneRadius.full,
+            'background-color': effectiveStyle.thumbColor,
+            'box-shadow': ArcaneEffects.shadowSm,
             'transform': 'translateX(${thumbTranslate}px)',
-            'transition': 'transform var(--arcane-transition-fast)',
+            'transition': ArcaneEffects.transitionFast,
           }),
           [],
         ),
@@ -112,10 +156,8 @@ class _ToggleSwitchState extends State<ToggleSwitch> {
     final labelWidget = span(
       classes: 'arcane-toggle-label',
       styles: Styles(raw: {
-        'font-size': '0.875rem',
-        'color': component.disabled
-            ? 'var(--arcane-muted)'
-            : 'var(--arcane-on-surface)',
+        'font-size': ArcaneTypography.fontMd,
+        'color': component.disabled ? ArcaneColors.muted : ArcaneColors.onSurface,
         'user-select': 'none',
       }),
       [text(component.label!)],
@@ -126,7 +168,7 @@ class _ToggleSwitchState extends State<ToggleSwitch> {
       styles: Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': '12px',
+        'gap': ArcaneSpacing.sm,
         'cursor': component.disabled ? 'not-allowed' : 'pointer',
       }),
       events: {
@@ -155,32 +197,33 @@ class ToggleButtonGroup extends StatelessComponent {
   final void Function(int)? onChanged;
 
   /// Size of the toggle group
-  final String size;
+  final ToggleSwitchSize size;
 
   const ToggleButtonGroup({
     required this.options,
     required this.selectedIndex,
     this.onChanged,
-    this.size = 'md',
+    this.size = ToggleSwitchSize.medium,
     super.key,
   });
 
   @override
   Component build(BuildContext context) {
     final (paddingH, paddingV, fontSize) = switch (size) {
-      'sm' => (10.0, 6.0, '0.8125rem'),
-      'md' => (14.0, 8.0, '0.875rem'),
-      'lg' => (18.0, 10.0, '1rem'),
-      _ => (14.0, 8.0, '0.875rem'),
+      ToggleSwitchSize.small => (ArcaneSpacing.sm, '6px', ArcaneTypography.fontSm),
+      ToggleSwitchSize.medium =>
+        (ArcaneSpacing.md, ArcaneSpacing.sm, ArcaneTypography.fontMd),
+      ToggleSwitchSize.large =>
+        (ArcaneSpacing.lg, ArcaneSpacing.sm, ArcaneTypography.fontReg),
     };
 
     return div(
       classes: 'arcane-toggle-button-group',
       styles: Styles(raw: {
         'display': 'inline-flex',
-        'padding': '4px',
-        'background-color': 'var(--arcane-surface-variant)',
-        'border-radius': 'var(--arcane-radius)',
+        'padding': ArcaneSpacing.xs,
+        'background-color': ArcaneColors.surfaceVariant,
+        'border-radius': ArcaneRadius.md,
         'gap': '2px',
       }),
       [
@@ -189,20 +232,19 @@ class ToggleButtonGroup extends StatelessComponent {
             classes: 'arcane-toggle-button ${i == selectedIndex ? 'active' : ''}',
             attributes: {'type': 'button'},
             styles: Styles(raw: {
-              'padding': '${paddingV}px ${paddingH}px',
+              'padding': '$paddingV $paddingH',
               'font-size': fontSize,
-              'font-weight': '500',
+              'font-weight': ArcaneTypography.weightMedium,
               'border': 'none',
-              'border-radius': 'calc(var(--arcane-radius) - 2px)',
-              'background-color': i == selectedIndex
-                  ? 'var(--arcane-surface)'
-                  : 'transparent',
+              'border-radius': ArcaneRadius.sm,
+              'background-color':
+                  i == selectedIndex ? ArcaneColors.surface : ArcaneColors.transparent,
               'color': i == selectedIndex
-                  ? 'var(--arcane-on-surface)'
-                  : 'var(--arcane-muted)',
+                  ? ArcaneColors.onSurface
+                  : ArcaneColors.muted,
               'cursor': 'pointer',
-              'transition': 'var(--arcane-transition-fast)',
-              if (i == selectedIndex) 'box-shadow': 'var(--arcane-shadow-sm)',
+              'transition': ArcaneEffects.transitionFast,
+              if (i == selectedIndex) 'box-shadow': ArcaneEffects.shadowSm,
             }),
             events: {
               'click': (event) {

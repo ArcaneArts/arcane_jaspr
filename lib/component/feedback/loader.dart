@@ -1,61 +1,73 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
-import '../../util/tools/styles.dart';
+
+import '../../util/tokens/tokens.dart';
 
 /// Spinner loader component
 class ArcaneLoader extends StatelessComponent {
   final String size;
-  final String color;
+  final String? color;
   final String strokeWidth;
 
   const ArcaneLoader({
     this.size = '32px',
-    this.color = '#10B981',
+    this.color,
     this.strokeWidth = '3px',
+    super.key,
   });
 
   @override
   Component build(BuildContext context) {
     return div(
+      classes: 'arcane-loader-spinner',
       styles: Styles(raw: {
         'width': size,
         'height': size,
-        'border': '$strokeWidth solid rgba(63, 63, 70, 0.3)',
-        'border-top-color': color,
-        'border-radius': '50%',
+        'border': '$strokeWidth solid ${ArcaneColors.border}',
+        'border-top-color': color ?? ArcaneColors.success,
+        'border-radius': ArcaneRadius.full,
         'animation': 'spin 1s linear infinite',
       }),
       [],
     );
   }
+
+  @css
+  static final List<StyleRule> styles = [
+    css('@keyframes spin').styles(raw: {
+      'to': 'transform: rotate(360deg)',
+    }),
+  ];
 }
 
 /// Dots loader animation
 class DotsLoader extends StatelessComponent {
-  final String color;
+  final String? color;
   final String dotSize;
 
   const DotsLoader({
-    this.color = '#10B981',
+    this.color,
     this.dotSize = '8px',
+    super.key,
   });
 
   @override
   Component build(BuildContext context) {
     return div(
+      classes: 'arcane-dots-loader',
       styles: Styles(raw: {
         'display': 'flex',
-        'gap': '6px',
+        'gap': ArcaneSpacing.xs,
         'align-items': 'center',
       }),
       [
-        for (var i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
           div(
             styles: Styles(raw: {
               'width': dotSize,
               'height': dotSize,
-              'border-radius': '50%',
-              'background': color,
+              'border-radius': ArcaneRadius.full,
+              'background': color ?? ArcaneColors.success,
               'animation': 'dotBounce 1.4s infinite ease-in-out both',
               'animation-delay': '${i * 0.16}s',
             }),
@@ -64,21 +76,31 @@ class DotsLoader extends StatelessComponent {
       ],
     );
   }
+
+  @css
+  static final List<StyleRule> styles = [
+    css('@keyframes dotBounce').styles(raw: {
+      '0%, 80%, 100%': 'transform: scale(0)',
+      '40%': 'transform: scale(1)',
+    }),
+  ];
 }
 
 /// Pulse loader animation
 class PulseLoader extends StatelessComponent {
   final String size;
-  final String color;
+  final String? color;
 
   const PulseLoader({
     this.size = '40px',
-    this.color = '#10B981',
+    this.color,
+    super.key,
   });
 
   @override
   Component build(BuildContext context) {
     return div(
+      classes: 'arcane-pulse-loader',
       styles: Styles(raw: {
         'position': 'relative',
         'width': size,
@@ -89,8 +111,8 @@ class PulseLoader extends StatelessComponent {
           styles: Styles(raw: {
             'position': 'absolute',
             'inset': '0',
-            'border-radius': '50%',
-            'background': color,
+            'border-radius': ArcaneRadius.full,
+            'background': color ?? ArcaneColors.success,
             'opacity': '0.4',
             'animation': 'pulseGrow 1.5s infinite ease-in-out',
           }),
@@ -100,14 +122,22 @@ class PulseLoader extends StatelessComponent {
           styles: Styles(raw: {
             'position': 'absolute',
             'inset': '25%',
-            'border-radius': '50%',
-            'background': color,
+            'border-radius': ArcaneRadius.full,
+            'background': color ?? ArcaneColors.success,
           }),
           [],
         ),
       ],
     );
   }
+
+  @css
+  static final List<StyleRule> styles = [
+    css('@keyframes pulseGrow').styles(raw: {
+      '0%, 100%': 'transform: scale(0.8); opacity: 0.5',
+      '50%': 'transform: scale(1.2); opacity: 0.2',
+    }),
+  ];
 }
 
 /// Loading overlay for full-screen loading states
@@ -118,11 +148,13 @@ class LoadingOverlay extends StatelessComponent {
   const LoadingOverlay({
     this.loader,
     this.message,
+    super.key,
   });
 
   @override
   Component build(BuildContext context) {
     return div(
+      classes: 'arcane-loading-overlay',
       styles: Styles(raw: {
         'position': 'fixed',
         'inset': '0',
@@ -130,8 +162,8 @@ class LoadingOverlay extends StatelessComponent {
         'flex-direction': 'column',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': '24px',
-        'background': 'rgba(10, 10, 11, 0.9)',
+        'gap': ArcaneSpacing.xl,
+        'background': ArcaneColors.backgroundOverlay,
         'backdrop-filter': 'blur(8px)',
         '-webkit-backdrop-filter': 'blur(8px)',
         'z-index': '9999',
@@ -141,8 +173,8 @@ class LoadingOverlay extends StatelessComponent {
         if (message != null)
           span(
             styles: Styles(raw: {
-              'color': '#A1A1AA',
-              'font-size': '16px',
+              'color': ArcaneColors.muted,
+              'font-size': ArcaneTypography.fontBase,
             }),
             [text(message!)],
           ),
@@ -153,6 +185,8 @@ class LoadingOverlay extends StatelessComponent {
 
 /// Style injection for loader animations
 class LoaderStyles extends StatelessComponent {
+  const LoaderStyles({super.key});
+
   @override
   Component build(BuildContext context) {
     return Component.element(

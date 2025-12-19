@@ -1,8 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A group of selectable cards where only one can be selected at a time.
 class RadioCards<T> extends StatefulComponent {
@@ -41,8 +40,6 @@ class RadioCards<T> extends StatefulComponent {
 class _RadioCardsState<T> extends State<RadioCards<T>> {
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-
     return div(
       classes: 'arcane-radio-cards',
       styles: Styles(raw: {
@@ -52,15 +49,14 @@ class _RadioCardsState<T> extends State<RadioCards<T>> {
       }),
       [
         for (final item in component.items)
-          _buildCard(context, theme, item),
+          _buildCard(context, item),
       ],
     );
   }
 
-  Component _buildCard(
-      BuildContext context, ArcaneTheme theme, RadioCardItem<T> item) {
-    final isSelected = component.value == item.value;
-    final isDisabled = item.disabled;
+  Component _buildCard(BuildContext context, RadioCardItem<T> item) {
+    final bool isSelected = component.value == item.value;
+    final bool isDisabled = item.disabled;
 
     return button(
       classes: 'arcane-radio-card ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
@@ -68,16 +64,16 @@ class _RadioCardsState<T> extends State<RadioCards<T>> {
         'display': 'flex',
         'flex-direction': 'column',
         'align-items': 'flex-start',
-        'padding': '16px',
-        'border-radius': theme.borderRadiusCss,
+        'padding': ArcaneSpacing.md,
+        'border-radius': ArcaneRadius.md,
         'border': isSelected
-            ? '2px solid var(--arcane-primary)'
-            : '2px solid var(--arcane-outline-variant)',
+            ? '2px solid ${ArcaneColors.accent}'
+            : '2px solid ${ArcaneColors.border}',
         'background-color':
-            isSelected ? 'var(--arcane-primary-container)' : 'var(--arcane-surface)',
+            isSelected ? ArcaneColors.accentContainer : ArcaneColors.surface,
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         'opacity': isDisabled ? '0.5' : '1',
-        'transition': 'all 150ms ease',
+        'transition': ArcaneEffects.transitionFast,
         'text-align': 'left',
         if (component.cardWidth != null) 'width': '${component.cardWidth}px',
         'flex': component.cardWidth == null ? '1' : 'none',
@@ -94,10 +90,8 @@ class _RadioCardsState<T> extends State<RadioCards<T>> {
         if (item.icon != null)
           div(
             styles: Styles(raw: {
-              'margin-bottom': '8px',
-              'color': isSelected
-                  ? 'var(--arcane-primary)'
-                  : 'var(--arcane-on-surface-variant)',
+              'margin-bottom': ArcaneSpacing.sm,
+              'color': isSelected ? ArcaneColors.accent : ArcaneColors.muted,
             }),
             [item.icon!],
           ),
@@ -105,11 +99,9 @@ class _RadioCardsState<T> extends State<RadioCards<T>> {
           div(
             classes: 'arcane-radio-card-title',
             styles: Styles(raw: {
-              'font-weight': '600',
-              'color': isSelected
-                  ? 'var(--arcane-on-primary-container)'
-                  : 'var(--arcane-on-surface)',
-              'margin-bottom': item.subtitle != null ? '4px' : '0',
+              'font-weight': ArcaneTypography.weightSemibold,
+              'color': isSelected ? ArcaneColors.accent : ArcaneColors.onSurface,
+              'margin-bottom': item.subtitle != null ? ArcaneSpacing.xs : '0',
             }),
             [Component.text(item.title!)],
           ),
@@ -117,10 +109,8 @@ class _RadioCardsState<T> extends State<RadioCards<T>> {
           div(
             classes: 'arcane-radio-card-subtitle',
             styles: Styles(raw: {
-              'font-size': '0.875rem',
-              'color': isSelected
-                  ? 'var(--arcane-on-primary-container)'
-                  : 'var(--arcane-on-surface-variant)',
+              'font-size': ArcaneTypography.fontSm,
+              'color': isSelected ? ArcaneColors.accent : ArcaneColors.muted,
             }),
             [Component.text(item.subtitle!)],
           ),
@@ -199,8 +189,6 @@ class Chip extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-
     return button(
       classes: 'arcane-chip ${selected ? 'selected' : ''} ${disabled ? 'disabled' : ''}',
       styles: Styles(raw: {
@@ -208,20 +196,18 @@ class Chip extends StatelessComponent {
         'align-items': 'center',
         'gap': '6px',
         'padding': '6px 12px',
-        'border-radius': '9999px',
-        'font-size': '0.875rem',
+        'border-radius': ArcaneRadius.full,
+        'font-size': ArcaneTypography.fontSm,
         'border': selected
-            ? '1px solid var(--arcane-primary)'
-            : '1px solid var(--arcane-outline-variant)',
+            ? '1px solid ${ArcaneColors.accent}'
+            : '1px solid ${ArcaneColors.border}',
         'background-color': selected
-            ? 'var(--arcane-primary-container)'
-            : 'var(--arcane-surface)',
-        'color': selected
-            ? 'var(--arcane-on-primary-container)'
-            : 'var(--arcane-on-surface)',
+            ? ArcaneColors.accentContainer
+            : ArcaneColors.surface,
+        'color': selected ? ArcaneColors.accent : ArcaneColors.onSurface,
         'cursor': disabled ? 'not-allowed' : 'pointer',
         'opacity': disabled ? '0.5' : '1',
-        'transition': 'all 150ms ease',
+        'transition': ArcaneEffects.transitionFast,
       }),
       events: {
         'click': (event) {
@@ -238,9 +224,13 @@ class Chip extends StatelessComponent {
             styles: Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'margin-left': '4px',
+              'margin-left': ArcaneSpacing.xs,
               'color': 'inherit',
               'opacity': '0.7',
+              'background': 'none',
+              'border': 'none',
+              'padding': '0',
+              'cursor': 'pointer',
             }),
             events: {
               'click': (event) {

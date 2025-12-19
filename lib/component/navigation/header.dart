@@ -1,9 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
-import '../input/button.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A navigation link item
 class NavItem {
@@ -72,12 +70,12 @@ class Header extends StatelessComponent {
         'display': 'flex',
         'align-items': 'center',
         'justify-content': 'space-between',
-        'padding': '0 24px',
+        'padding': '0 ${ArcaneSpacing.lg}',
         'height': '64px',
         'background-color': transparent
-            ? 'transparent'
-            : 'var(--arcane-background)',
-        if (bordered) 'border-bottom': '1px solid var(--arcane-border)',
+            ? ArcaneColors.transparent
+            : ArcaneColors.background,
+        if (bordered) 'border-bottom': '1px solid ${ArcaneColors.border}',
         if (sticky) 'position': 'sticky',
         if (sticky) 'top': '0',
         if (sticky) 'z-index': '50',
@@ -90,7 +88,7 @@ class Header extends StatelessComponent {
           styles: Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': '32px',
+            'gap': ArcaneSpacing.xl,
           }),
           [
             // Logo
@@ -105,7 +103,7 @@ class Header extends StatelessComponent {
               styles: Styles(raw: {
                 'display': 'flex',
                 'align-items': 'center',
-                'gap': '4px',
+                'gap': ArcaneSpacing.xs,
               }),
               [
                 for (final item in navItems) _buildNavItem(item),
@@ -120,7 +118,7 @@ class Header extends StatelessComponent {
           styles: Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': '16px',
+            'gap': ArcaneSpacing.md,
           }),
           [
             // Search
@@ -138,14 +136,14 @@ class Header extends StatelessComponent {
                     },
                     styles: Styles(raw: {
                       'padding': '8px 12px 8px 36px',
-                      'font-size': '0.875rem',
-                      'background-color': 'var(--arcane-surface-variant)',
-                      'border': '1px solid var(--arcane-border)',
-                      'border-radius': 'var(--arcane-radius)',
-                      'color': 'var(--arcane-on-surface)',
+                      'font-size': ArcaneTypography.fontSm,
+                      'background-color': ArcaneColors.surfaceVariant,
+                      'border': '1px solid ${ArcaneColors.border}',
+                      'border-radius': ArcaneRadius.md,
+                      'color': ArcaneColors.onSurface,
                       'width': '200px',
                       'outline': 'none',
-                      'transition': 'var(--arcane-transition-fast)',
+                      'transition': ArcaneEffects.transitionFast,
                     }),
                     events: {
                       'input': (e) {
@@ -161,8 +159,8 @@ class Header extends StatelessComponent {
                       'left': '12px',
                       'top': '50%',
                       'transform': 'translateY(-50%)',
-                      'color': 'var(--arcane-muted)',
-                      'font-size': '0.875rem',
+                      'color': ArcaneColors.muted,
+                      'font-size': ArcaneTypography.fontSm,
                     }),
                   ),
                 ],
@@ -177,7 +175,7 @@ class Header extends StatelessComponent {
   }
 
   Component _buildNavItem(NavItem item) {
-    final hasChildren = item.children != null && item.children!.isNotEmpty;
+    final bool hasChildren = item.children != null && item.children!.isNotEmpty;
 
     return div(
       classes: 'arcane-nav-item ${hasChildren ? 'has-dropdown' : ''} ${item.isActive ? 'active' : ''}',
@@ -192,23 +190,21 @@ class Header extends StatelessComponent {
             styles: Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': '4px',
+              'gap': ArcaneSpacing.xs,
               'padding': '8px 12px',
-              'font-size': '0.875rem',
-              'font-weight': '500',
-              'color': item.isActive
-                  ? 'var(--arcane-on-surface)'
-                  : 'var(--arcane-muted)',
+              'font-size': ArcaneTypography.fontSm,
+              'font-weight': ArcaneTypography.weightMedium,
+              'color': item.isActive ? ArcaneColors.onSurface : ArcaneColors.muted,
               'text-decoration': 'none',
-              'border-radius': 'var(--arcane-radius)',
-              'transition': 'var(--arcane-transition-fast)',
+              'border-radius': ArcaneRadius.md,
+              'transition': ArcaneEffects.transitionFast,
             }),
             [
               text(item.label),
               if (hasChildren)
                 span(
                   [text('▼')],
-                  styles: Styles(raw: {'font-size': '0.75rem'}),
+                  styles: Styles(raw: {'font-size': ArcaneTypography.fontXs}),
                 ),
             ],
           )
@@ -219,18 +215,16 @@ class Header extends StatelessComponent {
             styles: Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': '4px',
+              'gap': ArcaneSpacing.xs,
               'padding': '8px 12px',
-              'font-size': '0.875rem',
-              'font-weight': '500',
-              'color': item.isActive
-                  ? 'var(--arcane-on-surface)'
-                  : 'var(--arcane-muted)',
+              'font-size': ArcaneTypography.fontSm,
+              'font-weight': ArcaneTypography.weightMedium,
+              'color': item.isActive ? ArcaneColors.onSurface : ArcaneColors.muted,
               'background': 'none',
               'border': 'none',
-              'border-radius': 'var(--arcane-radius)',
+              'border-radius': ArcaneRadius.md,
               'cursor': 'pointer',
-              'transition': 'var(--arcane-transition-fast)',
+              'transition': ArcaneEffects.transitionFast,
             }),
             events: {
               'click': (e) => item.onTap?.call(),
@@ -240,7 +234,7 @@ class Header extends StatelessComponent {
               if (hasChildren)
                 span(
                   [text('▼')],
-                  styles: Styles(raw: {'font-size': '0.75rem'}),
+                  styles: Styles(raw: {'font-size': ArcaneTypography.fontXs}),
                 ),
             ],
           ),
@@ -251,14 +245,14 @@ class Header extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-nav-link:hover').styles(raw: {
-      'color': 'var(--arcane-on-surface)',
-      'background-color': 'var(--arcane-surface-variant)',
+      'color': ArcaneColors.onSurface,
+      'background-color': ArcaneColors.surfaceVariant,
     }),
     css('.arcane-nav-item.active .arcane-nav-link').styles(raw: {
-      'color': 'var(--arcane-accent)',
+      'color': ArcaneColors.accent,
     }),
     css('.arcane-header-search input:focus').styles(raw: {
-      'border-color': 'var(--arcane-accent)',
+      'border-color': ArcaneColors.accent,
       'width': '280px',
     }),
   ];
@@ -283,25 +277,25 @@ class NavLink extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final linkStyles = Styles(raw: {
+    final Styles linkStyles = Styles(raw: {
       'display': 'inline-flex',
       'align-items': 'center',
-      'gap': '4px',
-      'font-size': '0.875rem',
-      'font-weight': '500',
-      'color': isActive ? 'var(--arcane-accent)' : 'var(--arcane-muted)',
+      'gap': ArcaneSpacing.xs,
+      'font-size': ArcaneTypography.fontSm,
+      'font-weight': ArcaneTypography.weightMedium,
+      'color': isActive ? ArcaneColors.accent : ArcaneColors.muted,
       'text-decoration': 'none',
-      'transition': 'color var(--arcane-transition-fast)',
+      'transition': ArcaneEffects.transitionFast,
     });
 
-    final content = [
+    final List<Component> content = [
       text(label),
       if (showArrow)
         span(
           [text('→')],
           classes: 'nav-link-arrow',
           styles: Styles(raw: {
-            'transition': 'transform var(--arcane-transition-fast)',
+            'transition': ArcaneEffects.transitionFast,
           }),
         ),
     ];
@@ -321,12 +315,12 @@ class NavLink extends StatelessComponent {
       styles: Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': '4px',
-        'font-size': '0.875rem',
-        'font-weight': '500',
-        'color': isActive ? 'var(--arcane-accent)' : 'var(--arcane-muted)',
+        'gap': ArcaneSpacing.xs,
+        'font-size': ArcaneTypography.fontSm,
+        'font-weight': ArcaneTypography.weightMedium,
+        'color': isActive ? ArcaneColors.accent : ArcaneColors.muted,
         'text-decoration': 'none',
-        'transition': 'color var(--arcane-transition-fast)',
+        'transition': ArcaneEffects.transitionFast,
         'background': 'none',
         'border': 'none',
         'padding': '0',
@@ -340,7 +334,7 @@ class NavLink extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-nav-link-standalone:hover').styles(raw: {
-      'color': 'var(--arcane-on-surface)',
+      'color': ArcaneColors.onSurface,
     }),
     css('.arcane-nav-link-standalone:hover .nav-link-arrow').styles(raw: {
       'transform': 'translateX(4px)',

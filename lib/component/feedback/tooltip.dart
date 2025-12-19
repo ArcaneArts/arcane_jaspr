@@ -1,8 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// Tooltip position
 enum TooltipPosition {
@@ -63,7 +62,7 @@ class _TooltipState extends State<Tooltip> {
 
   @override
   Component build(BuildContext context) {
-    final (top, bottom, left, right, transform) = switch (component.position) {
+    final (String top, String bottom, String left, String right, String transform) = switch (component.position) {
       TooltipPosition.top => (
           'auto',
           '100%',
@@ -120,14 +119,14 @@ class _TooltipState extends State<Tooltip> {
               'right': right,
               'transform': transform,
               'z-index': '1000',
-              'padding': '8px 12px',
+              'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
               'max-width': '${component.maxWidth}px',
-              'font-size': '0.8125rem',
-              'line-height': '1.4',
-              'color': 'var(--arcane-tooltip-foreground)',
-              'background-color': 'var(--arcane-tooltip)',
-              'border-radius': 'var(--arcane-radius)',
-              'box-shadow': 'var(--arcane-shadow-lg)',
+              'font-size': ArcaneTypography.fontXs,
+              'line-height': ArcaneTypography.lineHeightRelaxed,
+              'color': ArcaneColors.tooltipForeground,
+              'background-color': ArcaneColors.tooltip,
+              'border-radius': ArcaneRadius.md,
+              'box-shadow': ArcaneEffects.shadowLg,
               'white-space': 'normal',
               'word-wrap': 'break-word',
               'pointer-events': 'none',
@@ -179,7 +178,7 @@ class _TooltipCustomState extends State<TooltipCustom> {
 
   @override
   Component build(BuildContext context) {
-    final (top, bottom, left, right, transform) = switch (component.position) {
+    final (String top, String bottom, String left, String right, String transform) = switch (component.position) {
       TooltipPosition.top => (
           'auto',
           '100%',
@@ -233,12 +232,12 @@ class _TooltipCustomState extends State<TooltipCustom> {
               'right': right,
               'transform': transform,
               'z-index': '1000',
-              'padding': '12px 16px',
+              'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.lg}',
               if (component.maxWidth != null) 'max-width': '${component.maxWidth}px',
-              'background-color': 'var(--arcane-surface)',
-              'border': '1px solid var(--arcane-border)',
-              'border-radius': 'var(--arcane-radius)',
-              'box-shadow': 'var(--arcane-shadow-lg)',
+              'background-color': ArcaneColors.surface,
+              'border': '1px solid ${ArcaneColors.border}',
+              'border-radius': ArcaneRadius.md,
+              'box-shadow': ArcaneEffects.shadowLg,
               'animation': 'arcane-tooltip-fade 0.15s ease-out',
             }),
             [component.tooltipContent],
@@ -280,12 +279,12 @@ class InfoTooltip extends StatelessComponent {
           'width': '${size}px',
           'height': '${size}px',
           'font-size': '${size * 0.7}px',
-          'font-weight': '600',
-          'color': 'var(--arcane-muted)',
-          'border': '1px solid var(--arcane-border)',
-          'border-radius': '50%',
+          'font-weight': ArcaneTypography.weightSemibold,
+          'color': ArcaneColors.muted,
+          'border': '1px solid ${ArcaneColors.border}',
+          'border-radius': ArcaneRadius.full,
           'cursor': 'help',
-          'transition': 'color var(--arcane-transition-fast), border-color var(--arcane-transition-fast)',
+          'transition': ArcaneEffects.transitionFast,
         }),
         [text('?')],
       ),
@@ -295,8 +294,8 @@ class InfoTooltip extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-info-icon:hover').styles(raw: {
-      'color': 'var(--arcane-on-surface)',
-      'border-color': 'var(--arcane-on-surface)',
+      'color': ArcaneColors.onSurface,
+      'border-color': ArcaneColors.onSurface,
     }),
   ];
 }

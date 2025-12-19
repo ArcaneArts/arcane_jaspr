@@ -1,9 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
 import '../../util/arcane.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A data table component for displaying tabular data.
 class DataTable<T> extends StatefulComponent {
@@ -57,10 +56,10 @@ class DataTable<T> extends StatefulComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-data-table-row.clickable:hover').styles(raw: {
-      'background-color': 'var(--arcane-surface-variant)',
+      'background-color': ArcaneColors.surfaceVariant,
     }),
     css('.arcane-data-table-row.selected.clickable:hover').styles(raw: {
-      'background-color': 'var(--arcane-primary-container)',
+      'background-color': ArcaneColors.accentContainer,
     }),
   ];
 }
@@ -106,15 +105,13 @@ class _DataTableState<T> extends State<DataTable<T>> {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-
     if (component.items.isEmpty) {
       return div(
         classes: 'arcane-data-table-empty',
         styles: Styles(raw: {
-          'padding': '48px 24px',
+          'padding': '${ArcaneSpacing.massive} ${ArcaneSpacing.xl}',
           'text-align': 'center',
-          'color': 'var(--arcane-on-surface-variant)',
+          'color': ArcaneColors.muted,
         }),
         [text(component.emptyMessage)],
       );
@@ -124,8 +121,8 @@ class _DataTableState<T> extends State<DataTable<T>> {
       classes: 'arcane-data-table-container',
       styles: Styles(raw: {
         'overflow-x': 'auto',
-        'border': '1px solid var(--arcane-outline-variant)',
-        'border-radius': theme.borderRadiusCss,
+        'border': '1px solid ${ArcaneColors.border}',
+        'border-radius': ArcaneRadius.lg,
       }),
       [
         table(
@@ -133,7 +130,7 @@ class _DataTableState<T> extends State<DataTable<T>> {
           styles: Styles(raw: {
             'width': '100%',
             'border-collapse': 'collapse',
-            'font-size': '0.875rem',
+            'font-size': ArcaneTypography.fontSm,
           }),
           [
             // Header
@@ -141,7 +138,7 @@ class _DataTableState<T> extends State<DataTable<T>> {
               thead(
                 classes: 'arcane-data-table-header',
                 styles: Styles(raw: {
-                  'background-color': 'var(--arcane-surface-variant)',
+                  'background-color': ArcaneColors.surfaceVariant,
                   if (component.stickyHeader) 'position': 'sticky',
                   if (component.stickyHeader) 'top': '0',
                   if (component.stickyHeader) 'z-index': '1',
@@ -151,7 +148,7 @@ class _DataTableState<T> extends State<DataTable<T>> {
                     if (component.selectable)
                       th(
                         styles: Styles(raw: {
-                          'padding': '12px 16px',
+                          'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.lg}',
                           'text-align': 'center',
                           'width': '48px',
                         }),
@@ -172,10 +169,10 @@ class _DataTableState<T> extends State<DataTable<T>> {
                     for (final column in component.columns)
                       th(
                         styles: Styles(raw: {
-                          'padding': '12px 16px',
+                          'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.lg}',
                           'text-align': column.align.css,
-                          'font-weight': '600',
-                          'color': 'var(--arcane-on-surface)',
+                          'font-weight': ArcaneTypography.weightSemibold,
+                          'color': ArcaneColors.onSurface,
                           'white-space': 'nowrap',
                           if (column.width != null)
                             'width': '${column.width}px',
@@ -191,7 +188,7 @@ class _DataTableState<T> extends State<DataTable<T>> {
               classes: 'arcane-data-table-body',
               [
                 for (var i = 0; i < component.items.length; i++)
-                  _buildRow(context, theme, i, component.items[i]),
+                  _buildRow(context, i, component.items[i]),
               ],
             ),
           ],
@@ -200,21 +197,20 @@ class _DataTableState<T> extends State<DataTable<T>> {
     );
   }
 
-  Component _buildRow(
-      BuildContext context, ArcaneTheme theme, int index, T item) {
-    final isSelected = _selectedItems.contains(item);
-    final isClickable = component.onRowTap != null;
+  Component _buildRow(BuildContext context, int index, T item) {
+    final bool isSelected = _selectedItems.contains(item);
+    final bool isClickable = component.onRowTap != null;
 
     return tr(
       classes: 'arcane-data-table-row ${isSelected ? 'selected' : ''} ${isClickable ? 'clickable' : ''}',
       styles: Styles(raw: {
         'background-color': isSelected
-            ? 'var(--arcane-primary-container)'
-            : 'var(--arcane-surface)',
+            ? ArcaneColors.accentContainer
+            : ArcaneColors.surface,
         if (component.showDividers)
-          'border-bottom': '1px solid var(--arcane-outline-variant)',
+          'border-bottom': '1px solid ${ArcaneColors.border}',
         if (isClickable) 'cursor': 'pointer',
-        'transition': 'background-color 150ms ease',
+        'transition': ArcaneEffects.transitionFast,
       }),
       events: isClickable
           ? {
@@ -225,7 +221,7 @@ class _DataTableState<T> extends State<DataTable<T>> {
         if (component.selectable)
           td(
             styles: Styles(raw: {
-              'padding': '12px 16px',
+              'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.lg}',
               'text-align': 'center',
             }),
             [
@@ -247,11 +243,11 @@ class _DataTableState<T> extends State<DataTable<T>> {
         for (final column in component.columns)
           td(
             styles: Styles(raw: {
-              'padding': '12px 16px',
+              'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.lg}',
               'text-align': column.align.css,
               'color': isSelected
-                  ? 'var(--arcane-on-primary-container)'
-                  : 'var(--arcane-on-surface)',
+                  ? ArcaneColors.accent
+                  : ArcaneColors.onSurface,
             }),
             [column.builder(item)],
           ),

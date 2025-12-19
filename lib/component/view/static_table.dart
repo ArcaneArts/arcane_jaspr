@@ -1,9 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
-import '../../util/appearance/theme.dart';
 import '../../util/arcane.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A static table component for displaying simple tabular data.
 class StaticTable extends StatelessComponent {
@@ -41,14 +40,12 @@ class StaticTable extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-
     return div(
       classes: 'arcane-static-table-container',
       styles: Styles(raw: {
         'overflow-x': 'auto',
-        'border': '1px solid var(--arcane-outline-variant)',
-        'border-radius': theme.borderRadiusCss,
+        'border': '1px solid ${ArcaneColors.border}',
+        'border-radius': ArcaneRadius.lg,
       }),
       [
         table(
@@ -56,14 +53,14 @@ class StaticTable extends StatelessComponent {
           styles: Styles(raw: {
             'width': '100%',
             'border-collapse': 'collapse',
-            'font-size': '0.875rem',
+            'font-size': ArcaneTypography.fontSm,
           }),
           [
             // Header
             if (showHeader)
               thead(
                 styles: Styles(raw: {
-                  'background-color': 'var(--arcane-surface-variant)',
+                  'background-color': ArcaneColors.surfaceVariant,
                   if (stickyHeader) 'position': 'sticky',
                   if (stickyHeader) 'top': '0',
                   if (stickyHeader) 'z-index': '1',
@@ -73,12 +70,12 @@ class StaticTable extends StatelessComponent {
                     for (var i = 0; i < headers.length; i++)
                       th(
                         styles: Styles(raw: {
-                          'padding': '12px 16px',
+                          'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.lg}',
                           'text-align': (alignments != null && i < alignments!.length)
                               ? alignments![i].css
                               : 'left',
-                          'font-weight': '600',
-                          'color': 'var(--arcane-on-surface)',
+                          'font-weight': ArcaneTypography.weightSemibold,
+                          'color': ArcaneColors.onSurface,
                           'white-space': 'nowrap',
                         }),
                         [text(headers[i])],
@@ -93,10 +90,10 @@ class StaticTable extends StatelessComponent {
                 tr(
                   styles: Styles(raw: {
                     'background-color': striped && rowIndex.isOdd
-                        ? 'var(--arcane-surface-variant)'
-                        : 'var(--arcane-surface)',
+                        ? ArcaneColors.surfaceVariant
+                        : ArcaneColors.surface,
                     if (showDividers && rowIndex < rows.length - 1)
-                      'border-bottom': '1px solid var(--arcane-outline-variant)',
+                      'border-bottom': '1px solid ${ArcaneColors.border}',
                   }),
                   [
                     for (var colIndex = 0;
@@ -104,12 +101,12 @@ class StaticTable extends StatelessComponent {
                         colIndex++)
                       td(
                         styles: Styles(raw: {
-                          'padding': '12px 16px',
+                          'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.lg}',
                           'text-align': (alignments != null &&
                                   colIndex < alignments!.length)
                               ? alignments![colIndex].css
                               : 'left',
-                          'color': 'var(--arcane-on-surface)',
+                          'color': ArcaneColors.onSurface,
                         }),
                         [rows[rowIndex][colIndex]],
                       ),
@@ -138,13 +135,11 @@ class KeyValueTable extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-
     return div(
       classes: 'arcane-kv-table',
       styles: Styles(raw: {
-        'border': '1px solid var(--arcane-outline-variant)',
-        'border-radius': theme.borderRadiusCss,
+        'border': '1px solid ${ArcaneColors.border}',
+        'border-radius': ArcaneRadius.lg,
         'overflow': 'hidden',
       }),
       [
@@ -154,22 +149,22 @@ class KeyValueTable extends StatelessComponent {
             styles: Styles(raw: {
               'display': 'flex',
               if (showDividers && i < rows.length - 1)
-                'border-bottom': '1px solid var(--arcane-outline-variant)',
+                'border-bottom': '1px solid ${ArcaneColors.border}',
             }),
             [
               // Key
               div(
                 classes: 'arcane-kv-table-key',
                 styles: Styles(raw: {
-                  'padding': '12px 16px',
-                  'background-color': 'var(--arcane-surface-variant)',
-                  'font-weight': '500',
-                  'color': 'var(--arcane-on-surface)',
-                  'font-size': '0.875rem',
+                  'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.lg}',
+                  'background-color': ArcaneColors.surfaceVariant,
+                  'font-weight': ArcaneTypography.weightMedium,
+                  'color': ArcaneColors.onSurface,
+                  'font-size': ArcaneTypography.fontSm,
                   if (keyWidth != null) 'width': '${keyWidth}px',
                   if (keyWidth != null) 'flex-shrink': '0',
                   if (keyWidth == null) 'flex': '0 0 30%',
-                  'border-right': '1px solid var(--arcane-outline-variant)',
+                  'border-right': '1px solid ${ArcaneColors.border}',
                 }),
                 [text(rows[i].key)],
               ),
@@ -179,10 +174,10 @@ class KeyValueTable extends StatelessComponent {
                 classes: 'arcane-kv-table-value',
                 styles: Styles(raw: {
                   'flex': '1',
-                  'padding': '12px 16px',
-                  'background-color': 'var(--arcane-surface)',
-                  'color': 'var(--arcane-on-surface)',
-                  'font-size': '0.875rem',
+                  'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.lg}',
+                  'background-color': ArcaneColors.surface,
+                  'color': ArcaneColors.onSurface,
+                  'font-size': ArcaneTypography.fontSm,
                 }),
                 [rows[i].value],
               ),

@@ -1,9 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/arcane.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 import '../navigation/bottom_navigation_bar.dart';
 import '../navigation/sidebar.dart';
 
@@ -81,15 +79,14 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-    final destination = _selectedIndex < component.destinations.length
+    final NavigationDestination destination = _selectedIndex < component.destinations.length
         ? component.destinations[_selectedIndex]
         : component.destinations.first;
 
     // For Jaspr/web, we'll use CSS media queries or JavaScript for responsive behavior
     // For now, we'll determine mode based on component settings
-    final useBottomNav = component.mode == NavigationMode.bottom;
-    final useSidebar = component.mode == NavigationMode.sidebar ||
+    final bool useBottomNav = component.mode == NavigationMode.bottom;
+    final bool useSidebar = component.mode == NavigationMode.sidebar ||
         component.mode == NavigationMode.auto;
 
     return div(
@@ -98,7 +95,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
         'display': 'flex',
         'flex-direction': 'column',
         'height': '100vh',
-        'background-color': 'var(--arcane-background)',
+        'background-color': ArcaneColors.background,
       }),
       [
         // Main content area with sidebar
@@ -120,7 +117,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                     component.sidebarCollapsible ? _toggleSidebar : null,
                 showCollapseToggle: component.sidebarCollapsible,
                 children: [
-                  for (var i = 0; i < component.destinations.length; i++)
+                  for (int i = 0; i < component.destinations.length; i++)
                     SidebarItem(
                       label: component.destinations[i].label,
                       icon: component.destinations[i].icon,

@@ -1,10 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/arcane.dart';
-import '../../util/tools/styles.dart';
-import '../input/button.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A modal dialog component.
 class ArcaneDialog extends StatelessComponent {
@@ -42,8 +39,6 @@ class ArcaneDialog extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-
     return div(
       classes: 'arcane-dialog-overlay',
       styles: Styles(raw: {
@@ -53,8 +48,8 @@ class ArcaneDialog extends StatelessComponent {
         'display': 'flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'padding': '24px',
-        'background-color': theme.barrierColors.dialog.css,
+        'padding': ArcaneSpacing.lg,
+        'background-color': 'rgba(0, 0, 0, 0.6)',
         'animation': 'arcane-fade-in 150ms ease',
       }),
       events: barrierDismissible
@@ -75,10 +70,9 @@ class ArcaneDialog extends StatelessComponent {
             if (title != null) 'aria-labelledby': 'dialog-title',
           },
           styles: Styles(raw: {
-            'background-color': 'var(--arcane-surface)',
-            'border-radius': '${theme.borderRadiusPx * 1.5}px',
-            'box-shadow':
-                '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+            'background-color': ArcaneColors.surface,
+            'border-radius': ArcaneRadius.lg,
+            'box-shadow': ArcaneEffects.shadowXl,
             'max-width': '${maxWidth}px',
             'width': '100%',
             'max-height': 'calc(100vh - 48px)',
@@ -99,8 +93,8 @@ class ArcaneDialog extends StatelessComponent {
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'space-between',
-                  'padding': '16px 20px',
-                  'border-bottom': '1px solid var(--arcane-outline-variant)',
+                  'padding': '${ArcaneSpacing.md} 20px',
+                  'border-bottom': '1px solid ${ArcaneColors.border}',
                   'flex-shrink': '0',
                 }),
                 [
@@ -108,9 +102,9 @@ class ArcaneDialog extends StatelessComponent {
                     span(
                       id: 'dialog-title',
                       styles: Styles(raw: {
-                        'font-size': '1.125rem',
-                        'font-weight': '600',
-                        'color': 'var(--arcane-on-surface)',
+                        'font-size': ArcaneTypography.fontLg,
+                        'font-weight': ArcaneTypography.weightSemibold,
+                        'color': ArcaneColors.onSurface,
                       }),
                       [text(title!)],
                     )
@@ -125,11 +119,12 @@ class ArcaneDialog extends StatelessComponent {
                         'justify-content': 'center',
                         'width': '32px',
                         'height': '32px',
-                        'border-radius': '50%',
-                        'background': 'transparent',
-                        'color': 'var(--arcane-on-surface-variant)',
+                        'border-radius': ArcaneRadius.full,
+                        'background': ArcaneColors.transparent,
+                        'border': 'none',
+                        'color': ArcaneColors.muted,
                         'cursor': 'pointer',
-                        'transition': 'all 150ms ease',
+                        'transition': ArcaneEffects.transitionFast,
                         'font-size': '1.25rem',
                       }),
                       events: {
@@ -158,9 +153,9 @@ class ArcaneDialog extends StatelessComponent {
                 styles: Styles(raw: {
                   'display': 'flex',
                   'justify-content': 'flex-end',
-                  'gap': '8px',
-                  'padding': '16px 20px',
-                  'border-top': '1px solid var(--arcane-outline-variant)',
+                  'gap': ArcaneSpacing.sm,
+                  'padding': '${ArcaneSpacing.md} 20px',
+                  'border-top': '1px solid ${ArcaneColors.border}',
                   'flex-shrink': '0',
                 }),
                 actions!,
@@ -182,7 +177,7 @@ class ArcaneDialog extends StatelessComponent {
       'to': 'transform: scale(1); opacity: 1',
     }),
     css('.arcane-dialog-header button:hover').styles(raw: {
-      'background-color': 'var(--arcane-surface-variant)',
+      'background-color': ArcaneColors.surfaceVariant,
     }),
   ];
 }
@@ -210,15 +205,13 @@ class Sheet extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-    final isHorizontal =
+    final bool isHorizontal =
         position == SheetPosition.left || position == SheetPosition.right;
 
-    final sheetStyles = <String, String>{
+    final Map<String, String> sheetStyles = {
       'position': 'fixed',
-      'background-color': 'var(--arcane-surface)',
-      'box-shadow':
-          '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+      'background-color': ArcaneColors.surface,
+      'box-shadow': ArcaneEffects.shadowXl,
       'display': 'flex',
       'flex-direction': 'column',
       'overflow': 'hidden',
@@ -253,7 +246,7 @@ class Sheet extends StatelessComponent {
           'bottom': '0',
           'height': '${height ?? 400}px',
           'max-height': '90%',
-          'border-radius': '${theme.borderRadiusPx * 2}px ${theme.borderRadiusPx * 2}px 0 0',
+          'border-radius': '${ArcaneRadius.xl} ${ArcaneRadius.xl} 0 0',
           'animation': 'arcane-slide-up 200ms ease',
         });
         break;
@@ -264,7 +257,7 @@ class Sheet extends StatelessComponent {
           'top': '0',
           'height': '${height ?? 400}px',
           'max-height': '90%',
-          'border-radius': '0 0 ${theme.borderRadiusPx * 2}px ${theme.borderRadiusPx * 2}px',
+          'border-radius': '0 0 ${ArcaneRadius.xl} ${ArcaneRadius.xl}',
           'animation': 'arcane-slide-down 200ms ease',
         });
         break;
@@ -276,7 +269,7 @@ class Sheet extends StatelessComponent {
         'position': 'fixed',
         'inset': '0',
         'z-index': '999',
-        'background-color': theme.barrierColors.dialog.css,
+        'background-color': 'rgba(0, 0, 0, 0.6)',
         'animation': 'arcane-fade-in 150ms ease',
       }),
       events: {
@@ -302,16 +295,16 @@ class Sheet extends StatelessComponent {
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'space-between',
-                  'padding': '16px 20px',
-                  'border-bottom': '1px solid var(--arcane-outline-variant)',
+                  'padding': '${ArcaneSpacing.md} 20px',
+                  'border-bottom': '1px solid ${ArcaneColors.border}',
                   'flex-shrink': '0',
                 }),
                 [
                   if (title != null)
                     span(
                       styles: Styles(raw: {
-                        'font-size': '1.125rem',
-                        'font-weight': '600',
+                        'font-size': ArcaneTypography.fontLg,
+                        'font-weight': ArcaneTypography.weightSemibold,
                       }),
                       [text(title!)],
                     )
@@ -326,9 +319,10 @@ class Sheet extends StatelessComponent {
                         'justify-content': 'center',
                         'width': '32px',
                         'height': '32px',
-                        'border-radius': '50%',
-                        'background': 'transparent',
-                        'color': 'var(--arcane-on-surface-variant)',
+                        'border-radius': ArcaneRadius.full,
+                        'background': ArcaneColors.transparent,
+                        'border': 'none',
+                        'color': ArcaneColors.muted,
                         'cursor': 'pointer',
                         'font-size': '1.25rem',
                       }),

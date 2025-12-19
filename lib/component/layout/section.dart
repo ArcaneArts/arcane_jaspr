@@ -1,13 +1,10 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
-import '../../util/appearance/theme.dart';
 import '../../util/arcane.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A section component for grouping related content with an optional header.
-///
-/// Provides consistent spacing and styling for content groups.
 class Section extends StatelessComponent {
   /// Optional section header text
   final String? header;
@@ -43,38 +40,37 @@ class Section extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-    final effectivePadding = padding ?? const EdgeInsets.all(16);
+    final EdgeInsets effectivePadding = padding ?? const EdgeInsets.all(16);
 
-    final headerWidget = headerComponent ??
+    final Component? headerWidget = headerComponent ??
         (header != null
             ? div(
                 classes: 'arcane-section-header',
                 styles: Styles(raw: {
-                  'font-size': '0.875rem',
-                  'font-weight': '600',
-                  'color': 'var(--arcane-on-surface-variant)',
+                  'font-size': ArcaneTypography.fontSm,
+                  'font-weight': ArcaneTypography.weightSemibold,
+                  'color': ArcaneColors.muted,
                   'text-transform': 'uppercase',
                   'letter-spacing': '0.05em',
                   'margin-bottom': '${gap}px',
                 }),
-                [Component.text(header!)],
+                [text(header!)],
               )
             : null);
 
-    final dividerWidget = showDivider && headerWidget != null
+    final Component? dividerWidget = showDivider && headerWidget != null
         ? div(
             classes: 'arcane-section-divider',
             styles: Styles(raw: {
               'height': '1px',
-              'background-color': 'var(--arcane-outline-variant)',
+              'background-color': ArcaneColors.border,
               'margin-bottom': '${gap}px',
             }),
             [],
           )
         : null;
 
-    final content = div(
+    final Component content = div(
         classes: 'arcane-section-content',
         styles: Styles(raw: {
           'display': 'flex',
@@ -83,7 +79,7 @@ class Section extends StatelessComponent {
         }),
         children);
 
-    final sectionChildren = <Component>[
+    final List<Component> sectionChildren = <Component>[
       if (headerWidget != null) headerWidget,
       if (dividerWidget != null) dividerWidget,
       content,
@@ -94,9 +90,9 @@ class Section extends StatelessComponent {
         classes: 'arcane-section arcane-section-card',
         styles: Styles(raw: {
           'padding': effectivePadding.padding,
-          'background-color': 'var(--arcane-surface)',
-          'border-radius': theme.borderRadiusCss,
-          'border': '1px solid var(--arcane-outline-variant)',
+          'background-color': ArcaneColors.surface,
+          'border-radius': ArcaneRadius.lg,
+          'border': '1px solid ${ArcaneColors.border}',
         }),
         sectionChildren,
       );

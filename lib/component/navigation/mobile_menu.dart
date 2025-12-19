@@ -1,8 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// Mobile navigation item
 class MobileNavItem {
@@ -57,19 +56,19 @@ class MobileMenu extends StatefulComponent {
       '100%': 'opacity: 1; transform: translateX(0)',
     }),
     css('.arcane-mobile-menu-close:hover').styles(raw: {
-      'color': 'var(--arcane-on-surface)',
+      'color': ArcaneColors.onSurface,
     }),
     css('.arcane-mobile-nav-button:hover').styles(raw: {
-      'background-color': 'var(--arcane-surface-variant)',
+      'background-color': ArcaneColors.surfaceVariant,
     }),
     css('.arcane-mobile-nav-link:hover').styles(raw: {
-      'background-color': 'var(--arcane-surface-variant)',
+      'background-color': ArcaneColors.surfaceVariant,
     }),
     css('.arcane-mobile-nav-children a:hover').styles(raw: {
-      'color': 'var(--arcane-on-surface)',
+      'color': ArcaneColors.onSurface,
     }),
     css('.arcane-mobile-nav-children button:hover').styles(raw: {
-      'color': 'var(--arcane-on-surface)',
+      'color': ArcaneColors.onSurface,
     }),
   ];
 }
@@ -101,7 +100,7 @@ class _MobileMenuState extends State<MobileMenu> {
         'z-index': '1000',
         'display': 'flex',
         'flex-direction': 'column',
-        'background-color': 'var(--arcane-surface)',
+        'background-color': ArcaneColors.surface,
         'animation': 'arcane-mobile-menu-slide 0.2s ease-out',
       }),
       [
@@ -112,8 +111,8 @@ class _MobileMenuState extends State<MobileMenu> {
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'space-between',
-            'padding': '16px 20px',
-            'border-bottom': '1px solid var(--arcane-border)',
+            'padding': '${ArcaneSpacing.md} 20px',
+            'border-bottom': '1px solid ${ArcaneColors.border}',
           }),
           [
             if (component.logo != null) component.logo! else div([]),
@@ -130,11 +129,11 @@ class _MobileMenuState extends State<MobileMenu> {
                 'width': '40px',
                 'height': '40px',
                 'font-size': '1.5rem',
-                'color': 'var(--arcane-muted)',
+                'color': ArcaneColors.muted,
                 'background': 'none',
                 'border': 'none',
                 'cursor': 'pointer',
-                'transition': 'color var(--arcane-transition-fast)',
+                'transition': ArcaneEffects.transitionFast,
               }),
               events: {
                 'click': (e) => component.onClose?.call(),
@@ -150,7 +149,7 @@ class _MobileMenuState extends State<MobileMenu> {
           styles: Styles(raw: {
             'flex': '1',
             'overflow-y': 'auto',
-            'padding': '16px 0',
+            'padding': '${ArcaneSpacing.md} 0',
           }),
           [
             for (var i = 0; i < component.items.length; i++)
@@ -164,7 +163,7 @@ class _MobileMenuState extends State<MobileMenu> {
             classes: 'arcane-mobile-menu-footer',
             styles: Styles(raw: {
               'padding': '20px',
-              'border-top': '1px solid var(--arcane-border)',
+              'border-top': '1px solid ${ArcaneColors.border}',
             }),
             [component.cta!],
           ),
@@ -173,8 +172,8 @@ class _MobileMenuState extends State<MobileMenu> {
   }
 
   Component _buildNavItem(int index, MobileNavItem item) {
-    final hasChildren = item.children != null && item.children!.isNotEmpty;
-    final isExpanded = _expandedItems.contains(index);
+    final bool hasChildren = item.children != null && item.children!.isNotEmpty;
+    final bool isExpanded = _expandedItems.contains(index);
 
     return div(
       classes: 'arcane-mobile-nav-item',
@@ -190,14 +189,14 @@ class _MobileMenuState extends State<MobileMenu> {
               'justify-content': 'space-between',
               'width': '100%',
               'padding': '14px 20px',
-              'font-size': '1rem',
-              'font-weight': '500',
-              'color': 'var(--arcane-on-surface)',
+              'font-size': ArcaneTypography.fontMd,
+              'font-weight': ArcaneTypography.weightMedium,
+              'color': ArcaneColors.onSurface,
               'background': 'none',
               'border': 'none',
               'cursor': 'pointer',
               'text-align': 'left',
-              'transition': 'background-color var(--arcane-transition-fast)',
+              'transition': ArcaneEffects.transitionFast,
             }),
             events: {
               'click': (e) => _toggleExpand(index),
@@ -207,7 +206,7 @@ class _MobileMenuState extends State<MobileMenu> {
                 styles: Styles(raw: {
                   'display': 'flex',
                   'align-items': 'center',
-                  'gap': '12px',
+                  'gap': ArcaneSpacing.sm,
                 }),
                 [
                   if (item.icon != null) item.icon!,
@@ -217,10 +216,10 @@ class _MobileMenuState extends State<MobileMenu> {
               span(
                 [text('▼')],
                 styles: Styles(raw: {
-                  'font-size': '0.75rem',
-                  'color': 'var(--arcane-muted)',
+                  'font-size': ArcaneTypography.fontXs,
+                  'color': ArcaneColors.muted,
                   'transform': isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
-                  'transition': 'transform var(--arcane-transition-fast)',
+                  'transition': ArcaneEffects.transitionFast,
                 }),
               ),
             ],
@@ -232,13 +231,13 @@ class _MobileMenuState extends State<MobileMenu> {
             styles: Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': '12px',
+              'gap': ArcaneSpacing.sm,
               'padding': '14px 20px',
-              'font-size': '1rem',
-              'font-weight': '500',
-              'color': 'var(--arcane-on-surface)',
+              'font-size': ArcaneTypography.fontMd,
+              'font-weight': ArcaneTypography.weightMedium,
+              'color': ArcaneColors.onSurface,
               'text-decoration': 'none',
-              'transition': 'background-color var(--arcane-transition-fast)',
+              'transition': ArcaneEffects.transitionFast,
             }),
             [
               if (item.icon != null) item.icon!,
@@ -252,17 +251,17 @@ class _MobileMenuState extends State<MobileMenu> {
             styles: Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': '12px',
+              'gap': ArcaneSpacing.sm,
               'width': '100%',
               'padding': '14px 20px',
-              'font-size': '1rem',
-              'font-weight': '500',
-              'color': 'var(--arcane-on-surface)',
+              'font-size': ArcaneTypography.fontMd,
+              'font-weight': ArcaneTypography.weightMedium,
+              'color': ArcaneColors.onSurface,
               'background': 'none',
               'border': 'none',
               'cursor': 'pointer',
               'text-align': 'left',
-              'transition': 'background-color var(--arcane-transition-fast)',
+              'transition': ArcaneEffects.transitionFast,
             }),
             events: {
               if (item.onTap != null) 'click': (e) => item.onTap!(),
@@ -278,8 +277,8 @@ class _MobileMenuState extends State<MobileMenu> {
           div(
             classes: 'arcane-mobile-nav-children',
             styles: Styles(raw: {
-              'background-color': 'var(--arcane-surface-variant)',
-              'padding': '8px 0',
+              'background-color': ArcaneColors.surfaceVariant,
+              'padding': '${ArcaneSpacing.sm} 0',
             }),
             [
               for (final child in item.children!)
@@ -289,12 +288,12 @@ class _MobileMenuState extends State<MobileMenu> {
                     styles: Styles(raw: {
                       'display': 'flex',
                       'align-items': 'center',
-                      'gap': '12px',
-                      'padding': '12px 20px 12px 44px',
-                      'font-size': '0.9375rem',
-                      'color': 'var(--arcane-muted)',
+                      'gap': ArcaneSpacing.sm,
+                      'padding': '${ArcaneSpacing.sm} 20px ${ArcaneSpacing.sm} 44px',
+                      'font-size': ArcaneTypography.fontSm,
+                      'color': ArcaneColors.muted,
                       'text-decoration': 'none',
-                      'transition': 'color var(--arcane-transition-fast)',
+                      'transition': ArcaneEffects.transitionFast,
                     }),
                     [
                       if (child.icon != null) child.icon!,
@@ -307,16 +306,16 @@ class _MobileMenuState extends State<MobileMenu> {
                     styles: Styles(raw: {
                       'display': 'flex',
                       'align-items': 'center',
-                      'gap': '12px',
+                      'gap': ArcaneSpacing.sm,
                       'width': '100%',
-                      'padding': '12px 20px 12px 44px',
-                      'font-size': '0.9375rem',
-                      'color': 'var(--arcane-muted)',
+                      'padding': '${ArcaneSpacing.sm} 20px ${ArcaneSpacing.sm} 44px',
+                      'font-size': ArcaneTypography.fontSm,
+                      'color': ArcaneColors.muted,
                       'background': 'none',
                       'border': 'none',
                       'cursor': 'pointer',
                       'text-align': 'left',
-                      'transition': 'color var(--arcane-transition-fast)',
+                      'transition': ArcaneEffects.transitionFast,
                     }),
                     events: {
                       if (child.onTap != null) 'click': (e) => child.onTap!(),
@@ -368,7 +367,7 @@ class HamburgerButton extends StatelessComponent {
         'gap': '5px',
         'width': '${size + 16}px',
         'height': '${size + 16}px',
-        'padding': '8px',
+        'padding': ArcaneSpacing.sm,
         'background': 'none',
         'border': 'none',
         'cursor': 'pointer',
@@ -384,9 +383,9 @@ class HamburgerButton extends StatelessComponent {
             'display': 'block',
             'width': '${size}px',
             'height': '2px',
-            'background-color': 'var(--arcane-on-surface)',
+            'background-color': ArcaneColors.onSurface,
             'border-radius': '1px',
-            'transition': 'transform var(--arcane-transition-fast), opacity var(--arcane-transition-fast)',
+            'transition': ArcaneEffects.transitionFast,
             if (isOpen) 'transform': 'translateY(7px) rotate(45deg)',
           }),
         ),
@@ -397,9 +396,9 @@ class HamburgerButton extends StatelessComponent {
             'display': 'block',
             'width': '${size}px',
             'height': '2px',
-            'background-color': 'var(--arcane-on-surface)',
+            'background-color': ArcaneColors.onSurface,
             'border-radius': '1px',
-            'transition': 'opacity var(--arcane-transition-fast)',
+            'transition': ArcaneEffects.transitionFast,
             if (isOpen) 'opacity': '0',
           }),
         ),
@@ -410,9 +409,9 @@ class HamburgerButton extends StatelessComponent {
             'display': 'block',
             'width': '${size}px',
             'height': '2px',
-            'background-color': 'var(--arcane-on-surface)',
+            'background-color': ArcaneColors.onSurface,
             'border-radius': '1px',
-            'transition': 'transform var(--arcane-transition-fast), opacity var(--arcane-transition-fast)',
+            'transition': ArcaneEffects.transitionFast,
             if (isOpen) 'transform': 'translateY(-7px) rotate(-45deg)',
           }),
         ),

@@ -1,9 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
 import '../../util/arcane.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// An expandable/collapsible component.
 class Expander extends StatefulComponent {
@@ -49,7 +48,7 @@ class Expander extends StatefulComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-expander-header:hover').styles(raw: {
-      'background-color': 'var(--arcane-surface-variant)',
+      'background-color': ArcaneColors.surfaceVariant,
     }),
   ];
 }
@@ -72,15 +71,14 @@ class _ExpanderState extends State<Expander> {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-    final contentPadding =
+    final EdgeInsets contentPadding =
         component.contentPadding ?? const EdgeInsets.all(16);
 
     return div(
       classes: 'arcane-expander ${_isExpanded ? 'expanded' : ''}',
       styles: Styles(raw: {
-        'border': '1px solid var(--arcane-outline-variant)',
-        'border-radius': theme.borderRadiusCss,
+        'border': '1px solid ${ArcaneColors.border}',
+        'border-radius': ArcaneRadius.lg,
         'overflow': 'hidden',
       }),
       [
@@ -94,12 +92,13 @@ class _ExpanderState extends State<Expander> {
           styles: Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': '12px',
+            'gap': ArcaneSpacing.md,
             'width': '100%',
-            'padding': '12px 16px',
-            'background-color': 'var(--arcane-surface)',
+            'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.lg}',
+            'background-color': ArcaneColors.surface,
+            'border': 'none',
             'cursor': 'pointer',
-            'transition': 'background-color 150ms ease',
+            'transition': ArcaneEffects.transitionFast,
             'text-align': 'left',
           }),
           events: {
@@ -118,8 +117,8 @@ class _ExpanderState extends State<Expander> {
               span(
                 classes: 'arcane-expander-icon',
                 styles: Styles(raw: {
-                  'color': 'var(--arcane-on-surface-variant)',
-                  'transition': 'transform 200ms ease',
+                  'color': ArcaneColors.muted,
+                  'transition': ArcaneEffects.transitionFast,
                   'transform': _isExpanded ? 'rotate(180deg)' : 'rotate(0)',
                 }),
                 [text('▼')],
@@ -133,8 +132,8 @@ class _ExpanderState extends State<Expander> {
             classes: 'arcane-expander-content',
             styles: Styles(raw: {
               'padding': contentPadding.padding,
-              'background-color': 'var(--arcane-surface)',
-              'border-top': '1px solid var(--arcane-outline-variant)',
+              'background-color': ArcaneColors.surface,
+              'border-top': '1px solid ${ArcaneColors.border}',
               if (!_isExpanded) 'display': 'none',
             }),
             [component.child],
@@ -194,8 +193,6 @@ class _AccordionState extends State<Accordion> {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-
     return div(
       classes: 'arcane-accordion',
       styles: Styles(raw: {
@@ -205,20 +202,19 @@ class _AccordionState extends State<Accordion> {
       }),
       [
         for (var i = 0; i < component.items.length; i++)
-          _buildItem(context, theme, i, component.items[i]),
+          _buildItem(context, i, component.items[i]),
       ],
     );
   }
 
-  Component _buildItem(
-      BuildContext context, ArcaneTheme theme, int index, AccordionItem item) {
-    final isExpanded = _expandedIndices.contains(index);
+  Component _buildItem(BuildContext context, int index, AccordionItem item) {
+    final bool isExpanded = _expandedIndices.contains(index);
 
     return div(
       classes: 'arcane-accordion-item ${isExpanded ? 'expanded' : ''}',
       styles: Styles(raw: {
-        'border': '1px solid var(--arcane-outline-variant)',
-        'border-radius': theme.borderRadiusCss,
+        'border': '1px solid ${ArcaneColors.border}',
+        'border-radius': ArcaneRadius.lg,
         'overflow': 'hidden',
       }),
       [
@@ -231,12 +227,13 @@ class _AccordionState extends State<Accordion> {
           styles: Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': '12px',
+            'gap': ArcaneSpacing.md,
             'width': '100%',
-            'padding': '12px 16px',
-            'background-color': 'var(--arcane-surface)',
+            'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.lg}',
+            'background-color': ArcaneColors.surface,
+            'border': 'none',
             'cursor': 'pointer',
-            'transition': 'background-color 150ms ease',
+            'transition': ArcaneEffects.transitionFast,
             'text-align': 'left',
           }),
           events: {
@@ -247,14 +244,15 @@ class _AccordionState extends State<Accordion> {
             span(
               styles: Styles(raw: {
                 'flex': '1',
-                'font-weight': '500',
+                'font-weight': ArcaneTypography.weightMedium,
+                'color': ArcaneColors.onSurface,
               }),
               [text(item.title)],
             ),
             span(
               styles: Styles(raw: {
-                'color': 'var(--arcane-on-surface-variant)',
-                'transition': 'transform 200ms ease',
+                'color': ArcaneColors.muted,
+                'transition': ArcaneEffects.transitionFast,
                 'transform': isExpanded ? 'rotate(180deg)' : 'rotate(0)',
               }),
               [text('▼')],
@@ -265,9 +263,9 @@ class _AccordionState extends State<Accordion> {
           div(
             classes: 'arcane-accordion-content',
             styles: Styles(raw: {
-              'padding': '16px',
-              'background-color': 'var(--arcane-surface)',
-              'border-top': '1px solid var(--arcane-outline-variant)',
+              'padding': ArcaneSpacing.lg,
+              'background-color': ArcaneColors.surface,
+              'border-top': '1px solid ${ArcaneColors.border}',
             }),
             [item.content],
           ),

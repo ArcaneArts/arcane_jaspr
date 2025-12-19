@@ -1,8 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
+import '../../util/tokens/tokens.dart';
 
 /// A dropdown menu item
 class DropdownItem {
@@ -67,7 +66,7 @@ class DropdownMenu extends StatefulComponent {
       '100%': 'opacity: 1; transform: translateY(0)',
     }),
     css('.arcane-dropdown-item:hover:not(:disabled)').styles(raw: {
-      'background-color': 'var(--arcane-surface-variant)',
+      'background-color': ArcaneColors.surfaceVariant,
     }),
   ];
 }
@@ -92,7 +91,7 @@ class _DropdownMenuState extends State<DropdownMenu> {
 
   @override
   Component build(BuildContext context) {
-    final (left, right, transform) = switch (component.alignment) {
+    final (String left, String right, String transform) = switch (component.alignment) {
       DropdownAlignment.left => ('0', 'auto', 'none'),
       DropdownAlignment.right => ('auto', '0', 'none'),
       DropdownAlignment.center => ('50%', 'auto', 'translateX(-50%)'),
@@ -140,13 +139,13 @@ class _DropdownMenuState extends State<DropdownMenu> {
               'right': right,
               'transform': transform,
               'z-index': '100',
-              'margin-top': '8px',
+              'margin-top': ArcaneSpacing.sm,
               if (component.width != null) 'width': '${component.width}px' else 'min-width': '200px',
-              'padding': '8px',
-              'background-color': 'var(--arcane-surface)',
-              'border': '1px solid var(--arcane-border)',
-              'border-radius': 'var(--arcane-radius)',
-              'box-shadow': 'var(--arcane-shadow-lg)',
+              'padding': ArcaneSpacing.sm,
+              'background-color': ArcaneColors.surface,
+              'border': '1px solid ${ArcaneColors.border}',
+              'border-radius': ArcaneRadius.md,
+              'box-shadow': ArcaneEffects.shadowLg,
               'animation': 'arcane-dropdown-fade 0.15s ease-out',
             }),
             [
@@ -156,8 +155,8 @@ class _DropdownMenuState extends State<DropdownMenu> {
                     classes: 'arcane-dropdown-divider',
                     styles: Styles(raw: {
                       'height': '1px',
-                      'margin': '8px 0',
-                      'background-color': 'var(--arcane-border)',
+                      'margin': '${ArcaneSpacing.sm} 0',
+                      'background-color': ArcaneColors.border,
                     }),
                     [],
                   )
@@ -170,24 +169,24 @@ class _DropdownMenuState extends State<DropdownMenu> {
   }
 
   Component _buildItem(DropdownItem item) {
-    final itemStyles = Styles(raw: {
+    final Styles itemStyles = Styles(raw: {
       'display': 'flex',
       'align-items': 'center',
-      'gap': '12px',
-      'padding': '10px 12px',
-      'font-size': '0.875rem',
-      'color': item.disabled ? 'var(--arcane-muted)' : 'var(--arcane-on-surface)',
+      'gap': ArcaneSpacing.sm,
+      'padding': '10px ${ArcaneSpacing.sm}',
+      'font-size': ArcaneTypography.fontSm,
+      'color': item.disabled ? ArcaneColors.muted : ArcaneColors.onSurface,
       'text-decoration': 'none',
-      'border-radius': 'var(--arcane-radius-sm)',
+      'border-radius': ArcaneRadius.sm,
       'cursor': item.disabled ? 'not-allowed' : 'pointer',
-      'transition': 'background-color var(--arcane-transition-fast)',
+      'transition': ArcaneEffects.transitionFast,
       'background': 'none',
       'border': 'none',
       'width': '100%',
       'text-align': 'left',
     });
 
-    final content = [
+    final List<Component> content = [
       if (item.icon != null)
         span(
           styles: Styles(raw: {
@@ -208,8 +207,8 @@ class _DropdownMenuState extends State<DropdownMenu> {
           if (item.description != null)
             span(
               styles: Styles(raw: {
-                'font-size': '0.75rem',
-                'color': 'var(--arcane-muted)',
+                'font-size': ArcaneTypography.fontXs,
+                'color': ArcaneColors.muted,
               }),
               [text(item.description!)],
             ),
@@ -272,10 +271,10 @@ class MegaMenu extends StatefulComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-mega-menu-trigger:hover').styles(raw: {
-      'color': 'var(--arcane-on-surface)',
+      'color': ArcaneColors.onSurface,
     }),
     css('.arcane-mega-menu-item:hover').styles(raw: {
-      'background-color': 'var(--arcane-surface-variant)',
+      'background-color': ArcaneColors.surfaceVariant,
     }),
   ];
 }
@@ -313,23 +312,23 @@ class _MegaMenuState extends State<MegaMenu> {
           styles: Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': '4px',
+            'gap': ArcaneSpacing.xs,
             'padding': '8px 12px',
-            'font-size': '0.875rem',
-            'font-weight': '500',
-            'color': _isOpen ? 'var(--arcane-on-surface)' : 'var(--arcane-muted)',
+            'font-size': ArcaneTypography.fontSm,
+            'font-weight': ArcaneTypography.weightMedium,
+            'color': _isOpen ? ArcaneColors.onSurface : ArcaneColors.muted,
             'background': 'none',
             'border': 'none',
             'cursor': 'pointer',
-            'transition': 'color var(--arcane-transition-fast)',
+            'transition': ArcaneEffects.transitionFast,
           }),
           [
             text(component.label),
             span(
               styles: Styles(raw: {
-                'font-size': '0.75rem',
+                'font-size': ArcaneTypography.fontXs,
                 'transform': _isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                'transition': 'transform var(--arcane-transition-fast)',
+                'transition': ArcaneEffects.transitionFast,
               }),
               [text('▼')],
             ),
@@ -346,14 +345,14 @@ class _MegaMenuState extends State<MegaMenu> {
               'left': '50%',
               'transform': 'translateX(-50%)',
               'z-index': '100',
-              'margin-top': '8px',
-              'padding': '24px',
-              'background-color': 'var(--arcane-surface)',
-              'border': '1px solid var(--arcane-border)',
-              'border-radius': 'var(--arcane-radius)',
-              'box-shadow': 'var(--arcane-shadow-xl)',
+              'margin-top': ArcaneSpacing.sm,
+              'padding': ArcaneSpacing.lg,
+              'background-color': ArcaneColors.surface,
+              'border': '1px solid ${ArcaneColors.border}',
+              'border-radius': ArcaneRadius.md,
+              'box-shadow': ArcaneEffects.shadowXl,
               'display': 'flex',
-              'gap': '48px',
+              'gap': ArcaneSpacing.xxl,
               'animation': 'arcane-dropdown-fade 0.15s ease-out',
             }),
             [
@@ -367,12 +366,12 @@ class _MegaMenuState extends State<MegaMenu> {
                     if (section.title != null)
                       div(
                         styles: Styles(raw: {
-                          'font-size': '0.75rem',
-                          'font-weight': '600',
+                          'font-size': ArcaneTypography.fontXs,
+                          'font-weight': ArcaneTypography.weightSemibold,
                           'text-transform': 'uppercase',
                           'letter-spacing': '0.05em',
-                          'color': 'var(--arcane-muted)',
-                          'margin-bottom': '12px',
+                          'color': ArcaneColors.muted,
+                          'margin-bottom': ArcaneSpacing.sm,
                         }),
                         [text(section.title!)],
                       ),
@@ -380,7 +379,7 @@ class _MegaMenuState extends State<MegaMenu> {
                       styles: Styles(raw: {
                         'display': 'flex',
                         'flex-direction': 'column',
-                        'gap': '4px',
+                        'gap': ArcaneSpacing.xs,
                       }),
                       [
                         for (final item in section.items)
@@ -393,8 +392,8 @@ class _MegaMenuState extends State<MegaMenu> {
                 div(
                   classes: 'arcane-mega-menu-footer',
                   styles: Styles(raw: {
-                    'padding-left': '24px',
-                    'border-left': '1px solid var(--arcane-border)',
+                    'padding-left': ArcaneSpacing.lg,
+                    'border-left': '1px solid ${ArcaneColors.border}',
                   }),
                   [component.footer!],
                 ),
@@ -405,11 +404,11 @@ class _MegaMenuState extends State<MegaMenu> {
   }
 
   Component _buildMegaItem(DropdownItem item) {
-    final itemContent = div(
+    final Component itemContent = div(
       styles: Styles(raw: {
         'display': 'flex',
         'align-items': 'flex-start',
-        'gap': '12px',
+        'gap': ArcaneSpacing.sm,
       }),
       [
         if (item.icon != null)
@@ -423,17 +422,17 @@ class _MegaMenuState extends State<MegaMenu> {
         div([
           div(
             styles: Styles(raw: {
-              'font-size': '0.875rem',
-              'font-weight': '500',
-              'color': 'var(--arcane-on-surface)',
+              'font-size': ArcaneTypography.fontSm,
+              'font-weight': ArcaneTypography.weightMedium,
+              'color': ArcaneColors.onSurface,
             }),
             [text(item.label)],
           ),
           if (item.description != null)
             div(
               styles: Styles(raw: {
-                'font-size': '0.8125rem',
-                'color': 'var(--arcane-muted)',
+                'font-size': ArcaneTypography.fontXs,
+                'color': ArcaneColors.muted,
                 'margin-top': '2px',
               }),
               [text(item.description!)],
@@ -448,10 +447,10 @@ class _MegaMenuState extends State<MegaMenu> {
         classes: 'arcane-mega-menu-item',
         styles: Styles(raw: {
           'display': 'block',
-          'padding': '10px 12px',
+          'padding': '10px ${ArcaneSpacing.sm}',
           'text-decoration': 'none',
-          'border-radius': 'var(--arcane-radius-sm)',
-          'transition': 'background-color var(--arcane-transition-fast)',
+          'border-radius': ArcaneRadius.sm,
+          'transition': ArcaneEffects.transitionFast,
         }),
         [itemContent],
       );
@@ -463,13 +462,13 @@ class _MegaMenuState extends State<MegaMenu> {
       styles: Styles(raw: {
         'display': 'block',
         'width': '100%',
-        'padding': '10px 12px',
+        'padding': '10px ${ArcaneSpacing.sm}',
         'text-align': 'left',
         'background': 'none',
         'border': 'none',
-        'border-radius': 'var(--arcane-radius-sm)',
+        'border-radius': ArcaneRadius.sm,
         'cursor': 'pointer',
-        'transition': 'background-color var(--arcane-transition-fast)',
+        'transition': ArcaneEffects.transitionFast,
       }),
       events: {
         if (item.onTap != null) 'click': (e) => item.onTap!(),
