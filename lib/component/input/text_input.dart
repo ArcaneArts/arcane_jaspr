@@ -644,3 +644,8 @@ class SelectOption {
     this.disabled = false,
   });
 }
+
+// Type aliases for backward compatibility
+typedef TextInput = ArcaneTextInput;
+typedef TextArea = ArcaneTextArea;
+typedef SelectInput = ArcaneSelect;

@@ -135,6 +135,99 @@ class ArcaneColors {
   static const String codeBackground = 'var(--arcane-code-background)';
 
   // ---------------------------------------------------------------------------
+  // Extended Background Colors
+  // ---------------------------------------------------------------------------
+
+  /// Secondary background
+  static const String backgroundSecondary = 'var(--arcane-background-secondary)';
+
+  /// Tertiary background
+  static const String backgroundTertiary = 'var(--arcane-background-tertiary)';
+
+  /// Card hover state
+  static const String cardHover = 'var(--arcane-card-hover)';
+
+  /// Alternate card background
+  static const String cardAlt = 'var(--arcane-card-alt)';
+
+  /// Navbar background (with transparency)
+  static const String navbar = 'var(--arcane-navbar)';
+
+  // ---------------------------------------------------------------------------
+  // Extended Border Colors
+  // ---------------------------------------------------------------------------
+
+  /// Medium border (more visible than subtle)
+  static const String borderMedium = 'rgba(255, 255, 255, 0.1)';
+
+  /// Light border (most visible)
+  static const String borderLight = 'rgba(255, 255, 255, 0.15)';
+
+  // ---------------------------------------------------------------------------
+  // Extended Text Colors
+  // ---------------------------------------------------------------------------
+
+  /// Subtle text (less visible than muted)
+  static const String textSubtle = 'var(--arcane-text-subtle)';
+
+  /// Faint text (least visible)
+  static const String textFaint = 'var(--arcane-text-faint)';
+
+  // ---------------------------------------------------------------------------
+  // Neon/Gaming Colors
+  // ---------------------------------------------------------------------------
+
+  /// Neon pink
+  static const String neonPink = '#EC4899';
+
+  /// Neon cyan
+  static const String neonCyan = '#06B6D4';
+
+  /// Neon purple
+  static const String neonPurple = '#8B5CF6';
+
+  /// Neon green
+  static const String neonGreen = '#10B981';
+
+  /// Neon orange
+  static const String neonOrange = '#F97316';
+
+  // ---------------------------------------------------------------------------
+  // Window/Terminal Dot Colors
+  // ---------------------------------------------------------------------------
+
+  /// Window close button (red)
+  static const String windowDotRed = '#EF4444';
+
+  /// Window minimize button (yellow)
+  static const String windowDotYellow = '#F59E0B';
+
+  /// Window maximize button (green)
+  static const String windowDotGreen = '#10B981';
+
+  // ---------------------------------------------------------------------------
+  // Game-Specific Colors
+  // ---------------------------------------------------------------------------
+
+  /// Minecraft green
+  static const String minecraftGreen = '#62B247';
+
+  /// Rust orange
+  static const String rustOrange = '#CE422B';
+
+  /// ARK blue
+  static const String arkBlue = '#6EC8E4';
+
+  /// Valheim gold
+  static const String valheimGold = '#D4A843';
+
+  /// CS2 orange
+  static const String cs2Orange = '#DE9B35';
+
+  /// Terraria green
+  static const String terrariaGreen = '#29A629';
+
+  // ---------------------------------------------------------------------------
   // Core Color Scheme (Material-style)
   // ---------------------------------------------------------------------------
 
@@ -291,6 +384,23 @@ class ArcaneTypography {
   static const String fontMega = '4.5rem';
 
   // ---------------------------------------------------------------------------
+  // Font Size Aliases (compatibility with alternate naming)
+  // ---------------------------------------------------------------------------
+
+  static const String fontSizeXs = fontXs;
+  static const String fontSizeSm = '0.875rem'; // 14px (qualitynode standard)
+  static const String fontSizeMd = '0.9375rem'; // 15px (qualitynode standard)
+  static const String fontSizeBase = '1rem'; // 16px (qualitynode standard)
+  static const String fontSizeLg = fontLg;
+  static const String fontSizeXl = fontXl;
+  static const String fontSize2xl = font2xl;
+  static const String fontSize3xl = font3xl;
+  static const String fontSize4xl = font4xl;
+  static const String fontSize5xl = font5xl;
+  static const String fontSizeHero = fontHero;
+  static const String fontSizeMega = fontMega;
+
+  // ---------------------------------------------------------------------------
   // Font Weights
   // ---------------------------------------------------------------------------
 
@@ -308,6 +418,16 @@ class ArcaneTypography {
 
   /// Extra bold weight (800)
   static const String weightExtrabold = '800';
+
+  // ---------------------------------------------------------------------------
+  // Font Weight Aliases (compatibility with alternate naming)
+  // ---------------------------------------------------------------------------
+
+  static const String fontWeightNormal = weightNormal;
+  static const String fontWeightMedium = weightMedium;
+  static const String fontWeightSemibold = weightSemibold;
+  static const String fontWeightBold = weightBold;
+  static const String fontWeightExtrabold = weightExtrabold;
 
   // ---------------------------------------------------------------------------
   // Line Heights
@@ -452,6 +572,9 @@ class ArcaneEffects {
   static const String shadowSmStatic = '0 1px 2px rgba(0, 0, 0, 0.05)';
   static const String shadowMdStatic =
       '0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1)';
+
+  /// Card shadow (alias for shadowMdStatic)
+  static const String shadowCard = shadowMdStatic;
   static const String shadowLgStatic =
       '0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1)';
   static const String shadowXlStatic =
@@ -472,6 +595,34 @@ class ArcaneEffects {
   /// Error glow
   static const String glowError =
       '0 0 20px var(--arcane-destructive), 0 0 40px rgba(239, 68, 68, 0.1)';
+
+  // ---------------------------------------------------------------------------
+  // Gaming/Neon Glows
+  // ---------------------------------------------------------------------------
+
+  /// Primary/Green glow (gaming)
+  static const String glowPrimary =
+      '0 0 20px rgba(16, 185, 129, 0.3), 0 0 40px rgba(16, 185, 129, 0.1)';
+
+  /// Green glow
+  static const String glowGreen =
+      '0 0 20px rgba(16, 185, 129, 0.3), 0 0 40px rgba(16, 185, 129, 0.1)';
+
+  /// Cyan glow
+  static const String glowCyan =
+      '0 0 20px rgba(6, 182, 212, 0.3), 0 0 40px rgba(6, 182, 212, 0.1)';
+
+  /// Purple glow
+  static const String glowPurple =
+      '0 0 20px rgba(139, 92, 246, 0.3), 0 0 40px rgba(139, 92, 246, 0.1)';
+
+  /// Orange glow
+  static const String glowOrange =
+      '0 0 20px rgba(249, 115, 22, 0.3), 0 0 40px rgba(249, 115, 22, 0.1)';
+
+  /// Pink glow
+  static const String glowPink =
+      '0 0 20px rgba(236, 72, 153, 0.3), 0 0 40px rgba(236, 72, 153, 0.1)';
 
   // ---------------------------------------------------------------------------
   // Backdrop effects
