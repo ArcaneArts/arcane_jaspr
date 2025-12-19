@@ -1,26 +1,14 @@
-import 'package:fast_log/fast_log.dart';
-import 'package:jaspr/dom.dart'
-    hide
-        Color,
-        Colors,
-        ColorScheme,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight;
 import 'package:jaspr/jaspr.dart';
+import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
+import 'package:fast_log/fast_log.dart';
 
 import '../../util/appearance/theme.dart';
 import '../../util/arcane.dart';
+import '../../util/tools/styles.dart';
 
 /// Root application component for Arcane Jaspr apps.
 ///
 /// Wraps the app with theme provider and applies CSS custom properties.
-@client
 class ArcaneApp extends StatefulComponent {
   /// The theme configuration
   final ArcaneTheme theme;
@@ -52,38 +40,54 @@ class ArcaneApp extends StatefulComponent {
   @css
   static final List<StyleRule> styles = [
     // Reset styles
-    css(
-      '*, *::before, *::after',
-    ).styles(raw: {'box-sizing': 'border-box', 'margin': '0', 'padding': '0'}),
-    css(
-      'html, body',
-    ).styles(raw: {'height': '100%', 'margin': '0', 'padding': '0'}),
-    css('body').styles(raw: {'line-height': '1.5'}),
-    css(
-      'img, picture, video, canvas, svg',
-    ).styles(raw: {'display': 'block', 'max-width': '100%'}),
-    css('input, button, textarea, select').styles(raw: {'font': 'inherit'}),
-    css(
-      'p, h1, h2, h3, h4, h5, h6',
-    ).styles(raw: {'overflow-wrap': 'break-word'}),
-    css('a').styles(raw: {'color': 'inherit', 'text-decoration': 'none'}),
-    css('button').styles(
-      raw: {'cursor': 'pointer', 'background': 'none', 'border': 'none'},
-    ),
+    css('*, *::before, *::after').styles(raw: {
+      'box-sizing': 'border-box',
+      'margin': '0',
+      'padding': '0',
+    }),
+    css('html, body').styles(raw: {
+      'height': '100%',
+      'margin': '0',
+      'padding': '0',
+    }),
+    css('body').styles(raw: {
+      'line-height': '1.5',
+    }),
+    css('img, picture, video, canvas, svg').styles(raw: {
+      'display': 'block',
+      'max-width': '100%',
+    }),
+    css('input, button, textarea, select').styles(raw: {
+      'font': 'inherit',
+    }),
+    css('p, h1, h2, h3, h4, h5, h6').styles(raw: {
+      'overflow-wrap': 'break-word',
+    }),
+    css('a').styles(raw: {
+      'color': 'inherit',
+      'text-decoration': 'none',
+    }),
+    css('button').styles(raw: {
+      'cursor': 'pointer',
+      'background': 'none',
+      'border': 'none',
+    }),
     // Scrollbar styling
-    css('::-webkit-scrollbar').styles(raw: {'width': '8px', 'height': '8px'}),
-    css('::-webkit-scrollbar-track').styles(
-      raw: {
-        'background': 'var(--arcane-surface-variant)',
-        'border-radius': '4px',
-      },
-    ),
-    css('::-webkit-scrollbar-thumb').styles(
-      raw: {'background': 'var(--arcane-outline)', 'border-radius': '4px'},
-    ),
-    css(
-      '::-webkit-scrollbar-thumb:hover',
-    ).styles(raw: {'background': 'var(--arcane-on-surface-variant)'}),
+    css('::-webkit-scrollbar').styles(raw: {
+      'width': '8px',
+      'height': '8px',
+    }),
+    css('::-webkit-scrollbar-track').styles(raw: {
+      'background': 'var(--arcane-surface-variant)',
+      'border-radius': '4px',
+    }),
+    css('::-webkit-scrollbar-thumb').styles(raw: {
+      'background': 'var(--arcane-outline)',
+      'border-radius': '4px',
+    }),
+    css('::-webkit-scrollbar-thumb:hover').styles(raw: {
+      'background': 'var(--arcane-on-surface-variant)',
+    }),
   ];
 }
 
@@ -123,24 +127,25 @@ class _ArcaneAppState extends State<ArcaneApp> {
     final rootDiv = div(
       id: 'arcane-root',
       classes: isDark ? 'arcane-dark' : 'arcane-light',
-      styles: Styles(
-        raw: {
-          ...cssVars,
-          'min-height': '100vh',
-          'background-color': 'var(--arcane-background)',
-          'color': 'var(--arcane-on-background)',
-          'font-family':
-              '"GeistSans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-          '-webkit-font-smoothing': 'antialiased',
-          '-moz-osx-font-smoothing': 'grayscale',
-        },
-      ),
+      styles: Styles(raw: {
+        ...cssVars,
+        'min-height': '100vh',
+        'background-color': 'var(--arcane-background)',
+        'color': 'var(--arcane-on-background)',
+        'font-family':
+            '"GeistSans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        '-webkit-font-smoothing': 'antialiased',
+        '-moz-osx-font-smoothing': 'grayscale',
+      }),
       [component.child],
     );
     verbose('_ArcaneAppState.build() - div created');
 
     verbose('_ArcaneAppState.build() - creating ArcaneThemeProvider...');
-    final result = ArcaneThemeProvider(theme: theme, child: rootDiv);
+    final result = ArcaneThemeProvider(
+      theme: theme,
+      child: rootDiv,
+    );
     info('_ArcaneAppState.build() - complete');
 
     return result;
@@ -162,6 +167,9 @@ class ArcaneWindow extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return ArcaneApp(theme: theme, child: child);
+    return ArcaneApp(
+      theme: theme,
+      child: child,
+    );
   }
 }
