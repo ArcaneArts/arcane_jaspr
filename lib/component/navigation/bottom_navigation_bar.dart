@@ -104,7 +104,7 @@ class BottomNavigationBar extends StatelessComponent {
           }),
           [
             div(
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'width': '24px',
                 'height': '24px',
                 'display': 'flex',
@@ -116,7 +116,7 @@ class BottomNavigationBar extends StatelessComponent {
             if (item.badge != null)
               span(
                 classes: 'arcane-bottom-nav-badge',
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'position': 'absolute',
                   'top': '0',
                   'right': ArcaneSpacing.xs,

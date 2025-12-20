@@ -42,7 +42,7 @@ class StaticTable extends StatelessComponent {
   Component build(BuildContext context) {
     return div(
       classes: 'arcane-static-table-container',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'overflow-x': 'auto',
         'border': '1px solid ${ArcaneColors.border}',
         'border-radius': ArcaneRadius.lg,
@@ -50,7 +50,7 @@ class StaticTable extends StatelessComponent {
       [
         table(
           classes: 'arcane-static-table',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'width': '100%',
             'border-collapse': 'collapse',
             'font-size': ArcaneTypography.fontSm,
@@ -137,7 +137,7 @@ class KeyValueTable extends StatelessComponent {
   Component build(BuildContext context) {
     return div(
       classes: 'arcane-kv-table',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'border': '1px solid ${ArcaneColors.border}',
         'border-radius': ArcaneRadius.lg,
         'overflow': 'hidden',
@@ -172,7 +172,7 @@ class KeyValueTable extends StatelessComponent {
               // Value
               div(
                 classes: 'arcane-kv-table-value',
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'flex': '1',
                   'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.lg}',
                   'background-color': ArcaneColors.surface,

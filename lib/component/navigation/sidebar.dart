@@ -169,7 +169,7 @@ class _SidebarState extends State<Sidebar> {
                   ),
                   if (!_isCollapsed)
                     span(
-                      styles: Styles(raw: {
+                      styles: const Styles(raw: {
                         'margin-left': ArcaneSpacing.sm,
                         'font-size': ArcaneTypography.fontSm,
                       }),
@@ -201,14 +201,14 @@ class SidebarGroup extends StatelessComponent {
   Component build(BuildContext context) {
     return div(
       classes: 'arcane-sidebar-group',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'margin-bottom': ArcaneSpacing.md,
       }),
       [
         if (label != null && !collapsed)
           div(
             classes: 'arcane-sidebar-group-label',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontXs,
               'font-weight': ArcaneTypography.weightSemibold,
               'color': ArcaneColors.muted,
@@ -220,7 +220,7 @@ class SidebarGroup extends StatelessComponent {
           ),
         div(
           classes: 'arcane-sidebar-group-items',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'flex-direction': 'column',
             'gap': ArcaneSpacing.xs,
@@ -290,7 +290,7 @@ class SidebarItem extends StatelessComponent {
       [
         if (icon != null)
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'width': '20px',
               'height': '20px',
               'display': 'flex',
@@ -302,7 +302,7 @@ class SidebarItem extends StatelessComponent {
           ),
         if (!collapsed)
           span(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'flex': '1',
               'overflow': 'hidden',
               'text-overflow': 'ellipsis',
@@ -313,7 +313,7 @@ class SidebarItem extends StatelessComponent {
         if (!collapsed && badge != null)
           span(
             classes: 'arcane-sidebar-item-badge',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'background-color': ArcaneColors.accent,
               'color': ArcaneColors.accentForeground,
               'font-size': ArcaneTypography.fontXs,

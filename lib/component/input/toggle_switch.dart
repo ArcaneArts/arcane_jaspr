@@ -219,7 +219,7 @@ class ToggleButtonGroup extends StatelessComponent {
 
     return div(
       classes: 'arcane-toggle-button-group',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'inline-flex',
         'padding': ArcaneSpacing.xs,
         'background-color': ArcaneColors.surfaceVariant,

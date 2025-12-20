@@ -4,17 +4,17 @@ import 'package:jaspr_test/jaspr_test.dart';
 void main() {
   group('ArcaneTheme', () {
     test('creates theme with defaults', () {
-      final theme = ArcaneTheme();
+      final theme = const ArcaneTheme();
       expect(theme.themeMode, equals(ThemeMode.system));
     });
 
     test('creates theme with light mode', () {
-      final theme = ArcaneTheme(themeMode: ThemeMode.light);
+      final theme = const ArcaneTheme(themeMode: ThemeMode.light);
       expect(theme.themeMode, equals(ThemeMode.light));
     });
 
     test('creates theme with dark mode', () {
-      final theme = ArcaneTheme(themeMode: ThemeMode.dark);
+      final theme = const ArcaneTheme(themeMode: ThemeMode.dark);
       expect(theme.themeMode, equals(ThemeMode.dark));
     });
 
@@ -25,17 +25,17 @@ void main() {
     });
 
     test('creates theme with custom radius', () {
-      final theme = ArcaneTheme(radius: 0.75);
+      final theme = const ArcaneTheme(radius: 0.75);
       expect(theme.radius, equals(0.75));
     });
 
     test('creates theme with custom surface opacity', () {
-      final theme = ArcaneTheme(surfaceOpacity: 0.9);
+      final theme = const ArcaneTheme(surfaceOpacity: 0.9);
       expect(theme.surfaceOpacity, equals(0.9));
     });
 
     test('copyWith preserves unmodified values', () {
-      final original = ArcaneTheme(
+      final original = const ArcaneTheme(
         themeMode: ThemeMode.dark,
         radius: 0.5,
       );
@@ -45,7 +45,7 @@ void main() {
     });
 
     test('copyWith updates specified values', () {
-      final original = ArcaneTheme(themeMode: ThemeMode.light);
+      final original = const ArcaneTheme(themeMode: ThemeMode.light);
       final copied = original.copyWith(themeMode: ThemeMode.dark);
       expect(copied.themeMode, equals(ThemeMode.dark));
     });
@@ -101,14 +101,14 @@ void main() {
 
   group('ArcaneToastTheme', () {
     test('creates with defaults', () {
-      final toast = ArcaneToastTheme();
+      final toast = const ArcaneToastTheme();
       expect(toast.duration, isNotNull);
     });
   });
 
   group('GutterTheme', () {
     test('creates with defaults', () {
-      final gutter = GutterTheme();
+      final gutter = const GutterTheme();
       expect(gutter.small, isNotNull);
       expect(gutter.medium, isNotNull);
       expect(gutter.large, isNotNull);
@@ -117,7 +117,7 @@ void main() {
 
   group('NavigationTheme', () {
     test('creates with defaults', () {
-      final nav = NavigationTheme();
+      final nav = const NavigationTheme();
       expect(nav, isNotNull);
     });
   });

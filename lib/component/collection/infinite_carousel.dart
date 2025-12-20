@@ -202,7 +202,7 @@ class ArcaneCarouselSection extends StatelessComponent {
       [
         // Section header
         div(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'max-width': ArcaneLayout.maxWidthContent,
             'margin': '0 auto',
             'margin-bottom': ArcaneSpacing.xxl,
@@ -213,7 +213,7 @@ class ArcaneCarouselSection extends StatelessComponent {
             // Label
             if (label != null)
               span(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'display': 'inline-block',
                   'font-size': ArcaneTypography.fontSm,
                   'font-weight': ArcaneTypography.weightMedium,
@@ -226,7 +226,7 @@ class ArcaneCarouselSection extends StatelessComponent {
               ),
             // Title
             h2(
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': ArcaneTypography.font4xl,
                 'font-weight': ArcaneTypography.weightBold,
                 'color': ArcaneColors.onBackground,
@@ -237,7 +237,7 @@ class ArcaneCarouselSection extends StatelessComponent {
             // Subtitle
             if (subtitle != null)
               p(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontLg,
                   'color': ArcaneColors.muted,
                   'max-width': ArcaneLayout.maxWidthText,

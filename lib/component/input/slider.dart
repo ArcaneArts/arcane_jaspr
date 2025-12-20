@@ -69,13 +69,13 @@ class Slider extends StatelessComponent {
     final percentage = ((value - min) / (max - min) * 100).clamp(0, 100);
 
     return div(
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'width': '100%',
       }),
       [
         if (label != null || showValue)
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'justify-content': 'space-between',
               'align-items': 'center',
@@ -84,7 +84,7 @@ class Slider extends StatelessComponent {
             [
               if (label != null)
                 span(
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontMd,
                     'font-weight': ArcaneTypography.weightMedium,
                     'color': ArcaneColors.onSurface,
@@ -179,13 +179,13 @@ class RangeSlider extends StatelessComponent {
     final maxPercent = ((maxValue - min) / (max - min) * 100).clamp(0, 100);
 
     return div(
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'width': '100%',
       }),
       [
         if (label != null)
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'justify-content': 'space-between',
               'align-items': 'center',
@@ -193,7 +193,7 @@ class RangeSlider extends StatelessComponent {
             }),
             [
               span(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontMd,
                   'font-weight': ArcaneTypography.weightMedium,
                   'color': ArcaneColors.onSurface,
@@ -201,7 +201,7 @@ class RangeSlider extends StatelessComponent {
                 [text(label!)],
               ),
               span(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontMd,
                   'color': ArcaneColors.muted,
                 }),

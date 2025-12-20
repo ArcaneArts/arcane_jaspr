@@ -91,7 +91,7 @@ class GlassCard extends StatelessComponent {
     if (onTap != null) {
       return div(
         classes: 'arcane-glass-card clickable',
-        styles: Styles(raw: {
+        styles: const Styles(raw: {
           'cursor': 'pointer',
           'transition': ArcaneEffects.transitionFast,
         }),

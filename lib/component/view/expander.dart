@@ -76,7 +76,7 @@ class _ExpanderState extends State<Expander> {
 
     return div(
       classes: 'arcane-expander ${_isExpanded ? 'expanded' : ''}',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'border': '1px solid ${ArcaneColors.border}',
         'border-radius': ArcaneRadius.lg,
         'overflow': 'hidden',
@@ -89,7 +89,7 @@ class _ExpanderState extends State<Expander> {
             'type': 'button',
             'aria-expanded': '$_isExpanded',
           },
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
             'gap': ArcaneSpacing.md,
@@ -107,7 +107,7 @@ class _ExpanderState extends State<Expander> {
           [
             if (component.leading != null) component.leading!,
             div(
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'flex': '1',
                 'min-width': '0',
               }),
@@ -212,7 +212,7 @@ class _AccordionState extends State<Accordion> {
 
     return div(
       classes: 'arcane-accordion-item ${isExpanded ? 'expanded' : ''}',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'border': '1px solid ${ArcaneColors.border}',
         'border-radius': ArcaneRadius.lg,
         'overflow': 'hidden',
@@ -224,7 +224,7 @@ class _AccordionState extends State<Accordion> {
             'type': 'button',
             'aria-expanded': '$isExpanded',
           },
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
             'gap': ArcaneSpacing.md,
@@ -242,7 +242,7 @@ class _AccordionState extends State<Accordion> {
           [
             if (item.icon != null) item.icon!,
             span(
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'flex': '1',
                 'font-weight': ArcaneTypography.weightMedium,
                 'color': ArcaneColors.onSurface,
@@ -262,7 +262,7 @@ class _AccordionState extends State<Accordion> {
         if (isExpanded)
           div(
             classes: 'arcane-accordion-content',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'padding': ArcaneSpacing.lg,
               'background-color': ArcaneColors.surface,
               'border-top': '1px solid ${ArcaneColors.border}',

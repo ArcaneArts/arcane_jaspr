@@ -100,7 +100,7 @@ class _CycleButtonState<T> extends State<CycleButton<T>> {
         if (currentOption.label != null) text(currentOption.label!),
         // Cycle indicator
         span(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'font-size': '0.75em',
             'opacity': '0.7',
           }),

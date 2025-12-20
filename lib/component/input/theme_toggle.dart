@@ -72,7 +72,7 @@ class ThemeToggle extends StatelessComponent {
         ],
         // Clouds (visible in light mode)
         if (!isDark) ...[
-          div(
+          const div(
             styles: Styles(raw: {
               'position': 'absolute',
               'width': '16px',
@@ -85,7 +85,7 @@ class ThemeToggle extends StatelessComponent {
             }),
             [],
           ),
-          div(
+          const div(
             styles: Styles(raw: {
               'position': 'absolute',
               'width': '12px',
@@ -122,7 +122,7 @@ class ThemeToggle extends StatelessComponent {
           [
             // Moon craters or sun rays
             if (isDark)
-              div(
+              const div(
                 styles: Styles(raw: {
                   'position': 'absolute',
                   'width': '40%',
@@ -162,7 +162,7 @@ class ThemeToggleSimple extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return div(
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
         'gap': ArcaneSpacing.sm,

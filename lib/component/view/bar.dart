@@ -76,7 +76,7 @@ class Bar extends StatelessComponent {
         (titleText != null
             ? span(
                 classes: 'arcane-bar-title',
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontLg,
                   'font-weight': ArcaneTypography.weightSemibold,
                   'color': ArcaneColors.onSurface,
@@ -92,7 +92,7 @@ class Bar extends StatelessComponent {
         (subtitleText != null
             ? span(
                 classes: 'arcane-bar-subtitle',
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontXs,
                   'color': ArcaneColors.muted,
                   'white-space': 'nowrap',
@@ -126,7 +126,7 @@ class Bar extends StatelessComponent {
         if (showBack || (leading != null && leading!.isNotEmpty))
           div(
             classes: 'arcane-bar-leading',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
               'gap': ArcaneSpacing.sm,
@@ -158,7 +158,7 @@ class Bar extends StatelessComponent {
         if (trailing != null && trailing!.isNotEmpty)
           div(
             classes: 'arcane-bar-trailing',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
               'gap': ArcaneSpacing.sm,
@@ -173,7 +173,7 @@ class Bar extends StatelessComponent {
     return button(
       classes: 'arcane-bar-back',
       attributes: {'type': 'button', 'aria-label': 'Go back'},
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
         'justify-content': 'center',
@@ -195,7 +195,7 @@ class Bar extends StatelessComponent {
       },
       [
         span(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'font-size': ArcaneTypography.fontXl,
           }),
           [text('←')],
@@ -227,7 +227,7 @@ class DialogBar extends StatelessComponent {
   Component build(BuildContext context) {
     return div(
       classes: 'arcane-dialog-bar',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
         'justify-content': 'space-between',
@@ -237,7 +237,7 @@ class DialogBar extends StatelessComponent {
       [
         if (title != null)
           span(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontLg,
               'font-weight': ArcaneTypography.weightSemibold,
               'color': ArcaneColors.onSurface,
@@ -245,11 +245,11 @@ class DialogBar extends StatelessComponent {
             [text(title!)],
           )
         else
-          div([]),
+          const div([]),
         if (onClose != null)
           button(
             attributes: {'type': 'button', 'aria-label': 'Close'},
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
               'justify-content': 'center',

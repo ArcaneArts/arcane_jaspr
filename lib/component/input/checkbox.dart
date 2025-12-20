@@ -127,13 +127,13 @@ class Checkbox extends StatelessComponent {
         // Label and description
         if (label != null || description != null)
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'flex': '1',
             }),
             [
               if (label != null)
                 span(
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontMd,
                     'font-weight': ArcaneTypography.weightMedium,
                     'color': ArcaneColors.onSurface,
@@ -143,7 +143,7 @@ class Checkbox extends StatelessComponent {
                 ),
               if (description != null)
                 span(
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontSm,
                     'color': ArcaneColors.muted,
                     'display': 'block',
@@ -242,13 +242,13 @@ class Radio extends StatelessComponent {
         // Label and description
         if (label != null || description != null)
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'flex': '1',
             }),
             [
               if (label != null)
                 span(
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontMd,
                     'font-weight': ArcaneTypography.weightMedium,
                     'color': ArcaneColors.onSurface,
@@ -258,7 +258,7 @@ class Radio extends StatelessComponent {
                 ),
               if (description != null)
                 span(
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontSm,
                     'color': ArcaneColors.muted,
                     'display': 'block',

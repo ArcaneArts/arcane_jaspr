@@ -110,7 +110,7 @@ class _AccordionState extends State<Accordion> {
             'type': 'button',
             'aria-expanded': isOpen.toString(),
           },
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'space-between',
@@ -153,7 +153,7 @@ class _AccordionState extends State<Accordion> {
           [
             div(
               classes: 'arcane-accordion-content',
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontSm,
                 'line-height': ArcaneTypography.lineHeightRelaxed,
                 'color': ArcaneColors.muted,

@@ -32,7 +32,7 @@ class BackToTop extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     if (!visible) {
-      return div([]);
+      return const div([]);
     }
 
     return button(
@@ -64,7 +64,7 @@ class BackToTop extends StatelessComponent {
       },
       [
         span(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'font-size': '1.25rem',
             'color': ArcaneColors.muted,
             'transform': 'rotate(-90deg)',
@@ -209,7 +209,7 @@ class FloatingActionButton extends StatelessComponent {
         child,
         if (label != null)
           span(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
               'font-weight': ArcaneTypography.weightMedium,
             }),

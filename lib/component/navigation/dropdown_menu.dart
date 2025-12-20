@@ -99,7 +99,7 @@ class _DropdownMenuState extends State<DropdownMenu> {
 
     return div(
       classes: 'arcane-dropdown ${_isOpen ? 'open' : ''}',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'position': 'relative',
         'display': 'inline-block',
       }),
@@ -117,7 +117,7 @@ class _DropdownMenuState extends State<DropdownMenu> {
         if (_isOpen)
           div(
             classes: 'arcane-dropdown-backdrop',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'position': 'fixed',
               'inset': '0',
               'z-index': '99',
@@ -151,7 +151,7 @@ class _DropdownMenuState extends State<DropdownMenu> {
             [
               for (final item in component.items)
                 if (item.divider)
-                  div(
+                  const div(
                     classes: 'arcane-dropdown-divider',
                     styles: Styles(raw: {
                       'height': '1px',
@@ -196,7 +196,7 @@ class _DropdownMenuState extends State<DropdownMenu> {
           [item.icon!],
         ),
       div(
-        styles: Styles(raw: {
+        styles: const Styles(raw: {
           'flex': '1',
           'display': 'flex',
           'flex-direction': 'column',
@@ -206,7 +206,7 @@ class _DropdownMenuState extends State<DropdownMenu> {
           span([text(item.label)]),
           if (item.description != null)
             span(
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontXs,
                 'color': ArcaneColors.muted,
               }),
@@ -297,7 +297,7 @@ class _MegaMenuState extends State<MegaMenu> {
   Component build(BuildContext context) {
     return div(
       classes: 'arcane-mega-menu ${_isOpen ? 'open' : ''}',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'position': 'relative',
       }),
       events: {
@@ -339,7 +339,7 @@ class _MegaMenuState extends State<MegaMenu> {
         if (_isOpen)
           div(
             classes: 'arcane-mega-menu-panel',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'position': 'absolute',
               'top': '100%',
               'left': '50%',
@@ -359,13 +359,13 @@ class _MegaMenuState extends State<MegaMenu> {
               for (final section in component.sections)
                 div(
                   classes: 'arcane-mega-menu-section',
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'min-width': '180px',
                   }),
                   [
                     if (section.title != null)
                       div(
-                        styles: Styles(raw: {
+                        styles: const Styles(raw: {
                           'font-size': ArcaneTypography.fontXs,
                           'font-weight': ArcaneTypography.weightSemibold,
                           'text-transform': 'uppercase',
@@ -376,7 +376,7 @@ class _MegaMenuState extends State<MegaMenu> {
                         [text(section.title!)],
                       ),
                     div(
-                      styles: Styles(raw: {
+                      styles: const Styles(raw: {
                         'display': 'flex',
                         'flex-direction': 'column',
                         'gap': ArcaneSpacing.xs,
@@ -391,7 +391,7 @@ class _MegaMenuState extends State<MegaMenu> {
               if (component.footer != null)
                 div(
                   classes: 'arcane-mega-menu-footer',
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'padding-left': ArcaneSpacing.lg,
                     'border-left': '1px solid ${ArcaneColors.border}',
                   }),
@@ -405,7 +405,7 @@ class _MegaMenuState extends State<MegaMenu> {
 
   Component _buildMegaItem(DropdownItem item) {
     final Component itemContent = div(
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'align-items': 'flex-start',
         'gap': ArcaneSpacing.sm,
@@ -413,7 +413,7 @@ class _MegaMenuState extends State<MegaMenu> {
       [
         if (item.icon != null)
           span(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'flex-shrink': '0',
               'margin-top': '2px',
             }),
@@ -421,7 +421,7 @@ class _MegaMenuState extends State<MegaMenu> {
           ),
         div([
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
               'font-weight': ArcaneTypography.weightMedium,
               'color': ArcaneColors.onSurface,
@@ -430,7 +430,7 @@ class _MegaMenuState extends State<MegaMenu> {
           ),
           if (item.description != null)
             div(
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontXs,
                 'color': ArcaneColors.muted,
                 'margin-top': '2px',
@@ -445,7 +445,7 @@ class _MegaMenuState extends State<MegaMenu> {
       return a(
         href: item.href!,
         classes: 'arcane-mega-menu-item',
-        styles: Styles(raw: {
+        styles: const Styles(raw: {
           'display': 'block',
           'padding': '10px ${ArcaneSpacing.sm}',
           'text-decoration': 'none',
@@ -459,7 +459,7 @@ class _MegaMenuState extends State<MegaMenu> {
     return button(
       classes: 'arcane-mega-menu-item',
       attributes: {'type': 'button'},
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'block',
         'width': '100%',
         'padding': '10px ${ArcaneSpacing.sm}',

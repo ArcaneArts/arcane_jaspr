@@ -77,7 +77,7 @@ class _NewsletterFormState extends State<NewsletterForm> {
     if (_submitted) {
       return div(
         classes: 'arcane-newsletter-success',
-        styles: Styles(raw: {
+        styles: const Styles(raw: {
           'display': 'flex',
           'align-items': 'center',
           'gap': ArcaneSpacing.sm,
@@ -102,14 +102,14 @@ class _NewsletterFormState extends State<NewsletterForm> {
     if (component.inline) {
       return div(
         classes: 'arcane-newsletter-form',
-        styles: Styles(raw: {
+        styles: const Styles(raw: {
           'display': 'flex',
           'flex-direction': 'column',
           'gap': ArcaneSpacing.sm,
         }),
         [
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'gap': ArcaneSpacing.sm,
             }),
@@ -174,7 +174,7 @@ class _NewsletterFormState extends State<NewsletterForm> {
           if (_error != null)
             span(
               [text(_error!)],
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontXs,
                 'color': ArcaneColors.error,
               }),
@@ -186,7 +186,7 @@ class _NewsletterFormState extends State<NewsletterForm> {
     // Stacked layout
     return div(
       classes: 'arcane-newsletter-form stacked',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
         'gap': ArcaneSpacing.md,
@@ -222,7 +222,7 @@ class _NewsletterFormState extends State<NewsletterForm> {
         if (_error != null)
           span(
             [text(_error!)],
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontXs,
               'color': ArcaneColors.error,
               'margin-top': '-${ArcaneSpacing.xs}',
@@ -313,7 +313,7 @@ class _WaitlistFormState extends State<WaitlistForm> {
     if (_submitted) {
       return div(
         classes: 'arcane-waitlist-success',
-        styles: Styles(raw: {
+        styles: const Styles(raw: {
           'padding': ArcaneSpacing.xl,
           'text-align': 'center',
           'background-color': ArcaneColors.surface,
@@ -323,14 +323,14 @@ class _WaitlistFormState extends State<WaitlistForm> {
         [
           div(
             [text('!')],
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': '2rem',
               'margin-bottom': ArcaneSpacing.md,
             }),
           ),
           div(
             [text(component.successMessage)],
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontBase,
               'color': ArcaneColors.onSurface,
             }),
@@ -341,7 +341,7 @@ class _WaitlistFormState extends State<WaitlistForm> {
 
     return div(
       classes: 'arcane-waitlist-form',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
         'gap': ArcaneSpacing.lg,
@@ -354,7 +354,7 @@ class _WaitlistFormState extends State<WaitlistForm> {
         if (component.title != null)
           div(
             [text(component.title!)],
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontLg,
               'font-weight': ArcaneTypography.weightSemibold,
               'color': ArcaneColors.onSurface,
@@ -363,7 +363,7 @@ class _WaitlistFormState extends State<WaitlistForm> {
         if (component.description != null)
           div(
             [text(component.description!)],
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
               'color': ArcaneColors.muted,
               'line-height': ArcaneTypography.lineHeightRelaxed,
@@ -373,7 +373,7 @@ class _WaitlistFormState extends State<WaitlistForm> {
           input(
             type: InputType.text,
             attributes: {'placeholder': 'Your name'},
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'width': '100%',
               'height': '44px',
               'padding': '10px 14px',
@@ -418,7 +418,7 @@ class _WaitlistFormState extends State<WaitlistForm> {
         if (_error != null)
           span(
             [text(_error!)],
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontXs,
               'color': ArcaneColors.error,
             }),
@@ -426,7 +426,7 @@ class _WaitlistFormState extends State<WaitlistForm> {
         button(
           [text(component.buttonText)],
           attributes: {'type': 'button'},
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'width': '100%',
             'height': '44px',
             'font-size': ArcaneTypography.fontSm,

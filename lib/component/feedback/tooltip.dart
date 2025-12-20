@@ -95,7 +95,7 @@ class _TooltipState extends State<Tooltip> {
 
     return div(
       classes: 'arcane-tooltip-wrapper',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'position': 'relative',
         'display': 'inline-flex',
       }),
@@ -211,7 +211,7 @@ class _TooltipCustomState extends State<TooltipCustom> {
 
     return div(
       classes: 'arcane-tooltip-wrapper',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'position': 'relative',
         'display': 'inline-flex',
       }),

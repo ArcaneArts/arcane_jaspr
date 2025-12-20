@@ -80,7 +80,7 @@ class FillScreen extends StatelessComponent {
 
     return div(
       classes: 'arcane-fill-screen',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
         'min-height': '100vh',
@@ -93,7 +93,7 @@ class FillScreen extends StatelessComponent {
         if (background != null)
           div(
             classes: 'arcane-fill-screen-background',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'position': 'absolute',
               'inset': '0',
               'z-index': '0',
@@ -105,7 +105,7 @@ class FillScreen extends StatelessComponent {
         // Content
         div(
           classes: 'arcane-fill-screen-content',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'flex-direction': 'column',
             'flex': '1',
@@ -124,7 +124,7 @@ class FillScreen extends StatelessComponent {
             // Body
             div(
               classes: 'arcane-fill-screen-body',
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'display': 'flex',
                 'flex': '1',
                 'min-height': '0',
@@ -150,7 +150,7 @@ class FillScreen extends StatelessComponent {
             if (footer != null)
               div(
                 classes: 'arcane-fill-screen-footer',
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'flex-shrink': '0',
                 }),
                 [footer!],
@@ -164,7 +164,7 @@ class FillScreen extends StatelessComponent {
   Component _buildLoadingBar() {
     return div(
       classes: 'arcane-fill-screen-loading',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'height': '3px',
         'background-color': ArcaneColors.border,
         'overflow': 'hidden',

@@ -196,7 +196,7 @@ class AlertBanner extends StatelessComponent {
         // Content
         div(
           classes: 'arcane-alert-content',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'flex': '1',
             'min-width': '0',
           }),
@@ -204,7 +204,7 @@ class AlertBanner extends StatelessComponent {
             if (title != null)
               div(
                 classes: 'arcane-alert-title',
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'font-weight': ArcaneTypography.weightSemibold,
                   'font-size': ArcaneTypography.fontBase,
                   'margin-bottom': ArcaneSpacing.xs,
@@ -213,7 +213,7 @@ class AlertBanner extends StatelessComponent {
               ),
             div(
               classes: 'arcane-alert-message',
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontSm,
                 'line-height': ArcaneTypography.lineHeightRelaxed,
               }),
@@ -233,7 +233,7 @@ class AlertBanner extends StatelessComponent {
               'type': 'button',
               'aria-label': 'Dismiss',
             },
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'flex-shrink': '0',
               'padding': ArcaneSpacing.xs,
               'background': 'none',
@@ -285,7 +285,7 @@ class ProgressBar extends StatelessComponent {
   Component build(BuildContext context) {
     return div(
       classes: 'arcane-progress ${indeterminate ? 'indeterminate' : ''}',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
         'gap': ArcaneSpacing.md,
@@ -320,7 +320,7 @@ class ProgressBar extends StatelessComponent {
         if (showLabel && !indeterminate)
           span(
             classes: 'arcane-progress-label',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontXs,
               'font-weight': ArcaneTypography.weightMedium,
               'color': ArcaneColors.muted,
@@ -364,7 +364,7 @@ class Loader extends StatelessComponent {
   Component build(BuildContext context) {
     return div(
       classes: 'arcane-loader',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
         'gap': ArcaneSpacing.md,
@@ -385,7 +385,7 @@ class Loader extends StatelessComponent {
         if (label != null)
           span(
             classes: 'arcane-loader-text',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
               'color': ArcaneColors.muted,
             }),

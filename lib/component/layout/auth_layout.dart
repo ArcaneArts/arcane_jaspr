@@ -109,7 +109,7 @@ class ArcaneAuthLayout extends StatelessComponent {
             if (header != null)
               div(
                 classes: 'arcane-auth-header',
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'display': 'flex',
                   'justify-content': 'center',
                   'margin-bottom': ArcaneSpacing.xl,
@@ -122,7 +122,7 @@ class ArcaneAuthLayout extends StatelessComponent {
             if (footer != null)
               div(
                 classes: 'arcane-auth-footer',
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'text-align': 'center',
                   'margin-top': ArcaneSpacing.xl,
                 }),
@@ -209,7 +209,7 @@ class ArcaneAuthBackLink extends StatelessComponent {
     return a(
       href: href,
       classes: 'arcane-auth-back-link',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'font-size': ArcaneTypography.fontSm,
         'color': ArcaneColors.muted,
         'text-decoration': 'none',

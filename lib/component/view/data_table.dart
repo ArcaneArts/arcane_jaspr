@@ -108,7 +108,7 @@ class _DataTableState<T> extends State<DataTable<T>> {
     if (component.items.isEmpty) {
       return div(
         classes: 'arcane-data-table-empty',
-        styles: Styles(raw: {
+        styles: const Styles(raw: {
           'padding': '${ArcaneSpacing.massive} ${ArcaneSpacing.xl}',
           'text-align': 'center',
           'color': ArcaneColors.muted,
@@ -119,7 +119,7 @@ class _DataTableState<T> extends State<DataTable<T>> {
 
     return div(
       classes: 'arcane-data-table-container',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'overflow-x': 'auto',
         'border': '1px solid ${ArcaneColors.border}',
         'border-radius': ArcaneRadius.lg,
@@ -127,7 +127,7 @@ class _DataTableState<T> extends State<DataTable<T>> {
       [
         table(
           classes: 'arcane-data-table',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'width': '100%',
             'border-collapse': 'collapse',
             'font-size': ArcaneTypography.fontSm,
@@ -147,7 +147,7 @@ class _DataTableState<T> extends State<DataTable<T>> {
                   tr([
                     if (component.selectable)
                       th(
-                        styles: Styles(raw: {
+                        styles: const Styles(raw: {
                           'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.lg}',
                           'text-align': 'center',
                           'width': '48px',
@@ -220,7 +220,7 @@ class _DataTableState<T> extends State<DataTable<T>> {
       [
         if (component.selectable)
           td(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.lg}',
               'text-align': 'center',
             }),

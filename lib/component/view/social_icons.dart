@@ -105,7 +105,7 @@ class ArcaneSocialIcon extends StatelessComponent {
       return a(
         href: url!,
         attributes: {'target': '_blank', 'rel': 'noopener noreferrer'},
-        styles: Styles(raw: {'text-decoration': 'none'}),
+        styles: const Styles(raw: {'text-decoration': 'none'}),
         [content],
       );
     } else {
@@ -185,7 +185,7 @@ class SocialLinks extends StatelessComponent {
             href: link.url,
             attributes: {'target': '_blank', 'rel': 'noopener noreferrer'},
             classes: 'arcane-social-link',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
               'gap': ArcaneSpacing.sm,

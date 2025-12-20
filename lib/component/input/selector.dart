@@ -102,7 +102,7 @@ class _SelectorState<T> extends State<Selector<T>> {
 
     return div(
       classes: 'arcane-selector-wrapper',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
         'gap': ArcaneSpacing.xs,
@@ -113,7 +113,7 @@ class _SelectorState<T> extends State<Selector<T>> {
         if (component.label != null)
           label(
             classes: 'arcane-selector-label',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontMd,
               'font-weight': ArcaneTypography.weightMedium,
               'color': ArcaneColors.onSurface,
@@ -170,7 +170,7 @@ class _SelectorState<T> extends State<Selector<T>> {
             if (component.clearable && selectedOption != null)
               span(
                 classes: 'arcane-selector-clear',
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'display': 'flex',
                   'align-items': 'center',
                   'color': ArcaneColors.muted,
@@ -200,7 +200,7 @@ class _SelectorState<T> extends State<Selector<T>> {
         if (_isOpen)
           div(
             classes: 'arcane-selector-dropdown',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'position': 'absolute',
               'top': '100%',
               'left': '0',
@@ -219,7 +219,7 @@ class _SelectorState<T> extends State<Selector<T>> {
               if (component.searchable)
                 div(
                   classes: 'arcane-selector-search',
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'padding': ArcaneSpacing.sm,
                     'border-bottom': '1px solid ${ArcaneColors.border}',
                   }),
@@ -230,7 +230,7 @@ class _SelectorState<T> extends State<Selector<T>> {
                         'placeholder': 'Search...',
                         'autofocus': 'true',
                       },
-                      styles: Styles(raw: {
+                      styles: const Styles(raw: {
                         'width': '100%',
                         'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
                         'border': '1px solid ${ArcaneColors.border}',
@@ -258,13 +258,13 @@ class _SelectorState<T> extends State<Selector<T>> {
               // Options
               div(
                 classes: 'arcane-selector-options',
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'padding': ArcaneSpacing.xs,
                 }),
                 [
                   if (_filteredOptions.isEmpty)
                     div(
-                      styles: Styles(raw: {
+                      styles: const Styles(raw: {
                         'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
                         'color': ArcaneColors.muted,
                         'font-size': ArcaneTypography.fontMd,
@@ -284,7 +284,7 @@ class _SelectorState<T> extends State<Selector<T>> {
         if (component.error != null)
           span(
             classes: 'arcane-selector-error',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
               'color': ArcaneColors.error,
             }),
@@ -332,12 +332,12 @@ class _SelectorState<T> extends State<Selector<T>> {
       [
         if (option.icon != null) option.icon!,
         span(
-          styles: Styles(raw: {'flex': '1'}),
+          styles: const Styles(raw: {'flex': '1'}),
           [text(option.label)],
         ),
         if (option.subtitle != null)
           span(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
               'color': ArcaneColors.muted,
             }),
@@ -345,7 +345,7 @@ class _SelectorState<T> extends State<Selector<T>> {
           ),
         if (isSelected)
           span(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'color': ArcaneColors.accent,
             }),
             [text('✓')],

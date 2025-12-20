@@ -230,7 +230,7 @@ class NavTile extends StatelessComponent {
       [
         if (icon != null)
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'flex-shrink': '0',
               'width': '20px',
               'height': '20px',
@@ -241,7 +241,7 @@ class NavTile extends StatelessComponent {
             [icon!],
           ),
         span(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'flex': '1',
             'overflow': 'hidden',
             'text-overflow': 'ellipsis',
@@ -252,7 +252,7 @@ class NavTile extends StatelessComponent {
         if (badge != null)
           span(
             classes: 'arcane-nav-tile-badge',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'background-color': ArcaneColors.accent,
               'color': ArcaneColors.accentForeground,
               'font-size': ArcaneTypography.fontXs,

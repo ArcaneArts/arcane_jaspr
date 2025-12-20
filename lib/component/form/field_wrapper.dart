@@ -55,7 +55,7 @@ class ArcaneFieldWrapper extends StatelessComponent {
 
     return div(
       classes: 'arcane-field-wrapper',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
         'gap': ArcaneSpacing.xs,
@@ -66,7 +66,7 @@ class ArcaneFieldWrapper extends StatelessComponent {
         if (labelText != null || icon != null || required)
           div(
             classes: 'arcane-field-label-row',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
               'gap': ArcaneSpacing.sm,
@@ -96,7 +96,7 @@ class ArcaneFieldWrapper extends StatelessComponent {
                   [
                     Component.text(labelText!),
                     if (required)
-                      span(
+                      const span(
                         styles: Styles(raw: {
                           'color': ArcaneColors.error,
                           'margin-left': ArcaneSpacing.xs,
@@ -113,7 +113,7 @@ class ArcaneFieldWrapper extends StatelessComponent {
         if (description != null)
           div(
             classes: 'arcane-field-description',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontXs,
               'color': ArcaneColors.muted,
               'line-height': ArcaneTypography.lineHeightRelaxed,
@@ -124,7 +124,7 @@ class ArcaneFieldWrapper extends StatelessComponent {
         // Field content
         div(
           classes: 'arcane-field-content',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'width': '100%',
           }),
           [field],
@@ -134,7 +134,7 @@ class ArcaneFieldWrapper extends StatelessComponent {
         if (hasError && showValidation)
           div(
             classes: 'arcane-field-error',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
               'gap': ArcaneSpacing.xs,
@@ -142,7 +142,7 @@ class ArcaneFieldWrapper extends StatelessComponent {
               'color': ArcaneColors.error,
             }),
             [
-              span([Component.text('!')]),
+              const span([Component.text('!')]),
               Component.text(error!),
             ],
           ),
@@ -186,7 +186,7 @@ class FormSection extends StatelessComponent {
         if (title != null || description != null)
           div(
             classes: 'arcane-form-section-header',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'margin-bottom': ArcaneSpacing.sm,
             }),
             [
@@ -202,7 +202,7 @@ class FormSection extends StatelessComponent {
                 ),
               if (description != null)
                 div(
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontSm,
                     'color': ArcaneColors.muted,
                     'line-height': ArcaneTypography.lineHeightRelaxed,
@@ -290,7 +290,7 @@ class _ArcaneFormState extends State<ArcaneForm> {
         if (component.showActions)
           div(
             classes: 'arcane-form-actions',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'justify-content': 'flex-end',
               'gap': ArcaneSpacing.sm,
@@ -302,7 +302,7 @@ class _ArcaneFormState extends State<ArcaneForm> {
               if (component.onCancel != null)
                 button(
                   attributes: {'type': 'button'},
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'padding': '10px 20px',
                     'border': '1px solid ${ArcaneColors.border}',
                     'border-radius': ArcaneRadius.md,
@@ -320,7 +320,7 @@ class _ArcaneFormState extends State<ArcaneForm> {
                 ),
               button(
                 attributes: {'type': 'submit'},
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'padding': '10px 20px',
                   'border': 'none',
                   'border-radius': ArcaneRadius.md,

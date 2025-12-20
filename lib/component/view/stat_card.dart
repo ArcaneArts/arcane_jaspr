@@ -41,7 +41,7 @@ class StatCard extends StatelessComponent {
   Component build(BuildContext context) {
     return div(
       classes: 'arcane-stat-card',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'background': ArcaneColors.card,
         'border': '1px solid ${ArcaneColors.border}',
         'border-radius': ArcaneRadius.lg,
@@ -53,7 +53,7 @@ class StatCard extends StatelessComponent {
       [
         // Header with icon and trend
         div(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'justify-content': 'space-between',
             'align-items': 'flex-start',
@@ -101,7 +101,7 @@ class StatCard extends StatelessComponent {
         // Value and label
         div([
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.font3xl,
               'font-weight': ArcaneTypography.weightBold,
               'color': ArcaneColors.onSurface,
@@ -110,7 +110,7 @@ class StatCard extends StatelessComponent {
             [text(value)],
           ),
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
               'color': ArcaneColors.muted,
               'margin-top': ArcaneSpacing.xs,
@@ -120,7 +120,7 @@ class StatCard extends StatelessComponent {
         ]),
         if (description != null)
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
               'color': ArcaneColors.muted,
               'padding-top': ArcaneSpacing.md,

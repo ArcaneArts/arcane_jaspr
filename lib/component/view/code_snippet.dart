@@ -58,7 +58,7 @@ class _CodeSnippetState extends State<CodeSnippet> {
 
     return div(
       classes: 'arcane-code-snippet',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'position': 'relative',
         'background-color': ArcaneColors.codeBackground,
         'border': '1px solid ${ArcaneColors.border}',
@@ -70,7 +70,7 @@ class _CodeSnippetState extends State<CodeSnippet> {
         if (component.title != null || component.showCopyButton)
           div(
             classes: 'arcane-code-snippet-header',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
               'justify-content': 'space-between',
@@ -81,7 +81,7 @@ class _CodeSnippetState extends State<CodeSnippet> {
             [
               // Title/Language
               div(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'display': 'flex',
                   'align-items': 'center',
                   'gap': ArcaneSpacing.sm,
@@ -89,7 +89,7 @@ class _CodeSnippetState extends State<CodeSnippet> {
                 [
                   if (component.title != null)
                     span(
-                      styles: Styles(raw: {
+                      styles: const Styles(raw: {
                         'font-size': ArcaneTypography.fontSm,
                         'font-weight': ArcaneTypography.weightMedium,
                         'color': ArcaneColors.onSurface,
@@ -98,7 +98,7 @@ class _CodeSnippetState extends State<CodeSnippet> {
                     )
                   else if (component.language != null)
                     span(
-                      styles: Styles(raw: {
+                      styles: const Styles(raw: {
                         'font-size': ArcaneTypography.fontXs,
                         'font-weight': ArcaneTypography.weightMedium,
                         'color': ArcaneColors.muted,
@@ -153,7 +153,7 @@ class _CodeSnippetState extends State<CodeSnippet> {
             Component.element(
               tag: 'pre',
               classes: 'arcane-code-pre',
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'margin': '0',
                 'padding': ArcaneSpacing.lg,
                 'overflow-x': 'auto',
@@ -162,14 +162,14 @@ class _CodeSnippetState extends State<CodeSnippet> {
                 if (component.showLineNumbers)
                   div(
                     classes: 'arcane-code-with-lines',
-                    styles: Styles(raw: {
+                    styles: const Styles(raw: {
                       'display': 'flex',
                     }),
                     [
                       // Line numbers
                       div(
                         classes: 'arcane-code-line-numbers',
-                        styles: Styles(raw: {
+                        styles: const Styles(raw: {
                           'display': 'flex',
                           'flex-direction': 'column',
                           'padding-right': ArcaneSpacing.lg,
@@ -198,7 +198,7 @@ class _CodeSnippetState extends State<CodeSnippet> {
                         classes: component.language != null
                             ? 'arcane-code language-${component.language}'
                             : 'arcane-code',
-                        styles: Styles(raw: {
+                        styles: const Styles(raw: {
                           'font-family': ArcaneTypography.fontFamilyMono,
                           'font-size': ArcaneTypography.fontSm,
                           'line-height': ArcaneTypography.leadingRelaxed,
@@ -215,7 +215,7 @@ class _CodeSnippetState extends State<CodeSnippet> {
                     classes: component.language != null
                         ? 'arcane-code language-${component.language}'
                         : 'arcane-code',
-                    styles: Styles(raw: {
+                    styles: const Styles(raw: {
                       'font-family': ArcaneTypography.fontFamilyMono,
                       'font-size': ArcaneTypography.fontSm,
                       'line-height': ArcaneTypography.leadingRelaxed,
@@ -245,7 +245,7 @@ class InlineCode extends StatelessComponent {
     return Component.element(
       tag: 'code',
       classes: 'arcane-inline-code',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'inline',
         'padding': '2px 6px',
         'font-family': ArcaneTypography.fontFamilyMono,
@@ -287,7 +287,7 @@ class Terminal extends StatelessComponent {
 
     return div(
       classes: 'arcane-terminal',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'background-color': ArcaneColors.codeBackground,
         'border': '1px solid ${ArcaneColors.border}',
         'border-radius': ArcaneRadius.md,
@@ -297,7 +297,7 @@ class Terminal extends StatelessComponent {
         // Terminal header
         div(
           classes: 'arcane-terminal-header',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'space-between',
@@ -308,7 +308,7 @@ class Terminal extends StatelessComponent {
           [
             // Window controls
             div(
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'display': 'flex',
                 'gap': ArcaneSpacing.sm,
               }),
@@ -321,14 +321,14 @@ class Terminal extends StatelessComponent {
             // Title
             if (title != null)
               span(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontSm,
                   'color': ArcaneColors.muted,
                 }),
                 [text(title!)],
               )
             else
-              span([]),
+              const span([]),
             // Copy button
             if (showCopyButton)
               button(
@@ -338,7 +338,7 @@ class Terminal extends StatelessComponent {
                   'aria-label': 'Copy commands',
                   'data-code': allCommands,
                 },
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
                   'font-size': ArcaneTypography.fontXs,
                   'color': ArcaneColors.muted,
@@ -351,14 +351,14 @@ class Terminal extends StatelessComponent {
                 [text('Copy')],
               )
             else
-              span([]),
+              const span([]),
           ],
         ),
         // Terminal content
         Component.element(
           tag: 'pre',
           classes: 'arcane-terminal-content',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'margin': '0',
             'padding': ArcaneSpacing.lg,
             'overflow-x': 'auto',
@@ -366,7 +366,7 @@ class Terminal extends StatelessComponent {
           children: [
             for (final cmd in commands) ...[
               span(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'color': ArcaneColors.success,
                   'font-family': ArcaneTypography.fontFamilyMono,
                   'font-size': ArcaneTypography.fontSm,
@@ -374,7 +374,7 @@ class Terminal extends StatelessComponent {
                 [text('$prompt ')],
               ),
               span(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'color': ArcaneColors.onSurface,
                   'font-family': ArcaneTypography.fontFamilyMono,
                   'font-size': ArcaneTypography.fontSm,

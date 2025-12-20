@@ -94,14 +94,14 @@ class ArcaneProgressBar extends StatelessComponent {
 
     return div(
       classes: 'arcane-progress-bar',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'width': '100%',
       }),
       [
         if (label != null || showPercentage)
           div(
             classes: 'arcane-progress-bar-header',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'justify-content': 'space-between',
               'margin-bottom': ArcaneSpacing.sm,
@@ -110,7 +110,7 @@ class ArcaneProgressBar extends StatelessComponent {
             [
               if (label != null)
                 span(
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'color': ArcaneColors.onSurface,
                     'font-weight': ArcaneTypography.weightMedium,
                   }),
@@ -118,7 +118,7 @@ class ArcaneProgressBar extends StatelessComponent {
                 ),
               if (showPercentage)
                 span(
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'color': ArcaneColors.muted,
                   }),
                   [text('$percent%')],
@@ -210,7 +210,7 @@ class CircularProgress extends StatelessComponent {
         ),
         // Center content
         div(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'flex-direction': 'column',
             'align-items': 'center',
@@ -219,7 +219,7 @@ class CircularProgress extends StatelessComponent {
           [
             if (showPercentage)
               span(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontXl,
                   'font-weight': ArcaneTypography.weightBold,
                   'color': ArcaneColors.onSurface,
@@ -228,7 +228,7 @@ class CircularProgress extends StatelessComponent {
               ),
             if (label != null)
               span(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontSm,
                   'color': ArcaneColors.muted,
                 }),

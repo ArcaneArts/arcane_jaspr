@@ -108,7 +108,7 @@ class _TextInputDialogState extends State<TextInputDialog> {
       maxWidth: 450,
       child: div(
         classes: 'arcane-text-input-dialog-content',
-        styles: Styles(raw: {
+        styles: const Styles(raw: {
           'display': 'flex',
           'flex-direction': 'column',
           'gap': ArcaneSpacing.md,
@@ -116,7 +116,7 @@ class _TextInputDialogState extends State<TextInputDialog> {
         [
           if (component.message != null)
             div(
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'color': ArcaneColors.muted,
                 'font-size': ArcaneTypography.fontSm,
                 'line-height': ArcaneTypography.lineHeightRelaxed,
@@ -127,7 +127,7 @@ class _TextInputDialogState extends State<TextInputDialog> {
           // Input field
           div(
             classes: 'arcane-text-input-dialog-input',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'flex-direction': 'column',
               'gap': ArcaneSpacing.xs,
@@ -212,7 +212,7 @@ class _TextInputDialogState extends State<TextInputDialog> {
 
               if (_error != null)
                 span(
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'color': ArcaneColors.error,
                     'font-size': ArcaneTypography.fontXs,
                   }),

@@ -79,7 +79,7 @@ class StatusIndicator extends StatelessComponent {
 
     return div(
       classes: 'arcane-status-indicator',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
         'gap': ArcaneSpacing.sm,
@@ -115,7 +115,7 @@ class StatusIndicator extends StatelessComponent {
         // Label
         if (label != null)
           span(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontMd,
               'color': ArcaneColors.muted,
             }),

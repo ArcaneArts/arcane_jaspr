@@ -44,7 +44,7 @@ class ArcaneCtaBanner extends StatelessComponent {
       [
         // Overlay for background image
         if (backgroundImage != null)
-          div(
+          const div(
             styles: Styles(raw: {
               'position': 'absolute',
               'inset': '0',
@@ -55,7 +55,7 @@ class ArcaneCtaBanner extends StatelessComponent {
           ),
         // Content
         div(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'position': 'relative',
             'z-index': '1',
             'max-width': '600px',
@@ -64,7 +64,7 @@ class ArcaneCtaBanner extends StatelessComponent {
           [
             // Title
             h2(
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': ArcaneTypography.font3xl,
                 'font-weight': ArcaneTypography.weightBold,
                 'color': '#FFFFFF',
@@ -75,7 +75,7 @@ class ArcaneCtaBanner extends StatelessComponent {
             // Subtitle
             if (subtitle != null)
               p(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontLg,
                   'color': 'rgba(255, 255, 255, 0.9)',
                   'margin': '0 0 ${ArcaneSpacing.xl} 0',
@@ -86,7 +86,7 @@ class ArcaneCtaBanner extends StatelessComponent {
             // Actions
             if (primaryAction != null || secondaryAction != null)
               div(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'display': 'flex',
                   'justify-content': 'center',
                   'gap': ArcaneSpacing.md,

@@ -89,12 +89,12 @@ class _MobileMenuState extends State<MobileMenu> {
   @override
   Component build(BuildContext context) {
     if (!component.isOpen) {
-      return div([]);
+      return const div([]);
     }
 
     return div(
       classes: 'arcane-mobile-menu',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'position': 'fixed',
         'inset': '0',
         'z-index': '1000',
@@ -107,7 +107,7 @@ class _MobileMenuState extends State<MobileMenu> {
         // Header
         div(
           classes: 'arcane-mobile-menu-header',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'space-between',
@@ -115,14 +115,14 @@ class _MobileMenuState extends State<MobileMenu> {
             'border-bottom': '1px solid ${ArcaneColors.border}',
           }),
           [
-            if (component.logo != null) component.logo! else div([]),
+            if (component.logo != null) component.logo! else const div([]),
             button(
               classes: 'arcane-mobile-menu-close',
               attributes: {
                 'type': 'button',
                 'aria-label': 'Close menu',
               },
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'display': 'flex',
                 'align-items': 'center',
                 'justify-content': 'center',
@@ -146,7 +146,7 @@ class _MobileMenuState extends State<MobileMenu> {
         // Navigation items
         div(
           classes: 'arcane-mobile-menu-nav',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'flex': '1',
             'overflow-y': 'auto',
             'padding': '${ArcaneSpacing.md} 0',
@@ -161,7 +161,7 @@ class _MobileMenuState extends State<MobileMenu> {
         if (component.cta != null)
           div(
             classes: 'arcane-mobile-menu-footer',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'padding': '20px',
               'border-top': '1px solid ${ArcaneColors.border}',
             }),
@@ -183,7 +183,7 @@ class _MobileMenuState extends State<MobileMenu> {
           button(
             classes: 'arcane-mobile-nav-button',
             attributes: {'type': 'button'},
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
               'justify-content': 'space-between',
@@ -203,7 +203,7 @@ class _MobileMenuState extends State<MobileMenu> {
             },
             [
               div(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'display': 'flex',
                   'align-items': 'center',
                   'gap': ArcaneSpacing.sm,
@@ -228,7 +228,7 @@ class _MobileMenuState extends State<MobileMenu> {
           a(
             href: item.href!,
             classes: 'arcane-mobile-nav-link',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
               'gap': ArcaneSpacing.sm,
@@ -248,7 +248,7 @@ class _MobileMenuState extends State<MobileMenu> {
           button(
             classes: 'arcane-mobile-nav-button',
             attributes: {'type': 'button'},
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
               'gap': ArcaneSpacing.sm,
@@ -276,7 +276,7 @@ class _MobileMenuState extends State<MobileMenu> {
         if (hasChildren && isExpanded)
           div(
             classes: 'arcane-mobile-nav-children',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'background-color': ArcaneColors.surfaceVariant,
               'padding': '${ArcaneSpacing.sm} 0',
             }),
@@ -285,7 +285,7 @@ class _MobileMenuState extends State<MobileMenu> {
                 if (child.href != null)
                   a(
                     href: child.href!,
-                    styles: Styles(raw: {
+                    styles: const Styles(raw: {
                       'display': 'flex',
                       'align-items': 'center',
                       'gap': ArcaneSpacing.sm,
@@ -303,7 +303,7 @@ class _MobileMenuState extends State<MobileMenu> {
                 else
                   button(
                     attributes: {'type': 'button'},
-                    styles: Styles(raw: {
+                    styles: const Styles(raw: {
                       'display': 'flex',
                       'align-items': 'center',
                       'gap': ArcaneSpacing.sm,

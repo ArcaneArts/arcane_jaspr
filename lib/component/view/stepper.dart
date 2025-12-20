@@ -55,7 +55,7 @@ class Stepper extends StatelessComponent {
 
     return div(
       classes: 'arcane-stepper',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'align-items': 'flex-start',
         'gap': '0',
@@ -100,7 +100,7 @@ class Stepper extends StatelessComponent {
       [
         // Step indicator row
         div(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
             'width': '100%',
@@ -140,7 +140,7 @@ class Stepper extends StatelessComponent {
         ),
         // Label
         div(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'margin-top': ArcaneSpacing.md,
             'text-align': 'center',
           }),
@@ -155,7 +155,7 @@ class Stepper extends StatelessComponent {
             ),
             if (step.description != null)
               div(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontXs,
                   'color': ArcaneColors.muted,
                   'margin-top': ArcaneSpacing.xs,
@@ -194,7 +194,7 @@ class VerticalStepper extends StatelessComponent {
 
     return div(
       classes: 'arcane-vertical-stepper',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
       }),
@@ -221,7 +221,7 @@ class VerticalStepper extends StatelessComponent {
       [
         // Dot and line
         div(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'flex-direction': 'column',
             'align-items': 'center',
@@ -268,7 +268,7 @@ class VerticalStepper extends StatelessComponent {
         ),
         // Content
         div(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'flex': '1',
             'padding-top': '2px',
           }),
@@ -283,7 +283,7 @@ class VerticalStepper extends StatelessComponent {
             ),
             if (step.description != null)
               div(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontSm,
                   'color': ArcaneColors.muted,
                   'margin-top': ArcaneSpacing.xs,

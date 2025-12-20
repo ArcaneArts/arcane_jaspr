@@ -88,7 +88,7 @@ class Screen extends StatelessComponent {
 
     return div(
       classes: 'arcane-screen',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
         'height': '100%',
@@ -100,7 +100,7 @@ class Screen extends StatelessComponent {
         if (background != null)
           div(
             classes: 'arcane-screen-background',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'position': 'absolute',
               'inset': '0',
               'z-index': '0',
@@ -112,7 +112,7 @@ class Screen extends StatelessComponent {
         // Main content wrapper
         div(
           classes: 'arcane-screen-content',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'flex-direction': 'column',
             'flex': '1',
@@ -131,7 +131,7 @@ class Screen extends StatelessComponent {
             // Body with optional sidebar
             div(
               classes: 'arcane-screen-body',
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'display': 'flex',
                 'flex': '1',
                 'min-height': '0',
@@ -157,7 +157,7 @@ class Screen extends StatelessComponent {
             if (footer != null)
               div(
                 classes: 'arcane-screen-footer',
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'flex-shrink': '0',
                 }),
                 [footer!],
@@ -169,7 +169,7 @@ class Screen extends StatelessComponent {
         if (foreground != null)
           div(
             classes: 'arcane-screen-foreground',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'position': 'absolute',
               'inset': '0',
               'z-index': '10',
@@ -187,7 +187,7 @@ class Screen extends StatelessComponent {
   Component _buildLoadingBar() {
     return div(
       classes: 'arcane-screen-loading',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'height': '3px',
         'background-color': ArcaneColors.border,
         'overflow': 'hidden',

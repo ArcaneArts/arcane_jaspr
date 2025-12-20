@@ -41,7 +41,7 @@ class ArcaneDialog extends StatelessComponent {
   Component build(BuildContext context) {
     return div(
       classes: 'arcane-dialog-overlay',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'position': 'fixed',
         'inset': '0',
         'z-index': '1000',
@@ -89,7 +89,7 @@ class ArcaneDialog extends StatelessComponent {
             if (title != null || showCloseButton)
               div(
                 classes: 'arcane-dialog-header',
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'space-between',
@@ -101,7 +101,7 @@ class ArcaneDialog extends StatelessComponent {
                   if (title != null)
                     span(
                       id: 'dialog-title',
-                      styles: Styles(raw: {
+                      styles: const Styles(raw: {
                         'font-size': ArcaneTypography.fontLg,
                         'font-weight': ArcaneTypography.weightSemibold,
                         'color': ArcaneColors.onSurface,
@@ -109,11 +109,11 @@ class ArcaneDialog extends StatelessComponent {
                       [text(title!)],
                     )
                   else
-                    div([]),
+                    const div([]),
                   if (showCloseButton && onClose != null)
                     button(
                       attributes: {'type': 'button', 'aria-label': 'Close dialog'},
-                      styles: Styles(raw: {
+                      styles: const Styles(raw: {
                         'display': 'flex',
                         'align-items': 'center',
                         'justify-content': 'center',
@@ -138,7 +138,7 @@ class ArcaneDialog extends StatelessComponent {
             // Body
             div(
               classes: 'arcane-dialog-body',
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'padding': '20px',
                 'overflow-y': 'auto',
                 'flex': '1',
@@ -150,7 +150,7 @@ class ArcaneDialog extends StatelessComponent {
             if (actions != null && actions!.isNotEmpty)
               div(
                 classes: 'arcane-dialog-footer',
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'display': 'flex',
                   'justify-content': 'flex-end',
                   'gap': ArcaneSpacing.sm,
@@ -265,7 +265,7 @@ class Sheet extends StatelessComponent {
 
     return div(
       classes: 'arcane-sheet-overlay',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'position': 'fixed',
         'inset': '0',
         'z-index': '999',
@@ -291,7 +291,7 @@ class Sheet extends StatelessComponent {
             if (title != null || showCloseButton)
               div(
                 classes: 'arcane-sheet-header',
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'space-between',
@@ -302,18 +302,18 @@ class Sheet extends StatelessComponent {
                 [
                   if (title != null)
                     span(
-                      styles: Styles(raw: {
+                      styles: const Styles(raw: {
                         'font-size': ArcaneTypography.fontLg,
                         'font-weight': ArcaneTypography.weightSemibold,
                       }),
                       [text(title!)],
                     )
                   else
-                    div([]),
+                    const div([]),
                   if (showCloseButton && onClose != null)
                     button(
                       attributes: {'type': 'button'},
-                      styles: Styles(raw: {
+                      styles: const Styles(raw: {
                         'display': 'flex',
                         'align-items': 'center',
                         'justify-content': 'center',
@@ -337,7 +337,7 @@ class Sheet extends StatelessComponent {
             // Content
             div(
               classes: 'arcane-sheet-content',
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'flex': '1',
                 'overflow-y': 'auto',
                 'padding': '20px',

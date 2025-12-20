@@ -218,7 +218,7 @@ class _NavigableCarouselState extends State<NavigableCarousel> {
         // Carousel viewport
         div(
           classes: 'arcane-carousel-viewport',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'overflow': 'hidden',
             'width': '100%',
           }),
@@ -279,7 +279,7 @@ class _NavigableCarouselState extends State<NavigableCarousel> {
             events: {
               'click': (_) => _goToPrevious(),
             },
-            [Component.text('<')],
+            [const Component.text('<')],
           ),
 
           // Next button
@@ -313,7 +313,7 @@ class _NavigableCarouselState extends State<NavigableCarousel> {
             events: {
               'click': (_) => _goToNext(),
             },
-            [Component.text('>')],
+            [const Component.text('>')],
           ),
         ],
 
@@ -321,7 +321,7 @@ class _NavigableCarouselState extends State<NavigableCarousel> {
         if (component.showIndicators && _maxIndex > 0)
           div(
             classes: 'arcane-carousel-indicators',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'justify-content': 'center',
               'gap': ArcaneSpacing.sm,
@@ -449,7 +449,7 @@ class _HeroCarouselState extends State<HeroCarousel> {
         if (component.showArrows && component.children.length > 1) ...[
           button(
             attributes: {'type': 'button', 'aria-label': 'Previous'},
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'position': 'absolute',
               'left': ArcaneSpacing.lg,
               'top': '50%',
@@ -466,11 +466,11 @@ class _HeroCarouselState extends State<HeroCarousel> {
               'transition': ArcaneEffects.transitionFast,
             }),
             events: {'click': (_) => _goToPrevious()},
-            [Component.text('<')],
+            [const Component.text('<')],
           ),
           button(
             attributes: {'type': 'button', 'aria-label': 'Next'},
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'position': 'absolute',
               'right': ArcaneSpacing.lg,
               'top': '50%',
@@ -487,14 +487,14 @@ class _HeroCarouselState extends State<HeroCarousel> {
               'transition': ArcaneEffects.transitionFast,
             }),
             events: {'click': (_) => _goToNext()},
-            [Component.text('>')],
+            [const Component.text('>')],
           ),
         ],
 
         // Dot indicators
         if (component.showIndicators && component.children.length > 1)
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'position': 'absolute',
               'bottom': ArcaneSpacing.lg,
               'left': '50%',

@@ -82,7 +82,7 @@ class PricingCard extends StatelessComponent {
       [
         // Popular badge
         if (tier.isPopular)
-          div(
+          const div(
             styles: Styles(raw: {
               'position': 'absolute',
               'top': '-12px',
@@ -95,7 +95,7 @@ class PricingCard extends StatelessComponent {
         // Tier name
         div(
           classes: 'arcane-pricing-name',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'font-size': ArcaneTypography.fontXl,
             'font-weight': ArcaneTypography.weightSemibold,
             'color': ArcaneColors.onSurface,
@@ -107,7 +107,7 @@ class PricingCard extends StatelessComponent {
         // Price
         div(
           classes: 'arcane-pricing-price',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'align-items': 'baseline',
             'gap': ArcaneSpacing.xs,
@@ -116,14 +116,14 @@ class PricingCard extends StatelessComponent {
           [
             if (tier.price != null) ...[
               span(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontSm,
                   'color': ArcaneColors.muted,
                 }),
                 [text(tier.currency)],
               ),
               span(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'font-size': ArcaneTypography.font4xl,
                   'font-weight': ArcaneTypography.weightBold,
                   'color': ArcaneColors.onSurface,
@@ -133,7 +133,7 @@ class PricingCard extends StatelessComponent {
                 [text(tier.price!.toStringAsFixed(tier.price! % 1 == 0 ? 0 : 2))],
               ),
               span(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontSm,
                   'color': ArcaneColors.muted,
                 }),
@@ -141,7 +141,7 @@ class PricingCard extends StatelessComponent {
               ),
             ] else
               span(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'font-size': ArcaneTypography.font2xl,
                   'font-weight': ArcaneTypography.weightSemibold,
                   'color': ArcaneColors.onSurface,
@@ -154,7 +154,7 @@ class PricingCard extends StatelessComponent {
         // Description
         p(
           classes: 'arcane-pricing-description',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'font-size': ArcaneTypography.fontMd,
             'color': ArcaneColors.muted,
             'margin': '0 0 ${ArcaneSpacing.xl} 0',
@@ -195,7 +195,7 @@ class PricingCard extends StatelessComponent {
         // Features list
         div(
           classes: 'arcane-pricing-features',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'flex-direction': 'column',
             'gap': ArcaneSpacing.md,
@@ -204,7 +204,7 @@ class PricingCard extends StatelessComponent {
             for (final feature in tier.features)
               div(
                 classes: 'arcane-pricing-feature',
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'display': 'flex',
                   'align-items': 'flex-start',
                   'gap': ArcaneSpacing.md,
@@ -214,7 +214,7 @@ class PricingCard extends StatelessComponent {
                 [
                   // Checkmark
                   span(
-                    styles: Styles(raw: {
+                    styles: const Styles(raw: {
                       'color': ArcaneColors.success,
                       'flex-shrink': '0',
                       'font-size': ArcaneTypography.fontMd,

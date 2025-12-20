@@ -64,7 +64,7 @@ void main() {
 
     test('ArcaneIconButton creates with icon', () {
       final button = ArcaneIconButton(
-        icon: span([Component.text('X')]),
+        icon: const span([Component.text('X')]),
         tooltip: 'Close',
         onPressed: () {},
       );
@@ -74,14 +74,14 @@ void main() {
 
   group('Card Components', () {
     test('ArcaneCard creates with child', () {
-      final card = ArcaneCard(
+      final card = const ArcaneCard(
         child: Component.text('Content'),
       );
       expect(card.child, isNotNull);
     });
 
     test('ArcaneCard creates with padding', () {
-      final card = ArcaneCard(
+      final card = const ArcaneCard(
         padding: EdgeInsets.all(24),
         child: Component.text('Content'),
       );
@@ -92,7 +92,7 @@ void main() {
       var tapped = false;
       final card = ArcaneCard(
         onTap: () => tapped = true,
-        child: Component.text('Content'),
+        child: const Component.text('Content'),
       );
       expect(card.onTap, isNotNull);
     });
@@ -100,7 +100,7 @@ void main() {
 
   group('Layout Components', () {
     test('Section creates with header', () {
-      final section = Section(
+      final section = const Section(
         header: 'Test Section',
         children: [Component.text('Content')],
       );
@@ -108,22 +108,22 @@ void main() {
     });
 
     test('Gutter.small creates small spacing', () {
-      final gutter = Gutter.small();
+      final gutter = const Gutter.small();
       expect(gutter, isNotNull);
     });
 
     test('Gutter.medium creates medium spacing', () {
-      final gutter = Gutter.medium();
+      final gutter = const Gutter.medium();
       expect(gutter, isNotNull);
     });
 
     test('Gutter.large creates large spacing', () {
-      final gutter = Gutter.large();
+      final gutter = const Gutter.large();
       expect(gutter, isNotNull);
     });
 
     test('Flow creates with gap', () {
-      final flow = Flow(
+      final flow = const Flow(
         gap: 16,
         children: [Component.text('Item')],
       );
@@ -142,12 +142,12 @@ void main() {
 
   group('View Components', () {
     test('Bar creates with title', () {
-      final bar = Bar(titleText: 'Test Title');
+      final bar = const Bar(titleText: 'Test Title');
       expect(bar.titleText, equals('Test Title'));
     });
 
     test('Bar creates with leading and trailing', () {
-      final bar = Bar(
+      final bar = const Bar(
         titleText: 'Title',
         leading: [Component.text('L')],
         trailing: [Component.text('R')],
@@ -157,7 +157,7 @@ void main() {
     });
 
     test('Glass creates with blur', () {
-      final glass = Glass(
+      final glass = const Glass(
         blur: 10,
         child: Component.text('Content'),
       );
@@ -165,7 +165,7 @@ void main() {
     });
 
     test('Glass creates with opacity', () {
-      final glass = Glass(
+      final glass = const Glass(
         blur: 10,
         opacity: 0.8,
         child: Component.text('Content'),
@@ -174,7 +174,7 @@ void main() {
     });
 
     test('Expander creates with header', () {
-      final expander = Expander(
+      final expander = const Expander(
         header: Component.text('Title'),
         child: Component.text('Content'),
       );
@@ -182,7 +182,7 @@ void main() {
     });
 
     test('Expander initiallyExpanded state', () {
-      final expander = Expander(
+      final expander = const Expander(
         header: Component.text('Title'),
         child: Component.text('Content'),
         initiallyExpanded: true,
@@ -191,7 +191,7 @@ void main() {
     });
 
     test('CenterBody creates with child', () {
-      final center = CenterBody(
+      final center = const CenterBody(
         child: Component.text('Centered'),
       );
       expect(center.child, isNotNull);
@@ -223,7 +223,7 @@ void main() {
         selectedIndex: 0,
         onChanged: (_) {},
         items: [
-          BottomNavItem(icon: span([Component.text('H')]), label: 'Home'),
+          const BottomNavItem(icon: span([Component.text('H')]), label: 'Home'),
         ],
       );
       expect(nav.items, isNotEmpty);
@@ -231,7 +231,7 @@ void main() {
     });
 
     test('BottomNavItem creates with label and icon', () {
-      final item = BottomNavItem(
+      final item = const BottomNavItem(
         icon: span([Component.text('H')]),
         label: 'Home',
       );
@@ -243,7 +243,7 @@ void main() {
     test('ArcaneDialog creates with title', () {
       final dialog = ArcaneDialog(
         title: 'Test Dialog',
-        child: Component.text('Content'),
+        child: const Component.text('Content'),
         onClose: () {},
       );
       expect(dialog.title, equals('Test Dialog'));
@@ -252,7 +252,7 @@ void main() {
     test('ArcaneDialog creates with actions', () {
       final dialog = ArcaneDialog(
         title: 'Dialog',
-        child: Component.text('Content'),
+        child: const Component.text('Content'),
         onClose: () {},
         actions: [
           ArcaneButton.primary(label: 'OK', onPressed: () {}),
@@ -313,7 +313,7 @@ void main() {
 
   group('Table Components', () {
     test('StaticTable creates with headers and rows', () {
-      final table = StaticTable(
+      final table = const StaticTable(
         headers: ['Name', 'Age'],
         rows: [
           [Component.text('Alice'), Component.text('25')],
@@ -326,7 +326,7 @@ void main() {
 
   group('Collection Components', () {
     test('Collection creates with children', () {
-      final collection = Collection(
+      final collection = const Collection(
         gap: 8,
         children: [Component.text('Item')],
       );
@@ -343,7 +343,7 @@ void main() {
     });
 
     test('ListView creates with gap', () {
-      final list = ListView(
+      final list = const ListView(
         gap: 8,
         children: [Component.text('Item')],
       );
@@ -351,7 +351,7 @@ void main() {
     });
 
     test('GridView creates with crossAxisCount', () {
-      final grid = GridView(
+      final grid = const GridView(
         crossAxisCount: 3,
         children: [Component.text('Item')],
       );
@@ -359,7 +359,7 @@ void main() {
     });
 
     test('MasonryGrid creates with columns', () {
-      final masonry = MasonryGrid(
+      final masonry = const MasonryGrid(
         columns: 2,
         children: [Component.text('Item')],
       );
@@ -369,14 +369,14 @@ void main() {
 
   group('Screen Components', () {
     test('Screen creates with child', () {
-      final screen = Screen(
+      final screen = const Screen(
         child: Component.text('Content'),
       );
       expect(screen.child, isNotNull);
     });
 
     test('Screen creates with header', () {
-      final screen = Screen(
+      final screen = const Screen(
         header: Bar(titleText: 'Title'),
         child: Component.text('Content'),
       );
@@ -384,7 +384,7 @@ void main() {
     });
 
     test('FillScreen creates with child', () {
-      final screen = FillScreen(
+      final screen = const FillScreen(
         child: Component.text('Content'),
       );
       expect(screen.child, isNotNull);

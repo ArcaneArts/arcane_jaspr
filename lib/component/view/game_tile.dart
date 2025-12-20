@@ -68,7 +68,7 @@ class GameTile extends StatelessComponent {
         if (badge != null)
           div(
             classes: 'arcane-game-tile-badge',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'position': 'absolute',
               'top': ArcaneSpacing.sm,
               'right': ArcaneSpacing.sm,
@@ -86,7 +86,7 @@ class GameTile extends StatelessComponent {
         // Icon
         div(
           classes: 'arcane-game-tile-icon',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'width': '64px',
             'height': '64px',
             'display': 'flex',
@@ -103,7 +103,7 @@ class GameTile extends StatelessComponent {
               img(
                 src: iconUrl!,
                 alt: name,
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'width': '48px',
                   'height': '48px',
                   'object-fit': 'contain',
@@ -111,7 +111,7 @@ class GameTile extends StatelessComponent {
               )
             else
               span(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontXl,
                   'color': ArcaneColors.muted,
                   'font-weight': ArcaneTypography.weightBold,
@@ -135,7 +135,7 @@ class GameTile extends StatelessComponent {
         // Subtitle
         if (subtitle != null)
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontXs,
               'color': ArcaneColors.muted,
             }),
@@ -145,7 +145,7 @@ class GameTile extends StatelessComponent {
         // Popular indicator
         if (popular && badge == null)
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
               'gap': ArcaneSpacing.xs,
@@ -202,7 +202,7 @@ class GameSelector extends StatelessComponent {
   Component build(BuildContext context) {
     return div(
       classes: 'arcane-game-selector',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
         'gap': ArcaneSpacing.xl,
@@ -210,7 +210,7 @@ class GameSelector extends StatelessComponent {
       [
         if (title != null || description != null)
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'flex-direction': 'column',
               'gap': ArcaneSpacing.sm,
@@ -218,7 +218,7 @@ class GameSelector extends StatelessComponent {
             [
               if (title != null)
                 div(
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontXl,
                     'font-weight': ArcaneTypography.weightSemibold,
                     'color': ArcaneColors.onSurface,
@@ -227,7 +227,7 @@ class GameSelector extends StatelessComponent {
                 ),
               if (description != null)
                 div(
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontSm,
                     'color': ArcaneColors.muted,
                   }),
@@ -321,7 +321,7 @@ class GameCard extends StatelessComponent {
           }),
           [
             // Overlay
-            div(
+            const div(
               styles: Styles(raw: {
                 'position': 'absolute',
                 'inset': '0',
@@ -331,14 +331,14 @@ class GameCard extends StatelessComponent {
             ),
             // Icon overlay
             div(
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'position': 'absolute',
                 'bottom': '-24px',
                 'left': '20px',
               }),
               [
                 div(
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'width': '48px',
                     'height': '48px',
                     'display': 'flex',
@@ -356,7 +356,7 @@ class GameCard extends StatelessComponent {
                       img(
                         src: iconUrl!,
                         alt: name,
-                        styles: Styles(raw: {
+                        styles: const Styles(raw: {
                           'width': '32px',
                           'height': '32px',
                           'object-fit': 'contain',
@@ -364,7 +364,7 @@ class GameCard extends StatelessComponent {
                       )
                     else
                       span(
-                        styles: Styles(raw: {
+                        styles: const Styles(raw: {
                           'font-size': ArcaneTypography.fontLg,
                           'color': ArcaneColors.muted,
                           'font-weight': ArcaneTypography.weightBold,
@@ -380,7 +380,7 @@ class GameCard extends StatelessComponent {
 
         // Content
         div(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'padding': '${ArcaneSpacing.xxl} ${ArcaneSpacing.lg} ${ArcaneSpacing.lg}',
             'display': 'flex',
             'flex-direction': 'column',
@@ -389,14 +389,14 @@ class GameCard extends StatelessComponent {
           [
             // Name and status
             div(
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'display': 'flex',
                 'align-items': 'center',
                 'justify-content': 'space-between',
               }),
               [
                 div(
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontLg,
                     'font-weight': ArcaneTypography.weightSemibold,
                     'color': ArcaneColors.onSurface,
@@ -405,7 +405,7 @@ class GameCard extends StatelessComponent {
                 ),
                 if (status != null)
                   span(
-                    styles: Styles(raw: {
+                    styles: const Styles(raw: {
                       'font-size': ArcaneTypography.fontXs,
                       'color': ArcaneColors.success,
                     }),
@@ -417,7 +417,7 @@ class GameCard extends StatelessComponent {
             // Description
             if (description != null)
               div(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontSm,
                   'line-height': ArcaneTypography.leadingNormal,
                   'color': ArcaneColors.muted,
@@ -428,7 +428,7 @@ class GameCard extends StatelessComponent {
             // Features
             if (features != null && features!.isNotEmpty)
               div(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'display': 'flex',
                   'flex-wrap': 'wrap',
                   'gap': ArcaneSpacing.sm,
@@ -437,7 +437,7 @@ class GameCard extends StatelessComponent {
                 [
                   for (final feature in features!)
                     span(
-                      styles: Styles(raw: {
+                      styles: const Styles(raw: {
                         'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
                         'font-size': ArcaneTypography.fontXs,
                         'color': ArcaneColors.muted,
@@ -453,7 +453,7 @@ class GameCard extends StatelessComponent {
             if (ctaText != null)
               button(
                 attributes: {'type': 'button'},
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'margin-top': ArcaneSpacing.sm,
                   'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.lg}',
                   'font-size': ArcaneTypography.fontSm,

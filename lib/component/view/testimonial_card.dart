@@ -41,7 +41,7 @@ class TestimonialCard extends StatelessComponent {
   Component build(BuildContext context) {
     return div(
       classes: 'arcane-testimonial-card',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
         'padding': ArcaneSpacing.xl,
@@ -54,7 +54,7 @@ class TestimonialCard extends StatelessComponent {
         if (rating != null)
           div(
             classes: 'arcane-testimonial-rating',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'gap': '2px',
               'margin-bottom': ArcaneSpacing.lg,
@@ -76,7 +76,7 @@ class TestimonialCard extends StatelessComponent {
         // Quote
         div(
           classes: 'arcane-testimonial-quote',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'position': 'relative',
             'font-size': ArcaneTypography.fontMd,
             'line-height': ArcaneTypography.leadingRelaxed,
@@ -87,7 +87,7 @@ class TestimonialCard extends StatelessComponent {
           [
             if (showQuotes)
               span(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'position': 'absolute',
                   'top': '-8px',
                   'left': '-4px',
@@ -112,7 +112,7 @@ class TestimonialCard extends StatelessComponent {
         // Author
         div(
           classes: 'arcane-testimonial-author',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
             'gap': ArcaneSpacing.md,
@@ -122,7 +122,7 @@ class TestimonialCard extends StatelessComponent {
             if (avatarUrl != null)
               div(
                 classes: 'arcane-testimonial-avatar',
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'width': '44px',
                   'height': '44px',
                   'border-radius': ArcaneRadius.full,
@@ -133,7 +133,7 @@ class TestimonialCard extends StatelessComponent {
                   img(
                     src: avatarUrl!,
                     alt: authorName,
-                    styles: Styles(raw: {
+                    styles: const Styles(raw: {
                       'width': '100%',
                       'height': '100%',
                       'object-fit': 'cover',
@@ -144,7 +144,7 @@ class TestimonialCard extends StatelessComponent {
             else
               div(
                 classes: 'arcane-testimonial-avatar-placeholder',
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'width': '44px',
                   'height': '44px',
                   'border-radius': ArcaneRadius.full,
@@ -165,7 +165,7 @@ class TestimonialCard extends StatelessComponent {
               classes: 'arcane-testimonial-author-info',
               [
                 div(
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'font-weight': ArcaneTypography.weightSemibold,
                     'font-size': ArcaneTypography.fontMd,
                     'color': ArcaneColors.onSurface,
@@ -174,7 +174,7 @@ class TestimonialCard extends StatelessComponent {
                 ),
                 if (authorTitle != null || authorCompany != null)
                   div(
-                    styles: Styles(raw: {
+                    styles: const Styles(raw: {
                       'font-size': ArcaneTypography.fontSm,
                       'color': ArcaneColors.muted,
                       'margin-top': '2px',
@@ -226,7 +226,7 @@ class RatingStars extends StatelessComponent {
   Component build(BuildContext context) {
     return div(
       classes: 'arcane-rating-stars',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'inline-flex',
         'gap': '2px',
       }),

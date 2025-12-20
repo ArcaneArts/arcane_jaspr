@@ -40,7 +40,7 @@ class ArcaneRatingStars extends StatelessComponent {
 
     return div(
       classes: 'arcane-rating-stars',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
         'gap': ArcaneSpacing.xs,
@@ -49,7 +49,7 @@ class ArcaneRatingStars extends StatelessComponent {
         for (var i = 0; i < totalStars; i++) _buildStar(i, effectiveFilledColor, effectiveEmptyColor),
         if (showValue)
           span(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'margin-left': ArcaneSpacing.sm,
               'color': ArcaneColors.onSurface,
               'font-weight': ArcaneTypography.weightSemibold,

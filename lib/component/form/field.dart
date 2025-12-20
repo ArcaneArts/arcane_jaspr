@@ -90,7 +90,7 @@ class _ArcaneFieldState<T> extends State<ArcaneField<T>> {
   @override
   Component build(BuildContext context) {
     if (_loading) {
-      return div(
+      return const div(
         styles: Styles(raw: {
           'opacity': '0.5',
         }),
@@ -248,7 +248,7 @@ class _StringFieldBuilder extends StatelessComponent {
           'placeholder': placeholder ?? '',
           'rows': '${maxLines ?? 3}',
         },
-        styles: Styles(raw: {
+        styles: const Styles(raw: {
           'width': '100%',
           'padding': '10px ${ArcaneSpacing.md}',
           'border': '1px solid ${ArcaneColors.border}',
@@ -279,7 +279,7 @@ class _StringFieldBuilder extends StatelessComponent {
         'value': value,
         'placeholder': placeholder ?? '',
       },
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'width': '100%',
         'padding': '10px ${ArcaneSpacing.md}',
         'border': '1px solid ${ArcaneColors.border}',
@@ -316,7 +316,7 @@ class _BoolFieldBuilder extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return label(
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
         'gap': ArcaneSpacing.sm,
@@ -328,7 +328,7 @@ class _BoolFieldBuilder extends StatelessComponent {
           attributes: {
             if (value) 'checked': 'true',
           },
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'width': '18px',
             'height': '18px',
             'accent-color': ArcaneColors.accent,
@@ -345,7 +345,7 @@ class _BoolFieldBuilder extends StatelessComponent {
         ),
         if (labelText != null)
           span(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'color': ArcaneColors.onSurface,
               'font-size': ArcaneTypography.fontSm,
             }),
@@ -374,7 +374,7 @@ class _SelectFieldBuilder<T> extends StatelessComponent {
   Component build(BuildContext context) {
     return select(
       classes: 'arcane-field-select',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'width': '100%',
         'padding': '10px ${ArcaneSpacing.md}',
         'border': '1px solid ${ArcaneColors.border}',

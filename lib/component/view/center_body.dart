@@ -101,7 +101,7 @@ class EmptyState extends StatelessComponent {
     return CenterBody(
       child: div(
         classes: 'arcane-empty-state',
-        styles: Styles(raw: {
+        styles: const Styles(raw: {
           'display': 'flex',
           'flex-direction': 'column',
           'align-items': 'center',
@@ -112,7 +112,7 @@ class EmptyState extends StatelessComponent {
         [
           if (icon != null)
             div(
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'color': ArcaneColors.muted,
                 'font-size': ArcaneTypography.font4xl,
                 'opacity': '0.5',
@@ -121,7 +121,7 @@ class EmptyState extends StatelessComponent {
             ),
           if (title != null)
             div(
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontXl,
                 'font-weight': ArcaneTypography.weightSemibold,
                 'color': ArcaneColors.onSurface,
@@ -130,7 +130,7 @@ class EmptyState extends StatelessComponent {
             ),
           if (message != null)
             div(
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontSm,
                 'color': ArcaneColors.muted,
                 'max-width': '400px',
@@ -139,7 +139,7 @@ class EmptyState extends StatelessComponent {
             ),
           if (action != null)
             div(
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'margin-top': ArcaneSpacing.sm,
               }),
               [action!],
@@ -164,7 +164,7 @@ class LoadingState extends StatelessComponent {
     return CenterBody(
       child: div(
         classes: 'arcane-loading-state',
-        styles: Styles(raw: {
+        styles: const Styles(raw: {
           'display': 'flex',
           'flex-direction': 'column',
           'align-items': 'center',
@@ -173,7 +173,7 @@ class LoadingState extends StatelessComponent {
         }),
         [
           // Spinner
-          div(
+          const div(
             classes: 'arcane-loading-spinner',
             styles: Styles(raw: {
               'width': '40px',
@@ -187,7 +187,7 @@ class LoadingState extends StatelessComponent {
           ),
           if (message != null)
             div(
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontSm,
                 'color': ArcaneColors.muted,
               }),
@@ -225,7 +225,7 @@ class ErrorState extends StatelessComponent {
     return CenterBody(
       child: div(
         classes: 'arcane-error-state',
-        styles: Styles(raw: {
+        styles: const Styles(raw: {
           'display': 'flex',
           'flex-direction': 'column',
           'align-items': 'center',
@@ -236,7 +236,7 @@ class ErrorState extends StatelessComponent {
         [
           // Error icon
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'color': ArcaneColors.error,
               'font-size': ArcaneTypography.font4xl,
             }),
@@ -244,7 +244,7 @@ class ErrorState extends StatelessComponent {
           ),
           if (title != null)
             div(
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontXl,
                 'font-weight': ArcaneTypography.weightSemibold,
                 'color': ArcaneColors.onSurface,
@@ -253,7 +253,7 @@ class ErrorState extends StatelessComponent {
             ),
           if (message != null)
             div(
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontSm,
                 'color': ArcaneColors.muted,
                 'max-width': '400px',
@@ -262,7 +262,7 @@ class ErrorState extends StatelessComponent {
             ),
           if (action != null)
             div(
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'margin-top': ArcaneSpacing.sm,
               }),
               [action!],

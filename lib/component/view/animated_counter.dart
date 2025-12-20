@@ -47,7 +47,7 @@ class AnimatedCounter extends StatelessComponent {
 
     return div(
       classes: 'arcane-animated-counter',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'text-align': 'center',
       }),
       [
@@ -79,7 +79,7 @@ class AnimatedCounter extends StatelessComponent {
         ),
         if (label != null)
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontMd,
               'color': ArcaneColors.muted,
               'margin-top': ArcaneSpacing.sm,
@@ -151,7 +151,7 @@ class MetricDisplay extends StatelessComponent {
   Component build(BuildContext context) {
     return div(
       classes: 'arcane-metric-display',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
         'align-items': 'center',
@@ -161,7 +161,7 @@ class MetricDisplay extends StatelessComponent {
       [
         if (icon != null)
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.font2xl,
               'color': ArcaneColors.accent,
               'margin-bottom': ArcaneSpacing.xs,
@@ -169,14 +169,14 @@ class MetricDisplay extends StatelessComponent {
             [text(icon!)],
           ),
         div(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'align-items': 'baseline',
             'gap': ArcaneSpacing.sm,
           }),
           [
             span(
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': ArcaneTypography.font3xl,
                 'font-weight': ArcaneTypography.weightBold,
                 'color': ArcaneColors.onSurface,
@@ -195,7 +195,7 @@ class MetricDisplay extends StatelessComponent {
           ],
         ),
         div(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'font-size': ArcaneTypography.fontSm,
             'color': ArcaneColors.muted,
           }),

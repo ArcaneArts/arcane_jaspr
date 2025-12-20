@@ -1,9 +1,10 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
+import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, FontStyle, StyleRule, Display, Position, Overflow, Cursor, Visibility, FlexWrap, WhiteSpace;
 
 import '../../util/arcane.dart';
 import '../../util/appearance/colors.dart';
 import '../../util/tokens/tokens.dart';
+import '../../util/style_types/index.dart' hide BorderRadius;
 
 /// A flexible flow layout component that wraps children.
 class Flow extends StatelessComponent {
@@ -62,12 +63,39 @@ class Flow extends StatelessComponent {
 }
 
 /// A row layout component (horizontal flex)
+///
+/// Supports both legacy numeric gap and new enum-based Gap:
+/// ```dart
+/// // Legacy (still works)
+/// Row(gap: 16, children: [...])
+///
+/// // New enum-based (preferred)
+/// Row(gapSize: Gap.md, children: [...])
+///
+/// // With full style customization
+/// Row(
+///   gapSize: Gap.md,
+///   style: ArcaneStyleData(
+///     padding: PaddingPreset.md,
+///     background: Background.card,
+///   ),
+///   children: [...],
+/// )
+/// ```
 class Row extends StatelessComponent {
   final List<Component> children;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
   final MainAxisSize mainAxisSize;
+
+  /// Legacy numeric gap (use gapSize for enum-based)
   final double gap;
+
+  /// Enum-based gap (takes precedence over gap)
+  final Gap? gapSize;
+
+  /// Additional style customization
+  final ArcaneStyleData? style;
 
   const Row({
     required this.children,
@@ -75,33 +103,76 @@ class Row extends StatelessComponent {
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.mainAxisSize = MainAxisSize.max,
     this.gap = 0,
+    this.gapSize,
+    this.style,
     super.key,
   });
 
   @override
   Component build(BuildContext context) {
+    // Build base styles
+    final Map<String, String> baseStyles = {
+      'display': 'flex',
+      'flex-direction': 'row',
+      'justify-content': mainAxisAlignment.css,
+      'align-items': crossAxisAlignment.css,
+      if (mainAxisSize == MainAxisSize.max) 'width': '100%',
+    };
+
+    // Apply gap (enum takes precedence)
+    if (gapSize != null) {
+      baseStyles['gap'] = gapSize!.css;
+    } else if (gap > 0) {
+      baseStyles['gap'] = '${gap}px';
+    }
+
+    // Merge with custom style if provided
+    if (style != null) {
+      baseStyles.addAll(style!.toMap());
+    }
+
     return div(
       classes: 'arcane-row',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'row',
-        'justify-content': mainAxisAlignment.css,
-        'align-items': crossAxisAlignment.css,
-        if (mainAxisSize == MainAxisSize.max) 'width': '100%',
-        if (gap > 0) 'gap': '${gap}px',
-      }),
+      styles: Styles(raw: baseStyles),
       children,
     );
   }
 }
 
 /// A column layout component (vertical flex)
+///
+/// Supports both legacy numeric gap and new enum-based Gap:
+/// ```dart
+/// // Legacy (still works)
+/// Column(gap: 16, children: [...])
+///
+/// // New enum-based (preferred)
+/// Column(gapSize: Gap.md, children: [...])
+///
+/// // With full style customization
+/// Column(
+///   gapSize: Gap.md,
+///   style: ArcaneStyleData(
+///     padding: PaddingPreset.md,
+///     background: Background.card,
+///   ),
+///   children: [...],
+/// )
+/// ```
 class Column extends StatelessComponent {
   final List<Component> children;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
   final MainAxisSize mainAxisSize;
+
+  /// Legacy numeric gap (use gapSize for enum-based)
   final double gap;
+
+  /// Enum-based gap (takes precedence over gap)
+  final Gap? gapSize;
+
+  /// Additional style customization
+  final ArcaneStyleData? style;
 
   const Column({
     required this.children,
@@ -109,21 +180,37 @@ class Column extends StatelessComponent {
     this.crossAxisAlignment = CrossAxisAlignment.stretch,
     this.mainAxisSize = MainAxisSize.max,
     this.gap = 0,
+    this.gapSize,
+    this.style,
     super.key,
   });
 
   @override
   Component build(BuildContext context) {
+    // Build base styles
+    final Map<String, String> baseStyles = {
+      'display': 'flex',
+      'flex-direction': 'column',
+      'justify-content': mainAxisAlignment.css,
+      'align-items': crossAxisAlignment.css,
+      if (mainAxisSize == MainAxisSize.max) 'height': '100%',
+    };
+
+    // Apply gap (enum takes precedence)
+    if (gapSize != null) {
+      baseStyles['gap'] = gapSize!.css;
+    } else if (gap > 0) {
+      baseStyles['gap'] = '${gap}px';
+    }
+
+    // Merge with custom style if provided
+    if (style != null) {
+      baseStyles.addAll(style!.toMap());
+    }
+
     return div(
       classes: 'arcane-column',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'justify-content': mainAxisAlignment.css,
-        'align-items': crossAxisAlignment.css,
-        if (mainAxisSize == MainAxisSize.max) 'height': '100%',
-        if (gap > 0) 'gap': '${gap}px',
-      }),
+      styles: Styles(raw: baseStyles),
       children,
     );
   }
@@ -157,7 +244,7 @@ class Center extends StatelessComponent {
   Component build(BuildContext context) {
     return div(
       classes: 'arcane-center',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'justify-content': 'center',
         'align-items': 'center',

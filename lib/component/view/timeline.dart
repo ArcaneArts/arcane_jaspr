@@ -58,7 +58,7 @@ class Timeline extends StatelessComponent {
 
     return div(
       classes: 'arcane-timeline',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
         'position': 'relative',
@@ -85,7 +85,7 @@ class Timeline extends StatelessComponent {
       [
         // Timeline dot and line
         div(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'flex-direction': 'column',
             'align-items': 'center',
@@ -108,7 +108,7 @@ class Timeline extends StatelessComponent {
               [
                 if (item.completed)
                   span(
-                    styles: Styles(raw: {
+                    styles: const Styles(raw: {
                       'color': ArcaneColors.background,
                       'font-size': ArcaneTypography.fontXs,
                       'font-weight': ArcaneTypography.weightBold,
@@ -134,13 +134,13 @@ class Timeline extends StatelessComponent {
         ),
         // Content
         div(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'flex': '1',
             'padding-top': '0',
           }),
           [
             div(
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'display': 'flex',
                 'align-items': 'center',
                 'gap': ArcaneSpacing.md,
@@ -148,7 +148,7 @@ class Timeline extends StatelessComponent {
               }),
               [
                 span(
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontMd,
                     'font-weight': ArcaneTypography.weightSemibold,
                     'color': ArcaneColors.onSurface,
@@ -157,7 +157,7 @@ class Timeline extends StatelessComponent {
                 ),
                 if (item.subtitle != null)
                   span(
-                    styles: Styles(raw: {
+                    styles: const Styles(raw: {
                       'font-size': ArcaneTypography.fontSm,
                       'color': ArcaneColors.muted,
                     }),
@@ -167,7 +167,7 @@ class Timeline extends StatelessComponent {
             ),
             if (item.description != null)
               div(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontSm,
                   'color': ArcaneColors.muted,
                   'line-height': ArcaneTypography.leadingRelaxed,

@@ -1,8 +1,9 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
+import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, FontStyle, StyleRule, Display, Position, Overflow, Cursor, Visibility, Radius;
 
 import '../../util/tokens/tokens.dart';
 import '../../util/tokens/style_presets.dart';
+import '../../util/style_types/index.dart' hide BorderRadius;
 
 /// Button style variants (legacy - prefer using ButtonStyle presets)
 @Deprecated('Use style parameter with ButtonStyle presets instead')
@@ -76,6 +77,27 @@ class ArcaneButton extends StatelessComponent {
   /// Whether to expand to full width
   final bool fullWidth;
 
+  /// Padding preset (overrides default for size)
+  final PaddingPreset? padding;
+
+  /// Background override
+  final Background? background;
+
+  /// Border preset override
+  final BorderPreset? border;
+
+  /// Border radius override
+  final Radius? borderRadius;
+
+  /// Text color override
+  final TextColor? textColor;
+
+  /// Shadow preset
+  final Shadow? shadow;
+
+  /// Additional ArcaneStyleData for full customization
+  final ArcaneStyleData? customStyle;
+
   const ArcaneButton({
     this.label,
     this.child,
@@ -88,6 +110,13 @@ class ArcaneButton extends StatelessComponent {
     this.disabled = false,
     this.loading = false,
     this.fullWidth = false,
+    this.padding,
+    this.background,
+    this.border,
+    this.borderRadius,
+    this.textColor,
+    this.shadow,
+    this.customStyle,
     super.key,
   });
 
@@ -102,6 +131,13 @@ class ArcaneButton extends StatelessComponent {
     this.disabled = false,
     this.loading = false,
     this.fullWidth = false,
+    this.padding,
+    this.background,
+    this.border,
+    this.borderRadius,
+    this.textColor,
+    this.shadow,
+    this.customStyle,
     super.key,
   })  : style = ButtonStyle.primary,
         variant = null;
@@ -117,6 +153,13 @@ class ArcaneButton extends StatelessComponent {
     this.disabled = false,
     this.loading = false,
     this.fullWidth = false,
+    this.padding,
+    this.background,
+    this.border,
+    this.borderRadius,
+    this.textColor,
+    this.shadow,
+    this.customStyle,
     super.key,
   })  : style = ButtonStyle.secondary,
         variant = null;
@@ -132,6 +175,13 @@ class ArcaneButton extends StatelessComponent {
     this.disabled = false,
     this.loading = false,
     this.fullWidth = false,
+    this.padding,
+    this.background,
+    this.border,
+    this.borderRadius,
+    this.textColor,
+    this.shadow,
+    this.customStyle,
     super.key,
   })  : style = ButtonStyle.outline,
         variant = null;
@@ -147,6 +197,13 @@ class ArcaneButton extends StatelessComponent {
     this.disabled = false,
     this.loading = false,
     this.fullWidth = false,
+    this.padding,
+    this.background,
+    this.border,
+    this.borderRadius,
+    this.textColor,
+    this.shadow,
+    this.customStyle,
     super.key,
   })  : style = ButtonStyle.ghost,
         variant = null;
@@ -162,6 +219,13 @@ class ArcaneButton extends StatelessComponent {
     this.disabled = false,
     this.loading = false,
     this.fullWidth = false,
+    this.padding,
+    this.background,
+    this.border,
+    this.borderRadius,
+    this.textColor,
+    this.shadow,
+    this.customStyle,
     super.key,
   })  : style = ButtonStyle.destructive,
         variant = null;
@@ -177,6 +241,13 @@ class ArcaneButton extends StatelessComponent {
     this.disabled = false,
     this.loading = false,
     this.fullWidth = false,
+    this.padding,
+    this.background,
+    this.border,
+    this.borderRadius,
+    this.textColor,
+    this.shadow,
+    this.customStyle,
     super.key,
   })  : style = ButtonStyle.warning,
         variant = null;
@@ -192,6 +263,13 @@ class ArcaneButton extends StatelessComponent {
     this.disabled = false,
     this.loading = false,
     this.fullWidth = false,
+    this.padding,
+    this.background,
+    this.border,
+    this.borderRadius,
+    this.textColor,
+    this.shadow,
+    this.customStyle,
     super.key,
   })  : style = ButtonStyle.success,
         variant = null;
@@ -207,6 +285,13 @@ class ArcaneButton extends StatelessComponent {
     this.disabled = false,
     this.loading = false,
     this.fullWidth = false,
+    this.padding,
+    this.background,
+    this.border,
+    this.borderRadius,
+    this.textColor,
+    this.shadow,
+    this.customStyle,
     super.key,
   })  : style = ButtonStyle.link,
         variant = null;
@@ -281,6 +366,19 @@ class ArcaneButton extends StatelessComponent {
       if (isLink) 'border-radius': '0',
     };
 
+    // Apply enum-based overrides (these take precedence)
+    if (padding != null) buttonStyles['padding'] = padding!.css;
+    if (background != null) buttonStyles['background-color'] = background!.css;
+    if (border != null) buttonStyles['border'] = border!.css;
+    if (borderRadius != null) buttonStyles['border-radius'] = borderRadius!.css;
+    if (textColor != null) buttonStyles['color'] = textColor!.css;
+    if (shadow != null) buttonStyles['box-shadow'] = shadow!.css;
+
+    // Apply full custom style if provided (highest precedence)
+    if (customStyle != null) {
+      buttonStyles.addAll(customStyle!.toMap());
+    }
+
     return button(
       classes: 'arcane-button ${isDisabled ? 'disabled' : ''}',
       attributes: {
@@ -308,7 +406,7 @@ class ArcaneButton extends StatelessComponent {
   }
 
   Component _buildSpinner() {
-    return span(
+    return const span(
       classes: 'arcane-button-spinner',
       styles: Styles(raw: {
         'display': 'inline-block',

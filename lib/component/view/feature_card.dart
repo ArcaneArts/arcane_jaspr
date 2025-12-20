@@ -65,14 +65,14 @@ class FeatureCard extends StatelessComponent {
       // Content
       div(
         classes: 'arcane-feature-card-content',
-        styles: Styles(raw: {
+        styles: const Styles(raw: {
           'flex': '1',
         }),
         [
           // Title with optional arrow
           div(
             classes: 'arcane-feature-card-title',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
               'gap': ArcaneSpacing.sm,
@@ -86,7 +86,7 @@ class FeatureCard extends StatelessComponent {
               if (showArrow && isClickable)
                 span(
                   classes: 'arcane-feature-card-arrow',
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'transition': ArcaneEffects.transitionFast,
                   }),
                   [text('→')],
@@ -97,7 +97,7 @@ class FeatureCard extends StatelessComponent {
           // Description
           p(
             classes: 'arcane-feature-card-description',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontMd,
               'line-height': ArcaneTypography.leadingRelaxed,
               'color': ArcaneColors.muted,
@@ -199,7 +199,7 @@ class IconCard extends StatelessComponent {
     final List<Component> content = [
       div(
         classes: 'arcane-icon-card-icon',
-        styles: Styles(raw: {
+        styles: const Styles(raw: {
           'display': 'flex',
           'align-items': 'center',
           'justify-content': 'center',
@@ -214,7 +214,7 @@ class IconCard extends StatelessComponent {
       ),
       span(
         classes: 'arcane-icon-card-title',
-        styles: Styles(raw: {
+        styles: const Styles(raw: {
           'font-size': ArcaneTypography.fontMd,
           'font-weight': ArcaneTypography.weightMedium,
           'color': ArcaneColors.onSurface,
@@ -224,7 +224,7 @@ class IconCard extends StatelessComponent {
       if (subtitle != null)
         span(
           classes: 'arcane-icon-card-subtitle',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'font-size': ArcaneTypography.fontSm,
             'color': ArcaneColors.muted,
             'margin-top': ArcaneSpacing.xs,

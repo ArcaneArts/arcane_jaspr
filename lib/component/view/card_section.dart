@@ -56,7 +56,7 @@ class CardSection extends StatelessComponent {
                 }),
                 [
                   span(
-                    styles: Styles(raw: {
+                    styles: const Styles(raw: {
                       'font-size': ArcaneTypography.fontSm,
                       'font-weight': ArcaneTypography.weightSemibold,
                       'color': ArcaneColors.muted,
@@ -67,7 +67,7 @@ class CardSection extends StatelessComponent {
                   ),
                   if (trailing != null && trailing!.isNotEmpty)
                     div(
-                      styles: Styles(raw: {
+                      styles: const Styles(raw: {
                         'display': 'flex',
                         'gap': ArcaneSpacing.sm,
                       }),
@@ -132,7 +132,7 @@ class ListCard extends StatelessComponent {
         if (header != null)
           div(
             classes: 'arcane-list-card-header',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.lg}',
               'font-size': ArcaneTypography.fontSm,
               'font-weight': ArcaneTypography.weightSemibold,
@@ -145,7 +145,7 @@ class ListCard extends StatelessComponent {
         for (var i = 0; i < children.length; i++) ...[
           children[i],
           if (divided && i < children.length - 1)
-            div(
+            const div(
               styles: Styles(raw: {
                 'height': '1px',
                 'background-color': ArcaneColors.border,

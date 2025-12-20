@@ -87,7 +87,7 @@ class ArcaneSettingsSection extends StatelessComponent {
         // Description
         if (description != null)
           p(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
               'color': ArcaneColors.muted,
               'margin': '0 0 ${ArcaneSpacing.md} 0',
@@ -123,7 +123,7 @@ class ArcaneSettingsInfoRow extends StatelessComponent {
   Component build(BuildContext context) {
     return div(
       classes: 'arcane-settings-info-row',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'justify-content': 'space-between',
         'align-items': 'center',
@@ -132,7 +132,7 @@ class ArcaneSettingsInfoRow extends StatelessComponent {
       }),
       [
         span(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'font-size': ArcaneTypography.fontSm,
             'color': ArcaneColors.muted,
           }),
@@ -192,12 +192,12 @@ class ArcaneSettingsToggleRow extends StatelessComponent {
       [
         // Labels
         div(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'flex': '1',
           }),
           [
             div(
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontSm,
                 'font-weight': ArcaneTypography.weightMedium,
                 'color': ArcaneColors.onSurface,
@@ -206,7 +206,7 @@ class ArcaneSettingsToggleRow extends StatelessComponent {
             ),
             if (description != null)
               div(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontXs,
                   'color': ArcaneColors.muted,
                   'margin-top': '2px',
@@ -279,7 +279,7 @@ class ArcaneSettingsSubheader extends StatelessComponent {
   Component build(BuildContext context) {
     return div(
       classes: 'arcane-settings-subheader',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'margin-bottom': ArcaneSpacing.md,
       }),
       [
@@ -294,7 +294,7 @@ class ArcaneSettingsSubheader extends StatelessComponent {
         ),
         if (description != null)
           p(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontXs,
               'color': ArcaneColors.muted,
               'margin': '0',
@@ -342,7 +342,7 @@ class ArcaneSettingsNote extends StatelessComponent {
       }),
       [
         p(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'font-size': ArcaneTypography.fontSm,
             'color': ArcaneColors.muted,
             'margin': '0',

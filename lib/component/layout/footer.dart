@@ -80,7 +80,7 @@ class Footer extends StatelessComponent {
     return Component.element(
       tag: 'footer',
       classes: 'arcane-footer',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'background-color': ArcaneColors.surface,
         'border-top': '1px solid ${ArcaneColors.border}',
         'padding': '64px ${ArcaneSpacing.lg} ${ArcaneSpacing.lg}',
@@ -89,7 +89,7 @@ class Footer extends StatelessComponent {
         // Main footer content
         div(
           classes: 'arcane-footer-main',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'max-width': '1200px',
             'margin': '0 auto',
             'display': 'grid',
@@ -101,14 +101,14 @@ class Footer extends StatelessComponent {
             if (logo != null || description != null)
               div(
                 classes: 'arcane-footer-brand',
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'grid-column': 'span 2',
                 }),
                 [
                   if (logo != null) logo!,
                   if (description != null)
                     p(
-                      styles: Styles(raw: {
+                      styles: const Styles(raw: {
                         'margin': '${ArcaneSpacing.md} 0 0 0',
                         'font-size': ArcaneTypography.fontSm,
                         'color': ArcaneColors.muted,
@@ -120,7 +120,7 @@ class Footer extends StatelessComponent {
                   if (socialLinks != null)
                     div(
                       classes: 'arcane-footer-social',
-                      styles: Styles(raw: {
+                      styles: const Styles(raw: {
                         'display': 'flex',
                         'gap': ArcaneSpacing.md,
                         'margin-top': ArcaneSpacing.lg,
@@ -137,7 +137,7 @@ class Footer extends StatelessComponent {
                 [
                   div(
                     classes: 'arcane-footer-group-title',
-                    styles: Styles(raw: {
+                    styles: const Styles(raw: {
                       'font-size': ArcaneTypography.fontSm,
                       'font-weight': ArcaneTypography.weightSemibold,
                       'color': ArcaneColors.onSurface,
@@ -147,7 +147,7 @@ class Footer extends StatelessComponent {
                   ),
                   div(
                     classes: 'arcane-footer-group-links',
-                    styles: Styles(raw: {
+                    styles: const Styles(raw: {
                       'display': 'flex',
                       'flex-direction': 'column',
                       'gap': ArcaneSpacing.sm,
@@ -166,7 +166,7 @@ class Footer extends StatelessComponent {
                 classes: 'arcane-footer-newsletter',
                 [
                   div(
-                    styles: Styles(raw: {
+                    styles: const Styles(raw: {
                       'font-size': ArcaneTypography.fontSm,
                       'font-weight': ArcaneTypography.weightSemibold,
                       'color': ArcaneColors.onSurface,
@@ -175,7 +175,7 @@ class Footer extends StatelessComponent {
                     [text('Subscribe to our newsletter')],
                   ),
                   div(
-                    styles: Styles(raw: {
+                    styles: const Styles(raw: {
                       'display': 'flex',
                       'gap': ArcaneSpacing.sm,
                     }),
@@ -185,7 +185,7 @@ class Footer extends StatelessComponent {
                         attributes: {
                           'placeholder': newsletterPlaceholder,
                         },
-                        styles: Styles(raw: {
+                        styles: const Styles(raw: {
                           'flex': '1',
                           'padding': '10px 14px',
                           'font-size': ArcaneTypography.fontSm,
@@ -198,7 +198,7 @@ class Footer extends StatelessComponent {
                       ),
                       button(
                         attributes: {'type': 'submit'},
-                        styles: Styles(raw: {
+                        styles: const Styles(raw: {
                           'padding': '10px ${ArcaneSpacing.md}',
                           'font-size': ArcaneTypography.fontSm,
                           'font-weight': ArcaneTypography.weightMedium,
@@ -221,7 +221,7 @@ class Footer extends StatelessComponent {
         // Bottom bar
         div(
           classes: 'arcane-footer-bottom',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'max-width': '1200px',
             'margin': '${ArcaneSpacing.xxl} auto 0',
             'padding-top': ArcaneSpacing.lg,
@@ -237,7 +237,7 @@ class Footer extends StatelessComponent {
             if (copyright != null)
               span(
                 [text(copyright!)],
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontXs,
                   'color': ArcaneColors.muted,
                 }),
@@ -246,7 +246,7 @@ class Footer extends StatelessComponent {
             // Bottom links
             if (bottomLinks != null)
               div(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'display': 'flex',
                   'gap': ArcaneSpacing.lg,
                 }),
@@ -261,7 +261,7 @@ class Footer extends StatelessComponent {
   }
 
   Component _buildLink(FooterLink link) {
-    final Styles linkStyles = Styles(raw: {
+    final Styles linkStyles = const Styles(raw: {
       'font-size': ArcaneTypography.fontSm,
       'color': ArcaneColors.muted,
       'text-decoration': 'none',
@@ -283,7 +283,7 @@ class Footer extends StatelessComponent {
     return button(
       classes: 'arcane-footer-link',
       attributes: {'type': 'button'},
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'font-size': ArcaneTypography.fontSm,
         'color': ArcaneColors.muted,
         'text-decoration': 'none',
@@ -330,7 +330,7 @@ class SocialIcon extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final Styles iconStyles = Styles(raw: {
+    final Styles iconStyles = const Styles(raw: {
       'display': 'flex',
       'align-items': 'center',
       'justify-content': 'center',

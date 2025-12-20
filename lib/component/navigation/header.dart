@@ -85,7 +85,7 @@ class Header extends StatelessComponent {
         // Left section: Logo + Nav
         div(
           classes: 'arcane-header-left',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
             'gap': ArcaneSpacing.xl,
@@ -100,7 +100,7 @@ class Header extends StatelessComponent {
             // Navigation
             nav(
               classes: 'arcane-header-nav',
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'display': 'flex',
                 'align-items': 'center',
                 'gap': ArcaneSpacing.xs,
@@ -115,7 +115,7 @@ class Header extends StatelessComponent {
         // Right section: Search + Actions
         div(
           classes: 'arcane-header-right',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
             'gap': ArcaneSpacing.md,
@@ -125,7 +125,7 @@ class Header extends StatelessComponent {
             if (showSearch)
               div(
                 classes: 'arcane-header-search',
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'position': 'relative',
                 }),
                 [
@@ -134,7 +134,7 @@ class Header extends StatelessComponent {
                     attributes: {
                       'placeholder': searchPlaceholder,
                     },
-                    styles: Styles(raw: {
+                    styles: const Styles(raw: {
                       'padding': '8px 12px 8px 36px',
                       'font-size': ArcaneTypography.fontSm,
                       'background-color': ArcaneColors.surfaceVariant,
@@ -154,7 +154,7 @@ class Header extends StatelessComponent {
                   // Search icon
                   span(
                     [text('🔍')],
-                    styles: Styles(raw: {
+                    styles: const Styles(raw: {
                       'position': 'absolute',
                       'left': '12px',
                       'top': '50%',
@@ -179,7 +179,7 @@ class Header extends StatelessComponent {
 
     return div(
       classes: 'arcane-nav-item ${hasChildren ? 'has-dropdown' : ''} ${item.isActive ? 'active' : ''}',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'position': 'relative',
       }),
       [
@@ -204,7 +204,7 @@ class Header extends StatelessComponent {
               if (hasChildren)
                 span(
                   [text('▼')],
-                  styles: Styles(raw: {'font-size': ArcaneTypography.fontXs}),
+                  styles: const Styles(raw: {'font-size': ArcaneTypography.fontXs}),
                 ),
             ],
           )
@@ -234,7 +234,7 @@ class Header extends StatelessComponent {
               if (hasChildren)
                 span(
                   [text('▼')],
-                  styles: Styles(raw: {'font-size': ArcaneTypography.fontXs}),
+                  styles: const Styles(raw: {'font-size': ArcaneTypography.fontXs}),
                 ),
             ],
           ),
@@ -294,7 +294,7 @@ class NavLink extends StatelessComponent {
         span(
           [text('→')],
           classes: 'nav-link-arrow',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'transition': ArcaneEffects.transitionFast,
           }),
         ),

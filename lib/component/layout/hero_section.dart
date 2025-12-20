@@ -109,7 +109,7 @@ class HeroSection extends StatelessComponent {
         if (media != null)
           div(
             classes: 'arcane-hero-media',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'margin-top': ArcaneSpacing.xxl,
               'width': '100%',
               'max-width': '1200px',

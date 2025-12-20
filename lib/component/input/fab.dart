@@ -204,7 +204,7 @@ class FAB extends StatelessComponent {
         ),
         if (label != null)
           span(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-weight': ArcaneTypography.weightMedium,
               'font-size': ArcaneTypography.fontMd,
               'white-space': 'nowrap',

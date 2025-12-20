@@ -221,7 +221,7 @@ class Chip extends StatelessComponent {
         Component.text(label),
         if (deleteIcon != null && onDeleted != null)
           button(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
               'margin-left': ArcaneSpacing.xs,

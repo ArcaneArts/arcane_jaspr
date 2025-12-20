@@ -131,7 +131,7 @@ class ArcaneChip extends StatelessComponent {
         if (removable)
           span(
             classes: 'arcane-chip-remove',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'margin-left': '2px',
               'cursor': 'pointer',
               'opacity': '0.7',

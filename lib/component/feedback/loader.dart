@@ -55,7 +55,7 @@ class DotsLoader extends StatelessComponent {
   Component build(BuildContext context) {
     return div(
       classes: 'arcane-dots-loader',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'gap': ArcaneSpacing.xs,
         'align-items': 'center',
@@ -155,7 +155,7 @@ class LoadingOverlay extends StatelessComponent {
   Component build(BuildContext context) {
     return div(
       classes: 'arcane-loading-overlay',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'position': 'fixed',
         'inset': '0',
         'display': 'flex',
@@ -172,7 +172,7 @@ class LoadingOverlay extends StatelessComponent {
         loader ?? const ArcaneLoader(size: '48px'),
         if (message != null)
           span(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'color': ArcaneColors.muted,
               'font-size': ArcaneTypography.fontBase,
             }),

@@ -51,7 +51,7 @@ class _ArcaneTabsState extends State<ArcaneTabs> {
   Component build(BuildContext context) {
     return div(
       classes: 'arcane-tabs',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
         'width': '100%',
@@ -61,7 +61,7 @@ class _ArcaneTabsState extends State<ArcaneTabs> {
         div(
           classes: 'arcane-tabs-list',
           attributes: {'role': 'tablist'},
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'border-bottom': '1px solid ${ArcaneColors.border}',
             'gap': ArcaneSpacing.xs,
@@ -75,7 +75,7 @@ class _ArcaneTabsState extends State<ArcaneTabs> {
         div(
           classes: 'arcane-tabs-panel',
           attributes: {'role': 'tabpanel'},
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'padding-top': ArcaneSpacing.md,
           }),
           [
@@ -131,7 +131,7 @@ class _ArcaneTabsState extends State<ArcaneTabs> {
         if (tab.badge != null)
           span(
             classes: 'arcane-tab-badge',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'background-color': ArcaneColors.accent,
               'color': ArcaneColors.accentForeground,
               'font-size': ArcaneTypography.fontXs,
@@ -183,7 +183,7 @@ class TabBar extends StatelessComponent {
     return div(
       classes: 'arcane-tab-bar',
       attributes: {'role': 'tablist'},
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'border-bottom': '1px solid ${ArcaneColors.border}',
       }),

@@ -124,7 +124,7 @@ class _SearchState extends State<Search> {
             if (component.autofocus) 'autofocus': 'true',
             if (component.disabled) 'disabled': 'true',
           },
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'flex': '1',
             'border': 'none',
             'background': ArcaneColors.transparent,
@@ -153,7 +153,7 @@ class _SearchState extends State<Search> {
           button(
             classes: 'arcane-search-clear',
             attributes: {'type': 'button'},
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
               'justify-content': 'center',
@@ -178,7 +178,7 @@ class _SearchState extends State<Search> {
   Component _buildSearchIcon() {
     return span(
       classes: 'arcane-search-icon',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'color': ArcaneColors.muted,
         'font-size': ArcaneTypography.fontReg,
       }),
@@ -187,7 +187,7 @@ class _SearchState extends State<Search> {
   }
 
   Component _buildSpinner() {
-    return span(
+    return const span(
       classes: 'arcane-search-spinner',
       styles: Styles(raw: {
         'display': 'inline-block',

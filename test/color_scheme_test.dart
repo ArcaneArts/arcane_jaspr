@@ -32,21 +32,21 @@ void main() {
     });
 
     test('custom colors override defaults', () {
-      final customPrimary = Color(0xFF123456);
+      final customPrimary = const Color(0xFF123456);
       final scheme = ColorScheme.light(primary: customPrimary);
       expect(scheme.primary.value, equals(customPrimary.value));
     });
 
     test('copyWith preserves unmodified colors', () {
       final original = ColorScheme.light();
-      final copied = original.copyWith(primary: Color(0xFF000000));
+      final copied = original.copyWith(primary: const Color(0xFF000000));
       expect(copied.secondary.value, equals(original.secondary.value));
       expect(copied.surface.value, equals(original.surface.value));
     });
 
     test('copyWith updates specified colors', () {
       final original = ColorScheme.light();
-      final newPrimary = Color(0xFF123456);
+      final newPrimary = const Color(0xFF123456);
       final copied = original.copyWith(primary: newPrimary);
       expect(copied.primary.value, equals(newPrimary.value));
     });
@@ -78,8 +78,8 @@ void main() {
     });
 
     test('custom scheme accepts light and dark', () {
-      final lightScheme = ColorScheme.light(primary: Color(0xFF111111));
-      final darkScheme = ColorScheme.dark(primary: Color(0xFFEEEEEE));
+      final lightScheme = ColorScheme.light(primary: const Color(0xFF111111));
+      final darkScheme = ColorScheme.dark(primary: const Color(0xFFEEEEEE));
       final contrasted = ContrastedColorScheme(light: lightScheme, dark: darkScheme);
       expect(contrasted.light.primary.value, equals(0xFF111111));
       expect(contrasted.dark.primary.value, equals(0xFFEEEEEE));

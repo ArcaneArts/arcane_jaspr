@@ -62,7 +62,7 @@ class LogoCarousel extends StatelessComponent {
 
     return div(
       classes: 'arcane-logo-carousel',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
         'gap': ArcaneSpacing.lg,
@@ -74,7 +74,7 @@ class LogoCarousel extends StatelessComponent {
         if (title != null)
           div(
             classes: 'arcane-logo-carousel-title',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'text-align': 'center',
               'font-size': ArcaneTypography.fontSm,
               'font-weight': ArcaneTypography.weightMedium,
@@ -154,7 +154,7 @@ class LogoCarousel extends StatelessComponent {
           'rel': 'noopener noreferrer',
           'aria-label': logo.name,
         },
-        styles: Styles(raw: {
+        styles: const Styles(raw: {
           'display': 'flex',
           'align-items': 'center',
           'justify-content': 'center',
@@ -167,7 +167,7 @@ class LogoCarousel extends StatelessComponent {
 
     return div(
       classes: 'arcane-logo-carousel-item',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
         'justify-content': 'center',
@@ -236,7 +236,7 @@ class LogoGrid extends StatelessComponent {
   Component build(BuildContext context) {
     return div(
       classes: 'arcane-logo-grid',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
         'gap': ArcaneSpacing.lg,
@@ -244,7 +244,7 @@ class LogoGrid extends StatelessComponent {
       [
         if (title != null)
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'text-align': 'center',
               'font-size': ArcaneTypography.fontSm,
               'font-weight': ArcaneTypography.weightMedium,
@@ -267,7 +267,7 @@ class LogoGrid extends StatelessComponent {
             for (final logo in logos)
               div(
                 classes: 'arcane-logo-grid-item',
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'center',
@@ -290,7 +290,7 @@ class LogoGrid extends StatelessComponent {
                     )
                   else
                     span(
-                      styles: Styles(raw: {
+                      styles: const Styles(raw: {
                         'font-size': ArcaneTypography.fontMd,
                         'font-weight': ArcaneTypography.weightSemibold,
                         'color': ArcaneColors.muted,

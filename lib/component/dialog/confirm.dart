@@ -51,7 +51,7 @@ class ConfirmDialog extends StatelessComponent {
       maxWidth: 400,
       child: div(
         classes: 'arcane-confirm-dialog-content',
-        styles: Styles(raw: {
+        styles: const Styles(raw: {
           'display': 'flex',
           'flex-direction': 'column',
           'align-items': 'center',
@@ -68,7 +68,7 @@ class ConfirmDialog extends StatelessComponent {
               [icon!],
             ),
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'color': ArcaneColors.onSurface,
               'font-size': ArcaneTypography.fontSm,
               'line-height': ArcaneTypography.lineHeightRelaxed,
@@ -120,7 +120,7 @@ class AlertDialog extends StatelessComponent {
       onClose: onDismiss,
       maxWidth: 400,
       child: div(
-        styles: Styles(raw: {
+        styles: const Styles(raw: {
           'display': 'flex',
           'flex-direction': 'column',
           'align-items': 'center',
@@ -130,14 +130,14 @@ class AlertDialog extends StatelessComponent {
         [
           if (icon != null)
             div(
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': '3rem',
                 'color': ArcaneColors.accent,
               }),
               [icon!],
             ),
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'color': ArcaneColors.onSurface,
               'font-size': ArcaneTypography.fontSm,
               'line-height': ArcaneTypography.lineHeightRelaxed,

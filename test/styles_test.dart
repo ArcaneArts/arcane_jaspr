@@ -4,7 +4,7 @@ import 'package:jaspr_test/jaspr_test.dart';
 void main() {
   group('EdgeInsets', () {
     test('all creates uniform padding', () {
-      final insets = EdgeInsets.all(16);
+      final insets = const EdgeInsets.all(16);
       expect(insets.left, equals(16));
       expect(insets.top, equals(16));
       expect(insets.right, equals(16));
@@ -12,7 +12,7 @@ void main() {
     });
 
     test('symmetric creates horizontal/vertical padding', () {
-      final insets = EdgeInsets.symmetric(horizontal: 10, vertical: 20);
+      final insets = const EdgeInsets.symmetric(horizontal: 10, vertical: 20);
       expect(insets.left, equals(10));
       expect(insets.right, equals(10));
       expect(insets.top, equals(20));
@@ -20,7 +20,7 @@ void main() {
     });
 
     test('only creates specific side padding', () {
-      final insets = EdgeInsets.only(left: 5, top: 10, right: 15, bottom: 20);
+      final insets = const EdgeInsets.only(left: 5, top: 10, right: 15, bottom: 20);
       expect(insets.left, equals(5));
       expect(insets.top, equals(10));
       expect(insets.right, equals(15));
@@ -36,19 +36,19 @@ void main() {
     });
 
     test('padding getter returns CSS string', () {
-      final insets = EdgeInsets.all(16);
+      final insets = const EdgeInsets.all(16);
       expect(insets.padding, contains('px'));
     });
 
     test('margin getter returns CSS string', () {
-      final insets = EdgeInsets.all(16);
+      final insets = const EdgeInsets.all(16);
       expect(insets.margin, contains('px'));
     });
   });
 
   group('BorderRadius', () {
     test('all creates uniform radius', () {
-      final radius = BorderRadius.all(8);
+      final radius = const BorderRadius.all(8);
       expect(radius.topLeft, equals(8));
       expect(radius.topRight, equals(8));
       expect(radius.bottomRight, equals(8));
@@ -56,7 +56,7 @@ void main() {
     });
 
     test('circular creates circular radius', () {
-      final radius = BorderRadius.circular(12);
+      final radius = const BorderRadius.circular(12);
       expect(radius.topLeft, equals(12));
       expect(radius.topRight, equals(12));
       expect(radius.bottomRight, equals(12));
@@ -64,7 +64,7 @@ void main() {
     });
 
     test('only creates specific corner radius', () {
-      final radius = BorderRadius.only(
+      final radius = const BorderRadius.only(
         topLeft: 1,
         topRight: 2,
         bottomRight: 3,
@@ -85,14 +85,14 @@ void main() {
     });
 
     test('css getter returns CSS string', () {
-      final radius = BorderRadius.all(8);
+      final radius = const BorderRadius.all(8);
       expect(radius.css, contains('px'));
     });
   });
 
   group('BoxShadow', () {
     test('creates shadow with all parameters', () {
-      final shadow = BoxShadow(
+      final shadow = const BoxShadow(
         color: Color(0x40000000),
         offsetX: 2,
         offsetY: 4,
@@ -106,7 +106,7 @@ void main() {
     });
 
     test('css getter returns valid CSS shadow', () {
-      final shadow = BoxShadow(
+      final shadow = const BoxShadow(
         color: Color(0x40000000),
         offsetX: 2,
         offsetY: 4,
@@ -190,7 +190,7 @@ void main() {
 
   group('Styles', () {
     test('creates Styles from raw map', () {
-      final styles = Styles(raw: {
+      final styles = const Styles(raw: {
         'color': 'red',
         'padding': '10px',
       });

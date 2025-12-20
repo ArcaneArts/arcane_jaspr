@@ -20,7 +20,30 @@ export 'package:jaspr/dom.dart'
         Border,
         BorderRadius,
         BoxShadow,
-        FontWeight;
+        FontWeight,
+        FontStyle,
+        Visibility,
+        Display,
+        Position,
+        Overflow,
+        Cursor,
+        // Additional hides for style_types enums
+        FlexDirection,
+        TextDecoration,
+        Transition,
+        FontFamily,
+        Radius,
+        JustifyContent,
+        AlignItems,
+        PointerEvents,
+        ZIndex,
+        Transform,
+        Opacity,
+        Shadow,
+        FlexWrap,
+        WhiteSpace,
+        Spacing,
+        TextTransform;
 
 // ============================================================================
 // Utilities
@@ -39,6 +62,11 @@ export 'util/tokens/style_presets.dart';
 export 'util/tokens/common_styles.dart';
 
 // ============================================================================
+// Enum-Based Style Types (Flutter-like declarative styling)
+// ============================================================================
+export 'util/style_types/index.dart' hide BorderStyle, AlignSelf, UserSelect;
+
+// ============================================================================
 // Support components
 // ============================================================================
 export 'component/support/app.dart';
@@ -47,12 +75,13 @@ export 'component/support/app.dart';
 // Typography components
 // ============================================================================
 export 'component/typography/headline.dart';
+export 'component/typography/text.dart' hide Text;
 
 // ============================================================================
 // Layout components
 // ============================================================================
 export 'component/layout/section.dart';
-export 'component/layout/gutter.dart';
+export 'component/layout/gutter.dart' hide Gap;
 export 'component/layout/flow.dart';
 export 'component/layout/carpet.dart';
 export 'component/layout/button_panel.dart';

@@ -168,7 +168,7 @@ class AvatarGroup extends StatelessComponent {
 
     return div(
       classes: 'arcane-avatar-group',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
       }),

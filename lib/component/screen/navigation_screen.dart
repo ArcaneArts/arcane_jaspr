@@ -91,7 +91,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
     return div(
       classes: 'arcane-navigation-screen',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
         'height': '100vh',
@@ -101,7 +101,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
         // Main content area with sidebar
         div(
           classes: 'arcane-navigation-screen-body',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'flex': '1',
             'min-height': '0',
@@ -131,7 +131,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
             // Content
             div(
               classes: 'arcane-navigation-screen-content',
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'flex': '1',
                 'overflow-y': 'auto',
                 'min-width': '0',
@@ -225,7 +225,7 @@ class ResponsiveScaffold extends StatelessComponent {
         // Mobile version
         div(
           classes: 'arcane-responsive-mobile',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'block',
           }),
           [mobile],

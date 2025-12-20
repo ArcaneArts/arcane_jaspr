@@ -83,7 +83,7 @@ class ArcaneDivider extends StatelessComponent {
             [],
           ),
           span(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
               'color': ArcaneColors.muted,
               'white-space': 'nowrap',

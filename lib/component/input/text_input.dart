@@ -166,7 +166,7 @@ class ArcaneTextInput extends StatelessComponent {
             Component.element(
               tag: 'label',
               attributes: id != null ? {'for': id!} : null,
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontMd,
                 'font-weight': ArcaneTypography.weightMedium,
                 'color': ArcaneColors.onSurface,
@@ -176,7 +176,7 @@ class ArcaneTextInput extends StatelessComponent {
                 if (required)
                   span(
                     [text('*')],
-                    styles: Styles(raw: {
+                    styles: const Styles(raw: {
                       'color': ArcaneColors.error,
                       'margin-left': ArcaneSpacing.xs,
                     }),
@@ -200,7 +200,7 @@ class ArcaneTextInput extends StatelessComponent {
                   span(
                     [prefix!],
                     classes: 'arcane-text-input-prefix',
-                    styles: Styles(raw: {
+                    styles: const Styles(raw: {
                       'display': 'flex',
                       'align-items': 'center',
                       'padding-left': ArcaneSpacing.sm,
@@ -241,7 +241,7 @@ class ArcaneTextInput extends StatelessComponent {
                   span(
                     [suffix!],
                     classes: 'arcane-text-input-suffix',
-                    styles: Styles(raw: {
+                    styles: const Styles(raw: {
                       'display': 'flex',
                       'align-items': 'center',
                       'padding-right': ArcaneSpacing.sm,
@@ -258,7 +258,7 @@ class ArcaneTextInput extends StatelessComponent {
             span(
               [text(error!)],
               classes: 'arcane-text-input-error',
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontSm,
                 'color': ArcaneColors.error,
               }),
@@ -267,7 +267,7 @@ class ArcaneTextInput extends StatelessComponent {
             span(
               [text(helperText!)],
               classes: 'arcane-text-input-helper',
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontSm,
                 'color': ArcaneColors.muted,
               }),
@@ -409,7 +409,7 @@ class ArcaneTextArea extends StatelessComponent {
             Component.element(
               tag: 'label',
               attributes: id != null ? {'for': id!} : null,
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontMd,
                 'font-weight': ArcaneTypography.weightMedium,
                 'color': ArcaneColors.onSurface,
@@ -419,7 +419,7 @@ class ArcaneTextArea extends StatelessComponent {
                 if (required)
                   span(
                     [text('*')],
-                    styles: Styles(raw: {
+                    styles: const Styles(raw: {
                       'color': ArcaneColors.error,
                       'margin-left': ArcaneSpacing.xs,
                     }),
@@ -430,7 +430,7 @@ class ArcaneTextArea extends StatelessComponent {
           if (error != null)
             span(
               [text(error!)],
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontSm,
                 'color': ArcaneColors.error,
               }),
@@ -438,7 +438,7 @@ class ArcaneTextArea extends StatelessComponent {
           else if (helperText != null)
             span(
               [text(helperText!)],
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontSm,
                 'color': ArcaneColors.muted,
               }),
@@ -590,7 +590,7 @@ class ArcaneSelect extends StatelessComponent {
             Component.element(
               tag: 'label',
               attributes: id != null ? {'for': id!} : null,
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontMd,
                 'font-weight': ArcaneTypography.weightMedium,
                 'color': ArcaneColors.onSurface,
@@ -600,7 +600,7 @@ class ArcaneSelect extends StatelessComponent {
                 if (required)
                   span(
                     [text('*')],
-                    styles: Styles(raw: {
+                    styles: const Styles(raw: {
                       'color': ArcaneColors.error,
                       'margin-left': ArcaneSpacing.xs,
                     }),
@@ -611,7 +611,7 @@ class ArcaneSelect extends StatelessComponent {
           if (error != null)
             span(
               [text(error!)],
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontSm,
                 'color': ArcaneColors.error,
               }),

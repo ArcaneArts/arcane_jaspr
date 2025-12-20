@@ -232,7 +232,7 @@ class CloseButton extends StatelessComponent {
 
   Component _buildCloseIcon() {
     return span(
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'font-size': '1.25em',
         'line-height': '1',
       }),

@@ -78,7 +78,7 @@ class SkeletonCard extends StatelessComponent {
   Component build(BuildContext context) {
     return div(
       classes: 'arcane-skeleton-card',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'background': ArcaneColors.card,
         'border': '1px solid ${ArcaneColors.border}',
         'border-radius': ArcaneRadius.lg,
@@ -87,7 +87,7 @@ class SkeletonCard extends StatelessComponent {
       [
         // Header with avatar
         if (showAvatar)
-          div(
+          const div(
             styles: Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
@@ -95,7 +95,7 @@ class SkeletonCard extends StatelessComponent {
               'margin-bottom': ArcaneSpacing.lg,
             }),
             [
-              const Skeleton(width: '48px', height: '48px', circle: true),
+              Skeleton(width: '48px', height: '48px', circle: true),
               div(
                 styles: Styles(raw: {
                   'flex': '1',
@@ -104,8 +104,8 @@ class SkeletonCard extends StatelessComponent {
                   'gap': ArcaneSpacing.sm,
                 }),
                 [
-                  const Skeleton(width: '40%', height: '16px'),
-                  const Skeleton(width: '60%', height: '14px'),
+                  Skeleton(width: '40%', height: '16px'),
+                  Skeleton(width: '60%', height: '14px'),
                 ],
               ),
             ],
@@ -143,7 +143,7 @@ class SkeletonText extends StatelessComponent {
   Component build(BuildContext context) {
     return div(
       classes: 'arcane-skeleton-text',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
         'gap': ArcaneSpacing.sm,

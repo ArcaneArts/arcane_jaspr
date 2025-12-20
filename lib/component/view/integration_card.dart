@@ -59,7 +59,7 @@ class IntegrationCard extends StatelessComponent {
       [
         // Header with logo and category
         div(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'align-items': 'flex-start',
             'justify-content': 'space-between',
@@ -68,7 +68,7 @@ class IntegrationCard extends StatelessComponent {
             // Logo
             div(
               classes: 'arcane-integration-logo',
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'width': '48px',
                 'height': '48px',
                 'display': 'flex',
@@ -85,7 +85,7 @@ class IntegrationCard extends StatelessComponent {
                   img(
                     src: logoUrl!,
                     alt: name,
-                    styles: Styles(raw: {
+                    styles: const Styles(raw: {
                       'width': '32px',
                       'height': '32px',
                       'object-fit': 'contain',
@@ -93,7 +93,7 @@ class IntegrationCard extends StatelessComponent {
                   )
                 else
                   span(
-                    styles: Styles(raw: {
+                    styles: const Styles(raw: {
                       'font-size': ArcaneTypography.fontXl,
                       'font-weight': ArcaneTypography.weightSemibold,
                       'color': ArcaneColors.muted,
@@ -106,7 +106,7 @@ class IntegrationCard extends StatelessComponent {
             // Category badge
             if (category != null)
               span(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
                   'font-size': ArcaneTypography.fontXs,
                   'font-weight': ArcaneTypography.weightMedium,
@@ -123,7 +123,7 @@ class IntegrationCard extends StatelessComponent {
 
         // Content
         div(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'flex-direction': 'column',
             'gap': ArcaneSpacing.sm,
@@ -131,7 +131,7 @@ class IntegrationCard extends StatelessComponent {
           [
             // Name
             div(
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontMd,
                 'font-weight': ArcaneTypography.weightSemibold,
                 'color': ArcaneColors.onSurface,
@@ -142,7 +142,7 @@ class IntegrationCard extends StatelessComponent {
             // Description
             if (description != null)
               div(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontSm,
                   'line-height': ArcaneTypography.leadingNormal,
                   'color': ArcaneColors.muted,
@@ -155,7 +155,7 @@ class IntegrationCard extends StatelessComponent {
         // Learn more link
         if (href != null || onTap != null)
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
               'gap': ArcaneSpacing.xs,
@@ -176,7 +176,7 @@ class IntegrationCard extends StatelessComponent {
       return a(
         href: href!,
         classes: 'arcane-integration-link',
-        styles: Styles(raw: {
+        styles: const Styles(raw: {
           'text-decoration': 'none',
           'display': 'block',
         }),
@@ -233,7 +233,7 @@ class IntegrationGrid extends StatelessComponent {
   Component build(BuildContext context) {
     return div(
       classes: 'arcane-integration-grid',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
         'gap': ArcaneSpacing.xxl,
@@ -241,7 +241,7 @@ class IntegrationGrid extends StatelessComponent {
       [
         if (title != null || description != null)
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'flex-direction': 'column',
               'gap': ArcaneSpacing.sm,
@@ -249,7 +249,7 @@ class IntegrationGrid extends StatelessComponent {
             [
               if (title != null)
                 div(
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'font-size': ArcaneTypography.font2xl,
                     'font-weight': ArcaneTypography.weightSemibold,
                     'color': ArcaneColors.onSurface,
@@ -258,7 +258,7 @@ class IntegrationGrid extends StatelessComponent {
                 ),
               if (description != null)
                 div(
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontMd,
                     'color': ArcaneColors.muted,
                   }),

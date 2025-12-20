@@ -119,7 +119,7 @@ class Toast extends StatelessComponent {
         // Content
         div(
           classes: 'arcane-toast-content',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'flex': '1',
             'min-width': '0',
           }),
@@ -136,7 +136,7 @@ class Toast extends StatelessComponent {
               ),
             div(
               classes: 'arcane-toast-message',
-              styles: Styles(raw: {
+              styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontSm,
                 'color': ArcaneColors.muted,
                 'line-height': '1.4',
@@ -145,7 +145,7 @@ class Toast extends StatelessComponent {
             ),
             if (action != null)
               div(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'margin-top': ArcaneSpacing.sm,
                 }),
                 [action!],
@@ -158,7 +158,7 @@ class Toast extends StatelessComponent {
           button(
             classes: 'arcane-toast-close',
             attributes: {'type': 'button', 'aria-label': 'Close notification'},
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
               'justify-content': 'center',
@@ -257,7 +257,7 @@ class ToastContainer extends StatelessComponent {
       [
         for (final toast in toasts)
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'pointer-events': 'auto',
             }),
             [toast],

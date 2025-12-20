@@ -257,7 +257,7 @@ class StructuredCard extends StatelessComponent {
         if (header != null)
           div(
             classes: 'arcane-structured-card-header',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'padding': ArcaneSpacing.md,
               'border-bottom': '1px solid ${ArcaneColors.outlineVariant}',
             }),
@@ -273,7 +273,7 @@ class StructuredCard extends StatelessComponent {
         if (footer != null)
           div(
             classes: 'arcane-structured-card-footer',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
               'border-top': '1px solid ${ArcaneColors.outlineVariant}',
               'background-color': ArcaneColors.surfaceVariant,
@@ -339,7 +339,7 @@ class ImageCard extends StatelessComponent {
         if (title != null || subtitle != null || overlay != null)
           div(
             classes: 'arcane-image-card-overlay',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'position': 'absolute',
               'bottom': '0',
               'left': '0',
@@ -351,7 +351,7 @@ class ImageCard extends StatelessComponent {
             [
               if (title != null)
                 div(
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontReg,
                     'font-weight': ArcaneTypography.weightSemibold,
                   }),
@@ -359,7 +359,7 @@ class ImageCard extends StatelessComponent {
                 ),
               if (subtitle != null)
                 div(
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontMd,
                     'opacity': '0.9',
                     'margin-top': ArcaneSpacing.xs,

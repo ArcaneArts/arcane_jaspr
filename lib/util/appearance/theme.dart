@@ -185,7 +185,7 @@ class ArcaneTheme {
       '--arcane-on-surface-variant': cs.onSurfaceVariant.css,
       '--arcane-outline': cs.outline.css,
       '--arcane-outline-variant': cs.outlineVariant.css,
-      '--arcane-shadow': cs.shadow.css,
+      '--arcane-shadow-color': cs.shadow.css,
       '--arcane-scrim': cs.scrim.withOpacity(0.5).css,
       '--arcane-inverse-surface': cs.inverseSurface.css,
       '--arcane-on-inverse-surface': cs.onInverseSurface.css,
@@ -277,6 +277,55 @@ class ArcaneTheme {
       '--arcane-transition-fast': '150ms ease',
       '--arcane-transition': '200ms ease',
       '--arcane-transition-slow': '300ms ease',
+
+      // Extended backgrounds (missing from original)
+      '--arcane-background-secondary': brightness == Brightness.dark
+          ? '#0a0a0c'
+          : '#f4f4f5',
+      '--arcane-background-tertiary': brightness == Brightness.dark
+          ? '#0f0f11'
+          : '#e4e4e7',
+      '--arcane-card-hover': brightness == Brightness.dark
+          ? 'rgba(255, 255, 255, 0.05)'
+          : 'rgba(0, 0, 0, 0.02)',
+      '--arcane-card-alt': brightness == Brightness.dark
+          ? '#18181b'
+          : '#fafafa',
+      '--arcane-navbar': brightness == Brightness.dark
+          ? 'rgba(9, 9, 11, 0.8)'
+          : 'rgba(255, 255, 255, 0.8)',
+
+      // Extended text colors
+      '--arcane-text-subtle': brightness == Brightness.dark
+          ? '#71717a'
+          : '#a1a1aa',
+      '--arcane-text-faint': brightness == Brightness.dark
+          ? '#52525b'
+          : '#d4d4d8',
+
+      // Tooltip
+      '--arcane-tooltip': brightness == Brightness.dark
+          ? '#27272a'
+          : '#18181b',
+      '--arcane-tooltip-foreground': brightness == Brightness.dark
+          ? '#fafafa'
+          : '#fafafa',
+
+      // Code
+      '--arcane-code-background': brightness == Brightness.dark
+          ? '#18181b'
+          : '#f4f4f5',
+
+      // Success extended
+      '--arcane-success-hover': brightness == Brightness.dark
+          ? Colors.emerald300.css
+          : Colors.emerald700.css,
+      '--arcane-success-container': brightness == Brightness.dark
+          ? 'rgba(16, 185, 129, 0.1)'
+          : 'rgba(16, 185, 129, 0.1)',
+
+      // Extra shadow
+      '--arcane-shadow-xs': '0 1px 2px rgba(0, 0, 0, 0.05)',
     };
   }
 

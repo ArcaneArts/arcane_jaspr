@@ -154,7 +154,7 @@ class ArcaneDashboardLayout extends StatelessComponent {
         if (sidebarHeader != null)
           div(
             classes: 'arcane-dashboard-sidebar-header',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'padding': ArcaneSpacing.lg,
               'border-bottom': '1px solid ${ArcaneColors.border}',
               'flex-shrink': '0',
@@ -164,7 +164,7 @@ class ArcaneDashboardLayout extends StatelessComponent {
         // Navigation
         nav(
           classes: 'arcane-dashboard-sidebar-nav',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'flex': '1',
             'padding': ArcaneSpacing.md,
             'overflow-y': 'auto',
@@ -175,7 +175,7 @@ class ArcaneDashboardLayout extends StatelessComponent {
         if (sidebarFooter != null)
           div(
             classes: 'arcane-dashboard-sidebar-footer',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'padding': ArcaneSpacing.md,
               'border-top': '1px solid ${ArcaneColors.border}',
               'flex-shrink': '0',
@@ -189,7 +189,7 @@ class ArcaneDashboardLayout extends StatelessComponent {
   Component _buildNavGroup(DashboardNavGroup group) {
     return div(
       classes: 'arcane-dashboard-nav-group',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'margin-bottom': ArcaneSpacing.lg,
       }),
       [
@@ -197,7 +197,7 @@ class ArcaneDashboardLayout extends StatelessComponent {
         if (group.label != null)
           div(
             classes: 'arcane-dashboard-nav-group-label',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontXs,
               'font-weight': ArcaneTypography.weightSemibold,
               'color': ArcaneColors.muted,
@@ -241,7 +241,7 @@ class ArcaneDashboardLayout extends StatelessComponent {
         // Icon
         if (item.icon != null)
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'width': '20px',
               'height': '20px',
               'display': 'flex',
@@ -253,7 +253,7 @@ class ArcaneDashboardLayout extends StatelessComponent {
           ),
         // Label
         span(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'flex': '1',
           }),
           [Component.text(item.label)],
@@ -262,7 +262,7 @@ class ArcaneDashboardLayout extends StatelessComponent {
         if (item.badge != null)
           span(
             classes: 'arcane-dashboard-nav-badge',
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'background': ArcaneColors.accent,
               'color': ArcaneColors.accentForeground,
               'font-size': ArcaneTypography.fontXs,
@@ -327,7 +327,7 @@ class ArcaneDashboardTopBar extends StatelessComponent {
         // Trailing (user menu)
         div(
           classes: 'arcane-dashboard-topbar-trailing',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
             'gap': ArcaneSpacing.md,
@@ -366,7 +366,7 @@ class ArcaneDashboardUserMenu extends StatelessComponent {
     return button(
       classes: 'arcane-dashboard-user-menu',
       attributes: {'type': 'button'},
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
         'gap': ArcaneSpacing.sm,
@@ -383,7 +383,7 @@ class ArcaneDashboardUserMenu extends StatelessComponent {
       [
         // Avatar
         div(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'width': '36px',
             'height': '36px',
             'border-radius': ArcaneRadius.full,
@@ -396,7 +396,7 @@ class ArcaneDashboardUserMenu extends StatelessComponent {
               img(
                 src: avatarUrl!,
                 alt: userName ?? 'User',
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'width': '100%',
                   'height': '100%',
                   'object-fit': 'cover',
@@ -407,13 +407,13 @@ class ArcaneDashboardUserMenu extends StatelessComponent {
         // Name and subtitle
         if (userName != null || userSubtitle != null)
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'text-align': 'left',
             }),
             [
               if (userName != null)
                 div(
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontSm,
                     'font-weight': ArcaneTypography.weightMedium,
                     'color': ArcaneColors.onSurface,
@@ -422,7 +422,7 @@ class ArcaneDashboardUserMenu extends StatelessComponent {
                 ),
               if (userSubtitle != null)
                 div(
-                  styles: Styles(raw: {
+                  styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontXs,
                     'color': ArcaneColors.muted,
                   }),
