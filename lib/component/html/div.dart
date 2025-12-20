@@ -34,7 +34,7 @@ import '../../util/style_types/arcane_style_data.dart';
 ///
 /// Example:
 /// ```dart
-/// Div(
+/// ArcaneDiv(
 ///   styles: ArcaneStyleData(
 ///     display: Display.flex,
 ///     flexDirection: FlexDirection.column,
@@ -42,12 +42,12 @@ import '../../util/style_types/arcane_style_data.dart';
 ///     padding: PaddingPreset.lg,
 ///   ),
 ///   children: [
-///     Paragraph(child: ArcaneText('First paragraph')),
-///     Paragraph(child: ArcaneText('Second paragraph')),
+///     ArcaneParagraph(child: ArcaneText('First paragraph')),
+///     ArcaneParagraph(child: ArcaneText('Second paragraph')),
 ///   ],
 /// )
 /// ```
-class Div extends StatelessComponent {
+class ArcaneDiv extends StatelessComponent {
   /// The children of the div
   final List<Component> children;
 
@@ -63,7 +63,7 @@ class Div extends StatelessComponent {
   /// Event handlers
   final Map<String, void Function(dynamic)>? events;
 
-  const Div({
+  const ArcaneDiv({
     required this.children,
     this.styles,
     this.classes,
@@ -73,14 +73,14 @@ class Div extends StatelessComponent {
   });
 
   /// Create a div with a single child
-  const factory Div.child({
+  const factory ArcaneDiv.child({
     required Component child,
     ArcaneStyleData? styles,
     String? classes,
     String? id,
     Map<String, void Function(dynamic)>? events,
     Key? key,
-  }) = _DivChild;
+  }) = _ArcaneDivChild;
 
   @override
   Component build(BuildContext context) {
@@ -94,10 +94,10 @@ class Div extends StatelessComponent {
   }
 }
 
-class _DivChild extends Div {
+class _ArcaneDivChild extends ArcaneDiv {
   final Component _child;
 
-  const _DivChild({
+  const _ArcaneDivChild({
     required Component child,
     super.styles,
     super.classes,

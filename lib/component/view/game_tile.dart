@@ -4,7 +4,7 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../util/tokens/tokens.dart';
 
 /// A game tile component for game server selection
-class GameTile extends StatelessComponent {
+class ArcaneGameTile extends StatelessComponent {
   /// Game name
   final String name;
 
@@ -29,7 +29,7 @@ class GameTile extends StatelessComponent {
   /// Description or player count
   final String? subtitle;
 
-  const GameTile({
+  const ArcaneGameTile({
     required this.name,
     this.iconUrl,
     this.icon,
@@ -173,9 +173,9 @@ class GameTile extends StatelessComponent {
 }
 
 /// A grid of game tiles
-class GameSelector extends StatelessComponent {
+class ArcaneGameSelector extends StatelessComponent {
   /// Game tiles
-  final List<GameTile> games;
+  final List<ArcaneGameTile> games;
 
   /// Number of columns
   final int columns;
@@ -189,7 +189,7 @@ class GameSelector extends StatelessComponent {
   /// Description
   final String? description;
 
-  const GameSelector({
+  const ArcaneGameSelector({
     required this.games,
     this.columns = 4,
     this.gap = 16,
@@ -249,7 +249,7 @@ class GameSelector extends StatelessComponent {
 }
 
 /// A game card with more details
-class GameCard extends StatelessComponent {
+class ArcaneGameCard extends StatelessComponent {
   /// Game name
   final String name;
 
@@ -277,7 +277,7 @@ class GameCard extends StatelessComponent {
   /// CTA button text
   final String? ctaText;
 
-  const GameCard({
+  const ArcaneGameCard({
     required this.name,
     this.description,
     this.iconUrl,

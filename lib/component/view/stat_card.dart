@@ -4,7 +4,7 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../util/tokens/tokens.dart';
 
 /// Stat card for displaying metrics with optional trend indicator
-class StatCard extends StatelessComponent {
+class ArcaneStatCard extends StatelessComponent {
   /// Label text
   final String label;
 
@@ -26,7 +26,7 @@ class StatCard extends StatelessComponent {
   /// Custom icon background
   final String? iconBackground;
 
-  const StatCard({
+  const ArcaneStatCard({
     required this.label,
     required this.value,
     this.icon,
@@ -134,9 +134,9 @@ class StatCard extends StatelessComponent {
 }
 
 /// A row of stat cards
-class StatCardRow extends StatelessComponent {
+class ArcaneStatCardRow extends StatelessComponent {
   /// Stat cards to display
-  final List<StatCard> cards;
+  final List<ArcaneStatCard> cards;
 
   /// Number of columns
   final int columns;
@@ -144,7 +144,7 @@ class StatCardRow extends StatelessComponent {
   /// Gap between cards
   final double gap;
 
-  const StatCardRow({
+  const ArcaneStatCardRow({
     required this.cards,
     this.columns = 4,
     this.gap = 24,

@@ -5,6 +5,100 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2025-12-20
+
+### Breaking Changes
+
+All components now use the `Arcane*` prefix consistently. This is a breaking change that removes backwards compatibility.
+
+**Migration Guide:**
+
+Components have been renamed from their short names to the full `Arcane*` prefix. Examples:
+- `Button` → `ArcaneButton`
+- `Card` → `ArcaneCard`
+- `Div` → `ArcaneDiv`
+- `Heading` → `ArcaneHeading`
+- `Section` → `ArcaneSection`
+- `Box` → `ArcaneBox`
+- `Row` → `ArcaneRow`
+- `Column` → `ArcaneColumn`
+- `Checkbox` → `ArcaneCheckbox`
+- `Slider` → `ArcaneSlider`
+- `Search` → `ArcaneSearch`
+- `Toast` → `ArcaneToast`
+- `Bar` → `ArcaneBar`
+- `Glass` → `ArcaneGlass`
+- `Screen` → `ArcaneScreen`
+- ... and all other components
+
+### Added
+
+- `aliases.dart` - Shorthand `A*` typedefs for all components (e.g., `AButton = ArcaneButton`)
+  - Import with `import 'package:arcane_jaspr/aliases.dart';`
+  - Provides shorter names while keeping `Arcane*` as the primary API
+
+### Changed
+
+- Renamed all components to use consistent `Arcane*` prefix
+- HTML element wrappers now use `Arcane*` prefix:
+  - `Div` → `ArcaneDiv`
+  - `Nav` → `ArcaneNav`
+  - `Aside` → `ArcaneAside`
+  - `Heading` → `ArcaneHeading`
+  - `Paragraph` → `ArcaneParagraph`
+  - `Main` → `ArcaneMain`
+  - `HtmlSection` → `ArcaneHtmlSection`
+  - `HtmlFooter` → `ArcaneHtmlFooter`
+  - `Blockquote` → `ArcaneBlockquote`
+  - `Pre` → `ArcanePre`
+- Layout components renamed:
+  - `Box` → `ArcaneBox`
+  - `Row` → `ArcaneRow`
+  - `Column` → `ArcaneColumn`
+  - `Section` → `ArcaneSection`
+  - `Gutter` → `ArcaneGutter`
+  - `Flow` → `ArcaneFlow`
+  - `ButtonPanel` → `ArcaneButtonPanel`
+  - `CenterBody` → `ArcaneCenterBody`
+- Input components renamed:
+  - `Checkbox` → `ArcaneCheckbox`
+  - `Radio` → `ArcaneRadio`
+  - `Slider` → `ArcaneSlider`
+  - `RangeSlider` → `ArcaneRangeSlider`
+  - `ToggleSwitch` → `ArcaneToggleSwitch`
+  - `Search` → `ArcaneSearch`
+  - `Selector` → `ArcaneSelector`
+  - `CycleButton` → `ArcaneCycleButton`
+  - `FAB` → `ArcaneFAB`
+  - `ThemeToggle` → `ArcaneThemeToggle`
+- View components renamed:
+  - `Bar` → `ArcaneBar`
+  - `Glass` → `ArcaneGlass`
+  - `Expander` → `ArcaneExpander`
+  - `Accordion` → `ArcaneAccordion`
+  - `Tooltip` → `ArcaneTooltip`
+  - `Toast` → `ArcaneToast`
+  - `StaticTable` → `ArcaneStaticTable`
+  - `Timeline` → `ArcaneTimeline`
+  - `Stepper` → `ArcaneStepper`
+- Navigation components renamed:
+  - `Sidebar` → `ArcaneSidebar`
+  - `SidebarItem` → `ArcaneSidebarItem`
+  - `BottomNavigationBar` → `ArcaneBottomNavigationBar`
+  - `BottomNavItem` → `ArcaneBottomNavItem`
+- Screen components renamed:
+  - `Screen` → `ArcaneScreen`
+  - `FillScreen` → `ArcaneFillScreen`
+- Dialog/Feedback components renamed:
+  - `ConfirmDialog` → `ArcaneConfirmDialog`
+  - `AlertDialog` → `ArcaneAlertDialog`
+- Collection components renamed:
+  - `Collection` → `ArcaneCollection`
+  - `ListView` → `ArcaneListView`
+  - `GridView` → `ArcaneGridView`
+  - `MasonryGrid` → `ArcaneMasonryGrid`
+  - `CardCarousel` → `ArcaneCardCarousel`
+
 ## [1.0.0] - 2025-12-18
 
 ### Added

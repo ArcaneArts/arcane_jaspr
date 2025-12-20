@@ -28,13 +28,13 @@ import 'package:jaspr/dom.dart'
 import '../../util/style_types/arcane_style_data.dart';
 
 /// A nav component that wraps the HTML `<nav>` element.
-class Nav extends StatelessComponent {
+class ArcaneNav extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
   final String? classes;
   final String? id;
 
-  const Nav({
+  const ArcaneNav({
     required this.children,
     this.styles,
     this.classes,

@@ -5,7 +5,7 @@ import '../../util/tokens/tokens.dart';
 
 /// A feature card component (Supabase-style)
 /// Used for showcasing product features with icon, title, and description
-class FeatureCard extends StatelessComponent {
+class ArcaneFeatureCard extends StatelessComponent {
   /// The feature title
   final String title;
 
@@ -27,7 +27,7 @@ class FeatureCard extends StatelessComponent {
   /// Card orientation (vertical or horizontal)
   final bool horizontal;
 
-  const FeatureCard({
+  const ArcaneFeatureCard({
     required this.title,
     required this.description,
     this.icon,
@@ -167,7 +167,7 @@ class FeatureCard extends StatelessComponent {
 }
 
 /// A simple icon card for feature grids
-class IconCard extends StatelessComponent {
+class ArcaneIconCard extends StatelessComponent {
   /// The card title
   final String title;
 
@@ -183,7 +183,7 @@ class IconCard extends StatelessComponent {
   /// Optional link
   final String? href;
 
-  const IconCard({
+  const ArcaneIconCard({
     required this.title,
     required this.icon,
     this.subtitle,

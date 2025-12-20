@@ -6,9 +6,9 @@ import '../navigation/bottom_navigation_bar.dart';
 import '../navigation/sidebar.dart';
 
 /// A screen with built-in navigation (sidebar or bottom nav).
-class NavigationScreen extends StatefulComponent {
+class ArcaneNavigationScreen extends StatefulComponent {
   /// Navigation destinations
-  final List<NavigationDestination> destinations;
+  final List<ArcaneNavigationDestination> destinations;
 
   /// Initial selected index
   final int initialIndex;
@@ -34,7 +34,7 @@ class NavigationScreen extends StatefulComponent {
   /// Initial sidebar collapsed state
   final bool sidebarCollapsed;
 
-  const NavigationScreen({
+  const ArcaneNavigationScreen({
     required this.destinations,
     this.initialIndex = 0,
     this.onNavigationChanged,
@@ -48,10 +48,10 @@ class NavigationScreen extends StatefulComponent {
   });
 
   @override
-  State<NavigationScreen> createState() => _NavigationScreenState();
+  State<ArcaneNavigationScreen> createState() => _ArcaneNavigationScreenState();
 }
 
-class _NavigationScreenState extends State<NavigationScreen> {
+class _ArcaneNavigationScreenState extends State<ArcaneNavigationScreen> {
   late int _selectedIndex;
   late bool _sidebarCollapsed;
 
@@ -79,7 +79,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   @override
   Component build(BuildContext context) {
-    final NavigationDestination destination = _selectedIndex < component.destinations.length
+    final ArcaneNavigationDestination destination = _selectedIndex < component.destinations.length
         ? component.destinations[_selectedIndex]
         : component.destinations.first;
 
@@ -109,7 +109,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
           [
             // Sidebar navigation
             if (useSidebar)
-              Sidebar(
+              ArcaneSidebar(
                 header: component.sidebarHeader,
                 footer: component.sidebarFooter,
                 collapsed: _sidebarCollapsed,
@@ -118,7 +118,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                 showCollapseToggle: component.sidebarCollapsible,
                 children: [
                   for (int i = 0; i < component.destinations.length; i++)
-                    SidebarItem(
+                    ArcaneSidebarItem(
                       label: component.destinations[i].label,
                       icon: component.destinations[i].icon,
                       selected: i == _selectedIndex,
@@ -143,10 +143,10 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
         // Bottom navigation (for mobile/bottom mode)
         if (useBottomNav)
-          BottomNavigationBar(
+          ArcaneBottomNavigationBar(
             items: [
               for (final dest in component.destinations)
-                BottomNavItem(
+                ArcaneBottomNavItem(
                   label: dest.label,
                   icon: dest.icon,
                 ),
@@ -175,13 +175,13 @@ enum NavigationMode {
 }
 
 /// A navigation destination
-class NavigationDestination {
+class ArcaneNavigationDestination {
   final String label;
   final Component icon;
   final Component? selectedIcon;
   final Component content;
 
-  const NavigationDestination({
+  const ArcaneNavigationDestination({
     required this.label,
     required this.icon,
     this.selectedIcon,
@@ -190,7 +190,7 @@ class NavigationDestination {
 }
 
 /// A responsive scaffold that adapts to screen size
-class ResponsiveScaffold extends StatelessComponent {
+class ArcaneResponsiveScaffold extends StatelessComponent {
   /// Content for small screens (mobile)
   final Component mobile;
 
@@ -206,7 +206,7 @@ class ResponsiveScaffold extends StatelessComponent {
   /// Breakpoint for desktop (min-width)
   final double desktopBreakpoint;
 
-  const ResponsiveScaffold({
+  const ArcaneResponsiveScaffold({
     required this.mobile,
     this.tablet,
     this.desktop,

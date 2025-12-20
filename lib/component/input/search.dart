@@ -5,7 +5,7 @@ import '../../util/tokens/tokens.dart';
 import '../../util/tokens/style_presets.dart';
 
 /// A search input component with optional icon and clear button.
-class Search extends StatefulComponent {
+class ArcaneSearch extends StatefulComponent {
   /// Placeholder text
   final String placeholder;
 
@@ -39,7 +39,7 @@ class Search extends StatefulComponent {
   /// Style preset
   final InputStyle? style;
 
-  const Search({
+  const ArcaneSearch({
     this.placeholder = 'Search...',
     this.value,
     this.onChanged,
@@ -55,10 +55,10 @@ class Search extends StatefulComponent {
   });
 
   @override
-  State<Search> createState() => _SearchState();
+  State<ArcaneSearch> createState() => _ArcaneSearchState();
 }
 
-class _SearchState extends State<Search> {
+class _ArcaneSearchState extends State<ArcaneSearch> {
   late String _value;
 
   @override
@@ -68,7 +68,7 @@ class _SearchState extends State<Search> {
   }
 
   @override
-  void didUpdateComponent(Search oldComponent) {
+  void didUpdateComponent(ArcaneSearch oldComponent) {
     super.didUpdateComponent(oldComponent);
     if (component.value != null && component.value != _value) {
       _value = component.value!;

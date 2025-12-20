@@ -31,13 +31,13 @@ import '../../util/style_types/arcane_style_data.dart';
 ///
 /// Provides a Flutter-like API with direct `ArcaneStyleData` support.
 /// Named HtmlSection to avoid conflict with the layout Section component.
-class HtmlSection extends StatelessComponent {
+class ArcaneHtmlSection extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
   final String? classes;
   final String? id;
 
-  const HtmlSection({
+  const ArcaneHtmlSection({
     required this.children,
     this.styles,
     this.classes,

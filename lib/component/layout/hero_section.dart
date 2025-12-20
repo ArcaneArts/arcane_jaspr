@@ -5,7 +5,7 @@ import '../../util/tokens/tokens.dart';
 import '../typography/headline.dart';
 
 /// A hero section component (Supabase-style)
-class HeroSection extends StatelessComponent {
+class ArcaneHeroSection extends StatelessComponent {
   /// Main headline text
   final String headline;
 
@@ -33,7 +33,7 @@ class HeroSection extends StatelessComponent {
   /// Maximum content width
   final double maxWidth;
 
-  const HeroSection({
+  const ArcaneHeroSection({
     required this.headline,
     this.subheadline,
     this.primaryCta,
@@ -73,14 +73,14 @@ class HeroSection extends StatelessComponent {
             if (badge != null) badge!,
 
             // Headline
-            Headline.h1(
+            ArcaneHeadline.h1(
               headline,
               align: centered ? 'center' : 'left',
             ),
 
             // Subheadline
             if (subheadline != null)
-              Subheadline(
+              ArcaneSubheadline(
                 subheadline!,
                 size: 'lg',
                 align: centered ? 'center' : 'left',
@@ -122,7 +122,7 @@ class HeroSection extends StatelessComponent {
 }
 
 /// A CTA button group component
-class CtaGroup extends StatelessComponent {
+class ArcaneCtaGroup extends StatelessComponent {
   /// Primary CTA component
   final Component primaryCta;
 
@@ -135,7 +135,7 @@ class CtaGroup extends StatelessComponent {
   /// Gap between buttons
   final double gap;
 
-  const CtaGroup({
+  const ArcaneCtaGroup({
     required this.primaryCta,
     this.secondaryCta,
     this.centered = false,

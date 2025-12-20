@@ -4,13 +4,13 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../util/tokens/tokens.dart';
 
 /// A logo item for the carousel
-class LogoItem {
+class ArcaneLogoItem {
   final String name;
   final String? imageUrl;
   final Component? customLogo;
   final String? href;
 
-  const LogoItem({
+  const ArcaneLogoItem({
     required this.name,
     this.imageUrl,
     this.customLogo,
@@ -19,9 +19,9 @@ class LogoItem {
 }
 
 /// An infinite scrolling logo carousel (Supabase-style)
-class LogoCarousel extends StatelessComponent {
+class ArcaneLogoCarousel extends StatelessComponent {
   /// Logo items
-  final List<LogoItem> logos;
+  final List<ArcaneLogoItem> logos;
 
   /// Animation duration in seconds
   final int duration;
@@ -44,7 +44,7 @@ class LogoCarousel extends StatelessComponent {
   /// Optional title above the carousel
   final String? title;
 
-  const LogoCarousel({
+  const ArcaneLogoCarousel({
     required this.logos,
     this.duration = 30,
     this.logoHeight = 40,
@@ -119,7 +119,7 @@ class LogoCarousel extends StatelessComponent {
     );
   }
 
-  Component _buildLogo(LogoItem logo) {
+  Component _buildLogo(ArcaneLogoItem logo) {
     final Component logoContent = logo.customLogo ??
         (logo.imageUrl != null
             ? img(
@@ -203,9 +203,9 @@ class LogoCarousel extends StatelessComponent {
 }
 
 /// A static logo grid
-class LogoGrid extends StatelessComponent {
+class ArcaneLogoGrid extends StatelessComponent {
   /// Logo items
-  final List<LogoItem> logos;
+  final List<ArcaneLogoItem> logos;
 
   /// Logo height
   final double logoHeight;
@@ -222,7 +222,7 @@ class LogoGrid extends StatelessComponent {
   /// Number of columns
   final int columns;
 
-  const LogoGrid({
+  const ArcaneLogoGrid({
     required this.logos,
     this.logoHeight = 40,
     this.gap = 32,

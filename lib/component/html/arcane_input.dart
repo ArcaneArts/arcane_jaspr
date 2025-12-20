@@ -30,7 +30,7 @@ import '../../util/style_types/arcane_style_data.dart';
 /// A raw input component that wraps the HTML `<input>` element.
 ///
 /// This is a low-level wrapper for direct HTML input elements.
-class RawInput extends StatelessComponent {
+class ArcaneRawInput extends StatelessComponent {
   final ArcaneStyleData? styles;
   final String? classes;
   final String? id;
@@ -45,7 +45,7 @@ class RawInput extends StatelessComponent {
   final Map<String, String>? attributes;
   final Map<String, void Function(dynamic)>? events;
 
-  const RawInput({
+  const ArcaneRawInput({
     this.styles,
     this.classes,
     this.id,

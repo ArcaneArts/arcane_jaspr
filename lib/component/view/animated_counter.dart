@@ -4,7 +4,7 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../util/tokens/tokens.dart';
 
 /// Animated counter display for statistics
-class AnimatedCounter extends StatelessComponent {
+class ArcaneAnimatedCounter extends StatelessComponent {
   /// The value to display
   final String value;
 
@@ -29,7 +29,7 @@ class AnimatedCounter extends StatelessComponent {
   /// Gradient end color (use with gradientStart)
   final String? gradientEnd;
 
-  const AnimatedCounter({
+  const ArcaneAnimatedCounter({
     required this.value,
     this.prefix,
     this.suffix,
@@ -92,14 +92,14 @@ class AnimatedCounter extends StatelessComponent {
 }
 
 /// Counter row for displaying multiple stats
-class CounterRow extends StatelessComponent {
+class ArcaneCounterRow extends StatelessComponent {
   /// Counters to display
-  final List<AnimatedCounter> counters;
+  final List<ArcaneAnimatedCounter> counters;
 
   /// Gap between counters
   final String gap;
 
-  const CounterRow({
+  const ArcaneCounterRow({
     required this.counters,
     this.gap = '48px',
     super.key,
@@ -122,7 +122,7 @@ class CounterRow extends StatelessComponent {
 }
 
 /// A metric display with label
-class MetricDisplay extends StatelessComponent {
+class ArcaneMetricDisplay extends StatelessComponent {
   /// Metric value
   final String value;
 
@@ -138,7 +138,7 @@ class MetricDisplay extends StatelessComponent {
   /// Whether trend is positive
   final bool trendPositive;
 
-  const MetricDisplay({
+  const ArcaneMetricDisplay({
     required this.value,
     required this.label,
     this.icon,

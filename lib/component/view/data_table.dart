@@ -5,12 +5,12 @@ import '../../util/arcane.dart';
 import '../../util/tokens/tokens.dart';
 
 /// A data table component for displaying tabular data.
-class DataTable<T> extends StatefulComponent {
+class ArcaneDataTable<T> extends StatefulComponent {
   /// The data items to display
   final List<T> items;
 
   /// Column definitions
-  final List<DataColumn<T>> columns;
+  final List<ArcaneDataColumn<T>> columns;
 
   /// Callback when a row is clicked
   final void Function(T item)? onRowTap;
@@ -36,7 +36,7 @@ class DataTable<T> extends StatefulComponent {
   /// Empty state message
   final String emptyMessage;
 
-  const DataTable({
+  const ArcaneDataTable({
     required this.items,
     required this.columns,
     this.onRowTap,
@@ -51,7 +51,7 @@ class DataTable<T> extends StatefulComponent {
   });
 
   @override
-  State<DataTable<T>> createState() => _DataTableState<T>();
+  State<ArcaneDataTable<T>> createState() => _DataTableState<T>();
 
   @css
   static final List<StyleRule> styles = [
@@ -64,7 +64,7 @@ class DataTable<T> extends StatefulComponent {
   ];
 }
 
-class _DataTableState<T> extends State<DataTable<T>> {
+class _DataTableState<T> extends State<ArcaneDataTable<T>> {
   late Set<T> _selectedItems;
 
   @override
@@ -74,7 +74,7 @@ class _DataTableState<T> extends State<DataTable<T>> {
   }
 
   @override
-  void didUpdateComponent(DataTable<T> oldComponent) {
+  void didUpdateComponent(ArcaneDataTable<T> oldComponent) {
     super.didUpdateComponent(oldComponent);
     if (component.selectedItems != null) {
       _selectedItems = component.selectedItems!;
@@ -256,15 +256,15 @@ class _DataTableState<T> extends State<DataTable<T>> {
   }
 }
 
-/// A column definition for DataTable
-class DataColumn<T> {
+/// A column definition for ArcaneDataTable
+class ArcaneDataColumn<T> {
   final String header;
   final Component Function(T item) builder;
   final TextAlign align;
   final double? width;
   final bool sortable;
 
-  const DataColumn({
+  const ArcaneDataColumn({
     required this.header,
     required this.builder,
     this.align = TextAlign.left,

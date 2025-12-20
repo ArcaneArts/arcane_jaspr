@@ -5,7 +5,7 @@ import '../../util/tokens/tokens.dart';
 import '../../util/style_types/index.dart' hide BorderRadius;
 
 /// Gutter size options
-enum GutterSize {
+enum ArcaneGutterSize {
   xsmall(4),
   small(8),
   medium(16),
@@ -13,28 +13,28 @@ enum GutterSize {
   xlarge(32);
 
   final double pixels;
-  const GutterSize(this.pixels);
+  const ArcaneGutterSize(this.pixels);
 }
 
 /// A spacing component that provides consistent gaps between elements.
-class Gutter extends StatelessComponent {
+class ArcaneGutter extends StatelessComponent {
   /// The size of the gutter
-  final GutterSize size;
+  final ArcaneGutterSize size;
 
   /// Whether to render as a horizontal gutter
   final bool horizontal;
 
-  const Gutter({
-    this.size = GutterSize.medium,
+  const ArcaneGutter({
+    this.size = ArcaneGutterSize.medium,
     this.horizontal = false,
     super.key,
   });
 
-  const Gutter.xsmall({this.horizontal = false, super.key}) : size = GutterSize.xsmall;
-  const Gutter.small({this.horizontal = false, super.key}) : size = GutterSize.small;
-  const Gutter.medium({this.horizontal = false, super.key}) : size = GutterSize.medium;
-  const Gutter.large({this.horizontal = false, super.key}) : size = GutterSize.large;
-  const Gutter.xlarge({this.horizontal = false, super.key}) : size = GutterSize.xlarge;
+  const ArcaneGutter.xsmall({this.horizontal = false, super.key}) : size = ArcaneGutterSize.xsmall;
+  const ArcaneGutter.small({this.horizontal = false, super.key}) : size = ArcaneGutterSize.small;
+  const ArcaneGutter.medium({this.horizontal = false, super.key}) : size = ArcaneGutterSize.medium;
+  const ArcaneGutter.large({this.horizontal = false, super.key}) : size = ArcaneGutterSize.large;
+  const ArcaneGutter.xlarge({this.horizontal = false, super.key}) : size = ArcaneGutterSize.xlarge;
 
   @override
   Component build(BuildContext context) {
@@ -50,17 +50,17 @@ class Gutter extends StatelessComponent {
 }
 
 /// A flexible gap component
-class Gap extends StatelessComponent {
+class ArcaneGap extends StatelessComponent {
   final double size;
   final bool horizontal;
 
-  const Gap(this.size, {this.horizontal = false, super.key});
+  const ArcaneGap(this.size, {this.horizontal = false, super.key});
 
-  const Gap.xs({super.key}) : size = 4, horizontal = false;
-  const Gap.sm({super.key}) : size = 8, horizontal = false;
-  const Gap.md({super.key}) : size = 16, horizontal = false;
-  const Gap.lg({super.key}) : size = 24, horizontal = false;
-  const Gap.xl({super.key}) : size = 32, horizontal = false;
+  const ArcaneGap.xs({super.key}) : size = 4, horizontal = false;
+  const ArcaneGap.sm({super.key}) : size = 8, horizontal = false;
+  const ArcaneGap.md({super.key}) : size = 16, horizontal = false;
+  const ArcaneGap.lg({super.key}) : size = 24, horizontal = false;
+  const ArcaneGap.xl({super.key}) : size = 32, horizontal = false;
 
   @override
   Component build(BuildContext context) {
@@ -76,21 +76,21 @@ class Gap extends StatelessComponent {
 
 /// A container component with enum-based styling.
 ///
-/// Box is the primary building block for creating styled containers.
+/// ArcaneBox is the primary building block for creating styled containers.
 /// It supports all ArcaneStyleData properties through a clean, Flutter-like API.
 ///
 /// Example:
 /// ```dart
 /// // Simple box with padding and background
-/// Box(
+/// ArcaneBox(
 ///   padding: PaddingPreset.md,
 ///   background: Background.card,
 ///   borderRadius: Radius.lg,
-///   child: Text('Hello'),
+///   child: ArcaneText('Hello'),
 /// )
 ///
 /// // Card-like box
-/// Box(
+/// ArcaneBox(
 ///   padding: PaddingPreset.lg,
 ///   background: Background.card,
 ///   border: BorderPreset.subtle,
@@ -100,7 +100,7 @@ class Gap extends StatelessComponent {
 /// )
 ///
 /// // Full custom styling
-/// Box(
+/// ArcaneBox(
 ///   style: ArcaneStyleData(
 ///     display: Display.flex,
 ///     padding: PaddingPreset.mdLg,
@@ -109,7 +109,7 @@ class Gap extends StatelessComponent {
 ///   child: content,
 /// )
 /// ```
-class Box extends StatelessComponent {
+class ArcaneBox extends StatelessComponent {
   /// The child component
   final Component? child;
 
@@ -156,7 +156,7 @@ class Box extends StatelessComponent {
   /// (takes precedence over individual properties)
   final ArcaneStyleData? style;
 
-  const Box({
+  const ArcaneBox({
     this.child,
     this.children,
     this.padding,
@@ -176,8 +176,8 @@ class Box extends StatelessComponent {
   }) : assert(child != null || children != null,
             'Either child or children must be provided');
 
-  /// Create a Box with card styling
-  const Box.card({
+  /// Create an ArcaneBox with card styling
+  const ArcaneBox.card({
     this.child,
     this.children,
     this.padding = PaddingPreset.lg,
@@ -195,8 +195,8 @@ class Box extends StatelessComponent {
         border = BorderPreset.subtle,
         borderRadius = Radius.lg;
 
-  /// Create a Box with glass styling
-  const Box.glass({
+  /// Create an ArcaneBox with glass styling
+  const ArcaneBox.glass({
     this.child,
     this.children,
     this.padding = PaddingPreset.lg,
@@ -243,31 +243,31 @@ class Box extends StatelessComponent {
   }
 }
 
-/// A Stack component for positioning children on top of each other.
+/// An ArcaneStack component for positioning children on top of each other.
 ///
 /// Children can use absolute positioning to overlay each other.
 ///
 /// Example:
 /// ```dart
-/// Stack(
+/// ArcaneStack(
 ///   children: [
 ///     Image(...),
-///     Positioned(
+///     ArcanePositioned(
 ///       bottom: '16px',
 ///       right: '16px',
-///       child: Badge(...),
+///       child: ArcaneBadge(...),
 ///     ),
 ///   ],
 /// )
 /// ```
-class Stack extends StatelessComponent {
+class ArcaneStack extends StatelessComponent {
   /// The child components
   final List<Component> children;
 
   /// Full ArcaneStyleData for customization
   final ArcaneStyleData? style;
 
-  const Stack({
+  const ArcaneStack({
     required this.children,
     this.style,
     super.key,
@@ -287,8 +287,8 @@ class Stack extends StatelessComponent {
   }
 }
 
-/// A positioned child for use within a Stack.
-class Positioned extends StatelessComponent {
+/// A positioned child for use within an ArcaneStack.
+class ArcanePositioned extends StatelessComponent {
   /// The child component
   final Component child;
 
@@ -310,7 +310,7 @@ class Positioned extends StatelessComponent {
   /// Additional style
   final ArcaneStyleData? style;
 
-  const Positioned({
+  const ArcanePositioned({
     required this.child,
     this.top,
     this.right,
@@ -322,7 +322,7 @@ class Positioned extends StatelessComponent {
   });
 
   /// Fill the entire parent
-  const Positioned.fill({
+  const ArcanePositioned.fill({
     required this.child,
     this.style,
     super.key,

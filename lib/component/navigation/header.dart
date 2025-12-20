@@ -4,14 +4,14 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../util/tokens/tokens.dart';
 
 /// A navigation link item
-class NavItem {
+class ArcaneNavItem {
   final String label;
   final String? href;
   final void Function()? onTap;
-  final List<NavItem>? children;
+  final List<ArcaneNavItem>? children;
   final bool isActive;
 
-  const NavItem({
+  const ArcaneNavItem({
     required this.label,
     this.href,
     this.onTap,
@@ -21,12 +21,12 @@ class NavItem {
 }
 
 /// A website header/navbar component (Supabase-style)
-class Header extends StatelessComponent {
+class ArcaneHeader extends StatelessComponent {
   /// Logo component (usually an image or text)
   final Component logo;
 
   /// Navigation items
-  final List<NavItem> navItems;
+  final List<ArcaneNavItem> navItems;
 
   /// Right-side actions (buttons, etc.)
   final List<Component>? actions;
@@ -49,7 +49,7 @@ class Header extends StatelessComponent {
   /// Whether to add border bottom
   final bool bordered;
 
-  const Header({
+  const ArcaneHeader({
     required this.logo,
     required this.navItems,
     this.actions,
@@ -174,7 +174,7 @@ class Header extends StatelessComponent {
     );
   }
 
-  Component _buildNavItem(NavItem item) {
+  Component _buildNavItem(ArcaneNavItem item) {
     final bool hasChildren = item.children != null && item.children!.isNotEmpty;
 
     return div(
@@ -259,14 +259,14 @@ class Header extends StatelessComponent {
 }
 
 /// A simple nav link component
-class NavLink extends StatelessComponent {
+class ArcaneNavLink extends StatelessComponent {
   final String label;
   final String? href;
   final void Function()? onTap;
   final bool isActive;
   final bool showArrow;
 
-  const NavLink({
+  const ArcaneNavLink({
     required this.label,
     this.href,
     this.onTap,

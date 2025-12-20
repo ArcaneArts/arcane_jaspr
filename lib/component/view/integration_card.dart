@@ -4,7 +4,7 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../util/tokens/tokens.dart';
 
 /// An integration/partner card (Supabase-style)
-class IntegrationCard extends StatelessComponent {
+class ArcaneIntegrationCard extends StatelessComponent {
   /// Integration name
   final String name;
 
@@ -29,7 +29,7 @@ class IntegrationCard extends StatelessComponent {
   /// Whether it's featured
   final bool featured;
 
-  const IntegrationCard({
+  const ArcaneIntegrationCard({
     required this.name,
     this.description,
     this.logoUrl,
@@ -204,9 +204,9 @@ class IntegrationCard extends StatelessComponent {
 }
 
 /// A grid of integration cards
-class IntegrationGrid extends StatelessComponent {
+class ArcaneIntegrationGrid extends StatelessComponent {
   /// Integration items
-  final List<IntegrationCard> integrations;
+  final List<ArcaneIntegrationCard> integrations;
 
   /// Number of columns
   final int columns;
@@ -220,7 +220,7 @@ class IntegrationGrid extends StatelessComponent {
   /// Optional description
   final String? description;
 
-  const IntegrationGrid({
+  const ArcaneIntegrationGrid({
     required this.integrations,
     this.columns = 3,
     this.gap = 24,

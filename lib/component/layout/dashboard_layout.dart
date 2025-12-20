@@ -16,7 +16,7 @@ import 'package:jaspr/dom.dart'
 import '../../util/tokens/tokens.dart';
 
 /// A navigation item for the dashboard sidebar
-class DashboardNavItem {
+class ArcaneDashboardNavItem {
   /// The display label
   final String label;
 
@@ -29,7 +29,7 @@ class DashboardNavItem {
   /// Optional badge text (e.g., notification count)
   final String? badge;
 
-  const DashboardNavItem({
+  const ArcaneDashboardNavItem({
     required this.label,
     required this.href,
     this.icon,
@@ -38,14 +38,14 @@ class DashboardNavItem {
 }
 
 /// A group of navigation items with an optional label
-class DashboardNavGroup {
+class ArcaneDashboardNavGroup {
   /// Optional group label (uppercase header)
   final String? label;
 
   /// The items in this group
-  final List<DashboardNavItem> items;
+  final List<ArcaneDashboardNavItem> items;
 
-  const DashboardNavGroup({
+  const ArcaneDashboardNavGroup({
     this.label,
     required this.items,
   });
@@ -63,7 +63,7 @@ class ArcaneDashboardLayout extends StatelessComponent {
   final String currentRoute;
 
   /// Navigation groups to display in the sidebar
-  final List<DashboardNavGroup> navigation;
+  final List<ArcaneDashboardNavGroup> navigation;
 
   /// Header component for the sidebar (typically a logo)
   final Component? sidebarHeader;
@@ -186,7 +186,7 @@ class ArcaneDashboardLayout extends StatelessComponent {
     );
   }
 
-  Component _buildNavGroup(DashboardNavGroup group) {
+  Component _buildNavGroup(ArcaneDashboardNavGroup group) {
     return div(
       classes: 'arcane-dashboard-nav-group',
       styles: const Styles(raw: {
@@ -214,7 +214,7 @@ class ArcaneDashboardLayout extends StatelessComponent {
     );
   }
 
-  Component _buildNavItem(DashboardNavItem item) {
+  Component _buildNavItem(ArcaneDashboardNavItem item) {
     final bool isActive = currentRoute == item.href;
     return a(
       href: item.href,

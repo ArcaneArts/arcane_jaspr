@@ -199,7 +199,7 @@ class ArcaneCard extends StatelessComponent {
 }
 
 /// A card with header, body, and footer sections
-class StructuredCard extends StatelessComponent {
+class ArcaneStructuredCard extends StatelessComponent {
   final Component? header;
   final Component body;
   final Component? footer;
@@ -210,7 +210,7 @@ class StructuredCard extends StatelessComponent {
   final int elevation;
   final void Function()? onTap;
 
-  const StructuredCard({
+  const ArcaneStructuredCard({
     this.header,
     required this.body,
     this.footer,
@@ -286,7 +286,7 @@ class StructuredCard extends StatelessComponent {
 }
 
 /// An image card with overlay text
-class ImageCard extends StatelessComponent {
+class ArcaneImageCard extends StatelessComponent {
   final String imageUrl;
   final String? title;
   final String? subtitle;
@@ -296,7 +296,7 @@ class ImageCard extends StatelessComponent {
   final void Function()? onTap;
   final BoxFit fit;
 
-  const ImageCard({
+  const ArcaneImageCard({
     required this.imageUrl,
     this.title,
     this.subtitle,

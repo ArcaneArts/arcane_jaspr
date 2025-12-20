@@ -152,7 +152,7 @@ class ArcaneFieldWrapper extends StatelessComponent {
 }
 
 /// A form section that groups multiple fields together.
-class FormSection extends StatelessComponent {
+class ArcaneFormSection extends StatelessComponent {
   /// Section title.
   final String? title;
 
@@ -165,7 +165,7 @@ class FormSection extends StatelessComponent {
   /// Spacing between fields.
   final double spacing;
 
-  const FormSection({
+  const ArcaneFormSection({
     this.title,
     this.description,
     required this.children,
@@ -341,14 +341,14 @@ class _ArcaneFormState extends State<ArcaneForm> {
 }
 
 /// An input group that combines multiple inputs in a row.
-class InputGroup extends StatelessComponent {
+class ArcaneInputGroup extends StatelessComponent {
   /// Children inputs.
   final List<Component> children;
 
   /// Gap between inputs.
   final double gap;
 
-  const InputGroup({
+  const ArcaneInputGroup({
     required this.children,
     this.gap = 8,
     super.key,

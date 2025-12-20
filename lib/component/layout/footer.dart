@@ -4,24 +4,24 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../util/tokens/tokens.dart';
 
 /// A footer link group
-class FooterLinkGroup {
+class ArcaneFooterLinkGroup {
   final String title;
-  final List<FooterLink> links;
+  final List<ArcaneFooterLink> links;
 
-  const FooterLinkGroup({
+  const ArcaneFooterLinkGroup({
     required this.title,
     required this.links,
   });
 }
 
 /// A footer link
-class FooterLink {
+class ArcaneFooterLink {
   final String label;
   final String? href;
   final void Function()? onTap;
   final bool external;
 
-  const FooterLink({
+  const ArcaneFooterLink({
     required this.label,
     this.href,
     this.onTap,
@@ -30,7 +30,7 @@ class FooterLink {
 }
 
 /// A website footer component (Supabase-style)
-class Footer extends StatelessComponent {
+class ArcaneFooter extends StatelessComponent {
   /// Logo component
   final Component? logo;
 
@@ -38,7 +38,7 @@ class Footer extends StatelessComponent {
   final String? description;
 
   /// Link groups (columns)
-  final List<FooterLinkGroup> linkGroups;
+  final List<ArcaneFooterLinkGroup> linkGroups;
 
   /// Social media icons/links
   final List<Component>? socialLinks;
@@ -47,7 +47,7 @@ class Footer extends StatelessComponent {
   final String? copyright;
 
   /// Bottom links (privacy, terms, etc.)
-  final List<FooterLink>? bottomLinks;
+  final List<ArcaneFooterLink>? bottomLinks;
 
   /// Whether to show a newsletter form
   final bool showNewsletter;
@@ -61,7 +61,7 @@ class Footer extends StatelessComponent {
   /// Newsletter callback
   final void Function(String)? onNewsletterSubmit;
 
-  const Footer({
+  const ArcaneFooter({
     this.logo,
     this.description,
     required this.linkGroups,
@@ -260,7 +260,7 @@ class Footer extends StatelessComponent {
     );
   }
 
-  Component _buildLink(FooterLink link) {
+  Component _buildLink(ArcaneFooterLink link) {
     final Styles linkStyles = const Styles(raw: {
       'font-size': ArcaneTypography.fontSm,
       'color': ArcaneColors.muted,
@@ -307,7 +307,7 @@ class Footer extends StatelessComponent {
 }
 
 /// Social icon link component
-class SocialIcon extends StatelessComponent {
+class ArcaneSocialIcon extends StatelessComponent {
   /// Icon component or text
   final Component icon;
 
@@ -320,7 +320,7 @@ class SocialIcon extends StatelessComponent {
   /// Aria label for accessibility
   final String label;
 
-  const SocialIcon({
+  const ArcaneSocialIcon({
     required this.icon,
     required this.label,
     this.href,

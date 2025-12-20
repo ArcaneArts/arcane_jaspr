@@ -4,14 +4,14 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../util/tokens/tokens.dart';
 
 /// Mobile navigation item
-class MobileNavItem {
+class ArcaneMobileNavItem {
   final String label;
   final String? href;
   final void Function()? onTap;
-  final List<MobileNavItem>? children;
+  final List<ArcaneMobileNavItem>? children;
   final Component? icon;
 
-  const MobileNavItem({
+  const ArcaneMobileNavItem({
     required this.label,
     this.href,
     this.onTap,
@@ -21,9 +21,9 @@ class MobileNavItem {
 }
 
 /// A mobile hamburger menu (Supabase-style)
-class MobileMenu extends StatefulComponent {
+class ArcaneMobileMenu extends StatefulComponent {
   /// Navigation items
-  final List<MobileNavItem> items;
+  final List<ArcaneMobileNavItem> items;
 
   /// Optional logo
   final Component? logo;
@@ -37,7 +37,7 @@ class MobileMenu extends StatefulComponent {
   /// Whether the menu is open
   final bool isOpen;
 
-  const MobileMenu({
+  const ArcaneMobileMenu({
     required this.items,
     this.logo,
     this.cta,
@@ -47,7 +47,7 @@ class MobileMenu extends StatefulComponent {
   });
 
   @override
-  State<MobileMenu> createState() => _MobileMenuState();
+  State<ArcaneMobileMenu> createState() => _ArcaneMobileMenuState();
 
   @css
   static final List<StyleRule> styles = [
@@ -73,7 +73,7 @@ class MobileMenu extends StatefulComponent {
   ];
 }
 
-class _MobileMenuState extends State<MobileMenu> {
+class _ArcaneMobileMenuState extends State<ArcaneMobileMenu> {
   final Set<int> _expandedItems = {};
 
   void _toggleExpand(int index) {
@@ -171,7 +171,7 @@ class _MobileMenuState extends State<MobileMenu> {
     );
   }
 
-  Component _buildNavItem(int index, MobileNavItem item) {
+  Component _buildNavItem(int index, ArcaneMobileNavItem item) {
     final bool hasChildren = item.children != null && item.children!.isNotEmpty;
     final bool isExpanded = _expandedItems.contains(index);
 
@@ -333,7 +333,7 @@ class _MobileMenuState extends State<MobileMenu> {
 }
 
 /// Hamburger menu button
-class HamburgerButton extends StatelessComponent {
+class ArcaneHamburgerButton extends StatelessComponent {
   /// Whether the menu is open
   final bool isOpen;
 
@@ -343,7 +343,7 @@ class HamburgerButton extends StatelessComponent {
   /// Size
   final double size;
 
-  const HamburgerButton({
+  const ArcaneHamburgerButton({
     this.isOpen = false,
     this.onTap,
     this.size = 24,

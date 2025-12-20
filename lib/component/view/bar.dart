@@ -12,7 +12,7 @@ enum BarBackButtonMode {
 }
 
 /// An app bar / header component.
-class Bar extends StatelessComponent {
+class ArcaneBar extends StatelessComponent {
   /// Title text
   final String? titleText;
 
@@ -49,7 +49,7 @@ class Bar extends StatelessComponent {
   /// Custom padding
   final EdgeInsets? padding;
 
-  const Bar({
+  const ArcaneBar({
     this.titleText,
     this.title,
     this.subtitleText,
@@ -213,11 +213,11 @@ class Bar extends StatelessComponent {
 }
 
 /// A simple top bar for dialogs
-class DialogBar extends StatelessComponent {
+class ArcaneDialogBar extends StatelessComponent {
   final String? title;
   final void Function()? onClose;
 
-  const DialogBar({
+  const ArcaneDialogBar({
     this.title,
     this.onClose,
     super.key,

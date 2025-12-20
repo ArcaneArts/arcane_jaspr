@@ -7,7 +7,7 @@ import '../../util/tokens/tokens.dart';
 import '../../util/style_types/index.dart' hide BorderRadius;
 
 /// A flexible flow layout component that wraps children.
-class Flow extends StatelessComponent {
+class ArcaneFlow extends StatelessComponent {
   /// The child components
   final List<Component> children;
 
@@ -32,7 +32,7 @@ class Flow extends StatelessComponent {
   /// Whether to reverse the direction
   final bool reverse;
 
-  const Flow({
+  const ArcaneFlow({
     required this.children,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.start,
@@ -67,13 +67,13 @@ class Flow extends StatelessComponent {
 /// Supports both legacy numeric gap and new enum-based Gap:
 /// ```dart
 /// // Legacy (still works)
-/// Row(gap: 16, children: [...])
+/// ArcaneRow(gap: 16, children: [...])
 ///
 /// // New enum-based (preferred)
-/// Row(gapSize: Gap.md, children: [...])
+/// ArcaneRow(gapSize: Gap.md, children: [...])
 ///
 /// // With full style customization
-/// Row(
+/// ArcaneRow(
 ///   gapSize: Gap.md,
 ///   style: ArcaneStyleData(
 ///     padding: PaddingPreset.md,
@@ -82,7 +82,7 @@ class Flow extends StatelessComponent {
 ///   children: [...],
 /// )
 /// ```
-class Row extends StatelessComponent {
+class ArcaneRow extends StatelessComponent {
   final List<Component> children;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
@@ -97,7 +97,7 @@ class Row extends StatelessComponent {
   /// Additional style customization
   final ArcaneStyleData? style;
 
-  const Row({
+  const ArcaneRow({
     required this.children,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.center,
@@ -144,13 +144,13 @@ class Row extends StatelessComponent {
 /// Supports both legacy numeric gap and new enum-based Gap:
 /// ```dart
 /// // Legacy (still works)
-/// Column(gap: 16, children: [...])
+/// ArcaneColumn(gap: 16, children: [...])
 ///
 /// // New enum-based (preferred)
-/// Column(gapSize: Gap.md, children: [...])
+/// ArcaneColumn(gapSize: Gap.md, children: [...])
 ///
 /// // With full style customization
-/// Column(
+/// ArcaneColumn(
 ///   gapSize: Gap.md,
 ///   style: ArcaneStyleData(
 ///     padding: PaddingPreset.md,
@@ -159,7 +159,7 @@ class Row extends StatelessComponent {
 ///   children: [...],
 /// )
 /// ```
-class Column extends StatelessComponent {
+class ArcaneColumn extends StatelessComponent {
   final List<Component> children;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
@@ -174,7 +174,7 @@ class Column extends StatelessComponent {
   /// Additional style customization
   final ArcaneStyleData? style;
 
-  const Column({
+  const ArcaneColumn({
     required this.children,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.stretch,
@@ -217,10 +217,10 @@ class Column extends StatelessComponent {
 }
 
 /// A flexible spacer component
-class Spacer extends StatelessComponent {
+class ArcaneSpacer extends StatelessComponent {
   final int flex;
 
-  const Spacer({this.flex = 1, super.key});
+  const ArcaneSpacer({this.flex = 1, super.key});
 
   @override
   Component build(BuildContext context) {
@@ -235,10 +235,10 @@ class Spacer extends StatelessComponent {
 }
 
 /// A center alignment component
-class Center extends StatelessComponent {
+class ArcaneCenter extends StatelessComponent {
   final Component child;
 
-  const Center({required this.child, super.key});
+  const ArcaneCenter({required this.child, super.key});
 
   @override
   Component build(BuildContext context) {
@@ -257,11 +257,11 @@ class Center extends StatelessComponent {
 }
 
 /// An expanded component that fills available space
-class Expanded extends StatelessComponent {
+class ArcaneExpanded extends StatelessComponent {
   final Component child;
   final int flex;
 
-  const Expanded({required this.child, this.flex = 1, super.key});
+  const ArcaneExpanded({required this.child, this.flex = 1, super.key});
 
   @override
   Component build(BuildContext context) {
@@ -278,11 +278,11 @@ class Expanded extends StatelessComponent {
 }
 
 /// A padding wrapper component
-class Padding extends StatelessComponent {
+class ArcanePadding extends StatelessComponent {
   final EdgeInsets padding;
   final Component child;
 
-  const Padding({
+  const ArcanePadding({
     required this.padding,
     required this.child,
     super.key,
@@ -301,19 +301,19 @@ class Padding extends StatelessComponent {
 }
 
 /// A sized box component
-class SizedBox extends StatelessComponent {
+class ArcaneSizedBox extends StatelessComponent {
   final double? width;
   final double? height;
   final Component? child;
 
-  const SizedBox({this.width, this.height, this.child, super.key});
+  const ArcaneSizedBox({this.width, this.height, this.child, super.key});
 
-  const SizedBox.shrink({super.key})
+  const ArcaneSizedBox.shrink({super.key})
       : width = 0,
         height = 0,
         child = null;
 
-  const SizedBox.expand({super.key})
+  const ArcaneSizedBox.expand({super.key})
       : width = double.infinity,
         height = double.infinity,
         child = null;
@@ -337,17 +337,17 @@ class SizedBox extends StatelessComponent {
 }
 
 /// A container component with styling options
-class Container extends StatelessComponent {
+class ArcaneContainer extends StatelessComponent {
   final Component? child;
   final EdgeInsets? padding;
   final EdgeInsets? margin;
   final double? width;
   final double? height;
   final Color? color;
-  final BoxDecoration? decoration;
+  final ArcaneBoxDecoration? decoration;
   final Alignment? alignment;
 
-  const Container({
+  const ArcaneContainer({
     this.child,
     this.padding,
     this.margin,
@@ -398,14 +398,14 @@ class Container extends StatelessComponent {
   }
 }
 
-/// Box decoration for Container
-class BoxDecoration {
+/// Box decoration for ArcaneContainer
+class ArcaneBoxDecoration {
   final Color? color;
   final BorderRadius? borderRadius;
-  final Border? border;
+  final ArcaneBorder? border;
   final List<BoxShadow>? boxShadow;
 
-  const BoxDecoration({
+  const ArcaneBoxDecoration({
     this.color,
     this.borderRadius,
     this.border,
@@ -413,19 +413,19 @@ class BoxDecoration {
   });
 }
 
-/// Border for BoxDecoration
-class Border {
+/// Border for ArcaneBoxDecoration
+class ArcaneBorder {
   final Color color;
   final double width;
   final String style;
 
-  const Border({
+  const ArcaneBorder({
     required this.color,
     this.width = 1,
     this.style = 'solid',
   });
 
-  const Border.all({
+  const ArcaneBorder.all({
     required this.color,
     this.width = 1,
   }) : style = 'solid';

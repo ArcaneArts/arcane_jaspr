@@ -141,12 +141,12 @@ class ArcaneAvatar extends StatelessComponent {
 }
 
 /// Avatar group for stacking multiple avatars
-class AvatarGroup extends StatelessComponent {
+class ArcaneAvatarGroup extends StatelessComponent {
   final List<ArcaneAvatar> avatars;
   final int maxVisible;
   final AvatarSize size;
 
-  const AvatarGroup({
+  const ArcaneAvatarGroup({
     required this.avatars,
     this.maxVisible = 4,
     this.size = AvatarSize.md,

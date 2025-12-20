@@ -28,13 +28,13 @@ import 'package:jaspr/dom.dart'
 import '../../util/style_types/arcane_style_data.dart';
 
 /// A main component that wraps the HTML `<main>` element.
-class Main extends StatelessComponent {
+class ArcaneMain extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
   final String? classes;
   final String? id;
 
-  const Main({
+  const ArcaneMain({
     required this.children,
     this.styles,
     this.classes,
@@ -54,13 +54,13 @@ class Main extends StatelessComponent {
 }
 
 /// A header component that wraps the HTML `<header>` element.
-class Header extends StatelessComponent {
+class ArcaneHeader extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
   final String? classes;
   final String? id;
 
-  const Header({
+  const ArcaneHeader({
     required this.children,
     this.styles,
     this.classes,

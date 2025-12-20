@@ -5,9 +5,9 @@ import '../../util/tokens/tokens.dart';
 import '../../util/tokens/style_presets.dart';
 
 /// A dropdown selector component.
-class Selector<T> extends StatefulComponent {
+class ArcaneSelector<T> extends StatefulComponent {
   /// The available options
-  final List<SelectorOption<T>> options;
+  final List<ArcaneSelectorOption<T>> options;
 
   /// The currently selected value
   final T? value;
@@ -36,7 +36,7 @@ class Selector<T> extends StatefulComponent {
   /// Style preset
   final InputStyle? style;
 
-  const Selector({
+  const ArcaneSelector({
     required this.options,
     this.value,
     this.onChanged,
@@ -51,10 +51,10 @@ class Selector<T> extends StatefulComponent {
   });
 
   @override
-  State<Selector<T>> createState() => _SelectorState<T>();
+  State<ArcaneSelector<T>> createState() => _ArcaneSelectorState<T>();
 }
 
-class _SelectorState<T> extends State<Selector<T>> {
+class _ArcaneSelectorState<T> extends State<ArcaneSelector<T>> {
   bool _isOpen = false;
   String _searchQuery = '';
 
@@ -66,7 +66,7 @@ class _SelectorState<T> extends State<Selector<T>> {
     });
   }
 
-  void _selectOption(SelectorOption<T> option) {
+  void _selectOption(ArcaneSelectorOption<T> option) {
     setState(() {
       _isOpen = false;
       _searchQuery = '';
@@ -80,7 +80,7 @@ class _SelectorState<T> extends State<Selector<T>> {
     });
   }
 
-  List<SelectorOption<T>> get _filteredOptions {
+  List<ArcaneSelectorOption<T>> get _filteredOptions {
     if (_searchQuery.isEmpty) return component.options;
     final query = _searchQuery.toLowerCase();
     return component.options.where((opt) {
@@ -94,7 +94,7 @@ class _SelectorState<T> extends State<Selector<T>> {
     final hasError = component.error != null;
 
     final selectedOption = component.value != null
-        ? component.options.cast<SelectorOption<T>?>().firstWhere(
+        ? component.options.cast<ArcaneSelectorOption<T>?>().firstWhere(
               (opt) => opt?.value == component.value,
               orElse: () => null,
             )
@@ -294,7 +294,7 @@ class _SelectorState<T> extends State<Selector<T>> {
     );
   }
 
-  Component _buildOption(BuildContext context, SelectorOption<T> option) {
+  Component _buildOption(BuildContext context, ArcaneSelectorOption<T> option) {
     final isSelected = option.value == component.value;
     final isDisabled = option.disabled;
 
@@ -355,15 +355,15 @@ class _SelectorState<T> extends State<Selector<T>> {
   }
 }
 
-/// An option for Selector
-class SelectorOption<T> {
+/// An option for ArcaneSelector
+class ArcaneSelectorOption<T> {
   final T value;
   final String label;
   final String? subtitle;
   final Component? icon;
   final bool disabled;
 
-  const SelectorOption({
+  const ArcaneSelectorOption({
     required this.value,
     required this.label,
     this.subtitle,

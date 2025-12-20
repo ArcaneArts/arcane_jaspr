@@ -6,7 +6,7 @@ import '../input/button.dart';
 import 'dialog.dart';
 
 /// A text input dialog component.
-class TextInputDialog extends StatefulComponent {
+class ArcaneTextInputDialog extends StatefulComponent {
   /// Dialog title
   final String title;
 
@@ -43,7 +43,7 @@ class TextInputDialog extends StatefulComponent {
   /// Whether the input is multiline
   final int maxLines;
 
-  const TextInputDialog({
+  const ArcaneTextInputDialog({
     required this.title,
     this.message,
     this.placeholder = '',
@@ -60,7 +60,7 @@ class TextInputDialog extends StatefulComponent {
   });
 
   @override
-  State<TextInputDialog> createState() => _TextInputDialogState();
+  State<ArcaneTextInputDialog> createState() => _TextInputDialogState();
 
   @css
   static final List<StyleRule> styles = [
@@ -75,7 +75,7 @@ class TextInputDialog extends StatefulComponent {
   ];
 }
 
-class _TextInputDialogState extends State<TextInputDialog> {
+class _TextInputDialogState extends State<ArcaneTextInputDialog> {
   late String _value;
   String? _error;
 

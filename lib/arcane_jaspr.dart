@@ -117,17 +117,17 @@ export 'component/view/glass.dart';
 export 'component/view/card.dart';
 export 'component/view/card_section.dart';
 export 'component/view/tile.dart';
-export 'component/view/expander.dart' hide AccordionItem, Accordion;
+export 'component/view/expander.dart' hide AccordionItem, Accordion, ArcaneAccordionItem, ArcaneAccordion;
 export 'component/view/center_body.dart';
 export 'component/view/data_table.dart';
 export 'component/view/static_table.dart';
 export 'component/view/badge.dart';
 export 'component/view/feature_card.dart';
 export 'component/view/pricing_card.dart';
-export 'component/view/testimonial_card.dart';
+export 'component/view/testimonial_card.dart' hide ArcaneRatingStars;
 export 'component/view/integration_card.dart';
 export 'component/view/game_tile.dart';
-export 'component/view/divider.dart' hide Divider;
+export 'component/view/divider.dart' hide Divider, ArcaneDivider;
 export 'component/view/code_snippet.dart';
 export 'component/view/avatar.dart';
 export 'component/view/progress_bar.dart';
@@ -136,11 +136,11 @@ export 'component/view/stat_card.dart';
 export 'component/view/timeline.dart';
 export 'component/view/stepper.dart';
 export 'component/view/skeleton.dart';
-export 'component/view/chip.dart';
+export 'component/view/chip.dart' hide ArcaneChip, ArcaneChipGroup;
 export 'component/view/status_indicator.dart';
 export 'component/view/animated_counter.dart';
 export 'component/view/gradient_text.dart';
-export 'component/view/social_icons.dart';
+export 'component/view/social_icons.dart' hide ArcaneSocialIcon;
 export 'component/view/settings_section.dart';
 
 // ============================================================================
@@ -178,7 +178,7 @@ export 'component/form/newsletter_form.dart';
 // ============================================================================
 // Feedback components
 // ============================================================================
-export 'component/feedback/alert_banner.dart';
+export 'component/feedback/alert_banner.dart' hide ArcaneProgressBar, ArcaneLoader;
 export 'component/feedback/tooltip.dart';
 export 'component/feedback/loader.dart';
 
@@ -204,12 +204,12 @@ export 'component/html/arcane_input.dart';
 export 'component/html/arcane_label.dart';
 export 'component/html/arcane_link.dart';
 export 'component/html/arcane_span.dart';
-export 'component/html/arcane_text.dart';
+export 'component/html/arcane_text.dart' hide ArcaneText;
 export 'component/html/aside.dart';
 export 'component/html/blockquote.dart';
 export 'component/html/div.dart';
-export 'component/html/footer.dart' show HtmlFooter;
-export 'component/html/header.dart' hide Header;
+export 'component/html/footer.dart' show ArcaneHtmlFooter;
+export 'component/html/header.dart' hide Header, ArcaneHeader;
 export 'component/html/heading.dart';
 export 'component/html/list.dart';
 export 'component/html/main_element.dart';

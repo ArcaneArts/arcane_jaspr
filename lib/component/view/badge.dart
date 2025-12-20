@@ -30,9 +30,9 @@ enum BadgeSize { sm, md, lg }
 ///
 /// Use style presets for cleaner code:
 /// ```dart
-/// Badge('Active', style: BadgeStyle.success)
+/// ArcaneBadge('Active', style: BadgeStyle.success)
 /// ```
-class Badge extends StatelessComponent {
+class ArcaneBadge extends StatelessComponent {
   /// The badge text
   final String label;
 
@@ -49,7 +49,7 @@ class Badge extends StatelessComponent {
   /// Badge size
   final BadgeSize size;
 
-  const Badge(
+  const ArcaneBadge(
     this.label, {
     this.icon,
     this.style,
@@ -59,7 +59,7 @@ class Badge extends StatelessComponent {
   });
 
   /// Primary badge
-  const Badge.primary(
+  const ArcaneBadge.primary(
     this.label, {
     this.icon,
     this.size = BadgeSize.md,
@@ -68,7 +68,7 @@ class Badge extends StatelessComponent {
         variant = null;
 
   /// Success badge
-  const Badge.success(
+  const ArcaneBadge.success(
     this.label, {
     this.icon,
     this.size = BadgeSize.md,
@@ -77,7 +77,7 @@ class Badge extends StatelessComponent {
         variant = null;
 
   /// Warning badge
-  const Badge.warning(
+  const ArcaneBadge.warning(
     this.label, {
     this.icon,
     this.size = BadgeSize.md,
@@ -86,7 +86,7 @@ class Badge extends StatelessComponent {
         variant = null;
 
   /// Error/destructive badge
-  const Badge.error(
+  const ArcaneBadge.error(
     this.label, {
     this.icon,
     this.size = BadgeSize.md,
@@ -95,7 +95,7 @@ class Badge extends StatelessComponent {
         variant = null;
 
   /// Alias for error
-  const Badge.destructive(
+  const ArcaneBadge.destructive(
     this.label, {
     this.icon,
     this.size = BadgeSize.md,
@@ -104,7 +104,7 @@ class Badge extends StatelessComponent {
         variant = null;
 
   /// Info badge
-  const Badge.info(
+  const ArcaneBadge.info(
     this.label, {
     this.icon,
     this.size = BadgeSize.md,
@@ -113,7 +113,7 @@ class Badge extends StatelessComponent {
         variant = null;
 
   /// Outline badge
-  const Badge.outline(
+  const ArcaneBadge.outline(
     this.label, {
     this.icon,
     this.size = BadgeSize.md,

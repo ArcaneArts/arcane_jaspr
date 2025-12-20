@@ -5,7 +5,7 @@ import '../../util/arcane.dart';
 import '../../util/tokens/tokens.dart';
 
 /// A section component for grouping related content with an optional header.
-class Section extends StatelessComponent {
+class ArcaneSection extends StatelessComponent {
   /// Optional section header text
   final String? header;
 
@@ -27,7 +27,7 @@ class Section extends StatelessComponent {
   /// Whether this is a card-style section
   final bool card;
 
-  const Section({
+  const ArcaneSection({
     this.header,
     this.headerComponent,
     required this.children,
@@ -109,13 +109,13 @@ class Section extends StatelessComponent {
 }
 
 /// A sliver-style section for use in scrollable lists
-class SliverSection extends StatelessComponent {
+class ArcaneSliverSection extends StatelessComponent {
   final String? header;
   final Component? headerComponent;
   final List<Component> children;
   final double gap;
 
-  const SliverSection({
+  const ArcaneSliverSection({
     this.header,
     this.headerComponent,
     required this.children,
@@ -125,7 +125,7 @@ class SliverSection extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return Section(
+    return ArcaneSection(
       header: header,
       headerComponent: headerComponent,
       gap: gap,

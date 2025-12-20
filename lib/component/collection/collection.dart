@@ -8,7 +8,7 @@ import '../../util/tokens/tokens.dart';
 /// The [Collection] widget serves as a flexible container for rendering lists
 /// of components, supporting both static children and dynamic builder patterns.
 /// It is designed for use in scrollable views or as part of larger compositions.
-class Collection extends StatelessComponent {
+class ArcaneCollection extends StatelessComponent {
   /// The list of static child components to render.
   final List<Component> children;
 
@@ -31,7 +31,7 @@ class Collection extends StatelessComponent {
   final String? padding;
 
   /// Default constructor for creating a [Collection] with static children.
-  const Collection({
+  const ArcaneCollection({
     super.key,
     this.children = const [],
     this.direction = Axis.vertical,
@@ -42,7 +42,7 @@ class Collection extends StatelessComponent {
         childCount = null;
 
   /// Creates a [Collection] using a builder for dynamic child generation.
-  const Collection.builder({
+  const ArcaneCollection.builder({
     super.key,
     required this.builder,
     required this.childCount,
@@ -89,7 +89,7 @@ enum Axis {
 }
 
 /// A list view component for displaying scrollable lists.
-class ListView extends StatelessComponent {
+class ArcaneListView extends StatelessComponent {
   /// Children to display in the list.
   final List<Component> children;
 
@@ -108,7 +108,7 @@ class ListView extends StatelessComponent {
   /// Whether the list scrolls horizontally.
   final bool horizontal;
 
-  const ListView({
+  const ArcaneListView({
     super.key,
     this.children = const [],
     this.gap = 0,
@@ -117,7 +117,7 @@ class ListView extends StatelessComponent {
   })  : builder = null,
         itemCount = null;
 
-  const ListView.builder({
+  const ArcaneListView.builder({
     super.key,
     required this.builder,
     required this.itemCount,
@@ -148,7 +148,7 @@ class ListView extends StatelessComponent {
 }
 
 /// A grid layout component for displaying items in a grid.
-class GridView extends StatelessComponent {
+class ArcaneGridView extends StatelessComponent {
   /// Children to display in the grid.
   final List<Component> children;
 
@@ -170,7 +170,7 @@ class GridView extends StatelessComponent {
   /// Minimum item width for auto-fit columns.
   final double? minItemWidth;
 
-  const GridView({
+  const ArcaneGridView({
     super.key,
     this.children = const [],
     this.crossAxisCount = 2,
@@ -180,7 +180,7 @@ class GridView extends StatelessComponent {
   })  : builder = null,
         itemCount = null;
 
-  const GridView.builder({
+  const ArcaneGridView.builder({
     super.key,
     required this.builder,
     required this.itemCount,
@@ -214,7 +214,7 @@ class GridView extends StatelessComponent {
 }
 
 /// A masonry-style layout component.
-class MasonryGrid extends StatelessComponent {
+class ArcaneMasonryGrid extends StatelessComponent {
   /// Children to display.
   final List<Component> children;
 
@@ -227,7 +227,7 @@ class MasonryGrid extends StatelessComponent {
   /// Padding around the grid.
   final String? padding;
 
-  const MasonryGrid({
+  const ArcaneMasonryGrid({
     super.key,
     required this.children,
     this.columns = 2,
@@ -259,14 +259,14 @@ class MasonryGrid extends StatelessComponent {
 }
 
 /// A simple repeater component for generating repeated elements.
-class Repeater extends StatelessComponent {
+class ArcaneRepeater extends StatelessComponent {
   /// Number of times to repeat.
   final int count;
 
   /// Builder for each item.
   final Component Function(BuildContext context, int index) builder;
 
-  const Repeater({
+  const ArcaneRepeater({
     super.key,
     required this.count,
     required this.builder,

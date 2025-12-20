@@ -5,7 +5,7 @@ import '../../util/arcane.dart';
 import '../../util/tokens/tokens.dart';
 
 /// An expandable/collapsible component.
-class Expander extends StatefulComponent {
+class ArcaneExpander extends StatefulComponent {
   /// Header content (always visible)
   final Component header;
 
@@ -30,7 +30,7 @@ class Expander extends StatefulComponent {
   /// Whether to maintain child state when collapsed
   final bool maintainState;
 
-  const Expander({
+  const ArcaneExpander({
     required this.header,
     required this.child,
     this.initiallyExpanded = false,
@@ -43,7 +43,7 @@ class Expander extends StatefulComponent {
   });
 
   @override
-  State<Expander> createState() => _ExpanderState();
+  State<ArcaneExpander> createState() => _ExpanderState();
 
   @css
   static final List<StyleRule> styles = [
@@ -53,7 +53,7 @@ class Expander extends StatefulComponent {
   ];
 }
 
-class _ExpanderState extends State<Expander> {
+class _ExpanderState extends State<ArcaneExpander> {
   late bool _isExpanded;
 
   @override
@@ -144,13 +144,13 @@ class _ExpanderState extends State<Expander> {
 }
 
 /// An accordion component (multiple expanders where only one can be open)
-class Accordion extends StatefulComponent {
-  final List<AccordionItem> items;
+class ArcaneAccordion extends StatefulComponent {
+  final List<ArcaneAccordionItem> items;
   final int? initialOpenIndex;
   final bool allowMultiple;
   final double gap;
 
-  const Accordion({
+  const ArcaneAccordion({
     required this.items,
     this.initialOpenIndex,
     this.allowMultiple = false,
@@ -159,10 +159,10 @@ class Accordion extends StatefulComponent {
   });
 
   @override
-  State<Accordion> createState() => _AccordionState();
+  State<ArcaneAccordion> createState() => _AccordionState();
 }
 
-class _AccordionState extends State<Accordion> {
+class _AccordionState extends State<ArcaneAccordion> {
   late Set<int> _expandedIndices;
 
   @override
@@ -207,7 +207,7 @@ class _AccordionState extends State<Accordion> {
     );
   }
 
-  Component _buildItem(BuildContext context, int index, AccordionItem item) {
+  Component _buildItem(BuildContext context, int index, ArcaneAccordionItem item) {
     final bool isExpanded = _expandedIndices.contains(index);
 
     return div(
@@ -275,12 +275,12 @@ class _AccordionState extends State<Accordion> {
 }
 
 /// An accordion item
-class AccordionItem {
+class ArcaneAccordionItem {
   final String title;
   final Component content;
   final Component? icon;
 
-  const AccordionItem({
+  const ArcaneAccordionItem({
     required this.title,
     required this.content,
     this.icon,

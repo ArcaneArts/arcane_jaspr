@@ -5,7 +5,7 @@ import '../../util/arcane.dart';
 import '../../util/tokens/tokens.dart';
 
 /// A card with section-style content organization.
-class CardSection extends StatelessComponent {
+class ArcaneCardSection extends StatelessComponent {
   /// Section header
   final String? header;
 
@@ -27,7 +27,7 @@ class CardSection extends StatelessComponent {
   /// Trailing actions for the header
   final List<Component>? trailing;
 
-  const CardSection({
+  const ArcaneCardSection({
     this.header,
     this.headerComponent,
     required this.children,
@@ -102,13 +102,13 @@ class CardSection extends StatelessComponent {
 }
 
 /// A list card that contains list items
-class ListCard extends StatelessComponent {
+class ArcaneListCard extends StatelessComponent {
   final String? header;
   final List<Component> children;
   final double? radius;
   final bool divided;
 
-  const ListCard({
+  const ArcaneListCard({
     this.header,
     required this.children,
     this.radius,

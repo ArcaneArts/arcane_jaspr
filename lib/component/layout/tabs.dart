@@ -164,13 +164,13 @@ class ArcaneTabItem {
 }
 
 /// A simple tab bar without content (for custom tab handling)
-class TabBar extends StatelessComponent {
-  final List<TabBarItem> tabs;
+class ArcaneTabBar extends StatelessComponent {
+  final List<ArcaneTabBarItem> tabs;
   final int selectedIndex;
   final void Function(int index) onChanged;
   final bool fill;
 
-  const TabBar({
+  const ArcaneTabBar({
     required this.tabs,
     required this.selectedIndex,
     required this.onChanged,
@@ -194,7 +194,7 @@ class TabBar extends StatelessComponent {
     );
   }
 
-  Component _buildTab(BuildContext context, int index, TabBarItem tab) {
+  Component _buildTab(BuildContext context, int index, ArcaneTabBarItem tab) {
     final bool isSelected = index == selectedIndex;
 
     return button(
@@ -230,11 +230,11 @@ class TabBar extends StatelessComponent {
 }
 
 /// A tab bar item
-class TabBarItem {
+class ArcaneTabBarItem {
   final String label;
   final Component? icon;
 
-  const TabBarItem({
+  const ArcaneTabBarItem({
     required this.label,
     this.icon,
   });

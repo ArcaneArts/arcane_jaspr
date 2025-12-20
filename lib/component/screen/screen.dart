@@ -6,7 +6,7 @@ import '../../util/tokens/tokens.dart';
 import '../view/bar.dart';
 
 /// Base screen component that provides consistent layout structure.
-class Screen extends StatelessComponent {
+class ArcaneScreen extends StatelessComponent {
   /// Main content
   final Component child;
 
@@ -52,7 +52,7 @@ class Screen extends StatelessComponent {
   /// Back button handler
   final void Function()? onBack;
 
-  const Screen({
+  const ArcaneScreen({
     required this.child,
     this.header,
     this.title,
@@ -76,7 +76,7 @@ class Screen extends StatelessComponent {
     // Build header if title provided
     final Component? effectiveHeader = header ??
         (title != null
-            ? Bar(
+            ? ArcaneBar(
                 titleText: title,
                 subtitleText: subtitle,
                 trailing: actions,

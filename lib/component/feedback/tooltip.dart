@@ -12,7 +12,7 @@ enum TooltipPosition {
 }
 
 /// A tooltip component (Supabase-style)
-class Tooltip extends StatefulComponent {
+class ArcaneTooltip extends StatefulComponent {
   /// Child widget to wrap
   final Component child;
 
@@ -28,7 +28,7 @@ class Tooltip extends StatefulComponent {
   /// Maximum width
   final double maxWidth;
 
-  const Tooltip({
+  const ArcaneTooltip({
     required this.child,
     required this.content,
     this.position = TooltipPosition.top,
@@ -38,7 +38,7 @@ class Tooltip extends StatefulComponent {
   });
 
   @override
-  State<Tooltip> createState() => _TooltipState();
+  State<ArcaneTooltip> createState() => _TooltipState();
 
   @css
   static final List<StyleRule> styles = [
@@ -49,7 +49,7 @@ class Tooltip extends StatefulComponent {
   ];
 }
 
-class _TooltipState extends State<Tooltip> {
+class _TooltipState extends State<ArcaneTooltip> {
   bool _isVisible = false;
 
   void _showTooltip() {
@@ -140,7 +140,7 @@ class _TooltipState extends State<Tooltip> {
 }
 
 /// A tooltip with custom content
-class TooltipCustom extends StatefulComponent {
+class ArcaneTooltipCustom extends StatefulComponent {
   /// Child widget to wrap
   final Component child;
 
@@ -153,7 +153,7 @@ class TooltipCustom extends StatefulComponent {
   /// Maximum width
   final double? maxWidth;
 
-  const TooltipCustom({
+  const ArcaneTooltipCustom({
     required this.child,
     required this.tooltipContent,
     this.position = TooltipPosition.top,
@@ -162,10 +162,10 @@ class TooltipCustom extends StatefulComponent {
   });
 
   @override
-  State<TooltipCustom> createState() => _TooltipCustomState();
+  State<ArcaneTooltipCustom> createState() => _TooltipCustomState();
 }
 
-class _TooltipCustomState extends State<TooltipCustom> {
+class _TooltipCustomState extends State<ArcaneTooltipCustom> {
   bool _isVisible = false;
 
   void _showTooltip() {
@@ -248,7 +248,7 @@ class _TooltipCustomState extends State<TooltipCustom> {
 }
 
 /// An info icon with tooltip
-class InfoTooltip extends StatelessComponent {
+class ArcaneInfoTooltip extends StatelessComponent {
   /// Tooltip content
   final String content;
 
@@ -258,7 +258,7 @@ class InfoTooltip extends StatelessComponent {
   /// Tooltip position
   final TooltipPosition position;
 
-  const InfoTooltip({
+  const ArcaneInfoTooltip({
     required this.content,
     this.size = 16,
     this.position = TooltipPosition.top,
@@ -267,7 +267,7 @@ class InfoTooltip extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return Tooltip(
+    return ArcaneTooltip(
       content: content,
       position: position,
       child: span(

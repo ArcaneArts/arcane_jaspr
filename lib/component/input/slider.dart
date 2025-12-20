@@ -13,7 +13,7 @@ import '../../util/tokens/style_presets.dart';
 ///   style: SliderStyle.success,
 /// )
 /// ```
-class Slider extends StatelessComponent {
+class ArcaneSlider extends StatelessComponent {
   final double value;
   final double min;
   final double max;
@@ -24,7 +24,7 @@ class Slider extends StatelessComponent {
   final SliderStyle? style;
   final void Function(double)? onChanged;
 
-  const Slider({
+  const ArcaneSlider({
     required this.value,
     this.min = 0,
     this.max = 100,
@@ -38,7 +38,7 @@ class Slider extends StatelessComponent {
   });
 
   /// Primary slider
-  const Slider.primary({
+  const ArcaneSlider.primary({
     required this.value,
     this.min = 0,
     this.max = 100,
@@ -51,7 +51,7 @@ class Slider extends StatelessComponent {
   }) : style = SliderStyle.primary;
 
   /// Success slider
-  const Slider.success({
+  const ArcaneSlider.success({
     required this.value,
     this.min = 0,
     this.max = 100,
@@ -152,7 +152,7 @@ class Slider extends StatelessComponent {
 }
 
 /// Range slider with two handles
-class RangeSlider extends StatelessComponent {
+class ArcaneRangeSlider extends StatelessComponent {
   final double minValue;
   final double maxValue;
   final double min;
@@ -161,7 +161,7 @@ class RangeSlider extends StatelessComponent {
   final SliderStyle? style;
   final void Function(double, double)? onChanged;
 
-  const RangeSlider({
+  const ArcaneRangeSlider({
     required this.minValue,
     required this.maxValue,
     this.min = 0,

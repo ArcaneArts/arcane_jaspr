@@ -17,13 +17,13 @@ enum StatusType {
 }
 
 /// Status indicator dot with optional label
-class StatusIndicator extends StatelessComponent {
+class ArcaneStatusIndicator extends StatelessComponent {
   final StatusType status;
   final String? label;
   final String? size;
   final bool pulse;
 
-  const StatusIndicator({
+  const ArcaneStatusIndicator({
     required this.status,
     this.label,
     this.size,
@@ -32,7 +32,7 @@ class StatusIndicator extends StatelessComponent {
   });
 
   /// Online status
-  const StatusIndicator.online({
+  const ArcaneStatusIndicator.online({
     this.label,
     this.size,
     this.pulse = true,
@@ -40,7 +40,7 @@ class StatusIndicator extends StatelessComponent {
   }) : status = StatusType.online;
 
   /// Offline status
-  const StatusIndicator.offline({
+  const ArcaneStatusIndicator.offline({
     this.label,
     this.size,
     super.key,
@@ -48,7 +48,7 @@ class StatusIndicator extends StatelessComponent {
         pulse = false;
 
   /// Busy status
-  const StatusIndicator.busy({
+  const ArcaneStatusIndicator.busy({
     this.label,
     this.size,
     super.key,
@@ -56,7 +56,7 @@ class StatusIndicator extends StatelessComponent {
         pulse = false;
 
   /// Away status
-  const StatusIndicator.away({
+  const ArcaneStatusIndicator.away({
     this.label,
     this.size,
     super.key,
@@ -127,36 +127,36 @@ class StatusIndicator extends StatelessComponent {
 }
 
 /// Status badge combining status indicator with text
-class StatusBadge extends StatelessComponent {
+class ArcaneStatusBadge extends StatelessComponent {
   final StatusType status;
   final String label;
 
-  const StatusBadge({
+  const ArcaneStatusBadge({
     required this.status,
     required this.label,
     super.key,
   });
 
   /// Success status badge
-  const StatusBadge.success({
+  const ArcaneStatusBadge.success({
     required this.label,
     super.key,
   }) : status = StatusType.success;
 
   /// Error status badge
-  const StatusBadge.error({
+  const ArcaneStatusBadge.error({
     required this.label,
     super.key,
   }) : status = StatusType.error;
 
   /// Warning status badge
-  const StatusBadge.warning({
+  const ArcaneStatusBadge.warning({
     required this.label,
     super.key,
   }) : status = StatusType.warning;
 
   /// Info status badge
-  const StatusBadge.info({
+  const ArcaneStatusBadge.info({
     required this.label,
     super.key,
   }) : status = StatusType.info;

@@ -7,7 +7,7 @@ import '../../util/tokens/tokens.dart';
 import '../view/bar.dart';
 
 /// A screen that fills the entire viewport.
-class FillScreen extends StatelessComponent {
+class ArcaneFillScreen extends StatelessComponent {
   /// Main content
   final Component child;
 
@@ -47,7 +47,7 @@ class FillScreen extends StatelessComponent {
   /// Whether to scroll the content
   final bool scrollable;
 
-  const FillScreen({
+  const ArcaneFillScreen({
     required this.child,
     this.header,
     this.title,
@@ -68,7 +68,7 @@ class FillScreen extends StatelessComponent {
   Component build(BuildContext context) {
     final Component? effectiveHeader = header ??
         (title != null
-            ? Bar(
+            ? ArcaneBar(
                 titleText: title,
                 subtitleText: subtitle,
                 trailing: actions,
@@ -189,11 +189,11 @@ class FillScreen extends StatelessComponent {
 }
 
 /// A simple fullscreen container
-class FullScreen extends StatelessComponent {
+class ArcaneFullScreen extends StatelessComponent {
   final Component child;
   final Color? backgroundColor;
 
-  const FullScreen({
+  const ArcaneFullScreen({
     required this.child,
     this.backgroundColor,
     super.key,

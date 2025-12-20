@@ -34,7 +34,7 @@ import '../../util/style_types/arcane_style_data.dart';
 ///
 /// Example:
 /// ```dart
-/// Paragraph(
+/// ArcaneParagraph(
 ///   styles: ArcaneStyleData(
 ///     fontSize: FontSize.lg,
 ///     textColor: TextColor.muted,
@@ -43,7 +43,7 @@ import '../../util/style_types/arcane_style_data.dart';
 ///   child: ArcaneText('This is a paragraph of text.'),
 /// )
 /// ```
-class Paragraph extends StatelessComponent {
+class ArcaneParagraph extends StatelessComponent {
   /// The content of the paragraph
   final Component child;
 
@@ -56,7 +56,7 @@ class Paragraph extends StatelessComponent {
   /// Optional ID attribute
   final String? id;
 
-  const Paragraph({
+  const ArcaneParagraph({
     required this.child,
     this.styles,
     this.classes,
@@ -65,13 +65,13 @@ class Paragraph extends StatelessComponent {
   });
 
   /// Create a paragraph with multiple children
-  const factory Paragraph.children({
+  const factory ArcaneParagraph.children({
     required List<Component> children,
     ArcaneStyleData? styles,
     String? classes,
     String? id,
     Key? key,
-  }) = _ParagraphChildren;
+  }) = _ArcaneParagraphChildren;
 
   @override
   Component build(BuildContext context) {
@@ -84,10 +84,10 @@ class Paragraph extends StatelessComponent {
   }
 }
 
-class _ParagraphChildren extends Paragraph {
+class _ArcaneParagraphChildren extends ArcaneParagraph {
   final List<Component> _children;
 
-  const _ParagraphChildren({
+  const _ArcaneParagraphChildren({
     required List<Component> children,
     super.styles,
     super.classes,

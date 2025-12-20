@@ -4,13 +4,13 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../util/tokens/tokens.dart';
 
 /// An accordion item data model
-class AccordionItem {
+class ArcaneAccordionItem {
   final String title;
   final String content;
   final Component? customContent;
   final bool defaultOpen;
 
-  const AccordionItem({
+  const ArcaneAccordionItem({
     required this.title,
     this.content = '',
     this.customContent,
@@ -19,9 +19,9 @@ class AccordionItem {
 }
 
 /// An accordion/collapsible component (Supabase-style)
-class Accordion extends StatefulComponent {
+class ArcaneAccordion extends StatefulComponent {
   /// Accordion items
-  final List<AccordionItem> items;
+  final List<ArcaneAccordionItem> items;
 
   /// Whether multiple items can be open at once
   final bool allowMultiple;
@@ -29,7 +29,7 @@ class Accordion extends StatefulComponent {
   /// Whether to show borders between items
   final bool bordered;
 
-  const Accordion({
+  const ArcaneAccordion({
     required this.items,
     this.allowMultiple = false,
     this.bordered = true,
@@ -37,7 +37,7 @@ class Accordion extends StatefulComponent {
   });
 
   @override
-  State<Accordion> createState() => _AccordionState();
+  State<ArcaneAccordion> createState() => _ArcaneAccordionState();
 
   @css
   static final List<StyleRule> styles = [
@@ -47,7 +47,7 @@ class Accordion extends StatefulComponent {
   ];
 }
 
-class _AccordionState extends State<Accordion> {
+class _ArcaneAccordionState extends State<ArcaneAccordion> {
   late Set<int> _openItems;
 
   @override
@@ -92,7 +92,7 @@ class _AccordionState extends State<Accordion> {
     );
   }
 
-  Component _buildItem(int index, AccordionItem item) {
+  Component _buildItem(int index, ArcaneAccordionItem item) {
     final bool isOpen = _openItems.contains(index);
     final bool isFirst = index == 0;
 
@@ -173,20 +173,20 @@ class _AccordionState extends State<Accordion> {
 }
 
 /// A simple FAQ accordion
-class FaqAccordion extends StatelessComponent {
+class ArcaneFaqAccordion extends StatelessComponent {
   /// FAQ items as question/answer pairs
   final List<({String question, String answer})> faqs;
 
-  const FaqAccordion({
+  const ArcaneFaqAccordion({
     required this.faqs,
     super.key,
   });
 
   @override
   Component build(BuildContext context) {
-    return Accordion(
+    return ArcaneAccordion(
       items: faqs
-          .map((faq) => AccordionItem(
+          .map((faq) => ArcaneAccordionItem(
                 title: faq.question,
                 content: faq.answer,
               ))

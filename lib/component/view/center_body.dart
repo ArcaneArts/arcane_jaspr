@@ -5,7 +5,7 @@ import '../../util/arcane.dart';
 import '../../util/tokens/tokens.dart';
 
 /// A component that centers its content both horizontally and vertically.
-class CenterBody extends StatelessComponent {
+class ArcaneCenterBody extends StatelessComponent {
   /// The child component
   final Component child;
 
@@ -18,7 +18,7 @@ class CenterBody extends StatelessComponent {
   /// Whether to fill the entire viewport height
   final bool fillHeight;
 
-  const CenterBody({
+  const ArcaneCenterBody({
     required this.child,
     this.maxWidth,
     this.padding,
@@ -54,12 +54,12 @@ class CenterBody extends StatelessComponent {
 }
 
 /// A page-level centered content container
-class PageBody extends StatelessComponent {
+class ArcanePageBody extends StatelessComponent {
   final List<Component> children;
   final double maxWidth;
   final EdgeInsets? padding;
 
-  const PageBody({
+  const ArcanePageBody({
     required this.children,
     this.maxWidth = 1200,
     this.padding,
@@ -82,13 +82,13 @@ class PageBody extends StatelessComponent {
 }
 
 /// An empty state component for when there's no content
-class EmptyState extends StatelessComponent {
+class ArcaneEmptyState extends StatelessComponent {
   final String? title;
   final String? message;
   final Component? icon;
   final Component? action;
 
-  const EmptyState({
+  const ArcaneEmptyState({
     this.title,
     this.message,
     this.icon,
@@ -98,7 +98,7 @@ class EmptyState extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return CenterBody(
+    return ArcaneCenterBody(
       child: div(
         classes: 'arcane-empty-state',
         styles: const Styles(raw: {
@@ -151,17 +151,17 @@ class EmptyState extends StatelessComponent {
 }
 
 /// A loading state component
-class LoadingState extends StatelessComponent {
+class ArcaneLoadingState extends StatelessComponent {
   final String? message;
 
-  const LoadingState({
+  const ArcaneLoadingState({
     this.message,
     super.key,
   });
 
   @override
   Component build(BuildContext context) {
-    return CenterBody(
+    return ArcaneCenterBody(
       child: div(
         classes: 'arcane-loading-state',
         styles: const Styles(raw: {
@@ -208,12 +208,12 @@ class LoadingState extends StatelessComponent {
 }
 
 /// An error state component
-class ErrorState extends StatelessComponent {
+class ArcaneErrorState extends StatelessComponent {
   final String? title;
   final String? message;
   final Component? action;
 
-  const ErrorState({
+  const ArcaneErrorState({
     this.title,
     this.message,
     this.action,
@@ -222,7 +222,7 @@ class ErrorState extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return CenterBody(
+    return ArcaneCenterBody(
       child: div(
         classes: 'arcane-error-state',
         styles: const Styles(raw: {

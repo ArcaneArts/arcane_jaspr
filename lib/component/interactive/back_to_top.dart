@@ -4,7 +4,7 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../util/tokens/tokens.dart';
 
 /// A back to top button (Supabase-style)
-class BackToTop extends StatelessComponent {
+class ArcaneBackToTop extends StatelessComponent {
   /// Whether the button is visible
   final bool visible;
 
@@ -20,7 +20,7 @@ class BackToTop extends StatelessComponent {
   /// Button size
   final double size;
 
-  const BackToTop({
+  const ArcaneBackToTop({
     this.visible = true,
     this.onTap,
     this.right = 24,
@@ -93,7 +93,7 @@ class BackToTop extends StatelessComponent {
 }
 
 /// A scroll progress indicator
-class ScrollProgress extends StatelessComponent {
+class ArcaneScrollProgress extends StatelessComponent {
   /// Progress value (0-100)
   final double progress;
 
@@ -106,7 +106,7 @@ class ScrollProgress extends StatelessComponent {
   /// Color
   final String? color;
 
-  const ScrollProgress({
+  const ArcaneScrollProgress({
     required this.progress,
     this.top = true,
     this.height = 3,
@@ -144,7 +144,7 @@ class ScrollProgress extends StatelessComponent {
 }
 
 /// A floating action button
-class FloatingActionButton extends StatelessComponent {
+class ArcaneFloatingActionButton extends StatelessComponent {
   /// Button icon/content
   final Component child;
 
@@ -166,7 +166,7 @@ class FloatingActionButton extends StatelessComponent {
   /// Whether to use accent color
   final bool accent;
 
-  const FloatingActionButton({
+  const ArcaneFloatingActionButton({
     required this.child,
     this.onTap,
     this.right = 24,

@@ -22,7 +22,7 @@ enum ToastPosition {
 }
 
 /// A toast notification component.
-class Toast extends StatelessComponent {
+class ArcaneToast extends StatelessComponent {
   /// Toast message
   final String message;
 
@@ -44,7 +44,7 @@ class Toast extends StatelessComponent {
   /// Optional action button
   final Component? action;
 
-  const Toast({
+  const ArcaneToast({
     required this.message,
     this.title,
     this.variant = ToastVariant.info,
@@ -194,12 +194,12 @@ class Toast extends StatelessComponent {
 }
 
 /// A toast container that positions toasts on the screen.
-class ToastContainer extends StatelessComponent {
+class ArcaneToastContainer extends StatelessComponent {
   final List<Component> toasts;
   final ToastPosition position;
   final double spacing;
 
-  const ToastContainer({
+  const ArcaneToastContainer({
     required this.toasts,
     this.position = ToastPosition.topRight,
     this.spacing = 8,

@@ -54,13 +54,13 @@ class ArcaneTable extends StatelessComponent {
 }
 
 /// A table head component that wraps the HTML `<thead>` element.
-class TableHead extends StatelessComponent {
+class ArcaneTableHead extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
   final String? classes;
   final String? id;
 
-  const TableHead({
+  const ArcaneTableHead({
     required this.children,
     this.styles,
     this.classes,
@@ -80,13 +80,13 @@ class TableHead extends StatelessComponent {
 }
 
 /// A table body component that wraps the HTML `<tbody>` element.
-class TableBody extends StatelessComponent {
+class ArcaneTableBody extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
   final String? classes;
   final String? id;
 
-  const TableBody({
+  const ArcaneTableBody({
     required this.children,
     this.styles,
     this.classes,
@@ -106,13 +106,13 @@ class TableBody extends StatelessComponent {
 }
 
 /// A table row component that wraps the HTML `<tr>` element.
-class TableRow extends StatelessComponent {
+class ArcaneTableRow extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
   final String? classes;
   final String? id;
 
-  const TableRow({
+  const ArcaneTableRow({
     required this.children,
     this.styles,
     this.classes,
@@ -132,13 +132,13 @@ class TableRow extends StatelessComponent {
 }
 
 /// A table header cell component that wraps the HTML `<th>` element.
-class TableHeader extends StatelessComponent {
+class ArcaneTableHeader extends StatelessComponent {
   final Component child;
   final ArcaneStyleData? styles;
   final String? classes;
   final String? id;
 
-  const TableHeader({
+  const ArcaneTableHeader({
     required this.child,
     this.styles,
     this.classes,
@@ -146,13 +146,13 @@ class TableHeader extends StatelessComponent {
     super.key,
   });
 
-  const factory TableHeader.children({
+  const factory ArcaneTableHeader.children({
     required List<Component> children,
     ArcaneStyleData? styles,
     String? classes,
     String? id,
     Key? key,
-  }) = _TableHeaderChildren;
+  }) = _ArcaneTableHeaderChildren;
 
   @override
   Component build(BuildContext context) {
@@ -165,10 +165,10 @@ class TableHeader extends StatelessComponent {
   }
 }
 
-class _TableHeaderChildren extends TableHeader {
+class _ArcaneTableHeaderChildren extends ArcaneTableHeader {
   final List<Component> _children;
 
-  const _TableHeaderChildren({
+  const _ArcaneTableHeaderChildren({
     required List<Component> children,
     super.styles,
     super.classes,
@@ -189,13 +189,13 @@ class _TableHeaderChildren extends TableHeader {
 }
 
 /// A table data cell component that wraps the HTML `<td>` element.
-class TableCell extends StatelessComponent {
+class ArcaneTableCell extends StatelessComponent {
   final Component child;
   final ArcaneStyleData? styles;
   final String? classes;
   final String? id;
 
-  const TableCell({
+  const ArcaneTableCell({
     required this.child,
     this.styles,
     this.classes,
@@ -203,13 +203,13 @@ class TableCell extends StatelessComponent {
     super.key,
   });
 
-  const factory TableCell.children({
+  const factory ArcaneTableCell.children({
     required List<Component> children,
     ArcaneStyleData? styles,
     String? classes,
     String? id,
     Key? key,
-  }) = _TableCellChildren;
+  }) = _ArcaneTableCellChildren;
 
   @override
   Component build(BuildContext context) {
@@ -222,10 +222,10 @@ class TableCell extends StatelessComponent {
   }
 }
 
-class _TableCellChildren extends TableCell {
+class _ArcaneTableCellChildren extends ArcaneTableCell {
   final List<Component> _children;
 
-  const _TableCellChildren({
+  const _ArcaneTableCellChildren({
     required List<Component> children,
     super.styles,
     super.classes,

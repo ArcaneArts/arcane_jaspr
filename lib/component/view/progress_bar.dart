@@ -156,7 +156,7 @@ class ArcaneProgressBar extends StatelessComponent {
 }
 
 /// Circular progress indicator
-class CircularProgress extends StatelessComponent {
+class ArcaneCircularProgress extends StatelessComponent {
   final double value; // 0.0 to 1.0
   final String? size;
   final String? strokeWidth;
@@ -164,7 +164,7 @@ class CircularProgress extends StatelessComponent {
   final String? label;
   final bool showPercentage;
 
-  const CircularProgress({
+  const ArcaneCircularProgress({
     required this.value,
     this.size,
     this.strokeWidth,
@@ -242,11 +242,11 @@ class CircularProgress extends StatelessComponent {
 }
 
 /// Indeterminate loading spinner
-class LoadingSpinner extends StatelessComponent {
+class ArcaneLoadingSpinner extends StatelessComponent {
   final String? size;
   final String? color;
 
-  const LoadingSpinner({
+  const ArcaneLoadingSpinner({
     this.size,
     this.color,
     super.key,

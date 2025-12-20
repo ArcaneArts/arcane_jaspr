@@ -6,7 +6,7 @@ import '../input/button.dart';
 import 'dialog.dart';
 
 /// A confirmation dialog component.
-class ConfirmDialog extends StatelessComponent {
+class ArcaneConfirmDialog extends StatelessComponent {
   /// Dialog title
   final String title;
 
@@ -31,7 +31,7 @@ class ConfirmDialog extends StatelessComponent {
   /// Custom icon
   final Component? icon;
 
-  const ConfirmDialog({
+  const ArcaneConfirmDialog({
     required this.title,
     required this.message,
     this.confirmText = 'Confirm',
@@ -97,14 +97,14 @@ class ConfirmDialog extends StatelessComponent {
 }
 
 /// A simple alert dialog
-class AlertDialog extends StatelessComponent {
+class ArcaneAlertDialog extends StatelessComponent {
   final String title;
   final String message;
   final String buttonText;
   final void Function()? onDismiss;
   final Component? icon;
 
-  const AlertDialog({
+  const ArcaneAlertDialog({
     required this.title,
     required this.message,
     this.buttonText = 'OK',

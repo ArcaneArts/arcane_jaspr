@@ -12,10 +12,10 @@ import '../../util/style_types/index.dart' hide BorderRadius;
 /// Example:
 /// ```dart
 /// // Basic text
-/// Text('Hello World')
+/// ArcaneText('Hello World')
 ///
 /// // Styled text
-/// Text(
+/// ArcaneText(
 ///   'Welcome',
 ///   size: FontSize.xl,
 ///   weight: FontWeight.bold,
@@ -23,13 +23,13 @@ import '../../util/style_types/index.dart' hide BorderRadius;
 /// )
 ///
 /// // Using named constructors
-/// Text.heading('Section Title')
-/// Text.subheading('Subtitle')
-/// Text.body('Body content goes here...')
-/// Text.caption('Small helper text')
-/// Text.code('const x = 42;')
+/// ArcaneText.heading('Section Title')
+/// ArcaneText.subheading('Subtitle')
+/// ArcaneText.body('Body content goes here...')
+/// ArcaneText.caption('Small helper text')
+/// ArcaneText.code('const x = 42;')
 /// ```
-class Text extends StatelessComponent {
+class ArcaneText extends StatelessComponent {
   /// The text content
   final String text;
 
@@ -84,7 +84,7 @@ class Text extends StatelessComponent {
   /// HTML element to use (span by default)
   final String element;
 
-  const Text(
+  const ArcaneText(
     this.text, {
     this.size,
     this.weight,
@@ -107,7 +107,7 @@ class Text extends StatelessComponent {
   });
 
   /// Page title (mega size, bold)
-  const Text.pageTitle(
+  const ArcaneText.pageTitle(
     this.text, {
     this.color = TextColor.primary,
     this.align,
@@ -129,7 +129,7 @@ class Text extends StatelessComponent {
         element = 'h1';
 
   /// Section title (hero size, bold)
-  const Text.sectionTitle(
+  const ArcaneText.sectionTitle(
     this.text, {
     this.color = TextColor.primary,
     this.align,
@@ -151,7 +151,7 @@ class Text extends StatelessComponent {
         element = 'h2';
 
   /// Heading (xl3, bold)
-  const Text.heading(
+  const ArcaneText.heading(
     this.text, {
     this.color = TextColor.primary,
     this.align,
@@ -173,7 +173,7 @@ class Text extends StatelessComponent {
         element = 'h2';
 
   /// Heading 2 (xl2, semibold)
-  const Text.heading2(
+  const ArcaneText.heading2(
     this.text, {
     this.color = TextColor.primary,
     this.align,
@@ -195,7 +195,7 @@ class Text extends StatelessComponent {
         element = 'h3';
 
   /// Heading 3 (xl, semibold)
-  const Text.heading3(
+  const ArcaneText.heading3(
     this.text, {
     this.color = TextColor.primary,
     this.align,
@@ -217,7 +217,7 @@ class Text extends StatelessComponent {
         element = 'h4';
 
   /// Subheading (lg, medium weight)
-  const Text.subheading(
+  const ArcaneText.subheading(
     this.text, {
     this.color = TextColor.secondary,
     this.align,
@@ -239,7 +239,7 @@ class Text extends StatelessComponent {
         element = 'p';
 
   /// Body text (base size, relaxed line height)
-  const Text.body(
+  const ArcaneText.body(
     this.text, {
     this.color = TextColor.muted,
     this.align,
@@ -261,7 +261,7 @@ class Text extends StatelessComponent {
         element = 'p';
 
   /// Body large (lg size, relaxed)
-  const Text.bodyLarge(
+  const ArcaneText.bodyLarge(
     this.text, {
     this.color = TextColor.muted,
     this.align,
@@ -283,7 +283,7 @@ class Text extends StatelessComponent {
         element = 'p';
 
   /// Body small (sm size)
-  const Text.bodySmall(
+  const ArcaneText.bodySmall(
     this.text, {
     this.color = TextColor.muted,
     this.align,
@@ -305,7 +305,7 @@ class Text extends StatelessComponent {
         element = 'p';
 
   /// Label text (sm, medium weight)
-  const Text.label(
+  const ArcaneText.label(
     this.text, {
     this.color = TextColor.primary,
     this.align,
@@ -327,7 +327,7 @@ class Text extends StatelessComponent {
         element = 'span';
 
   /// Caption/helper text (xs, subtle)
-  const Text.caption(
+  const ArcaneText.caption(
     this.text, {
     this.color = TextColor.subtle,
     this.align,
@@ -349,7 +349,7 @@ class Text extends StatelessComponent {
         element = 'span';
 
   /// Code/monospace text
-  const Text.code(
+  const ArcaneText.code(
     this.text, {
     this.color = TextColor.accent,
     this.align,
@@ -371,7 +371,7 @@ class Text extends StatelessComponent {
         element = 'code';
 
   /// Link text (accent color, pointer cursor)
-  const Text.link(
+  const ArcaneText.link(
     this.text, {
     this.color = TextColor.accent,
     this.align,
@@ -393,7 +393,7 @@ class Text extends StatelessComponent {
         element = 'span';
 
   /// Truncated text (single line with ellipsis)
-  const Text.truncated(
+  const ArcaneText.truncated(
     this.text, {
     this.size,
     this.weight,
@@ -493,22 +493,22 @@ class Text extends StatelessComponent {
 ///
 /// Example:
 /// ```dart
-/// RichText(
+/// ArcaneRichText(
 ///   children: [
-///     TextSpan('Hello '),
-///     TextSpan('World', weight: FontWeight.bold, color: TextColor.accent),
-///     TextSpan('!'),
+///     ArcaneTextSpan('Hello '),
+///     ArcaneTextSpan('World', weight: FontWeight.bold, color: TextColor.accent),
+///     ArcaneTextSpan('!'),
 ///   ],
 /// )
 /// ```
-class RichText extends StatelessComponent {
+class ArcaneRichText extends StatelessComponent {
   /// The text spans
   final List<Component> children;
 
   /// Base text style applied to all spans
   final ArcaneStyleData? style;
 
-  const RichText({
+  const ArcaneRichText({
     required this.children,
     this.style,
     super.key,
@@ -524,8 +524,8 @@ class RichText extends StatelessComponent {
   }
 }
 
-/// A text span for use within RichText.
-class TextSpan extends StatelessComponent {
+/// A text span for use within ArcaneRichText.
+class ArcaneTextSpan extends StatelessComponent {
   final String text;
   final FontSize? size;
   final FontWeight? weight;
@@ -536,7 +536,7 @@ class TextSpan extends StatelessComponent {
   final FontStyle? fontStyle;
   final ArcaneStyleData? style;
 
-  const TextSpan(
+  const ArcaneTextSpan(
     this.text, {
     this.size,
     this.weight,

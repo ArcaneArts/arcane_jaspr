@@ -4,7 +4,7 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../util/tokens/tokens.dart';
 
 /// A newsletter signup form (Supabase-style)
-class NewsletterForm extends StatefulComponent {
+class ArcaneNewsletterForm extends StatefulComponent {
   /// Placeholder text
   final String placeholder;
 
@@ -23,7 +23,7 @@ class NewsletterForm extends StatefulComponent {
   /// Whether the form is compact
   final bool compact;
 
-  const NewsletterForm({
+  const ArcaneNewsletterForm({
     this.placeholder = 'Enter your email',
     this.buttonText = 'Subscribe',
     this.successMessage = 'Thanks for subscribing!',
@@ -34,7 +34,7 @@ class NewsletterForm extends StatefulComponent {
   });
 
   @override
-  State<NewsletterForm> createState() => _NewsletterFormState();
+  State<ArcaneNewsletterForm> createState() => _NewsletterFormState();
 
   @css
   static final List<StyleRule> styles = [
@@ -48,7 +48,7 @@ class NewsletterForm extends StatefulComponent {
   ];
 }
 
-class _NewsletterFormState extends State<NewsletterForm> {
+class _NewsletterFormState extends State<ArcaneNewsletterForm> {
   String _email = '';
   bool _submitted = false;
   String? _error;
@@ -255,7 +255,7 @@ class _NewsletterFormState extends State<NewsletterForm> {
 }
 
 /// A waitlist form with additional fields
-class WaitlistForm extends StatefulComponent {
+class ArcaneWaitlistForm extends StatefulComponent {
   /// Form title
   final String? title;
 
@@ -274,7 +274,7 @@ class WaitlistForm extends StatefulComponent {
   /// Whether to collect name
   final bool collectName;
 
-  const WaitlistForm({
+  const ArcaneWaitlistForm({
     this.title,
     this.description,
     this.buttonText = 'Join Waitlist',
@@ -285,10 +285,10 @@ class WaitlistForm extends StatefulComponent {
   });
 
   @override
-  State<WaitlistForm> createState() => _WaitlistFormState();
+  State<ArcaneWaitlistForm> createState() => _WaitlistFormState();
 }
 
-class _WaitlistFormState extends State<WaitlistForm> {
+class _WaitlistFormState extends State<ArcaneWaitlistForm> {
   String _email = '';
   String _name = '';
   bool _submitted = false;

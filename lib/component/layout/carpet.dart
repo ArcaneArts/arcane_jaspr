@@ -8,7 +8,7 @@ import '../../util/tokens/tokens.dart';
 /// A background container component that provides a subtle surface layer.
 ///
 /// Useful for creating visual hierarchy in layouts.
-class Carpet extends StatelessComponent {
+class ArcaneCarpet extends StatelessComponent {
   /// The child component
   final Component child;
 
@@ -24,7 +24,7 @@ class Carpet extends StatelessComponent {
   /// Whether to add a border
   final bool border;
 
-  const Carpet({
+  const ArcaneCarpet({
     required this.child,
     this.padding,
     this.radius,
@@ -52,7 +52,7 @@ class Carpet extends StatelessComponent {
 }
 
 /// A surface component with customizable elevation and appearance
-class Surface extends StatelessComponent {
+class ArcaneSurface extends StatelessComponent {
   final Component child;
   final EdgeInsets? padding;
   final double? radius;
@@ -60,7 +60,7 @@ class Surface extends StatelessComponent {
   final Color? color;
   final bool border;
 
-  const Surface({
+  const ArcaneSurface({
     required this.child,
     this.padding,
     this.radius,
@@ -111,14 +111,14 @@ class Surface extends StatelessComponent {
 }
 
 /// A divider component
-class Divider extends StatelessComponent {
+class ArcaneDivider extends StatelessComponent {
   final double? thickness;
   final double? indent;
   final double? endIndent;
   final Color? color;
   final bool vertical;
 
-  const Divider({
+  const ArcaneDivider({
     this.thickness,
     this.indent,
     this.endIndent,

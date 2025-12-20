@@ -20,7 +20,7 @@ enum CheckboxSize {
 ///   style: CheckboxStyle.success,
 /// )
 /// ```
-class Checkbox extends StatelessComponent {
+class ArcaneCheckbox extends StatelessComponent {
   final bool checked;
   final String? label;
   final String? description;
@@ -29,7 +29,7 @@ class Checkbox extends StatelessComponent {
   final bool disabled;
   final void Function(bool)? onChanged;
 
-  const Checkbox({
+  const ArcaneCheckbox({
     required this.checked,
     this.label,
     this.description,
@@ -41,7 +41,7 @@ class Checkbox extends StatelessComponent {
   });
 
   /// Primary checkbox
-  const Checkbox.primary({
+  const ArcaneCheckbox.primary({
     required this.checked,
     this.label,
     this.description,
@@ -52,7 +52,7 @@ class Checkbox extends StatelessComponent {
   }) : style = CheckboxStyle.primary;
 
   /// Success checkbox
-  const Checkbox.success({
+  const ArcaneCheckbox.success({
     required this.checked,
     this.label,
     this.description,
@@ -159,7 +159,7 @@ class Checkbox extends StatelessComponent {
 }
 
 /// Radio button component
-class Radio extends StatelessComponent {
+class ArcaneRadio extends StatelessComponent {
   final bool selected;
   final String? label;
   final String? description;
@@ -168,7 +168,7 @@ class Radio extends StatelessComponent {
   final bool disabled;
   final void Function()? onSelected;
 
-  const Radio({
+  const ArcaneRadio({
     required this.selected,
     this.label,
     this.description,

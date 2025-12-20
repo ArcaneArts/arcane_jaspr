@@ -13,7 +13,7 @@ enum AlertVariant {
 }
 
 /// An alert/banner component (Supabase-style)
-class AlertBanner extends StatelessComponent {
+class ArcaneAlertBanner extends StatelessComponent {
   /// Alert message
   final String message;
 
@@ -38,7 +38,7 @@ class AlertBanner extends StatelessComponent {
   /// Whether to use filled style
   final bool filled;
 
-  const AlertBanner({
+  const ArcaneAlertBanner({
     required this.message,
     this.title,
     this.variant = AlertVariant.info,
@@ -51,7 +51,7 @@ class AlertBanner extends StatelessComponent {
   });
 
   /// Info alert
-  const AlertBanner.info({
+  const ArcaneAlertBanner.info({
     required this.message,
     this.title,
     this.icon,
@@ -63,7 +63,7 @@ class AlertBanner extends StatelessComponent {
   }) : variant = AlertVariant.info;
 
   /// Success alert
-  const AlertBanner.success({
+  const ArcaneAlertBanner.success({
     required this.message,
     this.title,
     this.icon,
@@ -75,7 +75,7 @@ class AlertBanner extends StatelessComponent {
   }) : variant = AlertVariant.success;
 
   /// Warning alert
-  const AlertBanner.warning({
+  const ArcaneAlertBanner.warning({
     required this.message,
     this.title,
     this.icon,
@@ -87,7 +87,7 @@ class AlertBanner extends StatelessComponent {
   }) : variant = AlertVariant.warning;
 
   /// Error alert
-  const AlertBanner.error({
+  const ArcaneAlertBanner.error({
     required this.message,
     this.title,
     this.icon,
@@ -256,7 +256,7 @@ class AlertBanner extends StatelessComponent {
 }
 
 /// A progress bar component
-class ProgressBar extends StatelessComponent {
+class ArcaneProgressBar extends StatelessComponent {
   /// Progress value (0-100)
   final double value;
 
@@ -272,7 +272,7 @@ class ProgressBar extends StatelessComponent {
   /// Custom color
   final String? color;
 
-  const ProgressBar({
+  const ArcaneProgressBar({
     this.value = 0,
     this.indeterminate = false,
     this.height = 8,
@@ -343,7 +343,7 @@ class ProgressBar extends StatelessComponent {
 }
 
 /// A loading spinner component
-class Loader extends StatelessComponent {
+class ArcaneLoader extends StatelessComponent {
   /// Spinner size
   final double size;
 
@@ -353,7 +353,7 @@ class Loader extends StatelessComponent {
   /// Loading text
   final String? label;
 
-  const Loader({
+  const ArcaneLoader({
     this.size = 24,
     this.color,
     this.label,

@@ -4,7 +4,7 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../util/tokens/tokens.dart';
 
 /// A testimonial/quote card component (Supabase-style)
-class TestimonialCard extends StatelessComponent {
+class ArcaneTestimonialCard extends StatelessComponent {
   /// The testimonial quote text
   final String quote;
 
@@ -26,7 +26,7 @@ class TestimonialCard extends StatelessComponent {
   /// Whether to show quotation marks
   final bool showQuotes;
 
-  const TestimonialCard({
+  const ArcaneTestimonialCard({
     required this.quote,
     required this.authorName,
     this.authorTitle,
@@ -197,7 +197,7 @@ class TestimonialCard extends StatelessComponent {
 }
 
 /// Rating stars component
-class RatingStars extends StatelessComponent {
+class ArcaneRatingStars extends StatelessComponent {
   /// Rating value (0-5)
   final double rating;
 
@@ -213,7 +213,7 @@ class RatingStars extends StatelessComponent {
   /// Callback when rating changes (for interactive mode)
   final void Function(int)? onRatingChanged;
 
-  const RatingStars({
+  const ArcaneRatingStars({
     required this.rating,
     this.maxStars = 5,
     this.size = 16,

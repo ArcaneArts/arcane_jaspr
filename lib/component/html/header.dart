@@ -34,18 +34,18 @@ import '../../util/style_types/arcane_style_data.dart';
 ///
 /// Example:
 /// ```dart
-/// Header(
+/// ArcaneHeader(
 ///   styles: ArcaneStyleData(
 ///     padding: PaddingPreset.md,
 ///     background: Background.surface,
 ///   ),
 ///   children: [
 ///     Logo(),
-///     Nav(children: [...]),
+///     ArcaneNav(children: [...]),
 ///   ],
 /// )
 /// ```
-class Header extends StatelessComponent {
+class ArcaneHeader extends StatelessComponent {
   /// The children of the header
   final List<Component> children;
 
@@ -61,7 +61,7 @@ class Header extends StatelessComponent {
   /// Additional HTML attributes
   final Map<String, String>? attributes;
 
-  const Header({
+  const ArcaneHeader({
     required this.children,
     this.styles,
     this.classes,

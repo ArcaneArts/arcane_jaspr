@@ -30,7 +30,7 @@ enum FABPosition {
 ///   style: FABStyle.primary,
 /// )
 /// ```
-class FAB extends StatelessComponent {
+class ArcaneFAB extends StatelessComponent {
   /// The icon to display
   final Component icon;
 
@@ -55,7 +55,7 @@ class FAB extends StatelessComponent {
   /// Tooltip text
   final String? tooltip;
 
-  const FAB({
+  const ArcaneFAB({
     required this.icon,
     this.label,
     this.onPressed,
@@ -68,7 +68,7 @@ class FAB extends StatelessComponent {
   });
 
   /// Primary FAB
-  const FAB.primary({
+  const ArcaneFAB.primary({
     required this.icon,
     this.label,
     this.onPressed,
@@ -80,7 +80,7 @@ class FAB extends StatelessComponent {
   }) : style = FABStyle.primary;
 
   /// Surface FAB
-  const FAB.surface({
+  const ArcaneFAB.surface({
     required this.icon,
     this.label,
     this.onPressed,
@@ -92,7 +92,7 @@ class FAB extends StatelessComponent {
   }) : style = FABStyle.surface;
 
   /// Success FAB
-  const FAB.success({
+  const ArcaneFAB.success({
     required this.icon,
     this.label,
     this.onPressed,
@@ -104,7 +104,7 @@ class FAB extends StatelessComponent {
   }) : style = FABStyle.success;
 
   /// Destructive FAB
-  const FAB.destructive({
+  const ArcaneFAB.destructive({
     required this.icon,
     this.label,
     this.onPressed,

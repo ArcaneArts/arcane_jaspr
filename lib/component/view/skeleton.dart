@@ -4,13 +4,13 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../util/tokens/tokens.dart';
 
 /// Skeleton loading placeholder component
-class Skeleton extends StatelessComponent {
+class ArcaneSkeleton extends StatelessComponent {
   final String? width;
   final String? height;
   final String? borderRadius;
   final bool circle;
 
-  const Skeleton({
+  const ArcaneSkeleton({
     this.width,
     this.height,
     this.borderRadius,
@@ -19,7 +19,7 @@ class Skeleton extends StatelessComponent {
   });
 
   /// Circle skeleton
-  const Skeleton.circle({
+  const ArcaneSkeleton.circle({
     this.height,
     super.key,
   })  : width = null,
@@ -27,7 +27,7 @@ class Skeleton extends StatelessComponent {
         circle = true;
 
   /// Text line skeleton
-  const Skeleton.line({
+  const ArcaneSkeleton.line({
     this.width,
     super.key,
   })  : height = null,
@@ -64,11 +64,11 @@ class Skeleton extends StatelessComponent {
 }
 
 /// Skeleton card placeholder
-class SkeletonCard extends StatelessComponent {
+class ArcaneSkeletonCard extends StatelessComponent {
   final bool showAvatar;
   final int lines;
 
-  const SkeletonCard({
+  const ArcaneSkeletonCard({
     this.showAvatar = true,
     this.lines = 3,
     super.key,
@@ -95,7 +95,7 @@ class SkeletonCard extends StatelessComponent {
               'margin-bottom': ArcaneSpacing.lg,
             }),
             [
-              Skeleton(width: '48px', height: '48px', circle: true),
+              ArcaneSkeleton(width: '48px', height: '48px', circle: true),
               div(
                 styles: Styles(raw: {
                   'flex': '1',
@@ -104,8 +104,8 @@ class SkeletonCard extends StatelessComponent {
                   'gap': ArcaneSpacing.sm,
                 }),
                 [
-                  Skeleton(width: '40%', height: '16px'),
-                  Skeleton(width: '60%', height: '14px'),
+                  ArcaneSkeleton(width: '40%', height: '16px'),
+                  ArcaneSkeleton(width: '60%', height: '14px'),
                 ],
               ),
             ],
@@ -117,7 +117,7 @@ class SkeletonCard extends StatelessComponent {
               if (i < lines - 1) 'margin-bottom': ArcaneSpacing.sm,
             }),
             [
-              Skeleton(
+              ArcaneSkeleton(
                 width: i == lines - 1 ? '80%' : '100%',
                 height: '16px',
               ),
@@ -129,11 +129,11 @@ class SkeletonCard extends StatelessComponent {
 }
 
 /// Skeleton text block with multiple lines
-class SkeletonText extends StatelessComponent {
+class ArcaneSkeletonText extends StatelessComponent {
   final int lines;
   final String? lineHeight;
 
-  const SkeletonText({
+  const ArcaneSkeletonText({
     this.lines = 3,
     this.lineHeight,
     super.key,
@@ -150,7 +150,7 @@ class SkeletonText extends StatelessComponent {
       }),
       [
         for (var i = 0; i < lines; i++)
-          Skeleton(
+          ArcaneSkeleton(
             width: i == lines - 1 ? '70%' : '100%',
             height: lineHeight ?? '16px',
           ),

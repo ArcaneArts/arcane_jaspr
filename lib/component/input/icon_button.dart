@@ -207,12 +207,12 @@ class ArcaneIconButton extends StatelessComponent {
 }
 
 /// A close button (X icon)
-class CloseButton extends StatelessComponent {
+class ArcaneCloseButton extends StatelessComponent {
   final void Function()? onPressed;
   final IconButtonSize size;
   final IconButtonStyle? style;
 
-  const CloseButton({
+  const ArcaneCloseButton({
     this.onPressed,
     this.size = IconButtonSize.medium,
     this.style,

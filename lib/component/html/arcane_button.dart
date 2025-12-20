@@ -31,7 +31,7 @@ import '../../util/style_types/arcane_style_data.dart';
 ///
 /// This is a low-level wrapper for direct HTML button elements.
 /// For styled buttons, use the Button component from arcane_jaspr.
-class RawButton extends StatelessComponent {
+class ArcaneRawButton extends StatelessComponent {
   final Component child;
   final ArcaneStyleData? styles;
   final String? classes;
@@ -41,7 +41,7 @@ class RawButton extends StatelessComponent {
   final void Function()? onClick;
   final Map<String, void Function(dynamic)>? events;
 
-  const RawButton({
+  const ArcaneRawButton({
     required this.child,
     this.styles,
     this.classes,
@@ -53,7 +53,7 @@ class RawButton extends StatelessComponent {
     super.key,
   });
 
-  const factory RawButton.children({
+  const factory ArcaneRawButton.children({
     required List<Component> children,
     ArcaneStyleData? styles,
     String? classes,
@@ -63,7 +63,7 @@ class RawButton extends StatelessComponent {
     void Function()? onClick,
     Map<String, void Function(dynamic)>? events,
     Key? key,
-  }) = _RawButtonChildren;
+  }) = _ArcaneRawButtonChildren;
 
   @override
   Component build(BuildContext context) {
@@ -82,10 +82,10 @@ class RawButton extends StatelessComponent {
   }
 }
 
-class _RawButtonChildren extends RawButton {
+class _ArcaneRawButtonChildren extends ArcaneRawButton {
   final List<Component> _children;
 
-  const _RawButtonChildren({
+  const _ArcaneRawButtonChildren({
     required List<Component> children,
     super.styles,
     super.classes,

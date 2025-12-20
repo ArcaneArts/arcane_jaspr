@@ -5,7 +5,7 @@ import '../../util/arcane.dart';
 import '../../util/tokens/tokens.dart';
 
 /// A static table component for displaying simple tabular data.
-class StaticTable extends StatelessComponent {
+class ArcaneStaticTable extends StatelessComponent {
   /// Table headers
   final List<String> headers;
 
@@ -27,7 +27,7 @@ class StaticTable extends StatelessComponent {
   /// Whether to show the header
   final bool showHeader;
 
-  const StaticTable({
+  const ArcaneStaticTable({
     required this.headers,
     required this.rows,
     this.showDividers = true,
@@ -121,12 +121,12 @@ class StaticTable extends StatelessComponent {
 }
 
 /// A simple key-value table (two columns)
-class KeyValueTable extends StatelessComponent {
-  final List<KeyValueRow> rows;
+class ArcaneKeyValueTable extends StatelessComponent {
+  final List<ArcaneKeyValueRow> rows;
   final double? keyWidth;
   final bool showDividers;
 
-  const KeyValueTable({
+  const ArcaneKeyValueTable({
     required this.rows,
     this.keyWidth,
     this.showDividers = true,
@@ -189,13 +189,13 @@ class KeyValueTable extends StatelessComponent {
 }
 
 /// A row for KeyValueTable
-class KeyValueRow {
+class ArcaneKeyValueRow {
   final String key;
   final Component value;
 
-  const KeyValueRow({required this.key, required this.value});
+  const ArcaneKeyValueRow({required this.key, required this.value});
 
   /// Create from a string value
-  factory KeyValueRow.text(String key, String value) =>
-      KeyValueRow(key: key, value: span([text(value)]));
+  factory ArcaneKeyValueRow.text(String key, String value) =>
+      ArcaneKeyValueRow(key: key, value: span([text(value)]));
 }

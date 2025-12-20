@@ -4,7 +4,7 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../util/tokens/tokens.dart';
 
 /// Text with gradient color
-class GradientText extends StatelessComponent {
+class ArcaneGradientText extends StatelessComponent {
   /// Text content
   final String content;
 
@@ -23,7 +23,7 @@ class GradientText extends StatelessComponent {
   /// Font weight
   final String fontWeight;
 
-  const GradientText({
+  const ArcaneGradientText({
     required this.content,
     this.gradientStart,
     this.gradientEnd,
@@ -55,7 +55,7 @@ class GradientText extends StatelessComponent {
 }
 
 /// Animated gradient text with color shift
-class AnimatedGradientText extends StatelessComponent {
+class ArcaneAnimatedGradientText extends StatelessComponent {
   /// Text content
   final String content;
 
@@ -65,7 +65,7 @@ class AnimatedGradientText extends StatelessComponent {
   /// Font weight
   final String fontWeight;
 
-  const AnimatedGradientText({
+  const ArcaneAnimatedGradientText({
     required this.content,
     this.fontSize = '32px',
     this.fontWeight = '700',
@@ -102,7 +102,7 @@ class AnimatedGradientText extends StatelessComponent {
 }
 
 /// Glow text effect
-class GlowText extends StatelessComponent {
+class ArcaneGlowText extends StatelessComponent {
   /// Text content
   final String content;
 
@@ -118,7 +118,7 @@ class GlowText extends StatelessComponent {
   /// Glow intensity
   final double intensity;
 
-  const GlowText({
+  const ArcaneGlowText({
     required this.content,
     this.glowColor,
     this.fontSize = '32px',
@@ -145,7 +145,7 @@ class GlowText extends StatelessComponent {
 }
 
 /// Outline text effect
-class OutlineText extends StatelessComponent {
+class ArcaneOutlineText extends StatelessComponent {
   /// Text content
   final String content;
 
@@ -164,7 +164,7 @@ class OutlineText extends StatelessComponent {
   /// Stroke width
   final double strokeWidth;
 
-  const OutlineText({
+  const ArcaneOutlineText({
     required this.content,
     this.strokeColor,
     this.fillColor,

@@ -15,7 +15,7 @@ enum HeadlineLevel {
 }
 
 /// A styled headline component (Supabase-style typography)
-class Headline extends StatelessComponent {
+class ArcaneHeadline extends StatelessComponent {
   /// The headline text
   final String content;
 
@@ -34,7 +34,7 @@ class Headline extends StatelessComponent {
   /// Whether to use gradient text (accent gradient)
   final bool gradient;
 
-  const Headline(
+  const ArcaneHeadline(
     this.content, {
     this.level = HeadlineLevel.h1,
     this.color,
@@ -45,7 +45,7 @@ class Headline extends StatelessComponent {
   });
 
   /// H1 headline
-  const Headline.h1(
+  const ArcaneHeadline.h1(
     this.content, {
     this.color,
     this.align = 'left',
@@ -55,7 +55,7 @@ class Headline extends StatelessComponent {
   }) : level = HeadlineLevel.h1;
 
   /// H2 headline
-  const Headline.h2(
+  const ArcaneHeadline.h2(
     this.content, {
     this.color,
     this.align = 'left',
@@ -65,7 +65,7 @@ class Headline extends StatelessComponent {
   }) : level = HeadlineLevel.h2;
 
   /// H3 headline
-  const Headline.h3(
+  const ArcaneHeadline.h3(
     this.content, {
     this.color,
     this.align = 'left',
@@ -75,7 +75,7 @@ class Headline extends StatelessComponent {
   }) : level = HeadlineLevel.h3;
 
   /// H4 headline
-  const Headline.h4(
+  const ArcaneHeadline.h4(
     this.content, {
     this.color,
     this.align = 'left',
@@ -135,7 +135,7 @@ class Headline extends StatelessComponent {
 }
 
 /// Subheadline / lead paragraph text
-class Subheadline extends StatelessComponent {
+class ArcaneSubheadline extends StatelessComponent {
   /// The text content
   final String content;
 
@@ -148,7 +148,7 @@ class Subheadline extends StatelessComponent {
   /// Whether to use muted color
   final bool muted;
 
-  const Subheadline(
+  const ArcaneSubheadline(
     this.content, {
     this.size = 'lg',
     this.align = 'left',
@@ -182,7 +182,7 @@ class Subheadline extends StatelessComponent {
 }
 
 /// Body text component
-class BodyText extends StatelessComponent {
+class ArcaneBodyText extends StatelessComponent {
   /// The text content
   final String content;
 
@@ -195,7 +195,7 @@ class BodyText extends StatelessComponent {
   /// Text alignment
   final String align;
 
-  const BodyText(
+  const ArcaneBodyText(
     this.content, {
     this.size = 'base',
     this.muted = false,

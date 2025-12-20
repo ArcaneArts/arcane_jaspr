@@ -135,7 +135,7 @@ class ArcaneFieldDirectProvider<T> extends ArcaneFieldProvider<T> {
 }
 
 /// Form context data for accessing form state.
-class FormContext {
+class ArcaneFormContext {
   final Map<String, dynamic> values;
   final Map<String, String?> errors;
   final void Function(String key, dynamic value) setValue;
@@ -143,7 +143,7 @@ class FormContext {
   final void Function() submit;
   final bool isValid;
 
-  const FormContext({
+  const ArcaneFormContext({
     required this.values,
     required this.errors,
     required this.setValue,
@@ -165,7 +165,7 @@ class ArcaneFormProvider extends StatefulComponent {
   final Map<String, String?> Function(Map<String, dynamic> values)? validator;
 
   /// Child builder with form context.
-  final Component Function(FormContext context) builder;
+  final Component Function(ArcaneFormContext context) builder;
 
   const ArcaneFormProvider({
     this.initialValues = const {},
@@ -223,7 +223,7 @@ class _ArcaneFormProviderState extends State<ArcaneFormProvider> {
 
   @override
   Component build(BuildContext context) {
-    final formContext = FormContext(
+    final formContext = ArcaneFormContext(
       values: _values,
       errors: _errors,
       setValue: _setValue,
@@ -238,7 +238,7 @@ class _ArcaneFormProviderState extends State<ArcaneFormProvider> {
 
 /// An inherited component to provide form context to descendants.
 class ArcaneFormScope extends InheritedComponent {
-  final FormContext formContext;
+  final ArcaneFormContext formContext;
 
   const ArcaneFormScope({
     required this.formContext,
@@ -246,7 +246,7 @@ class ArcaneFormScope extends InheritedComponent {
     super.key,
   });
 
-  static FormContext? of(BuildContext context) {
+  static ArcaneFormContext? of(BuildContext context) {
     final scope =
         context.dependOnInheritedComponentOfExactType<ArcaneFormScope>();
     return scope?.formContext;

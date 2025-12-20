@@ -183,7 +183,7 @@ class ArcaneDialog extends StatelessComponent {
 }
 
 /// A sheet/drawer dialog that slides in from the edge.
-class Sheet extends StatelessComponent {
+class ArcaneSheet extends StatelessComponent {
   final Component child;
   final SheetPosition position;
   final void Function()? onClose;
@@ -192,7 +192,7 @@ class Sheet extends StatelessComponent {
   final double? width;
   final double? height;
 
-  const Sheet({
+  const ArcaneSheet({
     required this.child,
     this.position = SheetPosition.right,
     this.onClose,

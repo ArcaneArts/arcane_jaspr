@@ -15,9 +15,9 @@ import 'button.dart';
 ///   style: ButtonStyle.outline,
 /// )
 /// ```
-class CycleButton<T> extends StatefulComponent {
+class ArcaneCycleButton<T> extends StatefulComponent {
   /// The available options
-  final List<CycleOption<T>> options;
+  final List<ArcaneCycleOption<T>> options;
 
   /// The current value
   final T value;
@@ -34,7 +34,7 @@ class CycleButton<T> extends StatefulComponent {
   /// Whether the button is disabled
   final bool disabled;
 
-  const CycleButton({
+  const ArcaneCycleButton({
     required this.options,
     required this.value,
     this.onChanged,
@@ -45,10 +45,10 @@ class CycleButton<T> extends StatefulComponent {
   });
 
   @override
-  State<CycleButton<T>> createState() => _CycleButtonState<T>();
+  State<ArcaneCycleButton<T>> createState() => _ArcaneCycleButtonState<T>();
 }
 
-class _CycleButtonState<T> extends State<CycleButton<T>> {
+class _ArcaneCycleButtonState<T> extends State<ArcaneCycleButton<T>> {
   void _cycle() {
     if (component.disabled || component.onChanged == null) return;
 
@@ -111,13 +111,13 @@ class _CycleButtonState<T> extends State<CycleButton<T>> {
   }
 }
 
-/// An option for CycleButton
-class CycleOption<T> {
+/// An option for ArcaneCycleButton
+class ArcaneCycleOption<T> {
   final T value;
   final String? label;
   final Component? icon;
 
-  const CycleOption({
+  const ArcaneCycleOption({
     required this.value,
     this.label,
     this.icon,
@@ -125,7 +125,7 @@ class CycleOption<T> {
 }
 
 /// A toggle button (on/off state)
-class ToggleButton extends StatelessComponent {
+class ArcaneToggleButton extends StatelessComponent {
   final bool value;
   final void Function(bool value)? onChanged;
   final String? label;
@@ -133,7 +133,7 @@ class ToggleButton extends StatelessComponent {
   final ButtonSize size;
   final bool disabled;
 
-  const ToggleButton({
+  const ArcaneToggleButton({
     required this.value,
     this.onChanged,
     this.label,

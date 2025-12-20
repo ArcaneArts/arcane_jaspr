@@ -41,11 +41,11 @@ class ArcaneLoader extends StatelessComponent {
 }
 
 /// Dots loader animation
-class DotsLoader extends StatelessComponent {
+class ArcaneDotsLoader extends StatelessComponent {
   final String? color;
   final String dotSize;
 
-  const DotsLoader({
+  const ArcaneDotsLoader({
     this.color,
     this.dotSize = '8px',
     super.key,
@@ -87,11 +87,11 @@ class DotsLoader extends StatelessComponent {
 }
 
 /// Pulse loader animation
-class PulseLoader extends StatelessComponent {
+class ArcanePulseLoader extends StatelessComponent {
   final String size;
   final String? color;
 
-  const PulseLoader({
+  const ArcanePulseLoader({
     this.size = '40px',
     this.color,
     super.key,
@@ -141,11 +141,11 @@ class PulseLoader extends StatelessComponent {
 }
 
 /// Loading overlay for full-screen loading states
-class LoadingOverlay extends StatelessComponent {
+class ArcaneLoadingOverlay extends StatelessComponent {
   final Component? loader;
   final String? message;
 
-  const LoadingOverlay({
+  const ArcaneLoadingOverlay({
     this.loader,
     this.message,
     super.key,
@@ -184,8 +184,8 @@ class LoadingOverlay extends StatelessComponent {
 }
 
 /// Style injection for loader animations
-class LoaderStyles extends StatelessComponent {
-  const LoaderStyles({super.key});
+class ArcaneLoaderStyles extends StatelessComponent {
+  const ArcaneLoaderStyles({super.key});
 
   @override
   Component build(BuildContext context) {

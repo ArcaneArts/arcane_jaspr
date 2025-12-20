@@ -4,7 +4,7 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../util/tokens/tokens.dart';
 
 /// A sidebar navigation component.
-class Sidebar extends StatefulComponent {
+class ArcaneSidebar extends StatefulComponent {
   /// The sidebar content
   final List<Component> children;
 
@@ -32,7 +32,7 @@ class Sidebar extends StatefulComponent {
   /// Whether the sidebar is on the right side
   final bool rightSide;
 
-  const Sidebar({
+  const ArcaneSidebar({
     required this.children,
     this.header,
     this.footer,
@@ -46,7 +46,7 @@ class Sidebar extends StatefulComponent {
   });
 
   @override
-  State<Sidebar> createState() => _SidebarState();
+  State<ArcaneSidebar> createState() => _ArcaneSidebarState();
 
   @css
   static final List<StyleRule> styles = [
@@ -56,7 +56,7 @@ class Sidebar extends StatefulComponent {
   ];
 }
 
-class _SidebarState extends State<Sidebar> {
+class _ArcaneSidebarState extends State<ArcaneSidebar> {
   late bool _isCollapsed;
 
   @override
@@ -66,7 +66,7 @@ class _SidebarState extends State<Sidebar> {
   }
 
   @override
-  void didUpdateComponent(Sidebar oldComponent) {
+  void didUpdateComponent(ArcaneSidebar oldComponent) {
     super.didUpdateComponent(oldComponent);
     if (oldComponent.collapsed != component.collapsed) {
       _isCollapsed = component.collapsed;
@@ -185,12 +185,12 @@ class _SidebarState extends State<Sidebar> {
 }
 
 /// A sidebar item group with optional label
-class SidebarGroup extends StatelessComponent {
+class ArcaneSidebarGroup extends StatelessComponent {
   final String? label;
   final List<Component> children;
   final bool collapsed;
 
-  const SidebarGroup({
+  const ArcaneSidebarGroup({
     this.label,
     required this.children,
     this.collapsed = false,
@@ -233,7 +233,7 @@ class SidebarGroup extends StatelessComponent {
 }
 
 /// A sidebar navigation item
-class SidebarItem extends StatelessComponent {
+class ArcaneSidebarItem extends StatelessComponent {
   final String label;
   final Component? icon;
   final void Function()? onTap;
@@ -242,7 +242,7 @@ class SidebarItem extends StatelessComponent {
   final String? badge;
   final bool collapsed;
 
-  const SidebarItem({
+  const ArcaneSidebarItem({
     required this.label,
     this.icon,
     this.onTap,

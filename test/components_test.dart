@@ -100,30 +100,30 @@ void main() {
 
   group('Layout Components', () {
     test('Section creates with header', () {
-      final section = const Section(
+      final section = const ArcaneSection(
         header: 'Test Section',
         children: [Component.text('Content')],
       );
       expect(section.header, equals('Test Section'));
     });
 
-    test('Gutter.small creates small spacing', () {
-      final gutter = const Gutter.small();
+    test('ArcaneGutter.small creates small spacing', () {
+      final gutter = const ArcaneGutter.small();
       expect(gutter, isNotNull);
     });
 
-    test('Gutter.medium creates medium spacing', () {
-      final gutter = const Gutter.medium();
+    test('ArcaneGutter.medium creates medium spacing', () {
+      final gutter = const ArcaneGutter.medium();
       expect(gutter, isNotNull);
     });
 
-    test('Gutter.large creates large spacing', () {
-      final gutter = const Gutter.large();
+    test('ArcaneGutter.large creates large spacing', () {
+      final gutter = const ArcaneGutter.large();
       expect(gutter, isNotNull);
     });
 
     test('Flow creates with gap', () {
-      final flow = const Flow(
+      final flow = const ArcaneFlow(
         gap: 16,
         children: [Component.text('Item')],
       );
@@ -131,7 +131,7 @@ void main() {
     });
 
     test('ButtonPanel creates with children', () {
-      final panel = ButtonPanel(
+      final panel = ArcaneButtonPanel(
         children: [
           ArcaneButton.primary(label: 'Save', onPressed: () {}),
         ],
@@ -142,12 +142,12 @@ void main() {
 
   group('View Components', () {
     test('Bar creates with title', () {
-      final bar = const Bar(titleText: 'Test Title');
+      final bar = const ArcaneBar(titleText: 'Test Title');
       expect(bar.titleText, equals('Test Title'));
     });
 
     test('Bar creates with leading and trailing', () {
-      final bar = const Bar(
+      final bar = const ArcaneBar(
         titleText: 'Title',
         leading: [Component.text('L')],
         trailing: [Component.text('R')],
@@ -157,7 +157,7 @@ void main() {
     });
 
     test('Glass creates with blur', () {
-      final glass = const Glass(
+      final glass = const ArcaneGlass(
         blur: 10,
         child: Component.text('Content'),
       );
@@ -165,7 +165,7 @@ void main() {
     });
 
     test('Glass creates with opacity', () {
-      final glass = const Glass(
+      final glass = const ArcaneGlass(
         blur: 10,
         opacity: 0.8,
         child: Component.text('Content'),
@@ -174,7 +174,7 @@ void main() {
     });
 
     test('Expander creates with header', () {
-      final expander = const Expander(
+      final expander = const ArcaneExpander(
         header: Component.text('Title'),
         child: Component.text('Content'),
       );
@@ -182,7 +182,7 @@ void main() {
     });
 
     test('Expander initiallyExpanded state', () {
-      final expander = const Expander(
+      final expander = const ArcaneExpander(
         header: Component.text('Title'),
         child: Component.text('Content'),
         initiallyExpanded: true,
@@ -191,7 +191,7 @@ void main() {
     });
 
     test('CenterBody creates with child', () {
-      final center = const CenterBody(
+      final center = const ArcaneCenterBody(
         child: Component.text('Centered'),
       );
       expect(center.child, isNotNull);
@@ -200,16 +200,16 @@ void main() {
 
   group('Navigation Components', () {
     test('Sidebar creates with children', () {
-      final sidebar = Sidebar(
+      final sidebar = ArcaneSidebar(
         children: [
-          SidebarItem(label: 'Home', onTap: () {}),
+          ArcaneSidebarItem(label: 'Home', onTap: () {}),
         ],
       );
       expect(sidebar.children, isNotEmpty);
     });
 
     test('SidebarItem creates with label', () {
-      final item = SidebarItem(
+      final item = ArcaneSidebarItem(
         label: 'Home',
         selected: true,
         onTap: () {},
@@ -219,11 +219,11 @@ void main() {
     });
 
     test('BottomNavigationBar creates with items', () {
-      final nav = BottomNavigationBar(
+      final nav = ArcaneBottomNavigationBar(
         selectedIndex: 0,
         onChanged: (_) {},
         items: [
-          const BottomNavItem(icon: span([Component.text('H')]), label: 'Home'),
+          const ArcaneBottomNavItem(icon: span([Component.text('H')]), label: 'Home'),
         ],
       );
       expect(nav.items, isNotEmpty);
@@ -231,7 +231,7 @@ void main() {
     });
 
     test('BottomNavItem creates with label and icon', () {
-      final item = const BottomNavItem(
+      final item = const ArcaneBottomNavItem(
         icon: span([Component.text('H')]),
         label: 'Home',
       );
@@ -262,7 +262,7 @@ void main() {
     });
 
     test('ConfirmDialog creates with message', () {
-      final dialog = ConfirmDialog(
+      final dialog = ArcaneConfirmDialog(
         title: 'Confirm',
         message: 'Are you sure?',
         onConfirm: () {},
@@ -273,7 +273,7 @@ void main() {
     });
 
     test('ConfirmDialog destructive flag', () {
-      final dialog = ConfirmDialog(
+      final dialog = ArcaneConfirmDialog(
         title: 'Delete',
         message: 'Delete this?',
         destructive: true,
@@ -284,7 +284,7 @@ void main() {
     });
 
     test('AlertDialog creates with message', () {
-      final dialog = AlertDialog(
+      final dialog = ArcaneAlertDialog(
         title: 'Alert',
         message: 'Something happened',
         onDismiss: () {},
@@ -294,7 +294,7 @@ void main() {
     });
 
     test('Toast creates with message', () {
-      final toast = Toast(
+      final toast = ArcaneToast(
         message: 'Success!',
         variant: ToastVariant.success,
         onClose: () {},
@@ -313,7 +313,7 @@ void main() {
 
   group('Table Components', () {
     test('StaticTable creates with headers and rows', () {
-      final table = const StaticTable(
+      final table = const ArcaneStaticTable(
         headers: ['Name', 'Age'],
         rows: [
           [Component.text('Alice'), Component.text('25')],
@@ -326,7 +326,7 @@ void main() {
 
   group('Collection Components', () {
     test('Collection creates with children', () {
-      final collection = const Collection(
+      final collection = const ArcaneCollection(
         gap: 8,
         children: [Component.text('Item')],
       );
@@ -334,8 +334,8 @@ void main() {
       expect(collection.children, isNotEmpty);
     });
 
-    test('Collection.builder creates with builder', () {
-      final collection = Collection.builder(
+    test('ArcaneCollection.builder creates with builder', () {
+      final collection = ArcaneCollection.builder(
         builder: (context, index) => Component.text('Item $index'),
         childCount: 5,
       );
@@ -343,7 +343,7 @@ void main() {
     });
 
     test('ListView creates with gap', () {
-      final list = const ListView(
+      final list = const ArcaneListView(
         gap: 8,
         children: [Component.text('Item')],
       );
@@ -351,7 +351,7 @@ void main() {
     });
 
     test('GridView creates with crossAxisCount', () {
-      final grid = const GridView(
+      final grid = const ArcaneGridView(
         crossAxisCount: 3,
         children: [Component.text('Item')],
       );
@@ -359,7 +359,7 @@ void main() {
     });
 
     test('MasonryGrid creates with columns', () {
-      final masonry = const MasonryGrid(
+      final masonry = const ArcaneMasonryGrid(
         columns: 2,
         children: [Component.text('Item')],
       );
@@ -369,22 +369,22 @@ void main() {
 
   group('Screen Components', () {
     test('Screen creates with child', () {
-      final screen = const Screen(
+      final screen = const ArcaneScreen(
         child: Component.text('Content'),
       );
       expect(screen.child, isNotNull);
     });
 
     test('Screen creates with header', () {
-      final screen = const Screen(
-        header: Bar(titleText: 'Title'),
+      final screen = const ArcaneScreen(
+        header: ArcaneBar(titleText: 'Title'),
         child: Component.text('Content'),
       );
       expect(screen.header, isNotNull);
     });
 
     test('FillScreen creates with child', () {
-      final screen = const FillScreen(
+      final screen = const ArcaneFillScreen(
         child: Component.text('Content'),
       );
       expect(screen.child, isNotNull);

@@ -4,7 +4,7 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../util/tokens/tokens.dart';
 
 /// A code snippet component with copy button (Supabase-style)
-class CodeSnippet extends StatefulComponent {
+class ArcaneCodeSnippet extends StatefulComponent {
   /// The code to display
   final String code;
 
@@ -23,7 +23,7 @@ class CodeSnippet extends StatefulComponent {
   /// Title/filename
   final String? title;
 
-  const CodeSnippet({
+  const ArcaneCodeSnippet({
     required this.code,
     this.language,
     this.showLineNumbers = false,
@@ -34,7 +34,7 @@ class CodeSnippet extends StatefulComponent {
   });
 
   @override
-  State<CodeSnippet> createState() => _CodeSnippetState();
+  State<ArcaneCodeSnippet> createState() => _CodeSnippetState();
 
   @css
   static final List<StyleRule> styles = [
@@ -45,7 +45,7 @@ class CodeSnippet extends StatefulComponent {
   ];
 }
 
-class _CodeSnippetState extends State<CodeSnippet> {
+class _CodeSnippetState extends State<ArcaneCodeSnippet> {
   bool _copied = false;
 
   void _copyToClipboard() {
@@ -234,11 +234,11 @@ class _CodeSnippetState extends State<CodeSnippet> {
 }
 
 /// An inline code component
-class InlineCode extends StatelessComponent {
+class ArcaneInlineCode extends StatelessComponent {
   /// Code text
   final String code;
 
-  const InlineCode(this.code, {super.key});
+  const ArcaneInlineCode(this.code, {super.key});
 
   @override
   Component build(BuildContext context) {
@@ -260,7 +260,7 @@ class InlineCode extends StatelessComponent {
 }
 
 /// A terminal/command line component
-class Terminal extends StatelessComponent {
+class ArcaneTerminal extends StatelessComponent {
   /// Commands to display
   final List<String> commands;
 
@@ -273,7 +273,7 @@ class Terminal extends StatelessComponent {
   /// Whether to show copy button
   final bool showCopyButton;
 
-  const Terminal({
+  const ArcaneTerminal({
     required this.commands,
     this.prompt = '\$',
     this.title,

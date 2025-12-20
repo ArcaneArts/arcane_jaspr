@@ -151,9 +151,9 @@ class ArcaneSocialIconGroup extends StatelessComponent {
 }
 
 /// Social links component with labels
-class SocialLinks extends StatelessComponent {
+class ArcaneSocialLinks extends StatelessComponent {
   /// Social link items
-  final List<SocialLinkItem> links;
+  final List<ArcaneSocialLinkItem> links;
 
   /// Orientation (horizontal or vertical)
   final bool vertical;
@@ -161,7 +161,7 @@ class SocialLinks extends StatelessComponent {
   /// Gap between items
   final String gap;
 
-  const SocialLinks({
+  const ArcaneSocialLinks({
     required this.links,
     this.vertical = false,
     this.gap = '16px',
@@ -217,7 +217,7 @@ class SocialLinks extends StatelessComponent {
 }
 
 /// A social link item
-class SocialLinkItem {
+class ArcaneSocialLinkItem {
   /// Platform
   final SocialPlatform platform;
 
@@ -227,7 +227,7 @@ class SocialLinkItem {
   /// Optional label
   final String? label;
 
-  const SocialLinkItem({
+  const ArcaneSocialLinkItem({
     required this.platform,
     required this.url,
     this.label,

@@ -20,7 +20,7 @@ enum ToggleSwitchSize {
 ///   style: ToggleStyle.success,
 /// )
 /// ```
-class ToggleSwitch extends StatefulComponent {
+class ArcaneToggleSwitch extends StatefulComponent {
   /// Whether the switch is on
   final bool value;
 
@@ -42,7 +42,7 @@ class ToggleSwitch extends StatefulComponent {
   /// Whether to show the label on the left side
   final bool labelLeft;
 
-  const ToggleSwitch({
+  const ArcaneToggleSwitch({
     required this.value,
     this.onChanged,
     this.disabled = false,
@@ -54,7 +54,7 @@ class ToggleSwitch extends StatefulComponent {
   });
 
   /// Primary toggle
-  const ToggleSwitch.primary({
+  const ArcaneToggleSwitch.primary({
     required this.value,
     this.onChanged,
     this.disabled = false,
@@ -65,7 +65,7 @@ class ToggleSwitch extends StatefulComponent {
   }) : style = ToggleStyle.primary;
 
   /// Success toggle
-  const ToggleSwitch.success({
+  const ArcaneToggleSwitch.success({
     required this.value,
     this.onChanged,
     this.disabled = false,
@@ -76,10 +76,10 @@ class ToggleSwitch extends StatefulComponent {
   }) : style = ToggleStyle.success;
 
   @override
-  State<ToggleSwitch> createState() => _ToggleSwitchState();
+  State<ArcaneToggleSwitch> createState() => _ArcaneToggleSwitchState();
 }
 
-class _ToggleSwitchState extends State<ToggleSwitch> {
+class _ArcaneToggleSwitchState extends State<ArcaneToggleSwitch> {
   @override
   Component build(BuildContext context) {
     final effectiveStyle = component.style ?? ToggleStyle.primary;
@@ -186,7 +186,7 @@ class _ToggleSwitchState extends State<ToggleSwitch> {
 }
 
 /// A toggle button group (like pricing monthly/yearly)
-class ToggleButtonGroup extends StatelessComponent {
+class ArcaneToggleButtonGroup extends StatelessComponent {
   /// The available options
   final List<String> options;
 
@@ -199,7 +199,7 @@ class ToggleButtonGroup extends StatelessComponent {
   /// Size of the toggle group
   final ToggleSwitchSize size;
 
-  const ToggleButtonGroup({
+  const ArcaneToggleButtonGroup({
     required this.options,
     required this.selectedIndex,
     this.onChanged,

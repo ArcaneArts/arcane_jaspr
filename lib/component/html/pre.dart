@@ -34,7 +34,7 @@ import '../../util/style_types/arcane_style_data.dart';
 ///
 /// Example:
 /// ```dart
-/// Pre(
+/// ArcanePre(
 ///   styles: ArcaneStyleData(
 ///     background: Background.card,
 ///     padding: PaddingPreset.md,
@@ -45,7 +45,7 @@ import '../../util/style_types/arcane_style_data.dart';
 ///   ],
 /// )
 /// ```
-class Pre extends StatelessComponent {
+class ArcanePre extends StatelessComponent {
   /// The children of the pre element
   final List<Component> children;
 
@@ -61,7 +61,7 @@ class Pre extends StatelessComponent {
   /// Additional HTML attributes
   final Map<String, String>? attributes;
 
-  const Pre({
+  const ArcanePre({
     required this.children,
     this.styles,
     this.classes,

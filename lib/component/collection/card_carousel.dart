@@ -4,21 +4,21 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../util/tokens/tokens.dart';
 
 /// Theme configuration for [CardCarousel] widgets.
-class CardCarouselTheme {
+class ArcaneCardCarouselTheme {
   /// The intensity level for the edge gradient fade effect (1-12).
   final int sharpness;
 
-  const CardCarouselTheme({this.sharpness = 9});
+  const ArcaneCardCarouselTheme({this.sharpness = 9});
 
-  CardCarouselTheme copyWith({int? sharpness}) =>
-      CardCarouselTheme(sharpness: sharpness ?? this.sharpness);
+  ArcaneCardCarouselTheme copyWith({int? sharpness}) =>
+      ArcaneCardCarouselTheme(sharpness: sharpness ?? this.sharpness);
 }
 
 /// A horizontally scrollable widget container with edge fading.
 ///
 /// [CardCarousel] displays a sequence of widgets in a compact horizontal layout
 /// with smooth scrolling and edge gradient overlays to indicate additional content.
-class CardCarousel extends StatelessComponent {
+class ArcaneCardCarousel extends StatelessComponent {
   /// The collection of widgets to render within the carousel.
   final List<Component> children;
 
@@ -37,7 +37,7 @@ class CardCarousel extends StatelessComponent {
   /// Height constraint for the carousel.
   final String? height;
 
-  const CardCarousel({
+  const ArcaneCardCarousel({
     super.key,
     this.children = const [],
     this.sharpness,
@@ -128,7 +128,7 @@ class CardCarousel extends StatelessComponent {
 }
 
 /// A carousel with navigation arrows.
-class NavigableCarousel extends StatefulComponent {
+class ArcaneNavigableCarousel extends StatefulComponent {
   /// The collection of widgets to render.
   final List<Component> children;
 
@@ -147,7 +147,7 @@ class NavigableCarousel extends StatefulComponent {
   /// Height constraint.
   final String? height;
 
-  const NavigableCarousel({
+  const ArcaneNavigableCarousel({
     super.key,
     required this.children,
     this.gap = 16,
@@ -158,7 +158,7 @@ class NavigableCarousel extends StatefulComponent {
   });
 
   @override
-  State<NavigableCarousel> createState() => _NavigableCarouselState();
+  State<ArcaneNavigableCarousel> createState() => _NavigableCarouselState();
 
   @css
   static final List<StyleRule> styles = [
@@ -173,7 +173,7 @@ class NavigableCarousel extends StatefulComponent {
   ];
 }
 
-class _NavigableCarouselState extends State<NavigableCarousel> {
+class _NavigableCarouselState extends State<ArcaneNavigableCarousel> {
   int _currentIndex = 0;
 
   int get _maxIndex =>
@@ -359,7 +359,7 @@ class _NavigableCarouselState extends State<NavigableCarousel> {
 }
 
 /// A hero carousel with full-width slides.
-class HeroCarousel extends StatefulComponent {
+class ArcaneHeroCarousel extends StatefulComponent {
   /// Slides to display.
   final List<Component> children;
 
@@ -375,7 +375,7 @@ class HeroCarousel extends StatefulComponent {
   /// Height of the carousel.
   final String height;
 
-  const HeroCarousel({
+  const ArcaneHeroCarousel({
     super.key,
     required this.children,
     this.autoPlayInterval = 5000,
@@ -385,7 +385,7 @@ class HeroCarousel extends StatefulComponent {
   });
 
   @override
-  State<HeroCarousel> createState() => _HeroCarouselState();
+  State<ArcaneHeroCarousel> createState() => _HeroCarouselState();
 
   @css
   static final List<StyleRule> styles = [
@@ -395,7 +395,7 @@ class HeroCarousel extends StatefulComponent {
   ];
 }
 
-class _HeroCarouselState extends State<HeroCarousel> {
+class _HeroCarouselState extends State<ArcaneHeroCarousel> {
   int _currentIndex = 0;
 
   void _goToPrevious() {

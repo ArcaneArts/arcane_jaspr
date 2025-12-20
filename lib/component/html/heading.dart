@@ -38,7 +38,7 @@ enum HeadingLevel { h1, h2, h3, h4, h5, h6 }
 ///
 /// Example:
 /// ```dart
-/// Heading(
+/// ArcaneHeading(
 ///   level: HeadingLevel.h1,
 ///   styles: ArcaneStyleData(
 ///     fontSize: FontSize.hero,
@@ -48,10 +48,10 @@ enum HeadingLevel { h1, h2, h3, h4, h5, h6 }
 /// )
 ///
 /// // Or use named constructors:
-/// Heading.h1(child: ArcaneText('Main Title'))
-/// Heading.h2(child: ArcaneText('Section Title'))
+/// ArcaneHeading.h1(child: ArcaneText('Main Title'))
+/// ArcaneHeading.h2(child: ArcaneText('Section Title'))
 /// ```
-class Heading extends StatelessComponent {
+class ArcaneHeading extends StatelessComponent {
   /// The heading level (h1-h6)
   final HeadingLevel level;
 
@@ -70,7 +70,7 @@ class Heading extends StatelessComponent {
   /// Optional ID attribute
   final String? id;
 
-  const Heading({
+  const ArcaneHeading({
     required this.level,
     required Component child,
     this.styles,
@@ -80,7 +80,7 @@ class Heading extends StatelessComponent {
   })  : _child = child,
         _children = null;
 
-  const Heading._withChildren({
+  const ArcaneHeading._withChildren({
     required this.level,
     required List<Component> children,
     this.styles,
@@ -91,7 +91,7 @@ class Heading extends StatelessComponent {
         _children = children;
 
   /// Create an h1 heading with single child
-  const Heading.h1({
+  const ArcaneHeading.h1({
     required Component child,
     ArcaneStyleData? styles,
     String? classes,
@@ -107,7 +107,7 @@ class Heading extends StatelessComponent {
         );
 
   /// Create an h1 heading with multiple children
-  const Heading.h1Children({
+  const ArcaneHeading.h1Children({
     required List<Component> children,
     ArcaneStyleData? styles,
     String? classes,
@@ -123,7 +123,7 @@ class Heading extends StatelessComponent {
         );
 
   /// Create an h2 heading with single child
-  const Heading.h2({
+  const ArcaneHeading.h2({
     required Component child,
     ArcaneStyleData? styles,
     String? classes,
@@ -139,7 +139,7 @@ class Heading extends StatelessComponent {
         );
 
   /// Create an h2 heading with multiple children
-  const Heading.h2Children({
+  const ArcaneHeading.h2Children({
     required List<Component> children,
     ArcaneStyleData? styles,
     String? classes,
@@ -155,7 +155,7 @@ class Heading extends StatelessComponent {
         );
 
   /// Create an h3 heading with single child
-  const Heading.h3({
+  const ArcaneHeading.h3({
     required Component child,
     ArcaneStyleData? styles,
     String? classes,
@@ -171,7 +171,7 @@ class Heading extends StatelessComponent {
         );
 
   /// Create an h3 heading with multiple children
-  const Heading.h3Children({
+  const ArcaneHeading.h3Children({
     required List<Component> children,
     ArcaneStyleData? styles,
     String? classes,
@@ -187,7 +187,7 @@ class Heading extends StatelessComponent {
         );
 
   /// Create an h4 heading with single child
-  const Heading.h4({
+  const ArcaneHeading.h4({
     required Component child,
     ArcaneStyleData? styles,
     String? classes,
@@ -203,7 +203,7 @@ class Heading extends StatelessComponent {
         );
 
   /// Create an h4 heading with multiple children
-  const Heading.h4Children({
+  const ArcaneHeading.h4Children({
     required List<Component> children,
     ArcaneStyleData? styles,
     String? classes,
@@ -219,7 +219,7 @@ class Heading extends StatelessComponent {
         );
 
   /// Create an h5 heading with single child
-  const Heading.h5({
+  const ArcaneHeading.h5({
     required Component child,
     ArcaneStyleData? styles,
     String? classes,
@@ -235,7 +235,7 @@ class Heading extends StatelessComponent {
         );
 
   /// Create an h5 heading with multiple children
-  const Heading.h5Children({
+  const ArcaneHeading.h5Children({
     required List<Component> children,
     ArcaneStyleData? styles,
     String? classes,
@@ -251,7 +251,7 @@ class Heading extends StatelessComponent {
         );
 
   /// Create an h6 heading with single child
-  const Heading.h6({
+  const ArcaneHeading.h6({
     required Component child,
     ArcaneStyleData? styles,
     String? classes,
@@ -267,7 +267,7 @@ class Heading extends StatelessComponent {
         );
 
   /// Create an h6 heading with multiple children
-  const Heading.h6Children({
+  const ArcaneHeading.h6Children({
     required List<Component> children,
     ArcaneStyleData? styles,
     String? classes,

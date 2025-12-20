@@ -6,7 +6,7 @@ import '../../util/tokens/style_presets.dart';
 import 'badge.dart';
 
 /// A pricing tier model
-class PricingTier {
+class ArcanePricingTier {
   /// Tier name (e.g., "Free", "Pro", "Team")
   final String name;
 
@@ -34,7 +34,7 @@ class PricingTier {
   /// Whether this tier is highlighted
   final bool isHighlighted;
 
-  const PricingTier({
+  const ArcanePricingTier({
     required this.name,
     this.price,
     this.period = 'month',
@@ -48,14 +48,14 @@ class PricingTier {
 }
 
 /// A pricing card component (Supabase-style)
-class PricingCard extends StatelessComponent {
+class ArcanePricingCard extends StatelessComponent {
   /// The pricing tier data
-  final PricingTier tier;
+  final ArcanePricingTier tier;
 
   /// Click handler for CTA
   final void Function()? onCtaPressed;
 
-  const PricingCard({
+  const ArcanePricingCard({
     required this.tier,
     this.onCtaPressed,
     super.key,
@@ -89,7 +89,7 @@ class PricingCard extends StatelessComponent {
               'left': '50%',
               'transform': 'translateX(-50%)',
             }),
-            [Badge.primary('Most Popular')],
+            [ArcaneBadge.primary('Most Popular')],
           ),
 
         // Tier name
@@ -243,17 +243,17 @@ class PricingCard extends StatelessComponent {
 }
 
 /// A pricing grid for displaying multiple tiers
-class PricingGrid extends StatelessComponent {
+class ArcanePricingGrid extends StatelessComponent {
   /// The pricing tiers to display
-  final List<PricingTier> tiers;
+  final List<ArcanePricingTier> tiers;
 
   /// Callback when a tier's CTA is pressed
-  final void Function(PricingTier tier)? onTierSelected;
+  final void Function(ArcanePricingTier tier)? onTierSelected;
 
   /// Number of columns (auto-calculated if null)
   final int? columns;
 
-  const PricingGrid({
+  const ArcanePricingGrid({
     required this.tiers,
     this.onTierSelected,
     this.columns,
@@ -274,7 +274,7 @@ class PricingGrid extends StatelessComponent {
       }),
       [
         for (final tier in tiers)
-          PricingCard(
+          ArcanePricingCard(
             tier: tier,
             onCtaPressed: () => onTierSelected?.call(tier),
           ),

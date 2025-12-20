@@ -29,14 +29,14 @@ import '../../util/style_types/arcane_style_data.dart';
 
 /// A main component that wraps the HTML `<main>` element.
 ///
-/// Named `Main` to match Dart conventions (avoiding conflict with `main()` function).
+/// Named `ArcaneMain` to match Dart conventions (avoiding conflict with `main()` function).
 ///
 /// Provides a Flutter-like API with direct `ArcaneStyleData` support,
 /// eliminating the need to call `.toStyles()`.
 ///
 /// Example:
 /// ```dart
-/// Main(
+/// ArcaneMain(
 ///   styles: ArcaneStyleData(
 ///     flexGrow: FlexGrow.grow,
 ///     padding: PaddingPreset.xl,
@@ -46,7 +46,7 @@ import '../../util/style_types/arcane_style_data.dart';
 ///   ],
 /// )
 /// ```
-class Main extends StatelessComponent {
+class ArcaneMain extends StatelessComponent {
   /// The children of the main element
   final List<Component> children;
 
@@ -62,7 +62,7 @@ class Main extends StatelessComponent {
   /// Additional HTML attributes
   final Map<String, String>? attributes;
 
-  const Main({
+  const ArcaneMain({
     required this.children,
     this.styles,
     this.classes,

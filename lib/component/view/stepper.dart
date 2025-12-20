@@ -4,7 +4,7 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../util/tokens/tokens.dart';
 
 /// Step item data
-class StepItem {
+class ArcaneStepItem {
   /// Step title
   final String title;
 
@@ -17,7 +17,7 @@ class StepItem {
   /// Whether this is the active step
   final bool active;
 
-  const StepItem({
+  const ArcaneStepItem({
     required this.title,
     this.description,
     this.completed = false,
@@ -26,9 +26,9 @@ class StepItem {
 }
 
 /// Horizontal stepper for multi-step processes
-class Stepper extends StatelessComponent {
+class ArcaneStepper extends StatelessComponent {
   /// Steps to display
-  final List<StepItem> steps;
+  final List<ArcaneStepItem> steps;
 
   /// Color for active step
   final String? activeColor;
@@ -39,7 +39,7 @@ class Stepper extends StatelessComponent {
   /// Color for inactive step
   final String? inactiveColor;
 
-  const Stepper({
+  const ArcaneStepper({
     required this.steps,
     this.activeColor,
     this.completedColor,
@@ -68,7 +68,7 @@ class Stepper extends StatelessComponent {
     );
   }
 
-  Component _buildStep(StepItem step, int index, String activeColor, String completedColor, String inactiveColor) {
+  Component _buildStep(ArcaneStepItem step, int index, String activeColor, String completedColor, String inactiveColor) {
     final bool isLast = index == steps.length - 1;
     String circleColor;
     String circleTextColor;
@@ -170,9 +170,9 @@ class Stepper extends StatelessComponent {
 }
 
 /// Vertical stepper variant
-class VerticalStepper extends StatelessComponent {
+class ArcaneVerticalStepper extends StatelessComponent {
   /// Steps to display
-  final List<StepItem> steps;
+  final List<ArcaneStepItem> steps;
 
   /// Color for active/completed steps
   final String? activeColor;
@@ -180,7 +180,7 @@ class VerticalStepper extends StatelessComponent {
   /// Color for inactive steps
   final String? inactiveColor;
 
-  const VerticalStepper({
+  const ArcaneVerticalStepper({
     required this.steps,
     this.activeColor,
     this.inactiveColor,
@@ -205,7 +205,7 @@ class VerticalStepper extends StatelessComponent {
     );
   }
 
-  Component _buildStep(StepItem step, int index, String activeColor, String inactiveColor) {
+  Component _buildStep(ArcaneStepItem step, int index, String activeColor, String inactiveColor) {
     final bool isLast = index == steps.length - 1;
     final String dotColor = step.completed || step.active ? activeColor : inactiveColor;
     final String labelColor = step.completed || step.active ? ArcaneColors.onSurface : ArcaneColors.muted;

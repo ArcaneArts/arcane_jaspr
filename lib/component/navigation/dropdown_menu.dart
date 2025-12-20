@@ -4,7 +4,7 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../util/tokens/tokens.dart';
 
 /// A dropdown menu item
-class DropdownItem {
+class ArcaneDropdownItem {
   final String label;
   final String? href;
   final void Function()? onTap;
@@ -13,7 +13,7 @@ class DropdownItem {
   final bool disabled;
   final bool divider;
 
-  const DropdownItem({
+  const ArcaneDropdownItem({
     required this.label,
     this.href,
     this.onTap,
@@ -24,7 +24,7 @@ class DropdownItem {
   });
 
   /// Create a divider item
-  const DropdownItem.divider()
+  const ArcaneDropdownItem.divider()
       : label = '',
         href = null,
         onTap = null,
@@ -35,12 +35,12 @@ class DropdownItem {
 }
 
 /// A dropdown menu component (Supabase-style)
-class DropdownMenu extends StatefulComponent {
+class ArcaneDropdownMenu extends StatefulComponent {
   /// Trigger element
   final Component trigger;
 
   /// Menu items
-  final List<DropdownItem> items;
+  final List<ArcaneDropdownItem> items;
 
   /// Alignment
   final DropdownAlignment alignment;
@@ -48,7 +48,7 @@ class DropdownMenu extends StatefulComponent {
   /// Width
   final double? width;
 
-  const DropdownMenu({
+  const ArcaneDropdownMenu({
     required this.trigger,
     required this.items,
     this.alignment = DropdownAlignment.left,
@@ -57,7 +57,7 @@ class DropdownMenu extends StatefulComponent {
   });
 
   @override
-  State<DropdownMenu> createState() => _DropdownMenuState();
+  State<ArcaneDropdownMenu> createState() => _ArcaneDropdownMenuState();
 
   @css
   static final List<StyleRule> styles = [
@@ -78,7 +78,7 @@ enum DropdownAlignment {
   center,
 }
 
-class _DropdownMenuState extends State<DropdownMenu> {
+class _ArcaneDropdownMenuState extends State<ArcaneDropdownMenu> {
   bool _isOpen = false;
 
   void _toggle() {
@@ -168,7 +168,7 @@ class _DropdownMenuState extends State<DropdownMenu> {
     );
   }
 
-  Component _buildItem(DropdownItem item) {
+  Component _buildItem(ArcaneDropdownItem item) {
     final Styles itemStyles = Styles(raw: {
       'display': 'flex',
       'align-items': 'center',
@@ -248,17 +248,17 @@ class _DropdownMenuState extends State<DropdownMenu> {
 }
 
 /// A navigation dropdown with mega-menu style
-class MegaMenu extends StatefulComponent {
+class ArcaneMegaMenu extends StatefulComponent {
   /// Trigger label
   final String label;
 
   /// Menu sections
-  final List<MegaMenuSection> sections;
+  final List<ArcaneMegaMenuSection> sections;
 
   /// Footer content
   final Component? footer;
 
-  const MegaMenu({
+  const ArcaneMegaMenu({
     required this.label,
     required this.sections,
     this.footer,
@@ -266,7 +266,7 @@ class MegaMenu extends StatefulComponent {
   });
 
   @override
-  State<MegaMenu> createState() => _MegaMenuState();
+  State<ArcaneMegaMenu> createState() => _ArcaneMegaMenuState();
 
   @css
   static final List<StyleRule> styles = [
@@ -280,17 +280,17 @@ class MegaMenu extends StatefulComponent {
 }
 
 /// A section in a mega menu
-class MegaMenuSection {
+class ArcaneMegaMenuSection {
   final String? title;
-  final List<DropdownItem> items;
+  final List<ArcaneDropdownItem> items;
 
-  const MegaMenuSection({
+  const ArcaneMegaMenuSection({
     this.title,
     required this.items,
   });
 }
 
-class _MegaMenuState extends State<MegaMenu> {
+class _ArcaneMegaMenuState extends State<ArcaneMegaMenu> {
   bool _isOpen = false;
 
   @override
@@ -403,7 +403,7 @@ class _MegaMenuState extends State<MegaMenu> {
     );
   }
 
-  Component _buildMegaItem(DropdownItem item) {
+  Component _buildMegaItem(ArcaneDropdownItem item) {
     final Component itemContent = div(
       styles: const Styles(raw: {
         'display': 'flex',

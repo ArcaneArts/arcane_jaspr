@@ -4,9 +4,9 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../util/tokens/tokens.dart';
 
 /// A group of selectable cards where only one can be selected at a time.
-class RadioCards<T> extends StatefulComponent {
+class ArcaneRadioCards<T> extends StatefulComponent {
   /// The items to display
-  final List<RadioCardItem<T>> items;
+  final List<ArcaneRadioCardItem<T>> items;
 
   /// The currently selected value
   final T? value;
@@ -23,7 +23,7 @@ class RadioCards<T> extends StatefulComponent {
   /// Card width (null for auto)
   final double? cardWidth;
 
-  const RadioCards({
+  const ArcaneRadioCards({
     required this.items,
     this.value,
     this.onChanged,
@@ -34,10 +34,10 @@ class RadioCards<T> extends StatefulComponent {
   });
 
   @override
-  State<RadioCards<T>> createState() => _RadioCardsState<T>();
+  State<ArcaneRadioCards<T>> createState() => _ArcaneRadioCardsState<T>();
 }
 
-class _RadioCardsState<T> extends State<RadioCards<T>> {
+class _ArcaneRadioCardsState<T> extends State<ArcaneRadioCards<T>> {
   @override
   Component build(BuildContext context) {
     return div(
@@ -54,7 +54,7 @@ class _RadioCardsState<T> extends State<RadioCards<T>> {
     );
   }
 
-  Component _buildCard(BuildContext context, RadioCardItem<T> item) {
+  Component _buildCard(BuildContext context, ArcaneRadioCardItem<T> item) {
     final bool isSelected = component.value == item.value;
     final bool isDisabled = item.disabled;
 
@@ -120,8 +120,8 @@ class _RadioCardsState<T> extends State<RadioCards<T>> {
   }
 }
 
-/// An item for RadioCards
-class RadioCardItem<T> {
+/// An item for ArcaneRadioCards
+class ArcaneRadioCardItem<T> {
   final T value;
   final String? title;
   final String? subtitle;
@@ -129,7 +129,7 @@ class RadioCardItem<T> {
   final Component? child;
   final bool disabled;
 
-  const RadioCardItem({
+  const ArcaneRadioCardItem({
     required this.value,
     this.title,
     this.subtitle,
@@ -140,12 +140,12 @@ class RadioCardItem<T> {
 }
 
 /// A group of selectable chips where multiple can be selected
-class ChipGroup extends StatelessComponent {
+class ArcaneChipGroup extends StatelessComponent {
   final List<Component> children;
   final double gap;
   final bool wrap;
 
-  const ChipGroup({
+  const ArcaneChipGroup({
     required this.children,
     this.gap = 8,
     this.wrap = true,
@@ -167,7 +167,7 @@ class ChipGroup extends StatelessComponent {
 }
 
 /// A single chip component
-class Chip extends StatelessComponent {
+class ArcaneChip extends StatelessComponent {
   final String label;
   final Component? avatar;
   final Component? deleteIcon;
@@ -176,7 +176,7 @@ class Chip extends StatelessComponent {
   final bool selected;
   final bool disabled;
 
-  const Chip({
+  const ArcaneChip({
     required this.label,
     this.avatar,
     this.deleteIcon,

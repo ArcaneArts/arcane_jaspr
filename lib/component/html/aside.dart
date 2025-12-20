@@ -28,13 +28,13 @@ import 'package:jaspr/dom.dart'
 import '../../util/style_types/arcane_style_data.dart';
 
 /// An aside component that wraps the HTML `<aside>` element.
-class Aside extends StatelessComponent {
+class ArcaneAside extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
   final String? classes;
   final String? id;
 
-  const Aside({
+  const ArcaneAside({
     required this.children,
     this.styles,
     this.classes,

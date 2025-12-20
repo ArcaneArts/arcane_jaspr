@@ -11,12 +11,12 @@ enum ThemeToggleSize {
 }
 
 /// Day/Night theme toggle switch
-class ThemeToggle extends StatelessComponent {
+class ArcaneThemeToggle extends StatelessComponent {
   final bool isDark;
   final ThemeToggleSize size;
   final void Function(bool)? onChanged;
 
-  const ThemeToggle({
+  const ArcaneThemeToggle({
     this.isDark = true,
     this.size = ThemeToggleSize.medium,
     this.onChanged,
@@ -149,11 +149,11 @@ class ThemeToggle extends StatelessComponent {
 }
 
 /// Simple text-based theme toggle
-class ThemeToggleSimple extends StatelessComponent {
+class ArcaneThemeToggleSimple extends StatelessComponent {
   final bool isDark;
   final void Function(bool)? onChanged;
 
-  const ThemeToggleSimple({
+  const ArcaneThemeToggleSimple({
     this.isDark = true,
     this.onChanged,
     super.key,

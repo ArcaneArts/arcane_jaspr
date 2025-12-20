@@ -7,7 +7,7 @@ import '../../util/tokens/tokens.dart';
 /// A glassmorphism container component.
 ///
 /// Creates a frosted glass effect using CSS backdrop-filter.
-class Glass extends StatelessComponent {
+class ArcaneGlass extends StatelessComponent {
   /// The child component
   final Component child;
 
@@ -26,7 +26,7 @@ class Glass extends StatelessComponent {
   /// Whether to show a border
   final bool border;
 
-  const Glass({
+  const ArcaneGlass({
     required this.child,
     this.blur = 12.0,
     this.opacity = 0.7,
@@ -57,7 +57,7 @@ class Glass extends StatelessComponent {
 }
 
 /// A glass card with standard card styling
-class GlassCard extends StatelessComponent {
+class ArcaneGlassCard extends StatelessComponent {
   final Component child;
   final double blur;
   final double opacity;
@@ -66,7 +66,7 @@ class GlassCard extends StatelessComponent {
   final bool border;
   final void Function()? onTap;
 
-  const GlassCard({
+  const ArcaneGlassCard({
     required this.child,
     this.blur = 12.0,
     this.opacity = 0.7,
@@ -79,7 +79,7 @@ class GlassCard extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final content = Glass(
+    final content = ArcaneGlass(
       blur: blur,
       opacity: opacity,
       padding: padding ?? const EdgeInsets.all(16),
@@ -117,7 +117,7 @@ class GlassCard extends StatelessComponent {
 }
 
 /// A gradient glass effect
-class GradientGlass extends StatelessComponent {
+class ArcaneGradientGlass extends StatelessComponent {
   final Component child;
   final double blur;
   final String? gradientStart;
@@ -127,7 +127,7 @@ class GradientGlass extends StatelessComponent {
   final double? radius;
   final String direction;
 
-  const GradientGlass({
+  const ArcaneGradientGlass({
     required this.child,
     this.blur = 12.0,
     this.gradientStart,

@@ -465,7 +465,7 @@ class ArcaneTextArea extends StatelessComponent {
 /// A select/dropdown input component
 class ArcaneSelect extends StatelessComponent {
   /// Options list
-  final List<SelectOption> options;
+  final List<ArcaneSelectOption> options;
 
   /// Selected value
   final String? value;
@@ -633,12 +633,12 @@ class ArcaneSelect extends StatelessComponent {
 }
 
 /// Select option model
-class SelectOption {
+class ArcaneSelectOption {
   final String label;
   final String value;
   final bool disabled;
 
-  const SelectOption({
+  const ArcaneSelectOption({
     required this.label,
     required this.value,
     this.disabled = false,

@@ -6,8 +6,13 @@
       <excludeFolder url="file://$MODULE_DIR$/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
+      <excludeFolder url="file://$MODULE_DIR$/codex/arcane_codex_web/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/codex/arcane_codex_web/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/codex/arcane_codex_web/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Dart SDK" level="project" />
+    <orderEntry type="library" name="Dart Packages" level="project" />
   </component>
 </module>

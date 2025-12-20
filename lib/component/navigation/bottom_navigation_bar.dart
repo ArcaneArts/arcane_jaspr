@@ -4,9 +4,9 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../util/tokens/tokens.dart';
 
 /// A bottom navigation bar component.
-class BottomNavigationBar extends StatelessComponent {
+class ArcaneBottomNavigationBar extends StatelessComponent {
   /// The navigation items
-  final List<BottomNavItem> items;
+  final List<ArcaneBottomNavItem> items;
 
   /// The currently selected index
   final int selectedIndex;
@@ -23,7 +23,7 @@ class BottomNavigationBar extends StatelessComponent {
   /// Height of the navigation bar
   final double height;
 
-  const BottomNavigationBar({
+  const ArcaneBottomNavigationBar({
     required this.items,
     required this.selectedIndex,
     this.onChanged,
@@ -54,7 +54,7 @@ class BottomNavigationBar extends StatelessComponent {
     );
   }
 
-  Component _buildItem(BuildContext context, int index, BottomNavItem item) {
+  Component _buildItem(BuildContext context, int index, ArcaneBottomNavItem item) {
     final bool isSelected = index == selectedIndex;
     final bool shouldShowLabel = showLabels || (showSelectedLabels && isSelected);
 
@@ -165,13 +165,13 @@ class BottomNavigationBar extends StatelessComponent {
 }
 
 /// A bottom navigation item
-class BottomNavItem {
+class ArcaneBottomNavItem {
   final String label;
   final Component icon;
   final Component? activeIcon;
   final String? badge;
 
-  const BottomNavItem({
+  const ArcaneBottomNavItem({
     required this.label,
     required this.icon,
     this.activeIcon,
@@ -180,11 +180,11 @@ class BottomNavItem {
 }
 
 /// A fixed position bottom bar container
-class BottomBar extends StatelessComponent {
+class ArcaneBottomBar extends StatelessComponent {
   final Component child;
   final bool safeArea;
 
-  const BottomBar({
+  const ArcaneBottomBar({
     required this.child,
     this.safeArea = true,
     super.key,

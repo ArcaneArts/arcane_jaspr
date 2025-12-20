@@ -4,7 +4,7 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../util/tokens/tokens.dart';
 
 /// Timeline item data class
-class TimelineItem {
+class ArcaneTimelineItem {
   /// Item title
   final String title;
 
@@ -23,7 +23,7 @@ class TimelineItem {
   /// Whether this item is completed
   final bool completed;
 
-  const TimelineItem({
+  const ArcaneTimelineItem({
     required this.title,
     this.subtitle,
     this.description,
@@ -34,9 +34,9 @@ class TimelineItem {
 }
 
 /// Timeline component for showing progression or history
-class Timeline extends StatelessComponent {
+class ArcaneTimeline extends StatelessComponent {
   /// Timeline items
-  final List<TimelineItem> items;
+  final List<ArcaneTimelineItem> items;
 
   /// Line color
   final String? lineColor;
@@ -44,7 +44,7 @@ class Timeline extends StatelessComponent {
   /// Active/completed item color
   final String? activeColor;
 
-  const Timeline({
+  const ArcaneTimeline({
     required this.items,
     this.lineColor,
     this.activeColor,
@@ -70,7 +70,7 @@ class Timeline extends StatelessComponent {
     );
   }
 
-  Component _buildItem(TimelineItem item, int index, String lineColor, String activeColor) {
+  Component _buildItem(ArcaneTimelineItem item, int index, String lineColor, String activeColor) {
     final bool isLast = index == items.length - 1;
     final String dotColor = item.completed ? activeColor : lineColor;
 

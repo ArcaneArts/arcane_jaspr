@@ -34,17 +34,17 @@ import '../../util/style_types/arcane_style_data.dart';
 ///
 /// Example:
 /// ```dart
-/// Footer(
+/// ArcaneHtmlFooter(
 ///   styles: ArcaneStyleData(
 ///     padding: PaddingPreset.xl,
 ///     background: Background.card,
 ///   ),
 ///   children: [
-///     Paragraph(child: ArcaneText('Copyright 2024')),
+///     ArcaneParagraph(child: ArcaneText('Copyright 2024')),
 ///   ],
 /// )
 /// ```
-class HtmlFooter extends StatelessComponent {
+class ArcaneHtmlFooter extends StatelessComponent {
   /// The children of the footer
   final List<Component> children;
 
@@ -60,7 +60,7 @@ class HtmlFooter extends StatelessComponent {
   /// Additional HTML attributes
   final Map<String, String>? attributes;
 
-  const HtmlFooter({
+  const ArcaneHtmlFooter({
     required this.children,
     this.styles,
     this.classes,

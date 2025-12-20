@@ -34,17 +34,17 @@ import '../../util/style_types/arcane_style_data.dart';
 ///
 /// Example:
 /// ```dart
-/// Blockquote(
+/// ArcaneBlockquote(
 ///   styles: ArcaneStyleData(
 ///     padding: PaddingPreset.lg,
 ///     borderLeft: BorderPreset.accent,
 ///   ),
 ///   children: [
-///     Paragraph(child: ArcaneText('A wise quote...')),
+///     ArcaneParagraph(child: ArcaneText('A wise quote...')),
 ///   ],
 /// )
 /// ```
-class Blockquote extends StatelessComponent {
+class ArcaneBlockquote extends StatelessComponent {
   /// The children of the blockquote
   final List<Component> children;
 
@@ -60,7 +60,7 @@ class Blockquote extends StatelessComponent {
   /// Additional HTML attributes
   final Map<String, String>? attributes;
 
-  const Blockquote({
+  const ArcaneBlockquote({
     required this.children,
     this.styles,
     this.classes,

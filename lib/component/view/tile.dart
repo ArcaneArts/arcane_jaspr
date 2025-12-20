@@ -5,7 +5,7 @@ import '../../util/arcane.dart';
 import '../../util/tokens/tokens.dart';
 
 /// A list tile component for displaying items in a list.
-class Tile extends StatelessComponent {
+class ArcaneTile extends StatelessComponent {
   /// Title text
   final String? title;
 
@@ -39,7 +39,7 @@ class Tile extends StatelessComponent {
   /// Whether to use dense layout
   final bool dense;
 
-  const Tile({
+  const ArcaneTile({
     this.title,
     this.titleWidget,
     this.subtitle,
@@ -173,7 +173,7 @@ class Tile extends StatelessComponent {
 }
 
 /// A navigation tile for sidebar or list navigation
-class NavTile extends StatelessComponent {
+class ArcaneNavTile extends StatelessComponent {
   final String label;
   final Component? icon;
   final void Function()? onTap;
@@ -181,7 +181,7 @@ class NavTile extends StatelessComponent {
   final bool disabled;
   final String? badge;
 
-  const NavTile({
+  const ArcaneNavTile({
     required this.label,
     this.icon,
     this.onTap,
