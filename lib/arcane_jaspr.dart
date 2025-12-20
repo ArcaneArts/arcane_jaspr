@@ -194,3 +194,23 @@ export 'component/interactive/back_to_top.dart';
 export 'component/collection/collection.dart' hide Axis;
 export 'component/collection/card_carousel.dart' hide CardCarouselTheme;
 export 'component/collection/infinite_carousel.dart';
+
+// ============================================================================
+// HTML wrapper components (Flutter-like API for HTML elements)
+// ============================================================================
+export 'component/html/arcane_button.dart';
+export 'component/html/arcane_image.dart';
+export 'component/html/arcane_input.dart';
+export 'component/html/arcane_label.dart';
+export 'component/html/arcane_link.dart';
+export 'component/html/arcane_span.dart';
+export 'component/html/arcane_text.dart';
+export 'component/html/aside.dart';
+export 'component/html/div.dart';
+export 'component/html/heading.dart';
+export 'component/html/list.dart';
+export 'component/html/main.dart' hide Header;
+export 'component/html/nav.dart';
+export 'component/html/paragraph.dart';
+export 'component/html/section.dart';
+export 'component/html/table.dart';
