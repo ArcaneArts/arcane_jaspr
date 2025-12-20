@@ -2,6 +2,7 @@
 title: ArcaneRow
 description: Horizontal flex layout container
 layout: docs
+component: row
 ---
 
 # ArcaneRow

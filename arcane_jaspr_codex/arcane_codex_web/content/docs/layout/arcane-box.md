@@ -2,6 +2,7 @@
 title: ArcaneBox
 description: Styled container with padding and border
 layout: docs
+component: box
 ---
 
 # ArcaneBox

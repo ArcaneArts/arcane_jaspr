@@ -2,6 +2,7 @@
 title: ArcaneCodeSnippet
 description: Code block with syntax highlighting
 layout: docs
+component: code-snippet
 ---
 
 # ArcaneCodeSnippet

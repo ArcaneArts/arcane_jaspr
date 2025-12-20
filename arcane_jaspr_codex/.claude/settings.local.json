@@ -6,7 +6,10 @@
       "Bash(jaspr build:*)",
       "Bash(pkill:*)",
       "Bash(lsof:*)",
-      "Bash(xargs kill -9:*)"
+      "Bash(xargs kill -9:*)",
+      "WebFetch(domain:localhost)",
+      "Bash(curl:*)",
+      "Bash(jaspr serve:*)"
     ]
   }
 }

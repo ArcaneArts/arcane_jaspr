@@ -2,6 +2,7 @@
 title: ArcaneSpacer
 description: Flexible space filler for flex layouts
 layout: docs
+component: spacer
 ---
 
 # ArcaneSpacer

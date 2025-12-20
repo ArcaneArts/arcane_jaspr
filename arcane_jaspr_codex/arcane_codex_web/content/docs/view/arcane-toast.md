@@ -2,6 +2,7 @@
 title: ArcaneToast
 description: Temporary notification message
 layout: docs
+component: toast
 ---
 
 # ArcaneToast

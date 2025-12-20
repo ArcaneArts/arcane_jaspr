@@ -2,6 +2,7 @@
 title: ArcaneHeader
 description: Application header with navigation and branding
 layout: docs
+component: header
 ---
 
 # ArcaneHeader

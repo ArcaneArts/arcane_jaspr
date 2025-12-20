@@ -2,6 +2,7 @@
 title: ArcaneChip
 description: Interactive chip for filtering and selection
 layout: docs
+component: chip
 ---
 
 # ArcaneChip

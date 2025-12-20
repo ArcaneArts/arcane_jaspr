@@ -2,6 +2,7 @@
 title: ArcaneHeading
 description: Section heading component with semantic levels
 layout: docs
+component: heading
 ---
 
 # ArcaneHeading

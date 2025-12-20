@@ -2,6 +2,7 @@
 title: ArcaneDiv
 description: The fundamental building block for layouts with Arcane styling
 layout: docs
+component: div
 ---
 
 # ArcaneDiv

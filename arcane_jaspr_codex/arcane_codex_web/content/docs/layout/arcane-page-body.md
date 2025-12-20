@@ -2,6 +2,7 @@
 title: ArcanePageBody
 description: Main content area wrapper with title and actions
 layout: docs
+component: page-body
 ---
 
 # ArcanePageBody

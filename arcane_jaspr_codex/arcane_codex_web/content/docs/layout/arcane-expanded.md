@@ -2,6 +2,7 @@
 title: ArcaneExpanded
 description: Flex child that expands to fill available space
 layout: docs
+component: expanded
 ---
 
 # ArcaneExpanded

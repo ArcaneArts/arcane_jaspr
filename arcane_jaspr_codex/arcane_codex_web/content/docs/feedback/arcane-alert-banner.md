@@ -2,6 +2,7 @@
 title: ArcaneAlertBanner
 description: Inline alert banner for important messages
 layout: docs
+component: alert-banner
 ---
 
 # ArcaneAlertBanner

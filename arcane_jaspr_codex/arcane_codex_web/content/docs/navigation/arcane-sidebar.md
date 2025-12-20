@@ -2,6 +2,7 @@
 title: ArcaneSidebar
 description: Vertical side navigation panel
 layout: docs
+component: sidebar
 ---
 
 # ArcaneSidebar

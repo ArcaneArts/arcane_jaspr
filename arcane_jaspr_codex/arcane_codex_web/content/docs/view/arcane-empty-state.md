@@ -2,6 +2,7 @@
 title: ArcaneEmptyState
 description: Placeholder for empty content areas
 layout: docs
+component: empty-state
 ---
 
 # ArcaneEmptyState

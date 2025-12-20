@@ -2,6 +2,7 @@
 title: ArcaneDataTable
 description: Full-featured data table with sorting and selection
 layout: docs
+component: data-table
 ---
 
 # ArcaneDataTable

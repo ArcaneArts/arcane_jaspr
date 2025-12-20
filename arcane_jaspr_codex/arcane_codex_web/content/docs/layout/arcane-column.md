@@ -2,6 +2,7 @@
 title: ArcaneColumn
 description: Vertical flex layout container
 layout: docs
+component: column
 ---
 
 # ArcaneColumn

@@ -2,6 +2,7 @@
 title: ArcaneMobileMenu
 description: Mobile navigation overlay menu
 layout: docs
+component: mobile-menu
 ---
 
 # ArcaneMobileMenu

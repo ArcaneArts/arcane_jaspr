@@ -2,6 +2,7 @@
 title: ArcaneBottomNav
 description: Mobile bottom navigation bar
 layout: docs
+component: bottom-nav
 ---
 
 # ArcaneBottomNav

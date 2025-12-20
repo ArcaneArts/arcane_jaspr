@@ -2,6 +2,7 @@
 title: ArcaneMegaMenu
 description: Large navigation menu with sections and rich content
 layout: docs
+component: mega-menu
 ---
 
 # ArcaneMegaMenu

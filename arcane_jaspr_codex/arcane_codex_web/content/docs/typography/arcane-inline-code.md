@@ -2,6 +2,7 @@
 title: ArcaneInlineCode
 description: Inline code text formatting
 layout: docs
+component: inline-code
 ---
 
 # ArcaneInlineCode

@@ -2,6 +2,7 @@
 title: ArcaneFeatureCard
 description: Feature showcase card with icon and description
 layout: docs
+component: feature-card
 ---
 
 # ArcaneFeatureCard

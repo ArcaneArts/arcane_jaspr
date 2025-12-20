@@ -2,6 +2,7 @@
 title: ArcaneCard
 description: Versatile card container with shadow and styling
 layout: docs
+component: card
 ---
 
 # ArcaneCard

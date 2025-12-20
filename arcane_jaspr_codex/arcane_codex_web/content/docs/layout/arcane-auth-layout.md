@@ -2,6 +2,7 @@
 title: ArcaneAuthLayout
 description: Pre-styled layout for authentication pages
 layout: docs
+component: auth-layout
 ---
 
 # ArcaneAuthLayout

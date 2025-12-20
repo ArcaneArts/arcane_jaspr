@@ -18,6 +18,161 @@ body {
   color: var(--arcane-on-background, #1a1a1a);
 }
 
+/* ===== DARK THEME OVERRIDES ===== */
+/* These override the inline styles set by ArcaneApp */
+html.arcane-dark,
+html.arcane-dark * {
+  --arcane-background: #09090b !important;
+  --arcane-on-background: #fafafa !important;
+  --arcane-surface: #18181b !important;
+  --arcane-on-surface: #fafafa !important;
+  --arcane-surface-variant: #27272a !important;
+  --arcane-on-surface-variant: #a1a1aa !important;
+  --arcane-outline: rgba(255, 255, 255, 0.1) !important;
+  --arcane-outline-variant: rgba(255, 255, 255, 0.05) !important;
+  --arcane-card: #18181b !important;
+  --arcane-card-foreground: #fafafa !important;
+  --arcane-muted: #71717a !important;
+  --arcane-muted-foreground: #a1a1aa !important;
+  --arcane-border: rgba(255, 255, 255, 0.1) !important;
+  --arcane-border-subtle: rgba(255, 255, 255, 0.05) !important;
+  --arcane-input: #27272a !important;
+  --arcane-input-foreground: #fafafa !important;
+  --arcane-background-secondary: #0a0a0c !important;
+  --arcane-background-tertiary: #0f0f11 !important;
+  --arcane-card-hover: rgba(255, 255, 255, 0.02) !important;
+  --arcane-card-alt: #1f1f23 !important;
+  --arcane-navbar: rgba(9, 9, 11, 0.8) !important;
+  --arcane-text-subtle: #71717a !important;
+  --arcane-text-faint: #3f3f46 !important;
+  --arcane-tooltip: #fafafa !important;
+  --arcane-tooltip-foreground: #18181b !important;
+  --arcane-code-background: #18181b !important;
+  --arcane-inverse-surface: #fafafa !important;
+  --arcane-on-inverse-surface: #18181b !important;
+  --arcane-primary-container: rgba(5, 150, 105, 0.15) !important;
+  --arcane-accent-container: rgba(16, 185, 129, 0.15) !important;
+  --arcane-secondary-container: #27272a !important;
+  --arcane-on-secondary-container: #fafafa !important;
+  /* Content/prose variables for dark mode */
+  --primary: #fafafa !important;
+  --background: #09090b !important;
+  --text: #e4e4e7 !important;
+  --content-headings: #fafafa !important;
+  --content-lead: #a1a1aa !important;
+  --content-links: #10b981 !important;
+  --content-bold: #fafafa !important;
+  --content-counters: #a1a1aa !important;
+  --content-bullets: #52525b !important;
+  --content-hr: #27272a !important;
+  --content-quotes: #e4e4e7 !important;
+  --content-quote-borders: #27272a !important;
+  --content-captions: #a1a1aa !important;
+  --content-kbd: #fafafa !important;
+  --content-kbd-shadows: #fafafa !important;
+  --content-code: #10b981 !important;
+  --content-pre-code: #e4e4e7 !important;
+  --content-pre-bg: #18181b !important;
+  --content-th-borders: #3f3f46 !important;
+  --content-td-borders: #27272a !important;
+}
+
+/* Dark mode direct element styling */
+html.arcane-dark {
+  background-color: #09090b !important;
+  color: #fafafa !important;
+}
+
+html.arcane-dark body {
+  background-color: #09090b !important;
+  color: #fafafa !important;
+}
+
+/* Fix table styling in dark mode */
+html.arcane-dark .prose th,
+html.arcane-dark table th {
+  background-color: #27272a !important;
+  color: #fafafa !important;
+  border-color: #3f3f46 !important;
+}
+
+html.arcane-dark .prose td,
+html.arcane-dark table td {
+  background-color: #18181b !important;
+  color: #e4e4e7 !important;
+  border-color: #27272a !important;
+}
+
+html.arcane-dark .prose table,
+html.arcane-dark table {
+  border-color: #27272a !important;
+}
+
+/* Fix headings and titles in dark mode */
+html.arcane-dark h1,
+html.arcane-dark h2,
+html.arcane-dark h3,
+html.arcane-dark h4,
+html.arcane-dark h5,
+html.arcane-dark h6,
+html.arcane-dark .prose h1,
+html.arcane-dark .prose h2,
+html.arcane-dark .prose h3 {
+  color: #fafafa !important;
+  background-color: transparent !important;
+}
+
+/* Fix text readability in dark mode */
+html.arcane-dark p,
+html.arcane-dark span,
+html.arcane-dark li,
+html.arcane-dark .prose p,
+html.arcane-dark .arcane-text {
+  color: #e4e4e7 !important;
+}
+
+/* Fix sidebar section headers in dark mode */
+html.arcane-dark aside div[style*="background"] {
+  background: #27272a !important;
+  color: #fafafa !important;
+}
+
+/* Light theme explicit values */
+html.arcane-light * {
+  --arcane-background: #fafafa !important;
+  --arcane-on-background: #18181b !important;
+  --arcane-surface: #ffffff !important;
+  --arcane-on-surface: #18181b !important;
+  --arcane-surface-variant: #f4f4f5 !important;
+  --arcane-on-surface-variant: #52525b !important;
+  --arcane-outline: rgba(0, 0, 0, 0.1) !important;
+  --arcane-outline-variant: rgba(0, 0, 0, 0.05) !important;
+  --arcane-card: #ffffff !important;
+  --arcane-card-foreground: #18181b !important;
+  --arcane-muted: #52525b !important;
+  --arcane-muted-foreground: #71717a !important;
+  --arcane-border: rgba(0, 0, 0, 0.1) !important;
+  --arcane-border-subtle: rgba(0, 0, 0, 0.05) !important;
+  --arcane-input: #f4f4f5 !important;
+  --arcane-input-foreground: #18181b !important;
+  --arcane-background-secondary: #f4f4f5 !important;
+  --arcane-background-tertiary: #e4e4e7 !important;
+  --arcane-card-hover: rgba(0, 0, 0, 0.02) !important;
+  --arcane-card-alt: #fafafa !important;
+  --arcane-navbar: rgba(255, 255, 255, 0.8) !important;
+  --arcane-text-subtle: #a1a1aa !important;
+  --arcane-text-faint: #d4d4d8 !important;
+  --arcane-tooltip: #18181b !important;
+  --arcane-tooltip-foreground: #fafafa !important;
+  --arcane-code-background: #f4f4f5 !important;
+  --arcane-inverse-surface: #18181b !important;
+  --arcane-on-inverse-surface: #fafafa !important;
+  --arcane-primary-container: #d1fae5 !important;
+  --arcane-accent-container: #d1fae5 !important;
+  --arcane-secondary-container: #e4e4e7 !important;
+  --arcane-on-secondary-container: #18181b !important;
+}
+
 /* Loading screen - hidden when app loads */
 #loading {
   display: none;
@@ -276,27 +431,83 @@ body {
 }
 
 /* Table of contents styling */
-.toc a {
+.toc a,
+.toc-content a {
   color: var(--arcane-on-surface-variant);
   text-decoration: none;
   font-size: 13px;
   display: block;
-  padding: 4px 0;
-  transition: color 0.15s ease;
+  padding: 6px 10px;
+  margin: 2px 0;
+  border-radius: 6px;
+  transition: all 0.15s ease;
 }
 
-.toc a:hover {
+.toc a:hover,
+.toc-content a:hover {
   color: var(--arcane-accent);
+  background: var(--arcane-surface-variant);
 }
 
-.toc ul {
+.toc ul,
+.toc-content ul {
   list-style: none;
-  padding-left: 12px;
+  padding-left: 0;
   margin: 0;
 }
 
-.toc > ul {
-  padding-left: 0;
+.toc-content ul ul {
+  padding-left: 12px;
+  border-left: 1px solid var(--arcane-outline-variant);
+  margin-left: 8px;
+}
+
+/* Code block wrapper and copy button */
+.code-block-wrapper {
+  position: relative;
+  margin: 1rem 0;
+}
+
+.code-block-wrapper pre {
+  margin: 0;
+  padding-right: 50px;
+}
+
+.copy-code-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 6px 8px;
+  background: var(--arcane-surface-variant);
+  border: 1px solid var(--arcane-outline);
+  border-radius: 6px;
+  color: var(--arcane-on-surface-variant);
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.code-block-wrapper:hover .copy-code-btn {
+  opacity: 1;
+}
+
+.copy-code-btn:hover {
+  background: var(--arcane-surface);
+  color: var(--arcane-accent);
+  border-color: var(--arcane-accent);
+}
+
+.copy-code-btn.copied {
+  color: #10b981;
+  border-color: #10b981;
+}
+
+.copy-code-btn svg {
+  width: 16px;
+  height: 16px;
 }
 
 /* Component demo transitions */
@@ -333,6 +544,46 @@ button:focus-visible {
   outline-offset: 2px;
 }
 
+/* Search input styles */
+#docs-search:focus {
+  border-color: var(--arcane-accent);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+#docs-search::placeholder {
+  color: var(--arcane-on-surface-variant);
+  opacity: 0.7;
+}
+
+/* Search results styling */
+#search-results a:last-child {
+  border-bottom: none;
+}
+
+/* Theme toggle button hover */
+#theme-toggle:hover {
+  background: var(--arcane-surface);
+  transform: scale(1.05);
+}
+
+#theme-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Keyboard shortcut hint */
+#docs-search + .search-shortcut {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  color: var(--arcane-on-surface-variant);
+  background: var(--arcane-surface-variant);
+  padding: 2px 6px;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .prose {
@@ -346,5 +597,10 @@ button:focus-visible {
   .props-table th,
   .props-table td {
     padding: 8px 12px;
+  }
+
+  /* Hide search on mobile - would need mobile menu */
+  #docs-search {
+    display: none;
   }
 }

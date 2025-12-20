@@ -2,6 +2,7 @@
 title: ArcaneField
 description: Form field with label, input, and validation
 layout: docs
+component: field
 ---
 
 # ArcaneField

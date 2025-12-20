@@ -2,6 +2,7 @@
 title: ArcaneDivider
 description: Horizontal divider line for visual separation
 layout: docs
+component: divider
 ---
 
 # ArcaneDivider

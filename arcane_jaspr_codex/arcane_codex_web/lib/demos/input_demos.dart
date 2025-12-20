@@ -1,0 +1,180 @@
+import 'package:arcane_jaspr/arcane_jaspr.dart';
+
+/// Demo builders for input components
+class InputDemos {
+  static List<Component> button() => [
+        ArcaneButton.primary(label: 'Primary', onPressed: () {}),
+        ArcaneButton.secondary(label: 'Secondary', onPressed: () {}),
+        ArcaneButton.destructive(label: 'Destructive', onPressed: () {}),
+        ArcaneButton.ghost(label: 'Ghost', onPressed: () {}),
+        ArcaneButton.outline(label: 'Outline', onPressed: () {}),
+        ArcaneButton.link(label: 'Link', onPressed: () {}),
+      ];
+
+  static List<Component> iconButton() => [
+        ArcaneIconButton(icon: ArcaneText('+'), onPressed: () {}),
+        ArcaneIconButton(icon: ArcaneText('×'), onPressed: () {}),
+        ArcaneIconButton(icon: ArcaneText('⚙'), onPressed: () {}),
+      ];
+
+  static List<Component> closeButton() => [
+        ArcaneCloseButton(onPressed: () {}),
+      ];
+
+  static List<Component> fab() => [
+        ArcaneFAB(icon: ArcaneText('+'), onPressed: () {}),
+      ];
+
+  static List<Component> textInput() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(widthCustom: '250px'),
+          children: [
+            ArcaneTextInput(
+              label: 'Username',
+              placeholder: 'Enter username',
+              name: 'demo-username',
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> textArea() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(widthCustom: '300px'),
+          children: [
+            ArcaneTextArea(
+              label: 'Message',
+              placeholder: 'Enter your message...',
+              name: 'demo-message',
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> search() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(widthCustom: '300px'),
+          children: [
+            ArcaneSearch(
+              placeholder: 'Search...',
+              onChanged: (_) {},
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> select() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(widthCustom: '200px'),
+          children: [
+            ArcaneSelect(
+              label: 'Choose option',
+              options: const [
+                ArcaneSelectOption(label: 'Option 1', value: '1'),
+                ArcaneSelectOption(label: 'Option 2', value: '2'),
+                ArcaneSelectOption(label: 'Option 3', value: '3'),
+              ],
+              onChange: (_) {},
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> checkbox() => [
+        ArcaneCheckbox(checked: false, onChanged: (_) {}),
+        ArcaneCheckbox(checked: true, onChanged: (_) {}),
+      ];
+
+  static List<Component> radio() => [
+        ArcaneRow(
+          gapSize: Gap.md,
+          children: [
+            ArcaneRadio(selected: true, label: 'Option A', onSelected: () {}),
+            ArcaneRadio(selected: false, label: 'Option B', onSelected: () {}),
+          ],
+        ),
+      ];
+
+  static List<Component> toggleSwitch() => [
+        ArcaneToggleSwitch(value: false, onChanged: (_) {}),
+        ArcaneToggleSwitch(value: true, onChanged: (_) {}),
+      ];
+
+  static List<Component> slider() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(widthCustom: '200px'),
+          children: [
+            ArcaneSlider(value: 0.5, onChanged: (_) {}),
+          ],
+        ),
+      ];
+
+  static List<Component> rangeSlider() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(widthCustom: '200px'),
+          children: [
+            ArcaneRangeSlider(
+              minValue: 20,
+              maxValue: 80,
+              min: 0,
+              max: 100,
+              onChanged: (_, __) {},
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> toggleButton() => [
+        ArcaneToggleButton(
+          value: false,
+          label: 'Toggle',
+          onChanged: (_) {},
+        ),
+        ArcaneToggleButton(
+          value: true,
+          label: 'Selected',
+          onChanged: (_) {},
+        ),
+      ];
+
+  static List<Component> toggleButtonGroup() => [
+        ArcaneToggleButtonGroup(
+          options: const ['One', 'Two', 'Three'],
+          selectedIndex: 0,
+          onChanged: (_) {},
+        ),
+      ];
+
+  static List<Component> cycleButton() => [
+        ArcaneCycleButton<String>(
+          options: [
+            ArcaneCycleOption(value: 'a', label: 'Option A'),
+            ArcaneCycleOption(value: 'b', label: 'Option B'),
+            ArcaneCycleOption(value: 'c', label: 'Option C'),
+          ],
+          value: 'a',
+          onChanged: (_) {},
+        ),
+      ];
+
+  static List<Component> selector() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(widthCustom: '200px'),
+          children: [
+            ArcaneSelector<String>(
+              options: [
+                ArcaneSelectorOption(value: 'small', label: 'Small'),
+                ArcaneSelectorOption(value: 'medium', label: 'Medium'),
+                ArcaneSelectorOption(value: 'large', label: 'Large'),
+              ],
+              value: 'medium',
+              onChanged: (_) {},
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> themeToggle(bool isDark, VoidCallback onToggle) => [
+        ArcaneThemeToggle(isDark: isDark, onChanged: (_) => onToggle()),
+      ];
+}

@@ -2,6 +2,7 @@
 title: ArcaneSection
 description: Semantic section wrapper with consistent spacing
 layout: docs
+component: section
 ---
 
 # ArcaneSection

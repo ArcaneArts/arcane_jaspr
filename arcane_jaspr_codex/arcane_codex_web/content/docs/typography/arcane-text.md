@@ -2,6 +2,7 @@
 title: ArcaneText
 description: Basic text display component with styling
 layout: docs
+component: text
 ---
 
 # ArcaneText

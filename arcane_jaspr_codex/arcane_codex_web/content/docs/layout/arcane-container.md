@@ -2,6 +2,7 @@
 title: ArcaneContainer
 description: Centered container with max-width constraints
 layout: docs
+component: container
 ---
 
 # ArcaneContainer

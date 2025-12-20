@@ -2,6 +2,7 @@
 title: ArcaneDashboardLayout
 description: Complete dashboard layout with sidebar and header
 layout: docs
+component: dashboard-layout
 ---
 
 # ArcaneDashboardLayout

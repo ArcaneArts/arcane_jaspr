@@ -2,6 +2,7 @@
 title: ArcaneGradientText
 description: Text with gradient color effects
 layout: docs
+component: gradient-text
 ---
 
 # ArcaneGradientText

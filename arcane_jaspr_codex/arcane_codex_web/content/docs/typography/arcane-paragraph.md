@@ -2,6 +2,7 @@
 title: ArcaneParagraph
 description: Block-level paragraph text component
 layout: docs
+component: paragraph
 ---
 
 # ArcaneParagraph

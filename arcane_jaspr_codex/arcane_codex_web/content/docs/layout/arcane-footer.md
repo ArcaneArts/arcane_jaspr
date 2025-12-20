@@ -2,6 +2,7 @@
 title: ArcaneFooter
 description: Website footer component with common layouts
 layout: docs
+component: footer
 ---
 
 # ArcaneFooter

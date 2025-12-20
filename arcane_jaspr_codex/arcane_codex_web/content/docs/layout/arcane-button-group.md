@@ -2,6 +2,7 @@
 title: ArcaneButtonGroup
 description: Group of related buttons with connected styling
 layout: docs
+component: button-group
 ---
 
 # ArcaneButtonGroup

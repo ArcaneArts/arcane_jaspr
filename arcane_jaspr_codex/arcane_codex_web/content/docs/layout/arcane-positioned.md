@@ -2,6 +2,7 @@
 title: ArcanePositioned
 description: Absolutely positioned element within a Stack
 layout: docs
+component: positioned
 ---
 
 # ArcanePositioned

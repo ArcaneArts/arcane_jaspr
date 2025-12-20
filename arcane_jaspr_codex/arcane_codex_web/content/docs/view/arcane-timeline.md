@@ -2,6 +2,7 @@
 title: ArcaneTimeline
 description: Vertical timeline for displaying chronological events
 layout: docs
+component: timeline
 ---
 
 # ArcaneTimeline

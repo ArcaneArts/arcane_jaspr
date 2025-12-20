@@ -2,6 +2,7 @@
 title: ArcaneHeadline
 description: Large display headline for hero sections
 layout: docs
+component: headline
 ---
 
 # ArcaneHeadline

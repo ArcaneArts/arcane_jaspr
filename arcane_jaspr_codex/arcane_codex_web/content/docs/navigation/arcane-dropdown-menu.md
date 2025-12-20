@@ -2,6 +2,7 @@
 title: ArcaneDropdownMenu
 description: Contextual dropdown menu with items
 layout: docs
+component: dropdown-menu
 ---
 
 # ArcaneDropdownMenu

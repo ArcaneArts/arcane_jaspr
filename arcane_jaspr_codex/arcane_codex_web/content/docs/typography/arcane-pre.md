@@ -2,6 +2,7 @@
 title: ArcanePre
 description: Preformatted text block
 layout: docs
+component: pre
 ---
 
 # ArcanePre

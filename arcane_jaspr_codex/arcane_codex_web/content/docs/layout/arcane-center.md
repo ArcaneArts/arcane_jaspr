@@ -2,6 +2,7 @@
 title: ArcaneCenter
 description: Convenience component for centering content
 layout: docs
+component: center
 ---
 
 # ArcaneCenter

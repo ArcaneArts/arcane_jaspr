@@ -2,6 +2,7 @@
 title: ArcaneGlowText
 description: Text with glowing effect
 layout: docs
+component: glow-text
 ---
 
 # ArcaneGlowText

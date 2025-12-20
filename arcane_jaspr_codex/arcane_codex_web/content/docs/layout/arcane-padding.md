@@ -2,6 +2,7 @@
 title: ArcanePadding
 description: Simple padding wrapper component
 layout: docs
+component: padding
 ---
 
 # ArcanePadding

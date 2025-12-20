@@ -2,6 +2,7 @@
 title: ArcaneSubheadline
 description: Supporting subtitle text for headlines
 layout: docs
+component: subheadline
 ---
 
 # ArcaneSubheadline
