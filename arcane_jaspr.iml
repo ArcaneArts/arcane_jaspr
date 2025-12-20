@@ -9,6 +9,9 @@
       <excludeFolder url="file://$MODULE_DIR$/codex/arcane_codex_web/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/codex/arcane_codex_web/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/codex/arcane_codex_web/build" />
+      <excludeFolder url="file://$MODULE_DIR$/arcane_jaspr_codex/arcane_codex_web/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/arcane_jaspr_codex/arcane_codex_web/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/arcane_jaspr_codex/arcane_codex_web/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
