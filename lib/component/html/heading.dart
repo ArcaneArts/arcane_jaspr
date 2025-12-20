@@ -26,6 +26,7 @@ import 'package:jaspr/dom.dart'
         events;
 
 import '../../util/style_types/arcane_style_data.dart';
+import '../../util/tokens/tokens.dart';
 
 /// Heading level enum
 enum HeadingLevel { h1, h2, h3, h4, h5, h6 }
@@ -54,8 +55,11 @@ class Heading extends StatelessComponent {
   /// The heading level (h1-h6)
   final HeadingLevel level;
 
-  /// The content of the heading
-  final Component child;
+  /// The content of the heading (single child)
+  final Component? _child;
+
+  /// The content of the heading (multiple children)
+  final List<Component>? _children;
 
   /// Optional styling using ArcaneStyleData
   final ArcaneStyleData? styles;
@@ -68,85 +72,240 @@ class Heading extends StatelessComponent {
 
   const Heading({
     required this.level,
-    required this.child,
+    required Component child,
     this.styles,
     this.classes,
     this.id,
     super.key,
-  });
+  })  : _child = child,
+        _children = null;
 
-  /// Create an h1 heading
+  const Heading._withChildren({
+    required this.level,
+    required List<Component> children,
+    this.styles,
+    this.classes,
+    this.id,
+    super.key,
+  })  : _child = null,
+        _children = children;
+
+  /// Create an h1 heading with single child
   const Heading.h1({
-    required this.child,
-    this.styles,
-    this.classes,
-    this.id,
-    super.key,
-  }) : level = HeadingLevel.h1;
+    required Component child,
+    ArcaneStyleData? styles,
+    String? classes,
+    String? id,
+    Key? key,
+  }) : this(
+          level: HeadingLevel.h1,
+          child: child,
+          styles: styles,
+          classes: classes,
+          id: id,
+          key: key,
+        );
 
-  /// Create an h2 heading
+  /// Create an h1 heading with multiple children
+  const Heading.h1Children({
+    required List<Component> children,
+    ArcaneStyleData? styles,
+    String? classes,
+    String? id,
+    Key? key,
+  }) : this._withChildren(
+          level: HeadingLevel.h1,
+          children: children,
+          styles: styles,
+          classes: classes,
+          id: id,
+          key: key,
+        );
+
+  /// Create an h2 heading with single child
   const Heading.h2({
-    required this.child,
-    this.styles,
-    this.classes,
-    this.id,
-    super.key,
-  }) : level = HeadingLevel.h2;
+    required Component child,
+    ArcaneStyleData? styles,
+    String? classes,
+    String? id,
+    Key? key,
+  }) : this(
+          level: HeadingLevel.h2,
+          child: child,
+          styles: styles,
+          classes: classes,
+          id: id,
+          key: key,
+        );
 
-  /// Create an h3 heading
+  /// Create an h2 heading with multiple children
+  const Heading.h2Children({
+    required List<Component> children,
+    ArcaneStyleData? styles,
+    String? classes,
+    String? id,
+    Key? key,
+  }) : this._withChildren(
+          level: HeadingLevel.h2,
+          children: children,
+          styles: styles,
+          classes: classes,
+          id: id,
+          key: key,
+        );
+
+  /// Create an h3 heading with single child
   const Heading.h3({
-    required this.child,
-    this.styles,
-    this.classes,
-    this.id,
-    super.key,
-  }) : level = HeadingLevel.h3;
+    required Component child,
+    ArcaneStyleData? styles,
+    String? classes,
+    String? id,
+    Key? key,
+  }) : this(
+          level: HeadingLevel.h3,
+          child: child,
+          styles: styles,
+          classes: classes,
+          id: id,
+          key: key,
+        );
 
-  /// Create an h4 heading
+  /// Create an h3 heading with multiple children
+  const Heading.h3Children({
+    required List<Component> children,
+    ArcaneStyleData? styles,
+    String? classes,
+    String? id,
+    Key? key,
+  }) : this._withChildren(
+          level: HeadingLevel.h3,
+          children: children,
+          styles: styles,
+          classes: classes,
+          id: id,
+          key: key,
+        );
+
+  /// Create an h4 heading with single child
   const Heading.h4({
-    required this.child,
-    this.styles,
-    this.classes,
-    this.id,
-    super.key,
-  }) : level = HeadingLevel.h4;
+    required Component child,
+    ArcaneStyleData? styles,
+    String? classes,
+    String? id,
+    Key? key,
+  }) : this(
+          level: HeadingLevel.h4,
+          child: child,
+          styles: styles,
+          classes: classes,
+          id: id,
+          key: key,
+        );
 
-  /// Create an h5 heading
+  /// Create an h4 heading with multiple children
+  const Heading.h4Children({
+    required List<Component> children,
+    ArcaneStyleData? styles,
+    String? classes,
+    String? id,
+    Key? key,
+  }) : this._withChildren(
+          level: HeadingLevel.h4,
+          children: children,
+          styles: styles,
+          classes: classes,
+          id: id,
+          key: key,
+        );
+
+  /// Create an h5 heading with single child
   const Heading.h5({
-    required this.child,
-    this.styles,
-    this.classes,
-    this.id,
-    super.key,
-  }) : level = HeadingLevel.h5;
+    required Component child,
+    ArcaneStyleData? styles,
+    String? classes,
+    String? id,
+    Key? key,
+  }) : this(
+          level: HeadingLevel.h5,
+          child: child,
+          styles: styles,
+          classes: classes,
+          id: id,
+          key: key,
+        );
 
-  /// Create an h6 heading
+  /// Create an h5 heading with multiple children
+  const Heading.h5Children({
+    required List<Component> children,
+    ArcaneStyleData? styles,
+    String? classes,
+    String? id,
+    Key? key,
+  }) : this._withChildren(
+          level: HeadingLevel.h5,
+          children: children,
+          styles: styles,
+          classes: classes,
+          id: id,
+          key: key,
+        );
+
+  /// Create an h6 heading with single child
   const Heading.h6({
-    required this.child,
-    this.styles,
-    this.classes,
-    this.id,
-    super.key,
-  }) : level = HeadingLevel.h6;
+    required Component child,
+    ArcaneStyleData? styles,
+    String? classes,
+    String? id,
+    Key? key,
+  }) : this(
+          level: HeadingLevel.h6,
+          child: child,
+          styles: styles,
+          classes: classes,
+          id: id,
+          key: key,
+        );
+
+  /// Create an h6 heading with multiple children
+  const Heading.h6Children({
+    required List<Component> children,
+    ArcaneStyleData? styles,
+    String? classes,
+    String? id,
+    Key? key,
+  }) : this._withChildren(
+          level: HeadingLevel.h6,
+          children: children,
+          styles: styles,
+          classes: classes,
+          id: id,
+          key: key,
+        );
 
   @override
   Component build(BuildContext context) {
-    final content = [child];
-    final resolvedStyles = styles?.toStyles() ?? const Styles(raw: {});
+    final content = _children ?? [_child!];
+
+    // Apply heading font family as default, user styles override
+    final baseStyles = styles?.toMap() ?? <String, String>{};
+    final mergedStyles = Styles(raw: {
+      'font-family': ArcaneTypography.fontFamilyHeading,
+      ...baseStyles,
+    });
 
     switch (level) {
       case HeadingLevel.h1:
-        return h1(id: id, classes: classes, styles: resolvedStyles, content);
+        return h1(id: id, classes: classes, styles: mergedStyles, content);
       case HeadingLevel.h2:
-        return h2(id: id, classes: classes, styles: resolvedStyles, content);
+        return h2(id: id, classes: classes, styles: mergedStyles, content);
       case HeadingLevel.h3:
-        return h3(id: id, classes: classes, styles: resolvedStyles, content);
+        return h3(id: id, classes: classes, styles: mergedStyles, content);
       case HeadingLevel.h4:
-        return h4(id: id, classes: classes, styles: resolvedStyles, content);
+        return h4(id: id, classes: classes, styles: mergedStyles, content);
       case HeadingLevel.h5:
-        return h5(id: id, classes: classes, styles: resolvedStyles, content);
+        return h5(id: id, classes: classes, styles: mergedStyles, content);
       case HeadingLevel.h6:
-        return h6(id: id, classes: classes, styles: resolvedStyles, content);
+        return h6(id: id, classes: classes, styles: mergedStyles, content);
     }
   }
 }

@@ -332,9 +332,13 @@ class ArcaneTypography {
   // Font Families
   // ---------------------------------------------------------------------------
 
-  /// System/inherit font family
+  /// System/inherit font family (body text)
   static const String fontFamily =
-      "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+      "'Akzidenz-GroteskPro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+
+  /// Heading font family
+  static const String fontFamilyHeading =
+      "'ITCAvantGardeStd', 'Akzidenz-GroteskPro', -apple-system, BlinkMacSystemFont, sans-serif";
 
   /// Monospace font family
   static const String fontFamilyMono =

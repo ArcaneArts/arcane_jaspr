@@ -184,8 +184,11 @@ enum WordBreak {
 
 /// Font family presets
 enum FontFamily {
-  /// System sans-serif (Inter, etc.)
+  /// System sans-serif (Akzidenz-GroteskPro, etc.)
   sans,
+
+  /// Heading font (ITCAvantGardeStd)
+  heading,
 
   /// Monospace (JetBrains Mono, etc.)
   mono,
@@ -195,6 +198,7 @@ enum FontFamily {
 
   String get css => switch (this) {
         FontFamily.sans => ArcaneTypography.fontFamily,
+        FontFamily.heading => ArcaneTypography.fontFamilyHeading,
         FontFamily.mono => ArcaneTypography.fontFamilyMono,
         FontFamily.inherit => 'inherit',
       };

@@ -44,7 +44,7 @@ import '../../util/style_types/arcane_style_data.dart';
 ///   ],
 /// )
 /// ```
-class Footer extends StatelessComponent {
+class HtmlFooter extends StatelessComponent {
   /// The children of the footer
   final List<Component> children;
 
@@ -60,7 +60,7 @@ class Footer extends StatelessComponent {
   /// Additional HTML attributes
   final Map<String, String>? attributes;
 
-  const Footer({
+  const HtmlFooter({
     required this.children,
     this.styles,
     this.classes,

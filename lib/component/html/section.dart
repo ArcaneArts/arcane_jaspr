@@ -37,7 +37,7 @@ class HtmlSection extends StatelessComponent {
   final String? classes;
   final String? id;
 
-  const Section({
+  const HtmlSection({
     required this.children,
     this.styles,
     this.classes,
