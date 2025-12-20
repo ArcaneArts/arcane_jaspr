@@ -21,8 +21,8 @@ class DocsSidebar extends StatelessComponent {
         minHeight: '100vh',
         flexShrink: 0,
         raw: {
-          'background': 'var(--background-secondary)',
-          'border-right': '1px solid var(--border-primary)',
+          'background': 'var(--arcane-surface)',
+          'border-right': '1px solid var(--arcane-outline)',
         },
       ),
       children: [
@@ -30,7 +30,10 @@ class DocsSidebar extends StatelessComponent {
         ArcaneDiv(
           styles: const ArcaneStyleData(
             padding: PaddingPreset.lg,
-            borderBottom: BorderPreset.subtle,
+            raw: {
+              'border-bottom': '1px solid var(--arcane-outline)',
+              'background': 'var(--arcane-surface-variant)',
+            },
           ),
           children: [
             a(
@@ -40,7 +43,9 @@ class DocsSidebar extends StatelessComponent {
                   styles: const ArcaneStyleData(
                     fontWeight: FontWeight.bold,
                     fontSize: FontSize.lg,
-                    textColor: TextColor.primary,
+                    raw: {
+                      'color': 'var(--arcane-on-surface)',
+                    },
                   ),
                   children: [ArcaneText(AppConstants.siteName)],
                 ),
@@ -49,7 +54,10 @@ class DocsSidebar extends StatelessComponent {
             ArcaneDiv(
               styles: const ArcaneStyleData(
                 fontSize: FontSize.sm,
-                textColor: TextColor.muted,
+                raw: {
+                  'color': 'var(--arcane-on-surface-variant)',
+                  'margin-top': '4px',
+                },
               ),
               children: [const ArcaneText('Documentation')],
             ),
@@ -217,24 +225,39 @@ class DocsSidebar extends StatelessComponent {
   Component _buildNavSection(String title, List<Component> items) {
     return ArcaneDiv(
       styles: const ArcaneStyleData(
-        margin: MarginPreset.bottomLg,
+        margin: MarginPreset.bottomMd,
+        raw: {
+          'border-bottom': '1px solid var(--arcane-outline-variant)',
+          'padding-bottom': '12px',
+        },
       ),
       children: [
+        // Section header with background
         ArcaneDiv(
           styles: const ArcaneStyleData(
             fontSize: FontSize.xs,
-            fontWeight: FontWeight.w600,
-            textColor: TextColor.muted,
+            fontWeight: FontWeight.w700,
             margin: MarginPreset.bottomSm,
             textTransform: TextTransform.uppercase,
             letterSpacing: LetterSpacing.wide,
             raw: {
-              'padding': '0 12px',
+              'padding': '8px 12px',
+              'background': 'var(--arcane-surface-variant)',
+              'border-radius': '6px',
+              'color': 'var(--arcane-on-surface)',
             },
           ),
           children: [ArcaneText(title)],
         ),
-        ...items,
+        // Navigation items
+        ArcaneDiv(
+          styles: const ArcaneStyleData(
+            raw: {
+              'padding-left': '4px',
+            },
+          ),
+          children: items,
+        ),
       ],
     );
   }
@@ -257,14 +280,12 @@ class DocsSidebar extends StatelessComponent {
         transition: Transition.allFast,
         crossAxisAlignment: CrossAxisAlignment.center,
         textDecoration: TextDecoration.none,
-        textColor: isActive ? TextColor.primary : TextColor.muted,
-        fontWeight: isActive ? FontWeight.w500 : FontWeight.normal,
         raw: {
-          'padding': '8px 12px',
-          'background': isActive ? 'var(--glow-light, rgba(5, 150, 105, 0.1))' : 'transparent',
-          'border': isActive
-              ? '1px solid var(--border-accent, rgba(5, 150, 105, 0.25))'
-              : '1px solid transparent',
+          'padding': '6px 12px',
+          'color': isActive ? 'var(--arcane-accent)' : 'var(--arcane-on-surface-variant)',
+          'font-weight': isActive ? '600' : '400',
+          'background': isActive ? 'var(--arcane-accent-container)' : 'transparent',
+          'border-left': isActive ? '3px solid var(--arcane-accent)' : '3px solid transparent',
         },
       ),
       child: ArcaneSpan(child: ArcaneText(label)),

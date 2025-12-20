@@ -2,6 +2,7 @@
 title: ArcaneLoader
 description: Loading spinner indicator
 layout: docs
+component: loader
 ---
 
 # ArcaneLoader

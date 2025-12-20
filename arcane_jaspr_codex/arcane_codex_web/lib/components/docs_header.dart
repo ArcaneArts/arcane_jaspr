@@ -2,9 +2,16 @@ import 'package:arcane_jaspr/arcane_jaspr.dart';
 
 import '../utils/constants.dart';
 
-/// Documentation site header with navigation
+/// Documentation site header with navigation and theme toggle
 class DocsHeader extends StatelessComponent {
-  const DocsHeader({super.key});
+  final bool isDark;
+  final VoidCallback? onThemeToggle;
+
+  const DocsHeader({
+    super.key,
+    this.isDark = false,
+    this.onThemeToggle,
+  });
 
   @override
   Component build(BuildContext context) {
@@ -63,6 +70,12 @@ class DocsHeader extends StatelessComponent {
               ),
             ],
           ),
+        // Theme toggle
+        ArcaneThemeToggle(
+          isDark: isDark,
+          size: ThemeToggleSize.small,
+          onChanged: onThemeToggle != null ? (_) => onThemeToggle!() : null,
+        ),
       ],
     );
   }

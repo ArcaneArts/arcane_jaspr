@@ -2,6 +2,7 @@
 title: ArcaneAvatar
 description: User avatar with image or initials fallback
 layout: docs
+component: avatar
 ---
 
 # ArcaneAvatar

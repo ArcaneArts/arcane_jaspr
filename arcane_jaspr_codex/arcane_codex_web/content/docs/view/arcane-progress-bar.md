@@ -2,6 +2,7 @@
 title: ArcaneProgressBar
 description: Linear progress indicator
 layout: docs
+component: progress-bar
 ---
 
 # ArcaneProgressBar

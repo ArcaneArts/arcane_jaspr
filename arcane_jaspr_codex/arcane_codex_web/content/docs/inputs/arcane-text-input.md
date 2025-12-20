@@ -2,6 +2,7 @@
 title: ArcaneTextInput
 description: Single-line text input field with validation and styling
 layout: docs
+component: text-input
 ---
 
 # ArcaneTextInput

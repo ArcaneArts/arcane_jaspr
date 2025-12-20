@@ -2,6 +2,7 @@
 title: ArcaneToggleSwitch
 description: Toggle switch for on/off states
 layout: docs
+component: toggle-switch
 ---
 
 # ArcaneToggleSwitch

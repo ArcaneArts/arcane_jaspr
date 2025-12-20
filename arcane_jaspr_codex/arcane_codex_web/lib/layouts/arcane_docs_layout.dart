@@ -25,11 +25,55 @@ class ArcaneDocsLayout extends PageLayoutBase {
     final title = pageData['title'] as String?;
     final description = pageData['description'] as String?;
     final toc = page.data['toc'] as TableOfContents?;
+    final componentType = pageData['component'] as String?;
 
+    return _ThemedDocsPage(
+      title: title,
+      description: description,
+      toc: toc,
+      currentPath: page.url,
+      content: child,
+      componentType: componentType,
+    );
+  }
+}
+
+/// Stateful wrapper for theme toggling
+class _ThemedDocsPage extends StatefulComponent {
+  final String? title;
+  final String? description;
+  final TableOfContents? toc;
+  final String currentPath;
+  final Component content;
+  final String? componentType;
+
+  const _ThemedDocsPage({
+    this.title,
+    this.description,
+    this.toc,
+    required this.currentPath,
+    required this.content,
+    this.componentType,
+  });
+
+  @override
+  State<_ThemedDocsPage> createState() => _ThemedDocsPageState();
+}
+
+class _ThemedDocsPageState extends State<_ThemedDocsPage> {
+  // Start with light theme
+  bool _isDark = false;
+
+  void _toggleTheme() {
+    setState(() => _isDark = !_isDark);
+  }
+
+  @override
+  Component build(BuildContext context) {
     return ArcaneApp(
       theme: ArcaneTheme.supabase(
         accent: AccentTheme.emerald,
-        themeMode: ThemeMode.dark,
+        themeMode: _isDark ? ThemeMode.dark : ThemeMode.light,
       ),
       child: ArcaneDiv(
         styles: const ArcaneStyleData(
@@ -41,7 +85,7 @@ class ArcaneDocsLayout extends PageLayoutBase {
         ),
         children: [
           // Sidebar
-          DocsSidebar(currentPath: page.url),
+          DocsSidebar(currentPath: component.currentPath),
 
           // Main area
           ArcaneDiv(
@@ -52,8 +96,11 @@ class ArcaneDocsLayout extends PageLayoutBase {
               minHeight: '100vh',
             ),
             children: [
-              // Header
-              const DocsHeader(),
+              // Header with theme toggle
+              DocsHeader(
+                isDark: _isDark,
+                onThemeToggle: _toggleTheme,
+              ),
 
               // Content area
               ArcaneDiv(
@@ -76,7 +123,7 @@ class ArcaneDocsLayout extends PageLayoutBase {
                     ),
                     children: [
                       // Page title
-                      if (title != null)
+                      if (component.title != null)
                         ArcaneDiv(
                           styles: const ArcaneStyleData(
                             margin: MarginPreset.bottomLg,
@@ -84,30 +131,34 @@ class ArcaneDocsLayout extends PageLayoutBase {
                             fontWeight: FontWeight.bold,
                             textColor: TextColor.primary,
                           ),
-                          children: [ArcaneText(title)],
+                          children: [ArcaneText(component.title!)],
                         ),
 
                       // Page description
-                      if (description != null)
+                      if (component.description != null)
                         ArcaneDiv(
                           styles: const ArcaneStyleData(
                             margin: MarginPreset.bottomXl,
                             textColor: TextColor.muted,
                             fontSize: FontSize.lg,
                           ),
-                          children: [ArcaneText(description)],
+                          children: [ArcaneText(component.description!)],
                         ),
+
+                      // Live demo section (if component type is specified)
+                      if (component.componentType != null)
+                        _buildLiveDemo(component.componentType!),
 
                       // Rendered markdown content
                       div(
                         classes: 'prose',
-                        [child],
+                        [component.content],
                       ),
                     ],
                   ),
 
                   // Table of contents (right sidebar)
-                  if (toc != null)
+                  if (component.toc != null)
                     ArcaneDiv(
                       styles: const ArcaneStyleData(
                         widthCustom: '220px',
@@ -139,7 +190,7 @@ class ArcaneDocsLayout extends PageLayoutBase {
                               'padding-left': '16px',
                             },
                           ),
-                          children: [toc.build()],
+                          children: [component.toc!.build()],
                         ),
                       ],
                     ),
@@ -150,5 +201,144 @@ class ArcaneDocsLayout extends PageLayoutBase {
         ],
       ),
     );
+  }
+
+  /// Build live demo section based on component type
+  Component _buildLiveDemo(String componentType) {
+    return ArcaneDiv(
+      styles: const ArcaneStyleData(
+        margin: MarginPreset.bottomXl,
+        padding: PaddingPreset.lg,
+        borderRadius: Radius.lg,
+        raw: {
+          'background': 'var(--arcane-surface-variant)',
+          'border': '1px solid var(--arcane-outline)',
+        },
+      ),
+      children: [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(
+            fontSize: FontSize.sm,
+            fontWeight: FontWeight.w600,
+            textColor: TextColor.muted,
+            margin: MarginPreset.bottomMd,
+            textTransform: TextTransform.uppercase,
+            letterSpacing: LetterSpacing.wide,
+          ),
+          children: [ArcaneText('Live Demo')],
+        ),
+        ArcaneDiv(
+          styles: const ArcaneStyleData(
+            display: Display.flex,
+            flexWrap: FlexWrap.wrap,
+            alignItems: AlignItems.center,
+            gap: Gap.md,
+          ),
+          children: _getDemoComponents(componentType),
+        ),
+      ],
+    );
+  }
+
+  /// Get demo components based on component type
+  List<Component> _getDemoComponents(String componentType) {
+    switch (componentType) {
+      case 'button':
+        return [
+          ArcaneButton.primary(label: 'Primary', onPressed: () {}),
+          ArcaneButton.secondary(label: 'Secondary', onPressed: () {}),
+          ArcaneButton.destructive(label: 'Destructive', onPressed: () {}),
+          ArcaneButton.ghost(label: 'Ghost', onPressed: () {}),
+          ArcaneButton.outline(label: 'Outline', onPressed: () {}),
+          ArcaneButton.link(label: 'Link', onPressed: () {}),
+        ];
+      case 'icon-button':
+        return [
+          ArcaneIconButton(icon: ArcaneText('+'), onPressed: () {}),
+          ArcaneIconButton(icon: ArcaneText('×'), onPressed: () {}),
+          ArcaneIconButton(icon: ArcaneText('⚙'), onPressed: () {}),
+        ];
+      case 'checkbox':
+        return [
+          ArcaneCheckbox(checked: false, onChanged: (_) {}),
+          ArcaneCheckbox(checked: true, onChanged: (_) {}),
+        ];
+      case 'toggle-switch':
+        return [
+          ArcaneToggleSwitch(value: false, onChanged: (_) {}),
+          ArcaneToggleSwitch(value: true, onChanged: (_) {}),
+        ];
+      case 'text-input':
+        return [
+          ArcaneDiv(
+            styles: const ArcaneStyleData(widthCustom: '250px'),
+            children: [
+              ArcaneTextInput(
+                label: 'Username',
+                placeholder: 'Enter username',
+                name: 'demo-username',
+              ),
+            ],
+          ),
+        ];
+      case 'badge':
+        return [
+          ArcaneBadge('Default'),
+          ArcaneBadge('Info', style: BadgeStyle.info),
+          ArcaneBadge('Success', style: BadgeStyle.success),
+          ArcaneBadge('Warning', style: BadgeStyle.warning),
+          ArcaneBadge('Destructive', style: BadgeStyle.destructive),
+        ];
+      case 'avatar':
+        return [
+          ArcaneAvatar(initials: 'JD'),
+          ArcaneAvatar(initials: 'JS'),
+          ArcaneAvatar(initials: 'BW'),
+        ];
+      case 'card':
+        return [
+          ArcaneCard(
+            child: ArcaneDiv(
+              styles: const ArcaneStyleData(padding: PaddingPreset.md),
+              children: [
+                ArcaneText('This is a sample card component'),
+              ],
+            ),
+          ),
+        ];
+      case 'progress-bar':
+        return [
+          ArcaneDiv(
+            styles: const ArcaneStyleData(widthCustom: '200px'),
+            children: [
+              ArcaneProgressBar(value: 0.3),
+            ],
+          ),
+          ArcaneDiv(
+            styles: const ArcaneStyleData(widthCustom: '200px'),
+            children: [
+              ArcaneProgressBar(value: 0.7),
+            ],
+          ),
+        ];
+      case 'loader':
+        return [
+          ArcaneLoader(),
+        ];
+      case 'theme-toggle':
+        return [
+          ArcaneThemeToggle(isDark: _isDark, onChanged: (_) => _toggleTheme()),
+        ];
+      default:
+        return [
+          ArcaneDiv(
+            styles: const ArcaneStyleData(
+              textColor: TextColor.muted,
+              fontStyle: FontStyle.italic,
+            ),
+            children: [ArcaneText('Demo coming soon...')],
+          ),
+        ];
+    }
   }
 }

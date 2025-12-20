@@ -2,6 +2,7 @@
 title: ArcaneCheckbox
 description: Checkbox input for boolean selections
 layout: docs
+component: checkbox
 ---
 
 # ArcaneCheckbox

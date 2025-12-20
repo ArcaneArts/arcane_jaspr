@@ -2,6 +2,7 @@
 title: ArcaneThemeToggle
 description: Toggle button for switching between light and dark themes
 layout: docs
+component: theme-toggle
 ---
 
 # ArcaneThemeToggle
