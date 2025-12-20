@@ -102,6 +102,9 @@ enum PaddingPreset {
   /// 120px vertical, 24px horizontal (hero section)
   heroY,
 
+  /// 96px vertical only (carousel sections, no horizontal padding)
+  hugeY,
+
   /// 8px horizontal only
   horizontalSm,
 
@@ -159,6 +162,7 @@ enum PaddingPreset {
         PaddingPreset.section => '${ArcaneSpacing.lg} ${ArcaneSpacing.xxl}',
         PaddingPreset.sectionY => '${ArcaneSpacing.sectionY} ${ArcaneSpacing.lg}',
         PaddingPreset.heroY => '${ArcaneSpacing.heroY} ${ArcaneSpacing.lg}',
+        PaddingPreset.hugeY => '${ArcaneSpacing.huge} 0',
         PaddingPreset.horizontalSm => '0 ${ArcaneSpacing.sm}',
         PaddingPreset.horizontalMd => '0 ${ArcaneSpacing.md}',
         PaddingPreset.horizontalLg => '0 ${ArcaneSpacing.lg}',
@@ -279,7 +283,19 @@ enum MarginPreset {
   leftMd,
 
   /// 24px left only
-  leftLg;
+  leftLg,
+
+  /// Centered horizontally with 16px bottom margin
+  centerBottomMd,
+
+  /// Centered horizontally with 24px bottom margin
+  centerBottomLg,
+
+  /// Centered horizontally with 32px bottom margin
+  centerBottomXl,
+
+  /// Centered horizontally with 48px bottom margin
+  centerBottomXxl;
 
   String get css => switch (this) {
         MarginPreset.none => ArcaneSpacing.none,
@@ -317,6 +333,10 @@ enum MarginPreset {
         MarginPreset.leftSm => '0 0 0 ${ArcaneSpacing.sm}',
         MarginPreset.leftMd => '0 0 0 ${ArcaneSpacing.md}',
         MarginPreset.leftLg => '0 0 0 ${ArcaneSpacing.lg}',
+        MarginPreset.centerBottomMd => '0 auto ${ArcaneSpacing.md} auto',
+        MarginPreset.centerBottomLg => '0 auto ${ArcaneSpacing.lg} auto',
+        MarginPreset.centerBottomXl => '0 auto ${ArcaneSpacing.xl} auto',
+        MarginPreset.centerBottomXxl => '0 auto ${ArcaneSpacing.xxl} auto',
       };
 }
 

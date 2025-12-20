@@ -50,6 +50,9 @@ enum BorderPreset {
   /// Brand colored border (theme-reactive)
   brand,
 
+  /// 2px solid brand primary (for highlighted cards)
+  brandThick,
+
   /// Top border only (subtle)
   topSubtle,
 
@@ -72,6 +75,7 @@ enum BorderPreset {
         BorderPreset.dashedSubtle => '1px dashed ${ArcaneColors.borderSubtle}',
         BorderPreset.dashedStandard => '1px dashed ${ArcaneColors.border}',
         BorderPreset.brand => '1px solid $_qnBorder',
+        BorderPreset.brandThick => '2px solid ${ArcaneColors.accent}',
         BorderPreset.topSubtle => '1px solid ${ArcaneColors.borderSubtle}',
         BorderPreset.bottomSubtle => '1px solid ${ArcaneColors.borderSubtle}',
       };
