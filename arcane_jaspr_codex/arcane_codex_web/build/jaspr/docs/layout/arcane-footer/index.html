@@ -10,6 +10,168 @@
     <link href="/favicon.ico" rel="icon" type="image/x-icon"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link href="/styles.css" rel="stylesheet"/>
+    <style id="arcane-theme-vars">
+      html.arcane-dark, .arcane-dark {
+        --arcane-primary: rgba(16, 185, 129, 1.00);
+        --arcane-on-primary: rgba(9, 9, 11, 1.00);
+        --arcane-primary-container: rgba(2, 44, 34, 1.00);
+        --arcane-on-primary-container: rgba(16, 185, 129, 1.00);
+        --arcane-secondary: rgba(161, 161, 170, 1.00);
+        --arcane-on-secondary: rgba(9, 9, 11, 1.00);
+        --arcane-secondary-container: rgba(39, 39, 42, 1.00);
+        --arcane-on-secondary-container: rgba(228, 228, 231, 1.00);
+        --arcane-tertiary: rgba(113, 113, 122, 1.00);
+        --arcane-on-tertiary: rgba(9, 9, 11, 1.00);
+        --arcane-error: rgba(248, 113, 113, 1.00);
+        --arcane-on-error: rgba(9, 9, 11, 1.00);
+        --arcane-background: rgba(9, 9, 11, 1.00);
+        --arcane-on-background: rgba(250, 250, 250, 1.00);
+        --arcane-surface: rgba(24, 24, 27, 1.00);
+        --arcane-on-surface: rgba(250, 250, 250, 1.00);
+        --arcane-surface-variant: rgba(39, 39, 42, 1.00);
+        --arcane-on-surface-variant: rgba(161, 161, 170, 1.00);
+        --arcane-outline: rgba(63, 63, 70, 0.50);
+        --arcane-outline-variant: rgba(63, 63, 70, 0.25);
+        --arcane-shadow-color: rgba(0, 0, 0, 1.00);
+        --arcane-scrim: rgba(0, 0, 0, 0.50);
+        --arcane-inverse-surface: rgba(244, 244, 245, 1.00);
+        --arcane-on-inverse-surface: rgba(24, 24, 27, 1.00);
+        --arcane-surface-tint: rgba(16, 185, 129, 1.00);
+        --arcane-accent: rgba(16, 185, 129, 1.00);
+        --arcane-accent-hover: rgba(52, 211, 153, 1.00);
+        --arcane-accent-container: rgba(2, 44, 34, 1.00);
+        --arcane-accent-foreground: rgba(9, 9, 11, 1.00);
+        --arcane-muted: rgba(161, 161, 170, 1.00);
+        --arcane-muted-foreground: rgba(161, 161, 170, 1.00);
+        --arcane-card: rgba(24, 24, 27, 1.00);
+        --arcane-card-foreground: rgba(250, 250, 250, 1.00);
+        --arcane-border: rgba(63, 63, 70, 0.50);
+        --arcane-border-subtle: rgba(63, 63, 70, 0.25);
+        --arcane-input: rgba(39, 39, 42, 1.00);
+        --arcane-input-foreground: rgba(250, 250, 250, 1.00);
+        --arcane-ring: rgba(16, 185, 129, 1.00);
+        --arcane-destructive: rgba(248, 113, 113, 1.00);
+        --arcane-destructive-foreground: rgba(255, 255, 255, 1.00);
+        --arcane-success: rgba(52, 211, 153, 1.00);
+        --arcane-success-foreground: rgba(255, 255, 255, 1.00);
+        --arcane-warning: rgba(251, 191, 36, 1.00);
+        --arcane-warning-foreground: rgba(9, 9, 11, 1.00);
+        --arcane-info: rgba(34, 211, 238, 1.00);
+        --arcane-info-foreground: rgba(255, 255, 255, 1.00);
+        --arcane-radius: 9.0px;
+        --arcane-radius-sm: 4.5px;
+        --arcane-radius-md: 9.0px;
+        --arcane-radius-lg: 13.5px;
+        --arcane-radius-xl: 18.0px;
+        --arcane-radius-2xl: 27.0px;
+        --arcane-radius-full: 9999px;
+        --arcane-scaling: 1.0;
+        --arcane-surface-opacity: 0.9;
+        --arcane-surface-blur: 16.0px;
+        --arcane-barrier-color: rgba(0, 0, 0, 0.50);
+        --arcane-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+        --arcane-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+        --arcane-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+        --arcane-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+        --arcane-transition-fast: 150ms ease;
+        --arcane-transition: 200ms ease;
+        --arcane-transition-slow: 300ms ease;
+        --arcane-background-secondary: #0a0a0c;
+        --arcane-background-tertiary: #0f0f11;
+        --arcane-card-hover: rgba(255, 255, 255, 0.05);
+        --arcane-card-alt: #18181b;
+        --arcane-navbar: rgba(9, 9, 11, 0.8);
+        --arcane-text-subtle: #71717a;
+        --arcane-text-faint: #52525b;
+        --arcane-tooltip: #27272a;
+        --arcane-tooltip-foreground: #fafafa;
+        --arcane-code-background: #18181b;
+        --arcane-success-hover: rgba(110, 231, 183, 1.00);
+        --arcane-success-container: rgba(16, 185, 129, 0.1);
+        --arcane-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+      }
+      
+      html.arcane-light, .arcane-light {
+        --arcane-primary: rgba(5, 150, 105, 1.00);
+        --arcane-on-primary: rgba(255, 255, 255, 1.00);
+        --arcane-primary-container: rgba(209, 250, 229, 1.00);
+        --arcane-on-primary-container: rgba(5, 150, 105, 1.00);
+        --arcane-secondary: rgba(82, 82, 91, 1.00);
+        --arcane-on-secondary: rgba(255, 255, 255, 1.00);
+        --arcane-secondary-container: rgba(228, 228, 231, 1.00);
+        --arcane-on-secondary-container: rgba(24, 24, 27, 1.00);
+        --arcane-tertiary: rgba(113, 113, 122, 1.00);
+        --arcane-on-tertiary: rgba(255, 255, 255, 1.00);
+        --arcane-error: rgba(220, 38, 38, 1.00);
+        --arcane-on-error: rgba(255, 255, 255, 1.00);
+        --arcane-background: rgba(250, 250, 250, 1.00);
+        --arcane-on-background: rgba(24, 24, 27, 1.00);
+        --arcane-surface: rgba(255, 255, 255, 1.00);
+        --arcane-on-surface: rgba(24, 24, 27, 1.00);
+        --arcane-surface-variant: rgba(244, 244, 245, 1.00);
+        --arcane-on-surface-variant: rgba(82, 82, 91, 1.00);
+        --arcane-outline: rgba(0, 0, 0, 0.10);
+        --arcane-outline-variant: rgba(0, 0, 0, 0.05);
+        --arcane-shadow-color: rgba(0, 0, 0, 1.00);
+        --arcane-scrim: rgba(0, 0, 0, 0.50);
+        --arcane-inverse-surface: rgba(24, 24, 27, 1.00);
+        --arcane-on-inverse-surface: rgba(250, 250, 250, 1.00);
+        --arcane-surface-tint: rgba(5, 150, 105, 1.00);
+        --arcane-accent: rgba(5, 150, 105, 1.00);
+        --arcane-accent-hover: rgba(4, 120, 87, 1.00);
+        --arcane-accent-container: rgba(209, 250, 229, 1.00);
+        --arcane-accent-foreground: rgba(255, 255, 255, 1.00);
+        --arcane-muted: rgba(82, 82, 91, 1.00);
+        --arcane-muted-foreground: rgba(113, 113, 122, 1.00);
+        --arcane-card: rgba(255, 255, 255, 1.00);
+        --arcane-card-foreground: rgba(24, 24, 27, 1.00);
+        --arcane-border: rgba(0, 0, 0, 0.10);
+        --arcane-border-subtle: rgba(0, 0, 0, 0.05);
+        --arcane-input: rgba(244, 244, 245, 1.00);
+        --arcane-input-foreground: rgba(24, 24, 27, 1.00);
+        --arcane-ring: rgba(5, 150, 105, 1.00);
+        --arcane-destructive: rgba(220, 38, 38, 1.00);
+        --arcane-destructive-foreground: rgba(255, 255, 255, 1.00);
+        --arcane-success: rgba(5, 150, 105, 1.00);
+        --arcane-success-foreground: rgba(255, 255, 255, 1.00);
+        --arcane-warning: rgba(217, 119, 6, 1.00);
+        --arcane-warning-foreground: rgba(9, 9, 11, 1.00);
+        --arcane-info: rgba(8, 145, 178, 1.00);
+        --arcane-info-foreground: rgba(255, 255, 255, 1.00);
+        --arcane-radius: 9.0px;
+        --arcane-radius-sm: 4.5px;
+        --arcane-radius-md: 9.0px;
+        --arcane-radius-lg: 13.5px;
+        --arcane-radius-xl: 18.0px;
+        --arcane-radius-2xl: 27.0px;
+        --arcane-radius-full: 9999px;
+        --arcane-scaling: 1.0;
+        --arcane-surface-opacity: 0.95;
+        --arcane-surface-blur: 16.0px;
+        --arcane-barrier-color: rgba(0, 0, 0, 0.50);
+        --arcane-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+        --arcane-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --arcane-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --arcane-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        --arcane-transition-fast: 150ms ease;
+        --arcane-transition: 200ms ease;
+        --arcane-transition-slow: 300ms ease;
+        --arcane-background-secondary: #f4f4f5;
+        --arcane-background-tertiary: #e4e4e7;
+        --arcane-card-hover: rgba(0, 0, 0, 0.02);
+        --arcane-card-alt: #fafafa;
+        --arcane-navbar: rgba(255, 255, 255, 0.8);
+        --arcane-text-subtle: #a1a1aa;
+        --arcane-text-faint: #d4d4d8;
+        --arcane-tooltip: #18181b;
+        --arcane-tooltip-foreground: #fafafa;
+        --arcane-code-background: #f4f4f5;
+        --arcane-success-hover: rgba(4, 120, 87, 1.00);
+        --arcane-success-container: rgba(16, 185, 129, 0.1);
+        --arcane-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+      }
+      
+    </style>
     <script>
             (function() {
               var theme = localStorage.getItem('arcane-theme') || 'dark';
@@ -1045,289 +1207,288 @@
     </style>
   </head>
   <body>
-    <div id="arcane-root" class="arcane-dark" style="--arcane-primary: rgba(16, 185, 129, 1.00); --arcane-on-primary: rgba(9, 9, 11, 1.00); --arcane-primary-container: rgba(2, 44, 34, 1.00); --arcane-on-primary-container: rgba(16, 185, 129, 1.00); --arcane-secondary: rgba(161, 161, 170, 1.00); --arcane-on-secondary: rgba(9, 9, 11, 1.00); --arcane-secondary-container: rgba(39, 39, 42, 1.00); --arcane-on-secondary-container: rgba(228, 228, 231, 1.00); --arcane-tertiary: rgba(113, 113, 122, 1.00); --arcane-on-tertiary: rgba(9, 9, 11, 1.00); --arcane-error: rgba(248, 113, 113, 1.00); --arcane-on-error: rgba(9, 9, 11, 1.00); --arcane-background: rgba(9, 9, 11, 1.00); --arcane-on-background: rgba(250, 250, 250, 1.00); --arcane-surface: rgba(24, 24, 27, 1.00); --arcane-on-surface: rgba(250, 250, 250, 1.00); --arcane-surface-variant: rgba(39, 39, 42, 1.00); --arcane-on-surface-variant: rgba(161, 161, 170, 1.00); --arcane-outline: rgba(63, 63, 70, 0.50); --arcane-outline-variant: rgba(63, 63, 70, 0.25); --arcane-shadow-color: rgba(0, 0, 0, 1.00); --arcane-scrim: rgba(0, 0, 0, 0.50); --arcane-inverse-surface: rgba(244, 244, 245, 1.00); --arcane-on-inverse-surface: rgba(24, 24, 27, 1.00); --arcane-surface-tint: rgba(16, 185, 129, 1.00); --arcane-accent: rgba(16, 185, 129, 1.00); --arcane-accent-hover: rgba(52, 211, 153, 1.00); --arcane-accent-container: rgba(2, 44, 34, 1.00); --arcane-accent-foreground: rgba(9, 9, 11, 1.00); --arcane-muted: rgba(161, 161, 170, 1.00); --arcane-muted-foreground: rgba(161, 161, 170, 1.00); --arcane-card: rgba(24, 24, 27, 1.00); --arcane-card-foreground: rgba(250, 250, 250, 1.00); --arcane-border: rgba(63, 63, 70, 0.50); --arcane-border-subtle: rgba(63, 63, 70, 0.25); --arcane-input: rgba(39, 39, 42, 1.00); --arcane-input-foreground: rgba(250, 250, 250, 1.00); --arcane-ring: rgba(16, 185, 129, 1.00); --arcane-destructive: rgba(248, 113, 113, 1.00); --arcane-destructive-foreground: rgba(255, 255, 255, 1.00); --arcane-success: rgba(52, 211, 153, 1.00); --arcane-success-foreground: rgba(255, 255, 255, 1.00); --arcane-warning: rgba(251, 191, 36, 1.00); --arcane-warning-foreground: rgba(9, 9, 11, 1.00); --arcane-info: rgba(34, 211, 238, 1.00); --arcane-info-foreground: rgba(255, 255, 255, 1.00); --arcane-radius: 9.0px; --arcane-radius-sm: 4.5px; --arcane-radius-md: 9.0px; --arcane-radius-lg: 13.5px; --arcane-radius-xl: 18.0px; --arcane-radius-2xl: 27.0px; --arcane-radius-full: 9999px; --arcane-scaling: 1.0; --arcane-surface-opacity: 0.9; --arcane-surface-blur: 16.0px; --arcane-barrier-color: rgba(0, 0, 0, 0.50); --arcane-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05); --arcane-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2); --arcane-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3); --arcane-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3); --arcane-transition-fast: 150ms ease; --arcane-transition: 200ms ease; --arcane-transition-slow: 300ms ease; --arcane-background-secondary: #0a0a0c; --arcane-background-tertiary: #0f0f11; --arcane-card-hover: rgba(255, 255, 255, 0.05); --arcane-card-alt: #18181b; --arcane-navbar: rgba(9, 9, 11, 0.8); --arcane-text-subtle: #71717a; --arcane-text-faint: #52525b; --arcane-tooltip: #27272a; --arcane-tooltip-foreground: #fafafa; --arcane-code-background: #18181b; --arcane-success-hover: rgba(110, 231, 183, 1.00); --arcane-success-container: rgba(16, 185, 129, 0.1); --arcane-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05); min-height: 100vh; background-color: var(--arcane-background); color: var(--arcane-on-background); font-family: &quot;GeistSans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale">
-      <div>
-        <div style="display: flex; min-height: 100vh; background-color: var(--arcane-background); color: var(--arcane-on-background); font-family: 'Akzidenz-GroteskPro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
-          <aside style="display: flex; flex-direction: column; width: 280px; min-height: 100vh; flex-shrink: 0; background: var(--arcane-surface); border-right: 1px solid var(--arcane-outline)">
-            <div style="padding: 24px; border-bottom: 1px solid var(--arcane-outline); background: var(--arcane-surface-variant)">
-              <a href="/">
-                <div style="font-size: 1.125rem; font-weight: 700; color: var(--arcane-on-surface)"><span class="arcane-text">ArcaneCodex</span></div>
-              </a>
-              <div style="font-size: 0.875rem; color: var(--arcane-on-surface-variant); margin-top: 4px"><span class="arcane-text">Documentation</span></div>
+    <div id="arcane-root" style="min-height: 100vh; background-color: var(--arcane-background); color: var(--arcane-on-background); font-family: &quot;GeistSans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale">
+      <div style="display: flex; min-height: 100vh; background: var(--arcane-background); color: var(--arcane-on-surface); font-family: inherit">
+        <aside style="display: flex; flex-direction: column; width: 280px; min-height: 100vh; flex-shrink: 0; background: var(--arcane-surface); border-right: 1px solid var(--arcane-outline)">
+          <div style="padding: 24px; border-bottom: 1px solid var(--arcane-outline); background: var(--arcane-surface-variant)">
+            <a href="/">
+              <div style="font-size: 1.125rem; font-weight: 700; color: var(--arcane-on-surface)"><span class="arcane-text">ArcaneCodex</span></div>
+            </a>
+            <div style="font-size: 0.875rem; color: var(--arcane-on-surface-variant); margin-top: 4px"><span class="arcane-text">Documentation</span></div>
+          </div>
+          <nav style="overflow-y: auto; flex-grow: 1; padding: 16px">
+            <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
+              <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">Getting Started</span></div>
+              <div style="padding-left: 4px">
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs"><span><span class="arcane-text">Introduction</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/installation"><span><span class="arcane-text">Installation</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/quick-start"><span><span class="arcane-text">Quick Start</span></span></a>
+              </div>
             </div>
-            <nav style="overflow-y: auto; flex-grow: 1; padding: 16px">
-              <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
-                <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">Getting Started</span></div>
-                <div style="padding-left: 4px">
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs"><span><span class="arcane-text">Introduction</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/installation"><span><span class="arcane-text">Installation</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/quick-start"><span><span class="arcane-text">Quick Start</span></span></a>
+            <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
+              <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">Core Concepts</span></div>
+              <div style="padding-left: 4px">
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/concepts/theming"><span><span class="arcane-text">Theming</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/concepts/styling"><span><span class="arcane-text">Styling</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/concepts/tokens"><span><span class="arcane-text">Design Tokens</span></span></a>
+              </div>
+            </div>
+            <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
+              <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">Style Reference</span></div>
+              <div style="padding-left: 4px">
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/styles/display"><span><span class="arcane-text">Display &amp; Layout</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/styles/spacing"><span><span class="arcane-text">Spacing</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/styles/typography"><span><span class="arcane-text">Typography</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/styles/colors"><span><span class="arcane-text">Colors</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/styles/borders"><span><span class="arcane-text">Borders</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/styles/effects"><span><span class="arcane-text">Effects</span></span></a>
+              </div>
+            </div>
+            <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
+              <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">Inputs</span></div>
+              <div style="padding-left: 4px">
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-button"><span><span class="arcane-text">ArcaneButton</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-icon-button"><span><span class="arcane-text">ArcaneIconButton</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-close-button"><span><span class="arcane-text">ArcaneCloseButton</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-fab"><span><span class="arcane-text">ArcaneFAB</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-text-input"><span><span class="arcane-text">ArcaneTextInput</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-text-area"><span><span class="arcane-text">ArcaneTextArea</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-search"><span><span class="arcane-text">ArcaneSearch</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-select"><span><span class="arcane-text">ArcaneSelect</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-checkbox"><span><span class="arcane-text">ArcaneCheckbox</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-radio"><span><span class="arcane-text">ArcaneRadio</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-toggle-switch"><span><span class="arcane-text">ArcaneToggleSwitch</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-slider"><span><span class="arcane-text">ArcaneSlider</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-range-slider"><span><span class="arcane-text">ArcaneRangeSlider</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-toggle-button"><span><span class="arcane-text">ArcaneToggleButton</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-toggle-button-group"><span><span class="arcane-text">ArcaneToggleButtonGroup</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-cycle-button"><span><span class="arcane-text">ArcaneCycleButton</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-selector"><span><span class="arcane-text">ArcaneSelector</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-theme-toggle"><span><span class="arcane-text">ArcaneThemeToggle</span></span></a>
+              </div>
+            </div>
+            <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
+              <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">Layout</span></div>
+              <div style="padding-left: 4px">
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-div"><span><span class="arcane-text">ArcaneDiv</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-row"><span><span class="arcane-text">ArcaneRow</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-column"><span><span class="arcane-text">ArcaneColumn</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-container"><span><span class="arcane-text">ArcaneContainer</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-section"><span><span class="arcane-text">ArcaneSection</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-box"><span><span class="arcane-text">ArcaneBox</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-center"><span><span class="arcane-text">ArcaneCenter</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-flow"><span><span class="arcane-text">ArcaneFlow</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-spacer"><span><span class="arcane-text">ArcaneSpacer</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-expanded"><span><span class="arcane-text">ArcaneExpanded</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-stack"><span><span class="arcane-text">ArcaneStack</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-positioned"><span><span class="arcane-text">ArcanePositioned</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-padding"><span><span class="arcane-text">ArcanePadding</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-gutter"><span><span class="arcane-text">ArcaneGutter</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-card"><span><span class="arcane-text">ArcaneCard</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-tabs"><span><span class="arcane-text">ArcaneTabs</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-tile"><span><span class="arcane-text">ArcaneTile</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-button-group"><span><span class="arcane-text">ArcaneButtonGroup</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-hero-section"><span><span class="arcane-text">ArcaneHeroSection</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-accent); font-weight: 600; background: var(--arcane-accent-container); border-left: 3px solid var(--arcane-accent)" href="/docs/layout/arcane-footer"><span><span class="arcane-text">ArcaneFooter</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-auth-layout"><span><span class="arcane-text">ArcaneAuthLayout</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-dashboard-layout"><span><span class="arcane-text">ArcaneDashboardLayout</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-page-body"><span><span class="arcane-text">ArcanePageBody</span></span></a>
+              </div>
+            </div>
+            <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
+              <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">Typography</span></div>
+              <div style="padding-left: 4px">
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/typography/arcane-text"><span><span class="arcane-text">ArcaneText</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/typography/arcane-heading"><span><span class="arcane-text">ArcaneHeading</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/typography/arcane-headline"><span><span class="arcane-text">ArcaneHeadline</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/typography/arcane-subheadline"><span><span class="arcane-text">ArcaneSubheadline</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/typography/arcane-paragraph"><span><span class="arcane-text">ArcaneParagraph</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/typography/arcane-span"><span><span class="arcane-text">ArcaneSpan</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/typography/arcane-gradient-text"><span><span class="arcane-text">ArcaneGradientText</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/typography/arcane-glow-text"><span><span class="arcane-text">ArcaneGlowText</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/typography/arcane-rich-text"><span><span class="arcane-text">ArcaneRichText</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/typography/arcane-code-snippet"><span><span class="arcane-text">ArcaneCodeSnippet</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/typography/arcane-inline-code"><span><span class="arcane-text">ArcaneInlineCode</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/typography/arcane-pre"><span><span class="arcane-text">ArcanePre</span></span></a>
+              </div>
+            </div>
+            <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
+              <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">View</span></div>
+              <div style="padding-left: 4px">
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-avatar"><span><span class="arcane-text">ArcaneAvatar</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-badge"><span><span class="arcane-text">ArcaneBadge</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-chip"><span><span class="arcane-text">ArcaneChip</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-divider"><span><span class="arcane-text">ArcaneDivider</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-progress-bar"><span><span class="arcane-text">ArcaneProgressBar</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-loader"><span><span class="arcane-text">ArcaneLoader</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-skeleton"><span><span class="arcane-text">ArcaneSkeleton</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-empty-state"><span><span class="arcane-text">ArcaneEmptyState</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-data-table"><span><span class="arcane-text">ArcaneDataTable</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-timeline"><span><span class="arcane-text">ArcaneTimeline</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-feature-card"><span><span class="arcane-text">ArcaneFeatureCard</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-tooltip"><span><span class="arcane-text">ArcaneTooltip</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-accordion"><span><span class="arcane-text">ArcaneAccordion</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-toast"><span><span class="arcane-text">ArcaneToast</span></span></a>
+              </div>
+            </div>
+            <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
+              <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">Navigation</span></div>
+              <div style="padding-left: 4px">
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/navigation/arcane-header"><span><span class="arcane-text">ArcaneHeader</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/navigation/arcane-sidebar"><span><span class="arcane-text">ArcaneSidebar</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/navigation/arcane-bottom-nav"><span><span class="arcane-text">ArcaneBottomNav</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/navigation/arcane-dropdown-menu"><span><span class="arcane-text">ArcaneDropdownMenu</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/navigation/arcane-mobile-menu"><span><span class="arcane-text">ArcaneMobileMenu</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/navigation/arcane-mega-menu"><span><span class="arcane-text">ArcaneMegaMenu</span></span></a>
+              </div>
+            </div>
+            <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
+              <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">Feedback</span></div>
+              <div style="padding-left: 4px">
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/feedback/arcane-dialog"><span><span class="arcane-text">ArcaneDialog</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/feedback/arcane-toast"><span><span class="arcane-text">ArcaneToast</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/feedback/arcane-alert-banner"><span><span class="arcane-text">ArcaneAlertBanner</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/feedback/arcane-tooltip"><span><span class="arcane-text">ArcaneTooltip</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/feedback/arcane-accordion"><span><span class="arcane-text">ArcaneAccordion</span></span></a>
+              </div>
+            </div>
+            <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
+              <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">Forms</span></div>
+              <div style="padding-left: 4px">
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/forms/arcane-form"><span><span class="arcane-text">ArcaneForm</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/forms/arcane-field"><span><span class="arcane-text">ArcaneField</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/forms/arcane-field-wrapper"><span><span class="arcane-text">ArcaneFieldWrapper</span></span></a>
+              </div>
+            </div>
+            <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
+              <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">Authentication</span></div>
+              <div style="padding-left: 4px">
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/overview"><span><span class="arcane-text">Overview</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/arcane-auth-provider"><span><span class="arcane-text">ArcaneAuthProvider</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/auth-guard"><span><span class="arcane-text">AuthGuard</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/guest-guard"><span><span class="arcane-text">GuestGuard</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/arcane-login-card"><span><span class="arcane-text">ArcaneLoginCard</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/arcane-signup-card"><span><span class="arcane-text">ArcaneSignupCard</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/arcane-forgot-password-card"><span><span class="arcane-text">ArcaneForgotPasswordCard</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/github-signin-button"><span><span class="arcane-text">GithubSignInButton</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/google-signin-button"><span><span class="arcane-text">GoogleSignInButton</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/apple-signin-button"><span><span class="arcane-text">AppleSignInButton</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/auth-split-layout"><span><span class="arcane-text">AuthSplitLayout</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/auth-branding-panel"><span><span class="arcane-text">AuthBrandingPanel</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/password-policy"><span><span class="arcane-text">PasswordPolicy</span></span></a>
+              </div>
+            </div>
+            <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
+              <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">Screens</span></div>
+              <div style="padding-left: 4px">
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/screens/arcane-screen"><span><span class="arcane-text">ArcaneScreen</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/screens/arcane-dashboard-layout"><span><span class="arcane-text">ArcaneDashboardLayout</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/screens/arcane-auth-layout"><span><span class="arcane-text">ArcaneAuthLayout</span></span></a>
+              </div>
+            </div>
+            <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
+              <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">Guides</span></div>
+              <div style="padding-left: 4px">
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/guides/deployment"><span><span class="arcane-text">Deployment</span></span></a>
+              </div>
+            </div>
+          </nav>
+        </aside>
+        <div style="display: flex; flex-direction: column; min-height: 100vh; flex-grow: 1">
+          <header class="arcane-bar " style="display: flex; align-items: center; gap: 16px; height: 56.0px; padding: 0.0px 16.0px 0.0px 16.0px; background-color: var(--arcane-surface); border-bottom: 1px solid var(--arcane-border); flex-shrink: 0">
+            <div class="arcane-bar-leading" style="display: flex; align-items: center; gap: 8px">
+              <a href="/">
+                <div style="display: flex; align-items: center; gap: 8px">
+                  <div style="color: var(--arcane-on-background); font-size: 1.125rem; font-weight: 700"><span class="arcane-text">ArcaneCodex</span></div>
+                </div>
+              </a>
+            </div>
+            <div class="arcane-bar-content" style="flex: 1; display: flex; flex-direction: column; justify-content: center; min-width: 0"></div>
+            <div class="arcane-bar-trailing" style="display: flex; align-items: center; gap: 8px">
+              <div style="position: relative; width: 240px; margin-right: 16px">
+                <input id="docs-search" style="width: 100%; padding: 8px 12px 8px 36px; font-size: 14px; border: 1px solid var(--arcane-outline); border-radius: 8px; background: var(--arcane-surface); color: var(--arcane-on-surface); outline: none; transition: border-color 0.2s, box-shadow 0.2s" placeholder="Search docs..." autocomplete="off" type="text"/>
+                <div style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--arcane-on-surface-variant)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+                </div>
+                <div id="search-results" style="display: none; position: absolute; top: 100%; left: 0; right: 0; margin-top: 4px; background: var(--arcane-surface); border: 1px solid var(--arcane-outline); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); max-height: 300px; overflow-y: auto; z-index: 1000"></div>
+              </div>
+              <a href="/docs">
+                <button class="arcane-button " style="display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 10px 16px; font-size: 0.875rem; gap: 8px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.5; background-color: transparent; color: var(--arcane-on-surface); border: none; border-radius: var(--arcane-radius-md); cursor: pointer; opacity: 1; transition: var(--arcane-transition-fast); white-space: nowrap; user-select: none; -webkit-user-select: none" type="button">Docs</button>
+              </a>
+              <a href="/guides">
+                <button class="arcane-button " style="display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 10px 16px; font-size: 0.875rem; gap: 8px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.5; background-color: transparent; color: var(--arcane-on-surface); border: none; border-radius: var(--arcane-radius-md); cursor: pointer; opacity: 1; transition: var(--arcane-transition-fast); white-space: nowrap; user-select: none; -webkit-user-select: none" type="button">Guides</button>
+              </a>
+              <button id="theme-toggle" style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid var(--arcane-outline); border-radius: 8px; background: var(--arcane-surface); color: var(--arcane-on-surface); cursor: pointer; transition: background 0.2s, border-color 0.2s" aria-label="Toggle theme" title="Toggle light/dark mode">
+                <span id="sun-icon" style="display: inline; line-height: 0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+                <span id="moon-icon" style="display: none; line-height: 0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+              </button>
+            </div>
+          </header>
+          <div style="display: flex; max-width: 1280px; flex-grow: 1; padding: 32px; margin: 0 auto; gap: 32px">
+            <div style="flex-grow: 1; min-width: 0">
+              <div style="margin: 0 0 24px 0; color: var(--arcane-on-background); font-size: 2rem; font-weight: 700"><span class="arcane-text">ArcaneFooter</span></div>
+              <div style="margin: 0 0 32px 0; color: var(--arcane-muted); font-size: 1.125rem"><span class="arcane-text">Website footer component with common layouts</span></div>
+              <div style="padding: 24px; margin: 0 0 32px 0; border-radius: var(--arcane-radius-lg); background: var(--arcane-surface-variant); border: 1px solid var(--arcane-outline)">
+                <div style="margin: 0 0 16px 0; color: var(--arcane-muted); font-size: 0.875rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase"><span class="arcane-text">Live Demo</span></div>
+                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px">
+                  <div style="padding: 16px; background-color: var(--arcane-surface); border-radius: var(--arcane-radius-md); text-align: center"><span class="arcane-text">Footer Example</span></div>
                 </div>
               </div>
-              <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
-                <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">Core Concepts</span></div>
-                <div style="padding-left: 4px">
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/concepts/theming"><span><span class="arcane-text">Theming</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/concepts/styling"><span><span class="arcane-text">Styling</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/concepts/tokens"><span><span class="arcane-text">Design Tokens</span></span></a>
-                </div>
-              </div>
-              <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
-                <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">Style Reference</span></div>
-                <div style="padding-left: 4px">
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/styles/display"><span><span class="arcane-text">Display &amp; Layout</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/styles/spacing"><span><span class="arcane-text">Spacing</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/styles/typography"><span><span class="arcane-text">Typography</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/styles/colors"><span><span class="arcane-text">Colors</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/styles/borders"><span><span class="arcane-text">Borders</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/styles/effects"><span><span class="arcane-text">Effects</span></span></a>
-                </div>
-              </div>
-              <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
-                <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">Inputs</span></div>
-                <div style="padding-left: 4px">
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-button"><span><span class="arcane-text">ArcaneButton</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-icon-button"><span><span class="arcane-text">ArcaneIconButton</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-close-button"><span><span class="arcane-text">ArcaneCloseButton</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-fab"><span><span class="arcane-text">ArcaneFAB</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-text-input"><span><span class="arcane-text">ArcaneTextInput</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-text-area"><span><span class="arcane-text">ArcaneTextArea</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-search"><span><span class="arcane-text">ArcaneSearch</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-select"><span><span class="arcane-text">ArcaneSelect</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-checkbox"><span><span class="arcane-text">ArcaneCheckbox</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-radio"><span><span class="arcane-text">ArcaneRadio</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-toggle-switch"><span><span class="arcane-text">ArcaneToggleSwitch</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-slider"><span><span class="arcane-text">ArcaneSlider</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-range-slider"><span><span class="arcane-text">ArcaneRangeSlider</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-toggle-button"><span><span class="arcane-text">ArcaneToggleButton</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-toggle-button-group"><span><span class="arcane-text">ArcaneToggleButtonGroup</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-cycle-button"><span><span class="arcane-text">ArcaneCycleButton</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-selector"><span><span class="arcane-text">ArcaneSelector</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/inputs/arcane-theme-toggle"><span><span class="arcane-text">ArcaneThemeToggle</span></span></a>
-                </div>
-              </div>
-              <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
-                <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">Layout</span></div>
-                <div style="padding-left: 4px">
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-div"><span><span class="arcane-text">ArcaneDiv</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-row"><span><span class="arcane-text">ArcaneRow</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-column"><span><span class="arcane-text">ArcaneColumn</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-container"><span><span class="arcane-text">ArcaneContainer</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-section"><span><span class="arcane-text">ArcaneSection</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-box"><span><span class="arcane-text">ArcaneBox</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-center"><span><span class="arcane-text">ArcaneCenter</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-flow"><span><span class="arcane-text">ArcaneFlow</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-spacer"><span><span class="arcane-text">ArcaneSpacer</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-expanded"><span><span class="arcane-text">ArcaneExpanded</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-stack"><span><span class="arcane-text">ArcaneStack</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-positioned"><span><span class="arcane-text">ArcanePositioned</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-padding"><span><span class="arcane-text">ArcanePadding</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-gutter"><span><span class="arcane-text">ArcaneGutter</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-card"><span><span class="arcane-text">ArcaneCard</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-tabs"><span><span class="arcane-text">ArcaneTabs</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-tile"><span><span class="arcane-text">ArcaneTile</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-button-group"><span><span class="arcane-text">ArcaneButtonGroup</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-hero-section"><span><span class="arcane-text">ArcaneHeroSection</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-accent); font-weight: 600; background: var(--arcane-accent-container); border-left: 3px solid var(--arcane-accent)" href="/docs/layout/arcane-footer"><span><span class="arcane-text">ArcaneFooter</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-auth-layout"><span><span class="arcane-text">ArcaneAuthLayout</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-dashboard-layout"><span><span class="arcane-text">ArcaneDashboardLayout</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/layout/arcane-page-body"><span><span class="arcane-text">ArcanePageBody</span></span></a>
-                </div>
-              </div>
-              <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
-                <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">Typography</span></div>
-                <div style="padding-left: 4px">
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/typography/arcane-text"><span><span class="arcane-text">ArcaneText</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/typography/arcane-heading"><span><span class="arcane-text">ArcaneHeading</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/typography/arcane-headline"><span><span class="arcane-text">ArcaneHeadline</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/typography/arcane-subheadline"><span><span class="arcane-text">ArcaneSubheadline</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/typography/arcane-paragraph"><span><span class="arcane-text">ArcaneParagraph</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/typography/arcane-span"><span><span class="arcane-text">ArcaneSpan</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/typography/arcane-gradient-text"><span><span class="arcane-text">ArcaneGradientText</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/typography/arcane-glow-text"><span><span class="arcane-text">ArcaneGlowText</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/typography/arcane-rich-text"><span><span class="arcane-text">ArcaneRichText</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/typography/arcane-code-snippet"><span><span class="arcane-text">ArcaneCodeSnippet</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/typography/arcane-inline-code"><span><span class="arcane-text">ArcaneInlineCode</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/typography/arcane-pre"><span><span class="arcane-text">ArcanePre</span></span></a>
-                </div>
-              </div>
-              <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
-                <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">View</span></div>
-                <div style="padding-left: 4px">
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-avatar"><span><span class="arcane-text">ArcaneAvatar</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-badge"><span><span class="arcane-text">ArcaneBadge</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-chip"><span><span class="arcane-text">ArcaneChip</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-divider"><span><span class="arcane-text">ArcaneDivider</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-progress-bar"><span><span class="arcane-text">ArcaneProgressBar</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-loader"><span><span class="arcane-text">ArcaneLoader</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-skeleton"><span><span class="arcane-text">ArcaneSkeleton</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-empty-state"><span><span class="arcane-text">ArcaneEmptyState</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-data-table"><span><span class="arcane-text">ArcaneDataTable</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-timeline"><span><span class="arcane-text">ArcaneTimeline</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-feature-card"><span><span class="arcane-text">ArcaneFeatureCard</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-tooltip"><span><span class="arcane-text">ArcaneTooltip</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-accordion"><span><span class="arcane-text">ArcaneAccordion</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/view/arcane-toast"><span><span class="arcane-text">ArcaneToast</span></span></a>
-                </div>
-              </div>
-              <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
-                <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">Navigation</span></div>
-                <div style="padding-left: 4px">
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/navigation/arcane-header"><span><span class="arcane-text">ArcaneHeader</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/navigation/arcane-sidebar"><span><span class="arcane-text">ArcaneSidebar</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/navigation/arcane-bottom-nav"><span><span class="arcane-text">ArcaneBottomNav</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/navigation/arcane-dropdown-menu"><span><span class="arcane-text">ArcaneDropdownMenu</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/navigation/arcane-mobile-menu"><span><span class="arcane-text">ArcaneMobileMenu</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/navigation/arcane-mega-menu"><span><span class="arcane-text">ArcaneMegaMenu</span></span></a>
-                </div>
-              </div>
-              <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
-                <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">Feedback</span></div>
-                <div style="padding-left: 4px">
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/feedback/arcane-dialog"><span><span class="arcane-text">ArcaneDialog</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/feedback/arcane-toast"><span><span class="arcane-text">ArcaneToast</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/feedback/arcane-alert-banner"><span><span class="arcane-text">ArcaneAlertBanner</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/feedback/arcane-tooltip"><span><span class="arcane-text">ArcaneTooltip</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/feedback/arcane-accordion"><span><span class="arcane-text">ArcaneAccordion</span></span></a>
-                </div>
-              </div>
-              <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
-                <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">Forms</span></div>
-                <div style="padding-left: 4px">
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/forms/arcane-form"><span><span class="arcane-text">ArcaneForm</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/forms/arcane-field"><span><span class="arcane-text">ArcaneField</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/forms/arcane-field-wrapper"><span><span class="arcane-text">ArcaneFieldWrapper</span></span></a>
-                </div>
-              </div>
-              <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
-                <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">Authentication</span></div>
-                <div style="padding-left: 4px">
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/overview"><span><span class="arcane-text">Overview</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/arcane-auth-provider"><span><span class="arcane-text">ArcaneAuthProvider</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/auth-guard"><span><span class="arcane-text">AuthGuard</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/guest-guard"><span><span class="arcane-text">GuestGuard</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/arcane-login-card"><span><span class="arcane-text">ArcaneLoginCard</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/arcane-signup-card"><span><span class="arcane-text">ArcaneSignupCard</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/arcane-forgot-password-card"><span><span class="arcane-text">ArcaneForgotPasswordCard</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/github-signin-button"><span><span class="arcane-text">GithubSignInButton</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/google-signin-button"><span><span class="arcane-text">GoogleSignInButton</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/apple-signin-button"><span><span class="arcane-text">AppleSignInButton</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/auth-split-layout"><span><span class="arcane-text">AuthSplitLayout</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/auth-branding-panel"><span><span class="arcane-text">AuthBrandingPanel</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/auth/password-policy"><span><span class="arcane-text">PasswordPolicy</span></span></a>
-                </div>
-              </div>
-              <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
-                <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">Screens</span></div>
-                <div style="padding-left: 4px">
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/screens/arcane-screen"><span><span class="arcane-text">ArcaneScreen</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/screens/arcane-dashboard-layout"><span><span class="arcane-text">ArcaneDashboardLayout</span></span></a>
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/docs/screens/arcane-auth-layout"><span><span class="arcane-text">ArcaneAuthLayout</span></span></a>
-                </div>
-              </div>
-              <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
-                <div style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; background: var(--arcane-surface-variant); border-radius: 6px; color: var(--arcane-on-surface)"><span class="arcane-text">Guides</span></div>
-                <div style="padding-left: 4px">
-                  <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/guides/deployment"><span><span class="arcane-text">Deployment</span></span></a>
-                </div>
-              </div>
-            </nav>
-          </aside>
-          <div style="display: flex; flex-direction: column; min-height: 100vh; flex-grow: 1">
-            <header class="arcane-bar " style="display: flex; align-items: center; gap: 16px; height: 56.0px; padding: 0.0px 16.0px 0.0px 16.0px; background-color: var(--arcane-surface); border-bottom: 1px solid var(--arcane-border); flex-shrink: 0">
-              <div class="arcane-bar-leading" style="display: flex; align-items: center; gap: 8px">
-                <a href="/">
-                  <div style="display: flex; align-items: center; gap: 8px">
-                    <div style="color: var(--arcane-on-background); font-size: 1.125rem; font-weight: 700"><span class="arcane-text">ArcaneCodex</span></div>
-                  </div>
-                </a>
-              </div>
-              <div class="arcane-bar-content" style="flex: 1; display: flex; flex-direction: column; justify-content: center; min-width: 0"></div>
-              <div class="arcane-bar-trailing" style="display: flex; align-items: center; gap: 8px">
-                <div style="position: relative; width: 240px; margin-right: 16px">
-                  <input id="docs-search" style="width: 100%; padding: 8px 12px 8px 36px; font-size: 14px; border: 1px solid var(--arcane-outline); border-radius: 8px; background: var(--arcane-surface); color: var(--arcane-on-surface); outline: none; transition: border-color 0.2s, box-shadow 0.2s" placeholder="Search docs..." autocomplete="off" type="text"/>
-                  <div style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--arcane-on-surface-variant)">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
-                  </div>
-                  <div id="search-results" style="display: none; position: absolute; top: 100%; left: 0; right: 0; margin-top: 4px; background: var(--arcane-surface); border: 1px solid var(--arcane-outline); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); max-height: 300px; overflow-y: auto; z-index: 1000"></div>
-                </div>
-                <a href="/docs">
-                  <button class="arcane-button " style="display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 10px 16px; font-size: 0.875rem; gap: 8px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.5; background-color: transparent; color: var(--arcane-on-surface); border: none; border-radius: var(--arcane-radius-md); cursor: pointer; opacity: 1; transition: var(--arcane-transition-fast); white-space: nowrap; user-select: none; -webkit-user-select: none" type="button">Docs</button>
-                </a>
-                <a href="/guides">
-                  <button class="arcane-button " style="display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 10px 16px; font-size: 0.875rem; gap: 8px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.5; background-color: transparent; color: var(--arcane-on-surface); border: none; border-radius: var(--arcane-radius-md); cursor: pointer; opacity: 1; transition: var(--arcane-transition-fast); white-space: nowrap; user-select: none; -webkit-user-select: none" type="button">Guides</button>
-                </a>
-                <button id="theme-toggle" style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid var(--arcane-outline); border-radius: 8px; background: var(--arcane-surface); color: var(--arcane-on-surface); cursor: pointer; transition: background 0.2s, border-color 0.2s" aria-label="Toggle theme" title="Toggle light/dark mode">
-                  <span id="sun-icon" style="display: inline; line-height: 0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
-                  <span id="moon-icon" style="display: none; line-height: 0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
-                </button>
-              </div>
-            </header>
-            <div style="display: flex; max-width: 1280px; flex-grow: 1; padding: 32px; margin: 0 auto; gap: 32px">
-              <div style="flex-grow: 1; min-width: 0">
-                <div style="margin: 0 0 24px 0; color: var(--arcane-on-background); font-size: 2rem; font-weight: 700"><span class="arcane-text">ArcaneFooter</span></div>
-                <div style="margin: 0 0 32px 0; color: var(--arcane-muted); font-size: 1.125rem"><span class="arcane-text">Website footer component with common layouts</span></div>
-                <div style="padding: 24px; margin: 0 0 32px 0; border-radius: var(--arcane-radius-lg); background: var(--arcane-surface-variant); border: 1px solid var(--arcane-outline)">
-                  <div style="margin: 0 0 16px 0; color: var(--arcane-muted); font-size: 0.875rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase"><span class="arcane-text">Live Demo</span></div>
-                  <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px">
-                    <div style="padding: 16px; background-color: var(--arcane-surface); border-radius: var(--arcane-radius-md); text-align: center"><span class="arcane-text">Footer Example</span></div>
-                  </div>
-                </div>
-                <div class="prose">
-                  <section class="content">
-                    <h1 id="arcanefooter" anchor="true"><span>ArcaneFooter</span><a href="/docs/layout/arcane-footer#arcanefooter">#</a></h1>
-                    <p>
-                      A pre-styled footer component for website pages with support for navigation links, social icons, and copyright text.
-                    </p>
-                    <h2 id="basic-usage" anchor="true"><span>Basic Usage</span><a href="/docs/layout/arcane-footer#basic-usage">#</a></h2>
-                    <pre><code class="language-dart">ArcaneFooter(
+              <div class="prose">
+                <section class="content">
+                  <h1 id="arcanefooter" anchor="true"><span>ArcaneFooter</span><a href="/docs/layout/arcane-footer#arcanefooter">#</a></h1>
+                  <p>
+                    A pre-styled footer component for website pages with support for navigation links, social icons, and copyright text.
+                  </p>
+                  <h2 id="basic-usage" anchor="true"><span>Basic Usage</span><a href="/docs/layout/arcane-footer#basic-usage">#</a></h2>
+                  <pre><code class="language-dart">ArcaneFooter(
   copyright: '© 2024 Company Name',
 )
 </code></pre>
-                    <h2 id="properties" anchor="true"><span>Properties</span><a href="/docs/layout/arcane-footer#properties">#</a></h2>
-                    <table>
-                      <thead><tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
-                      <tbody>
-                        <tr>
-                          <td><code>copyright</code></td>
-                          <td><code>String?</code></td>
-                          <td><code>null</code></td>
-                          <td>Copyright text</td>
-                        </tr>
-                        <tr>
-                          <td><code>links</code></td>
-                          <td><code>List&lt;FooterLink&gt;?</code></td>
-                          <td><code>null</code></td>
-                          <td>Navigation links</td>
-                        </tr>
-                        <tr>
-                          <td><code>columns</code></td>
-                          <td><code>List&lt;FooterColumn&gt;?</code></td>
-                          <td><code>null</code></td>
-                          <td>Multi-column layout</td>
-                        </tr>
-                        <tr>
-                          <td><code>socialLinks</code></td>
-                          <td><code>List&lt;SocialLink&gt;?</code></td>
-                          <td><code>null</code></td>
-                          <td>Social media links</td>
-                        </tr>
-                        <tr>
-                          <td><code>children</code></td>
-                          <td><code>List&lt;Component&gt;?</code></td>
-                          <td><code>null</code></td>
-                          <td>Custom content</td>
-                        </tr>
-                        <tr>
-                          <td><code>styles</code></td>
-                          <td><code>ArcaneStyleData?</code></td>
-                          <td><code>null</code></td>
-                          <td>Additional styling</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <h2 id="simple-footer" anchor="true"><span>Simple Footer</span><a href="/docs/layout/arcane-footer#simple-footer">#</a></h2>
-                    <pre><code class="language-dart">ArcaneFooter(
+                  <h2 id="properties" anchor="true"><span>Properties</span><a href="/docs/layout/arcane-footer#properties">#</a></h2>
+                  <table>
+                    <thead><tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                    <tbody>
+                      <tr>
+                        <td><code>copyright</code></td>
+                        <td><code>String?</code></td>
+                        <td><code>null</code></td>
+                        <td>Copyright text</td>
+                      </tr>
+                      <tr>
+                        <td><code>links</code></td>
+                        <td><code>List&lt;FooterLink&gt;?</code></td>
+                        <td><code>null</code></td>
+                        <td>Navigation links</td>
+                      </tr>
+                      <tr>
+                        <td><code>columns</code></td>
+                        <td><code>List&lt;FooterColumn&gt;?</code></td>
+                        <td><code>null</code></td>
+                        <td>Multi-column layout</td>
+                      </tr>
+                      <tr>
+                        <td><code>socialLinks</code></td>
+                        <td><code>List&lt;SocialLink&gt;?</code></td>
+                        <td><code>null</code></td>
+                        <td>Social media links</td>
+                      </tr>
+                      <tr>
+                        <td><code>children</code></td>
+                        <td><code>List&lt;Component&gt;?</code></td>
+                        <td><code>null</code></td>
+                        <td>Custom content</td>
+                      </tr>
+                      <tr>
+                        <td><code>styles</code></td>
+                        <td><code>ArcaneStyleData?</code></td>
+                        <td><code>null</code></td>
+                        <td>Additional styling</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <h2 id="simple-footer" anchor="true"><span>Simple Footer</span><a href="/docs/layout/arcane-footer#simple-footer">#</a></h2>
+                  <pre><code class="language-dart">ArcaneFooter(
   copyright: '© 2024 Acme Inc. All rights reserved.',
   links: [
     FooterLink(label: 'Privacy', href: '/privacy'),
@@ -1336,8 +1497,8 @@
   ],
 )
 </code></pre>
-                    <h2 id="with-social-links" anchor="true"><span>With Social Links</span><a href="/docs/layout/arcane-footer#with-social-links">#</a></h2>
-                    <pre><code class="language-dart">ArcaneFooter(
+                  <h2 id="with-social-links" anchor="true"><span>With Social Links</span><a href="/docs/layout/arcane-footer#with-social-links">#</a></h2>
+                  <pre><code class="language-dart">ArcaneFooter(
   copyright: '© 2024 Company',
   links: [
     FooterLink(label: 'About', href: '/about'),
@@ -1350,8 +1511,8 @@
   ],
 )
 </code></pre>
-                    <h2 id="multi-column-footer" anchor="true"><span>Multi-Column Footer</span><a href="/docs/layout/arcane-footer#multi-column-footer">#</a></h2>
-                    <pre><code class="language-dart">ArcaneFooter(
+                  <h2 id="multi-column-footer" anchor="true"><span>Multi-Column Footer</span><a href="/docs/layout/arcane-footer#multi-column-footer">#</a></h2>
+                  <pre><code class="language-dart">ArcaneFooter(
   columns: [
     FooterColumn(
       title: 'Product',
@@ -1393,9 +1554,9 @@
   ],
 )
 </code></pre>
-                    <h2 id="examples" anchor="true"><span>Examples</span><a href="/docs/layout/arcane-footer#examples">#</a></h2>
-                    <h3 id="custom-footer" anchor="true"><span>Custom Footer</span><a href="/docs/layout/arcane-footer#custom-footer">#</a></h3>
-                    <pre><code class="language-dart">ArcaneFooter(
+                  <h2 id="examples" anchor="true"><span>Examples</span><a href="/docs/layout/arcane-footer#examples">#</a></h2>
+                  <h3 id="custom-footer" anchor="true"><span>Custom Footer</span><a href="/docs/layout/arcane-footer#custom-footer">#</a></h3>
+                  <pre><code class="language-dart">ArcaneFooter(
   children: [
     ArcaneContainer(
       children: [
@@ -1447,8 +1608,8 @@
   ],
 )
 </code></pre>
-                    <h3 id="newsletter-footer" anchor="true"><span>Newsletter Footer</span><a href="/docs/layout/arcane-footer#newsletter-footer">#</a></h3>
-                    <pre><code class="language-dart">ArcaneFooter(
+                  <h3 id="newsletter-footer" anchor="true"><span>Newsletter Footer</span><a href="/docs/layout/arcane-footer#newsletter-footer">#</a></h3>
+                  <pre><code class="language-dart">ArcaneFooter(
   children: [
     ArcaneContainer(
       children: [
@@ -1496,8 +1657,8 @@
   copyright: '© 2024 Company',
 )
 </code></pre>
-                    <h3 id="minimal-footer" anchor="true"><span>Minimal Footer</span><a href="/docs/layout/arcane-footer#minimal-footer">#</a></h3>
-                    <pre><code class="language-dart">ArcaneFooter(
+                  <h3 id="minimal-footer" anchor="true"><span>Minimal Footer</span><a href="/docs/layout/arcane-footer#minimal-footer">#</a></h3>
+                  <pre><code class="language-dart">ArcaneFooter(
   styles: const ArcaneStyleData(
     padding: PaddingPreset.md,
     borderTop: Border.subtle,
@@ -1519,196 +1680,195 @@
   ],
 )
 </code></pre>
-                    <h2 id="related-components" anchor="true"><span>Related Components</span><a href="/docs/layout/arcane-footer#related-components">#</a></h2>
-                    <ul>
-                      <li><a href="/docs/navigation/arcane-header">ArcaneHeader</a> - Page header</li>
-                      <li><a href="/docs/layout/arcane-section">ArcaneSection</a> - Section wrapper</li>
-                      <li><a href="/docs/view/arcane-social-links">ArcaneSocialLinks</a> - Social icons</li>
-                    </ul>
-                  </section>
-                </div>
+                  <h2 id="related-components" anchor="true"><span>Related Components</span><a href="/docs/layout/arcane-footer#related-components">#</a></h2>
+                  <ul>
+                    <li><a href="/docs/navigation/arcane-header">ArcaneHeader</a> - Page header</li>
+                    <li><a href="/docs/layout/arcane-section">ArcaneSection</a> - Section wrapper</li>
+                    <li><a href="/docs/view/arcane-social-links">ArcaneSocialLinks</a> - Social icons</li>
+                  </ul>
+                </section>
               </div>
-              <div style="position: sticky; overflow: auto; width: 240px; flex-shrink: 0; top: 80px; align-self: flex-start; max-height: calc(100vh - 100px)">
-                <div style="padding: 16px; border-radius: var(--arcane-radius-lg); background: var(--arcane-surface); border: 1px solid var(--arcane-outline)">
-                  <div style="margin: 0 0 16px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--arcane-on-surface-variant); padding-bottom: 8px; border-bottom: 1px solid var(--arcane-outline-variant)"><span class="arcane-text">On this page</span></div>
-                  <div class="toc-content">
-                    <ul>
-                      <li style="padding-left: 0em"><a href="/docs/layout/arcane-footer#basic-usage">Basic Usage</a></li>
-                      <li style="padding-left: 0em"><a href="/docs/layout/arcane-footer#properties">Properties</a></li>
-                      <li style="padding-left: 0em"><a href="/docs/layout/arcane-footer#simple-footer">Simple Footer</a></li>
-                      <li style="padding-left: 0em"><a href="/docs/layout/arcane-footer#with-social-links">With Social Links</a></li>
-                      <li style="padding-left: 0em"><a href="/docs/layout/arcane-footer#multi-column-footer">Multi-Column Footer</a></li>
-                      <li style="padding-left: 0em"><a href="/docs/layout/arcane-footer#examples">Examples</a></li>
-                      <li style="padding-left: 0.75em"><a href="/docs/layout/arcane-footer#custom-footer">Custom Footer</a></li>
-                      <li style="padding-left: 0.75em"><a href="/docs/layout/arcane-footer#newsletter-footer">Newsletter Footer</a></li>
-                      <li style="padding-left: 0.75em"><a href="/docs/layout/arcane-footer#minimal-footer">Minimal Footer</a></li>
-                      <li style="padding-left: 0em"><a href="/docs/layout/arcane-footer#related-components">Related Components</a></li>
-                    </ul>
-                  </div>
+            </div>
+            <div style="position: sticky; overflow: auto; width: 240px; flex-shrink: 0; top: 80px; align-self: flex-start; max-height: calc(100vh - 100px)">
+              <div style="padding: 16px; border-radius: var(--arcane-radius-lg); background: var(--arcane-surface); border: 1px solid var(--arcane-outline)">
+                <div style="margin: 0 0 16px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--arcane-on-surface-variant); padding-bottom: 8px; border-bottom: 1px solid var(--arcane-outline-variant)"><span class="arcane-text">On this page</span></div>
+                <div class="toc-content">
+                  <ul>
+                    <li style="padding-left: 0em"><a href="/docs/layout/arcane-footer#basic-usage">Basic Usage</a></li>
+                    <li style="padding-left: 0em"><a href="/docs/layout/arcane-footer#properties">Properties</a></li>
+                    <li style="padding-left: 0em"><a href="/docs/layout/arcane-footer#simple-footer">Simple Footer</a></li>
+                    <li style="padding-left: 0em"><a href="/docs/layout/arcane-footer#with-social-links">With Social Links</a></li>
+                    <li style="padding-left: 0em"><a href="/docs/layout/arcane-footer#multi-column-footer">Multi-Column Footer</a></li>
+                    <li style="padding-left: 0em"><a href="/docs/layout/arcane-footer#examples">Examples</a></li>
+                    <li style="padding-left: 0.75em"><a href="/docs/layout/arcane-footer#custom-footer">Custom Footer</a></li>
+                    <li style="padding-left: 0.75em"><a href="/docs/layout/arcane-footer#newsletter-footer">Newsletter Footer</a></li>
+                    <li style="padding-left: 0.75em"><a href="/docs/layout/arcane-footer#minimal-footer">Minimal Footer</a></li>
+                    <li style="padding-left: 0em"><a href="/docs/layout/arcane-footer#related-components">Related Components</a></li>
+                  </ul>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                  // ===== THEME TOGGLE =====
-                  var themeToggle = document.getElementById('theme-toggle');
-                  var sunIcon = document.getElementById('sun-icon');
-                  var moonIcon = document.getElementById('moon-icon');
-          
-                  function updateThemeIcons() {
-                    var isDark = document.documentElement.classList.contains('arcane-dark');
-                    if (sunIcon && moonIcon) {
-                      sunIcon.style.display = isDark ? 'inline' : 'none';
-                      moonIcon.style.display = isDark ? 'none' : 'inline';
-                    }
+      </div>
+      <script>
+              document.addEventListener('DOMContentLoaded', function() {
+                // ===== THEME TOGGLE =====
+                var themeToggle = document.getElementById('theme-toggle');
+                var sunIcon = document.getElementById('sun-icon');
+                var moonIcon = document.getElementById('moon-icon');
+        
+                function updateThemeIcons() {
+                  var isDark = document.documentElement.classList.contains('arcane-dark');
+                  if (sunIcon && moonIcon) {
+                    sunIcon.style.display = isDark ? 'inline' : 'none';
+                    moonIcon.style.display = isDark ? 'none' : 'inline';
                   }
-          
-                  // Initialize icons based on current theme
-                  updateThemeIcons();
-          
-                  if (themeToggle) {
-                    themeToggle.addEventListener('click', function() {
-                      var html = document.documentElement;
-                      var isDark = html.classList.contains('arcane-dark');
-                      html.className = isDark ? 'arcane-light' : 'arcane-dark';
-                      localStorage.setItem('arcane-theme', isDark ? 'light' : 'dark');
-                      updateThemeIcons();
+                }
+        
+                // Initialize icons based on current theme
+                updateThemeIcons();
+        
+                if (themeToggle) {
+                  themeToggle.addEventListener('click', function() {
+                    var html = document.documentElement;
+                    var isDark = html.classList.contains('arcane-dark');
+                    html.className = isDark ? 'arcane-light' : 'arcane-dark';
+                    localStorage.setItem('arcane-theme', isDark ? 'light' : 'dark');
+                    updateThemeIcons();
+                  });
+                }
+        
+                // ===== SEARCH FUNCTIONALITY =====
+                var searchInput = document.getElementById('docs-search');
+                var searchResults = document.getElementById('search-results');
+        
+                // Build search index from sidebar navigation
+                var searchIndex = [];
+                document.querySelectorAll('nav a').forEach(function(link) {
+                  var text = link.textContent.trim();
+                  var href = link.getAttribute('href');
+                  if (text && href && href.startsWith('/docs')) {
+                    // Extract category from URL
+                    var parts = href.split('/');
+                    var category = parts.length > 2 ? parts[2] : 'docs';
+                    category = category.charAt(0).toUpperCase() + category.slice(1).replace(/-/g, ' ');
+        
+                    searchIndex.push({
+                      title: text,
+                      href: href,
+                      category: category,
+                      searchText: text.toLowerCase()
                     });
                   }
-          
-                  // ===== SEARCH FUNCTIONALITY =====
-                  var searchInput = document.getElementById('docs-search');
-                  var searchResults = document.getElementById('search-results');
-          
-                  // Build search index from sidebar navigation
-                  var searchIndex = [];
-                  document.querySelectorAll('nav a').forEach(function(link) {
-                    var text = link.textContent.trim();
-                    var href = link.getAttribute('href');
-                    if (text && href && href.startsWith('/docs')) {
-                      // Extract category from URL
-                      var parts = href.split('/');
-                      var category = parts.length > 2 ? parts[2] : 'docs';
-                      category = category.charAt(0).toUpperCase() + category.slice(1).replace(/-/g, ' ');
-          
-                      searchIndex.push({
-                        title: text,
-                        href: href,
-                        category: category,
-                        searchText: text.toLowerCase()
-                      });
-                    }
+                });
+        
+                function showResults(results) {
+                  if (!searchResults) return;
+        
+                  if (results.length === 0) {
+                    searchResults.innerHTML = '<div style="padding: 12px; color: var(--arcane-on-surface-variant); text-align: center;">No results found</div>';
+                    searchResults.style.display = 'block';
+                    return;
+                  }
+        
+                  var html = results.map(function(item) {
+                    return '<a href="' + item.href + '" style="display: block; padding: 10px 12px; text-decoration: none; border-bottom: 1px solid var(--arcane-outline-variant); transition: background 0.15s;">' +
+                      '<div style="font-weight: 500; color: var(--arcane-on-surface);">' + item.title + '</div>' +
+                      '<div style="font-size: 12px; color: var(--arcane-on-surface-variant);">' + item.category + '</div>' +
+                    '</a>';
+                  }).join('');
+        
+                  searchResults.innerHTML = html;
+                  searchResults.style.display = 'block';
+        
+                  // Add hover effects
+                  searchResults.querySelectorAll('a').forEach(function(link) {
+                    link.addEventListener('mouseenter', function() {
+                      this.style.background = 'var(--arcane-surface-variant)';
+                    });
+                    link.addEventListener('mouseleave', function() {
+                      this.style.background = 'transparent';
+                    });
                   });
-          
-                  function showResults(results) {
-                    if (!searchResults) return;
-          
-                    if (results.length === 0) {
-                      searchResults.innerHTML = '<div style="padding: 12px; color: var(--arcane-on-surface-variant); text-align: center;">No results found</div>';
-                      searchResults.style.display = 'block';
+                }
+        
+                function hideResults() {
+                  if (searchResults) {
+                    searchResults.style.display = 'none';
+                  }
+                }
+        
+                if (searchInput) {
+                  searchInput.addEventListener('input', function() {
+                    var query = this.value.toLowerCase().trim();
+        
+                    if (query.length < 2) {
+                      hideResults();
                       return;
                     }
-          
-                    var html = results.map(function(item) {
-                      return '<a href="' + item.href + '" style="display: block; padding: 10px 12px; text-decoration: none; border-bottom: 1px solid var(--arcane-outline-variant); transition: background 0.15s;">' +
-                        '<div style="font-weight: 500; color: var(--arcane-on-surface);">' + item.title + '</div>' +
-                        '<div style="font-size: 12px; color: var(--arcane-on-surface-variant);">' + item.category + '</div>' +
-                      '</a>';
-                    }).join('');
-          
-                    searchResults.innerHTML = html;
-                    searchResults.style.display = 'block';
-          
-                    // Add hover effects
-                    searchResults.querySelectorAll('a').forEach(function(link) {
-                      link.addEventListener('mouseenter', function() {
-                        this.style.background = 'var(--arcane-surface-variant)';
-                      });
-                      link.addEventListener('mouseleave', function() {
-                        this.style.background = 'transparent';
-                      });
-                    });
-                  }
-          
-                  function hideResults() {
-                    if (searchResults) {
-                      searchResults.style.display = 'none';
-                    }
-                  }
-          
-                  if (searchInput) {
-                    searchInput.addEventListener('input', function() {
+        
+                    var results = searchIndex.filter(function(item) {
+                      return item.searchText.includes(query);
+                    }).slice(0, 10);
+        
+                    showResults(results);
+                  });
+        
+                  searchInput.addEventListener('focus', function() {
+                    if (this.value.length >= 2) {
                       var query = this.value.toLowerCase().trim();
-          
-                      if (query.length < 2) {
-                        hideResults();
-                        return;
-                      }
-          
                       var results = searchIndex.filter(function(item) {
                         return item.searchText.includes(query);
                       }).slice(0, 10);
-          
                       showResults(results);
-                    });
-          
-                    searchInput.addEventListener('focus', function() {
-                      if (this.value.length >= 2) {
-                        var query = this.value.toLowerCase().trim();
-                        var results = searchIndex.filter(function(item) {
-                          return item.searchText.includes(query);
-                        }).slice(0, 10);
-                        showResults(results);
-                      }
-                    });
-          
-                    // Close results when clicking outside
-                    document.addEventListener('click', function(e) {
-                      if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
-                        hideResults();
-                      }
-                    });
-          
-                    // Keyboard navigation
-                    searchInput.addEventListener('keydown', function(e) {
-                      if (e.key === 'Escape') {
-                        hideResults();
-                        this.blur();
-                      }
-                    });
-                  }
-          
-                  // ===== CODE BLOCK COPY BUTTONS =====
-                  document.querySelectorAll('pre').forEach(function(pre) {
-                    var wrapper = document.createElement('div');
-                    wrapper.className = 'code-block-wrapper';
-                    pre.parentNode.insertBefore(wrapper, pre);
-                    wrapper.appendChild(pre);
-          
-                    var copyBtn = document.createElement('button');
-                    copyBtn.className = 'copy-code-btn';
-                    copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
-                    copyBtn.title = 'Copy code';
-                    wrapper.appendChild(copyBtn);
-          
-                    copyBtn.addEventListener('click', function() {
-                      var code = pre.querySelector('code') || pre;
-                      navigator.clipboard.writeText(code.textContent).then(function() {
-                        copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>';
-                        copyBtn.classList.add('copied');
-                        setTimeout(function() {
-                          copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
-                          copyBtn.classList.remove('copied');
-                        }, 2000);
-                      });
+                    }
+                  });
+        
+                  // Close results when clicking outside
+                  document.addEventListener('click', function(e) {
+                    if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                      hideResults();
+                    }
+                  });
+        
+                  // Keyboard navigation
+                  searchInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                      hideResults();
+                      this.blur();
+                    }
+                  });
+                }
+        
+                // ===== CODE BLOCK COPY BUTTONS =====
+                document.querySelectorAll('pre').forEach(function(pre) {
+                  var wrapper = document.createElement('div');
+                  wrapper.className = 'code-block-wrapper';
+                  pre.parentNode.insertBefore(wrapper, pre);
+                  wrapper.appendChild(pre);
+        
+                  var copyBtn = document.createElement('button');
+                  copyBtn.className = 'copy-code-btn';
+                  copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                  copyBtn.title = 'Copy code';
+                  wrapper.appendChild(copyBtn);
+        
+                  copyBtn.addEventListener('click', function() {
+                    var code = pre.querySelector('code') || pre;
+                    navigator.clipboard.writeText(code.textContent).then(function() {
+                      copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                      copyBtn.classList.add('copied');
+                      setTimeout(function() {
+                        copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                        copyBtn.classList.remove('copied');
+                      }, 2000);
                     });
                   });
                 });
-              
-        </script>
-      </div>
+              });
+            
+      </script>
     </div>
   </body>
 </html>

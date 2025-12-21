@@ -1,4 +1,5 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
+import 'package:jaspr/dom.dart' show RawText;
 import 'package:jaspr_content/jaspr_content.dart';
 
 import '../components/docs_sidebar.dart';
@@ -12,12 +13,46 @@ class ArcaneDocsLayout extends PageLayoutBase {
   @override
   Pattern get name => 'docs';
 
+  /// Generate CSS variable declarations for a theme
+  static String _generateThemeCss(ArcaneTheme theme) {
+    final vars = theme.cssVariables;
+    return vars.entries.map((e) => '  ${e.key}: ${e.value};').join('\n');
+  }
+
   @override
   Iterable<Component> buildHead(Page page) sync* {
     yield* super.buildHead(page);
     yield link(rel: 'icon', type: 'image/x-icon', href: '/favicon.ico');
     yield meta(name: 'viewport', content: 'width=device-width, initial-scale=1');
     yield link(rel: 'stylesheet', href: '/styles.css');
+
+    // Generate CSS variables for both themes
+    final darkTheme = ArcaneTheme.supabase(
+      accent: AccentTheme.emerald,
+      themeMode: ThemeMode.dark,
+    );
+    final lightTheme = ArcaneTheme.supabase(
+      accent: AccentTheme.emerald,
+      themeMode: ThemeMode.light,
+    );
+
+    // Inject both theme CSS variables with class selectors
+    yield Component.element(
+      tag: 'style',
+      attributes: {'id': 'arcane-theme-vars'},
+      children: [
+        RawText('''
+html.arcane-dark, .arcane-dark {
+${_generateThemeCss(darkTheme)}
+}
+
+html.arcane-light, .arcane-light {
+${_generateThemeCss(lightTheme)}
+}
+'''),
+      ],
+    );
+
     // Theme initialization script - runs before page renders to prevent flash
     yield script(content: '''
       (function() {
@@ -77,29 +112,37 @@ class _ThemedDocsPageState extends State<_ThemedDocsPage> {
       onThemeToggle: _toggleTheme,
     );
 
-    return ArcaneApp(
-      theme: ArcaneTheme.supabase(
-        accent: AccentTheme.emerald,
-        themeMode: _isDark ? ThemeMode.dark : ThemeMode.light,
-      ),
-      child: div([
+    // Don't use ArcaneApp - it applies inline CSS that overrides class-based theming
+    // Instead use a simple wrapper that respects CSS variables from <head>
+    return div(
+      id: 'arcane-root',
+      styles: const Styles(raw: {
+        'min-height': '100vh',
+        'background-color': 'var(--arcane-background)',
+        'color': 'var(--arcane-on-background)',
+        'font-family':
+            '"GeistSans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        '-webkit-font-smoothing': 'antialiased',
+        '-moz-osx-font-smoothing': 'grayscale',
+      }),
+      [
         _buildPageLayout(demoRegistry),
         _buildScripts(),
-      ]),
+      ],
     );
   }
 
   /// Main page layout structure
   Component _buildPageLayout(DemoRegistry demoRegistry) {
-    return ArcaneDiv(
-      styles: const ArcaneStyleData(
-        display: Display.flex,
-        minHeight: '100vh',
-        background: Background.background,
-        textColor: TextColor.primary,
-        fontFamily: FontFamily.sans,
-      ),
-      children: [
+    return div(
+      styles: const Styles(raw: {
+        'display': 'flex',
+        'min-height': '100vh',
+        'background': 'var(--arcane-background)',
+        'color': 'var(--arcane-on-surface)',
+        'font-family': 'inherit',
+      }),
+      [
         DocsSidebar(currentPath: component.currentPath),
         _buildMainArea(demoRegistry),
       ],
