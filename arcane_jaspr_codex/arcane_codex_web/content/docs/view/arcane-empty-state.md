@@ -215,6 +215,6 @@ ArcaneEmptyState(
 
 ## Related Components
 
-- [ArcaneLoadingState](/docs/view/arcane-loading-state) - Loading placeholder
-- [ArcaneErrorState](/docs/view/arcane-error-state) - Error placeholder
-- [ArcaneSkeleton](/docs/view/arcane-skeleton) - Skeleton loading
+- [ArcaneLoadingState](/arcane_jaspr/docs/view/arcane-loading-state) - Loading placeholder
+- [ArcaneErrorState](/arcane_jaspr/docs/view/arcane-error-state) - Error placeholder
+- [ArcaneSkeleton](/arcane_jaspr/docs/view/arcane-skeleton) - Skeleton loading

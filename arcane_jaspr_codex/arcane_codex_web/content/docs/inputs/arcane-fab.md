@@ -210,5 +210,5 @@ ArcaneScreen(
 
 ## Related Components
 
-- [ArcaneButton](/docs/inputs/arcane-button) - Standard button
-- [ArcaneIconButton](/docs/inputs/arcane-icon-button) - Icon-only button
+- [ArcaneButton](/arcane_jaspr/docs/inputs/arcane-button) - Standard button
+- [ArcaneIconButton](/arcane_jaspr/docs/inputs/arcane-icon-button) - Icon-only button

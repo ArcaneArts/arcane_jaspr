@@ -246,6 +246,6 @@ ArcaneRow(
 
 ## Related Components
 
-- [ArcaneInlineCode](/docs/typography/arcane-inline-code) - Inline code text
-- [ArcanePre](/docs/typography/arcane-pre) - Preformatted text
-- [ArcaneTabs](/docs/layout/arcane-tabs) - Tabbed code examples
+- [ArcaneInlineCode](/arcane_jaspr/docs/typography/arcane-inline-code) - Inline code text
+- [ArcanePre](/arcane_jaspr/docs/typography/arcane-pre) - Preformatted text
+- [ArcaneTabs](/arcane_jaspr/docs/layout/arcane-tabs) - Tabbed code examples

@@ -143,6 +143,6 @@ ArcaneColumn(
 
 ## Related Components
 
-- [ArcaneDiv](/docs/layout/arcane-div) - Generic div with full styling
-- [ArcaneBox](/docs/layout/arcane-box) - Container with border
-- [ArcaneGutter](/docs/layout/arcane-gutter) - Spacing between sections
+- [ArcaneDiv](/arcane_jaspr/docs/layout/arcane-div) - Generic div with full styling
+- [ArcaneBox](/arcane_jaspr/docs/layout/arcane-box) - Container with border
+- [ArcaneGutter](/arcane_jaspr/docs/layout/arcane-gutter) - Spacing between sections

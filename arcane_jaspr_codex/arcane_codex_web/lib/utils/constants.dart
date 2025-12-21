@@ -12,6 +12,6 @@ class AppConstants {
   /// GitHub repository URL (leave empty to hide GitHub link)
   static const String githubUrl = '';
 
-  /// Base URL for the site
-  static const String baseUrl = '/';
+  /// Base URL for the site (for GitHub Pages subdirectory hosting)
+  static const String baseUrl = '/arcane_jaspr';
 }

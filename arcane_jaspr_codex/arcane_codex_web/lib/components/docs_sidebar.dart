@@ -37,7 +37,7 @@ class DocsSidebar extends StatelessComponent {
           ),
           children: [
             a(
-              href: '/',
+              href: '${AppConstants.baseUrl}/',
               [
                 ArcaneDiv(
                   styles: const ArcaneStyleData(
@@ -284,10 +284,11 @@ class DocsSidebar extends StatelessComponent {
     required String label,
     required String href,
   }) {
+    final fullHref = '${AppConstants.baseUrl}$href';
     final isActive = currentPath == href || currentPath == '$href/';
 
     return ArcaneLink(
-      href: href,
+      href: fullHref,
       styles: ArcaneStyleData(
         display: Display.flex,
         gap: Gap.sm,

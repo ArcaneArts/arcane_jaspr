@@ -284,6 +284,6 @@ ArcaneSelector<String>(
 
 ## Related Components
 
-- [ArcaneSelect](/docs/inputs/arcane-select) - Simple dropdown select
-- [ArcaneCycleButton](/docs/inputs/arcane-cycle-button) - Cycle through options
-- [ArcaneRadio](/docs/inputs/arcane-radio) - Radio button selection
+- [ArcaneSelect](/arcane_jaspr/docs/inputs/arcane-select) - Simple dropdown select
+- [ArcaneCycleButton](/arcane_jaspr/docs/inputs/arcane-cycle-button) - Cycle through options
+- [ArcaneRadio](/arcane_jaspr/docs/inputs/arcane-radio) - Radio button selection

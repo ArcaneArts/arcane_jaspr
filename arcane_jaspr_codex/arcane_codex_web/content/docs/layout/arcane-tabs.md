@@ -274,5 +274,5 @@ ArcaneTabs(
 
 ## Related Components
 
-- [ArcaneToggleButtonGroup](/docs/inputs/arcane-toggle-button-group) - Button-style tabs
-- [ArcaneAccordion](/docs/feedback/arcane-accordion) - Expandable sections
+- [ArcaneToggleButtonGroup](/arcane_jaspr/docs/inputs/arcane-toggle-button-group) - Button-style tabs
+- [ArcaneAccordion](/arcane_jaspr/docs/feedback/arcane-accordion) - Expandable sections

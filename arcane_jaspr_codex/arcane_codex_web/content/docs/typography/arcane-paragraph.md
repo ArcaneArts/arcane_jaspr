@@ -181,6 +181,6 @@ ArcaneSection(
 
 ## Related Components
 
-- [ArcaneText](/docs/typography/arcane-text) - Basic text display
-- [ArcaneBodyText](/docs/typography/arcane-body-text) - Body text variant
-- [ArcaneRichText](/docs/typography/arcane-rich-text) - Rich text with formatting
+- [ArcaneText](/arcane_jaspr/docs/typography/arcane-text) - Basic text display
+- [ArcaneBodyText](/arcane_jaspr/docs/typography/arcane-body-text) - Body text variant
+- [ArcaneRichText](/arcane_jaspr/docs/typography/arcane-rich-text) - Rich text with formatting

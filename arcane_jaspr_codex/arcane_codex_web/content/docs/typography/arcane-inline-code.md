@@ -189,6 +189,6 @@ ArcaneBox(
 
 ## Related Components
 
-- [ArcaneCodeSnippet](/docs/typography/arcane-code-snippet) - Block code with highlighting
-- [ArcanePre](/docs/typography/arcane-pre) - Preformatted text
-- [ArcaneSpan](/docs/typography/arcane-span) - Inline text spans
+- [ArcaneCodeSnippet](/arcane_jaspr/docs/typography/arcane-code-snippet) - Block code with highlighting
+- [ArcanePre](/arcane_jaspr/docs/typography/arcane-pre) - Preformatted text
+- [ArcaneSpan](/arcane_jaspr/docs/typography/arcane-span) - Inline text spans

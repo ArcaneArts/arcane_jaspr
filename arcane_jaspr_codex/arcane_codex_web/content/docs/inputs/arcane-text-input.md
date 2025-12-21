@@ -313,6 +313,6 @@ ArcaneTextInput(
 
 ## Related Components
 
-- [ArcaneTextArea](/docs/inputs/arcane-text-area) - Multi-line text input
-- [ArcaneSearch](/docs/inputs/arcane-search) - Dedicated search input
-- [ArcaneSelect](/docs/inputs/arcane-select) - Dropdown selection
+- [ArcaneTextArea](/arcane_jaspr/docs/inputs/arcane-text-area) - Multi-line text input
+- [ArcaneSearch](/arcane_jaspr/docs/inputs/arcane-search) - Dedicated search input
+- [ArcaneSelect](/arcane_jaspr/docs/inputs/arcane-select) - Dropdown selection

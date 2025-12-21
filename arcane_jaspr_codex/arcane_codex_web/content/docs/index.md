@@ -12,34 +12,34 @@ This is your guide to building web applications with Arcane Jaspr. We've organiz
 
 New here? Start with the basics:
 
-- [Installation](/docs/installation) - Get Arcane Jaspr into your project
-- [Quick Start](/docs/quick-start) - Your first component in under 5 minutes
+- [Installation](/arcane_jaspr/docs/installation) - Get Arcane Jaspr into your project
+- [Quick Start](/arcane_jaspr/docs/quick-start) - Your first component in under 5 minutes
 
 ## Core Concepts
 
 Understand how Arcane Jaspr works under the hood:
 
-- [Theming](/docs/concepts/theming) - Customize colors, typography, and more
-- [Styling](/docs/concepts/styling) - The `ArcaneStyleData` system explained
-- [Design Tokens](/docs/concepts/tokens) - Consistent spacing, sizing, and effects
+- [Theming](/arcane_jaspr/docs/concepts/theming) - Customize colors, typography, and more
+- [Styling](/arcane_jaspr/docs/concepts/styling) - The `ArcaneStyleData` system explained
+- [Design Tokens](/arcane_jaspr/docs/concepts/tokens) - Consistent spacing, sizing, and effects
 
 ## Component Categories
 
 We've grouped our 75+ components into logical categories:
 
-**[Layout](/docs/layout/arcane-card)** - Structural components like cards, containers, rows, and columns
+**[Layout](/arcane_jaspr/docs/layout/arcane-card)** - Structural components like cards, containers, rows, and columns
 
-**[Inputs](/docs/inputs/arcane-button)** - Buttons, text fields, toggles, sliders, and form controls
+**[Inputs](/arcane_jaspr/docs/inputs/arcane-button)** - Buttons, text fields, toggles, sliders, and form controls
 
-**[Typography](/docs/typography/arcane-text)** - Text, headings, code blocks, and rich text
+**[Typography](/arcane_jaspr/docs/typography/arcane-text)** - Text, headings, code blocks, and rich text
 
-**[Navigation](/docs/navigation/arcane-sidebar)** - Sidebars, menus, tabs, and navigation bars
+**[Navigation](/arcane_jaspr/docs/navigation/arcane-sidebar)** - Sidebars, menus, tabs, and navigation bars
 
-**[View](/docs/view/arcane-avatar)** - Avatars, badges, chips, tooltips, and data display
+**[View](/arcane_jaspr/docs/view/arcane-avatar)** - Avatars, badges, chips, tooltips, and data display
 
-**[Feedback](/docs/feedback/arcane-dialog)** - Dialogs, alerts, toasts, and loading states
+**[Feedback](/arcane_jaspr/docs/feedback/arcane-dialog)** - Dialogs, alerts, toasts, and loading states
 
-**[Forms](/docs/forms/arcane-form)** - Form handling and validation components
+**[Forms](/arcane_jaspr/docs/forms/arcane-form)** - Form handling and validation components
 
 ## Need Help?
 

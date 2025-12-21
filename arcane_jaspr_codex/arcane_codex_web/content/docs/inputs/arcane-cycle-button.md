@@ -205,6 +205,6 @@ ArcaneDiv(
 
 ## Related Components
 
-- [ArcaneToggleButtonGroup](/docs/inputs/arcane-toggle-button-group) - Multi-option toggle
-- [ArcaneSelect](/docs/inputs/arcane-select) - Dropdown selection
-- [ArcaneSelector](/docs/inputs/arcane-selector) - Custom selector
+- [ArcaneToggleButtonGroup](/arcane_jaspr/docs/inputs/arcane-toggle-button-group) - Multi-option toggle
+- [ArcaneSelect](/arcane_jaspr/docs/inputs/arcane-select) - Dropdown selection
+- [ArcaneSelector](/arcane_jaspr/docs/inputs/arcane-selector) - Custom selector

@@ -220,6 +220,6 @@ ArcaneRow(
 
 ## Related Components
 
-- [ArcaneColumn](/docs/layout/arcane-column) - Vertical flex layout
-- [ArcaneDiv](/docs/layout/arcane-div) - Generic div with full control
-- [ArcaneFlow](/docs/layout/arcane-flow) - Auto-wrapping flex container
+- [ArcaneColumn](/arcane_jaspr/docs/layout/arcane-column) - Vertical flex layout
+- [ArcaneDiv](/arcane_jaspr/docs/layout/arcane-div) - Generic div with full control
+- [ArcaneFlow](/arcane_jaspr/docs/layout/arcane-flow) - Auto-wrapping flex container

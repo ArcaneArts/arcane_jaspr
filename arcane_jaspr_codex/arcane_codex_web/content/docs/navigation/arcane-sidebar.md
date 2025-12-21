@@ -319,6 +319,6 @@ ArcaneSidebar(
 
 ## Related Components
 
-- [ArcaneSidebarItem](/docs/navigation/arcane-sidebar-item) - Sidebar navigation item
-- [ArcaneSidebarGroup](/docs/navigation/arcane-sidebar-group) - Sidebar section group
-- [ArcaneHeader](/docs/navigation/arcane-header) - Application header
+- [ArcaneSidebarItem](/arcane_jaspr/docs/navigation/arcane-sidebar-item) - Sidebar navigation item
+- [ArcaneSidebarGroup](/arcane_jaspr/docs/navigation/arcane-sidebar-group) - Sidebar section group
+- [ArcaneHeader](/arcane_jaspr/docs/navigation/arcane-header) - Application header

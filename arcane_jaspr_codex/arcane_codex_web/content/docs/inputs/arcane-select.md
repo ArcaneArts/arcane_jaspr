@@ -215,6 +215,6 @@ ArcaneSelect<Priority>(
 
 ## Related Components
 
-- [ArcaneSelector](/docs/inputs/arcane-selector) - Custom selector component
-- [ArcaneRadio](/docs/inputs/arcane-radio) - Radio button selection
-- [ArcaneCycleButton](/docs/inputs/arcane-cycle-button) - Cycle through options
+- [ArcaneSelector](/arcane_jaspr/docs/inputs/arcane-selector) - Custom selector component
+- [ArcaneRadio](/arcane_jaspr/docs/inputs/arcane-radio) - Radio button selection
+- [ArcaneCycleButton](/arcane_jaspr/docs/inputs/arcane-cycle-button) - Cycle through options

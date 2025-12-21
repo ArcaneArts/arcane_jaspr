@@ -450,6 +450,6 @@ ArcaneMegaMenu(
 
 ## Related Components
 
-- [ArcaneDropdownMenu](/docs/navigation/arcane-dropdown-menu) - Simple dropdown
-- [ArcaneHeader](/docs/navigation/arcane-header) - Application header
-- [ArcaneNavItem](/docs/navigation/arcane-nav-item) - Navigation link
+- [ArcaneDropdownMenu](/arcane_jaspr/docs/navigation/arcane-dropdown-menu) - Simple dropdown
+- [ArcaneHeader](/arcane_jaspr/docs/navigation/arcane-header) - Application header
+- [ArcaneNavItem](/arcane_jaspr/docs/navigation/arcane-nav-item) - Navigation link

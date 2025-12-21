@@ -340,6 +340,6 @@ ArcaneCard(
 
 ## Related Components
 
-- [ArcaneToast](/docs/feedback/arcane-toast) - Temporary notifications
-- [ArcaneDialog](/docs/feedback/arcane-dialog) - Modal dialogs
-- [ArcaneBadge](/docs/view/arcane-badge) - Status badges
+- [ArcaneToast](/arcane_jaspr/docs/feedback/arcane-toast) - Temporary notifications
+- [ArcaneDialog](/arcane_jaspr/docs/feedback/arcane-dialog) - Modal dialogs
+- [ArcaneBadge](/arcane_jaspr/docs/view/arcane-badge) - Status badges

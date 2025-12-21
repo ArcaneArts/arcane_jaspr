@@ -271,6 +271,6 @@ ArcaneCard(
 
 ## Related Components
 
-- [ArcaneStaticTable](/docs/view/arcane-static-table) - Simple table
-- [ArcaneKeyValueTable](/docs/view/arcane-key-value-table) - Key-value pairs
-- [ArcaneEmptyState](/docs/view/arcane-empty-state) - Empty placeholder
+- [ArcaneStaticTable](/arcane_jaspr/docs/view/arcane-static-table) - Simple table
+- [ArcaneKeyValueTable](/arcane_jaspr/docs/view/arcane-key-value-table) - Key-value pairs
+- [ArcaneEmptyState](/arcane_jaspr/docs/view/arcane-empty-state) - Empty placeholder

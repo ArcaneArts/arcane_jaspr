@@ -234,6 +234,6 @@ ArcaneFlow(
 
 ## Related Components
 
-- [ArcaneRow](/docs/layout/arcane-row) - Horizontal flex (no wrap)
-- [ArcaneChipGroup](/docs/view/arcane-chip-group) - Specialized chip flow
-- [ArcaneDiv](/docs/layout/arcane-div) - Generic layout div
+- [ArcaneRow](/arcane_jaspr/docs/layout/arcane-row) - Horizontal flex (no wrap)
+- [ArcaneChipGroup](/arcane_jaspr/docs/view/arcane-chip-group) - Specialized chip flow
+- [ArcaneDiv](/arcane_jaspr/docs/layout/arcane-div) - Generic layout div

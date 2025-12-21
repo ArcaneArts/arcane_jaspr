@@ -246,5 +246,5 @@ class ThemeProvider extends StatefulComponent {
 
 ## Related Components
 
-- [ArcaneToggleSwitch](/docs/inputs/arcane-toggle-switch) - Generic toggle switch
-- [ArcaneCycleButton](/docs/inputs/arcane-cycle-button) - Cycle through options
+- [ArcaneToggleSwitch](/arcane_jaspr/docs/inputs/arcane-toggle-switch) - Generic toggle switch
+- [ArcaneCycleButton](/arcane_jaspr/docs/inputs/arcane-cycle-button) - Cycle through options

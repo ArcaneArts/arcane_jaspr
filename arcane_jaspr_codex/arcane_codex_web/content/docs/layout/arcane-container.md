@@ -190,6 +190,6 @@ ArcaneContainer(
 
 ## Related Components
 
-- [ArcaneDiv](/docs/layout/arcane-div) - Basic layout div
-- [ArcaneSection](/docs/layout/arcane-section) - Semantic sections
-- [ArcaneCenter](/docs/layout/arcane-center) - Center alignment helper
+- [ArcaneDiv](/arcane_jaspr/docs/layout/arcane-div) - Basic layout div
+- [ArcaneSection](/arcane_jaspr/docs/layout/arcane-section) - Semantic sections
+- [ArcaneCenter](/arcane_jaspr/docs/layout/arcane-center) - Center alignment helper

@@ -214,6 +214,6 @@ ArcaneDiv(
 
 ## Related Components
 
-- [ArcaneText](/docs/typography/arcane-text) - Basic text display
-- [ArcaneInlineCode](/docs/typography/arcane-inline-code) - Inline code formatting
-- [ArcaneRichText](/docs/typography/arcane-rich-text) - Rich text composition
+- [ArcaneText](/arcane_jaspr/docs/typography/arcane-text) - Basic text display
+- [ArcaneInlineCode](/arcane_jaspr/docs/typography/arcane-inline-code) - Inline code formatting
+- [ArcaneRichText](/arcane_jaspr/docs/typography/arcane-rich-text) - Rich text composition

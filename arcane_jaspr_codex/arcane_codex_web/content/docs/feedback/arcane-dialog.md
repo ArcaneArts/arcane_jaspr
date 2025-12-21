@@ -380,6 +380,6 @@ Component _shortcutRow(String shortcut, String action) {
 
 ## Related Components
 
-- [ArcaneToast](/docs/feedback/arcane-toast) - Temporary notifications
-- [ArcaneAlertBanner](/docs/feedback/arcane-alert-banner) - Inline alerts
-- [ArcaneSheet](/docs/feedback/arcane-sheet) - Bottom sheet
+- [ArcaneToast](/arcane_jaspr/docs/feedback/arcane-toast) - Temporary notifications
+- [ArcaneAlertBanner](/arcane_jaspr/docs/feedback/arcane-alert-banner) - Inline alerts
+- [ArcaneSheet](/arcane_jaspr/docs/feedback/arcane-sheet) - Bottom sheet

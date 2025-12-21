@@ -326,6 +326,6 @@ ArcaneColumn(
 
 ## Related Components
 
-- [ArcaneFieldWrapper](/docs/forms/arcane-field-wrapper) - Layout wrapper
-- [ArcaneForm](/docs/forms/arcane-form) - Form container
-- [ArcaneTextInput](/docs/inputs/arcane-text-input) - Text input
+- [ArcaneFieldWrapper](/arcane_jaspr/docs/forms/arcane-field-wrapper) - Layout wrapper
+- [ArcaneForm](/arcane_jaspr/docs/forms/arcane-form) - Form container
+- [ArcaneTextInput](/arcane_jaspr/docs/inputs/arcane-text-input) - Text input

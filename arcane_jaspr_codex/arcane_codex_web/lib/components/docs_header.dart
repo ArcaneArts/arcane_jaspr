@@ -15,10 +15,11 @@ class DocsHeader extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
+    final base = AppConstants.baseUrl;
     return ArcaneBar(
       leading: [
         a(
-          href: '/',
+          href: '$base/',
           [
             ArcaneDiv(
               styles: const ArcaneStyleData(
@@ -46,7 +47,7 @@ class DocsHeader extends StatelessComponent {
 
         // Navigation links
         a(
-          href: '/docs',
+          href: '$base/docs',
           [
             ArcaneButton.ghost(
               label: 'Docs',
@@ -55,7 +56,7 @@ class DocsHeader extends StatelessComponent {
           ],
         ),
         a(
-          href: '/guides',
+          href: '$base/guides',
           [
             ArcaneButton.ghost(
               label: 'Guides',

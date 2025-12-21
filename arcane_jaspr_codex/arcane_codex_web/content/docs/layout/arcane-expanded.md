@@ -232,6 +232,6 @@ ArcaneColumn(
 
 ## Related Components
 
-- [ArcaneSpacer](/docs/layout/arcane-spacer) - Empty space filler
-- [ArcaneRow](/docs/layout/arcane-row) - Horizontal flex layout
-- [ArcaneColumn](/docs/layout/arcane-column) - Vertical flex layout
+- [ArcaneSpacer](/arcane_jaspr/docs/layout/arcane-spacer) - Empty space filler
+- [ArcaneRow](/arcane_jaspr/docs/layout/arcane-row) - Horizontal flex layout
+- [ArcaneColumn](/arcane_jaspr/docs/layout/arcane-column) - Vertical flex layout

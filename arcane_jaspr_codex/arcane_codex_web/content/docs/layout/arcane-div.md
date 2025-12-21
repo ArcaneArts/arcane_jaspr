@@ -182,7 +182,7 @@ ArcaneDiv(
 
 ## Related Components
 
-- [ArcaneContainer](/docs/layout/arcane-container) - Max-width centered container
-- [ArcaneSection](/docs/layout/arcane-section) - Semantic section wrapper
-- [ArcaneRow](/docs/layout/arcane-row) - Horizontal flex layout
-- [ArcaneColumn](/docs/layout/arcane-column) - Vertical flex layout
+- [ArcaneContainer](/arcane_jaspr/docs/layout/arcane-container) - Max-width centered container
+- [ArcaneSection](/arcane_jaspr/docs/layout/arcane-section) - Semantic section wrapper
+- [ArcaneRow](/arcane_jaspr/docs/layout/arcane-row) - Horizontal flex layout
+- [ArcaneColumn](/arcane_jaspr/docs/layout/arcane-column) - Vertical flex layout

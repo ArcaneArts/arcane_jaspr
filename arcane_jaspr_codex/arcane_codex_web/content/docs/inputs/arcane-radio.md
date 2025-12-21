@@ -248,6 +248,6 @@ ArcaneDiv(
 
 ## Related Components
 
-- [ArcaneCheckbox](/docs/inputs/arcane-checkbox) - Multiple selection
-- [ArcaneSelect](/docs/inputs/arcane-select) - Dropdown selection
-- [ArcaneToggleButtonGroup](/docs/inputs/arcane-toggle-button-group) - Button-style selection
+- [ArcaneCheckbox](/arcane_jaspr/docs/inputs/arcane-checkbox) - Multiple selection
+- [ArcaneSelect](/arcane_jaspr/docs/inputs/arcane-select) - Dropdown selection
+- [ArcaneToggleButtonGroup](/arcane_jaspr/docs/inputs/arcane-toggle-button-group) - Button-style selection

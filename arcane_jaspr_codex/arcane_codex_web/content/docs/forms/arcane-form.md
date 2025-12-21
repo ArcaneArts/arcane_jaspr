@@ -461,6 +461,6 @@ ArcaneForm(
 
 ## Related Components
 
-- [ArcaneField](/docs/forms/arcane-field) - Form field component
-- [ArcaneFieldWrapper](/docs/forms/arcane-field-wrapper) - Field layout wrapper
-- [ArcaneTextInput](/docs/inputs/arcane-text-input) - Text input field
+- [ArcaneField](/arcane_jaspr/docs/forms/arcane-field) - Form field component
+- [ArcaneFieldWrapper](/arcane_jaspr/docs/forms/arcane-field-wrapper) - Field layout wrapper
+- [ArcaneTextInput](/arcane_jaspr/docs/inputs/arcane-text-input) - Text input field

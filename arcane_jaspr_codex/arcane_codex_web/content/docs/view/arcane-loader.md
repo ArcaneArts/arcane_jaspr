@@ -192,7 +192,7 @@ ArcaneCenter(
 
 ## Related Components
 
-- [ArcaneLoadingSpinner](/docs/view/arcane-loading-spinner) - Alternative spinner
-- [ArcaneDotsLoader](/docs/view/arcane-dots-loader) - Dots animation
-- [ArcaneLoadingState](/docs/view/arcane-loading-state) - Full loading state
-- [ArcaneSkeleton](/docs/view/arcane-skeleton) - Skeleton loading
+- [ArcaneLoadingSpinner](/arcane_jaspr/docs/view/arcane-loading-spinner) - Alternative spinner
+- [ArcaneDotsLoader](/arcane_jaspr/docs/view/arcane-dots-loader) - Dots animation
+- [ArcaneLoadingState](/arcane_jaspr/docs/view/arcane-loading-state) - Full loading state
+- [ArcaneSkeleton](/arcane_jaspr/docs/view/arcane-skeleton) - Skeleton loading

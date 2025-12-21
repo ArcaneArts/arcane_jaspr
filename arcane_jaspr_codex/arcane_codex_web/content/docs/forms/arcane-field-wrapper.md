@@ -314,6 +314,6 @@ ArcaneFieldWrapper(
 
 ## Related Components
 
-- [ArcaneField](/docs/forms/arcane-field) - Field with label and validation
-- [ArcaneForm](/docs/forms/arcane-form) - Form container
-- [ArcaneInputGroup](/docs/forms/arcane-input-group) - Grouped inputs
+- [ArcaneField](/arcane_jaspr/docs/forms/arcane-field) - Field with label and validation
+- [ArcaneForm](/arcane_jaspr/docs/forms/arcane-form) - Form container
+- [ArcaneInputGroup](/arcane_jaspr/docs/forms/arcane-input-group) - Grouped inputs

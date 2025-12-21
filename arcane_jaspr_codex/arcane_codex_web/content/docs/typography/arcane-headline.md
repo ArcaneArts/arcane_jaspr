@@ -221,6 +221,6 @@ ArcaneColumn(
 
 ## Related Components
 
-- [ArcaneSubheadline](/docs/typography/arcane-subheadline) - Subtitle text
-- [ArcaneHeading](/docs/typography/arcane-heading) - Section headings
-- [ArcaneGradientText](/docs/typography/arcane-gradient-text) - Gradient text
+- [ArcaneSubheadline](/arcane_jaspr/docs/typography/arcane-subheadline) - Subtitle text
+- [ArcaneHeading](/arcane_jaspr/docs/typography/arcane-heading) - Section headings
+- [ArcaneGradientText](/arcane_jaspr/docs/typography/arcane-gradient-text) - Gradient text

@@ -252,6 +252,6 @@ ArcaneDiv(
 
 ## Related Components
 
-- [ArcaneGradientText](/docs/typography/arcane-gradient-text) - Gradient text
-- [ArcaneHeadline](/docs/typography/arcane-headline) - Large headlines
-- [ArcaneText](/docs/typography/arcane-text) - Basic text
+- [ArcaneGradientText](/arcane_jaspr/docs/typography/arcane-gradient-text) - Gradient text
+- [ArcaneHeadline](/arcane_jaspr/docs/typography/arcane-headline) - Large headlines
+- [ArcaneText](/arcane_jaspr/docs/typography/arcane-text) - Basic text

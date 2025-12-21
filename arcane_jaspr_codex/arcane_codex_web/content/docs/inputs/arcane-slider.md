@@ -211,5 +211,5 @@ ArcaneDiv(
 
 ## Related Components
 
-- [ArcaneRangeSlider](/docs/inputs/arcane-range-slider) - Dual-handle range slider
-- [ArcaneTextInput](/docs/inputs/arcane-text-input) - Text input for precise values
+- [ArcaneRangeSlider](/arcane_jaspr/docs/inputs/arcane-range-slider) - Dual-handle range slider
+- [ArcaneTextInput](/arcane_jaspr/docs/inputs/arcane-text-input) - Text input for precise values

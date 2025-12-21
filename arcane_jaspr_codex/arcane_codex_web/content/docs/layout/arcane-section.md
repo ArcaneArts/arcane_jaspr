@@ -263,6 +263,6 @@ ArcaneSection(
 
 ## Related Components
 
-- [ArcaneDiv](/docs/layout/arcane-div) - Generic layout div
-- [ArcaneContainer](/docs/layout/arcane-container) - Centered container
-- [ArcaneHeroSection](/docs/layout/arcane-hero-section) - Hero section variant
+- [ArcaneDiv](/arcane_jaspr/docs/layout/arcane-div) - Generic layout div
+- [ArcaneContainer](/arcane_jaspr/docs/layout/arcane-container) - Centered container
+- [ArcaneHeroSection](/arcane_jaspr/docs/layout/arcane-hero-section) - Hero section variant

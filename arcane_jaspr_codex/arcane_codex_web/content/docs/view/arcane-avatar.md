@@ -243,6 +243,6 @@ ArcaneRow(
 
 ## Related Components
 
-- [ArcaneAvatarGroup](/docs/view/arcane-avatar-group) - Grouped avatars
-- [ArcaneBadge](/docs/view/arcane-badge) - Status badges
-- [ArcaneStatusIndicator](/docs/view/arcane-status-indicator) - Status dots
+- [ArcaneAvatarGroup](/arcane_jaspr/docs/view/arcane-avatar-group) - Grouped avatars
+- [ArcaneBadge](/arcane_jaspr/docs/view/arcane-badge) - Status badges
+- [ArcaneStatusIndicator](/arcane_jaspr/docs/view/arcane-status-indicator) - Status dots

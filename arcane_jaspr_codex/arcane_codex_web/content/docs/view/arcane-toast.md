@@ -242,5 +242,5 @@ ArcaneApp(
 
 ## Related Components
 
-- [ArcaneAlertBanner](/docs/feedback/arcane-alert-banner) - Inline alerts
-- [ArcaneDialog](/docs/feedback/arcane-dialog) - Modal dialogs
+- [ArcaneAlertBanner](/arcane_jaspr/docs/feedback/arcane-alert-banner) - Inline alerts
+- [ArcaneDialog](/arcane_jaspr/docs/feedback/arcane-dialog) - Modal dialogs

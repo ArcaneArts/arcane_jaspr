@@ -260,6 +260,6 @@ ArcaneBox(
 
 ## Related Components
 
-- [ArcaneCard](/docs/view/arcane-card) - Card with shadow
-- [ArcaneDiv](/docs/layout/arcane-div) - Generic layout div
-- [ArcaneSection](/docs/layout/arcane-section) - Semantic section wrapper
+- [ArcaneCard](/arcane_jaspr/docs/view/arcane-card) - Card with shadow
+- [ArcaneDiv](/arcane_jaspr/docs/layout/arcane-div) - Generic layout div
+- [ArcaneSection](/arcane_jaspr/docs/layout/arcane-section) - Semantic section wrapper

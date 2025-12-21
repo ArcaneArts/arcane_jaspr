@@ -218,6 +218,6 @@ ArcaneColumn(
 
 ## Related Components
 
-- [ArcaneVerticalDivider](/docs/view/arcane-vertical-divider) - Vertical divider
-- [ArcaneGutter](/docs/layout/arcane-gutter) - Spacing without line
-- [ArcaneSection](/docs/layout/arcane-section) - Section wrapper
+- [ArcaneVerticalDivider](/arcane_jaspr/docs/view/arcane-vertical-divider) - Vertical divider
+- [ArcaneGutter](/arcane_jaspr/docs/layout/arcane-gutter) - Spacing without line
+- [ArcaneSection](/arcane_jaspr/docs/layout/arcane-section) - Section wrapper

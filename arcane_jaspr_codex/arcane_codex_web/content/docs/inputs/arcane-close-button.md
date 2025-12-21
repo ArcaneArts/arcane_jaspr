@@ -163,6 +163,6 @@ ArcaneDiv(
 
 ## Related Components
 
-- [ArcaneIconButton](/docs/inputs/arcane-icon-button) - Generic icon button
-- [ArcaneDialog](/docs/feedback/arcane-dialog) - Dialog component
-- [ArcaneToast](/docs/feedback/arcane-toast) - Toast notifications
+- [ArcaneIconButton](/arcane_jaspr/docs/inputs/arcane-icon-button) - Generic icon button
+- [ArcaneDialog](/arcane_jaspr/docs/feedback/arcane-dialog) - Dialog component
+- [ArcaneToast](/arcane_jaspr/docs/feedback/arcane-toast) - Toast notifications

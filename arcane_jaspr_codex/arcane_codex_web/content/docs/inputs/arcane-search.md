@@ -234,5 +234,5 @@ ArcaneDiv(
 
 ## Related Components
 
-- [ArcaneTextInput](/docs/inputs/arcane-text-input) - General text input
-- [ArcaneSelect](/docs/inputs/arcane-select) - Dropdown selection
+- [ArcaneTextInput](/arcane_jaspr/docs/inputs/arcane-text-input) - General text input
+- [ArcaneSelect](/arcane_jaspr/docs/inputs/arcane-select) - Dropdown selection

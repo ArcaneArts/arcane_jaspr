@@ -272,6 +272,6 @@ ArcaneRichText(
 
 ## Related Components
 
-- [ArcaneText](/docs/typography/arcane-text) - Simple text
-- [ArcaneSpan](/docs/typography/arcane-span) - Inline spans
-- [ArcaneParagraph](/docs/typography/arcane-paragraph) - Paragraph text
+- [ArcaneText](/arcane_jaspr/docs/typography/arcane-text) - Simple text
+- [ArcaneSpan](/arcane_jaspr/docs/typography/arcane-span) - Inline spans
+- [ArcaneParagraph](/arcane_jaspr/docs/typography/arcane-paragraph) - Paragraph text

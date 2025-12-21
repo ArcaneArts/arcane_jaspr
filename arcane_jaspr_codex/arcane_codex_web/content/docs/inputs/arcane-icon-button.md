@@ -206,6 +206,6 @@ ArcaneDiv(
 
 ## Related Components
 
-- [ArcaneButton](/docs/inputs/arcane-button) - Full button with label
-- [ArcaneCloseButton](/docs/inputs/arcane-close-button) - Close/dismiss button
-- [ArcaneFAB](/docs/inputs/arcane-fab) - Floating action button
+- [ArcaneButton](/arcane_jaspr/docs/inputs/arcane-button) - Full button with label
+- [ArcaneCloseButton](/arcane_jaspr/docs/inputs/arcane-close-button) - Close/dismiss button
+- [ArcaneFAB](/arcane_jaspr/docs/inputs/arcane-fab) - Floating action button

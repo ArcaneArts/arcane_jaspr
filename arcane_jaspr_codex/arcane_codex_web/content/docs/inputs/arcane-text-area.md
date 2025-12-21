@@ -219,5 +219,5 @@ ArcaneTextArea(
 
 ## Related Components
 
-- [ArcaneTextInput](/docs/inputs/arcane-text-input) - Single-line input
-- [ArcaneForm](/docs/forms/arcane-form) - Form container
+- [ArcaneTextInput](/arcane_jaspr/docs/inputs/arcane-text-input) - Single-line input
+- [ArcaneForm](/arcane_jaspr/docs/forms/arcane-form) - Form container

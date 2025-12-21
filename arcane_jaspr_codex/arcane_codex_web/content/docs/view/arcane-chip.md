@@ -250,6 +250,6 @@ ArcaneColumn(
 
 ## Related Components
 
-- [ArcaneChipGroup](/docs/view/arcane-chip-group) - Group of chips
-- [ArcaneBadge](/docs/view/arcane-badge) - Static badge
-- [ArcaneFlow](/docs/layout/arcane-flow) - Wrapping layout
+- [ArcaneChipGroup](/arcane_jaspr/docs/view/arcane-chip-group) - Group of chips
+- [ArcaneBadge](/arcane_jaspr/docs/view/arcane-badge) - Static badge
+- [ArcaneFlow](/arcane_jaspr/docs/layout/arcane-flow) - Wrapping layout

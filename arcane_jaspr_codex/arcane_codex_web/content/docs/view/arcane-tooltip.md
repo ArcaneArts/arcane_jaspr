@@ -173,5 +173,5 @@ ArcaneTooltip(
 
 ## Related Components
 
-- [ArcaneInfoTooltip](/docs/view/arcane-info-tooltip) - Info icon with tooltip
-- [ArcaneDropdownMenu](/docs/navigation/arcane-dropdown-menu) - Dropdown menu
+- [ArcaneInfoTooltip](/arcane_jaspr/docs/view/arcane-info-tooltip) - Info icon with tooltip
+- [ArcaneDropdownMenu](/arcane_jaspr/docs/navigation/arcane-dropdown-menu) - Dropdown menu

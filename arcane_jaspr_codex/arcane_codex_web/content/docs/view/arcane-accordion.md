@@ -271,6 +271,6 @@ ArcaneAccordion(
 
 ## Related Components
 
-- [ArcaneExpander](/docs/view/arcane-expander) - Single expandable section
-- [ArcaneTabs](/docs/layout/arcane-tabs) - Tabbed content
-- [ArcaneCard](/docs/layout/arcane-card) - Card container
+- [ArcaneExpander](/arcane_jaspr/docs/view/arcane-expander) - Single expandable section
+- [ArcaneTabs](/arcane_jaspr/docs/layout/arcane-tabs) - Tabbed content
+- [ArcaneCard](/arcane_jaspr/docs/layout/arcane-card) - Card container

@@ -224,6 +224,6 @@ ArcaneRow(
 
 ## Related Components
 
-- [ArcaneStatusBadge](/docs/view/arcane-status-badge) - Status-specific badge
-- [ArcaneChip](/docs/view/arcane-chip) - Interactive chip
-- [ArcaneStatusIndicator](/docs/view/arcane-status-indicator) - Status dot
+- [ArcaneStatusBadge](/arcane_jaspr/docs/view/arcane-status-badge) - Status-specific badge
+- [ArcaneChip](/arcane_jaspr/docs/view/arcane-chip) - Interactive chip
+- [ArcaneStatusIndicator](/arcane_jaspr/docs/view/arcane-status-indicator) - Status dot

@@ -262,6 +262,6 @@ ArcaneColumn(
 
 ## Related Components
 
-- [ArcaneLoader](/docs/view/arcane-loader) - Loading spinner
-- [ArcaneLoadingState](/docs/view/arcane-loading-state) - Full loading state
-- [ArcaneEmptyState](/docs/view/arcane-empty-state) - Empty content placeholder
+- [ArcaneLoader](/arcane_jaspr/docs/view/arcane-loader) - Loading spinner
+- [ArcaneLoadingState](/arcane_jaspr/docs/view/arcane-loading-state) - Full loading state
+- [ArcaneEmptyState](/arcane_jaspr/docs/view/arcane-empty-state) - Empty content placeholder

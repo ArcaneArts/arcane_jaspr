@@ -198,6 +198,6 @@ ArcaneDiv(
 
 ## Related Components
 
-- [ArcaneToggleButtonGroup](/docs/inputs/arcane-toggle-button-group) - Group of toggle buttons
-- [ArcaneToggleSwitch](/docs/inputs/arcane-toggle-switch) - Switch-style toggle
-- [ArcaneCheckbox](/docs/inputs/arcane-checkbox) - Checkbox toggle
+- [ArcaneToggleButtonGroup](/arcane_jaspr/docs/inputs/arcane-toggle-button-group) - Group of toggle buttons
+- [ArcaneToggleSwitch](/arcane_jaspr/docs/inputs/arcane-toggle-switch) - Switch-style toggle
+- [ArcaneCheckbox](/arcane_jaspr/docs/inputs/arcane-checkbox) - Checkbox toggle

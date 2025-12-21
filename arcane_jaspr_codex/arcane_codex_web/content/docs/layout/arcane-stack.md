@@ -227,5 +227,5 @@ ArcaneStack(
 
 ## Related Components
 
-- [ArcanePositioned](/docs/layout/arcane-positioned) - Position children in stack
-- [ArcaneDiv](/docs/layout/arcane-div) - Generic layout div
+- [ArcanePositioned](/arcane_jaspr/docs/layout/arcane-positioned) - Position children in stack
+- [ArcaneDiv](/arcane_jaspr/docs/layout/arcane-div) - Generic layout div

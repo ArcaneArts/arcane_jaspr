@@ -342,11 +342,12 @@ class _ThemedDocsPageState extends State<_ThemedDocsPage> {
         var searchResults = document.getElementById('search-results');
 
         // Build search index from sidebar navigation
+        var basePath = '/arcane_jaspr';
         var searchIndex = [];
         document.querySelectorAll('nav a').forEach(function(link) {
           var text = link.textContent.trim();
           var href = link.getAttribute('href');
-          if (text && href && href.startsWith('/docs')) {
+          if (text && href && href.includes('/docs')) {
             // Extract category from URL
             var parts = href.split('/');
             var category = parts.length > 2 ? parts[2] : 'docs';

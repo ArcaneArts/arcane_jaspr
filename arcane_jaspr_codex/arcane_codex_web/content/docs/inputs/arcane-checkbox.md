@@ -180,6 +180,6 @@ class MultiSelect extends StatefulComponent {
 
 ## Related Components
 
-- [ArcaneRadio](/docs/inputs/arcane-radio) - Single selection from options
-- [ArcaneToggleSwitch](/docs/inputs/arcane-toggle-switch) - Toggle switch
-- [ArcaneToggleButton](/docs/inputs/arcane-toggle-button) - Toggle button
+- [ArcaneRadio](/arcane_jaspr/docs/inputs/arcane-radio) - Single selection from options
+- [ArcaneToggleSwitch](/arcane_jaspr/docs/inputs/arcane-toggle-switch) - Toggle switch
+- [ArcaneToggleButton](/arcane_jaspr/docs/inputs/arcane-toggle-button) - Toggle button

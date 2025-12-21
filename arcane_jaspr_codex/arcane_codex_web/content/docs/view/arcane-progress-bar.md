@@ -263,6 +263,6 @@ ArcaneColumn(
 
 ## Related Components
 
-- [ArcaneCircularProgress](/docs/view/arcane-circular-progress) - Circular progress
-- [ArcaneLoader](/docs/view/arcane-loader) - Loading spinner
-- [ArcaneStatusIndicator](/docs/view/arcane-status-indicator) - Status dot
+- [ArcaneCircularProgress](/arcane_jaspr/docs/view/arcane-circular-progress) - Circular progress
+- [ArcaneLoader](/arcane_jaspr/docs/view/arcane-loader) - Loading spinner
+- [ArcaneStatusIndicator](/arcane_jaspr/docs/view/arcane-status-indicator) - Status dot

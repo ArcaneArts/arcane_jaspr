@@ -241,6 +241,6 @@ ArcaneRow(
 
 ## Related Components
 
-- [ArcaneCard](/docs/layout/arcane-card) - Card container
-- [ArcaneNavTile](/docs/navigation/arcane-nav-tile) - Navigation tile
-- [ArcaneFeatureCard](/docs/view/arcane-feature-card) - Feature card
+- [ArcaneCard](/arcane_jaspr/docs/layout/arcane-card) - Card container
+- [ArcaneNavTile](/arcane_jaspr/docs/navigation/arcane-nav-tile) - Navigation tile
+- [ArcaneFeatureCard](/arcane_jaspr/docs/view/arcane-feature-card) - Feature card

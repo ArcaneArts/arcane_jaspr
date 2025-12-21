@@ -250,6 +250,6 @@ ArcanePageBody(
 
 ## Related Components
 
-- [ArcaneDashboardLayout](/docs/layout/arcane-dashboard-layout) - Dashboard layout
-- [ArcaneContainer](/docs/layout/arcane-container) - Centered container
-- [ArcaneSection](/docs/layout/arcane-section) - Section wrapper
+- [ArcaneDashboardLayout](/arcane_jaspr/docs/layout/arcane-dashboard-layout) - Dashboard layout
+- [ArcaneContainer](/arcane_jaspr/docs/layout/arcane-container) - Centered container
+- [ArcaneSection](/arcane_jaspr/docs/layout/arcane-section) - Section wrapper

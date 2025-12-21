@@ -268,6 +268,6 @@ ArcaneDiv(
 
 ## Related Components
 
-- [ArcaneHeader](/docs/navigation/arcane-header) - Top navigation
-- [ArcaneSidebar](/docs/navigation/arcane-sidebar) - Side navigation
-- [ArcaneMobileMenu](/docs/navigation/arcane-mobile-menu) - Mobile menu overlay
+- [ArcaneHeader](/arcane_jaspr/docs/navigation/arcane-header) - Top navigation
+- [ArcaneSidebar](/arcane_jaspr/docs/navigation/arcane-sidebar) - Side navigation
+- [ArcaneMobileMenu](/arcane_jaspr/docs/navigation/arcane-mobile-menu) - Mobile menu overlay

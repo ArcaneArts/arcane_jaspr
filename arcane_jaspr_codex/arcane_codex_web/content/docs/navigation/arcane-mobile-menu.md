@@ -378,6 +378,6 @@ ArcaneMobileMenu(
 
 ## Related Components
 
-- [ArcaneHamburgerButton](/docs/inputs/arcane-hamburger-button) - Menu trigger button
-- [ArcaneHeader](/docs/navigation/arcane-header) - Application header
-- [ArcaneBottomNav](/docs/navigation/arcane-bottom-nav) - Bottom navigation
+- [ArcaneHamburgerButton](/arcane_jaspr/docs/inputs/arcane-hamburger-button) - Menu trigger button
+- [ArcaneHeader](/arcane_jaspr/docs/navigation/arcane-header) - Application header
+- [ArcaneBottomNav](/arcane_jaspr/docs/navigation/arcane-bottom-nav) - Bottom navigation

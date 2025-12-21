@@ -191,6 +191,6 @@ ArcaneText(
 
 ## Related Components
 
-- [ArcaneHeading](/docs/typography/arcane-heading) - Section headings
-- [ArcaneParagraph](/docs/typography/arcane-paragraph) - Paragraph text
-- [ArcaneSpan](/docs/typography/arcane-span) - Inline text spans
+- [ArcaneHeading](/arcane_jaspr/docs/typography/arcane-heading) - Section headings
+- [ArcaneParagraph](/arcane_jaspr/docs/typography/arcane-paragraph) - Paragraph text
+- [ArcaneSpan](/arcane_jaspr/docs/typography/arcane-span) - Inline text spans

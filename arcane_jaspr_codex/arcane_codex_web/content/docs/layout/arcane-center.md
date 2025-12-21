@@ -176,6 +176,6 @@ ArcaneCenter(
 
 ## Related Components
 
-- [ArcaneDiv](/docs/layout/arcane-div) - Generic layout div
-- [ArcaneContainer](/docs/layout/arcane-container) - Centered container with max-width
-- [ArcaneColumn](/docs/layout/arcane-column) - Vertical flex layout
+- [ArcaneDiv](/arcane_jaspr/docs/layout/arcane-div) - Generic layout div
+- [ArcaneContainer](/arcane_jaspr/docs/layout/arcane-container) - Centered container with max-width
+- [ArcaneColumn](/arcane_jaspr/docs/layout/arcane-column) - Vertical flex layout

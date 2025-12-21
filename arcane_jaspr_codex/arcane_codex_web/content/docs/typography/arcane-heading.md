@@ -180,6 +180,6 @@ ArcaneHeading(
 
 ## Related Components
 
-- [ArcaneHeadline](/docs/typography/arcane-headline) - Large display headlines
-- [ArcaneSubheadline](/docs/typography/arcane-subheadline) - Subtitle text
-- [ArcaneText](/docs/typography/arcane-text) - Basic text
+- [ArcaneHeadline](/arcane_jaspr/docs/typography/arcane-headline) - Large display headlines
+- [ArcaneSubheadline](/arcane_jaspr/docs/typography/arcane-subheadline) - Subtitle text
+- [ArcaneText](/arcane_jaspr/docs/typography/arcane-text) - Basic text

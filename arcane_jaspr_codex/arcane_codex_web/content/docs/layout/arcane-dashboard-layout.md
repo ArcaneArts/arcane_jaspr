@@ -244,6 +244,6 @@ ArcaneDashboardLayout(
 
 ## Related Components
 
-- [ArcaneSidebar](/docs/navigation/arcane-sidebar) - Sidebar navigation
-- [ArcaneHeader](/docs/navigation/arcane-header) - Header component
-- [ArcanePageBody](/docs/layout/arcane-page-body) - Page content wrapper
+- [ArcaneSidebar](/arcane_jaspr/docs/navigation/arcane-sidebar) - Sidebar navigation
+- [ArcaneHeader](/arcane_jaspr/docs/navigation/arcane-header) - Header component
+- [ArcanePageBody](/arcane_jaspr/docs/layout/arcane-page-body) - Page content wrapper

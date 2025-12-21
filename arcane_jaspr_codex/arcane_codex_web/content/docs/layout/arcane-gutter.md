@@ -179,6 +179,6 @@ ArcaneContainer(
 
 ## Related Components
 
-- [ArcaneSpacer](/docs/layout/arcane-spacer) - Flex space filler
-- [ArcaneDivider](/docs/view/arcane-divider) - Visual divider line
-- [ArcaneSection](/docs/layout/arcane-section) - Section with spacing
+- [ArcaneSpacer](/arcane_jaspr/docs/layout/arcane-spacer) - Flex space filler
+- [ArcaneDivider](/arcane_jaspr/docs/view/arcane-divider) - Visual divider line
+- [ArcaneSection](/arcane_jaspr/docs/layout/arcane-section) - Section with spacing

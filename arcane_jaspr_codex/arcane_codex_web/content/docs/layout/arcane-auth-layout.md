@@ -242,6 +242,6 @@ ArcaneAuthLayout(
 
 ## Related Components
 
-- [ArcaneDashboardLayout](/docs/layout/arcane-dashboard-layout) - Dashboard layout
-- [ArcaneCenter](/docs/layout/arcane-center) - Center alignment
-- [ArcaneCard](/docs/layout/arcane-card) - Card container
+- [ArcaneDashboardLayout](/arcane_jaspr/docs/layout/arcane-dashboard-layout) - Dashboard layout
+- [ArcaneCenter](/arcane_jaspr/docs/layout/arcane-center) - Center alignment
+- [ArcaneCard](/arcane_jaspr/docs/layout/arcane-card) - Card container

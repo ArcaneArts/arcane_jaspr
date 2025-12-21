@@ -162,6 +162,6 @@ ArcaneDialog(
 
 ## Related Components
 
-- [ArcaneRow](/docs/layout/arcane-row) - Horizontal flex layout
-- [ArcaneColumn](/docs/layout/arcane-column) - Vertical flex layout
-- [ArcaneExpanded](/docs/layout/arcane-expanded) - Expanded flex child
+- [ArcaneRow](/arcane_jaspr/docs/layout/arcane-row) - Horizontal flex layout
+- [ArcaneColumn](/arcane_jaspr/docs/layout/arcane-column) - Vertical flex layout
+- [ArcaneExpanded](/arcane_jaspr/docs/layout/arcane-expanded) - Expanded flex child

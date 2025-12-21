@@ -219,6 +219,6 @@ ArcaneHeader(
 
 ## Related Components
 
-- [ArcaneNavItem](/docs/navigation/arcane-nav-item) - Navigation link item
-- [ArcaneSidebar](/docs/navigation/arcane-sidebar) - Side navigation
-- [ArcaneMobileMenu](/docs/navigation/arcane-mobile-menu) - Mobile navigation
+- [ArcaneNavItem](/arcane_jaspr/docs/navigation/arcane-nav-item) - Navigation link item
+- [ArcaneSidebar](/arcane_jaspr/docs/navigation/arcane-sidebar) - Side navigation
+- [ArcaneMobileMenu](/arcane_jaspr/docs/navigation/arcane-mobile-menu) - Mobile navigation

@@ -233,6 +233,6 @@ ArcaneHeroSection(
 
 ## Related Components
 
-- [ArcaneSection](/docs/layout/arcane-section) - Generic section
-- [ArcaneContainer](/docs/layout/arcane-container) - Centered container
-- [ArcaneHeadline](/docs/typography/arcane-headline) - Large headlines
+- [ArcaneSection](/arcane_jaspr/docs/layout/arcane-section) - Generic section
+- [ArcaneContainer](/arcane_jaspr/docs/layout/arcane-container) - Centered container
+- [ArcaneHeadline](/arcane_jaspr/docs/typography/arcane-headline) - Large headlines

@@ -265,5 +265,5 @@ ArcaneStack(
 
 ## Related Components
 
-- [ArcaneStack](/docs/layout/arcane-stack) - Parent stack container
-- [ArcaneDiv](/docs/layout/arcane-div) - Generic layout div
+- [ArcaneStack](/arcane_jaspr/docs/layout/arcane-stack) - Parent stack container
+- [ArcaneDiv](/arcane_jaspr/docs/layout/arcane-div) - Generic layout div

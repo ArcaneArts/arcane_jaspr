@@ -26,6 +26,6 @@ Whether you're building a documentation site, a dashboard, or a full-featured we
 
 ## Quick Links
 
-- [Installation](/docs/installation) - Add Arcane Jaspr to your project
-- [Quick Start](/docs/quick-start) - Build something in 5 minutes
-- [Components](/docs/layout/arcane-card) - Browse the component library
+- [Installation](/arcane_jaspr/docs/installation) - Add Arcane Jaspr to your project
+- [Quick Start](/arcane_jaspr/docs/quick-start) - Build something in 5 minutes
+- [Components](/arcane_jaspr/docs/layout/arcane-card) - Browse the component library

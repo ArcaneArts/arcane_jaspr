@@ -227,7 +227,7 @@ Word breaking behavior.
 
 ## TextColor
 
-Semantic text colors. See the [Colors](/docs/styles/colors) page for the full list.
+Semantic text colors. See the [Colors](/arcane_jaspr/docs/styles/colors) page for the full list.
 
 Common values:
 - `primary` - Main text color

@@ -224,6 +224,6 @@ ArcaneDiv(
 
 ## Related Components
 
-- [ArcaneToggleButton](/docs/inputs/arcane-toggle-button) - Single toggle button
-- [ArcaneRadio](/docs/inputs/arcane-radio) - Radio button selection
-- [ArcaneSelect](/docs/inputs/arcane-select) - Dropdown selection
+- [ArcaneToggleButton](/arcane_jaspr/docs/inputs/arcane-toggle-button) - Single toggle button
+- [ArcaneRadio](/arcane_jaspr/docs/inputs/arcane-radio) - Radio button selection
+- [ArcaneSelect](/arcane_jaspr/docs/inputs/arcane-select) - Dropdown selection

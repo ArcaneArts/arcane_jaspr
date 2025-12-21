@@ -288,6 +288,6 @@ ArcaneDiv(
 
 ## Related Components
 
-- [ArcaneGlassCard](/docs/view/arcane-glass-card) - Glassmorphism card
-- [ArcaneBox](/docs/layout/arcane-box) - Simple bordered container
-- [ArcaneFeatureCard](/docs/view/arcane-feature-card) - Feature showcase card
+- [ArcaneGlassCard](/arcane_jaspr/docs/view/arcane-glass-card) - Glassmorphism card
+- [ArcaneBox](/arcane_jaspr/docs/layout/arcane-box) - Simple bordered container
+- [ArcaneFeatureCard](/arcane_jaspr/docs/view/arcane-feature-card) - Feature showcase card

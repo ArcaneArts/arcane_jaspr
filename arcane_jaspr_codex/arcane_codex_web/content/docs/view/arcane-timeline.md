@@ -293,6 +293,6 @@ ArcaneTimeline(
 
 ## Related Components
 
-- [ArcaneCard](/docs/layout/arcane-card) - Card container
-- [ArcaneStatusIndicator](/docs/view/arcane-status-indicator) - Status dots
-- [ArcaneDivider](/docs/view/arcane-divider) - Visual separator
+- [ArcaneCard](/arcane_jaspr/docs/layout/arcane-card) - Card container
+- [ArcaneStatusIndicator](/arcane_jaspr/docs/view/arcane-status-indicator) - Status dots
+- [ArcaneDivider](/arcane_jaspr/docs/view/arcane-divider) - Visual separator

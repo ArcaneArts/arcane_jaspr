@@ -184,6 +184,6 @@ ArcaneColumn(
 
 ## Related Components
 
-- [ArcaneHeadline](/docs/typography/arcane-headline) - Large headlines
-- [ArcaneHeading](/docs/typography/arcane-heading) - Section headings
-- [ArcaneText](/docs/typography/arcane-text) - Basic text
+- [ArcaneHeadline](/arcane_jaspr/docs/typography/arcane-headline) - Large headlines
+- [ArcaneHeading](/arcane_jaspr/docs/typography/arcane-heading) - Section headings
+- [ArcaneText](/arcane_jaspr/docs/typography/arcane-text) - Basic text

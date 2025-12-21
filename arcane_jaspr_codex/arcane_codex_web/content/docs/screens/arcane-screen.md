@@ -309,7 +309,7 @@ ArcaneScreen(
 
 ## Related Components
 
-- [ArcaneHeader](/docs/navigation/arcane-header) - Application header
-- [ArcaneSidebar](/docs/navigation/arcane-sidebar) - Side navigation
-- [ArcaneBottomNav](/docs/navigation/arcane-bottom-nav) - Bottom navigation
-- [ArcanePageBody](/docs/layout/arcane-page-body) - Page content wrapper
+- [ArcaneHeader](/arcane_jaspr/docs/navigation/arcane-header) - Application header
+- [ArcaneSidebar](/arcane_jaspr/docs/navigation/arcane-sidebar) - Side navigation
+- [ArcaneBottomNav](/arcane_jaspr/docs/navigation/arcane-bottom-nav) - Bottom navigation
+- [ArcanePageBody](/arcane_jaspr/docs/layout/arcane-page-body) - Page content wrapper

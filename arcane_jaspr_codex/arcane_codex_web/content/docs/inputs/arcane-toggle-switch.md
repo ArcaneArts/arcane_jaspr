@@ -236,6 +236,6 @@ ArcaneDiv(
 
 ## Related Components
 
-- [ArcaneCheckbox](/docs/inputs/arcane-checkbox) - Checkbox for boolean states
-- [ArcaneThemeToggle](/docs/inputs/arcane-theme-toggle) - Theme mode toggle
-- [ArcaneToggleButton](/docs/inputs/arcane-toggle-button) - Toggle button
+- [ArcaneCheckbox](/arcane_jaspr/docs/inputs/arcane-checkbox) - Checkbox for boolean states
+- [ArcaneThemeToggle](/arcane_jaspr/docs/inputs/arcane-theme-toggle) - Theme mode toggle
+- [ArcaneToggleButton](/arcane_jaspr/docs/inputs/arcane-toggle-button) - Toggle button

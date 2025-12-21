@@ -276,6 +276,6 @@ ArcaneRow(
 
 ## Related Components
 
-- [ArcaneCard](/docs/layout/arcane-card) - Basic card
-- [ArcanePricingCard](/docs/view/arcane-pricing-card) - Pricing card
-- [ArcaneTestimonialCard](/docs/view/arcane-testimonial-card) - Testimonial card
+- [ArcaneCard](/arcane_jaspr/docs/layout/arcane-card) - Basic card
+- [ArcanePricingCard](/arcane_jaspr/docs/view/arcane-pricing-card) - Pricing card
+- [ArcaneTestimonialCard](/arcane_jaspr/docs/view/arcane-testimonial-card) - Testimonial card

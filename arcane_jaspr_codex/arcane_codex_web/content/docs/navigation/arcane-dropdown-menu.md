@@ -312,6 +312,6 @@ ArcaneDropdownMenu(
 
 ## Related Components
 
-- [ArcaneButton](/docs/inputs/arcane-button) - Button trigger
-- [ArcaneSelect](/docs/inputs/arcane-select) - Form select input
-- [ArcaneMegaMenu](/docs/navigation/arcane-mega-menu) - Large navigation menu
+- [ArcaneButton](/arcane_jaspr/docs/inputs/arcane-button) - Button trigger
+- [ArcaneSelect](/arcane_jaspr/docs/inputs/arcane-select) - Form select input
+- [ArcaneMegaMenu](/arcane_jaspr/docs/navigation/arcane-mega-menu) - Large navigation menu

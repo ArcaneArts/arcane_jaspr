@@ -250,6 +250,6 @@ ArcaneColumn(
 
 ## Related Components
 
-- [ArcaneRow](/docs/layout/arcane-row) - Horizontal flex layout
-- [ArcaneDiv](/docs/layout/arcane-div) - Generic div with full control
-- [ArcaneSpacer](/docs/layout/arcane-spacer) - Flexible space filler
+- [ArcaneRow](/arcane_jaspr/docs/layout/arcane-row) - Horizontal flex layout
+- [ArcaneDiv](/arcane_jaspr/docs/layout/arcane-div) - Generic div with full control
+- [ArcaneSpacer](/arcane_jaspr/docs/layout/arcane-spacer) - Flexible space filler

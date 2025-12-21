@@ -242,6 +242,6 @@ ArcaneFooter(
 
 ## Related Components
 
-- [ArcaneHeader](/docs/navigation/arcane-header) - Page header
-- [ArcaneSection](/docs/layout/arcane-section) - Section wrapper
-- [ArcaneSocialLinks](/docs/view/arcane-social-links) - Social icons
+- [ArcaneHeader](/arcane_jaspr/docs/navigation/arcane-header) - Page header
+- [ArcaneSection](/arcane_jaspr/docs/layout/arcane-section) - Section wrapper
+- [ArcaneSocialLinks](/arcane_jaspr/docs/view/arcane-social-links) - Social icons

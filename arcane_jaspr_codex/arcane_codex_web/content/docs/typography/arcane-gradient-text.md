@@ -200,6 +200,6 @@ ArcaneRow(
 
 ## Related Components
 
-- [ArcaneGlowText](/docs/typography/arcane-glow-text) - Glowing text effect
-- [ArcaneHeadline](/docs/typography/arcane-headline) - Large headlines
-- [ArcaneText](/docs/typography/arcane-text) - Basic text
+- [ArcaneGlowText](/arcane_jaspr/docs/typography/arcane-glow-text) - Glowing text effect
+- [ArcaneHeadline](/arcane_jaspr/docs/typography/arcane-headline) - Large headlines
+- [ArcaneText](/arcane_jaspr/docs/typography/arcane-text) - Basic text

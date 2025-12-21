@@ -233,5 +233,5 @@ ArcaneDiv(
 
 ## Related Components
 
-- [ArcaneSlider](/docs/inputs/arcane-slider) - Single-value slider
-- [ArcaneTextInput](/docs/inputs/arcane-text-input) - Precise value input
+- [ArcaneSlider](/arcane_jaspr/docs/inputs/arcane-slider) - Single-value slider
+- [ArcaneTextInput](/arcane_jaspr/docs/inputs/arcane-text-input) - Precise value input

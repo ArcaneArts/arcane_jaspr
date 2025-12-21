@@ -200,6 +200,6 @@ ArcaneColumn(
 
 ## Related Components
 
-- [ArcaneCodeSnippet](/docs/typography/arcane-code-snippet) - Syntax highlighted code
-- [ArcaneInlineCode](/docs/typography/arcane-inline-code) - Inline code text
-- [ArcaneText](/docs/typography/arcane-text) - Regular text
+- [ArcaneCodeSnippet](/arcane_jaspr/docs/typography/arcane-code-snippet) - Syntax highlighted code
+- [ArcaneInlineCode](/arcane_jaspr/docs/typography/arcane-inline-code) - Inline code text
+- [ArcaneText](/arcane_jaspr/docs/typography/arcane-text) - Regular text
