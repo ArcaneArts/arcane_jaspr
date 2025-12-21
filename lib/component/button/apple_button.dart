@@ -1,6 +1,5 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 
-import '../../provider/auth_provider.dart';
 import 'social_button.dart';
 
 /// Apple sign-in button

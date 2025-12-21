@@ -1,10 +1,14 @@
+/// Stub implementation of ArcaneAuthProvider for non-web platforms (VM/server)
+/// This allows the arcane_jaspr library to be imported during static site generation.
+
 import 'dart:async';
 
-import 'package:arcane_jaspr/arcane_jaspr.dart';
-import 'package:fast_log/fast_log.dart';
-import 'package:web/web.dart' as web;
+import 'package:jaspr/jaspr.dart';
 
-/// InheritedComponent for auth state propagation
+import '../service/auth_service_stub.dart';
+import '../service/auth_state.dart';
+
+/// InheritedComponent for auth state propagation - stub version
 class _AuthInheritedProvider extends InheritedComponent {
   final AuthState state;
 
@@ -25,18 +29,9 @@ class _AuthInheritedProvider extends InheritedComponent {
   }
 }
 
-/// Authentication provider component
+/// Authentication provider component - stub version
 ///
-/// Wraps your app to provide authentication state throughout the component tree.
-///
-/// ```dart
-/// ArcaneAuthProvider(
-///   serverApiUrl: 'https://api.example.com',
-///   redirectOnLogin: '/dashboard',
-///   redirectOnLogout: '/login',
-///   child: const AppRouter(),
-/// )
-/// ```
+/// On server builds, this simply passes through the child without auth functionality.
 class ArcaneAuthProvider extends StatefulComponent {
   /// The child component to wrap
   final Component child;
@@ -50,7 +45,7 @@ class ArcaneAuthProvider extends StatefulComponent {
   /// Route to redirect to after logout
   final String? redirectOnLogout;
 
-  /// Server API URL for user sync (e.g., 'https://api.example.com')
+  /// Server API URL for user sync
   final String? serverApiUrl;
 
   const ArcaneAuthProvider({
@@ -67,72 +62,7 @@ class ArcaneAuthProvider extends StatefulComponent {
 }
 
 class _ArcaneAuthProviderState extends State<ArcaneAuthProvider> {
-  late final StreamSubscription<AuthState> _subscription;
-  AuthState _state = const AuthState();
-  bool _hasInitialized = false;
-
-  @override
-  void initState() {
-    super.initState();
-    verbose('ArcaneAuthProvider initializing...');
-
-    // Initialize the auth service
-    JasprAuthService.instance.initialize(serverApiUrl: component.serverApiUrl);
-
-    // Listen to auth state changes
-    _subscription = JasprAuthService.instance.authStateStream.listen(_onAuthStateChanged);
-
-    // Get initial state
-    _state = JasprAuthService.instance.currentState;
-  }
-
-  void _onAuthStateChanged(AuthState newState) {
-    final AuthState previousState = _state;
-
-    setState(() => _state = newState);
-
-    // Call user callback
-    component.onAuthStateChanged?.call(newState);
-
-    // Skip redirects on initial auth state (page load/refresh)
-    // Only redirect on actual user-initiated login/logout
-    if (!_hasInitialized) {
-      _hasInitialized = true;
-      verbose('Initial auth state received, skipping redirect');
-      return;
-    }
-
-    // Only redirect on actual state transitions (not page refreshes)
-    // previousState.isLoading means this came from a user action
-    if (newState.isAuthenticated && previousState.isLoading) {
-      // User just logged in (was loading, now authenticated)
-      if (component.redirectOnLogin != null) {
-        info('User authenticated, redirecting to ${component.redirectOnLogin}');
-        _navigateTo(component.redirectOnLogin!);
-      }
-    } else if (!newState.isAuthenticated &&
-               !newState.isLoading &&
-               previousState.isAuthenticated) {
-      // User just logged out
-      if (component.redirectOnLogout != null) {
-        info('User logged out, redirecting to ${component.redirectOnLogout}');
-        _navigateTo(component.redirectOnLogout!);
-      }
-    }
-  }
-
-  void _navigateTo(String path) {
-    // Schedule navigation for after the current build
-    Future<void>.microtask(() {
-      web.window.location.href = path;
-    });
-  }
-
-  @override
-  void dispose() {
-    _subscription.cancel();
-    super.dispose();
-  }
+  final AuthState _state = const AuthState.unauthenticated();
 
   @override
   Component build(BuildContext context) {

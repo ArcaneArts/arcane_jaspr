@@ -223,13 +223,13 @@ export 'component/html/table.dart';
 // Authentication - Service & State
 // ============================================================================
 export 'service/auth_state.dart';
-export 'service/auth_service.dart';
+export 'service/auth_service_export.dart';
 
 // ============================================================================
 // Authentication - Provider & Guards
 // ============================================================================
-export 'provider/auth_provider.dart';
-export 'provider/auth_guard.dart';
+export 'provider/auth_provider_export.dart';
+export 'provider/auth_guard_export.dart';
 
 // ============================================================================
 // Authentication - Components

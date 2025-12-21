@@ -3,8 +3,6 @@ import 'package:arcane_jaspr/arcane_jaspr.dart';
 import '../button/github_button.dart';
 import '../button/google_button.dart';
 import '../button/apple_button.dart';
-import '../../provider/auth_provider.dart';
-import '../../service/auth_state.dart';
 import '../../util/auth/password_policy.dart';
 
 /// Login card component

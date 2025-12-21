@@ -1,9 +1,6 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 import 'package:web/web.dart' as web;
 
-import '../service/auth_state.dart';
-import 'auth_provider.dart';
-
 /// Route protection component
 ///
 /// Wraps protected routes to ensure only authenticated users can access them.

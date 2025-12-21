@@ -1,7 +1,5 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 
-import '../../provider/auth_provider.dart';
-
 /// Forgot password card component
 ///
 /// Provides a password reset UI with email input.
