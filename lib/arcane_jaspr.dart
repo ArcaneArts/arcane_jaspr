@@ -101,6 +101,7 @@ export 'component/input/button.dart';
 export 'component/input/icon_button.dart';
 export 'component/input/cycle_button.dart';
 export 'component/input/search.dart';
+export 'component/input/search_bar.dart';
 export 'component/input/selector.dart';
 export 'component/input/fab.dart';
 export 'component/input/toggle_switch.dart';
@@ -142,6 +143,7 @@ export 'component/view/animated_counter.dart';
 export 'component/view/gradient_text.dart';
 export 'component/view/social_icons.dart' hide ArcaneSocialIcon;
 export 'component/view/settings_section.dart';
+export 'component/view/icon.dart';
 
 // ============================================================================
 // Navigation components

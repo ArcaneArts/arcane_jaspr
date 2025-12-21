@@ -36,28 +36,25 @@ class DocsSidebar extends StatelessComponent {
             },
           ),
           children: [
-            a(
+            ArcaneLink(
               href: '${AppConstants.baseUrl}/',
-              [
-                ArcaneDiv(
-                  styles: const ArcaneStyleData(
-                    fontWeight: FontWeight.bold,
-                    fontSize: FontSize.lg,
-                    raw: {
-                      'color': 'var(--arcane-on-surface)',
-                    },
-                  ),
-                  children: [ArcaneText(AppConstants.siteName)],
+              styles: const ArcaneStyleData(
+                textDecoration: TextDecoration.none,
+              ),
+              child: ArcaneDiv(
+                styles: const ArcaneStyleData(
+                  fontWeight: FontWeight.bold,
+                  fontSize: FontSize.lg,
+                  textColor: TextColor.primary,
                 ),
-              ],
+                children: [ArcaneText(AppConstants.siteName)],
+              ),
             ),
             ArcaneDiv(
               styles: const ArcaneStyleData(
                 fontSize: FontSize.sm,
-                raw: {
-                  'color': 'var(--arcane-on-surface-variant)',
-                  'margin-top': '4px',
-                },
+                textColor: TextColor.muted,
+                margin: MarginPreset.topXs,
               ),
               children: [const ArcaneText('Documentation')],
             ),
@@ -106,6 +103,7 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcaneTextInput', href: '/docs/inputs/arcane-text-input'),
               _buildNavItem(label: 'ArcaneTextArea', href: '/docs/inputs/arcane-text-area'),
               _buildNavItem(label: 'ArcaneSearch', href: '/docs/inputs/arcane-search'),
+              _buildNavItem(label: 'ArcaneSearchBar', href: '/docs/inputs/arcane-search-bar'),
               _buildNavItem(label: 'ArcaneSelect', href: '/docs/inputs/arcane-select'),
               _buildNavItem(label: 'ArcaneCheckbox', href: '/docs/inputs/arcane-checkbox'),
               _buildNavItem(label: 'ArcaneRadio', href: '/docs/inputs/arcane-radio'),
@@ -164,6 +162,7 @@ class DocsSidebar extends StatelessComponent {
 
             // View Components section
             _buildNavSection('View', [
+              _buildNavItem(label: 'ArcaneIcon', href: '/docs/view/arcane-icon'),
               _buildNavItem(label: 'ArcaneAvatar', href: '/docs/view/arcane-avatar'),
               _buildNavItem(label: 'ArcaneBadge', href: '/docs/view/arcane-badge'),
               _buildNavItem(label: 'ArcaneChip', href: '/docs/view/arcane-chip'),
