@@ -1,5 +1,4 @@
 .dart_tool/package_config.json
-index.html
 main.client.dart.js
 packages/$sdk/dev_compiler/amd/require.js
 packages/$sdk/dev_compiler/ddc/ddc_module_loader.js
@@ -9,6 +8,8 @@ packages/analyzer/fix_data.yaml
 packages/analyzer/src/summary/format.fbs
 packages/analyzer/src/wolf/README.md
 packages/arcane_codex_web/screens/.gitkeep
+packages/arcane_jaspr/.DS_Store
+packages/arcane_jaspr/component/.DS_Store
 packages/arcane_jaspr/component/collection/card_carousel.styles.json
 packages/arcane_jaspr/component/collection/infinite_carousel.styles.json
 packages/arcane_jaspr/component/dialog/dialog.styles.json
@@ -51,6 +52,7 @@ packages/arcane_jaspr/component/view/skeleton.styles.json
 packages/arcane_jaspr/component/view/social_icons.styles.json
 packages/arcane_jaspr/component/view/tile.styles.json
 packages/arcane_jaspr/styles.bundle.json
+packages/arcane_jaspr/util/.DS_Store
 packages/build_runner/src/commands/serve/live_reload_client.js
 packages/build_web_compilers/src/dev_compiler_stack_trace/stack_trace_mapper.dart.js
 packages/intl/src/data/dates/README.txt
