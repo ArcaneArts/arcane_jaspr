@@ -118,8 +118,8 @@ class _ThemedDocsPageState extends State<_ThemedDocsPage> {
       id: 'arcane-root',
       styles: const Styles(raw: {
         'min-height': '100vh',
-        'background-color': 'var(--arcane-background)',
-        'color': 'var(--arcane-on-background)',
+        'background-color': 'var(--arcane-surface)',
+        'color': 'var(--arcane-on-surface)',
         'font-family':
             '"GeistSans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
         '-webkit-font-smoothing': 'antialiased',
@@ -138,7 +138,7 @@ class _ThemedDocsPageState extends State<_ThemedDocsPage> {
       styles: const Styles(raw: {
         'display': 'flex',
         'min-height': '100vh',
-        'background': 'var(--arcane-background)',
+        'background': 'var(--arcane-surface)',
         'color': 'var(--arcane-on-surface)',
         'font-family': 'inherit',
       }),

@@ -84,6 +84,7 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'Theming', href: '/docs/concepts/theming'),
               _buildNavItem(label: 'Styling', href: '/docs/concepts/styling'),
               _buildNavItem(label: 'Design Tokens', href: '/docs/concepts/tokens'),
+              _buildNavItem(label: 'Component Aliases', href: '/docs/concepts/aliases'),
             ]),
 
             // Style Reference section
