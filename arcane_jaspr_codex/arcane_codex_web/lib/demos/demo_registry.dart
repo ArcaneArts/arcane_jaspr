@@ -8,6 +8,7 @@ import 'navigation_demos.dart';
 import 'feedback_demos.dart';
 import 'form_demos.dart';
 import 'screen_demos.dart';
+import 'auth_demos.dart';
 
 /// Central registry for component demos
 /// Maps component types to their demo builders
@@ -196,6 +197,26 @@ class DemoRegistry {
       // Screen components
       case 'screen':
         return ScreenDemos.screen();
+
+      // Authentication components
+      case 'login-card':
+        return AuthDemos.loginCard();
+      case 'signup-card':
+        return AuthDemos.signupCard();
+      case 'forgot-password-card':
+        return AuthDemos.forgotPasswordCard();
+      case 'github-button':
+        return AuthDemos.githubButton();
+      case 'google-button':
+        return AuthDemos.googleButton();
+      case 'apple-button':
+        return AuthDemos.appleButton();
+      case 'auth-split-layout':
+        return AuthDemos.authSplitLayout();
+      case 'auth-branding-panel':
+        return AuthDemos.authBrandingPanel();
+      case 'password-policy':
+        return AuthDemos.passwordPolicy();
 
       default:
         return [

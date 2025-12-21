@@ -218,3 +218,50 @@ export 'component/html/paragraph.dart';
 export 'component/html/pre.dart';
 export 'component/html/section.dart';
 export 'component/html/table.dart';
+
+// ============================================================================
+// Authentication - Service & State
+// ============================================================================
+export 'service/auth_state.dart';
+export 'service/auth_service.dart';
+
+// ============================================================================
+// Authentication - Provider & Guards
+// ============================================================================
+export 'provider/auth_provider.dart';
+export 'provider/auth_guard.dart';
+
+// ============================================================================
+// Authentication - Components
+// ============================================================================
+export 'component/auth/login_card.dart';
+export 'component/auth/signup_card.dart';
+export 'component/auth/forgot_password_card.dart';
+
+// ============================================================================
+// Authentication - Social Sign-In Buttons
+// ============================================================================
+export 'component/button/social_button.dart';
+export 'component/button/github_button.dart';
+export 'component/button/google_button.dart';
+export 'component/button/apple_button.dart';
+
+// ============================================================================
+// Authentication - Form Components
+// ============================================================================
+export 'component/form/auth/auth_input.dart';
+export 'component/form/auth/auth_button.dart';
+export 'component/form/auth/auth_divider.dart';
+export 'component/form/auth/auth_social_row.dart';
+export 'component/form/auth/auth_form_card.dart';
+
+// ============================================================================
+// Authentication - Layout & View
+// ============================================================================
+export 'component/layout/auth_split_layout.dart';
+export 'component/view/auth_branding_panel.dart';
+
+// ============================================================================
+// Authentication - Utilities
+// ============================================================================
+export 'util/auth/password_policy.dart';

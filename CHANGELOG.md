@@ -5,7 +5,75 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.0.0] - 2025-12-20
+## [2.1.0]
+
+### Added
+
+#### Authentication System
+- `ArcaneAuthProvider` - Context provider for Firebase authentication
+- `AuthGuard` - Route protection for authenticated users
+- `GuestGuard` - Route protection for unauthenticated users (login/signup pages)
+- `JasprAuthService` - Firebase Auth service via JS interop
+
+#### Auth UI Components
+- `ArcaneLoginCard` - Complete login form with email/password and social options
+- `ArcaneSignupCard` - Registration form with terms acceptance and password policy
+- `ArcaneForgotPasswordCard` - Password reset request form
+
+#### Social Sign-in Buttons
+- `GithubSignInButton` - GitHub OAuth button
+- `GoogleSignInButton` - Google OAuth button
+- `AppleSignInButton` - Apple Sign-In button
+
+#### Auth Layouts
+- `AuthSplitLayout` - Two-column layout for auth pages (branding + form)
+- `AuthBrandingPanel` - Branding content panel with tagline, features, testimonials
+
+#### Auth Form Primitives
+- `AuthInput` - Styled input for auth forms
+- `AuthButton` - Submit button for auth forms
+- `AuthDivider` - "or continue with" divider
+- `AuthSocialRow` - Row of social sign-in buttons
+- `AuthFormCard` - Card container for auth forms
+
+#### Auth Utilities
+- `PasswordPolicy` - Password validation with presets (weak, medium, strong)
+- `AuthState` - Authentication state container
+- `AuthUser` - Authenticated user model
+- `AuthMethod` - Enum for auth methods (email, github, google, apple, anonymous)
+- `AuthStatus` - Enum for auth status (unknown, loading, authenticated, unauthenticated, error)
+
+#### Context Extensions
+- `context.authState` - Access current auth state
+- `context.currentUser` - Access current user
+- `context.isAuthenticated` - Check authentication status
+- `context.signInWithGitHub()` - Trigger GitHub OAuth
+- `context.signInWithGoogle()` - Trigger Google OAuth
+- `context.signInWithApple()` - Trigger Apple Sign-In
+- `context.signOut()` - Sign out current user
+
+### Changed
+- Added `web: ^1.1.1` dependency for Firebase JS interop
+- Added `http: ^1.6.0` dependency for auth API calls
+- Updated documentation with authentication section
+- Added auth demos to codex documentation site
+
+### Documentation
+- Rewrote root README with comprehensive component and auth documentation
+- Created codex root README
+- Expanded codex web README with detailed project structure
+- Added authentication section to docs sidebar
+- Added auth component demos
+
+### Tests
+- Added `auth_test.dart` with 45+ tests covering:
+  - PasswordPolicy (weak, medium, strong presets and custom)
+  - AuthMethod enum
+  - AuthStatus enum
+  - AuthUser class
+  - AuthState class
+
+## [2.0.0]
 
 ### Breaking Changes
 
@@ -99,7 +167,7 @@ Components have been renamed from their short names to the full `Arcane*` prefix
   - `MasonryGrid` → `ArcaneMasonryGrid`
   - `CardCarousel` → `ArcaneCardCarousel`
 
-## [1.0.0] - 2025-12-18
+## [1.0.0]
 
 ### Added
 

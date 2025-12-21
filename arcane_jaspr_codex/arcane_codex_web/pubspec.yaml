@@ -10,7 +10,8 @@ dependencies:
   web: ^1.1.1
   jaspr: ^0.22.0
   jaspr_content: ^0.4.5
-  arcane_jaspr: ^2.0.0
+  arcane_jaspr:
+    path: ../../
   fast_log: ^1.0.7
 
   # Shared models (added automatically when models enabled)

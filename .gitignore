@@ -6,3 +6,5 @@ CLAUDE.md
 .dart_tool/
 
 pubspec.lock
+
+.claude/

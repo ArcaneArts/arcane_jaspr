@@ -205,6 +205,23 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcaneFieldWrapper', href: '/docs/forms/arcane-field-wrapper'),
             ]),
 
+            // Authentication section
+            _buildNavSection('Authentication', [
+              _buildNavItem(label: 'Overview', href: '/docs/auth/overview'),
+              _buildNavItem(label: 'ArcaneAuthProvider', href: '/docs/auth/arcane-auth-provider'),
+              _buildNavItem(label: 'AuthGuard', href: '/docs/auth/auth-guard'),
+              _buildNavItem(label: 'GuestGuard', href: '/docs/auth/guest-guard'),
+              _buildNavItem(label: 'ArcaneLoginCard', href: '/docs/auth/arcane-login-card'),
+              _buildNavItem(label: 'ArcaneSignupCard', href: '/docs/auth/arcane-signup-card'),
+              _buildNavItem(label: 'ArcaneForgotPasswordCard', href: '/docs/auth/arcane-forgot-password-card'),
+              _buildNavItem(label: 'GithubSignInButton', href: '/docs/auth/github-signin-button'),
+              _buildNavItem(label: 'GoogleSignInButton', href: '/docs/auth/google-signin-button'),
+              _buildNavItem(label: 'AppleSignInButton', href: '/docs/auth/apple-signin-button'),
+              _buildNavItem(label: 'AuthSplitLayout', href: '/docs/auth/auth-split-layout'),
+              _buildNavItem(label: 'AuthBrandingPanel', href: '/docs/auth/auth-branding-panel'),
+              _buildNavItem(label: 'PasswordPolicy', href: '/docs/auth/password-policy'),
+            ]),
+
             // Screens section
             _buildNavSection('Screens', [
               _buildNavItem(label: 'ArcaneScreen', href: '/docs/screens/arcane-screen'),
