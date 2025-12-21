@@ -109,7 +109,7 @@ class DocsHeader extends StatelessComponent {
             'transition': 'border-color 0.2s, box-shadow 0.2s',
           }),
         ),
-        // Search icon
+        // Search icon (SVG)
         ArcaneDiv(
           styles: const ArcaneStyleData(
             position: Position.absolute,
@@ -122,7 +122,23 @@ class DocsHeader extends StatelessComponent {
             },
           ),
           children: [
-            span([text('🔍')]),
+            Component.element(
+              tag: 'svg',
+              attributes: {
+                'width': '16',
+                'height': '16',
+                'viewBox': '0 0 24 24',
+                'fill': 'none',
+                'stroke': 'currentColor',
+                'stroke-width': '2',
+                'stroke-linecap': 'round',
+                'stroke-linejoin': 'round',
+              },
+              children: [
+                Component.element(tag: 'circle', attributes: {'cx': '11', 'cy': '11', 'r': '8'}),
+                Component.element(tag: 'path', attributes: {'d': 'm21 21-4.35-4.35'}),
+              ],
+            ),
           ],
         ),
         // Search results dropdown
@@ -163,26 +179,67 @@ class DocsHeader extends StatelessComponent {
         'justify-content': 'center',
         'width': '40px',
         'height': '40px',
-        'border': 'none',
+        'border': '1px solid var(--arcane-outline)',
         'border-radius': '8px',
-        'background': 'var(--arcane-surface-variant)',
+        'background': 'var(--arcane-surface)',
         'color': 'var(--arcane-on-surface)',
         'cursor': 'pointer',
-        'font-size': '20px',
-        'transition': 'background 0.2s, transform 0.2s',
+        'transition': 'background 0.2s, border-color 0.2s',
       }),
       [
-        // Sun icon (shown in dark mode)
+        // Sun icon (shown in dark mode - click to go light)
         span(
           id: 'sun-icon',
-          styles: const Styles(raw: {'display': 'none'}),
-          [text('☀️')],
+          styles: const Styles(raw: {'display': 'inline', 'line-height': '0'}),
+          [
+            Component.element(
+              tag: 'svg',
+              attributes: {
+                'width': '18',
+                'height': '18',
+                'viewBox': '0 0 24 24',
+                'fill': 'none',
+                'stroke': 'currentColor',
+                'stroke-width': '2',
+                'stroke-linecap': 'round',
+                'stroke-linejoin': 'round',
+              },
+              children: [
+                Component.element(tag: 'circle', attributes: {'cx': '12', 'cy': '12', 'r': '5'}),
+                Component.element(tag: 'line', attributes: {'x1': '12', 'y1': '1', 'x2': '12', 'y2': '3'}),
+                Component.element(tag: 'line', attributes: {'x1': '12', 'y1': '21', 'x2': '12', 'y2': '23'}),
+                Component.element(tag: 'line', attributes: {'x1': '4.22', 'y1': '4.22', 'x2': '5.64', 'y2': '5.64'}),
+                Component.element(tag: 'line', attributes: {'x1': '18.36', 'y1': '18.36', 'x2': '19.78', 'y2': '19.78'}),
+                Component.element(tag: 'line', attributes: {'x1': '1', 'y1': '12', 'x2': '3', 'y2': '12'}),
+                Component.element(tag: 'line', attributes: {'x1': '21', 'y1': '12', 'x2': '23', 'y2': '12'}),
+                Component.element(tag: 'line', attributes: {'x1': '4.22', 'y1': '19.78', 'x2': '5.64', 'y2': '18.36'}),
+                Component.element(tag: 'line', attributes: {'x1': '18.36', 'y1': '5.64', 'x2': '19.78', 'y2': '4.22'}),
+              ],
+            ),
+          ],
         ),
-        // Moon icon (shown in light mode)
+        // Moon icon (shown in light mode - click to go dark)
         span(
           id: 'moon-icon',
-          styles: const Styles(raw: {'display': 'inline'}),
-          [text('🌙')],
+          styles: const Styles(raw: {'display': 'none', 'line-height': '0'}),
+          [
+            Component.element(
+              tag: 'svg',
+              attributes: {
+                'width': '18',
+                'height': '18',
+                'viewBox': '0 0 24 24',
+                'fill': 'none',
+                'stroke': 'currentColor',
+                'stroke-width': '2',
+                'stroke-linecap': 'round',
+                'stroke-linejoin': 'round',
+              },
+              children: [
+                Component.element(tag: 'path', attributes: {'d': 'M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'}),
+              ],
+            ),
+          ],
         ),
       ],
     );

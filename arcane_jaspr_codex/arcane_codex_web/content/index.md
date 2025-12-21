@@ -1,38 +1,31 @@
 ---
-title: Welcome
-description: Documentation for your project
+title: Arcane Jaspr
+description: A modern UI component library for Dart web applications
 layout: docs
 ---
 
-# Welcome to the Documentation
+# Arcane Jaspr
 
-This is your documentation site built with **Jaspr** and **Arcane UI**.
+A comprehensive UI component library built for [Jaspr](https://jaspr.dev), bringing the elegance of modern design systems to Dart web development.
 
-## Features
+## What is Arcane Jaspr?
 
-- **Static Generation** - Pre-rendered HTML for fast loading
-- **Markdown Support** - Write docs in Markdown with frontmatter
-- **Arcane Theming** - Beautiful dark-first design
-- **Table of Contents** - Auto-generated from headings
-- **Navigation** - Sidebar with grouped sections
+Arcane Jaspr is the web implementation of the Arcane UI design system. It provides over 75 production-ready components that render to semantic HTML with CSS styling, giving you complete control over your application's look and feel.
 
-## Getting Started
+Whether you're building a documentation site, a dashboard, or a full-featured web application, Arcane Jaspr gives you the building blocks to ship faster without sacrificing quality.
 
-Check out the [Installation](/docs/installation) guide to get started, or jump to the [Quick Start](/docs/quick-start) for a rapid overview.
+## Key Features
 
-## Structure
+**Type-Safe Styling** - Use `ArcaneStyleData` for compile-time verified CSS properties, or drop down to raw CSS when you need full control.
 
-Your documentation is organized in the `content/` directory:
+**Dark-First Design** - Every component looks great in both light and dark modes out of the box. Theming is built into the core, not bolted on.
 
-```
-content/
-  index.md          # This page
-  docs/
-    index.md        # /docs landing page
-    installation.md # /docs/installation
-    quick-start.md  # /docs/quick-start
-  guides/
-    deployment.md   # /guides/deployment
-```
+**Semantic HTML** - Components render to proper HTML elements with accessibility in mind. No div soup here.
 
-Each markdown file becomes a route based on its path.
+**Firebase Auth Ready** - Built-in authentication components and guards for Firebase, so you can add login flows in minutes.
+
+## Quick Links
+
+- [Installation](/docs/installation) - Add Arcane Jaspr to your project
+- [Quick Start](/docs/quick-start) - Build something in 5 minutes
+- [Components](/docs/layout/arcane-card) - Browse the component library

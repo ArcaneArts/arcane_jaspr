@@ -1,36 +1,46 @@
 ---
-title: Introduction
-description: Learn about the project and its capabilities
+title: Documentation
+description: Everything you need to build with Arcane Jaspr
 layout: docs
 ---
 
-# Introduction
+# Documentation
 
-Welcome to the documentation. This guide will help you understand and use the project effectively.
+This is your guide to building web applications with Arcane Jaspr. We've organized everything by category to help you find what you need quickly.
 
-## Overview
+## Getting Started
 
-This project is built with:
+New here? Start with the basics:
 
-- **Jaspr** - Modern Dart web framework
-- **Arcane UI** - Supabase-inspired component library
-- **Static Generation** - Pre-rendered for performance
+- [Installation](/docs/installation) - Get Arcane Jaspr into your project
+- [Quick Start](/docs/quick-start) - Your first component in under 5 minutes
 
-## Why Use This?
+## Core Concepts
 
-### Performance
+Understand how Arcane Jaspr works under the hood:
 
-Static sites load instantly. No server-side rendering on each request means your users get content immediately.
+- [Theming](/docs/concepts/theming) - Customize colors, typography, and more
+- [Styling](/docs/concepts/styling) - The `ArcaneStyleData` system explained
+- [Design Tokens](/docs/concepts/tokens) - Consistent spacing, sizing, and effects
 
-### Developer Experience
+## Component Categories
 
-Write documentation in Markdown. The build process handles everything else - syntax highlighting, navigation, table of contents.
+We've grouped our 75+ components into logical categories:
 
-### Customization
+**[Layout](/docs/layout/arcane-card)** - Structural components like cards, containers, rows, and columns
 
-Built on Arcane UI, you have access to 76+ components for extending your docs with interactive elements.
+**[Inputs](/docs/inputs/arcane-button)** - Buttons, text fields, toggles, sliders, and form controls
 
-## Next Steps
+**[Typography](/docs/typography/arcane-text)** - Text, headings, code blocks, and rich text
 
-- [Installation](/docs/installation) - Set up the project locally
-- [Quick Start](/docs/quick-start) - Build your first page
+**[Navigation](/docs/navigation/arcane-sidebar)** - Sidebars, menus, tabs, and navigation bars
+
+**[View](/docs/view/arcane-avatar)** - Avatars, badges, chips, tooltips, and data display
+
+**[Feedback](/docs/feedback/arcane-dialog)** - Dialogs, alerts, toasts, and loading states
+
+**[Forms](/docs/forms/arcane-form)** - Form handling and validation components
+
+## Need Help?
+
+Check the [GitHub repository](https://github.com/ArcaneArts/arcane_jaspr) for issues and discussions.

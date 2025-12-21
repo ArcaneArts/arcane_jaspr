@@ -21,7 +21,7 @@ class ArcaneDocsLayout extends PageLayoutBase {
     // Theme initialization script - runs before page renders to prevent flash
     yield script(content: '''
       (function() {
-        var theme = localStorage.getItem('arcane-theme') || 'light';
+        var theme = localStorage.getItem('arcane-theme') || 'dark';
         document.documentElement.className = 'arcane-' + theme;
       })();
     ''');
@@ -64,7 +64,7 @@ class _ThemedDocsPage extends StatefulComponent {
 }
 
 class _ThemedDocsPageState extends State<_ThemedDocsPage> {
-  bool _isDark = false;
+  bool _isDark = true; // Default to dark theme
 
   void _toggleTheme() {
     setState(() => _isDark = !_isDark);
