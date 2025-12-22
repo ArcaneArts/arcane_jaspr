@@ -27,14 +27,26 @@ import 'package:jaspr/dom.dart'
 
 import '../../util/style_types/arcane_style_data.dart';
 
-/// An unordered list component that wraps the HTML `<ul>` element.
-class ArcaneUnorderedList extends StatelessComponent {
+/// A bullet list component for displaying unordered items.
+///
+/// This wraps the HTML `<ul>` element.
+///
+/// Example:
+/// ```dart
+/// ArcaneBulletList(
+///   children: [
+///     ArcaneListItem(child: ArcaneText('First item')),
+///     ArcaneListItem(child: ArcaneText('Second item')),
+///   ],
+/// )
+/// ```
+class ArcaneBulletList extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
   final String? classes;
   final String? id;
 
-  const ArcaneUnorderedList({
+  const ArcaneBulletList({
     required this.children,
     this.styles,
     this.classes,
@@ -53,14 +65,26 @@ class ArcaneUnorderedList extends StatelessComponent {
   }
 }
 
-/// An ordered list component that wraps the HTML `<ol>` element.
-class ArcaneOrderedList extends StatelessComponent {
+/// A numbered list component for displaying ordered items.
+///
+/// This wraps the HTML `<ol>` element.
+///
+/// Example:
+/// ```dart
+/// ArcaneNumberedList(
+///   children: [
+///     ArcaneListItem(child: ArcaneText('Step 1')),
+///     ArcaneListItem(child: ArcaneText('Step 2')),
+///   ],
+/// )
+/// ```
+class ArcaneNumberedList extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
   final String? classes;
   final String? id;
 
-  const ArcaneOrderedList({
+  const ArcaneNumberedList({
     required this.children,
     this.styles,
     this.classes,
@@ -79,7 +103,9 @@ class ArcaneOrderedList extends StatelessComponent {
   }
 }
 
-/// A list item component that wraps the HTML `<li>` element.
+/// A list item component for use inside ArcaneBulletList or ArcaneNumberedList.
+///
+/// This wraps the HTML `<li>` element.
 class ArcaneListItem extends StatelessComponent {
   final Component child;
   final ArcaneStyleData? styles;
@@ -141,3 +167,7 @@ class _Placeholder extends StatelessComponent {
   @override
   Component build(BuildContext context) => const Component.text('');
 }
+
+// Legacy aliases for backwards compatibility
+typedef ArcaneUnorderedList = ArcaneBulletList;
+typedef ArcaneOrderedList = ArcaneNumberedList;

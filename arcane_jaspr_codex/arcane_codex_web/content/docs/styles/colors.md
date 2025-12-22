@@ -70,6 +70,15 @@ Background color presets.
 | `muted` | `--arcane-muted` | Muted background |
 | `brandPrimary` | Brand color | Brand primary |
 | `brandSecondary` | Brand color | Brand secondary |
+| `destructive` | `--arcane-error` | Destructive actions |
+
+### Glass Effects
+
+| Value | CSS Output | Description |
+|-------|-----------|-------------|
+| `glassTint` | `rgba(255, 255, 255, 0.05)` | Subtle glass tint |
+| `glassHeader` | `rgba(255, 255, 255, 0.03)` | Glass header effect |
+| `glassOverlay` | `rgba(255, 255, 255, 0.08)` | Glass overlay effect |
 
 ### Usage
 

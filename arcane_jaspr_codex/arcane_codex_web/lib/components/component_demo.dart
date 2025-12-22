@@ -44,9 +44,7 @@ class ComponentDemo extends StatelessComponent {
         margin: MarginPreset.bottomXl,
         borderRadius: Radius.lg,
         overflow: Overflow.hidden,
-        raw: {
-          'border': '1px solid var(--border-primary)',
-        },
+        border: BorderPreset.standard,
       ),
       children: [
         // Title and description (if provided)
@@ -54,10 +52,8 @@ class ComponentDemo extends StatelessComponent {
           ArcaneDiv(
             styles: const ArcaneStyleData(
               padding: PaddingPreset.md,
-              raw: {
-                'background': 'var(--background-secondary)',
-                'border-bottom': '1px solid var(--border-primary)',
-              },
+              background: Background.backgroundSecondary,
+              borderBottom: BorderPreset.standard,
             ),
             children: [
               if (title != null)
@@ -88,9 +84,9 @@ class ComponentDemo extends StatelessComponent {
             display: Display.flex,
             alignItems: AlignItems.center,
             justifyContent: JustifyContent.center,
+            minHeight: '120px',
             raw: {
               'background': background.css,
-              'min-height': '120px',
             },
           ),
           children: [child],
@@ -99,9 +95,7 @@ class ComponentDemo extends StatelessComponent {
         // Code block
         ArcaneDiv(
           styles: const ArcaneStyleData(
-            raw: {
-              'border-top': '1px solid var(--border-primary)',
-            },
+            borderTop: BorderPreset.standard,
           ),
           children: [
             _DemoCodeBlock(code: code, language: language),
@@ -153,9 +147,7 @@ class _DemoCodeBlockState extends State<_DemoCodeBlock> {
 
     return ArcaneDiv(
       styles: const ArcaneStyleData(
-        raw: {
-          'background': 'var(--code-background, #1a1a2e)',
-        },
+        background: Background.code,
       ),
       children: [
         // Header with copy button
@@ -165,21 +157,17 @@ class _DemoCodeBlockState extends State<_DemoCodeBlock> {
             justifyContent: JustifyContent.spaceBetween,
             alignItems: AlignItems.center,
             padding: PaddingPreset.smMd,
-            raw: {
-              'background': 'rgba(255, 255, 255, 0.03)',
-              'border-bottom': '1px solid var(--border-primary)',
-            },
+            background: Background.glassHeader,
+            borderBottom: BorderPreset.standard,
           ),
           children: [
             ArcaneSpan(
               styles: const ArcaneStyleData(
                 fontSize: FontSize.xs,
                 textColor: TextColor.muted,
-                raw: {
-                  'padding': '2px 8px',
-                  'background': 'rgba(255, 255, 255, 0.05)',
-                  'border-radius': '4px',
-                },
+                padding: PaddingPreset.badge,
+                background: Background.glassTint,
+                borderRadius: Radius.xs,
               ),
               child: ArcaneText(component.language),
             ),
@@ -190,12 +178,14 @@ class _DemoCodeBlockState extends State<_DemoCodeBlock> {
               ),
               children: [
                 if (isLong)
-                  ArcaneButton.ghost(
+                  ArcaneButton(
+                    style: ButtonStyle.ghost,
                     size: ButtonSize.small,
                     label: _expanded ? 'Collapse' : 'Expand',
                     onPressed: _toggleExpanded,
                   ),
-                ArcaneButton.ghost(
+                ArcaneButton(
+                  style: ButtonStyle.ghost,
                   size: ButtonSize.small,
                   label: _copied ? 'Copied!' : 'Copy',
                   onPressed: _copyToClipboard,
@@ -210,24 +200,14 @@ class _DemoCodeBlockState extends State<_DemoCodeBlock> {
           styles: ArcaneStyleData(
             padding: PaddingPreset.md,
             overflow: Overflow.auto,
-            raw: {
-              'max-height': _expanded ? 'none' : '300px',
-            },
+            maxHeight: _expanded ? 'none' : '300px',
           ),
           children: [
-            ArcanePre(
+            ArcaneCodeBlock(
+              style: CodeBlockStyle.minimal,
               styles: const ArcaneStyleData(
-                raw: {
-                  'margin': '0',
-                  'padding': '0',
-                  'background': 'transparent',
-                  'font-family': 'var(--font-mono, "Fira Code", monospace)',
-                  'font-size': '14px',
-                  'line-height': '1.6',
-                  'color': 'var(--text-primary)',
-                  'white-space': 'pre-wrap',
-                  'word-break': 'break-word',
-                },
+                margin: MarginPreset.none,
+                textColor: TextColor.primary,
               ),
               children: [
                 ArcaneText(displayCode),
@@ -290,10 +270,8 @@ class ComponentDemoRow extends StatelessComponent {
             gap: gap,
             padding: PaddingPreset.lg,
             borderRadius: Radius.lg,
-            raw: const {
-              'background': 'var(--background-secondary)',
-              'border': '1px solid var(--border-primary)',
-            },
+            background: Background.backgroundSecondary,
+            border: BorderPreset.standard,
           ),
           children: children,
         ),

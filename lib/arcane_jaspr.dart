@@ -205,21 +205,21 @@ export 'component/html/arcane_image.dart';
 export 'component/html/arcane_input.dart';
 export 'component/html/arcane_label.dart';
 export 'component/html/arcane_link.dart';
-export 'component/html/arcane_span.dart';
 export 'component/html/arcane_text.dart' hide ArcaneText;
-export 'component/html/aside.dart';
-export 'component/html/blockquote.dart';
+export 'component/html/code_block.dart'; // ArcaneCodeBlock (and legacy ArcanePre, PreStyle)
 export 'component/html/div.dart';
 export 'component/html/footer.dart' show ArcaneHtmlFooter;
 export 'component/html/header.dart' hide Header, ArcaneHeader;
 export 'component/html/heading.dart';
-export 'component/html/list.dart';
+export 'component/html/lists.dart'; // ArcaneBulletList, ArcaneNumberedList (and legacy ArcaneUnorderedList, ArcaneOrderedList)
 export 'component/html/main_element.dart';
 export 'component/html/nav.dart';
 export 'component/html/paragraph.dart';
-export 'component/html/pre.dart';
+export 'component/html/quote.dart'; // ArcaneQuote (and legacy ArcaneBlockquote)
 export 'component/html/section.dart';
+export 'component/html/side_content.dart'; // ArcaneSideContent (and legacy ArcaneAside)
 export 'component/html/table.dart';
+export 'component/html/arcane_span.dart'; // ArcaneSpan (inline styling)
 
 // ============================================================================
 // Authentication - Service & State

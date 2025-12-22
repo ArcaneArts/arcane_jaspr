@@ -3,10 +3,10 @@
   <head>
     <base href="/"/>
     <meta charset="utf-8"/>
-    <title>ArcanePre</title>
-    <meta property="og:title" content="ArcanePre"/>
-    <meta name="description" content="Preformatted text block"/>
-    <meta property="og:description" content="Preformatted text block"/>
+    <title>ArcaneCodeBlock</title>
+    <meta property="og:title" content="ArcaneCodeBlock"/>
+    <meta name="description" content="Code and terminal output display with style presets"/>
+    <meta property="og:description" content="Code and terminal output display with style presets"/>
     <link href="/favicon.ico" rel="icon" type="image/x-icon"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link href="/styles.css" rel="stylesheet"/>
@@ -1311,7 +1311,7 @@
                 <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/arcane_jaspr/docs/typography/arcane-rich-text"><span><span class="arcane-text">ArcaneRichText</span></span></a>
                 <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/arcane_jaspr/docs/typography/arcane-code-snippet"><span><span class="arcane-text">ArcaneCodeSnippet</span></span></a>
                 <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-on-surface-variant); font-weight: 400; background: transparent; border-left: 3px solid transparent" href="/arcane_jaspr/docs/typography/arcane-inline-code"><span><span class="arcane-text">ArcaneInlineCode</span></span></a>
-                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-accent); font-weight: 600; background: var(--arcane-accent-container); border-left: 3px solid var(--arcane-accent)" href="/arcane_jaspr/docs/typography/arcane-pre"><span><span class="arcane-text">ArcanePre</span></span></a>
+                <a style="display: flex; align-items: center; margin: 0 0 4px 0; gap: 8px; border-radius: var(--arcane-radius-md); font-size: 0.875rem; text-decoration: none; transition: all 0.15s ease; padding: 6px 12px; color: var(--arcane-accent); font-weight: 600; background: var(--arcane-accent-container); border-left: 3px solid var(--arcane-accent)" href="/arcane_jaspr/docs/typography/arcane-pre"><span><span class="arcane-text">ArcaneCodeBlock</span></span></a>
               </div>
             </div>
             <div style="margin: 0 0 16px 0; border-bottom: 1px solid var(--arcane-outline-variant); padding-bottom: 12px">
@@ -1445,193 +1445,248 @@
           </header>
           <div style="display: flex; max-width: 1280px; flex-grow: 1; padding: 32px; margin: 0 auto; gap: 32px">
             <div style="flex-grow: 1; min-width: 0">
-              <div style="margin: 0 0 24px 0; color: var(--arcane-on-background); font-size: 2rem; font-weight: 700"><span class="arcane-text">ArcanePre</span></div>
-              <div style="margin: 0 0 32px 0; color: var(--arcane-muted); font-size: 1.125rem"><span class="arcane-text">Preformatted text block</span></div>
-              <div style="padding: 24px; margin: 0 0 32px 0; border-radius: var(--arcane-radius-lg); background: var(--arcane-surface-variant); border: 1px solid var(--arcane-outline)">
-                <div style="margin: 0 0 16px 0; color: var(--arcane-muted); font-size: 0.875rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase"><span class="arcane-text">Live Demo</span></div>
-                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px">
-                  <pre><span class="arcane-text">Preformatted
-  text
-    block</span></pre>
-                </div>
-              </div>
+              <div style="margin: 0 0 24px 0; color: var(--arcane-on-background); font-size: 2rem; font-weight: 700"><span class="arcane-text">ArcaneCodeBlock</span></div>
+              <div style="margin: 0 0 32px 0; color: var(--arcane-muted); font-size: 1.125rem"><span class="arcane-text">Code and terminal output display with style presets</span></div>
               <div class="prose">
                 <section class="content">
-                  <h1 id="arcanepre" anchor="true"><span>ArcanePre</span><a href="/docs/typography/arcane-pre#arcanepre">#</a></h1>
-                  <p>A preformatted text component that preserves whitespace and uses a monospace font.</p>
-                  <h2 id="basic-usage" anchor="true"><span>Basic Usage</span><a href="/docs/typography/arcane-pre#basic-usage">#</a></h2>
-                  <pre><code class="language-dart">ArcanePre(
-  text: '''
-Line 1
-Line 2
-  Indented line
-''',
+                  <h1 id="arcanecodeblock" anchor="true"><span>ArcaneCodeBlock</span><a href="/docs/typography/arcane-pre#arcanecodeblock">#</a></h1>
+                  <p>
+                    A code block component with built-in style presets for displaying code, terminal output, and preformatted text.
+                  </p>
+                  <blockquote>
+                    <p>
+                      <strong>Note</strong>: This component was previously named <code>ArcanePre</code>. The old name still works as a legacy alias.
+                    </p>
+                  </blockquote>
+                  <h2 id="quick-start" anchor="true"><span>Quick Start</span><a href="/docs/typography/arcane-pre#quick-start">#</a></h2>
+                  <p>Use factory constructors for common patterns:</p>
+                  <pre><code class="language-dart">// Code block with background, padding, border
+ArcaneCodeBlock.code(
+  children: [ArcaneText('const x = 42;')],
+)
+
+// Terminal style with dark background
+ArcaneCodeBlock.terminal(
+  children: [ArcaneText('\$ npm install')],
 )
 </code></pre>
+                  <h2 id="style-presets" anchor="true"><span>Style Presets</span><a href="/docs/typography/arcane-pre#style-presets">#</a></h2>
+                  <p>ArcaneCodeBlock includes the <code>CodeBlockStyle</code> enum for quick styling:</p>
+                  <table>
+                    <thead><tr><th>Style</th><th>Description</th></tr></thead>
+                    <tbody>
+                      <tr><td><code>CodeBlockStyle.raw</code></td><td>No styling - just the pre element</td></tr>
+                      <tr><td><code>CodeBlockStyle.code</code></td><td>Background, padding, border radius, monospace font</td></tr>
+                      <tr><td><code>CodeBlockStyle.minimal</code></td><td>Monospace font only, no background</td></tr>
+                      <tr><td><code>CodeBlockStyle.inline</code></td><td>Compact style for inline-like usage</td></tr>
+                      <tr><td><code>CodeBlockStyle.terminal</code></td><td>Dark background with green text</td></tr>
+                    </tbody>
+                  </table>
+                  <pre><code class="language-dart">// Using the style parameter
+ArcaneCodeBlock(
+  style: CodeBlockStyle.code,
+  children: [ArcaneText('const greeting = "Hello";')],
+)
+
+ArcaneCodeBlock(
+  style: CodeBlockStyle.terminal,
+  children: [ArcaneText('\$ dart run')],
+)
+
+ArcaneCodeBlock(
+  style: CodeBlockStyle.minimal,
+  children: [ArcaneText('simple code')],
+)
+</code></pre>
+                  <h2 id="factory-constructors" anchor="true"><span>Factory Constructors</span><a href="/docs/typography/arcane-pre#factory-constructors">#</a></h2>
+                  <h3 id="arcanecodeblockcode" anchor="true"><span>ArcaneCodeBlock.code</span><a href="/docs/typography/arcane-pre#arcanecodeblockcode">#</a></h3>
+                  <p>Pre-styled for code blocks:</p>
+                  <pre><code class="language-dart">ArcaneCodeBlock.code(
+  children: [
+    ArcaneText('''
+function greet(name) {
+  return `Hello, \${name}!`;
+}
+'''),
+  ],
+)
+</code></pre>
+                  <p>Includes:</p>
+                  <ul>
+                    <li>Code background (<code>Background.code</code>)</li>
+                    <li>Medium padding</li>
+                    <li>Border radius</li>
+                    <li>Monospace font</li>
+                    <li>Word wrapping</li>
+                  </ul>
+                  <h3 id="arcanecodeblockterminal" anchor="true">
+                    <span>ArcaneCodeBlock.terminal</span><a href="/docs/typography/arcane-pre#arcanecodeblockterminal">#</a>
+                  </h3>
+                  <p>Pre-styled for terminal/CLI output:</p>
+                  <pre><code class="language-dart">ArcaneCodeBlock.terminal(
+  children: [
+    ArcaneText('''
+\$ dart pub get
+Resolving dependencies...
++ arcane_jaspr 2.0.0
+Changed 1 dependency!
+'''),
+  ],
+)
+</code></pre>
+                  <p>Includes:</p>
+                  <ul>
+                    <li>Black background</li>
+                    <li>Neon green text</li>
+                    <li>Medium padding</li>
+                    <li>Border radius</li>
+                    <li>Monospace font</li>
+                  </ul>
                   <h2 id="properties" anchor="true"><span>Properties</span><a href="/docs/typography/arcane-pre#properties">#</a></h2>
                   <table>
                     <thead><tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
                     <tbody>
-                      <tr><td><code>text</code></td><td><code>String</code></td><td>required</td><td>Preformatted text</td></tr>
                       <tr>
-                        <td><code>wrap</code></td>
-                        <td><code>bool</code></td>
-                        <td><code>false</code></td>
-                        <td>Allow text wrapping</td>
+                        <td><code>children</code></td>
+                        <td><code>List&lt;Component&gt;</code></td>
+                        <td>required</td>
+                        <td>Content inside the pre element</td>
+                      </tr>
+                      <tr>
+                        <td><code>style</code></td>
+                        <td><code>CodeBlockStyle</code></td>
+                        <td><code>CodeBlockStyle.raw</code></td>
+                        <td>Style preset to use</td>
                       </tr>
                       <tr>
                         <td><code>styles</code></td>
                         <td><code>ArcaneStyleData?</code></td>
                         <td><code>null</code></td>
-                        <td>Custom styling</td>
+                        <td>Additional/override styling</td>
+                      </tr>
+                      <tr>
+                        <td><code>classes</code></td>
+                        <td><code>String?</code></td>
+                        <td><code>null</code></td>
+                        <td>CSS class names</td>
+                      </tr>
+                      <tr><td><code>id</code></td><td><code>String?</code></td><td><code>null</code></td><td>Element ID</td></tr>
+                      <tr>
+                        <td><code>attributes</code></td>
+                        <td><code>Map&lt;String, String&gt;?</code></td>
+                        <td><code>null</code></td>
+                        <td>Additional HTML attributes</td>
                       </tr>
                     </tbody>
                   </table>
-                  <h2 id="with-wrapping" anchor="true"><span>With Wrapping</span><a href="/docs/typography/arcane-pre#with-wrapping">#</a></h2>
-                  <pre><code class="language-dart">ArcanePre(
-  wrap: true,
-  text: 'This is a very long line that will wrap when it exceeds the container width instead of scrolling horizontally.',
+                  <h2 id="custom-styling" anchor="true"><span>Custom Styling</span><a href="/docs/typography/arcane-pre#custom-styling">#</a></h2>
+                  <p>Presets can be extended with the <code>styles</code> parameter:</p>
+                  <pre><code class="language-dart">ArcaneCodeBlock.code(
+  styles: const ArcaneStyleData(
+    maxHeightCustom: '200px',
+    overflow: Overflow.auto,
+  ),
+  children: [ArcaneText(longCodeContent)],
+)
+</code></pre>
+                  <p>Or use <code>CodeBlockStyle.raw</code> with full custom styling:</p>
+                  <pre><code class="language-dart">ArcaneCodeBlock(
+  style: CodeBlockStyle.raw,
+  styles: const ArcaneStyleData(
+    background: Background.surfaceVariant,
+    padding: PaddingPreset.lg,
+    fontFamily: FontFamily.mono,
+    fontSize: FontSize.sm,
+    borderRadius: Radius.lg,
+    border: BorderPreset.accent,
+  ),
+  children: [ArcaneText('Custom styled code')],
+)
+</code></pre>
+                  <h2 id="aliases" anchor="true"><span>Aliases</span><a href="/docs/typography/arcane-pre#aliases">#</a></h2>
+                  <pre><code class="language-dart">import 'package:arcane_jaspr/aliases.dart';
+
+// New sensible name
+ACodeBlock.code(
+  children: [ArcaneText('const x = 42;')],
+)
+
+ACodeBlock(
+  style: ACodeBlockStyle.terminal,
+  children: [ArcaneText('\$ ls -la')],
+)
+
+// Legacy alias (still works!)
+APre.code(
+  children: [ArcaneText('const x = 42;')],
 )
 </code></pre>
                   <h2 id="examples" anchor="true"><span>Examples</span><a href="/docs/typography/arcane-pre#examples">#</a></h2>
-                  <h3 id="ascii-art" anchor="true"><span>ASCII Art</span><a href="/docs/typography/arcane-pre#ascii-art">#</a></h3>
-                  <pre><code class="language-dart">ArcanePre(
-  text: '''
-    _    ____   ____    _    _   _ _____
-   / \\  |  _ \\ / ___|  / \\  | \\ | | ____|
-  / _ \\ | |_) | |     / _ \\ |  \\| |  _|
- / ___ \\|  _ &lt;| |___ / ___ \\| |\\  | |___
-/_/   \\_\\_| \\_\\\\____/_/   \\_\\_| \\_|_____|
-''',
-)
-</code></pre>
-                  <h3 id="log-output" anchor="true"><span>Log Output</span><a href="/docs/typography/arcane-pre#log-output">#</a></h3>
-                  <pre><code class="language-dart">ArcanePre(
-  styles: const ArcaneStyleData(
-    background: Background.dark,
-    textColor: TextColor.onDark,
-    padding: PaddingPreset.md,
-    borderRadius: Radius.md,
-  ),
-  text: '''
-[2024-01-15 10:30:42] INFO: Application started
-[2024-01-15 10:30:43] INFO: Connected to database
-[2024-01-15 10:30:44] INFO: Server listening on port 8080
-[2024-01-15 10:30:45] WARN: Cache miss for key: user_123
-[2024-01-15 10:30:46] INFO: Request completed in 45ms
-''',
-)
-</code></pre>
-                  <h3 id="terminal-output" anchor="true"><span>Terminal Output</span><a href="/docs/typography/arcane-pre#terminal-output">#</a></h3>
-                  <pre><code class="language-dart">ArcaneColumn(
-  gap: Gap.sm,
+                  <h3 id="json-data" anchor="true"><span>JSON Data</span><a href="/docs/typography/arcane-pre#json-data">#</a></h3>
+                  <pre><code class="language-dart">ArcaneCodeBlock.code(
   children: [
-    ArcaneText('Terminal Output:'),
-    ArcanePre(
-      styles: const ArcaneStyleData(
-        background: Background.code,
-        padding: PaddingPreset.md,
-        borderRadius: Radius.md,
-        fontSize: FontSize.sm,
-      ),
-      text: '''
-\$ dart pub get
-Resolving dependencies...
-+ arcane_jaspr 1.0.0
-+ jaspr 0.15.0
-Changed 2 dependencies!
-''',
-    ),
+    ArcaneText('''
+{
+  "name": "arcane_jaspr",
+  "version": "2.0.0",
+  "description": "UI components for Jaspr"
+}
+'''),
   ],
 )
 </code></pre>
-                  <h3 id="data-table" anchor="true"><span>Data Table</span><a href="/docs/typography/arcane-pre#data-table">#</a></h3>
-                  <pre><code class="language-dart">ArcanePre(
-  text: '''
-Name            Age    City
-─────────────────────────────
-Alice           28     New York
-Bob             34     Los Angeles
-Charlie         22     Chicago
-Diana           31     Houston
-''',
-)
-</code></pre>
-                  <h3 id="diff-output" anchor="true"><span>Diff Output</span><a href="/docs/typography/arcane-pre#diff-output">#</a></h3>
-                  <pre><code class="language-dart">ArcanePre(
+                  <h3 id="build-log-with-scroll" anchor="true"><span>Build Log with Scroll</span><a href="/docs/typography/arcane-pre#build-log-with-scroll">#</a></h3>
+                  <pre><code class="language-dart">ArcaneCodeBlock.code(
   styles: const ArcaneStyleData(
-    background: Background.surface,
-    padding: PaddingPreset.md,
-    borderRadius: Radius.md,
-    fontSize: FontSize.sm,
+    maxHeightCustom: '300px',
+    overflow: Overflow.auto,
   ),
-  text: '''
-- old line to remove
-+ new line to add
-  unchanged line
-- another removed line
-+ another added line
-''',
+  children: [ArcaneText(buildLogOutput)],
 )
 </code></pre>
                   <h3 id="error-stack-trace" anchor="true"><span>Error Stack Trace</span><a href="/docs/typography/arcane-pre#error-stack-trace">#</a></h3>
-                  <pre><code class="language-dart">ArcanePre(
+                  <pre><code class="language-dart">ArcaneCodeBlock(
+  style: CodeBlockStyle.code,
   styles: const ArcaneStyleData(
     background: Background.destructive,
     textColor: TextColor.onDestructive,
-    padding: PaddingPreset.md,
-    borderRadius: Radius.md,
-    fontSize: FontSize.xs,
   ),
-  text: '''
+  children: [
+    ArcaneText('''
 Error: Could not find file
     at FileReader.read (file_reader.dart:42)
     at DataLoader.load (data_loader.dart:18)
     at main (main.dart:5)
-''',
-)
-</code></pre>
-                  <h3 id="json-data" anchor="true"><span>JSON Data</span><a href="/docs/typography/arcane-pre#json-data">#</a></h3>
-                  <pre><code class="language-dart">ArcanePre(
-  styles: const ArcaneStyleData(
-    background: Background.surface,
-    padding: PaddingPreset.md,
-    borderRadius: Radius.md,
-  ),
-  text: '''
-{
-  "name": "arcane_jaspr",
-  "version": "1.0.0",
-  "description": "UI components for Jaspr",
-  "dependencies": {
-    "jaspr": "^0.15.0"
-  }
-}
-''',
-)
-</code></pre>
-                  <h3 id="build-output" anchor="true"><span>Build Output</span><a href="/docs/typography/arcane-pre#build-output">#</a></h3>
-                  <pre><code class="language-dart">ArcaneColumn(
-  gap: Gap.md,
-  children: [
-    ArcaneHeading(text: 'Build Log', level: HeadingLevel.h4),
-    ArcanePre(
-      styles: const ArcaneStyleData(
-        background: Background.code,
-        padding: PaddingPreset.md,
-        borderRadius: Radius.md,
-        maxHeightCustom: '300px',
-        overflow: Overflow.auto,
-      ),
-      text: buildLogOutput,
-    ),
+'''),
   ],
 )
+</code></pre>
+                  <h2 id="why-codeblockstyle" anchor="true"><span>Why CodeBlockStyle?</span><a href="/docs/typography/arcane-pre#why-codeblockstyle">#</a></h2>
+                  <p>Instead of writing raw CSS:</p>
+                  <pre><code class="language-dart">// Old way - lots of raw CSS
+ArcaneCodeBlock(
+  styles: const ArcaneStyleData(
+    raw: {
+      'background': 'var(--arcane-code-background)',
+      'padding': '16px',
+      'border-radius': '8px',
+      'font-family': 'monospace',
+      'white-space': 'pre-wrap',
+    },
+  ),
+  children: [...],
+)
+</code></pre>
+                  <p>Use enum-based presets:</p>
+                  <pre><code class="language-dart">// New way - clean and readable
+ArcaneCodeBlock.code(children: [...])
+// or
+ArcaneCodeBlock(style: CodeBlockStyle.code, children: [...])
 </code></pre>
                   <h2 id="related-components" anchor="true"><span>Related Components</span><a href="/docs/typography/arcane-pre#related-components">#</a></h2>
                   <ul>
                     <li>
-                      <a href="/arcane_jaspr/docs/typography/arcane-code-snippet">ArcaneCodeSnippet</a> - Syntax highlighted code
+                      <a href="/arcane_jaspr/docs/typography/arcane-code-snippet">ArcaneCodeSnippet</a> - Code with copy button
                     </li>
                     <li><a href="/arcane_jaspr/docs/typography/arcane-inline-code">ArcaneInlineCode</a> - Inline code text</li>
                     <li><a href="/arcane_jaspr/docs/typography/arcane-text">ArcaneText</a> - Regular text</li>
@@ -1644,18 +1699,19 @@ Error: Could not find file
                 <div style="margin: 0 0 16px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--arcane-on-surface-variant); padding-bottom: 8px; border-bottom: 1px solid var(--arcane-outline-variant)"><span class="arcane-text">On this page</span></div>
                 <div class="toc-content">
                   <ul>
-                    <li style="padding-left: 0em"><a href="/docs/typography/arcane-pre#basic-usage">Basic Usage</a></li>
+                    <li style="padding-left: 0em"><a href="/docs/typography/arcane-pre#quick-start">Quick Start</a></li>
+                    <li style="padding-left: 0em"><a href="/docs/typography/arcane-pre#style-presets">Style Presets</a></li>
+                    <li style="padding-left: 0em"><a href="/docs/typography/arcane-pre#factory-constructors">Factory Constructors</a></li>
+                    <li style="padding-left: 0.75em"><a href="/docs/typography/arcane-pre#arcanecodeblockcode">ArcaneCodeBlock.code</a></li>
+                    <li style="padding-left: 0.75em"><a href="/docs/typography/arcane-pre#arcanecodeblockterminal">ArcaneCodeBlock.terminal</a></li>
                     <li style="padding-left: 0em"><a href="/docs/typography/arcane-pre#properties">Properties</a></li>
-                    <li style="padding-left: 0em"><a href="/docs/typography/arcane-pre#with-wrapping">With Wrapping</a></li>
+                    <li style="padding-left: 0em"><a href="/docs/typography/arcane-pre#custom-styling">Custom Styling</a></li>
+                    <li style="padding-left: 0em"><a href="/docs/typography/arcane-pre#aliases">Aliases</a></li>
                     <li style="padding-left: 0em"><a href="/docs/typography/arcane-pre#examples">Examples</a></li>
-                    <li style="padding-left: 0.75em"><a href="/docs/typography/arcane-pre#ascii-art">ASCII Art</a></li>
-                    <li style="padding-left: 0.75em"><a href="/docs/typography/arcane-pre#log-output">Log Output</a></li>
-                    <li style="padding-left: 0.75em"><a href="/docs/typography/arcane-pre#terminal-output">Terminal Output</a></li>
-                    <li style="padding-left: 0.75em"><a href="/docs/typography/arcane-pre#data-table">Data Table</a></li>
-                    <li style="padding-left: 0.75em"><a href="/docs/typography/arcane-pre#diff-output">Diff Output</a></li>
-                    <li style="padding-left: 0.75em"><a href="/docs/typography/arcane-pre#error-stack-trace">Error Stack Trace</a></li>
                     <li style="padding-left: 0.75em"><a href="/docs/typography/arcane-pre#json-data">JSON Data</a></li>
-                    <li style="padding-left: 0.75em"><a href="/docs/typography/arcane-pre#build-output">Build Output</a></li>
+                    <li style="padding-left: 0.75em"><a href="/docs/typography/arcane-pre#build-log-with-scroll">Build Log with Scroll</a></li>
+                    <li style="padding-left: 0.75em"><a href="/docs/typography/arcane-pre#error-stack-trace">Error Stack Trace</a></li>
+                    <li style="padding-left: 0em"><a href="/docs/typography/arcane-pre#why-codeblockstyle">Why CodeBlockStyle?</a></li>
                     <li style="padding-left: 0em"><a href="/docs/typography/arcane-pre#related-components">Related Components</a></li>
                   </ul>
                 </div>

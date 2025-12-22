@@ -27,28 +27,58 @@ import 'package:jaspr/dom.dart'
 
 import '../../util/style_types/arcane_style_data.dart';
 
-/// An aside component that wraps the HTML `<aside>` element.
-class ArcaneAside extends StatelessComponent {
+/// A quote component for displaying quoted text or citations.
+///
+/// This wraps the HTML `<blockquote>` element with a Flutter-like API.
+///
+/// Example:
+/// ```dart
+/// ArcaneQuote(
+///   styles: ArcaneStyleData(
+///     padding: PaddingPreset.lg,
+///     borderLeft: BorderPreset.accent,
+///   ),
+///   children: [
+///     ArcaneParagraph(child: ArcaneText('A wise quote...')),
+///   ],
+/// )
+/// ```
+class ArcaneQuote extends StatelessComponent {
+  /// The children of the quote
   final List<Component> children;
+
+  /// Optional styling using ArcaneStyleData
   final ArcaneStyleData? styles;
+
+  /// Optional CSS classes
   final String? classes;
+
+  /// Optional ID attribute
   final String? id;
 
-  const ArcaneAside({
+  /// Additional HTML attributes
+  final Map<String, String>? attributes;
+
+  const ArcaneQuote({
     required this.children,
     this.styles,
     this.classes,
     this.id,
+    this.attributes,
     super.key,
   });
 
   @override
   Component build(BuildContext context) {
-    return aside(
+    return blockquote(
       id: id,
       classes: classes,
       styles: styles?.toStyles() ?? const Styles(raw: {}),
+      attributes: attributes,
       children,
     );
   }
 }
+
+// Legacy alias for backwards compatibility
+typedef ArcaneBlockquote = ArcaneQuote;

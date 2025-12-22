@@ -344,3 +344,67 @@ enum AlignSelf {
         AlignSelf.baseline => 'baseline',
       };
 }
+
+/// Max height presets
+enum MaxHeight {
+  /// No max height
+  none,
+
+  /// Small content area (200px)
+  sm,
+
+  /// Medium content area (300px)
+  md,
+
+  /// Large content area (400px)
+  lg,
+
+  /// Code block (500px)
+  codeBlock,
+
+  /// Extra large (600px)
+  xl,
+
+  /// Modal height (80vh)
+  modal,
+
+  /// Full screen (100vh)
+  screen;
+
+  String get css => switch (this) {
+        MaxHeight.none => 'none',
+        MaxHeight.sm => '200px',
+        MaxHeight.md => '300px',
+        MaxHeight.lg => '400px',
+        MaxHeight.codeBlock => '500px',
+        MaxHeight.xl => '600px',
+        MaxHeight.modal => '80vh',
+        MaxHeight.screen => '100vh',
+      };
+}
+
+/// Min width presets
+enum MinWidth {
+  /// No min width
+  none,
+
+  /// Minimum touch target (44px)
+  touchTarget,
+
+  /// Small (100px)
+  sm,
+
+  /// Medium (200px)
+  md,
+
+  /// Large (300px)
+  lg;
+
+  String get css => switch (this) {
+        MinWidth.none => '0',
+        MinWidth.touchTarget => '44px',
+        MinWidth.sm => '100px',
+        MinWidth.md => '200px',
+        MinWidth.lg => '300px',
+      };
+}

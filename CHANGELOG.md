@@ -5,6 +5,38 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0]
+
+### Added
+
+#### Renamed HTML Components (with backwards-compatible aliases)
+- `ArcaneCodeBlock` - Renamed from `ArcanePre` for clarity, with `CodeBlockStyle` enum (raw, code, minimal, inline, terminal)
+- `ArcaneQuote` - Renamed from `ArcaneBlockquote`
+- `ArcaneBulletList` - Renamed from `ArcaneUnorderedList`
+- `ArcaneNumberedList` - Renamed from `ArcaneOrderedList`
+- `ArcaneSideContent` - Renamed from `ArcaneAside`
+
+#### New Style Enums
+- `PaddingPreset.badge` - Compact padding for badge/tag elements (2px 8px)
+- `PaddingPreset.inlineCode` - Padding for inline code snippets (2px 6px)
+- `PaddingPreset.chip` - Padding for chip/pill elements (4px 12px)
+- `Background.glassTint` - Subtle glass tint effect (rgba 5%)
+- `Background.glassHeader` - Glass header effect (rgba 3%)
+- `Background.glassOverlay` - Glass overlay effect (rgba 8%)
+- `Background.destructive` - Alias for error background
+- `MaxHeight` enum - Preset max-heights (none, sm, md, lg, codeBlock, xl, modal, screen)
+- `MinWidth` enum - Preset min-widths (none, touchTarget, sm, md, lg)
+
+### Changed
+- Updated codex documentation site to use enum-based styling instead of raw CSS
+- Factory constructors like `ArcaneButton.ghost()` now recommended as `ArcaneButton(style: ButtonStyle.ghost)`
+- All legacy HTML component names preserved as typedefs for backwards compatibility
+
+### Documentation
+- Added new enum values to spacing documentation (badge, inlineCode, chip)
+- Added Glass Effects section to colors documentation
+- Added MaxHeight and MinWidth sections to display documentation
+
 ## [2.1.0]
 
 ### Added

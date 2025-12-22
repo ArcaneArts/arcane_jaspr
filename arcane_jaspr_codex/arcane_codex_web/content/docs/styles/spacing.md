@@ -94,6 +94,14 @@ Preset padding configurations.
 | `topLg` | `24px 0 0 0` |
 | `bottomMd` | `0 0 16px 0` |
 
+### Compact Element Padding
+
+| Value | CSS Output | Description |
+|-------|-----------|-------------|
+| `badge` | `2px 8px` | Badge/tag styling |
+| `inlineCode` | `2px 6px` | Inline code snippets |
+| `chip` | `4px 12px` | Chip/pill elements |
+
 ### Usage
 
 ```dart

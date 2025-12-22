@@ -227,6 +227,33 @@ ArcaneDiv(
 )
 ```
 
+## MaxHeight
+
+Maximum height presets for containers.
+
+| Value | CSS Output | Description |
+|-------|-----------|-------------|
+| `none` | `none` | No maximum |
+| `sm` | `200px` | Small content area |
+| `md` | `300px` | Medium content area |
+| `lg` | `400px` | Large content area |
+| `codeBlock` | `500px` | Code block height |
+| `xl` | `600px` | Extra large |
+| `modal` | `80vh` | Modal height |
+| `screen` | `100vh` | Full screen |
+
+## MinWidth
+
+Minimum width presets.
+
+| Value | CSS Output | Description |
+|-------|-----------|-------------|
+| `none` | `0` | No minimum |
+| `touchTarget` | `44px` | Minimum touch target |
+| `sm` | `100px` | Small minimum |
+| `md` | `200px` | Medium minimum |
+| `lg` | `300px` | Large minimum |
+
 ## Overflow
 
 Controls overflow behavior.

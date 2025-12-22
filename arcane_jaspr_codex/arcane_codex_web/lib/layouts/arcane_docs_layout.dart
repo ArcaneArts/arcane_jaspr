@@ -230,10 +230,8 @@ class _ThemedDocsPageState extends State<_ThemedDocsPage> {
         margin: MarginPreset.bottomXl,
         padding: PaddingPreset.lg,
         borderRadius: Radius.lg,
-        raw: {
-          'background': 'var(--arcane-surface-variant)',
-          'border': '1px solid var(--arcane-outline)',
-        },
+        background: Background.surfaceVariant,
+        border: BorderPreset.subtle,
       ),
       children: [
         ArcaneDiv(
@@ -279,10 +277,8 @@ class _ThemedDocsPageState extends State<_ThemedDocsPage> {
           styles: const ArcaneStyleData(
             padding: PaddingPreset.md,
             borderRadius: Radius.lg,
-            raw: {
-              'background': 'var(--arcane-surface)',
-              'border': '1px solid var(--arcane-outline)',
-            },
+            background: Background.surface,
+            border: BorderPreset.subtle,
           ),
           children: [
             ArcaneDiv(
@@ -292,11 +288,9 @@ class _ThemedDocsPageState extends State<_ThemedDocsPage> {
                 margin: MarginPreset.bottomMd,
                 textTransform: TextTransform.uppercase,
                 letterSpacing: LetterSpacing.wide,
-                raw: {
-                  'color': 'var(--arcane-on-surface-variant)',
-                  'padding-bottom': '8px',
-                  'border-bottom': '1px solid var(--arcane-outline-variant)',
-                },
+                textColor: TextColor.onSurfaceVariant,
+                padding: PaddingPreset.bottomMd,
+                borderBottom: BorderPreset.subtle,
               ),
               children: [ArcaneText('On this page')],
             ),

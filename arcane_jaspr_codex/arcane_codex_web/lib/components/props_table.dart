@@ -34,9 +34,7 @@ class PropsTable extends StatelessComponent {
           styles: const ArcaneStyleData(
             borderRadius: Radius.lg,
             overflow: Overflow.auto,
-            raw: {
-              'border': '1px solid var(--border-primary)',
-            },
+            border: BorderPreset.standard,
           ),
           children: [
             ArcaneDataTable<PropItem>(
@@ -56,9 +54,7 @@ class PropsTable extends StatelessComponent {
                           fontFamily: FontFamily.mono,
                           fontSize: FontSize.sm,
                           fontWeight: FontWeight.w500,
-                          raw: {
-                            'color': 'var(--accent, #10b981)',
-                          },
+                          textColor: TextColor.accent,
                         ),
                         child: ArcaneText(prop.name),
                       ),
@@ -66,11 +62,11 @@ class PropsTable extends StatelessComponent {
                         ArcaneSpan(
                           styles: const ArcaneStyleData(
                             fontSize: FontSize.xs,
+                            padding: PaddingPreset.inlineCode,
+                            borderRadius: Radius.xs,
+                            textColor: TextColor.error,
                             raw: {
-                              'padding': '2px 6px',
                               'background': 'rgba(239, 68, 68, 0.15)',
-                              'color': '#ef4444',
-                              'border-radius': '4px',
                             },
                           ),
                           child: const ArcaneText('required'),
@@ -96,12 +92,10 @@ class PropsTable extends StatelessComponent {
                           styles: const ArcaneStyleData(
                             fontFamily: FontFamily.mono,
                             fontSize: FontSize.sm,
-                            raw: {
-                              'padding': '2px 6px',
-                              'background': 'rgba(255, 255, 255, 0.05)',
-                              'border-radius': '4px',
-                              'color': 'var(--text-muted)',
-                            },
+                            padding: PaddingPreset.inlineCode,
+                            background: Background.glassTint,
+                            borderRadius: Radius.xs,
+                            textColor: TextColor.muted,
                           ),
                           child: ArcaneText(prop.defaultValue!),
                         )
@@ -177,9 +171,7 @@ class EnumTable extends StatelessComponent {
                 fontFamily: FontFamily.mono,
                 fontWeight: FontWeight.w600,
                 fontSize: FontSize.lg,
-                raw: {
-                  'color': 'var(--accent, #10b981)',
-                },
+                textColor: TextColor.accent,
               ),
               child: ArcaneText(enumName),
             ),
@@ -201,9 +193,7 @@ class EnumTable extends StatelessComponent {
           styles: const ArcaneStyleData(
             borderRadius: Radius.lg,
             overflow: Overflow.auto,
-            raw: {
-              'border': '1px solid var(--border-primary)',
-            },
+            border: BorderPreset.standard,
           ),
           children: [
             ArcaneDataTable<EnumValue>(
@@ -215,9 +205,7 @@ class EnumTable extends StatelessComponent {
                     styles: const ArcaneStyleData(
                       fontFamily: FontFamily.mono,
                       fontSize: FontSize.sm,
-                      raw: {
-                        'color': 'var(--accent, #10b981)',
-                      },
+                      textColor: TextColor.accent,
                     ),
                     child: ArcaneText(value.name),
                   ),

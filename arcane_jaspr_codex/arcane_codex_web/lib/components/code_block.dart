@@ -43,10 +43,8 @@ class _CodeBlockState extends State<CodeBlock> {
         margin: MarginPreset.bottomMd,
         borderRadius: Radius.lg,
         overflow: Overflow.hidden,
-        raw: {
-          'background': 'var(--code-background, #1a1a2e)',
-          'border': '1px solid var(--border-primary)',
-        },
+        background: Background.code,
+        border: BorderPreset.standard,
       ),
       children: [
         // Header with language label and copy button
@@ -56,10 +54,8 @@ class _CodeBlockState extends State<CodeBlock> {
             justifyContent: JustifyContent.spaceBetween,
             alignItems: AlignItems.center,
             padding: PaddingPreset.smMd,
-            raw: {
-              'background': 'rgba(255, 255, 255, 0.03)',
-              'border-bottom': '1px solid var(--border-primary)',
-            },
+            background: Background.glassHeader,
+            borderBottom: BorderPreset.standard,
           ),
           children: [
             // Language label
@@ -83,11 +79,9 @@ class _CodeBlockState extends State<CodeBlock> {
                     styles: const ArcaneStyleData(
                       fontSize: FontSize.xs,
                       textColor: TextColor.muted,
-                      raw: {
-                        'padding': '2px 8px',
-                        'background': 'rgba(255, 255, 255, 0.05)',
-                        'border-radius': '4px',
-                      },
+                      padding: PaddingPreset.badge,
+                      background: Background.glassTint,
+                      borderRadius: Radius.xs,
                     ),
                     child: ArcaneText(component.language!),
                   ),
@@ -95,7 +89,8 @@ class _CodeBlockState extends State<CodeBlock> {
             ),
 
             // Copy button
-            ArcaneButton.ghost(
+            ArcaneButton(
+              style: ButtonStyle.ghost,
               size: ButtonSize.small,
               label: _copied ? 'Copied!' : 'Copy',
               onPressed: _copyToClipboard,
@@ -108,24 +103,14 @@ class _CodeBlockState extends State<CodeBlock> {
           styles: const ArcaneStyleData(
             padding: PaddingPreset.md,
             overflow: Overflow.auto,
-            raw: {
-              'max-height': '500px',
-            },
+            maxHeight: '500px',
           ),
           children: [
-            ArcanePre(
+            ArcaneCodeBlock(
+              style: CodeBlockStyle.minimal,
               styles: const ArcaneStyleData(
-                raw: {
-                  'margin': '0',
-                  'padding': '0',
-                  'background': 'transparent',
-                  'font-family': 'var(--font-mono, "Fira Code", monospace)',
-                  'font-size': '14px',
-                  'line-height': '1.6',
-                  'color': 'var(--text-primary)',
-                  'white-space': 'pre-wrap',
-                  'word-break': 'break-word',
-                },
+                margin: MarginPreset.none,
+                textColor: TextColor.primary,
               ),
               children: [
                 ArcaneText(component.code),
@@ -153,12 +138,10 @@ class InlineCodeBlock extends StatelessComponent {
       styles: const ArcaneStyleData(
         fontFamily: FontFamily.mono,
         fontSize: FontSize.sm,
-        raw: {
-          'padding': '2px 6px',
-          'background': 'rgba(255, 255, 255, 0.08)',
-          'border-radius': '4px',
-          'color': 'var(--accent, #10b981)',
-        },
+        padding: PaddingPreset.inlineCode,
+        background: Background.glassOverlay,
+        borderRadius: Radius.xs,
+        textColor: TextColor.accent,
       ),
       child: ArcaneText(code),
     );

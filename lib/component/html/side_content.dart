@@ -27,57 +27,48 @@ import 'package:jaspr/dom.dart'
 
 import '../../util/style_types/arcane_style_data.dart';
 
-/// A pre component that wraps the HTML `<pre>` element.
+/// A side content component for tangential or supplementary content.
 ///
-/// Provides a Flutter-like API with direct `ArcaneStyleData` support,
-/// eliminating the need to call `.toStyles()`.
+/// This wraps the HTML `<aside>` element. Use it for sidebars,
+/// pull quotes, or content that is separate from the main flow.
 ///
 /// Example:
 /// ```dart
-/// ArcanePre(
+/// ArcaneSideContent(
 ///   styles: ArcaneStyleData(
-///     background: Background.card,
+///     width: WidthPreset.sidebar,
 ///     padding: PaddingPreset.md,
-///     borderRadius: Radius.md,
 ///   ),
 ///   children: [
-///     Code(child: ArcaneText('const x = 42;')),
+///     ArcaneText('Related Links'),
+///     ArcaneBulletList(children: [...]),
 ///   ],
 /// )
 /// ```
-class ArcanePre extends StatelessComponent {
-  /// The children of the pre element
+class ArcaneSideContent extends StatelessComponent {
   final List<Component> children;
-
-  /// Optional styling using ArcaneStyleData
   final ArcaneStyleData? styles;
-
-  /// Optional CSS classes
   final String? classes;
-
-  /// Optional ID attribute
   final String? id;
 
-  /// Additional HTML attributes
-  final Map<String, String>? attributes;
-
-  const ArcanePre({
+  const ArcaneSideContent({
     required this.children,
     this.styles,
     this.classes,
     this.id,
-    this.attributes,
     super.key,
   });
 
   @override
   Component build(BuildContext context) {
-    return pre(
+    return aside(
       id: id,
       classes: classes,
       styles: styles?.toStyles() ?? const Styles(raw: {}),
-      attributes: attributes,
       children,
     );
   }
 }
+
+// Legacy alias for backwards compatibility
+typedef ArcaneAside = ArcaneSideContent;

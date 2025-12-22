@@ -27,10 +27,9 @@ import 'package:jaspr/dom.dart'
 
 import '../../util/style_types/arcane_style_data.dart';
 
-/// A span component that wraps the HTML `<span>` element.
+/// An inline styling component that wraps the HTML `<span>` element.
 ///
-/// Provides a Flutter-like API with direct `ArcaneStyleData` support,
-/// eliminating the need to call `.toStyles()`.
+/// Use this to apply styles to portions of text within a larger block.
 ///
 /// Example:
 /// ```dart

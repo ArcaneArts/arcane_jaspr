@@ -95,7 +95,19 @@ enum Background {
   brandPrimary,
 
   /// Brand secondary (theme-reactive)
-  brandSecondary;
+  brandSecondary,
+
+  /// Glass tint (rgba white 5%)
+  glassTint,
+
+  /// Glass header (rgba white 3%)
+  glassHeader,
+
+  /// Glass overlay (rgba white 8%)
+  glassOverlay,
+
+  /// Destructive/error background
+  destructive;
 
   String get css => switch (this) {
         Background.transparent => ArcaneColors.transparent,
@@ -127,6 +139,10 @@ enum Background {
         Background.muted => ArcaneColors.muted,
         Background.brandPrimary => _qnPrimary,
         Background.brandSecondary => _qnSecondary,
+        Background.glassTint => 'rgba(255, 255, 255, 0.05)',
+        Background.glassHeader => 'rgba(255, 255, 255, 0.03)',
+        Background.glassOverlay => 'rgba(255, 255, 255, 0.08)',
+        Background.destructive => ArcaneColors.error,
       };
 }
 

@@ -13,27 +13,23 @@ class DocsSidebar extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return ArcaneAside(
+    return ArcaneSideContent(
       styles: const ArcaneStyleData(
         display: Display.flex,
         flexDirection: FlexDirection.column,
         widthCustom: '280px',
         minHeight: '100vh',
         flexShrink: 0,
-        raw: {
-          'background': 'var(--arcane-surface)',
-          'border-right': '1px solid var(--arcane-outline)',
-        },
+        background: Background.surface,
+        borderRight: BorderPreset.subtle,
       ),
       children: [
         // Header
         ArcaneDiv(
           styles: const ArcaneStyleData(
             padding: PaddingPreset.lg,
-            raw: {
-              'border-bottom': '1px solid var(--arcane-outline)',
-              'background': 'var(--arcane-surface-variant)',
-            },
+            borderBottom: BorderPreset.subtle,
+            background: Background.surfaceVariant,
           ),
           children: [
             ArcaneLink(
@@ -157,7 +153,7 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcaneRichText', href: '/docs/typography/arcane-rich-text'),
               _buildNavItem(label: 'ArcaneCodeSnippet', href: '/docs/typography/arcane-code-snippet'),
               _buildNavItem(label: 'ArcaneInlineCode', href: '/docs/typography/arcane-inline-code'),
-              _buildNavItem(label: 'ArcanePre', href: '/docs/typography/arcane-pre'),
+              _buildNavItem(label: 'ArcaneCodeBlock', href: '/docs/typography/arcane-pre'),
             ]),
 
             // View Components section
@@ -243,10 +239,8 @@ class DocsSidebar extends StatelessComponent {
     return ArcaneDiv(
       styles: const ArcaneStyleData(
         margin: MarginPreset.bottomMd,
-        raw: {
-          'border-bottom': '1px solid var(--arcane-outline-variant)',
-          'padding-bottom': '12px',
-        },
+        borderBottom: BorderPreset.subtle,
+        padding: PaddingPreset.bottomMd,
       ),
       children: [
         // Section header with background
@@ -257,21 +251,17 @@ class DocsSidebar extends StatelessComponent {
             margin: MarginPreset.bottomSm,
             textTransform: TextTransform.uppercase,
             letterSpacing: LetterSpacing.wide,
-            raw: {
-              'padding': '8px 12px',
-              'background': 'var(--arcane-surface-variant)',
-              'border-radius': '6px',
-              'color': 'var(--arcane-on-surface)',
-            },
+            padding: PaddingPreset.smMd,
+            background: Background.surfaceVariant,
+            borderRadius: Radius.sm,
+            textColor: TextColor.onSurface,
           ),
           children: [ArcaneText(title)],
         ),
         // Navigation items
         ArcaneDiv(
           styles: const ArcaneStyleData(
-            raw: {
-              'padding-left': '4px',
-            },
+            padding: PaddingPreset.horizontalSm,
           ),
           children: items,
         ),
@@ -298,13 +288,14 @@ class DocsSidebar extends StatelessComponent {
         transition: Transition.allFast,
         crossAxisAlignment: CrossAxisAlignment.center,
         textDecoration: TextDecoration.none,
-        raw: {
-          'padding': '6px 12px',
-          'color': isActive ? 'var(--arcane-accent)' : 'var(--arcane-on-surface-variant)',
-          'font-weight': isActive ? '600' : '400',
-          'background': isActive ? 'var(--arcane-accent-container)' : 'transparent',
-          'border-left': isActive ? '3px solid var(--arcane-accent)' : '3px solid transparent',
-        },
+        padding: PaddingPreset.buttonSm,
+        textColor: isActive ? TextColor.accent : TextColor.onSurfaceVariant,
+        fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
+        background: isActive ? Background.accentContainer : Background.transparent,
+        borderLeft: isActive ? BorderPreset.accent : BorderPreset.none,
+        raw: isActive
+            ? const {'border-left-width': '3px'}
+            : const {'border-left': '3px solid transparent'},
       ),
       child: ArcaneSpan(child: ArcaneText(label)),
     );

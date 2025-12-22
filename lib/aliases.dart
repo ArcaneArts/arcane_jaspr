@@ -31,9 +31,16 @@ typedef AFloatingActionButton = ArcaneFloatingActionButton;
 // Support
 typedef AApp = ArcaneApp;
 
-// HTML Elements
-typedef AAside = ArcaneAside;
-typedef ABlockquote = ArcaneBlockquote;
+// HTML Elements - New sensible names
+typedef ACodeBlock = ArcaneCodeBlock;
+typedef ACodeBlockStyle = CodeBlockStyle;
+typedef AQuote = ArcaneQuote;
+typedef ABulletList = ArcaneBulletList;
+typedef ANumberedList = ArcaneNumberedList;
+typedef ASideContent = ArcaneSideContent;
+typedef ASpan = ArcaneSpan;
+
+// HTML Elements - Standard
 typedef ADiv = ArcaneDiv;
 typedef AHeading = ArcaneHeading;
 typedef AHtmlFooter = ArcaneHtmlFooter;
@@ -44,20 +51,24 @@ typedef ALink = ArcaneLink;
 typedef AListItem = ArcaneListItem;
 typedef AMain = ArcaneMain;
 typedef ANav = ArcaneNav;
-typedef AOrderedList = ArcaneOrderedList;
 typedef AParagraph = ArcaneParagraph;
-typedef APre = ArcanePre;
 typedef ARawButton = ArcaneRawButton;
 typedef ARawInput = ArcaneRawInput;
 typedef ASection = ArcaneSection;
-typedef ASpan = ArcaneSpan;
 typedef ATable = ArcaneTable;
 typedef ATableBody = ArcaneTableBody;
 typedef ATableCell = ArcaneTableCell;
 typedef ATableHead = ArcaneTableHead;
 typedef ATableHeader = ArcaneTableHeader;
 typedef ATableRow = ArcaneTableRow;
-typedef AUnorderedList = ArcaneUnorderedList;
+
+// HTML Elements - Legacy aliases (for those who know HTML)
+typedef AAside = ArcaneSideContent; // aka ArcaneAside
+typedef ABlockquote = ArcaneQuote; // aka ArcaneBlockquote
+typedef APre = ArcaneCodeBlock; // aka ArcanePre
+typedef APreStyle = CodeBlockStyle; // aka PreStyle
+typedef AOrderedList = ArcaneNumberedList; // aka ArcaneOrderedList
+typedef AUnorderedList = ArcaneBulletList; // aka ArcaneUnorderedList
 
 // Layout
 typedef AAuthBackLink = ArcaneAuthBackLink;
@@ -218,7 +229,6 @@ typedef AHeadline = ArcaneHeadline;
 typedef ARichText = ArcaneRichText;
 typedef ASubheadline = ArcaneSubheadline;
 typedef AText = ArcaneText;
-typedef ATextSpan = ArcaneTextSpan;
 
 // Dialog
 typedef ADialog = ArcaneDialog;

@@ -139,7 +139,16 @@ enum PaddingPreset {
   horizontalXl,
 
   /// 16px bottom only
-  bottomMd;
+  bottomMd,
+
+  /// 2px vertical, 8px horizontal (badge/tag)
+  badge,
+
+  /// 2px vertical, 6px horizontal (inline code)
+  inlineCode,
+
+  /// 4px vertical, 12px horizontal (chip)
+  chip;
 
   String get css => switch (this) {
         PaddingPreset.none => ArcaneSpacing.none,
@@ -175,6 +184,9 @@ enum PaddingPreset {
         PaddingPreset.mdXl => '${ArcaneSpacing.md} ${ArcaneSpacing.xl}',
         PaddingPreset.horizontalXl => '0 ${ArcaneSpacing.xl}',
         PaddingPreset.bottomMd => '0 0 ${ArcaneSpacing.md} 0',
+        PaddingPreset.badge => '2px 8px',
+        PaddingPreset.inlineCode => '2px 6px',
+        PaddingPreset.chip => '4px 12px',
       };
 }
 
