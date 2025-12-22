@@ -2,6 +2,7 @@
 title: ArcaneCloseButton
 description: Close/dismiss button for dialogs and panels
 layout: docs
+component: close-button
 ---
 
 # ArcaneCloseButton

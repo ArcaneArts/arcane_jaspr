@@ -2,6 +2,7 @@
 title: ArcaneToggleButton
 description: Button that toggles between on and off states
 layout: docs
+component: toggle-button
 ---
 
 # ArcaneToggleButton

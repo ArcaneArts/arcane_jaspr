@@ -2,6 +2,7 @@
 title: ArcaneSlider
 description: Range slider for numeric value selection
 layout: docs
+component: slider
 ---
 
 # ArcaneSlider

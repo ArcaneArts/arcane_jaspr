@@ -2,6 +2,7 @@
 title: ArcaneToggleButtonGroup
 description: Group of toggle buttons for single or multiple selection
 layout: docs
+component: toggle-button-group
 ---
 
 # ArcaneToggleButtonGroup

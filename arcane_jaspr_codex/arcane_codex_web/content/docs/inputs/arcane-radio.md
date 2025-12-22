@@ -2,6 +2,7 @@
 title: ArcaneRadio
 description: Radio button for single selection from options
 layout: docs
+component: radio
 ---
 
 # ArcaneRadio

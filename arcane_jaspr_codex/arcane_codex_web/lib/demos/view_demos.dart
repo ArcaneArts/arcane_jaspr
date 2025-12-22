@@ -259,4 +259,97 @@ class ViewDemos {
           ],
         ),
       ];
+
+  static List<Component> svg() => [
+        ArcaneColumn(
+          gapSize: Gap.lg,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Basic SVG usage
+            ArcaneRow(
+              gapSize: Gap.lg,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ArcaneColumn(
+                  gapSize: Gap.xs,
+                  children: [
+                    ArcaneSvg(
+                      viewBox: '0 0 24 24',
+                      size: SvgSize.xl,
+                      children: [
+                        ArcaneSvgCircle(cx: '12', cy: '12', r: '10'),
+                      ],
+                    ),
+                    ArcaneText('Circle', size: FontSize.xs, color: TextColor.muted),
+                  ],
+                ),
+                ArcaneColumn(
+                  gapSize: Gap.xs,
+                  children: [
+                    ArcaneSvg(
+                      viewBox: '0 0 24 24',
+                      size: SvgSize.xl,
+                      children: [
+                        ArcaneSvgRect(x: '2', y: '2', width: '20', height: '20', rx: '4'),
+                      ],
+                    ),
+                    ArcaneText('Square', size: FontSize.xs, color: TextColor.muted),
+                  ],
+                ),
+                ArcaneColumn(
+                  gapSize: Gap.xs,
+                  children: [
+                    ArcaneSvg(
+                      viewBox: '0 0 24 24',
+                      size: SvgSize.xl,
+                      children: [
+                        ArcaneSvgPolygon(points: '12,2 22,22 2,22'),
+                      ],
+                    ),
+                    ArcaneText('Triangle', size: FontSize.xs, color: TextColor.muted),
+                  ],
+                ),
+              ],
+            ),
+            // Colored SVGs
+            ArcaneRow(
+              gapSize: Gap.md,
+              children: [
+                ArcaneSvg(
+                  viewBox: '0 0 24 24',
+                  size: SvgSize.lg,
+                  fill: 'var(--arcane-success)',
+                  children: [
+                    ArcaneSvgCircle(cx: '12', cy: '12', r: '10'),
+                  ],
+                ),
+                ArcaneSvg(
+                  viewBox: '0 0 24 24',
+                  size: SvgSize.lg,
+                  fill: 'var(--arcane-warning)',
+                  children: [
+                    ArcaneSvgCircle(cx: '12', cy: '12', r: '10'),
+                  ],
+                ),
+                ArcaneSvg(
+                  viewBox: '0 0 24 24',
+                  size: SvgSize.lg,
+                  fill: 'var(--arcane-error)',
+                  children: [
+                    ArcaneSvgCircle(cx: '12', cy: '12', r: '10'),
+                  ],
+                ),
+                ArcaneSvg(
+                  viewBox: '0 0 24 24',
+                  size: SvgSize.lg,
+                  fill: 'var(--arcane-accent)',
+                  children: [
+                    ArcaneSvgCircle(cx: '12', cy: '12', r: '10'),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ];
 }

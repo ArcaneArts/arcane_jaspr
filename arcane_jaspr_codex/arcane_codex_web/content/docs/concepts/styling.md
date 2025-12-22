@@ -2,6 +2,7 @@
 title: Styling
 description: Learn how to style components using ArcaneStyleData
 layout: docs
+component: styling
 ---
 
 # Styling

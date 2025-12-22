@@ -2,6 +2,7 @@
 title: ArcaneRangeSlider
 description: Dual-handle slider for selecting a range
 layout: docs
+component: range-slider
 ---
 
 # ArcaneRangeSlider

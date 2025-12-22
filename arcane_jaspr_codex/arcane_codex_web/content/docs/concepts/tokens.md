@@ -2,6 +2,7 @@
 title: Design Tokens
 description: Reference for all Arcane UI design tokens
 layout: docs
+component: tokens
 ---
 
 # Design Tokens

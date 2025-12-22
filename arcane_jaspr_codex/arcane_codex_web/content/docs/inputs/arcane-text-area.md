@@ -2,6 +2,7 @@
 title: ArcaneTextArea
 description: Multi-line text input for longer content
 layout: docs
+component: text-area
 ---
 
 # ArcaneTextArea

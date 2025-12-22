@@ -2,6 +2,7 @@
 title: ArcaneFAB
 description: Floating action button for primary actions
 layout: docs
+component: fab
 ---
 
 # ArcaneFAB

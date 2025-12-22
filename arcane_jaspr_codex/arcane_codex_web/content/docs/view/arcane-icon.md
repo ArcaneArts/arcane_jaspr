@@ -2,6 +2,7 @@
 title: ArcaneIcon
 description: SVG icon component with built-in common icons
 layout: docs
+component: icon
 ---
 
 # ArcaneIcon

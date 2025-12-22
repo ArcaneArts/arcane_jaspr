@@ -2,6 +2,7 @@
 title: ArcaneSearchBar
 description: Complete search bar with icon and dropdown results
 layout: docs
+component: search-bar
 ---
 
 # ArcaneSearchBar

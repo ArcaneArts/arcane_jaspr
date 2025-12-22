@@ -2,6 +2,7 @@
 title: ArcaneCycleButton
 description: Button that cycles through a list of options
 layout: docs
+component: cycle-button
 ---
 
 # ArcaneCycleButton

@@ -2,6 +2,7 @@
 title: ArcaneSelect
 description: Dropdown select component for choosing from options
 layout: docs
+component: select
 ---
 
 # ArcaneSelect

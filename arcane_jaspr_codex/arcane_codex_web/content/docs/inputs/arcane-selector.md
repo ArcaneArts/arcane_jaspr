@@ -2,6 +2,7 @@
 title: ArcaneSelector
 description: Custom styled selector with rich option rendering
 layout: docs
+component: selector
 ---
 
 # ArcaneSelector

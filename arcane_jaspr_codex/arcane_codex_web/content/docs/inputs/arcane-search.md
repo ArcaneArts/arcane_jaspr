@@ -2,6 +2,7 @@
 title: ArcaneSearch
 description: Specialized search input with clear functionality
 layout: docs
+component: search
 ---
 
 # ArcaneSearch

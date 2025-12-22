@@ -2,6 +2,7 @@
 title: Theming
 description: Learn how to configure and customize the Arcane UI theme system
 layout: docs
+component: theming
 ---
 
 # Theming

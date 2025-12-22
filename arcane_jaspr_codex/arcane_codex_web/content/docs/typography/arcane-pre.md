@@ -2,6 +2,7 @@
 title: ArcaneCodeBlock
 description: Code and terminal output display with style presets
 layout: docs
+component: pre
 ---
 
 # ArcaneCodeBlock

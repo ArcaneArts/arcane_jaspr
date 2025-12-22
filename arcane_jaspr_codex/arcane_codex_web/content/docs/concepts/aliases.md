@@ -2,6 +2,7 @@
 title: Component Aliases
 description: Use shorter A* names for all Arcane components
 layout: docs
+component: aliases
 ---
 
 # Component Aliases

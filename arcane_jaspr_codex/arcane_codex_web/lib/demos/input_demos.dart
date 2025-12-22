@@ -230,4 +230,17 @@ class InputDemos {
           ],
         ),
       ];
+
+  static List<Component> searchBar() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(widthCustom: '400px'),
+          children: [
+            ArcaneSearchBar(
+              id: 'demo-search',
+              resultsId: 'demo-results',
+              placeholder: 'Search documentation...',
+            ),
+          ],
+        ),
+      ];
 }

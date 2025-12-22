@@ -10,6 +10,7 @@ import 'form_demos.dart';
 import 'screen_demos.dart';
 import 'auth_demos.dart';
 import 'style_demos.dart';
+import 'concept_demos.dart';
 
 // Interactive demos
 import 'interactive/input_interactive.dart';
@@ -75,6 +76,8 @@ class DemoRegistry {
         return InputDemos.fileUpload();
       case 'color-input':
         return [const ColorInputDemo()];
+      case 'search-bar':
+        return InputDemos.searchBar();
 
       // Layout components
       case 'div':
@@ -197,6 +200,8 @@ class DemoRegistry {
         return ViewDemos.popover();
       case 'icon':
         return ViewDemos.icon();
+      case 'svg':
+        return ViewDemos.svg();
 
       // Navigation components
       case 'header':
@@ -267,6 +272,16 @@ class DemoRegistry {
         return StyleDemos.borders();
       case 'effects':
         return StyleDemos.effects();
+
+      // Concept demos
+      case 'aliases':
+        return ConceptDemos.aliases();
+      case 'styling':
+        return ConceptDemos.styling();
+      case 'theming':
+        return ConceptDemos.theming();
+      case 'tokens':
+        return ConceptDemos.tokens();
 
       default:
         return [
