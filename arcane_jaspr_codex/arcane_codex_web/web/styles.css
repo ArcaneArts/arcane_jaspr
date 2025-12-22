@@ -19,7 +19,17 @@ body {
 }
 
 /* ===== DARK THEME STYLING ===== */
+/* Override CSS variables for guaranteed dark mode readability */
 html.arcane-dark {
+  --arcane-on-surface: #fafafa !important;
+  --arcane-on-surface-variant: #a1a1aa !important;
+  --arcane-on-background: #fafafa !important;
+  --arcane-surface: #0a0a0b !important;
+  --arcane-surface-variant: #18181b !important;
+  --arcane-background: #09090b !important;
+  --arcane-outline: #27272a !important;
+  --arcane-outline-variant: #3f3f46 !important;
+  --arcane-border: #27272a !important;
   background-color: #09090b;
   color: #fafafa;
 }
@@ -29,25 +39,106 @@ html.arcane-dark body {
   color: #fafafa;
 }
 
-/* Force all text to be readable in dark mode */
+/* ===== PAGE TITLE AND DESCRIPTION ===== */
+.docs-page-title,
+.docs-page-title span {
+  color: inherit;
+}
+
+.docs-page-description,
+.docs-page-description span {
+  color: inherit;
+  opacity: 0.8;
+}
+
+html.arcane-dark .docs-page-title,
+html.arcane-dark .docs-page-title span {
+  color: #fafafa !important;
+}
+
+html.arcane-dark .docs-page-description,
+html.arcane-dark .docs-page-description span {
+  color: #a1a1aa !important;
+}
+
+html.arcane-light .docs-page-title,
+html.arcane-light .docs-page-title span {
+  color: #18181b !important;
+}
+
+html.arcane-light .docs-page-description,
+html.arcane-light .docs-page-description span {
+  color: #52525b !important;
+}
+
+/* ===== LIVE DEMO SECTION ===== */
+.docs-live-demo {
+  border-radius: 12px;
+}
+
+.docs-demo-label {
+  color: inherit;
+}
+
+html.arcane-dark .docs-live-demo {
+  background-color: #18181b !important;
+  border-color: #27272a !important;
+}
+
+html.arcane-dark .docs-demo-label {
+  color: #71717a !important;
+}
+
+html.arcane-light .docs-live-demo {
+  background-color: #f4f4f5 !important;
+  border-color: #e4e4e7 !important;
+}
+
+html.arcane-light .docs-demo-label {
+  color: #71717a !important;
+}
+
+/* ===== MAIN CONTENT BODY - DARK MODE ===== */
+/* Force readable text for the main documentation content area */
+html.arcane-dark #arcane-root {
+  color: #fafafa !important;
+}
+
+html.arcane-dark .prose,
+html.arcane-dark .prose * {
+  color: #e4e4e7 !important;
+}
+
+/* Headings in dark mode */
 html.arcane-dark h1,
 html.arcane-dark h2,
 html.arcane-dark h3,
 html.arcane-dark h4,
 html.arcane-dark h5,
-html.arcane-dark h6 {
+html.arcane-dark h6,
+html.arcane-dark .prose h1,
+html.arcane-dark .prose h2,
+html.arcane-dark .prose h3,
+html.arcane-dark .prose h4,
+html.arcane-dark .prose h5,
+html.arcane-dark .prose h6 {
   color: #fafafa !important;
 }
 
+/* Body text in dark mode */
 html.arcane-dark p,
 html.arcane-dark li,
 html.arcane-dark td,
 html.arcane-dark label,
-html.arcane-dark span,
+html.arcane-dark span:not([style*="color"]),
+html.arcane-dark div:not([style*="color"]),
 html.arcane-dark .prose p,
 html.arcane-dark .prose li,
 html.arcane-dark .prose span,
 html.arcane-dark .prose td,
+html.arcane-dark .prose strong,
+html.arcane-dark .prose em,
+html.arcane-dark .prose blockquote,
 html.arcane-dark .content,
 html.arcane-dark .content p,
 html.arcane-dark .content span,
@@ -56,9 +147,29 @@ html.arcane-dark section {
   color: #e4e4e7 !important;
 }
 
+/* Bold text in dark mode */
+html.arcane-dark strong,
+html.arcane-dark b,
+html.arcane-dark .prose strong,
+html.arcane-dark .prose b {
+  color: #fafafa !important;
+}
+
 /* Ensure arcane-text spans are readable */
 html.arcane-dark .arcane-text {
   color: #e4e4e7 !important;
+}
+
+/* Page title and description (from layout) */
+html.arcane-dark [style*="font-size: 1.875rem"],
+html.arcane-dark [style*="font-size: var(--arcane-font-size-xl3)"] {
+  color: #fafafa !important;
+}
+
+/* Description text (muted in layout) */
+html.arcane-dark [style*="--arcane-on-surface-variant"],
+html.arcane-dark [style*="text-muted"] {
+  color: #a1a1aa !important;
 }
 
 /* Make sure table content is visible */
@@ -68,12 +179,22 @@ html.arcane-dark tr {
   color: #e4e4e7 !important;
 }
 
+/* Links in dark mode */
 html.arcane-dark a {
   color: #10b981;
 }
 
 html.arcane-dark a:hover {
   color: #34d399;
+}
+
+/* Prose links */
+html.arcane-dark .prose a {
+  color: #10b981 !important;
+}
+
+html.arcane-dark .prose a:hover {
+  color: #34d399 !important;
 }
 
 /* Sidebar text in dark mode */
@@ -127,8 +248,46 @@ html.arcane-dark :not(pre) > code {
   color: #10b981 !important;
 }
 
+/* Blockquotes in dark mode */
+html.arcane-dark blockquote,
+html.arcane-dark .prose blockquote {
+  border-left-color: #10b981 !important;
+  color: #a1a1aa !important;
+}
+
+/* List markers in dark mode */
+html.arcane-dark li::marker {
+  color: #71717a !important;
+}
+
+/* HR in dark mode */
+html.arcane-dark hr,
+html.arcane-dark .prose hr {
+  border-color: #27272a !important;
+}
+
+/* Table of Contents in dark mode */
+html.arcane-dark .toc-content,
+html.arcane-dark .toc-content * {
+  color: #a1a1aa !important;
+}
+
+html.arcane-dark .toc-content a:hover {
+  color: #fafafa !important;
+}
+
 /* ===== LIGHT THEME STYLING ===== */
+/* Override CSS variables for guaranteed light mode readability */
 html.arcane-light {
+  --arcane-on-surface: #18181b !important;
+  --arcane-on-surface-variant: #52525b !important;
+  --arcane-on-background: #18181b !important;
+  --arcane-surface: #ffffff !important;
+  --arcane-surface-variant: #f4f4f5 !important;
+  --arcane-background: #fafafa !important;
+  --arcane-outline: #e4e4e7 !important;
+  --arcane-outline-variant: #d4d4d8 !important;
+  --arcane-border: #e4e4e7 !important;
   background-color: #fafafa;
   color: #18181b;
 }
@@ -138,24 +297,55 @@ html.arcane-light body {
   color: #18181b;
 }
 
+/* Light mode main content */
+html.arcane-light #arcane-root {
+  color: #18181b !important;
+}
+
+html.arcane-light .prose,
+html.arcane-light .prose * {
+  color: #3f3f46 !important;
+}
+
 html.arcane-light h1,
 html.arcane-light h2,
 html.arcane-light h3,
 html.arcane-light h4,
 html.arcane-light h5,
-html.arcane-light h6 {
+html.arcane-light h6,
+html.arcane-light .prose h1,
+html.arcane-light .prose h2,
+html.arcane-light .prose h3,
+html.arcane-light .prose h4,
+html.arcane-light .prose h5,
+html.arcane-light .prose h6 {
   color: #18181b !important;
 }
 
 html.arcane-light p,
 html.arcane-light li,
 html.arcane-light td,
-html.arcane-light label {
+html.arcane-light label,
+html.arcane-light .prose p,
+html.arcane-light .prose li,
+html.arcane-light .prose span,
+html.arcane-light .prose td {
   color: #3f3f46 !important;
+}
+
+html.arcane-light strong,
+html.arcane-light b,
+html.arcane-light .prose strong,
+html.arcane-light .prose b {
+  color: #18181b !important;
 }
 
 html.arcane-light a {
   color: #059669;
+}
+
+html.arcane-light .prose a {
+  color: #059669 !important;
 }
 
 html.arcane-light nav a,
@@ -171,10 +361,20 @@ html.arcane-light aside a:hover {
 html.arcane-light th {
   background-color: #f4f4f5 !important;
   color: #18181b !important;
+  border-color: #e4e4e7 !important;
 }
 
 html.arcane-light td {
   color: #3f3f46 !important;
+  border-color: #e4e4e7 !important;
+}
+
+html.arcane-light table {
+  border-color: #e4e4e7 !important;
+}
+
+html.arcane-light .prose h2 {
+  border-bottom-color: #e4e4e7 !important;
 }
 
 html.arcane-light pre,
@@ -186,6 +386,21 @@ html.arcane-light code {
 html.arcane-light :not(pre) > code {
   background-color: #e4e4e7 !important;
   color: #059669 !important;
+}
+
+html.arcane-light blockquote,
+html.arcane-light .prose blockquote {
+  border-left-color: #059669 !important;
+  color: #52525b !important;
+}
+
+html.arcane-light .toc-content,
+html.arcane-light .toc-content * {
+  color: #52525b !important;
+}
+
+html.arcane-light .toc-content a:hover {
+  color: #18181b !important;
 }
 
 /* Loading screen - hidden when app loads */
@@ -218,6 +433,11 @@ html.arcane-light :not(pre) > code {
 .prose h2 { font-size: 1.5rem; border-bottom: 1px solid var(--arcane-outline); padding-bottom: 0.5rem; }
 .prose h3 { font-size: 1.25rem; }
 .prose h4 { font-size: 1rem; }
+
+/* Dark mode h2 border */
+html.arcane-dark .prose h2 {
+  border-bottom-color: #27272a !important;
+}
 
 .prose p {
   margin-bottom: 1rem;

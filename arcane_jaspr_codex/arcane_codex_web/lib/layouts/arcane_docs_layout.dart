@@ -1,5 +1,4 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
-import 'package:jaspr/dom.dart' show RawText;
 import 'package:jaspr_content/jaspr_content.dart';
 
 import '../components/docs_sidebar.dart';
@@ -201,49 +200,52 @@ class _ThemedDocsPageState extends State<_ThemedDocsPage> {
   }
 
   Component _buildTitle() {
-    return ArcaneDiv(
-      styles: const ArcaneStyleData(
-        margin: MarginPreset.bottomLg,
-        fontSize: FontSize.xl3,
-        fontWeight: FontWeight.bold,
-        textColor: TextColor.primary,
-      ),
-      children: [ArcaneText(component.title!)],
+    return div(
+      classes: 'docs-page-title',
+      styles: const Styles(raw: {
+        'margin-bottom': 'var(--arcane-spacing-lg)',
+        'font-size': '1.875rem',
+        'font-weight': '700',
+        'line-height': '1.2',
+      }),
+      [span([Component.text(component.title!)])],
     );
   }
 
   Component _buildDescription() {
-    return ArcaneDiv(
-      styles: const ArcaneStyleData(
-        margin: MarginPreset.bottomXl,
-        textColor: TextColor.muted,
-        fontSize: FontSize.lg,
-      ),
-      children: [ArcaneText(component.description!)],
+    return div(
+      classes: 'docs-page-description',
+      styles: const Styles(raw: {
+        'margin-bottom': 'var(--arcane-spacing-xl)',
+        'font-size': '1.125rem',
+        'line-height': '1.6',
+      }),
+      [span([Component.text(component.description!)])],
     );
   }
 
   /// Live demo section
   Component _buildLiveDemo(DemoRegistry demoRegistry, String componentType) {
-    return ArcaneDiv(
-      styles: const ArcaneStyleData(
-        margin: MarginPreset.bottomXl,
-        padding: PaddingPreset.lg,
-        borderRadius: Radius.lg,
-        background: Background.surfaceVariant,
-        border: BorderPreset.subtle,
-      ),
-      children: [
-        ArcaneDiv(
-          styles: const ArcaneStyleData(
-            fontSize: FontSize.sm,
-            fontWeight: FontWeight.w600,
-            textColor: TextColor.muted,
-            margin: MarginPreset.bottomMd,
-            textTransform: TextTransform.uppercase,
-            letterSpacing: LetterSpacing.wide,
-          ),
-          children: [ArcaneText('Live Demo')],
+    return div(
+      classes: 'docs-live-demo',
+      styles: const Styles(raw: {
+        'margin-bottom': 'var(--arcane-spacing-xl)',
+        'padding': 'var(--arcane-spacing-lg)',
+        'border-radius': 'var(--arcane-radius-lg)',
+        'background': 'var(--arcane-surface-variant)',
+        'border': '1px solid var(--arcane-outline-variant)',
+      }),
+      [
+        div(
+          classes: 'docs-demo-label',
+          styles: const Styles(raw: {
+            'font-size': '0.75rem',
+            'font-weight': '600',
+            'margin-bottom': 'var(--arcane-spacing-md)',
+            'text-transform': 'uppercase',
+            'letter-spacing': '0.05em',
+          }),
+          [Component.text('Live Demo')],
         ),
         ArcaneDiv(
           styles: const ArcaneStyleData(
