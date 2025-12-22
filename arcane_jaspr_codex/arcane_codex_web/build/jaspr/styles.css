@@ -20,7 +20,19 @@ body {
 
 /* ===== DEFAULT DARK MODE (before JS adds class) ===== */
 /* These styles apply immediately on static pages */
+/* Set CSS variables so inline styles using var() also work */
 html:not(.arcane-light) {
+  --arcane-on-surface: #fafafa;
+  --arcane-on-surface-variant: #a1a1aa;
+  --arcane-on-background: #fafafa;
+  --arcane-surface: #18181b;
+  --arcane-surface-variant: #27272a;
+  --arcane-background: #09090b;
+  --arcane-muted: #a1a1aa;
+  --arcane-border: #3f3f46;
+  --arcane-border-subtle: #27272a;
+  --arcane-accent: #10b981;
+  --arcane-accent-container: #022c22;
   background-color: #09090b;
   color: #fafafa;
 }
