@@ -1,290 +1,151 @@
-/* Base styles */
-* {
+/* ============================================
+   ARCANE CODEX - COMPLETE THEME SYSTEM
+   ============================================ */
+
+/* Reset */
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* ============================================
+   ROOT CSS VARIABLES - DARK MODE DEFAULT
+   These apply immediately without any class
+   ============================================ */
+:root {
+  /* Colors - Dark Mode (Default) */
+  --arcane-primary: #10b981;
+  --arcane-on-primary: #09090b;
+  --arcane-accent: #10b981;
+  --arcane-accent-hover: #34d399;
+  --arcane-accent-container: #022c22;
+  --arcane-accent-foreground: #09090b;
+
+  --arcane-background: #09090b;
+  --arcane-on-background: #fafafa;
+  --arcane-surface: #18181b;
+  --arcane-on-surface: #fafafa;
+  --arcane-surface-variant: #27272a;
+  --arcane-on-surface-variant: #a1a1aa;
+
+  --arcane-muted: #a1a1aa;
+  --arcane-muted-foreground: #a1a1aa;
+
+  --arcane-card: #18181b;
+  --arcane-card-foreground: #fafafa;
+
+  --arcane-border: #3f3f46;
+  --arcane-border-subtle: #27272a;
+  --arcane-outline: rgba(63, 63, 70, 0.5);
+  --arcane-outline-variant: rgba(63, 63, 70, 0.25);
+
+  --arcane-input: #27272a;
+  --arcane-input-foreground: #fafafa;
+
+  --arcane-destructive: #f87171;
+  --arcane-destructive-foreground: #ffffff;
+  --arcane-success: #34d399;
+  --arcane-success-foreground: #ffffff;
+  --arcane-warning: #fbbf24;
+  --arcane-warning-foreground: #09090b;
+  --arcane-info: #22d3ee;
+  --arcane-info-foreground: #ffffff;
+  --arcane-error: #f87171;
+  --arcane-on-error: #09090b;
+
+  /* Radii */
+  --arcane-radius: 9px;
+  --arcane-radius-sm: 4.5px;
+  --arcane-radius-md: 9px;
+  --arcane-radius-lg: 13.5px;
+  --arcane-radius-xl: 18px;
+  --arcane-radius-full: 9999px;
+
+  /* Shadows */
+  --arcane-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --arcane-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  --arcane-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+
+  /* Transitions */
+  --arcane-transition-fast: 150ms ease;
+  --arcane-transition: 200ms ease;
+  --arcane-transition-slow: 300ms ease;
+
+  /* Typography */
+  --font-sans: "GeistSans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Fira Code", "JetBrains Mono", "SF Mono", Consolas, monospace;
+}
+
+/* ============================================
+   LIGHT MODE OVERRIDES
+   ============================================ */
+html.arcane-light, .arcane-light {
+  --arcane-primary: #059669;
+  --arcane-on-primary: #ffffff;
+  --arcane-accent: #059669;
+  --arcane-accent-hover: #047857;
+  --arcane-accent-container: #d1fae5;
+  --arcane-accent-foreground: #ffffff;
+
+  --arcane-background: #fafafa;
+  --arcane-on-background: #18181b;
+  --arcane-surface: #ffffff;
+  --arcane-on-surface: #18181b;
+  --arcane-surface-variant: #f4f4f5;
+  --arcane-on-surface-variant: #52525b;
+
+  --arcane-muted: #52525b;
+  --arcane-muted-foreground: #71717a;
+
+  --arcane-card: #ffffff;
+  --arcane-card-foreground: #18181b;
+
+  --arcane-border: #e4e4e7;
+  --arcane-border-subtle: #f4f4f5;
+  --arcane-outline: rgba(0, 0, 0, 0.1);
+  --arcane-outline-variant: rgba(0, 0, 0, 0.05);
+
+  --arcane-input: #f4f4f5;
+  --arcane-input-foreground: #18181b;
+
+  --arcane-destructive: #dc2626;
+  --arcane-success: #059669;
+  --arcane-warning: #d97706;
+  --arcane-info: #0891b2;
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
 html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.6;
   scroll-behavior: smooth;
+  background-color: var(--arcane-background);
+  color: var(--arcane-on-background);
 }
 
 body {
   min-height: 100vh;
   background-color: var(--arcane-background);
   color: var(--arcane-on-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ===== DEFAULT DARK MODE (before JS adds class) ===== */
-/* These styles apply immediately on static pages */
-/* Set CSS variables so inline styles using var() also work */
-html:not(.arcane-light) {
-  --arcane-on-surface: #fafafa;
-  --arcane-on-surface-variant: #a1a1aa;
-  --arcane-on-background: #fafafa;
-  --arcane-surface: #18181b;
-  --arcane-surface-variant: #27272a;
-  --arcane-background: #09090b;
-  --arcane-muted: #a1a1aa;
-  --arcane-border: #3f3f46;
-  --arcane-border-subtle: #27272a;
-  --arcane-accent: #10b981;
-  --arcane-accent-container: #022c22;
-  background-color: #09090b;
-  color: #fafafa;
-}
-
-html:not(.arcane-light) body {
-  background-color: #09090b;
-  color: #fafafa;
-}
-
-html:not(.arcane-light) .prose p,
-html:not(.arcane-light) .prose li,
-html:not(.arcane-light) .prose span,
-html:not(.arcane-light) .content p,
-html:not(.arcane-light) .content li,
-html:not(.arcane-light) p,
-html:not(.arcane-light) li,
-html:not(.arcane-light) span,
-html:not(.arcane-light) section {
-  color: #e4e4e7;
-}
-
-html:not(.arcane-light) h1,
-html:not(.arcane-light) h2,
-html:not(.arcane-light) h3,
-html:not(.arcane-light) h4,
-html:not(.arcane-light) h5,
-html:not(.arcane-light) h6 {
-  color: #fafafa;
-}
-
-html:not(.arcane-light) a {
-  color: #10b981;
-}
-
-html:not(.arcane-light) pre,
-html:not(.arcane-light) code {
-  background-color: #1e1e2e;
-  color: #e4e4e7;
-}
-
-html:not(.arcane-light) th {
-  background-color: #27272a;
-  color: #fafafa;
-}
-
-html:not(.arcane-light) td {
-  color: #e4e4e7;
-}
-
-/* ===== DARK THEME STYLING ===== */
-/* Override Arcane CSS variables for proper dark mode contrast */
-html.arcane-dark {
-  --arcane-on-surface: #fafafa;
-  --arcane-on-surface-variant: #a1a1aa;
-  --arcane-on-background: #fafafa;
-  --arcane-surface: #0a0a0b;
-  --arcane-surface-variant: #18181b;
-  --arcane-background: #09090b;
-  --arcane-outline: #27272a;
-  --arcane-outline-variant: #3f3f46;
-  --arcane-border: #27272a;
-  --arcane-text-primary: #fafafa;
-  --arcane-text-secondary: #a1a1aa;
-  --arcane-text-muted: #71717a;
-  background-color: #09090b;
-  color: #fafafa;
-}
-
-html.arcane-dark body {
-  background-color: #09090b;
-  color: #fafafa;
-}
-
-/* Force all text to be readable in dark mode */
-html.arcane-dark h1,
-html.arcane-dark h2,
-html.arcane-dark h3,
-html.arcane-dark h4,
-html.arcane-dark h5,
-html.arcane-dark h6 {
-  color: #fafafa !important;
-}
-
-html.arcane-dark p,
-html.arcane-dark li,
-html.arcane-dark td,
-html.arcane-dark label,
-html.arcane-dark span,
-html.arcane-dark .prose p,
-html.arcane-dark .prose li,
-html.arcane-dark .prose span,
-html.arcane-dark .prose td,
-html.arcane-dark .content,
-html.arcane-dark .content p,
-html.arcane-dark .content span,
-html.arcane-dark .content li,
-html.arcane-dark section {
-  color: #e4e4e7 !important;
-}
-
-/* Ensure arcane-text spans are readable */
-html.arcane-dark .arcane-text {
-  color: #e4e4e7 !important;
-}
-
-/* Make sure table content is visible */
-html.arcane-dark table,
-html.arcane-dark tbody,
-html.arcane-dark tr {
-  color: #e4e4e7 !important;
-}
-
-html.arcane-dark a {
-  color: #10b981;
-}
-
-html.arcane-dark a:hover {
-  color: #34d399;
-}
-
-/* Sidebar text in dark mode */
-html.arcane-dark nav a,
-html.arcane-dark aside a {
-  color: #a1a1aa !important;
-}
-
-html.arcane-dark nav a:hover,
-html.arcane-dark aside a:hover {
-  color: #fafafa !important;
-}
-
-/* Active nav items */
-html.arcane-dark nav a[style*="accent"],
-html.arcane-dark aside a[style*="accent"] {
-  color: #10b981 !important;
-}
-
-/* Section headers in sidebar */
-html.arcane-dark aside div[style*="uppercase"] {
-  color: #fafafa !important;
-}
-
-/* Table styling in dark mode */
-html.arcane-dark th {
-  background-color: #27272a !important;
-  color: #fafafa !important;
-  border-color: #3f3f46 !important;
-}
-
-html.arcane-dark td {
-  background-color: transparent !important;
-  color: #e4e4e7 !important;
-  border-color: #27272a !important;
-}
-
-html.arcane-dark table {
-  border-color: #27272a !important;
-}
-
-/* Code blocks in dark mode */
-html.arcane-dark pre,
-html.arcane-dark code {
-  background-color: #1e1e2e !important;
-  color: #e4e4e7 !important;
-}
-
-html.arcane-dark :not(pre) > code {
-  background-color: #27272a !important;
-  color: #10b981 !important;
-}
-
-/* ===== LIGHT THEME STYLING ===== */
-html.arcane-light {
-  background-color: #fafafa;
-  color: #18181b;
-}
-
-html.arcane-light body {
-  background-color: #fafafa;
-  color: #18181b;
-}
-
-html.arcane-light h1,
-html.arcane-light h2,
-html.arcane-light h3,
-html.arcane-light h4,
-html.arcane-light h5,
-html.arcane-light h6 {
-  color: #18181b !important;
-}
-
-html.arcane-light p,
-html.arcane-light li,
-html.arcane-light td,
-html.arcane-light label {
-  color: #3f3f46 !important;
-}
-
-html.arcane-light a {
-  color: #059669;
-}
-
-html.arcane-light nav a,
-html.arcane-light aside a {
-  color: #52525b !important;
-}
-
-html.arcane-light nav a:hover,
-html.arcane-light aside a:hover {
-  color: #18181b !important;
-}
-
-html.arcane-light th {
-  background-color: #f4f4f5 !important;
-  color: #18181b !important;
-}
-
-html.arcane-light td {
-  color: #3f3f46 !important;
-}
-
-html.arcane-light pre,
-html.arcane-light code {
-  background-color: #f4f4f5 !important;
-  color: #18181b !important;
-}
-
-html.arcane-light :not(pre) > code {
-  background-color: #e4e4e7 !important;
-  color: #059669 !important;
-}
-
-/* Loading screen - hidden when app loads */
-#loading {
-  display: none;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* Prose styles for markdown content */
+/* ============================================
+   PROSE CONTENT STYLES
+   ============================================ */
 .prose {
   max-width: 65ch;
+  color: var(--arcane-on-surface);
 }
 
-.prose h1,
-.prose h2,
-.prose h3,
-.prose h4,
-.prose h5,
-.prose h6 {
+.prose h1, .prose h2, .prose h3,
+.prose h4, .prose h5, .prose h6 {
+  color: var(--arcane-on-surface);
   font-weight: 600;
   line-height: 1.25;
   margin-top: 2rem;
@@ -292,25 +153,37 @@ html.arcane-light :not(pre) > code {
 }
 
 .prose h1 { font-size: 2.25rem; margin-top: 0; }
-.prose h2 { font-size: 1.5rem; border-bottom: 1px solid var(--arcane-outline); padding-bottom: 0.5rem; }
+.prose h2 {
+  font-size: 1.5rem;
+  border-bottom: 1px solid var(--arcane-border);
+  padding-bottom: 0.5rem;
+}
 .prose h3 { font-size: 1.25rem; }
 .prose h4 { font-size: 1rem; }
 
 .prose p {
+  color: var(--arcane-on-surface-variant);
   margin-bottom: 1rem;
 }
 
+.prose li {
+  color: var(--arcane-on-surface-variant);
+  margin-bottom: 0.25rem;
+}
+
 .prose a {
+  color: var(--arcane-accent);
   text-decoration: none;
-  transition: color 0.15s ease;
+  transition: color var(--arcane-transition-fast);
 }
 
 .prose a:hover {
+  color: var(--arcane-accent-hover);
   text-decoration: underline;
-  opacity: 0.8;
 }
 
-.prose strong {
+.prose strong, .prose b {
+  color: var(--arcane-on-surface);
   font-weight: 600;
 }
 
@@ -318,18 +191,13 @@ html.arcane-light :not(pre) > code {
   font-style: italic;
 }
 
-.prose ul,
-.prose ol {
+.prose ul, .prose ol {
   margin-bottom: 1rem;
   padding-left: 1.5rem;
 }
 
-.prose li {
-  margin-bottom: 0.25rem;
-}
-
 .prose li::marker {
-  color: var(--arcane-on-surface-variant);
+  color: var(--arcane-muted);
 }
 
 .prose blockquote {
@@ -337,29 +205,34 @@ html.arcane-light :not(pre) > code {
   padding-left: 1rem;
   margin: 1rem 0;
   font-style: italic;
+  color: var(--arcane-muted);
 }
 
 .prose pre {
-  border: 1px solid var(--arcane-outline);
-  border-radius: 6px;
+  background-color: var(--arcane-surface-variant);
+  border: 1px solid var(--arcane-border);
+  border-radius: var(--arcane-radius-md);
   padding: 1rem;
   overflow-x: auto;
   margin: 1rem 0;
 }
 
 .prose code {
-  font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', Consolas, monospace;
+  font-family: var(--font-mono);
   font-size: 0.875rem;
+  color: var(--arcane-on-surface);
 }
 
 .prose :not(pre) > code {
+  background-color: var(--arcane-surface-variant);
+  color: var(--arcane-accent);
   padding: 0.125rem 0.375rem;
   border-radius: 4px;
 }
 
 .prose hr {
   border: none;
-  border-top: 1px solid var(--arcane-outline);
+  border-top: 1px solid var(--arcane-border);
   margin: 2rem 0;
 }
 
@@ -369,97 +242,53 @@ html.arcane-light :not(pre) > code {
   margin: 1rem 0;
 }
 
-.prose th,
-.prose td {
-  border: 1px solid var(--arcane-outline);
+.prose th, .prose td {
+  border: 1px solid var(--arcane-border);
   padding: 0.75rem;
   text-align: left;
 }
 
 .prose th {
+  background-color: var(--arcane-surface-variant);
+  color: var(--arcane-on-surface);
   font-weight: 600;
+}
+
+.prose td {
+  color: var(--arcane-on-surface-variant);
 }
 
 .prose img {
   max-width: 100%;
   height: auto;
-  border-radius: 6px;
+  border-radius: var(--arcane-radius-md);
 }
 
-/* Heading anchors */
-.prose h1 a,
-.prose h2 a,
-.prose h3 a,
-.prose h4 a,
-.prose h5 a,
-.prose h6 a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.prose h1:hover .anchor-link,
-.prose h2:hover .anchor-link,
-.prose h3:hover .anchor-link {
-  opacity: 1;
-}
-
-.anchor-link {
-  opacity: 0;
-  margin-left: 0.5rem;
+/* ============================================
+   CONTENT SECTION STYLING
+   ============================================ */
+.content, section.content {
   color: var(--arcane-on-surface-variant);
-  transition: opacity 0.15s ease;
 }
 
-/* Selection */
-::selection {
-  background-color: rgba(16, 185, 129, 0.2);
+.content h1, .content h2, .content h3,
+.content h4, .content h5, .content h6,
+section h1, section h2, section h3,
+section h4, section h5, section h6 {
+  color: var(--arcane-on-surface);
 }
 
-/* Code block styling */
-:root {
-  --font-mono: 'Fira Code', 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+.content p, section p {
+  color: var(--arcane-on-surface-variant);
 }
 
-/* Syntax highlighting (basic) */
-.code-block .keyword { color: #c586c0; }
-.code-block .string { color: #ce9178; }
-.code-block .comment { color: #6a9955; font-style: italic; }
-.code-block .number { color: #b5cea8; }
-.code-block .class-name, .code-block .type { color: #4ec9b0; }
-.code-block .function { color: #dcdcaa; }
-.code-block .property { color: #9cdcfe; }
-
-/* Props table styling */
-.props-table {
-  font-size: 14px;
+.content a, section a {
+  color: var(--arcane-accent);
 }
 
-.props-table tr:last-child {
-  border-bottom: none;
-}
-
-.props-table tr:hover {
-  background: rgba(255, 255, 255, 0.02);
-}
-
-/* Demo area patterns */
-.demo-checkered {
-  background: repeating-conic-gradient(#1a1a2e 0% 25%, #0f0f1a 0% 50%) 50% / 20px 20px;
-}
-
-/* Table of contents styling */
-.toc a,
-.toc-content a {
-  text-decoration: none;
-  font-size: 13px;
-  display: block;
-  padding: 6px 10px;
-  margin: 2px 0;
-  border-radius: 6px;
-  transition: all 0.15s ease;
-}
-
-.toc ul,
+/* ============================================
+   TABLE OF CONTENTS
+   ============================================ */
 .toc-content ul {
   list-style: none;
   padding-left: 0;
@@ -468,11 +297,51 @@ html.arcane-light :not(pre) > code {
 
 .toc-content ul ul {
   padding-left: 12px;
-  border-left: 1px solid var(--arcane-outline-variant);
+  border-left: 1px solid var(--arcane-border);
   margin-left: 8px;
 }
 
-/* Code block wrapper and copy button */
+.toc-content a {
+  color: var(--arcane-muted);
+  text-decoration: none;
+  font-size: 13px;
+  display: block;
+  padding: 6px 10px;
+  margin: 2px 0;
+  border-radius: var(--arcane-radius-sm);
+  transition: all var(--arcane-transition-fast);
+}
+
+.toc-content a:hover {
+  color: var(--arcane-on-surface);
+  background: var(--arcane-surface-variant);
+}
+
+/* ============================================
+   HEADING ANCHORS
+   ============================================ */
+.prose h1 a, .prose h2 a, .prose h3 a,
+.prose h4 a, .prose h5 a, .prose h6 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.anchor-link {
+  opacity: 0;
+  margin-left: 0.5rem;
+  color: var(--arcane-muted);
+  transition: opacity var(--arcane-transition-fast);
+}
+
+.prose h1:hover .anchor-link,
+.prose h2:hover .anchor-link,
+.prose h3:hover .anchor-link {
+  opacity: 1;
+}
+
+/* ============================================
+   CODE BLOCKS
+   ============================================ */
 .code-block-wrapper {
   position: relative;
   margin: 1rem 0;
@@ -488,13 +357,13 @@ html.arcane-light :not(pre) > code {
   top: 8px;
   right: 8px;
   padding: 6px 8px;
-  background: var(--arcane-surface-variant);
-  border: 1px solid var(--arcane-outline);
-  border-radius: 6px;
-  color: var(--arcane-on-surface-variant);
+  background: var(--arcane-surface);
+  border: 1px solid var(--arcane-border);
+  border-radius: var(--arcane-radius-sm);
+  color: var(--arcane-muted);
   cursor: pointer;
   opacity: 0;
-  transition: all 0.2s ease;
+  transition: all var(--arcane-transition-fast);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -505,14 +374,14 @@ html.arcane-light :not(pre) > code {
 }
 
 .copy-code-btn:hover {
-  background: var(--arcane-surface);
+  background: var(--arcane-surface-variant);
   color: var(--arcane-accent);
   border-color: var(--arcane-accent);
 }
 
 .copy-code-btn.copied {
-  color: #10b981;
-  border-color: #10b981;
+  color: var(--arcane-success);
+  border-color: var(--arcane-success);
 }
 
 .copy-code-btn svg {
@@ -520,45 +389,43 @@ html.arcane-light :not(pre) > code {
   height: 16px;
 }
 
-/* Component demo transitions */
-.component-demo {
-  transition: border-color 0.2s ease;
+/* ============================================
+   SELECTION
+   ============================================ */
+::selection {
+  background-color: rgba(16, 185, 129, 0.2);
 }
 
-.component-demo:hover {
-  border-color: var(--arcane-outline);
-}
-
-/* Sidebar nav item hover effects */
-aside a:hover {
-  background: var(--arcane-surface-variant) !important;
-}
-
-/* Button hover states for demo */
+/* ============================================
+   FOCUS STATES
+   ============================================ */
 button:focus-visible {
   outline: 2px solid var(--arcane-accent);
   outline-offset: 2px;
 }
 
-/* Search input styles */
+/* ============================================
+   SEARCH
+   ============================================ */
 #docs-search:focus {
   border-color: var(--arcane-accent);
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
 }
 
 #docs-search::placeholder {
-  color: var(--arcane-on-surface-variant);
+  color: var(--arcane-muted);
   opacity: 0.7;
 }
 
-/* Search results styling */
 #search-results a:last-child {
   border-bottom: none;
 }
 
-/* Theme toggle button hover */
+/* ============================================
+   THEME TOGGLE
+   ============================================ */
 #theme-toggle:hover {
-  background: var(--arcane-surface);
+  background: var(--arcane-surface-variant);
   transform: scale(1.05);
 }
 
@@ -566,37 +433,33 @@ button:focus-visible {
   transform: scale(0.95);
 }
 
-/* Keyboard shortcut hint */
-#docs-search + .search-shortcut {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 11px;
-  color: var(--arcane-on-surface-variant);
-  background: var(--arcane-surface-variant);
-  padding: 2px 6px;
-  border-radius: 4px;
-  pointer-events: none;
+/* ============================================
+   SIDEBAR HOVER
+   ============================================ */
+aside a:hover {
+  background: var(--arcane-surface-variant) !important;
 }
 
-/* Responsive adjustments */
+/* ============================================
+   RESPONSIVE
+   ============================================ */
 @media (max-width: 768px) {
   .prose {
     font-size: 15px;
   }
 
-  .props-table {
-    font-size: 13px;
-  }
-
-  .props-table th,
-  .props-table td {
-    padding: 8px 12px;
-  }
-
-  /* Hide search on mobile - would need mobile menu */
   #docs-search {
     display: none;
   }
+}
+
+/* ============================================
+   LOADING
+   ============================================ */
+#loading {
+  display: none;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }

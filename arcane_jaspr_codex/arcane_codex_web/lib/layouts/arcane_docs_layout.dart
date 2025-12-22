@@ -36,12 +36,13 @@ class ArcaneDocsLayout extends PageLayoutBase {
     );
 
     // Inject theme CSS variables FIRST
+    // Use :root for dark theme (default) so variables work immediately without a class
     yield Component.element(
       tag: 'style',
       attributes: {'id': 'arcane-theme-vars'},
       children: [
         RawText('''
-html.arcane-dark, .arcane-dark {
+:root, html.arcane-dark, .arcane-dark {
 ${_generateThemeCss(darkTheme)}
 }
 
