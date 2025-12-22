@@ -14,105 +14,9 @@
    These apply immediately without any class
    ============================================ */
 :root {
-  /* Colors - Dark Mode (Default) */
-  --arcane-primary: #10b981;
-  --arcane-on-primary: #09090b;
-  --arcane-accent: #10b981;
-  --arcane-accent-hover: #34d399;
-  --arcane-accent-container: #022c22;
-  --arcane-accent-foreground: #09090b;
-
-  --arcane-background: #09090b;
-  --arcane-on-background: #fafafa;
-  --arcane-surface: #18181b;
-  --arcane-on-surface: #fafafa;
-  --arcane-surface-variant: #27272a;
-  --arcane-on-surface-variant: #a1a1aa;
-
-  --arcane-muted: #a1a1aa;
-  --arcane-muted-foreground: #a1a1aa;
-
-  --arcane-card: #18181b;
-  --arcane-card-foreground: #fafafa;
-
-  --arcane-border: #3f3f46;
-  --arcane-border-subtle: #27272a;
-  --arcane-outline: rgba(63, 63, 70, 0.5);
-  --arcane-outline-variant: rgba(63, 63, 70, 0.25);
-
-  --arcane-input: #27272a;
-  --arcane-input-foreground: #fafafa;
-
-  --arcane-destructive: #f87171;
-  --arcane-destructive-foreground: #ffffff;
-  --arcane-success: #34d399;
-  --arcane-success-foreground: #ffffff;
-  --arcane-warning: #fbbf24;
-  --arcane-warning-foreground: #09090b;
-  --arcane-info: #22d3ee;
-  --arcane-info-foreground: #ffffff;
-  --arcane-error: #f87171;
-  --arcane-on-error: #09090b;
-
-  /* Radii */
-  --arcane-radius: 9px;
-  --arcane-radius-sm: 4.5px;
-  --arcane-radius-md: 9px;
-  --arcane-radius-lg: 13.5px;
-  --arcane-radius-xl: 18px;
-  --arcane-radius-full: 9999px;
-
-  /* Shadows */
-  --arcane-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --arcane-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-  --arcane-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
-
-  /* Transitions */
-  --arcane-transition-fast: 150ms ease;
-  --arcane-transition: 200ms ease;
-  --arcane-transition-slow: 300ms ease;
-
   /* Typography */
   --font-sans: "GeistSans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: "Fira Code", "JetBrains Mono", "SF Mono", Consolas, monospace;
-}
-
-/* ============================================
-   LIGHT MODE OVERRIDES
-   ============================================ */
-html.arcane-light, .arcane-light {
-  --arcane-primary: #059669;
-  --arcane-on-primary: #ffffff;
-  --arcane-accent: #059669;
-  --arcane-accent-hover: #047857;
-  --arcane-accent-container: #d1fae5;
-  --arcane-accent-foreground: #ffffff;
-
-  --arcane-background: #fafafa;
-  --arcane-on-background: #18181b;
-  --arcane-surface: #ffffff;
-  --arcane-on-surface: #18181b;
-  --arcane-surface-variant: #f4f4f5;
-  --arcane-on-surface-variant: #52525b;
-
-  --arcane-muted: #52525b;
-  --arcane-muted-foreground: #71717a;
-
-  --arcane-card: #ffffff;
-  --arcane-card-foreground: #18181b;
-
-  --arcane-border: #e4e4e7;
-  --arcane-border-subtle: #f4f4f5;
-  --arcane-outline: rgba(0, 0, 0, 0.1);
-  --arcane-outline-variant: rgba(0, 0, 0, 0.05);
-
-  --arcane-input: #f4f4f5;
-  --arcane-input-foreground: #18181b;
-
-  --arcane-destructive: #dc2626;
-  --arcane-success: #059669;
-  --arcane-warning: #d97706;
-  --arcane-info: #0891b2;
 }
 
 /* ============================================
@@ -393,7 +297,7 @@ section h4, section h5, section h6 {
    SELECTION
    ============================================ */
 ::selection {
-  background-color: rgba(16, 185, 129, 0.2);
+  background-color: rgba(var(--arcane-accent-rgb), 0.2);
 }
 
 /* ============================================
@@ -409,7 +313,7 @@ button:focus-visible {
    ============================================ */
 #docs-search:focus {
   border-color: var(--arcane-accent);
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+  box-shadow: 0 0 0 3px rgba(var(--arcane-accent-rgb), 0.15);
 }
 
 #docs-search::placeholder {

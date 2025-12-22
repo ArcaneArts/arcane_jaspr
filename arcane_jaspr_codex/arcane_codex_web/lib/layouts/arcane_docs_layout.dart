@@ -1,7 +1,6 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 import 'package:jaspr/dom.dart' show RawText;
 import 'package:jaspr_content/jaspr_content.dart';
-import 'package:web/web.dart' as web;
 
 import '../components/docs_sidebar.dart';
 import '../components/docs_header.dart';
@@ -108,26 +107,15 @@ class _ThemedDocsPageState extends State<_ThemedDocsPage> {
   @override
   void initState() {
     super.initState();
-    try {
-      final storedTheme = web.window.localStorage.getItem('arcane-theme');
-      if (storedTheme == 'light') {
-        _isDark = false;
-      }
-    } catch (_) {
-      // Ignore when localStorage is unavailable (SSR or restricted contexts).
-    }
+    // Theme is read from localStorage via JavaScript on client side
+    // The initial _isDark value stays true (dark mode default)
+    // JavaScript in the page handles initial theme application
   }
 
   void _toggleTheme() {
-    final nextIsDark = !_isDark;
-    setState(() => _isDark = nextIsDark);
-    try {
-      final themeName = nextIsDark ? 'dark' : 'light';
-      web.window.localStorage.setItem('arcane-theme', themeName);
-      web.document.documentElement?.className = 'arcane-$themeName';
-    } catch (_) {
-      // Ignore when document or localStorage is unavailable.
-    }
+    setState(() => _isDark = !_isDark);
+    // The actual DOM update happens via JavaScript called from the button onClick
+    // This state update is just for re-rendering components with the new theme
   }
 
   @override

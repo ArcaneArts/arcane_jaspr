@@ -68,6 +68,8 @@
         --arcane-surface-opacity: 0.9;
         --arcane-surface-blur: 16.0px;
         --arcane-barrier-color: rgba(0, 0, 0, 0.50);
+        --arcane-overlay: rgba(0, 0, 0, 0.50);
+        --arcane-overlay-strong: rgba(0, 0, 0, 0.70);
         --arcane-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
         --arcane-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
         --arcane-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
@@ -75,19 +77,46 @@
         --arcane-transition-fast: 150ms ease;
         --arcane-transition: 200ms ease;
         --arcane-transition-slow: 300ms ease;
-        --arcane-background-secondary: #0a0a0c;
-        --arcane-background-tertiary: #0f0f11;
-        --arcane-card-hover: rgba(255, 255, 255, 0.05);
-        --arcane-card-alt: #18181b;
+        --arcane-background-secondary: rgba(16, 16, 19, 1.00);
+        --arcane-background-tertiary: rgba(23, 23, 28, 1.00);
+        --arcane-card-hover: rgba(250, 250, 250, 0.05);
+        --arcane-card-alt: rgba(39, 39, 42, 1.00);
         --arcane-navbar: rgba(9, 9, 11, 0.8);
-        --arcane-text-subtle: #71717a;
-        --arcane-text-faint: #52525b;
-        --arcane-tooltip: #27272a;
-        --arcane-tooltip-foreground: #fafafa;
-        --arcane-code-background: #18181b;
+        --arcane-text-subtle: rgba(161, 161, 170, 0.85);
+        --arcane-text-faint: rgba(161, 161, 170, 0.65);
+        --arcane-tooltip: rgba(39, 39, 42, 1.00);
+        --arcane-tooltip-foreground: rgba(250, 250, 250, 1.00);
+        --arcane-code-background: rgba(39, 39, 42, 1.00);
         --arcane-success-hover: rgba(110, 231, 183, 1.00);
-        --arcane-success-container: rgba(16, 185, 129, 0.1);
+        --arcane-success-container: rgba(52, 211, 153, 0.1);
         --arcane-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+        --arcane-accent-glow: rgba(16, 185, 129, 0.10);
+        --arcane-secondary-glow: rgba(113, 113, 122, 0.10);
+        --arcane-grid-color: rgba(16, 185, 129, 0.03);
+        --arcane-primary-rgb: 16, 185, 129;
+        --arcane-secondary-rgb: 161, 161, 170;
+        --arcane-tertiary-rgb: 113, 113, 122;
+        --arcane-error-rgb: 248, 113, 113;
+        --arcane-on-error-rgb: 9, 9, 11;
+        --arcane-background-rgb: 9, 9, 11;
+        --arcane-on-background-rgb: 250, 250, 250;
+        --arcane-surface-rgb: 24, 24, 27;
+        --arcane-on-surface-rgb: 250, 250, 250;
+        --arcane-surface-variant-rgb: 39, 39, 42;
+        --arcane-on-surface-variant-rgb: 161, 161, 170;
+        --arcane-outline-rgb: 63, 63, 70;
+        --arcane-outline-variant-rgb: 63, 63, 70;
+        --arcane-border-rgb: 63, 63, 70;
+        --arcane-card-rgb: 24, 24, 27;
+        --arcane-input-rgb: 39, 39, 42;
+        --arcane-accent-rgb: 16, 185, 129;
+        --arcane-accent-hover-rgb: 52, 211, 153;
+        --arcane-accent-container-rgb: 2, 44, 34;
+        --arcane-destructive-rgb: 248, 113, 113;
+        --arcane-success-rgb: 52, 211, 153;
+        --arcane-warning-rgb: 251, 191, 36;
+        --arcane-info-rgb: 34, 211, 238;
+        --arcane-muted-rgb: 161, 161, 170;
       }
       
       html.arcane-light, .arcane-light {
@@ -148,6 +177,8 @@
         --arcane-surface-opacity: 0.95;
         --arcane-surface-blur: 16.0px;
         --arcane-barrier-color: rgba(0, 0, 0, 0.50);
+        --arcane-overlay: rgba(0, 0, 0, 0.50);
+        --arcane-overlay-strong: rgba(0, 0, 0, 0.70);
         --arcane-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
         --arcane-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         --arcane-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
@@ -155,19 +186,46 @@
         --arcane-transition-fast: 150ms ease;
         --arcane-transition: 200ms ease;
         --arcane-transition-slow: 300ms ease;
-        --arcane-background-secondary: #f4f4f5;
-        --arcane-background-tertiary: #e4e4e7;
-        --arcane-card-hover: rgba(0, 0, 0, 0.02);
-        --arcane-card-alt: #fafafa;
-        --arcane-navbar: rgba(255, 255, 255, 0.8);
-        --arcane-text-subtle: #a1a1aa;
-        --arcane-text-faint: #d4d4d8;
-        --arcane-tooltip: #18181b;
-        --arcane-tooltip-foreground: #fafafa;
-        --arcane-code-background: #f4f4f5;
+        --arcane-background-secondary: rgba(242, 242, 242, 1.00);
+        --arcane-background-tertiary: rgba(235, 235, 235, 1.00);
+        --arcane-card-hover: rgba(24, 24, 27, 0.02);
+        --arcane-card-alt: rgba(244, 244, 245, 1.00);
+        --arcane-navbar: rgba(250, 250, 250, 0.8);
+        --arcane-text-subtle: rgba(82, 82, 91, 0.85);
+        --arcane-text-faint: rgba(82, 82, 91, 0.65);
+        --arcane-tooltip: rgba(244, 244, 245, 1.00);
+        --arcane-tooltip-foreground: rgba(24, 24, 27, 1.00);
+        --arcane-code-background: rgba(244, 244, 245, 1.00);
         --arcane-success-hover: rgba(4, 120, 87, 1.00);
-        --arcane-success-container: rgba(16, 185, 129, 0.1);
+        --arcane-success-container: rgba(5, 150, 105, 0.1);
         --arcane-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+        --arcane-accent-glow: rgba(5, 150, 105, 0.10);
+        --arcane-secondary-glow: rgba(113, 113, 122, 0.10);
+        --arcane-grid-color: rgba(5, 150, 105, 0.03);
+        --arcane-primary-rgb: 5, 150, 105;
+        --arcane-secondary-rgb: 82, 82, 91;
+        --arcane-tertiary-rgb: 113, 113, 122;
+        --arcane-error-rgb: 220, 38, 38;
+        --arcane-on-error-rgb: 255, 255, 255;
+        --arcane-background-rgb: 250, 250, 250;
+        --arcane-on-background-rgb: 24, 24, 27;
+        --arcane-surface-rgb: 255, 255, 255;
+        --arcane-on-surface-rgb: 24, 24, 27;
+        --arcane-surface-variant-rgb: 244, 244, 245;
+        --arcane-on-surface-variant-rgb: 82, 82, 91;
+        --arcane-outline-rgb: 0, 0, 0;
+        --arcane-outline-variant-rgb: 0, 0, 0;
+        --arcane-border-rgb: 0, 0, 0;
+        --arcane-card-rgb: 255, 255, 255;
+        --arcane-input-rgb: 244, 244, 245;
+        --arcane-accent-rgb: 5, 150, 105;
+        --arcane-accent-hover-rgb: 4, 120, 87;
+        --arcane-accent-container-rgb: 209, 250, 229;
+        --arcane-destructive-rgb: 220, 38, 38;
+        --arcane-success-rgb: 5, 150, 105;
+        --arcane-warning-rgb: 217, 119, 6;
+        --arcane-info-rgb: 8, 145, 178;
+        --arcane-muted-rgb: 82, 82, 91;
       }
       
     </style>
@@ -809,7 +867,7 @@
         display: none;
       }
       .arcane-hero-carousel button:hover {
-        background-color: rgba(0, 0, 0, 0.7);
+        background-color: var(--arcane-overlay-strong);
       }
       .arcane-carousel-prev:hover:not([disabled]), .arcane-carousel-next:hover:not([disabled]) {
         background-color: var(--arcane-surface-variant);
@@ -1430,7 +1488,7 @@
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
                   </div>
                 </div>
-                <div id="search-results" style="position: absolute; top: 100%; left: 0; right: 0; z-index: 1000; margin-top: 4px; background: var(--arcane-surface); border: 1px solid var(--arcane-outline); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); overflow-y: auto; max-height: 300px; display: none"></div>
+                <div id="search-results" style="position: absolute; top: 100%; left: 0; right: 0; z-index: 1000; margin-top: 4px; background: var(--arcane-surface); border: 1px solid var(--arcane-outline); border-radius: 8px; box-shadow: 0 4px 12px rgba(var(--arcane-on-surface-rgb), 0.20); overflow-y: auto; max-height: 300px; display: none"></div>
               </div>
               <a style="text-decoration: none" href="/arcane_jaspr/docs">
                 <button class="arcane-button " style="display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 10px 16px; font-size: 0.875rem; gap: 8px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.5; background-color: transparent; color: var(--arcane-on-surface); border: none; border-radius: var(--arcane-radius-md); cursor: pointer; opacity: 1; transition: var(--arcane-transition-fast); white-space: nowrap; user-select: none; -webkit-user-select: none" type="button">Docs</button>
@@ -1439,7 +1497,7 @@
                 <button class="arcane-button " style="display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 10px 16px; font-size: 0.875rem; gap: 8px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.5; background-color: transparent; color: var(--arcane-on-surface); border: none; border-radius: var(--arcane-radius-md); cursor: pointer; opacity: 1; transition: var(--arcane-transition-fast); white-space: nowrap; user-select: none; -webkit-user-select: none" type="button">Guides</button>
               </a>
               <div id="theme-toggle" style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: var(--arcane-surface); color: var(--arcane-on-background); border: 1px solid var(--arcane-border-subtle); border-radius: var(--arcane-radius-md); transition: all 0.15s ease; cursor: pointer">
-                <div id="sun-icon" style="display: flex; line-height: 1">
+                <div style="display: flex; line-height: 1">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="5"></circle>
                     <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -1451,9 +1509,6 @@
                     <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
                     <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                   </svg>
-                </div>
-                <div id="moon-icon" style="line-height: 1; display: none">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                 </div>
               </div>
             </div>
@@ -2010,32 +2065,6 @@
       </div>
       <script>
               document.addEventListener('DOMContentLoaded', function() {
-                // ===== THEME TOGGLE =====
-                var themeToggle = document.getElementById('theme-toggle');
-                var sunIcon = document.getElementById('sun-icon');
-                var moonIcon = document.getElementById('moon-icon');
-        
-                function updateThemeIcons() {
-                  var isDark = document.documentElement.classList.contains('arcane-dark');
-                  if (sunIcon && moonIcon) {
-                    sunIcon.style.display = isDark ? 'inline' : 'none';
-                    moonIcon.style.display = isDark ? 'none' : 'inline';
-                  }
-                }
-        
-                // Initialize icons based on current theme
-                updateThemeIcons();
-        
-                if (themeToggle) {
-                  themeToggle.addEventListener('click', function() {
-                    var html = document.documentElement;
-                    var isDark = html.classList.contains('arcane-dark');
-                    html.className = isDark ? 'arcane-light' : 'arcane-dark';
-                    localStorage.setItem('arcane-theme', isDark ? 'light' : 'dark');
-                    updateThemeIcons();
-                  });
-                }
-        
                 // ===== SEARCH FUNCTIONALITY =====
                 var searchInput = document.getElementById('docs-search');
                 var searchResults = document.getElementById('search-results');
