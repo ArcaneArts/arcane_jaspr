@@ -24,7 +24,6 @@ class ArcaneDocsLayout extends PageLayoutBase {
     yield* super.buildHead(page);
     yield link(rel: 'icon', type: 'image/x-icon', href: '/favicon.ico');
     yield meta(name: 'viewport', content: 'width=device-width, initial-scale=1');
-    yield link(rel: 'stylesheet', href: '/styles.css');
 
     // Generate CSS variables for both themes
     final darkTheme = ArcaneTheme.supabase(
@@ -36,7 +35,7 @@ class ArcaneDocsLayout extends PageLayoutBase {
       themeMode: ThemeMode.light,
     );
 
-    // Inject both theme CSS variables with class selectors
+    // Inject theme CSS variables FIRST
     yield Component.element(
       tag: 'style',
       attributes: {'id': 'arcane-theme-vars'},
@@ -52,6 +51,9 @@ ${_generateThemeCss(lightTheme)}
 '''),
       ],
     );
+
+    // Load stylesheet AFTER theme variables so our overrides take precedence
+    yield link(rel: 'stylesheet', href: '/styles.css');
 
     // Theme initialization script - runs before page renders to prevent flash
     yield script(content: '''

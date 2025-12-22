@@ -7,7 +7,6 @@ packages/_fe_analyzer_shared/src/parser/parser.md
 packages/analyzer/fix_data.yaml
 packages/analyzer/src/summary/format.fbs
 packages/analyzer/src/wolf/README.md
-packages/arcane_codex_web/screens/.gitkeep
 packages/arcane_jaspr/.DS_Store
 packages/arcane_jaspr/component/.DS_Store
 packages/arcane_jaspr/component/collection/card_carousel.styles.json

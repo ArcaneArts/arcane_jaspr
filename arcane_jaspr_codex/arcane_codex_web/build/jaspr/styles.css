@@ -19,7 +19,20 @@ body {
 }
 
 /* ===== DARK THEME STYLING ===== */
+/* Override Arcane CSS variables for proper dark mode contrast */
 html.arcane-dark {
+  --arcane-on-surface: #fafafa;
+  --arcane-on-surface-variant: #a1a1aa;
+  --arcane-on-background: #fafafa;
+  --arcane-surface: #0a0a0b;
+  --arcane-surface-variant: #18181b;
+  --arcane-background: #09090b;
+  --arcane-outline: #27272a;
+  --arcane-outline-variant: #3f3f46;
+  --arcane-border: #27272a;
+  --arcane-text-primary: #fafafa;
+  --arcane-text-secondary: #a1a1aa;
+  --arcane-text-muted: #71717a;
   background-color: #09090b;
   color: #fafafa;
 }
@@ -43,8 +56,28 @@ html.arcane-dark p,
 html.arcane-dark li,
 html.arcane-dark td,
 html.arcane-dark label,
+html.arcane-dark span,
 html.arcane-dark .prose p,
-html.arcane-dark .prose li {
+html.arcane-dark .prose li,
+html.arcane-dark .prose span,
+html.arcane-dark .prose td,
+html.arcane-dark .content,
+html.arcane-dark .content p,
+html.arcane-dark .content span,
+html.arcane-dark .content li,
+html.arcane-dark section {
+  color: #e4e4e7 !important;
+}
+
+/* Ensure arcane-text spans are readable */
+html.arcane-dark .arcane-text {
+  color: #e4e4e7 !important;
+}
+
+/* Make sure table content is visible */
+html.arcane-dark table,
+html.arcane-dark tbody,
+html.arcane-dark tr {
   color: #e4e4e7 !important;
 }
 
