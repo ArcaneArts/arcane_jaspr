@@ -202,9 +202,9 @@ class ArcaneCircularProgress extends StatelessComponent {
             'background':
                 'conic-gradient(${effectiveStyle.fillColor} 0deg ${value * 360}deg, ${effectiveStyle.trackColor} ${value * 360}deg 360deg)',
             'mask':
-                'radial-gradient(farthest-side, transparent calc(100% - $actualStroke), #fff calc(100% - $actualStroke))',
+                'radial-gradient(farthest-side, transparent calc(100% - $actualStroke), ${ArcaneColors.onSurface} calc(100% - $actualStroke))',
             '-webkit-mask':
-                'radial-gradient(farthest-side, transparent calc(100% - $actualStroke), #fff calc(100% - $actualStroke))',
+                'radial-gradient(farthest-side, transparent calc(100% - $actualStroke), ${ArcaneColors.onSurface} calc(100% - $actualStroke))',
           }),
           [],
         ),

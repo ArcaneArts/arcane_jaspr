@@ -143,8 +143,8 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
             styles: const ArcaneStyleData(
               padding: PaddingPreset.md,
               margin: MarginPreset.bottomMd,
-              backgroundCustom: 'rgba(239, 68, 68, 0.1)',
-              borderCustom: '1px solid rgba(239, 68, 68, 0.3)',
+              backgroundCustom: ArcaneColors.errorAlpha10,
+              borderCustom: '1px solid ${ArcaneColors.errorAlpha30}',
               borderRadius: Radius.md,
               textColor: TextColor.error,
               fontSize: FontSize.sm,

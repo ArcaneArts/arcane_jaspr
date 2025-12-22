@@ -26,6 +26,12 @@ class ArcaneColors {
   /// Text on accent backgrounds
   static const String accentForeground = 'var(--arcane-accent-foreground)';
 
+  /// Accent RGB channels (for alpha variants)
+  static const String accentRgb = 'var(--arcane-accent-rgb)';
+  static const String accentHoverRgb = 'var(--arcane-accent-hover-rgb)';
+  static const String accentContainerRgb = 'var(--arcane-accent-container-rgb)';
+  static const String accentAlpha10 = 'rgba(var(--arcane-accent-rgb), 0.10)';
+
   // ---------------------------------------------------------------------------
   // Semantic Status Colors
   // ---------------------------------------------------------------------------
@@ -35,18 +41,39 @@ class ArcaneColors {
   static const String successForeground = 'var(--arcane-success-foreground)';
   static const String successHover = 'var(--arcane-success-hover)';
   static const String successContainer = 'var(--arcane-success-container)';
+  static const String successRgb = 'var(--arcane-success-rgb)';
+  static const String successAlpha05 = 'rgba(var(--arcane-success-rgb), 0.05)';
+  static const String successAlpha10 = 'rgba(var(--arcane-success-rgb), 0.10)';
+  static const String successAlpha15 = 'rgba(var(--arcane-success-rgb), 0.15)';
+  static const String successAlpha30 = 'rgba(var(--arcane-success-rgb), 0.30)';
 
   /// Warning/caution state
   static const String warning = 'var(--arcane-warning)';
   static const String warningForeground = 'var(--arcane-warning-foreground)';
+  static const String warningRgb = 'var(--arcane-warning-rgb)';
+  static const String warningAlpha05 = 'rgba(var(--arcane-warning-rgb), 0.05)';
+  static const String warningAlpha10 = 'rgba(var(--arcane-warning-rgb), 0.10)';
+  static const String warningAlpha15 = 'rgba(var(--arcane-warning-rgb), 0.15)';
+  static const String warningAlpha30 = 'rgba(var(--arcane-warning-rgb), 0.30)';
 
   /// Error/destructive state
   static const String error = 'var(--arcane-destructive)';
   static const String errorForeground = 'var(--arcane-destructive-foreground)';
+  static const String errorRgb = 'var(--arcane-destructive-rgb)';
+  static const String errorAlpha05 = 'rgba(var(--arcane-destructive-rgb), 0.05)';
+  static const String errorAlpha10 = 'rgba(var(--arcane-destructive-rgb), 0.10)';
+  static const String errorAlpha15 = 'rgba(var(--arcane-destructive-rgb), 0.15)';
+  static const String errorAlpha20 = 'rgba(var(--arcane-destructive-rgb), 0.20)';
+  static const String errorAlpha30 = 'rgba(var(--arcane-destructive-rgb), 0.30)';
 
   /// Informational state
   static const String info = 'var(--arcane-info)';
   static const String infoForeground = 'var(--arcane-info-foreground)';
+  static const String infoRgb = 'var(--arcane-info-rgb)';
+  static const String infoAlpha05 = 'rgba(var(--arcane-info-rgb), 0.05)';
+  static const String infoAlpha10 = 'rgba(var(--arcane-info-rgb), 0.10)';
+  static const String infoAlpha15 = 'rgba(var(--arcane-info-rgb), 0.15)';
+  static const String infoAlpha30 = 'rgba(var(--arcane-info-rgb), 0.30)';
 
   // ---------------------------------------------------------------------------
   // Surface/Background Colors
@@ -54,21 +81,26 @@ class ArcaneColors {
 
   /// Main background
   static const String background = 'var(--arcane-background)';
+  static const String backgroundRgb = 'var(--arcane-background-rgb)';
 
   /// Primary surface
   static const String surface = 'var(--arcane-surface)';
+  static const String surfaceRgb = 'var(--arcane-surface-rgb)';
 
   /// Variant surface (slightly different from primary)
   static const String surfaceVariant = 'var(--arcane-surface-variant)';
+  static const String surfaceVariantRgb = 'var(--arcane-surface-variant-rgb)';
 
   /// Card/elevated surface background
   static const String card = 'var(--arcane-card)';
+  static const String cardRgb = 'var(--arcane-card-rgb)';
 
   /// Card foreground/text
   static const String cardForeground = 'var(--arcane-card-foreground)';
 
   /// Input field background
   static const String input = 'var(--arcane-input)';
+  static const String inputRgb = 'var(--arcane-input-rgb)';
 
   /// Input field foreground
   static const String inputForeground = 'var(--arcane-input-foreground)';
@@ -79,15 +111,20 @@ class ArcaneColors {
 
   /// Text on background
   static const String onBackground = 'var(--arcane-on-background)';
+  static const String onBackgroundRgb = 'var(--arcane-on-background-rgb)';
 
   /// Text on surface
   static const String onSurface = 'var(--arcane-on-surface)';
+  static const String onSurfaceRgb = 'var(--arcane-on-surface-rgb)';
 
   /// Text on surface variant
   static const String onSurfaceVariant = 'var(--arcane-on-surface-variant)';
+  static const String onSurfaceVariantRgb = 'var(--arcane-on-surface-variant-rgb)';
 
   /// Muted/secondary text
   static const String muted = 'var(--arcane-muted)';
+  static const String mutedRgb = 'var(--arcane-muted-rgb)';
+  static const String mutedAlpha15 = 'rgba(var(--arcane-muted-rgb), 0.15)';
 
   /// Muted foreground text
   static const String mutedForeground = 'var(--arcane-muted-foreground)';
@@ -98,6 +135,7 @@ class ArcaneColors {
 
   /// Primary border
   static const String border = 'var(--arcane-border)';
+  static const String borderRgb = 'var(--arcane-border-rgb)';
 
   /// Subtle border
   static const String borderSubtle = 'var(--arcane-border-subtle)';
@@ -123,7 +161,10 @@ class ArcaneColors {
   // ---------------------------------------------------------------------------
 
   /// Background overlay (for modals/dialogs)
-  static const String backgroundOverlay = 'rgba(0, 0, 0, 0.6)';
+  static const String backgroundOverlay = 'var(--arcane-overlay)';
+  static const String overlay = 'var(--arcane-overlay)';
+  static const String overlayStrong = 'var(--arcane-overlay-strong)';
+  static const String scrim = 'var(--arcane-scrim)';
 
   /// Tooltip background
   static const String tooltip = 'var(--arcane-tooltip)';
@@ -158,10 +199,23 @@ class ArcaneColors {
   // ---------------------------------------------------------------------------
 
   /// Medium border (more visible than subtle)
-  static const String borderMedium = 'rgba(255, 255, 255, 0.1)';
+  static const String borderMedium = 'rgba(var(--arcane-on-surface-rgb), 0.10)';
 
   /// Light border (most visible)
-  static const String borderLight = 'rgba(255, 255, 255, 0.15)';
+  static const String borderLight = 'rgba(var(--arcane-on-surface-rgb), 0.15)';
+
+  // ---------------------------------------------------------------------------
+  // Alpha Variants
+  // ---------------------------------------------------------------------------
+
+  static const String onSurfaceAlpha03 = 'rgba(var(--arcane-on-surface-rgb), 0.03)';
+  static const String onSurfaceAlpha05 = 'rgba(var(--arcane-on-surface-rgb), 0.05)';
+  static const String onSurfaceAlpha08 = 'rgba(var(--arcane-on-surface-rgb), 0.08)';
+  static const String onSurfaceAlpha10 = 'rgba(var(--arcane-on-surface-rgb), 0.10)';
+  static const String onSurfaceAlpha20 = 'rgba(var(--arcane-on-surface-rgb), 0.20)';
+  static const String onSurfaceAlpha30 = 'rgba(var(--arcane-on-surface-rgb), 0.30)';
+  static const String onSurfaceAlpha50 = 'rgba(var(--arcane-on-surface-rgb), 0.50)';
+  static const String onSurfaceAlpha70 = 'rgba(var(--arcane-on-surface-rgb), 0.70)';
 
   // ---------------------------------------------------------------------------
   // Extended Text Colors
@@ -235,11 +289,15 @@ class ArcaneColors {
   static const String onPrimary = 'var(--arcane-on-primary)';
   static const String primaryContainer = 'var(--arcane-primary-container)';
   static const String onPrimaryContainer = 'var(--arcane-on-primary-container)';
+  static const String primaryRgb = 'var(--arcane-primary-rgb)';
+  static const String primaryAlpha10 = 'rgba(var(--arcane-primary-rgb), 0.10)';
 
   static const String secondary = 'var(--arcane-secondary)';
   static const String onSecondary = 'var(--arcane-on-secondary)';
   static const String secondaryContainer = 'var(--arcane-secondary-container)';
   static const String onSecondaryContainer = 'var(--arcane-on-secondary-container)';
+  static const String secondaryRgb = 'var(--arcane-secondary-rgb)';
+  static const String secondaryAlpha10 = 'rgba(var(--arcane-secondary-rgb), 0.10)';
 
   static const String tertiary = 'var(--arcane-tertiary)';
   static const String onTertiary = 'var(--arcane-on-tertiary)';
@@ -250,11 +308,15 @@ class ArcaneColors {
   static const String outlineVariant = 'var(--arcane-outline-variant)';
 
   static const String shadow = 'var(--arcane-shadow)';
-  static const String scrim = 'var(--arcane-scrim)';
 
   static const String inverseSurface = 'var(--arcane-inverse-surface)';
   static const String onInverseSurface = 'var(--arcane-on-inverse-surface)';
   static const String surfaceTint = 'var(--arcane-surface-tint)';
+
+  // Auth layout glows/grid
+  static const String accentGlow = 'var(--arcane-accent-glow)';
+  static const String secondaryGlow = 'var(--arcane-secondary-glow)';
+  static const String gridColor = 'var(--arcane-grid-color)';
 }
 
 // =============================================================================
@@ -594,11 +656,11 @@ class ArcaneEffects {
 
   /// Success glow
   static const String glowSuccess =
-      '0 0 20px var(--arcane-success), 0 0 40px rgba(16, 185, 129, 0.1)';
+      '0 0 20px var(--arcane-success), 0 0 40px rgba(var(--arcane-success-rgb), 0.1)';
 
   /// Error glow
   static const String glowError =
-      '0 0 20px var(--arcane-destructive), 0 0 40px rgba(239, 68, 68, 0.1)';
+      '0 0 20px var(--arcane-destructive), 0 0 40px rgba(var(--arcane-destructive-rgb), 0.1)';
 
   // ---------------------------------------------------------------------------
   // Gaming/Neon Glows

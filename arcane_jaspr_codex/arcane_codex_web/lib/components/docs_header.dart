@@ -95,7 +95,7 @@ class DocsHeader extends StatelessComponent {
     );
   }
 
-  /// Theme toggle button that works via JavaScript
+  /// Theme toggle button that uses the layout state for switching themes
   /// Uses ArcaneIconButton with ArcaneIcon for proper component structure
   Component _buildThemeToggle() {
     return ArcaneDiv(
@@ -115,30 +115,18 @@ class DocsHeader extends StatelessComponent {
       ),
       events: {
         'click': (_) {
-          // Handled by JavaScript in static site
+          onThemeToggle?.call();
         },
       },
       children: [
-        // Sun icon (shown in dark mode - click to go light)
         ArcaneDiv(
-          id: 'sun-icon',
           styles: const ArcaneStyleData(
             display: Display.flex,
             lineHeight: LineHeight.none,
           ),
           children: [
-            ArcaneIcon.sun(size: IconSize.lg),
-          ],
-        ),
-        // Moon icon (shown in light mode - click to go dark)
-        ArcaneDiv(
-          id: 'moon-icon',
-          styles: const ArcaneStyleData(
-            raw: {'display': 'none'},
-            lineHeight: LineHeight.none,
-          ),
-          children: [
-            ArcaneIcon.moon(size: IconSize.lg),
+            if (isDark) ArcaneIcon.sun(size: IconSize.lg),
+            if (!isDark) ArcaneIcon.moon(size: IconSize.lg),
           ],
         ),
       ],

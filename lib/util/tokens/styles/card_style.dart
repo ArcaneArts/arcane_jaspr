@@ -55,10 +55,10 @@ class CardStyle {
 
   /// Glass/frosted card
   static const CardStyle glass = CardStyle._({
-    'background-color': 'rgba(255, 255, 255, 0.05)',
+    'background-color': ArcaneColors.onSurfaceAlpha05,
     'border-radius': ArcaneRadius.lg,
     'transition': 'all ${ArcaneEffects.transitionNormal}',
-    'border': '1px solid rgba(255, 255, 255, 0.1)',
+    'border': '1px solid ${ArcaneColors.onSurfaceAlpha10}',
     'backdrop-filter': ArcaneEffects.backdropBlur,
     '-webkit-backdrop-filter': ArcaneEffects.backdropBlur,
   });

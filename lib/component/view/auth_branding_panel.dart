@@ -158,7 +158,7 @@ class AuthBrandingPanel extends StatelessComponent {
     return div(
       styles: const Styles(raw: {
         'padding': ArcaneSpacing.lg,
-        'background': 'rgba(24, 24, 27, 0.5)',
+        'background': 'rgba(${ArcaneColors.surfaceRgb}, 0.5)',
         'border': '1px solid ${ArcaneColors.border}',
         'border-radius': ArcaneRadius.lg,
         'margin-top': 'auto',
@@ -191,13 +191,13 @@ class AuthBrandingPanel extends StatelessComponent {
                   'height': '36px',
                   'border-radius': ArcaneRadius.full,
                   'background':
-                      'linear-gradient(135deg, ${ArcaneColors.accent} 0%, #0891B2 100%)',
+                      'linear-gradient(135deg, ${ArcaneColors.accent} 0%, ${ArcaneColors.info} 100%)',
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'center',
                   'font-size': ArcaneTypography.fontSizeSm,
                   'font-weight': '600',
-                  'color': ArcaneColors.white,
+                  'color': ArcaneColors.accentForeground,
                 }),
                 [Component.text(testimonialAuthor![0].toUpperCase())],
               ),

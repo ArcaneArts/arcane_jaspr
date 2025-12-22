@@ -139,9 +139,9 @@ enum Background {
         Background.muted => ArcaneColors.muted,
         Background.brandPrimary => _qnPrimary,
         Background.brandSecondary => _qnSecondary,
-        Background.glassTint => 'rgba(255, 255, 255, 0.05)',
-        Background.glassHeader => 'rgba(255, 255, 255, 0.03)',
-        Background.glassOverlay => 'rgba(255, 255, 255, 0.08)',
+        Background.glassTint => ArcaneColors.onSurfaceAlpha05,
+        Background.glassHeader => ArcaneColors.onSurfaceAlpha03,
+        Background.glassOverlay => ArcaneColors.onSurfaceAlpha08,
         Background.destructive => ArcaneColors.error,
       };
 }
@@ -292,7 +292,7 @@ enum TextColor {
         TextColor.neonPurple => ArcaneColors.neonPurple,
         TextColor.neonGreen => ArcaneColors.neonGreen,
         TextColor.neonOrange => ArcaneColors.neonOrange,
-        TextColor.star => '#F59E0B',
+        TextColor.star => ArcaneColors.warning,
       };
 }
 

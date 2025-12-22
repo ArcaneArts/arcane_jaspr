@@ -21,28 +21,28 @@ class ToggleStyle {
   static const ToggleStyle primary = ToggleStyle._(
     activeColor: ArcaneColors.accent,
     inactiveColor: ArcaneColors.surfaceVariant,
-    thumbColor: ArcaneColors.white,
+    thumbColor: ArcaneColors.accentForeground,
   );
 
   /// Success toggle (green when active)
   static const ToggleStyle success = ToggleStyle._(
     activeColor: ArcaneColors.success,
     inactiveColor: ArcaneColors.surfaceVariant,
-    thumbColor: ArcaneColors.white,
+    thumbColor: ArcaneColors.successForeground,
   );
 
   /// Warning toggle (amber when active)
   static const ToggleStyle warning = ToggleStyle._(
     activeColor: ArcaneColors.warning,
     inactiveColor: ArcaneColors.surfaceVariant,
-    thumbColor: ArcaneColors.white,
+    thumbColor: ArcaneColors.warningForeground,
   );
 
   /// Destructive toggle (red when active)
   static const ToggleStyle destructive = ToggleStyle._(
     activeColor: ArcaneColors.error,
     inactiveColor: ArcaneColors.surfaceVariant,
-    thumbColor: ArcaneColors.white,
+    thumbColor: ArcaneColors.errorForeground,
   );
 }
 
@@ -67,28 +67,28 @@ class SliderStyle {
   static const SliderStyle primary = SliderStyle._(
     trackColor: ArcaneColors.surfaceVariant,
     activeColor: ArcaneColors.accent,
-    thumbColor: ArcaneColors.white,
+    thumbColor: ArcaneColors.accentForeground,
   );
 
   /// Success slider (green)
   static const SliderStyle success = SliderStyle._(
     trackColor: ArcaneColors.surfaceVariant,
     activeColor: ArcaneColors.success,
-    thumbColor: ArcaneColors.white,
+    thumbColor: ArcaneColors.successForeground,
   );
 
   /// Warning slider (amber)
   static const SliderStyle warning = SliderStyle._(
     trackColor: ArcaneColors.surfaceVariant,
     activeColor: ArcaneColors.warning,
-    thumbColor: ArcaneColors.white,
+    thumbColor: ArcaneColors.warningForeground,
   );
 
   /// Destructive slider (red)
   static const SliderStyle destructive = SliderStyle._(
     trackColor: ArcaneColors.surfaceVariant,
     activeColor: ArcaneColors.error,
-    thumbColor: ArcaneColors.white,
+    thumbColor: ArcaneColors.errorForeground,
   );
 }
 

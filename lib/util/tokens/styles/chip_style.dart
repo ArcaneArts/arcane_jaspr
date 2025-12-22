@@ -37,21 +37,21 @@ class ChipStyle {
 
   /// Success chip
   static const ChipStyle success = ChipStyle._({
-    'background-color': 'rgba(16, 185, 129, 0.15)',
+    'background-color': ArcaneColors.successAlpha15,
     'color': ArcaneColors.success,
     'border': 'none',
   });
 
   /// Warning chip
   static const ChipStyle warning = ChipStyle._({
-    'background-color': 'rgba(245, 158, 11, 0.15)',
+    'background-color': ArcaneColors.warningAlpha15,
     'color': ArcaneColors.warning,
     'border': 'none',
   });
 
   /// Error chip
   static const ChipStyle error = ChipStyle._({
-    'background-color': 'rgba(239, 68, 68, 0.15)',
+    'background-color': ArcaneColors.errorAlpha15,
     'color': ArcaneColors.error,
     'border': 'none',
   });

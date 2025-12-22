@@ -163,11 +163,14 @@ class ArcaneStatusBadge extends StatelessComponent {
 
   (String, String) get _colors {
     return switch (status) {
-      StatusType.online || StatusType.success => (ArcaneColors.success, 'rgba(16, 185, 129, 0.15)'),
-      StatusType.offline => (ArcaneColors.muted, 'rgba(113, 113, 122, 0.15)'),
-      StatusType.busy || StatusType.error => (ArcaneColors.error, 'rgba(239, 68, 68, 0.15)'),
-      StatusType.away || StatusType.warning => (ArcaneColors.warning, 'rgba(245, 158, 11, 0.15)'),
-      StatusType.info => (ArcaneColors.info, 'rgba(59, 130, 246, 0.15)'),
+      StatusType.online || StatusType.success =>
+        (ArcaneColors.success, ArcaneColors.successAlpha15),
+      StatusType.offline => (ArcaneColors.muted, ArcaneColors.mutedAlpha15),
+      StatusType.busy || StatusType.error =>
+        (ArcaneColors.error, ArcaneColors.errorAlpha15),
+      StatusType.away || StatusType.warning =>
+        (ArcaneColors.warning, ArcaneColors.warningAlpha15),
+      StatusType.info => (ArcaneColors.info, ArcaneColors.infoAlpha15),
     };
   }
 

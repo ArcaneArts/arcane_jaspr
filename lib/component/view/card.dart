@@ -345,8 +345,8 @@ class ArcaneImageCard extends StatelessComponent {
               'left': '0',
               'right': '0',
               'padding': ArcaneSpacing.md,
-              'background': 'linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent)',
-              'color': ArcaneColors.white,
+              'background': 'linear-gradient(to top, rgba(${ArcaneColors.backgroundRgb}, 0.7), transparent)',
+              'color': ArcaneColors.onBackground,
             }),
             [
               if (title != null)

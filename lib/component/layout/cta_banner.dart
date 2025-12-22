@@ -49,7 +49,7 @@ class ArcaneCtaBanner extends StatelessComponent {
               'position': 'absolute',
               'inset': '0',
               'background':
-                  'linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 100%)',
+                  'linear-gradient(135deg, ${ArcaneColors.overlayStrong} 0%, ${ArcaneColors.overlay} 100%)',
             }),
             [],
           ),
@@ -67,7 +67,7 @@ class ArcaneCtaBanner extends StatelessComponent {
               styles: const Styles(raw: {
                 'font-size': ArcaneTypography.font3xl,
                 'font-weight': ArcaneTypography.weightBold,
-                'color': '#FFFFFF',
+                'color': ArcaneColors.onSurface,
                 'margin': '0 0 ${ArcaneSpacing.md} 0',
               }),
               [text(title)],
@@ -77,7 +77,7 @@ class ArcaneCtaBanner extends StatelessComponent {
               p(
                 styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontLg,
-                  'color': 'rgba(255, 255, 255, 0.9)',
+                  'color': ArcaneColors.onSurfaceAlpha70,
                   'margin': '0 0 ${ArcaneSpacing.xl} 0',
                   'line-height': ArcaneTypography.lineHeightRelaxed,
                 }),

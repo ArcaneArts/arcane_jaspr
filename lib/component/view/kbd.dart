@@ -115,7 +115,7 @@ class ArcaneKbd extends StatelessComponent {
           'background': 'linear-gradient(180deg, ${ArcaneColors.surfaceVariant} 0%, ${ArcaneColors.surface} 100%)',
           'border': '1px solid ${ArcaneColors.border}',
           'border-radius': ArcaneRadius.sm,
-          'box-shadow': '0 2px 0 ${ArcaneColors.border}, inset 0 1px 0 rgba(255,255,255,0.1)',
+          'box-shadow': '0 2px 0 ${ArcaneColors.border}, inset 0 1px 0 ${ArcaneColors.onSurfaceAlpha10}',
           'color': ArcaneColors.onSurface,
         },
       KbdStyle.flat => {

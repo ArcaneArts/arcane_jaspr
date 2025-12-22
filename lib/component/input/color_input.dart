@@ -141,7 +141,8 @@ class ArcaneColorInput extends StatelessComponent {
                     styles: Styles(raw: {
                       'position': 'absolute',
                       'inset': '0',
-                      'background': 'repeating-conic-gradient(#ccc 0% 25%, #fff 0% 50%) 50% / 8px 8px',
+                    'background':
+                        'repeating-conic-gradient(${ArcaneColors.onSurfaceAlpha20} 0% 25%, ${ArcaneColors.onSurfaceAlpha05} 0% 50%) 50% / 8px 8px',
                     }),
                     [],
                   ),

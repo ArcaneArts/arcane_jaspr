@@ -390,7 +390,7 @@ class ArcaneHeroCarousel extends StatefulComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-hero-carousel button:hover').styles(raw: {
-      'background-color': 'rgba(0, 0, 0, 0.7)',
+      'background-color': ArcaneColors.overlayStrong,
     }),
   ];
 }
@@ -458,7 +458,7 @@ class _HeroCarouselState extends State<ArcaneHeroCarousel> {
               'height': '48px',
               'border-radius': ArcaneRadius.full,
               'border': 'none',
-              'background-color': 'rgba(0, 0, 0, 0.5)',
+              'background-color': ArcaneColors.overlay,
               'color': 'white',
               'cursor': 'pointer',
               'font-size': '1.25rem',
@@ -479,7 +479,7 @@ class _HeroCarouselState extends State<ArcaneHeroCarousel> {
               'height': '48px',
               'border-radius': ArcaneRadius.full,
               'border': 'none',
-              'background-color': 'rgba(0, 0, 0, 0.5)',
+              'background-color': ArcaneColors.overlay,
               'color': 'white',
               'cursor': 'pointer',
               'font-size': '1.25rem',

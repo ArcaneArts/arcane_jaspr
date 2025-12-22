@@ -38,13 +38,13 @@ class ArcaneThemeToggle extends StatelessComponent {
         'height': height,
         'border-radius': ArcaneRadius.full,
         'background': isDark
-            ? 'linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)'
-            : 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
+            ? 'linear-gradient(135deg, ${ArcaneColors.accent} 0%, ${ArcaneColors.info} 100%)'
+            : 'linear-gradient(135deg, ${ArcaneColors.warning} 0%, ${ArcaneColors.accent} 100%)',
         'cursor': 'pointer',
         'transition': ArcaneEffects.transitionNormal,
         'box-shadow': isDark
-            ? 'inset 0 2px 4px rgba(0,0,0,0.3), 0 0 20px rgba(139, 92, 246, 0.2)'
-            : 'inset 0 2px 4px rgba(0,0,0,0.1), 0 0 20px rgba(251, 191, 36, 0.3)',
+            ? 'inset 0 2px 4px ${ArcaneColors.onSurfaceAlpha30}, 0 0 20px ${ArcaneColors.accentAlpha10}'
+            : 'inset 0 2px 4px ${ArcaneColors.onSurfaceAlpha10}, 0 0 20px ${ArcaneColors.warningAlpha30}',
         'overflow': 'hidden',
       }),
       events: onChanged != null
@@ -61,7 +61,7 @@ class ArcaneThemeToggle extends StatelessComponent {
                 'position': 'absolute',
                 'width': '2px',
                 'height': '2px',
-                'background': ArcaneColors.white,
+                'background': ArcaneColors.onBackground,
                 'border-radius': ArcaneRadius.full,
                 'opacity': '0.6',
                 'left': '${10 + i * 8}px',
@@ -77,7 +77,7 @@ class ArcaneThemeToggle extends StatelessComponent {
               'position': 'absolute',
               'width': '16px',
               'height': '8px',
-              'background': ArcaneColors.white,
+              'background': ArcaneColors.surface,
               'border-radius': ArcaneRadius.full,
               'opacity': '0.8',
               'left': '8px',
@@ -90,7 +90,7 @@ class ArcaneThemeToggle extends StatelessComponent {
               'position': 'absolute',
               'width': '12px',
               'height': '6px',
-              'background': ArcaneColors.white,
+              'background': ArcaneColors.surface,
               'border-radius': ArcaneRadius.full,
               'opacity': '0.6',
               'left': '14px',
@@ -109,10 +109,10 @@ class ArcaneThemeToggle extends StatelessComponent {
             'width': thumbSize,
             'height': thumbSize,
             'border-radius': ArcaneRadius.full,
-            'background': isDark ? '#e0e7ff' : '#fbbf24',
+            'background': isDark ? ArcaneColors.onSurface : ArcaneColors.warning,
             'box-shadow': isDark
-                ? '0 0 10px rgba(224, 231, 255, 0.5)'
-                : '0 0 15px rgba(251, 191, 36, 0.6)',
+                ? '0 0 10px ${ArcaneColors.onSurfaceAlpha50}'
+                : '0 0 15px ${ArcaneColors.warningAlpha30}',
             'transition': ArcaneEffects.transitionNormal,
             'display': 'flex',
             'align-items': 'center',
@@ -127,7 +127,7 @@ class ArcaneThemeToggle extends StatelessComponent {
                   'position': 'absolute',
                   'width': '40%',
                   'height': '40%',
-                  'background': '#c7d2fe',
+                  'background': ArcaneColors.onSurfaceAlpha30,
                   'border-radius': ArcaneRadius.full,
                   'top': '20%',
                   'right': '20%',
@@ -168,7 +168,7 @@ class ArcaneThemeToggleSimple extends StatelessComponent {
         'gap': ArcaneSpacing.sm,
         'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
         'border-radius': ArcaneRadius.full,
-        'background': 'rgba(63, 63, 70, 0.3)',
+        'background': ArcaneColors.onSurfaceAlpha30,
         'cursor': 'pointer',
       }),
       events: onChanged != null
@@ -192,7 +192,7 @@ class ArcaneThemeToggleSimple extends StatelessComponent {
             'width': '40px',
             'height': '20px',
             'border-radius': ArcaneRadius.full,
-            'background': isDark ? ArcaneColors.surfaceVariant : '#FDE68A',
+            'background': isDark ? ArcaneColors.surfaceVariant : ArcaneColors.warningAlpha30,
           }),
           [
             div(
@@ -203,7 +203,7 @@ class ArcaneThemeToggleSimple extends StatelessComponent {
                 'width': '16px',
                 'height': '16px',
                 'border-radius': ArcaneRadius.full,
-                'background': ArcaneColors.white,
+                'background': ArcaneColors.onSurface,
                 'transition': ArcaneEffects.transitionFast,
               }),
               [],

@@ -43,12 +43,12 @@ class ArcaneGlass extends StatelessComponent {
     return div(
       classes: 'arcane-glass',
       styles: Styles(raw: {
-        'background-color': 'rgba(24, 24, 27, $opacity)',
+        'background-color': 'rgba(${ArcaneColors.surfaceRgb}, $opacity)',
         'backdrop-filter': 'blur(${blur}px)',
         '-webkit-backdrop-filter': 'blur(${blur}px)',
         'border-radius': effectiveRadius,
         if (padding != null) 'padding': padding!.padding,
-        if (border) 'border': '1px solid rgba(255, 255, 255, 0.1)',
+        if (border) 'border': '1px solid ${ArcaneColors.onSurfaceAlpha10}',
         'box-shadow': ArcaneEffects.shadowMd,
       }),
       [child],
@@ -153,7 +153,7 @@ class ArcaneGradientGlass extends StatelessComponent {
         '-webkit-backdrop-filter': 'blur(${blur}px)',
         'border-radius': effectiveRadius,
         if (padding != null) 'padding': padding!.padding,
-        'border': '1px solid rgba(255, 255, 255, 0.2)',
+        'border': '1px solid ${ArcaneColors.onSurfaceAlpha20}',
       }),
       [child],
     );

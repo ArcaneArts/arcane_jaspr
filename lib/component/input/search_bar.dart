@@ -31,6 +31,7 @@ import 'package:jaspr/dom.dart'
 
 import '../../util/arcane.dart';
 import '../../util/style_types/index.dart';
+import '../../util/tokens/tokens.dart';
 import '../view/icon.dart';
 import '../html/div.dart';
 import '../html/arcane_link.dart';
@@ -233,7 +234,7 @@ class _ArcaneSearchBarState extends State<ArcaneSearchBar> {
               'background': 'var(--arcane-surface)',
               'border': '1px solid var(--arcane-outline)',
               'border-radius': '8px',
-              'box-shadow': '0 4px 12px rgba(0,0,0,0.15)',
+              'box-shadow': '0 4px 12px ${ArcaneColors.onSurfaceAlpha20}',
               'overflow-y': 'auto',
               'max-height': component.dropdownMaxHeight,
               // Hidden by default - shown via JS or state

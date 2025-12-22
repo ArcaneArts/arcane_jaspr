@@ -66,7 +66,7 @@ class PropsTable extends StatelessComponent {
                             borderRadius: Radius.xs,
                             textColor: TextColor.error,
                             raw: {
-                              'background': 'rgba(239, 68, 68, 0.15)',
+                              'background': 'rgba(var(--arcane-destructive-rgb), 0.15)',
                             },
                           ),
                           child: const ArcaneText('required'),

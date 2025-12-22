@@ -8,7 +8,7 @@ class FeedbackDemos {
             padding: PaddingPreset.lg,
             background: Background.surface,
             borderRadius: Radius.lg,
-            raw: {'box-shadow': '0 4px 20px rgba(0,0,0,0.2)'},
+            raw: {'box-shadow': 'var(--arcane-shadow-lg)'},
           ),
           children: [
             ArcaneColumn(

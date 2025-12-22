@@ -163,6 +163,7 @@ class ArcaneTheme {
   /// Generate CSS custom properties for the theme
   Map<String, String> get cssVariables {
     final cs = colorScheme;
+    String rgb(Color color) => '${color.red}, ${color.green}, ${color.blue}';
     return {
       // Core color scheme
       '--arcane-primary': cs.primary.css,
@@ -260,6 +261,8 @@ class ArcaneTheme {
       '--arcane-surface-opacity': '$effectiveSurfaceOpacity',
       '--arcane-surface-blur': '${surfaceBlur}px',
       '--arcane-barrier-color': barrierColors.dialog.css,
+      '--arcane-overlay': barrierColors.dialog.css,
+      '--arcane-overlay-strong': cs.scrim.withOpacity(0.7).css,
 
       // Shadows (Supabase-style)
       '--arcane-shadow-sm': '0 1px 2px rgba(0, 0, 0, 0.05)',
@@ -280,52 +283,75 @@ class ArcaneTheme {
 
       // Extended backgrounds (missing from original)
       '--arcane-background-secondary': brightness == Brightness.dark
-          ? '#0a0a0c'
-          : '#f4f4f5',
+          ? cs.background.lighten(3).css
+          : cs.background.darken(3).css,
       '--arcane-background-tertiary': brightness == Brightness.dark
-          ? '#0f0f11'
-          : '#e4e4e7',
+          ? cs.background.lighten(6).css
+          : cs.background.darken(6).css,
       '--arcane-card-hover': brightness == Brightness.dark
-          ? 'rgba(255, 255, 255, 0.05)'
-          : 'rgba(0, 0, 0, 0.02)',
-      '--arcane-card-alt': brightness == Brightness.dark
-          ? '#18181b'
-          : '#fafafa',
-      '--arcane-navbar': brightness == Brightness.dark
-          ? 'rgba(9, 9, 11, 0.8)'
-          : 'rgba(255, 255, 255, 0.8)',
+          ? 'rgba(${rgb(cs.onSurface)}, 0.05)'
+          : 'rgba(${rgb(cs.onSurface)}, 0.02)',
+      '--arcane-card-alt': cs.surfaceVariant.css,
+      '--arcane-navbar': 'rgba(${rgb(cs.background)}, 0.8)',
 
       // Extended text colors
-      '--arcane-text-subtle': brightness == Brightness.dark
-          ? '#71717a'
-          : '#a1a1aa',
-      '--arcane-text-faint': brightness == Brightness.dark
-          ? '#52525b'
-          : '#d4d4d8',
+      '--arcane-text-subtle': 'rgba(${rgb(cs.onSurfaceVariant)}, 0.85)',
+      '--arcane-text-faint': 'rgba(${rgb(cs.onSurfaceVariant)}, 0.65)',
 
       // Tooltip
-      '--arcane-tooltip': brightness == Brightness.dark
-          ? '#27272a'
-          : '#18181b',
-      '--arcane-tooltip-foreground': brightness == Brightness.dark
-          ? '#fafafa'
-          : '#fafafa',
+      '--arcane-tooltip': cs.surfaceVariant.css,
+      '--arcane-tooltip-foreground': cs.onSurface.css,
 
       // Code
-      '--arcane-code-background': brightness == Brightness.dark
-          ? '#18181b'
-          : '#f4f4f5',
+      '--arcane-code-background': cs.surfaceVariant.css,
 
       // Success extended
       '--arcane-success-hover': brightness == Brightness.dark
           ? Colors.emerald300.css
           : Colors.emerald700.css,
-      '--arcane-success-container': brightness == Brightness.dark
-          ? 'rgba(16, 185, 129, 0.1)'
-          : 'rgba(16, 185, 129, 0.1)',
+      '--arcane-success-container': 'rgba(${rgb(brightness == Brightness.dark ? Colors.emerald400 : Colors.emerald600)}, 0.1)',
 
       // Extra shadow
       '--arcane-shadow-xs': '0 1px 2px rgba(0, 0, 0, 0.05)',
+
+      // Accent glows and grid (auth layouts)
+      '--arcane-accent-glow': 'rgba(${rgb(accentPrimary)}, 0.10)',
+      '--arcane-secondary-glow': 'rgba(${rgb(cs.tertiary)}, 0.10)',
+      '--arcane-grid-color': 'rgba(${rgb(accentPrimary)}, 0.03)',
+
+      // RGB channels for alpha variants
+      '--arcane-primary-rgb': rgb(cs.primary),
+      '--arcane-secondary-rgb': rgb(cs.secondary),
+      '--arcane-tertiary-rgb': rgb(cs.tertiary),
+      '--arcane-error-rgb': rgb(cs.error),
+      '--arcane-on-error-rgb': rgb(cs.onError),
+      '--arcane-background-rgb': rgb(cs.background),
+      '--arcane-on-background-rgb': rgb(cs.onBackground),
+      '--arcane-surface-rgb': rgb(cs.surface),
+      '--arcane-on-surface-rgb': rgb(cs.onSurface),
+      '--arcane-surface-variant-rgb': rgb(cs.surfaceVariant),
+      '--arcane-on-surface-variant-rgb': rgb(cs.onSurfaceVariant),
+      '--arcane-outline-rgb': rgb(cs.outline),
+      '--arcane-outline-variant-rgb': rgb(cs.outlineVariant),
+      '--arcane-border-rgb': rgb(cs.outline),
+      '--arcane-card-rgb': rgb(cs.surface),
+      '--arcane-input-rgb': rgb(cs.surfaceVariant),
+      '--arcane-accent-rgb': rgb(accentPrimary),
+      '--arcane-accent-hover-rgb': rgb(accentHover),
+      '--arcane-accent-container-rgb': rgb(accentContainer),
+      '--arcane-destructive-rgb': rgb(
+        brightness == Brightness.dark ? Colors.red400 : Colors.red600,
+      ),
+      '--arcane-success-rgb': rgb(
+        brightness == Brightness.dark ? Colors.emerald400 : Colors.emerald600,
+      ),
+      '--arcane-warning-rgb': rgb(
+        brightness == Brightness.dark ? Colors.amber400 : Colors.amber600,
+      ),
+      '--arcane-info-rgb': rgb(
+        brightness == Brightness.dark ? Colors.cyan400 : Colors.cyan600,
+      ),
+      '--arcane-muted-rgb': rgb(cs.onSurfaceVariant),
     };
   }
 

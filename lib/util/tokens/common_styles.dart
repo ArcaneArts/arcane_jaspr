@@ -171,8 +171,8 @@ class ArcaneCommonStyles {
 
   /// Glass/frosted card
   static Map<String, String> get cardGlass => {
-        'background': 'rgba(255, 255, 255, 0.05)',
-        'border': '1px solid rgba(255, 255, 255, 0.1)',
+        'background': ArcaneColors.onSurfaceAlpha05,
+        'border': '1px solid ${ArcaneColors.onSurfaceAlpha10}',
         'border-radius': ArcaneRadius.lg,
         'padding': ArcaneSpacing.lg,
         'backdrop-filter': ArcaneEffects.backdropBlur,
@@ -346,25 +346,25 @@ class ArcaneCommonStyles {
 
   /// Success status badge
   static Map<String, String> get statusSuccess => statusBadge(
-        'rgba(16, 185, 129, 0.15)',
+        ArcaneColors.successAlpha15,
         ArcaneColors.success,
       );
 
   /// Warning status badge
   static Map<String, String> get statusWarning => statusBadge(
-        'rgba(245, 158, 11, 0.15)',
+        ArcaneColors.warningAlpha15,
         ArcaneColors.warning,
       );
 
   /// Error status badge
   static Map<String, String> get statusError => statusBadge(
-        'rgba(239, 68, 68, 0.15)',
+        ArcaneColors.errorAlpha15,
         ArcaneColors.error,
       );
 
   /// Info status badge
   static Map<String, String> get statusInfo => statusBadge(
-        'rgba(59, 130, 246, 0.15)',
+        ArcaneColors.infoAlpha15,
         ArcaneColors.info,
       );
 
@@ -431,7 +431,7 @@ class ArcaneCommonStyles {
   static Map<String, String> get overlay => {
         'position': 'fixed',
         'inset': '0',
-        'background': 'rgba(0, 0, 0, 0.5)',
+        'background': ArcaneColors.scrim,
         'backdrop-filter': ArcaneEffects.backdropBlur,
         '-webkit-backdrop-filter': ArcaneEffects.backdropBlur,
         'z-index': ArcaneZIndex.modalBackdrop,

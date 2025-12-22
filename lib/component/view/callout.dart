@@ -149,22 +149,22 @@ class ArcaneCallout extends StatelessComponent {
   (String background, String border, String iconColor) get _styleColors =>
       switch (style) {
         CalloutStyle.info => (
-            'rgba(59, 130, 246, 0.1)',
+            ArcaneColors.infoAlpha10,
             ArcaneColors.info,
             ArcaneColors.info
           ),
         CalloutStyle.success => (
-            'rgba(16, 185, 129, 0.1)',
+            ArcaneColors.successAlpha10,
             ArcaneColors.success,
             ArcaneColors.success
           ),
         CalloutStyle.warning => (
-            'rgba(245, 158, 11, 0.1)',
+            ArcaneColors.warningAlpha10,
             ArcaneColors.warning,
             ArcaneColors.warning
           ),
         CalloutStyle.error => (
-            'rgba(239, 68, 68, 0.1)',
+            ArcaneColors.errorAlpha10,
             ArcaneColors.error,
             ArcaneColors.error
           ),
@@ -174,14 +174,14 @@ class ArcaneCallout extends StatelessComponent {
             ArcaneColors.muted
           ),
         CalloutStyle.tip => (
-            'rgba(168, 85, 247, 0.1)',
-            'rgb(168, 85, 247)',
-            'rgb(168, 85, 247)'
+            ArcaneColors.accentAlpha10,
+            ArcaneColors.accent,
+            ArcaneColors.accent
           ),
         CalloutStyle.note => (
-            'rgba(99, 102, 241, 0.1)',
-            'rgb(99, 102, 241)',
-            'rgb(99, 102, 241)'
+            ArcaneColors.primaryAlpha10,
+            ArcaneColors.primary,
+            ArcaneColors.primary
           ),
       };
 

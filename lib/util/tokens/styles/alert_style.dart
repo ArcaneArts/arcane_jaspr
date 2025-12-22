@@ -17,29 +17,29 @@ class AlertStyle {
 
   /// Info alert (blue)
   static const AlertStyle info = AlertStyle._({
-    'background-color': 'rgba(59, 130, 246, 0.1)',
-    'border': '1px solid rgba(59, 130, 246, 0.3)',
+    'background-color': ArcaneColors.infoAlpha10,
+    'border': '1px solid ${ArcaneColors.infoAlpha30}',
     'color': ArcaneColors.info,
   }, iconColor: ArcaneColors.info);
 
   /// Success alert (green)
   static const AlertStyle success = AlertStyle._({
-    'background-color': 'rgba(16, 185, 129, 0.1)',
-    'border': '1px solid rgba(16, 185, 129, 0.3)',
+    'background-color': ArcaneColors.successAlpha10,
+    'border': '1px solid ${ArcaneColors.successAlpha30}',
     'color': ArcaneColors.success,
   }, iconColor: ArcaneColors.success);
 
   /// Warning alert (amber)
   static const AlertStyle warning = AlertStyle._({
-    'background-color': 'rgba(245, 158, 11, 0.1)',
-    'border': '1px solid rgba(245, 158, 11, 0.3)',
+    'background-color': ArcaneColors.warningAlpha10,
+    'border': '1px solid ${ArcaneColors.warningAlpha30}',
     'color': ArcaneColors.warning,
   }, iconColor: ArcaneColors.warning);
 
   /// Error alert (red)
   static const AlertStyle error = AlertStyle._({
-    'background-color': 'rgba(239, 68, 68, 0.1)',
-    'border': '1px solid rgba(239, 68, 68, 0.3)',
+    'background-color': ArcaneColors.errorAlpha10,
+    'border': '1px solid ${ArcaneColors.errorAlpha30}',
     'color': ArcaneColors.error,
   }, iconColor: ArcaneColors.error);
 

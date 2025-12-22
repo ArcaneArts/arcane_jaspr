@@ -43,7 +43,7 @@ class InputStyle {
     },
     error: {
       'border-color': ArcaneColors.error,
-      'box-shadow': '0 0 0 2px rgba(239, 68, 68, 0.2)',
+      'box-shadow': '0 0 0 2px ${ArcaneColors.errorAlpha20}',
     },
     disabled: {
       'opacity': '0.5',

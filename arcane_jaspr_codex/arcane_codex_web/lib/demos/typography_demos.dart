@@ -37,15 +37,15 @@ class TypographyDemos {
   static List<Component> gradientText() => [
         ArcaneGradientText(
           content: 'Gradient Text',
-          gradientStart: '#10b981',
-          gradientEnd: '#3b82f6',
+          gradientStart: ArcaneColors.accent,
+          gradientEnd: ArcaneColors.info,
         ),
       ];
 
   static List<Component> glowText() => [
         ArcaneGlowText(
           content: 'Glowing Text',
-          glowColor: '#10b981',
+          glowColor: ArcaneColors.accent,
         ),
       ];
 

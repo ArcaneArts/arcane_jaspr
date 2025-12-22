@@ -1,6 +1,7 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 import 'package:jaspr/dom.dart' show RawText;
 import 'package:jaspr_content/jaspr_content.dart';
+import 'package:web/web.dart' as web;
 
 import '../components/docs_sidebar.dart';
 import '../components/docs_header.dart';
@@ -104,8 +105,29 @@ class _ThemedDocsPage extends StatefulComponent {
 class _ThemedDocsPageState extends State<_ThemedDocsPage> {
   bool _isDark = true; // Default to dark theme
 
+  @override
+  void initState() {
+    super.initState();
+    try {
+      final storedTheme = web.window.localStorage.getItem('arcane-theme');
+      if (storedTheme == 'light') {
+        _isDark = false;
+      }
+    } catch (_) {
+      // Ignore when localStorage is unavailable (SSR or restricted contexts).
+    }
+  }
+
   void _toggleTheme() {
-    setState(() => _isDark = !_isDark);
+    final nextIsDark = !_isDark;
+    setState(() => _isDark = nextIsDark);
+    try {
+      final themeName = nextIsDark ? 'dark' : 'light';
+      web.window.localStorage.setItem('arcane-theme', themeName);
+      web.document.documentElement?.className = 'arcane-$themeName';
+    } catch (_) {
+      // Ignore when document or localStorage is unavailable.
+    }
   }
 
   @override
@@ -114,24 +136,31 @@ class _ThemedDocsPageState extends State<_ThemedDocsPage> {
       isDark: _isDark,
       onThemeToggle: _toggleTheme,
     );
+    final theme = ArcaneTheme.supabase(
+      accent: AccentTheme.emerald,
+      themeMode: _isDark ? ThemeMode.dark : ThemeMode.light,
+    );
 
     // Don't use ArcaneApp - it applies inline CSS that overrides class-based theming
     // Instead use a simple wrapper that respects CSS variables from <head>
-    return div(
-      id: 'arcane-root',
-      styles: const Styles(raw: {
-        'min-height': '100vh',
-        'background-color': 'var(--arcane-surface)',
-        'color': 'var(--arcane-on-surface)',
-        'font-family':
-            '"GeistSans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-        '-webkit-font-smoothing': 'antialiased',
-        '-moz-osx-font-smoothing': 'grayscale',
-      }),
-      [
-        _buildPageLayout(demoRegistry),
-        _buildScripts(),
-      ],
+    return ArcaneThemeProvider(
+      theme: theme,
+      child: div(
+        id: 'arcane-root',
+        styles: const Styles(raw: {
+          'min-height': '100vh',
+          'background-color': 'var(--arcane-surface)',
+          'color': 'var(--arcane-on-surface)',
+          'font-family':
+              '"GeistSans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          '-webkit-font-smoothing': 'antialiased',
+          '-moz-osx-font-smoothing': 'grayscale',
+        }),
+        [
+          _buildPageLayout(demoRegistry),
+          _buildScripts(),
+        ],
+      ),
     );
   }
 
@@ -308,32 +337,6 @@ class _ThemedDocsPageState extends State<_ThemedDocsPage> {
   Component _buildScripts() {
     return script(content: '''
       document.addEventListener('DOMContentLoaded', function() {
-        // ===== THEME TOGGLE =====
-        var themeToggle = document.getElementById('theme-toggle');
-        var sunIcon = document.getElementById('sun-icon');
-        var moonIcon = document.getElementById('moon-icon');
-
-        function updateThemeIcons() {
-          var isDark = document.documentElement.classList.contains('arcane-dark');
-          if (sunIcon && moonIcon) {
-            sunIcon.style.display = isDark ? 'inline' : 'none';
-            moonIcon.style.display = isDark ? 'none' : 'inline';
-          }
-        }
-
-        // Initialize icons based on current theme
-        updateThemeIcons();
-
-        if (themeToggle) {
-          themeToggle.addEventListener('click', function() {
-            var html = document.documentElement;
-            var isDark = html.classList.contains('arcane-dark');
-            html.className = isDark ? 'arcane-light' : 'arcane-dark';
-            localStorage.setItem('arcane-theme', isDark ? 'light' : 'dark');
-            updateThemeIcons();
-          });
-        }
-
         // ===== SEARCH FUNCTIONALITY =====
         var searchInput = document.getElementById('docs-search');
         var searchResults = document.getElementById('search-results');

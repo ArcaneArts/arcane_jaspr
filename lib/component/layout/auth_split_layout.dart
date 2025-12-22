@@ -91,7 +91,7 @@ class AuthSplitLayout extends StatelessComponent {
                 'width': '50%',
                 'height': '50%',
                 'background':
-                    'radial-gradient(circle, rgba(6, 182, 212, 0.08) 0%, transparent 70%)',
+                    'radial-gradient(circle, ${ArcaneColors.secondaryGlow} 0%, transparent 70%)',
               }),
               [],
             ),
@@ -101,7 +101,7 @@ class AuthSplitLayout extends StatelessComponent {
                 'position': 'absolute',
                 'inset': '0',
                 'background-image':
-                    'linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px)',
+                    'linear-gradient(${ArcaneColors.onSurfaceAlpha03} 1px, transparent 1px), linear-gradient(90deg, ${ArcaneColors.onSurfaceAlpha03} 1px, transparent 1px)',
                 'background-size': '40px 40px',
               }),
               [],

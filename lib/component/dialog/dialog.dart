@@ -49,7 +49,7 @@ class ArcaneDialog extends StatelessComponent {
         'align-items': 'center',
         'justify-content': 'center',
         'padding': ArcaneSpacing.lg,
-        'background-color': 'rgba(0, 0, 0, 0.6)',
+        'background-color': ArcaneColors.overlay,
         'animation': 'arcane-fade-in 150ms ease',
       }),
       events: barrierDismissible
@@ -269,7 +269,7 @@ class ArcaneSheet extends StatelessComponent {
         'position': 'fixed',
         'inset': '0',
         'z-index': '999',
-        'background-color': 'rgba(0, 0, 0, 0.6)',
+        'background-color': ArcaneColors.overlay,
         'animation': 'arcane-fade-in 150ms ease',
       }),
       events: {

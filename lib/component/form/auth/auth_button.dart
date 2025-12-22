@@ -90,8 +90,8 @@ class AuthButton extends StatelessComponent {
         return {
           ...baseStyles,
           'background':
-              'linear-gradient(135deg, ${ArcaneColors.accent} 0%, #0891B2 100%)',
-          'color': ArcaneColors.white,
+              'linear-gradient(135deg, ${ArcaneColors.accent} 0%, ${ArcaneColors.info} 100%)',
+          'color': ArcaneColors.accentForeground,
           'border': 'none',
           'box-shadow': '0 0 20px ${ArcaneColors.accentContainer}',
         };
@@ -130,7 +130,7 @@ class AuthButton extends StatelessComponent {
             'height': '18px',
             'border': '2px solid transparent',
             'border-top-color': variant == AuthButtonVariant.primary
-                ? ArcaneColors.white
+                ? ArcaneColors.accentForeground
                 : ArcaneColors.accent,
             'border-radius': ArcaneRadius.full,
             'animation': 'spin 0.8s linear infinite',

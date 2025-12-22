@@ -153,33 +153,37 @@ class ArcaneAlert extends StatelessComponent {
         AlertSeverity.error => '✕',
       };
 
-  (String primary, String background, String border) get _colors =>
+  (String primary, String background, String border, String foreground) get _colors =>
       switch (severity) {
         AlertSeverity.info => (
             ArcaneColors.info,
-            'rgba(59, 130, 246, 0.1)',
-            'rgba(59, 130, 246, 0.3)'
+            ArcaneColors.infoAlpha10,
+            ArcaneColors.infoAlpha30,
+            ArcaneColors.infoForeground,
           ),
         AlertSeverity.success => (
             ArcaneColors.success,
-            'rgba(16, 185, 129, 0.1)',
-            'rgba(16, 185, 129, 0.3)'
+            ArcaneColors.successAlpha10,
+            ArcaneColors.successAlpha30,
+            ArcaneColors.successForeground,
           ),
         AlertSeverity.warning => (
             ArcaneColors.warning,
-            'rgba(245, 158, 11, 0.1)',
-            'rgba(245, 158, 11, 0.3)'
+            ArcaneColors.warningAlpha10,
+            ArcaneColors.warningAlpha30,
+            ArcaneColors.warningForeground,
           ),
         AlertSeverity.error => (
             ArcaneColors.error,
-            'rgba(239, 68, 68, 0.1)',
-            'rgba(239, 68, 68, 0.3)'
+            ArcaneColors.errorAlpha10,
+            ArcaneColors.errorAlpha30,
+            ArcaneColors.errorForeground,
           ),
       };
 
   @override
   Component build(BuildContext context) {
-    final (primary, bgColor, borderColor) = _colors;
+    final (primary, bgColor, borderColor, foreground) = _colors;
 
     final containerStyles = switch (style) {
       AlertStyle.subtle => {
@@ -191,7 +195,7 @@ class ArcaneAlert extends StatelessComponent {
           'background': primary,
           'border': 'none',
           'border-radius': ArcaneRadius.md,
-          'color': '#ffffff',
+          'color': foreground,
         },
       AlertStyle.outline => {
           'background': 'transparent',
@@ -228,7 +232,7 @@ class ArcaneAlert extends StatelessComponent {
               'display': 'flex',
               'align-items': 'center',
               'justify-content': 'center',
-              'color': isSolid ? '#ffffff' : primary,
+              'color': isSolid ? foreground : primary,
               'font-size': ArcaneTypography.fontMd,
               'font-weight': ArcaneTypography.weightBold,
             }),
@@ -246,7 +250,7 @@ class ArcaneAlert extends StatelessComponent {
               div(
                 styles: Styles(raw: {
                   'font-weight': ArcaneTypography.weightSemibold,
-                  'color': isSolid ? '#ffffff' : ArcaneColors.onSurface,
+                  'color': isSolid ? foreground : ArcaneColors.onSurface,
                   if (message != null || child != null)
                     'margin-bottom': ArcaneSpacing.xs,
                 }),
@@ -256,7 +260,7 @@ class ArcaneAlert extends StatelessComponent {
               div(
                 styles: Styles(raw: {
                   'font-size': ArcaneTypography.fontSm,
-                  'color': isSolid ? 'rgba(255,255,255,0.9)' : ArcaneColors.onSurface,
+                  'color': isSolid ? foreground : ArcaneColors.onSurface,
                   'line-height': ArcaneTypography.lineHeightRelaxed,
                 }),
                 [text(message!)],
@@ -287,7 +291,7 @@ class ArcaneAlert extends StatelessComponent {
               'padding': '0',
               'border': 'none',
               'background': 'transparent',
-              'color': isSolid ? 'rgba(255,255,255,0.7)' : ArcaneColors.muted,
+              'color': isSolid ? foreground : ArcaneColors.muted,
               'cursor': 'pointer',
               'border-radius': ArcaneRadius.sm,
               'transition': ArcaneEffects.transitionFast,

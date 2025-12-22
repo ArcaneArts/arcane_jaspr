@@ -52,9 +52,9 @@ class ArcaneSettingsSection extends StatelessComponent {
     return div(
       classes: 'arcane-settings-section ${danger ? 'danger' : ''}',
       styles: Styles(raw: {
-        'background': danger ? 'rgba(239, 68, 68, 0.05)' : ArcaneColors.surface,
+        'background': danger ? ArcaneColors.errorAlpha05 : ArcaneColors.surface,
         'border': danger
-            ? '1px solid rgba(239, 68, 68, 0.2)'
+            ? '1px solid ${ArcaneColors.errorAlpha20}'
             : '1px solid ${ArcaneColors.border}',
         'border-radius': ArcaneRadius.lg,
         'padding': ArcaneSpacing.lg,
@@ -70,7 +70,7 @@ class ArcaneSettingsSection extends StatelessComponent {
             'gap': ArcaneSpacing.sm,
             'margin-bottom': ArcaneSpacing.lg,
             'padding-bottom': ArcaneSpacing.md,
-            'border-bottom': '1px solid ${danger ? 'rgba(239, 68, 68, 0.2)' : ArcaneColors.border}',
+            'border-bottom': '1px solid ${danger ? ArcaneColors.errorAlpha20 : ArcaneColors.border}',
           }),
           [
             h2(
@@ -356,11 +356,11 @@ class ArcaneSettingsNote extends StatelessComponent {
   ({String background}) _getColors() {
     switch (variant) {
       case ArcaneSettingsNoteVariant.info:
-        return (background: 'rgba(147, 51, 234, 0.1)');
+        return (background: ArcaneColors.primaryAlpha10);
       case ArcaneSettingsNoteVariant.warning:
-        return (background: 'rgba(245, 158, 11, 0.1)');
+        return (background: ArcaneColors.warningAlpha10);
       case ArcaneSettingsNoteVariant.success:
-        return (background: 'rgba(16, 185, 129, 0.1)');
+        return (background: ArcaneColors.successAlpha10);
     }
   }
 }

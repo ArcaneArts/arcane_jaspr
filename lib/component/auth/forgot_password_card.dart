@@ -124,8 +124,8 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
             styles: ArcaneStyleData(
               padding: PaddingPreset.md,
               margin: MarginPreset.bottomMd,
-              backgroundCustom: 'rgba(16, 185, 129, 0.1)',
-              borderCustom: '1px solid rgba(16, 185, 129, 0.3)',
+              backgroundCustom: ArcaneColors.successAlpha10,
+              borderCustom: '1px solid ${ArcaneColors.successAlpha30}',
               borderRadius: Radius.md,
               textColor: TextColor.success,
               fontSize: FontSize.sm,
@@ -142,8 +142,8 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
             styles: const ArcaneStyleData(
               padding: PaddingPreset.md,
               margin: MarginPreset.bottomMd,
-              backgroundCustom: 'rgba(239, 68, 68, 0.1)',
-              borderCustom: '1px solid rgba(239, 68, 68, 0.3)',
+              backgroundCustom: ArcaneColors.errorAlpha10,
+              borderCustom: '1px solid ${ArcaneColors.errorAlpha30}',
               borderRadius: Radius.md,
               textColor: TextColor.error,
               fontSize: FontSize.sm,

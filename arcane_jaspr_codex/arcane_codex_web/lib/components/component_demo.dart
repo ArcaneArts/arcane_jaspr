@@ -215,11 +215,11 @@ class _DemoCodeBlockState extends State<_DemoCodeBlock> {
 
 /// Background styles for the demo preview area
 enum DemoBackground {
-  default_('var(--background-secondary)'),
-  dark('#0a0a0f'),
-  light('#f5f5f5'),
+  default_('var(--arcane-background-secondary)'),
+  dark('var(--arcane-background)'),
+  light('var(--arcane-surface)'),
   transparent('transparent'),
-  checkered('repeating-conic-gradient(#1a1a2e 0% 25%, #0f0f1a 0% 50%) 50% / 20px 20px');
+  checkered('repeating-conic-gradient(var(--arcane-surface-variant) 0% 25%, var(--arcane-surface) 0% 50%) 50% / 20px 20px');
 
   final String css;
   const DemoBackground(this.css);
