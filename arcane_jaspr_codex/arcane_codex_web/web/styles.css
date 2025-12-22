@@ -18,6 +18,58 @@ body {
   color: var(--arcane-on-background);
 }
 
+/* ===== DEFAULT DARK MODE (before JS adds class) ===== */
+/* These styles apply immediately on static pages */
+html:not(.arcane-light) {
+  background-color: #09090b;
+  color: #fafafa;
+}
+
+html:not(.arcane-light) body {
+  background-color: #09090b;
+  color: #fafafa;
+}
+
+html:not(.arcane-light) .prose p,
+html:not(.arcane-light) .prose li,
+html:not(.arcane-light) .prose span,
+html:not(.arcane-light) .content p,
+html:not(.arcane-light) .content li,
+html:not(.arcane-light) p,
+html:not(.arcane-light) li,
+html:not(.arcane-light) span,
+html:not(.arcane-light) section {
+  color: #e4e4e7;
+}
+
+html:not(.arcane-light) h1,
+html:not(.arcane-light) h2,
+html:not(.arcane-light) h3,
+html:not(.arcane-light) h4,
+html:not(.arcane-light) h5,
+html:not(.arcane-light) h6 {
+  color: #fafafa;
+}
+
+html:not(.arcane-light) a {
+  color: #10b981;
+}
+
+html:not(.arcane-light) pre,
+html:not(.arcane-light) code {
+  background-color: #1e1e2e;
+  color: #e4e4e7;
+}
+
+html:not(.arcane-light) th {
+  background-color: #27272a;
+  color: #fafafa;
+}
+
+html:not(.arcane-light) td {
+  color: #e4e4e7;
+}
+
 /* ===== DARK THEME STYLING ===== */
 /* Override Arcane CSS variables for proper dark mode contrast */
 html.arcane-dark {
