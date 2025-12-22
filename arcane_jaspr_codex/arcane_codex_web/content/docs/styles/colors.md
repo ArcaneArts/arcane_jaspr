@@ -2,6 +2,7 @@
 title: Colors
 description: Reference for background, text, and border color enums
 layout: docs
+component: colors
 ---
 
 # Colors

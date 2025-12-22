@@ -2,6 +2,7 @@
 title: Display & Layout
 description: Reference for display, position, and flex layout enums
 layout: docs
+component: display
 ---
 
 # Display & Layout

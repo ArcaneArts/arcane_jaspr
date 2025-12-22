@@ -2,6 +2,7 @@
 title: Spacing
 description: Reference for padding, margin, and gap enums
 layout: docs
+component: spacing
 ---
 
 # Spacing

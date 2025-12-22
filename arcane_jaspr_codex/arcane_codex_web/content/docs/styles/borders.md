@@ -2,6 +2,7 @@
 title: Borders
 description: Reference for border, radius, and outline enums
 layout: docs
+component: borders
 ---
 
 # Borders

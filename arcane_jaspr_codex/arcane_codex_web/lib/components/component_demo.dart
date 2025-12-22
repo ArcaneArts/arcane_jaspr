@@ -148,19 +148,19 @@ class _DemoCodeBlockState extends State<_DemoCodeBlock> {
     return ArcaneDiv(
       styles: const ArcaneStyleData(
         background: Background.code,
+        position: Position.relative,
       ),
       children: [
-        // Header with copy button
+        // Copy button overlay - top right
         ArcaneDiv(
           styles: const ArcaneStyleData(
+            position: Position.absolute,
+            raw: {'top': '8px', 'right': '8px', 'z-index': '10'},
             display: Display.flex,
-            justifyContent: JustifyContent.spaceBetween,
-            alignItems: AlignItems.center,
-            padding: PaddingPreset.smMd,
-            background: Background.glassHeader,
-            borderBottom: BorderPreset.standard,
+            gap: Gap.sm,
           ),
           children: [
+            // Language badge
             ArcaneSpan(
               styles: const ArcaneStyleData(
                 fontSize: FontSize.xs,
@@ -171,36 +171,29 @@ class _DemoCodeBlockState extends State<_DemoCodeBlock> {
               ),
               child: ArcaneText(component.language),
             ),
-            ArcaneDiv(
-              styles: const ArcaneStyleData(
-                display: Display.flex,
-                gap: Gap.sm,
+            if (isLong)
+              ArcaneButton(
+                style: ButtonStyle.ghost,
+                size: ButtonSize.small,
+                label: _expanded ? 'Collapse' : 'Expand',
+                onPressed: _toggleExpanded,
               ),
-              children: [
-                if (isLong)
-                  ArcaneButton(
-                    style: ButtonStyle.ghost,
-                    size: ButtonSize.small,
-                    label: _expanded ? 'Collapse' : 'Expand',
-                    onPressed: _toggleExpanded,
-                  ),
-                ArcaneButton(
-                  style: ButtonStyle.ghost,
-                  size: ButtonSize.small,
-                  label: _copied ? 'Copied!' : 'Copy',
-                  onPressed: _copyToClipboard,
-                ),
-              ],
+            ArcaneButton(
+              style: ButtonStyle.ghost,
+              size: ButtonSize.small,
+              label: _copied ? 'Copied!' : 'Copy',
+              onPressed: _copyToClipboard,
             ),
           ],
         ),
 
-        // Code content
+        // Code content with padding for buttons
         ArcaneDiv(
           styles: ArcaneStyleData(
             padding: PaddingPreset.md,
             overflow: Overflow.auto,
             maxHeight: _expanded ? 'none' : '300px',
+            raw: const {'padding-top': '48px'}, // Space for overlay buttons
           ),
           children: [
             ArcaneCodeBlock(

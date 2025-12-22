@@ -2,6 +2,7 @@
 title: Typography
 description: Reference for font size, weight, family, and text styling enums
 layout: docs
+component: typography-styles
 ---
 
 # Typography

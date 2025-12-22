@@ -459,6 +459,139 @@ class _ThemedDocsPageState extends State<_ThemedDocsPage> {
             });
           });
         });
+
+        // ===== INTERACTIVE DEMO COMPONENTS =====
+
+        // Make checkboxes interactive (20x20 boxes with border)
+        document.querySelectorAll('[style*="width: 20px"][style*="height: 20px"][style*="border-radius"]').forEach(function(checkbox) {
+          var wrapper = checkbox.closest('[style*="cursor: pointer"]');
+          if (!wrapper) return;
+
+          wrapper.addEventListener('click', function(e) {
+            e.preventDefault();
+            var isChecked = checkbox.style.background.includes('success') || checkbox.style.backgroundColor.includes('success');
+
+            if (isChecked) {
+              // Uncheck
+              checkbox.style.background = 'transparent';
+              checkbox.style.backgroundColor = 'transparent';
+              checkbox.style.border = '2px solid var(--arcane-border)';
+              checkbox.innerHTML = '';
+            } else {
+              // Check
+              checkbox.style.background = 'var(--arcane-success)';
+              checkbox.style.backgroundColor = 'var(--arcane-success)';
+              checkbox.style.border = '2px solid var(--arcane-success)';
+              checkbox.innerHTML = '<span style="color: var(--arcane-success-foreground); font-size: 0.8125rem; font-weight: 700; line-height: 1">✓</span>';
+            }
+          });
+        });
+
+        // Make toggle switches interactive
+        document.querySelectorAll('.arcane-toggle-switch, [style*="width: 44px"][style*="height: 24px"]').forEach(function(toggle) {
+          if (toggle.dataset.interactive) return;
+          toggle.dataset.interactive = 'true';
+
+          toggle.style.cursor = 'pointer';
+          toggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            var thumb = toggle.querySelector('[style*="width: 20px"]') || toggle.querySelector('[style*="width: 18px"]');
+            var isOn = toggle.style.background.includes('success') || toggle.style.backgroundColor.includes('success');
+
+            if (isOn) {
+              toggle.style.background = 'var(--arcane-surface-variant)';
+              toggle.style.backgroundColor = 'var(--arcane-surface-variant)';
+              if (thumb) thumb.style.transform = 'translateX(0)';
+            } else {
+              toggle.style.background = 'var(--arcane-success)';
+              toggle.style.backgroundColor = 'var(--arcane-success)';
+              if (thumb) thumb.style.transform = 'translateX(20px)';
+            }
+          });
+        });
+
+        // Make dropdown menus interactive
+        document.querySelectorAll('.arcane-dropdown').forEach(function(dropdown) {
+          var trigger = dropdown.querySelector('.arcane-dropdown-trigger');
+          var menu = dropdown.querySelector('.arcane-dropdown-menu');
+          var backdrop = dropdown.querySelector('.arcane-dropdown-backdrop');
+
+          if (!trigger) return;
+
+          trigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var isOpen = dropdown.classList.contains('open');
+
+            // Close all other dropdowns
+            document.querySelectorAll('.arcane-dropdown.open').forEach(function(d) {
+              d.classList.remove('open');
+              var m = d.querySelector('.arcane-dropdown-menu');
+              var b = d.querySelector('.arcane-dropdown-backdrop');
+              if (m) m.style.display = 'none';
+              if (b) b.style.display = 'none';
+            });
+
+            if (!isOpen) {
+              dropdown.classList.add('open');
+              if (!menu) {
+                // Create menu dynamically
+                menu = document.createElement('div');
+                menu.className = 'arcane-dropdown-menu';
+                menu.style.cssText = 'position: absolute; top: 100%; left: 0; z-index: 100; margin-top: 8px; min-width: 200px; padding: 8px; background-color: var(--arcane-surface); border: 1px solid var(--arcane-border); border-radius: var(--arcane-radius-md); box-shadow: var(--arcane-shadow-lg); animation: arcane-dropdown-fade 0.15s ease-out;';
+                menu.innerHTML = '<div style="padding: 10px 12px; cursor: pointer; border-radius: var(--arcane-radius-sm); transition: background 0.15s;">Option 1</div><div style="padding: 10px 12px; cursor: pointer; border-radius: var(--arcane-radius-sm); transition: background 0.15s;">Option 2</div>';
+                dropdown.appendChild(menu);
+              } else {
+                menu.style.display = 'block';
+              }
+
+              // Create backdrop
+              if (!backdrop) {
+                backdrop = document.createElement('div');
+                backdrop.className = 'arcane-dropdown-backdrop';
+                backdrop.style.cssText = 'position: fixed; inset: 0; z-index: 99;';
+                dropdown.appendChild(backdrop);
+              } else {
+                backdrop.style.display = 'block';
+              }
+
+              backdrop.addEventListener('click', function() {
+                dropdown.classList.remove('open');
+                if (menu) menu.style.display = 'none';
+                backdrop.style.display = 'none';
+              });
+            }
+          });
+        });
+
+        // Make buttons show click feedback
+        document.querySelectorAll('.arcane-button, button[class*="arcane"]').forEach(function(btn) {
+          btn.addEventListener('mousedown', function() {
+            this.style.transform = 'scale(0.98)';
+          });
+          btn.addEventListener('mouseup', function() {
+            this.style.transform = 'scale(1)';
+          });
+          btn.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+          });
+        });
+
+        // Make pagination interactive
+        document.querySelectorAll('[style*="arcane-pagination"], .arcane-pagination').forEach(function(pagination) {
+          var buttons = pagination.querySelectorAll('button, [style*="cursor: pointer"]');
+          buttons.forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+              // Remove active state from all
+              buttons.forEach(function(b) {
+                b.style.background = 'transparent';
+                b.style.color = 'var(--arcane-on-surface-variant)';
+              });
+              // Add active state to clicked
+              this.style.background = 'var(--arcane-accent)';
+              this.style.color = 'var(--arcane-on-accent)';
+            });
+          });
+        });
       });
     ''');
   }

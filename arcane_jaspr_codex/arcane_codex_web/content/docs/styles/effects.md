@@ -2,6 +2,7 @@
 title: Effects
 description: Reference for shadow, transition, transform, and other effect enums
 layout: docs
+component: effects
 ---
 
 # Effects

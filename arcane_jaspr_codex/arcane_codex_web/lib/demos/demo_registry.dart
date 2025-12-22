@@ -9,6 +9,12 @@ import 'feedback_demos.dart';
 import 'form_demos.dart';
 import 'screen_demos.dart';
 import 'auth_demos.dart';
+import 'style_demos.dart';
+
+// Interactive demos
+import 'interactive/input_interactive.dart';
+import 'interactive/view_interactive.dart';
+import 'interactive/navigation_interactive.dart';
 
 /// Central registry for component demos
 /// Maps component types to their demo builders
@@ -38,37 +44,37 @@ class DemoRegistry {
       case 'text-area':
         return InputDemos.textArea();
       case 'search':
-        return InputDemos.search();
+        return [const SearchDemo()];
       case 'select':
-        return InputDemos.select();
+        return [const SelectDemo()];
       case 'checkbox':
-        return InputDemos.checkbox();
+        return [const CheckboxDemo()];
       case 'radio':
-        return InputDemos.radio();
+        return [const RadioDemo()];
       case 'toggle-switch':
-        return InputDemos.toggleSwitch();
+        return [const ToggleSwitchDemo()];
       case 'slider':
-        return InputDemos.slider();
+        return [const SliderDemo()];
       case 'range-slider':
-        return InputDemos.rangeSlider();
+        return [const RangeSliderDemo()];
       case 'toggle-button':
-        return InputDemos.toggleButton();
+        return [const ToggleButtonDemo()];
       case 'toggle-button-group':
-        return InputDemos.toggleButtonGroup();
+        return [const ToggleButtonGroupDemo()];
       case 'cycle-button':
-        return InputDemos.cycleButton();
+        return [const CycleButtonDemo()];
       case 'selector':
-        return InputDemos.selector();
+        return [const SelectorDemo()];
       case 'theme-toggle':
         return InputDemos.themeToggle(isDark, onThemeToggle);
       case 'tag-input':
-        return InputDemos.tagInput();
+        return [const TagInputDemo()];
       case 'number-input':
-        return InputDemos.numberInput();
+        return [const NumberInputDemo()];
       case 'file-upload':
         return InputDemos.fileUpload();
       case 'color-input':
-        return InputDemos.colorInput();
+        return [const ColorInputDemo()];
 
       // Layout components
       case 'div':
@@ -118,7 +124,7 @@ class DemoRegistry {
       case 'page-body':
         return LayoutDemos.pageBody();
       case 'drawer':
-        return LayoutDemos.drawer();
+        return [const DrawerDemo()];
 
       // Typography components
       case 'text':
@@ -156,7 +162,7 @@ class DemoRegistry {
       case 'divider':
         return ViewDemos.divider();
       case 'progress-bar':
-        return ViewDemos.progressBar();
+        return [const ProgressBarDemo()];
       case 'loader':
         return ViewDemos.loader();
       case 'skeleton':
@@ -172,21 +178,21 @@ class DemoRegistry {
       case 'tooltip':
         return ViewDemos.tooltip();
       case 'accordion':
-        return ViewDemos.accordion();
+        return [const AccordionDemo()];
       case 'toast':
-        return ViewDemos.toast();
+        return [const ToastDemo()];
       case 'callout':
         return ViewDemos.callout();
       case 'kbd':
         return ViewDemos.kbd();
       case 'meter':
-        return ViewDemos.meter();
+        return [const MeterDemo()];
       case 'alert':
         return ViewDemos.alert();
       case 'inline-tabs':
-        return ViewDemos.inlineTabs();
+        return [const TabBarDemo()];
       case 'tree-view':
-        return ViewDemos.treeView();
+        return [const TreeViewDemo()];
       case 'popover':
         return ViewDemos.popover();
       case 'icon':
@@ -196,9 +202,9 @@ class DemoRegistry {
       case 'header':
         return NavigationDemos.header();
       case 'sidebar':
-        return NavigationDemos.sidebar();
+        return [const SidebarDemo()];
       case 'bottom-nav':
-        return NavigationDemos.bottomNav();
+        return [const BottomNavDemo()];
       case 'dropdown-menu':
         return NavigationDemos.dropdownMenu();
       case 'mobile-menu':
@@ -208,7 +214,7 @@ class DemoRegistry {
       case 'breadcrumbs':
         return NavigationDemos.breadcrumbs();
       case 'pagination':
-        return NavigationDemos.pagination();
+        return [const PaginationDemo()];
 
       // Feedback components
       case 'dialog':
@@ -247,6 +253,20 @@ class DemoRegistry {
         return AuthDemos.authBrandingPanel();
       case 'password-policy':
         return AuthDemos.passwordPolicy();
+
+      // Style Reference demos
+      case 'display':
+        return StyleDemos.display();
+      case 'spacing':
+        return StyleDemos.spacing();
+      case 'typography-styles':
+        return StyleDemos.typography();
+      case 'colors':
+        return StyleDemos.colors();
+      case 'borders':
+        return StyleDemos.borders();
+      case 'effects':
+        return StyleDemos.effects();
 
       default:
         return [
