@@ -109,14 +109,14 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
         // Header
         if (component.header != null) ...<Component>[
           component.header!,
-          ArcaneDiv(
+          const ArcaneDiv(
             styles: ArcaneStyleData(heightCustom: ArcaneSpacing.lg),
             children: <Component>[],
           ),
         ],
 
         // Title
-        ArcaneDiv(
+        const ArcaneDiv(
           styles: ArcaneStyleData(
             margin: MarginPreset.bottomXs,
             fontSize: FontSize.xl,
@@ -127,7 +127,7 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
           children: [Component.text('Welcome back')],
         ),
 
-        ArcaneDiv(
+        const ArcaneDiv(
           styles: ArcaneStyleData(
             margin: MarginPreset.bottomLg,
             fontSize: FontSize.sm,
@@ -140,7 +140,7 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
         // Error message
         if (_error != null)
           ArcaneDiv(
-            styles: ArcaneStyleData(
+            styles: const ArcaneStyleData(
               padding: PaddingPreset.md,
               margin: MarginPreset.bottomMd,
               backgroundCustom: 'rgba(239, 68, 68, 0.1)',
@@ -155,7 +155,7 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
         // Social sign-in buttons
         if (_hasSocialMethods) ...<Component>[
           ArcaneDiv(
-            styles: ArcaneStyleData(
+            styles: const ArcaneStyleData(
               display: Display.flex,
               flexDirection: FlexDirection.column,
               gap: Gap.sm,
@@ -182,7 +182,7 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
 
         // Divider
         if (_hasSocialMethods && _hasEmailMethod)
-          ArcaneDiv(
+          const ArcaneDiv(
             styles: ArcaneStyleData(
               display: Display.flex,
               alignItems: AlignItems.center,
@@ -230,9 +230,9 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
             <Component>[
               // Email field
               ArcaneDiv(
-                styles: ArcaneStyleData(margin: MarginPreset.bottomMd),
+                styles: const ArcaneStyleData(margin: MarginPreset.bottomMd),
                 children: <Component>[
-                  label(
+                  const label(
                     styles: Styles(raw: <String, String>{
                       'display': 'block',
                       'margin-bottom': ArcaneSpacing.xs,
@@ -249,7 +249,7 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
                       'autocomplete': 'email',
                       'required': 'true',
                     },
-                    styles: Styles(raw: <String, String>{
+                    styles: const Styles(raw: <String, String>{
                       'width': '100%',
                       'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
                       'font-size': ArcaneTypography.fontSizeSm,
@@ -275,17 +275,17 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
 
               // Password field
               ArcaneDiv(
-                styles: ArcaneStyleData(margin: MarginPreset.bottomMd),
+                styles: const ArcaneStyleData(margin: MarginPreset.bottomMd),
                 children: <Component>[
                   ArcaneDiv(
-                    styles: ArcaneStyleData(
+                    styles: const ArcaneStyleData(
                       display: Display.flex,
                       justifyContent: JustifyContent.spaceBetween,
                       alignItems: AlignItems.center,
                       margin: MarginPreset.bottomXs,
                     ),
                     children: <Component>[
-                      label(
+                      const label(
                         styles: Styles(raw: <String, String>{
                           'font-size': ArcaneTypography.fontSizeSm,
                           'font-weight': '500',
@@ -296,12 +296,12 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
                       if (component.forgotPasswordRoute != null)
                         a(
                           href: component.forgotPasswordRoute!,
-                          styles: Styles(raw: <String, String>{
+                          styles: const Styles(raw: <String, String>{
                             'font-size': ArcaneTypography.fontXs,
                             'color': ArcaneColors.accent,
                             'text-decoration': 'none',
                           }),
-                          <Component>[Component.text('Forgot password?')],
+                          <Component>[const Component.text('Forgot password?')],
                         ),
                     ],
                   ),
@@ -312,7 +312,7 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
                       'autocomplete': 'current-password',
                       'required': 'true',
                     },
-                    styles: Styles(raw: <String, String>{
+                    styles: const Styles(raw: <String, String>{
                       'width': '100%',
                       'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
                       'font-size': ArcaneTypography.fontSizeSm,
@@ -350,22 +350,22 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
         // Signup link
         if (component.signupRoute != null)
           ArcaneDiv(
-            styles: ArcaneStyleData(
+            styles: const ArcaneStyleData(
               margin: MarginPreset.topLg,
               textAlign: TextAlign.center,
               fontSize: FontSize.sm,
               textColor: TextColor.muted,
             ),
             children: <Component>[
-              Component.text("Don't have an account? "),
+              const Component.text("Don't have an account? "),
               a(
                 href: component.signupRoute!,
-                styles: Styles(raw: <String, String>{
+                styles: const Styles(raw: <String, String>{
                   'color': ArcaneColors.accent,
                   'text-decoration': 'none',
                   'font-weight': '500',
                 }),
-                <Component>[Component.text('Sign up')],
+                <Component>[const Component.text('Sign up')],
               ),
             ],
           ),

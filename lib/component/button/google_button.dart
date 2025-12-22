@@ -59,7 +59,7 @@ class GoogleSignInButton extends StatelessComponent {
 
   Component _buildGoogleIcon() {
     // Google "G" logo SVG
-    return Component.element(
+    return const Component.element(
       tag: 'svg',
       attributes: <String, String>{
         'width': '18',

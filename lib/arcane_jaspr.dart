@@ -93,6 +93,7 @@ export 'component/layout/logo_carousel.dart';
 export 'component/layout/cta_banner.dart';
 export 'component/layout/dashboard_layout.dart';
 export 'component/layout/auth_layout.dart';
+export 'component/layout/drawer.dart';
 
 // ============================================================================
 // Input components
@@ -109,6 +110,10 @@ export 'component/input/text_input.dart' hide TextInput;
 export 'component/input/slider.dart';
 export 'component/input/checkbox.dart';
 export 'component/input/theme_toggle.dart';
+export 'component/input/tag_input.dart';
+export 'component/input/number_input.dart';
+export 'component/input/file_upload.dart';
+export 'component/input/color_input.dart';
 
 // ============================================================================
 // View components
@@ -144,6 +149,14 @@ export 'component/view/gradient_text.dart';
 export 'component/view/social_icons.dart' hide ArcaneSocialIcon;
 export 'component/view/settings_section.dart';
 export 'component/view/icon.dart';
+export 'component/view/empty_state.dart' hide ArcaneEmptyState;
+export 'component/view/callout.dart';
+export 'component/view/kbd.dart';
+export 'component/view/meter.dart';
+export 'component/view/alert.dart' hide AlertStyle;
+export 'component/view/tabs.dart' hide ArcaneTabs;
+export 'component/view/tree_view.dart';
+export 'component/view/popover.dart';
 
 // ============================================================================
 // Navigation components
@@ -153,6 +166,8 @@ export 'component/navigation/bottom_navigation_bar.dart';
 export 'component/navigation/header.dart';
 export 'component/navigation/dropdown_menu.dart';
 export 'component/navigation/mobile_menu.dart';
+export 'component/navigation/breadcrumbs.dart';
+export 'component/navigation/pagination.dart';
 
 // ============================================================================
 // Screen components
@@ -220,6 +235,7 @@ export 'component/html/section.dart';
 export 'component/html/side_content.dart'; // ArcaneSideContent (and legacy ArcaneAside)
 export 'component/html/table.dart';
 export 'component/html/arcane_span.dart'; // ArcaneSpan (inline styling)
+export 'component/html/svg.dart'; // ArcaneSvg and SVG primitives
 
 // ============================================================================
 // Authentication - Service & State

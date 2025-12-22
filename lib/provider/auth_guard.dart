@@ -77,7 +77,7 @@ class AuthGuard extends StatelessComponent {
   }
 
   Component _buildDefaultLoader() {
-    return ArcaneDiv(
+    return const ArcaneDiv(
       styles: ArcaneStyleData(
         display: Display.flex,
         alignItems: AlignItems.center,
@@ -152,7 +152,7 @@ class GuestGuard extends StatelessComponent {
   }
 
   Component _buildDefaultLoader() {
-    return ArcaneDiv(
+    return const ArcaneDiv(
       styles: ArcaneStyleData(
         display: Display.flex,
         alignItems: AlignItems.center,

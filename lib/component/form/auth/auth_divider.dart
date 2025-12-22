@@ -16,7 +16,7 @@ class AuthDivider extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return ArcaneDiv(
-      styles: ArcaneStyleData(
+      styles: const ArcaneStyleData(
         display: Display.flex,
         alignItems: AlignItems.center,
         gap: Gap.md,
@@ -24,7 +24,7 @@ class AuthDivider extends StatelessComponent {
       ),
       children: [
         // Left line
-        ArcaneDiv(
+        const ArcaneDiv(
           styles: ArcaneStyleData(
             flexGrow: 1,
             heightCustom: '1px',
@@ -34,7 +34,7 @@ class AuthDivider extends StatelessComponent {
         ),
         // Text
         ArcaneDiv(
-          styles: ArcaneStyleData(
+          styles: const ArcaneStyleData(
             fontSize: FontSize.xs,
             textColor: TextColor.muted,
             textTransform: TextTransform.lowercase,
@@ -43,7 +43,7 @@ class AuthDivider extends StatelessComponent {
           children: [Component.text(text)],
         ),
         // Right line
-        ArcaneDiv(
+        const ArcaneDiv(
           styles: ArcaneStyleData(
             flexGrow: 1,
             heightCustom: '1px',

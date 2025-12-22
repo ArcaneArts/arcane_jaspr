@@ -5,6 +5,52 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0]
+
+### Added
+
+#### New Input Components
+- `ArcaneTagInput` - Tag/chip input for collecting multiple values with add/remove functionality
+- `ArcaneNumberInput` - Numeric input with increment/decrement controls and prefix/suffix support
+- `ArcaneFileUpload` - File upload component with drag-and-drop support, dropzone/button/inline styles, and `helperText` parameter
+- `ArcaneColorInput` - Color picker with swatch display, hex input, and preset color swatches
+
+#### New View Components
+- `ArcaneCallout` - Inline notice box for tips, warnings, and contextual information (info, success, warning, error, tip, note styles)
+- `ArcaneKbd` - Keyboard shortcut display with raised, flat, and outline styles, plus `combo()` factory for key combinations
+- `ArcaneMeter` - Progress meter/gauge with bar, gradient, segmented, and circular styles
+- `ArcaneAlert` - Inline alert for status messages with subtle, solid, outline, and accent styles
+- `ArcaneTreeView` - Hierarchical tree structure with expand/collapse, selection modes, and line/clean/compact styles
+- `ArcanePopover` - Floating content panel with click/hover/manual triggers and multiple positions
+
+#### New Navigation Components
+- `ArcaneBreadcrumbs` - Navigation breadcrumb trail with chevron, slash, arrow, and dot separators
+- `ArcanePagination` - Page navigation controls with outline, filled, ghost, and simple styles (uses `onPageChange` callback)
+
+#### New Layout Components
+- `ArcaneDrawer` - Slide-in side panel from any screen edge (left, right, top, bottom) with multiple sizes
+- `ArcaneTabBar` - Simple inline tab bar for view switching (uses `ArcaneTabBarItem`, index-based selection)
+
+#### SVG Abstractions
+- `ArcaneSvg` - SVG wrapper component with size presets (xs, sm, md, lg, xl, xxl)
+- `ArcaneSvgPath` - SVG path element with fill, stroke, and line cap/join attributes
+- `ArcaneSvgCircle` - SVG circle element
+- `ArcaneSvgRect` - SVG rect element with corner radius support
+- `ArcaneSvgLine` - SVG line element
+- `ArcaneSvgPolyline` - SVG polyline element
+- `ArcaneSvgPolygon` - SVG polygon element
+- `ArcaneSvgGroup` - SVG group element with transform support
+
+#### Enhanced ArcaneIcon
+- Added 30+ new icon factory constructors: `plus`, `minus`, `trash`, `edit`, `download`, `upload`, `user`, `mail`, `heart`, `star`, `lock`, `bell`, `calendar`, `folder`, `file`, `image`, `code`, `terminal`, `link`, `globe`, `info`, `warning`, `error`, `success`, `refresh`, `filter`, `moreHorizontal`, `moreVertical`, `eye`, `eyeOff`, `send`, `loader`
+
+### Documentation
+- Added comprehensive documentation for all new components in codex
+- Added demos for all new components
+- Updated navigation sidebar with new component entries
+- Fixed documentation for `ArcanePagination` to use correct `onPageChange` callback name
+- Updated inline tabs documentation to reflect `ArcaneTabBar` API
+
 ## [2.2.0]
 
 ### Added

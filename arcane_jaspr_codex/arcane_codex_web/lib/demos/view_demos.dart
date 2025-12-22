@@ -147,4 +147,116 @@ class ViewDemos {
           ],
         ),
       ];
+
+  static List<Component> callout() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(widthCustom: '300px'),
+          children: [
+            ArcaneCallout(
+              title: 'Note',
+              content: 'This is an important callout message.',
+              style: CalloutStyle.info,
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> kbd() => [
+        ArcaneRow(
+          gapSize: Gap.sm,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ArcaneKbd('⌘'),
+            ArcaneText('+'),
+            ArcaneKbd('K'),
+          ],
+        ),
+      ];
+
+  static List<Component> meter() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(widthCustom: '200px'),
+          children: [
+            ArcaneMeter(
+              value: 0.65,
+              label: 'Storage',
+              showValue: true,
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> alert() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(widthCustom: '300px'),
+          children: [
+            ArcaneAlert(
+              title: 'Success',
+              message: 'Your changes have been saved.',
+              severity: AlertSeverity.success,
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> inlineTabs() => [
+        ArcaneTabBar(
+          tabs: const [
+            ArcaneTabBarItem(label: 'Overview'),
+            ArcaneTabBarItem(label: 'Features'),
+            ArcaneTabBarItem(label: 'Pricing'),
+          ],
+          selectedIndex: 0,
+          onChanged: (_) {},
+        ),
+      ];
+
+  static List<Component> treeView() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(widthCustom: '250px'),
+          children: [
+            ArcaneTreeView(
+              nodes: [
+                TreeNode(
+                  id: 'src',
+                  label: 'src',
+                  icon: ArcaneIcon.folder(),
+                  children: [
+                    TreeNode(id: 'main', label: 'main.dart', icon: ArcaneIcon.file()),
+                    TreeNode(id: 'app', label: 'app.dart', icon: ArcaneIcon.file()),
+                  ],
+                ),
+                TreeNode(id: 'pubspec', label: 'pubspec.yaml', icon: ArcaneIcon.file()),
+              ],
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> popover() => [
+        ArcanePopover(
+          trigger: ArcaneButton.secondary(label: 'Open Popover', onPressed: () {}),
+          content: ArcaneDiv(
+            styles: const ArcaneStyleData(padding: PaddingPreset.sm),
+            children: [
+              ArcaneText('Popover content'),
+            ],
+          ),
+          position: PopoverPosition.bottom,
+        ),
+      ];
+
+  static List<Component> icon() => [
+        ArcaneRow(
+          gapSize: Gap.md,
+          children: [
+            ArcaneIcon.home(),
+            ArcaneIcon.search(),
+            ArcaneIcon.settings(),
+            ArcaneIcon.user(),
+            ArcaneIcon.heart(),
+            ArcaneIcon.star(),
+          ],
+        ),
+      ];
 }

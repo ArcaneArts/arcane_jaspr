@@ -117,7 +117,7 @@ class AuthButton extends StatelessComponent {
 
   Component _buildSpinner() {
     return ArcaneDiv(
-      styles: ArcaneStyleData(
+      styles: const ArcaneStyleData(
         position: Position.absolute,
         display: Display.flex,
         alignItems: AlignItems.center,

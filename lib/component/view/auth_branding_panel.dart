@@ -40,7 +40,7 @@ class AuthBrandingPanel extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return ArcaneDiv(
-      styles: ArcaneStyleData(
+      styles: const ArcaneStyleData(
         display: Display.flex,
         flexDirection: FlexDirection.column,
         justifyContent: JustifyContent.center,
@@ -50,14 +50,14 @@ class AuthBrandingPanel extends StatelessComponent {
         // Logo
         if (logoUrl != null)
           ArcaneDiv(
-            styles: ArcaneStyleData(
+            styles: const ArcaneStyleData(
               margin: MarginPreset.bottomXxl,
             ),
             children: [
               img(
                 src: logoUrl!,
                 alt: 'Logo',
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'width': '48px',
                   'height': '48px',
                   'border-radius': ArcaneRadius.lg,
@@ -69,7 +69,7 @@ class AuthBrandingPanel extends StatelessComponent {
 
         // Tagline
         ArcaneDiv(
-          styles: ArcaneStyleData(
+          styles: const ArcaneStyleData(
             fontSize: FontSize.xl3,
             fontWeight: FontWeight.bold,
             textColor: TextColor.primary,
@@ -83,7 +83,7 @@ class AuthBrandingPanel extends StatelessComponent {
         // Description
         if (description != null)
           ArcaneDiv(
-            styles: ArcaneStyleData(
+            styles: const ArcaneStyleData(
               fontSize: FontSize.base,
               textColor: TextColor.muted,
               margin: MarginPreset.bottomXl,
@@ -95,7 +95,7 @@ class AuthBrandingPanel extends StatelessComponent {
         // Features list
         if (features != null && features!.isNotEmpty)
           ArcaneDiv(
-            styles: ArcaneStyleData(
+            styles: const ArcaneStyleData(
               display: Display.flex,
               flexDirection: FlexDirection.column,
               gap: Gap.md,
@@ -114,14 +114,14 @@ class AuthBrandingPanel extends StatelessComponent {
 
   Component _buildFeatureItem(String text) {
     return ArcaneDiv(
-      styles: ArcaneStyleData(
+      styles: const ArcaneStyleData(
         display: Display.flex,
         alignItems: AlignItems.flexStart,
         gap: Gap.sm,
       ),
       children: [
         // Checkmark icon
-        div(
+        const div(
           styles: Styles(raw: {
             'width': '20px',
             'height': '20px',
@@ -143,7 +143,7 @@ class AuthBrandingPanel extends StatelessComponent {
         ),
         // Feature text
         ArcaneDiv(
-          styles: ArcaneStyleData(
+          styles: const ArcaneStyleData(
             fontSize: FontSize.sm,
             textColor: TextColor.primary,
             lineHeight: LineHeight.normal,
@@ -156,7 +156,7 @@ class AuthBrandingPanel extends StatelessComponent {
 
   Component _buildTestimonial() {
     return div(
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'padding': ArcaneSpacing.lg,
         'background': 'rgba(24, 24, 27, 0.5)',
         'border': '1px solid ${ArcaneColors.border}',
@@ -166,7 +166,7 @@ class AuthBrandingPanel extends StatelessComponent {
       [
         // Quote
         ArcaneDiv(
-          styles: ArcaneStyleData(
+          styles: const ArcaneStyleData(
             fontSize: FontSize.sm,
             textColor: TextColor.primary,
             margin: MarginPreset.bottomMd,
@@ -178,7 +178,7 @@ class AuthBrandingPanel extends StatelessComponent {
         // Author
         if (testimonialAuthor != null)
           ArcaneDiv(
-            styles: ArcaneStyleData(
+            styles: const ArcaneStyleData(
               display: Display.flex,
               alignItems: AlignItems.center,
               gap: Gap.sm,
@@ -186,7 +186,7 @@ class AuthBrandingPanel extends StatelessComponent {
             children: [
               // Avatar placeholder
               div(
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'width': '36px',
                   'height': '36px',
                   'border-radius': ArcaneRadius.full,
@@ -204,7 +204,7 @@ class AuthBrandingPanel extends StatelessComponent {
               ArcaneDiv(
                 children: [
                   ArcaneDiv(
-                    styles: ArcaneStyleData(
+                    styles: const ArcaneStyleData(
                       fontSize: FontSize.sm,
                       fontWeight: FontWeight.w600,
                       textColor: TextColor.primary,
@@ -213,7 +213,7 @@ class AuthBrandingPanel extends StatelessComponent {
                   ),
                   if (testimonialTitle != null)
                     ArcaneDiv(
-                      styles: ArcaneStyleData(
+                      styles: const ArcaneStyleData(
                         fontSize: FontSize.xs,
                         textColor: TextColor.muted,
                       ),

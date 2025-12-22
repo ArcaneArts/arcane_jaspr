@@ -84,7 +84,7 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
         // Header
         if (component.header != null) ...<Component>[
           component.header!,
-          ArcaneDiv(
+          const ArcaneDiv(
             styles: ArcaneStyleData(heightCustom: ArcaneSpacing.lg),
             children: <Component>[],
           ),
@@ -92,7 +92,7 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
 
         // Title
         ArcaneDiv(
-          styles: ArcaneStyleData(
+          styles: const ArcaneStyleData(
             margin: MarginPreset.bottomXs,
             fontSize: FontSize.xl,
             fontWeight: FontWeight.w600,
@@ -103,7 +103,7 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
         ),
 
         ArcaneDiv(
-          styles: ArcaneStyleData(
+          styles: const ArcaneStyleData(
             margin: MarginPreset.bottomLg,
             fontSize: FontSize.sm,
             textColor: TextColor.muted,
@@ -120,7 +120,7 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
 
         // Success message
         if (_sent)
-          ArcaneDiv(
+          const ArcaneDiv(
             styles: ArcaneStyleData(
               padding: PaddingPreset.md,
               margin: MarginPreset.bottomMd,
@@ -139,7 +139,7 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
         // Error message
         if (_error != null)
           ArcaneDiv(
-            styles: ArcaneStyleData(
+            styles: const ArcaneStyleData(
               padding: PaddingPreset.md,
               margin: MarginPreset.bottomMd,
               backgroundCustom: 'rgba(239, 68, 68, 0.1)',
@@ -163,9 +163,9 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
             <Component>[
               // Email field
               ArcaneDiv(
-                styles: ArcaneStyleData(margin: MarginPreset.bottomLg),
+                styles: const ArcaneStyleData(margin: MarginPreset.bottomLg),
                 children: <Component>[
-                  label(
+                  const label(
                     styles: Styles(raw: <String, String>{
                       'display': 'block',
                       'margin-bottom': ArcaneSpacing.xs,
@@ -182,7 +182,7 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
                       'autocomplete': 'email',
                       'required': 'true',
                     },
-                    styles: Styles(raw: <String, String>{
+                    styles: const Styles(raw: <String, String>{
                       'width': '100%',
                       'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
                       'font-size': ArcaneTypography.fontSizeSm,
@@ -229,19 +229,19 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
         // Back to login link
         if (component.loginRoute != null)
           ArcaneDiv(
-            styles: ArcaneStyleData(
+            styles: const ArcaneStyleData(
               margin: MarginPreset.topLg,
               textAlign: TextAlign.center,
             ),
             children: <Component>[
               a(
                 href: component.loginRoute!,
-                styles: Styles(raw: <String, String>{
+                styles: const Styles(raw: <String, String>{
                   'font-size': ArcaneTypography.fontSizeSm,
                   'color': ArcaneColors.accent,
                   'text-decoration': 'none',
                 }),
-                <Component>[Component.text('Back to sign in')],
+                <Component>[const Component.text('Back to sign in')],
               ),
             ],
           ),

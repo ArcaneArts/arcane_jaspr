@@ -58,7 +58,7 @@ class AuthInput extends StatelessComponent {
     final inputId = name ?? labelText.toLowerCase().replaceAll(' ', '-');
 
     return ArcaneDiv(
-      styles: ArcaneStyleData(
+      styles: const ArcaneStyleData(
         margin: MarginPreset.bottomMd,
       ),
       children: [
@@ -66,7 +66,7 @@ class AuthInput extends StatelessComponent {
         label(
           [Component.text(labelText)],
           htmlFor: inputId,
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'block',
             'font-size': ArcaneTypography.fontSizeSm,
             'font-weight': '500',
@@ -76,7 +76,7 @@ class AuthInput extends StatelessComponent {
         ),
         // Input container
         ArcaneDiv(
-          styles: ArcaneStyleData(
+          styles: const ArcaneStyleData(
             position: Position.relative,
           ),
           children: [

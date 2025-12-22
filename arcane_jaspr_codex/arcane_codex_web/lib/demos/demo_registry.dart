@@ -61,6 +61,14 @@ class DemoRegistry {
         return InputDemos.selector();
       case 'theme-toggle':
         return InputDemos.themeToggle(isDark, onThemeToggle);
+      case 'tag-input':
+        return InputDemos.tagInput();
+      case 'number-input':
+        return InputDemos.numberInput();
+      case 'file-upload':
+        return InputDemos.fileUpload();
+      case 'color-input':
+        return InputDemos.colorInput();
 
       // Layout components
       case 'div':
@@ -109,6 +117,8 @@ class DemoRegistry {
         return LayoutDemos.dashboardLayout();
       case 'page-body':
         return LayoutDemos.pageBody();
+      case 'drawer':
+        return LayoutDemos.drawer();
 
       // Typography components
       case 'text':
@@ -165,6 +175,22 @@ class DemoRegistry {
         return ViewDemos.accordion();
       case 'toast':
         return ViewDemos.toast();
+      case 'callout':
+        return ViewDemos.callout();
+      case 'kbd':
+        return ViewDemos.kbd();
+      case 'meter':
+        return ViewDemos.meter();
+      case 'alert':
+        return ViewDemos.alert();
+      case 'inline-tabs':
+        return ViewDemos.inlineTabs();
+      case 'tree-view':
+        return ViewDemos.treeView();
+      case 'popover':
+        return ViewDemos.popover();
+      case 'icon':
+        return ViewDemos.icon();
 
       // Navigation components
       case 'header':
@@ -179,6 +205,10 @@ class DemoRegistry {
         return NavigationDemos.mobileMenu();
       case 'mega-menu':
         return NavigationDemos.megaMenu();
+      case 'breadcrumbs':
+        return NavigationDemos.breadcrumbs();
+      case 'pagination':
+        return NavigationDemos.pagination();
 
       // Feedback components
       case 'dialog':

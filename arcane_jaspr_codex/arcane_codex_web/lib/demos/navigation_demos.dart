@@ -113,4 +113,23 @@ class NavigationDemos {
           ],
         ),
       ];
+
+  static List<Component> breadcrumbs() => [
+        ArcaneBreadcrumbs(
+          items: const [
+            BreadcrumbItem(label: 'Home', href: '/'),
+            BreadcrumbItem(label: 'Products', href: '/products'),
+            BreadcrumbItem(label: 'Category', href: '/products/category'),
+            BreadcrumbItem(label: 'Item'),
+          ],
+        ),
+      ];
+
+  static List<Component> pagination() => [
+        ArcanePagination(
+          currentPage: 3,
+          totalPages: 10,
+          onPageChange: (_) {},
+        ),
+      ];
 }

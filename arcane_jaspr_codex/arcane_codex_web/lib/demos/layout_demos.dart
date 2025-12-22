@@ -331,4 +331,33 @@ class LayoutDemos {
           children: [ArcaneText('Page body content area')],
         ),
       ];
+
+  static List<Component> drawer() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(
+            padding: PaddingPreset.md,
+            background: Background.surface,
+            borderRadius: Radius.md,
+          ),
+          children: [
+            ArcaneColumn(
+              gapSize: Gap.sm,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ArcaneText('Drawer Component', weight: FontWeight.bold),
+                ArcaneText('Slide-in panel from screen edge', color: TextColor.muted),
+                ArcaneDiv(
+                  styles: const ArcaneStyleData(margin: MarginPreset.topSm),
+                  children: [
+                    ArcaneButton.secondary(
+                      label: 'Open Drawer',
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ];
 }

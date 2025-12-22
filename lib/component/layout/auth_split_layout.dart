@@ -32,7 +32,7 @@ class AuthSplitLayout extends StatelessComponent {
     final rightPanel = _buildFormPanel();
 
     return ArcaneDiv(
-      styles: ArcaneStyleData(
+      styles: const ArcaneStyleData(
         display: Display.flex,
         minHeight: '100vh',
         background: Background.background,
@@ -49,7 +49,7 @@ class AuthSplitLayout extends StatelessComponent {
   Component _buildBrandingPanel() {
     // Using raw div for complex media query styling
     return div(
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'flex': '1',
         'display': 'flex',
         'flex-direction': 'column',
@@ -62,7 +62,7 @@ class AuthSplitLayout extends StatelessComponent {
       classes: 'auth-branding-panel',
       [
         // Background gradient glow
-        ArcaneDiv(
+        const ArcaneDiv(
           styles: ArcaneStyleData(
             position: Position.absolute,
             inset: '0',
@@ -110,7 +110,7 @@ class AuthSplitLayout extends StatelessComponent {
         ),
         // Content
         ArcaneDiv(
-          styles: ArcaneStyleData(
+          styles: const ArcaneStyleData(
             position: Position.relative,
             zIndex: ZIndex.base,
             maxWidth: MaxWidth.form,
@@ -124,7 +124,7 @@ class AuthSplitLayout extends StatelessComponent {
 
   Component _buildFormPanel() {
     return ArcaneDiv(
-      styles: ArcaneStyleData(
+      styles: const ArcaneStyleData(
         flexGrow: 1,
         display: Display.flex,
         flexDirection: FlexDirection.column,
@@ -138,7 +138,7 @@ class AuthSplitLayout extends StatelessComponent {
         // Mobile header (only shown on mobile when branding panel is hidden)
         if (mobileHeader != null)
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'display': 'none',
               'margin-bottom': ArcaneSpacing.xl,
             }),
@@ -147,7 +147,7 @@ class AuthSplitLayout extends StatelessComponent {
           ),
         // Form content
         ArcaneDiv(
-          styles: ArcaneStyleData(
+          styles: const ArcaneStyleData(
             width: Size.full,
             maxWidthCustom: '420px',
           ),

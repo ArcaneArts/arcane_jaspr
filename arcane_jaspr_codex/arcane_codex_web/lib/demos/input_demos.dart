@@ -177,4 +177,57 @@ class InputDemos {
   static List<Component> themeToggle(bool isDark, VoidCallback onToggle) => [
         ArcaneThemeToggle(isDark: isDark, onChanged: (_) => onToggle()),
       ];
+
+  static List<Component> tagInput() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(widthCustom: '300px'),
+          children: [
+            ArcaneTagInput(
+              tags: const ['React', 'Vue', 'Angular'],
+              onTagsChanged: (_) {},
+              placeholder: 'Add tags...',
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> numberInput() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(widthCustom: '150px'),
+          children: [
+            ArcaneNumberInput(
+              value: 5,
+              min: 0,
+              max: 10,
+              onChanged: (_) {},
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> fileUpload() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(widthCustom: '300px'),
+          children: [
+            ArcaneFileUpload(
+              onFilesSelected: (_) {},
+              label: 'Upload files',
+              helperText: 'PNG, JPG up to 10MB',
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> colorInput() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(widthCustom: '250px'),
+          children: [
+            ArcaneColorInput(
+              value: '#10b981',
+              onChanged: (_) {},
+              label: 'Primary Color',
+            ),
+          ],
+        ),
+      ];
 }

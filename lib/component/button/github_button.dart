@@ -59,7 +59,7 @@ class GithubSignInButton extends StatelessComponent {
 
   Component _buildGithubIcon() {
     // GitHub SVG icon
-    return Component.element(
+    return const Component.element(
       tag: 'svg',
       attributes: <String, String>{
         'width': '18',

@@ -133,7 +133,7 @@ class SocialSignInButton extends StatelessComponent {
   }
 
   Component _buildSpinner() {
-    return span(
+    return const span(
       styles: Styles(raw: <String, String>{
         'display': 'inline-block',
         'width': '16px',

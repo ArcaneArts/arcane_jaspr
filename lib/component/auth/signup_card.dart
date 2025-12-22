@@ -143,14 +143,14 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
         // Header
         if (component.header != null) ...<Component>[
           component.header!,
-          ArcaneDiv(
+          const ArcaneDiv(
             styles: ArcaneStyleData(heightCustom: ArcaneSpacing.lg),
             children: <Component>[],
           ),
         ],
 
         // Title
-        ArcaneDiv(
+        const ArcaneDiv(
           styles: ArcaneStyleData(
             margin: MarginPreset.bottomXs,
             fontSize: FontSize.xl,
@@ -161,7 +161,7 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
           children: [Component.text('Create an account')],
         ),
 
-        ArcaneDiv(
+        const ArcaneDiv(
           styles: ArcaneStyleData(
             margin: MarginPreset.bottomLg,
             fontSize: FontSize.sm,
@@ -174,7 +174,7 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
         // Error message
         if (_error != null)
           ArcaneDiv(
-            styles: ArcaneStyleData(
+            styles: const ArcaneStyleData(
               padding: PaddingPreset.md,
               margin: MarginPreset.bottomMd,
               backgroundCustom: 'rgba(239, 68, 68, 0.1)',
@@ -189,7 +189,7 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
         // Social sign-in buttons
         if (_hasSocialMethods) ...<Component>[
           ArcaneDiv(
-            styles: ArcaneStyleData(
+            styles: const ArcaneStyleData(
               display: Display.flex,
               flexDirection: FlexDirection.column,
               gap: Gap.sm,
@@ -219,7 +219,7 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
 
         // Divider
         if (_hasSocialMethods && _hasEmailMethod)
-          ArcaneDiv(
+          const ArcaneDiv(
             styles: ArcaneStyleData(
               display: Display.flex,
               alignItems: AlignItems.center,
@@ -307,7 +307,7 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
               // Terms checkbox
               if (_hasTerms)
                 ArcaneDiv(
-                  styles: ArcaneStyleData(
+                  styles: const ArcaneStyleData(
                     display: Display.flex,
                     alignItems: AlignItems.flexStart,
                     gap: Gap.sm,
@@ -320,7 +320,7 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
                         'id': 'terms',
                         if (_acceptedTerms) 'checked': 'true',
                       },
-                      styles: Styles(raw: <String, String>{
+                      styles: const Styles(raw: <String, String>{
                         'margin-top': '2px',
                         'accent-color': ArcaneColors.accent,
                       }),
@@ -337,35 +337,35 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
                     ),
                     label(
                       attributes: <String, String>{'for': 'terms'},
-                      styles: Styles(raw: <String, String>{
+                      styles: const Styles(raw: <String, String>{
                         'font-size': ArcaneTypography.fontSizeSm,
                         'color': ArcaneColors.muted,
                         'cursor': 'pointer',
                       }),
                       <Component>[
-                        Component.text('I agree to the '),
+                        const Component.text('I agree to the '),
                         if (component.termsUrl != null)
                           a(
                             href: component.termsUrl!,
                             attributes: <String, String>{'target': '_blank'},
-                            styles: Styles(raw: <String, String>{
+                            styles: const Styles(raw: <String, String>{
                               'color': ArcaneColors.accent,
                               'text-decoration': 'none',
                             }),
-                            <Component>[Component.text('Terms of Service')],
+                            <Component>[const Component.text('Terms of Service')],
                           ),
                         if (component.termsUrl != null &&
                             component.privacyUrl != null)
-                          Component.text(' and '),
+                          const Component.text(' and '),
                         if (component.privacyUrl != null)
                           a(
                             href: component.privacyUrl!,
                             attributes: <String, String>{'target': '_blank'},
-                            styles: Styles(raw: <String, String>{
+                            styles: const Styles(raw: <String, String>{
                               'color': ArcaneColors.accent,
                               'text-decoration': 'none',
                             }),
-                            <Component>[Component.text('Privacy Policy')],
+                            <Component>[const Component.text('Privacy Policy')],
                           ),
                       ],
                     ),
@@ -386,22 +386,22 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
         // Login link
         if (component.loginRoute != null)
           ArcaneDiv(
-            styles: ArcaneStyleData(
+            styles: const ArcaneStyleData(
               margin: MarginPreset.topLg,
               textAlign: TextAlign.center,
               fontSize: FontSize.sm,
               textColor: TextColor.muted,
             ),
             children: <Component>[
-              Component.text('Already have an account? '),
+              const Component.text('Already have an account? '),
               a(
                 href: component.loginRoute!,
-                styles: Styles(raw: <String, String>{
+                styles: const Styles(raw: <String, String>{
                   'color': ArcaneColors.accent,
                   'text-decoration': 'none',
                   'font-weight': '500',
                 }),
-                <Component>[Component.text('Sign in')],
+                <Component>[const Component.text('Sign in')],
               ),
             ],
           ),
@@ -418,10 +418,10 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
     String? hint,
   }) {
     return ArcaneDiv(
-      styles: ArcaneStyleData(margin: MarginPreset.bottomMd),
+      styles: const ArcaneStyleData(margin: MarginPreset.bottomMd),
       children: <Component>[
         label(
-          styles: Styles(raw: <String, String>{
+          styles: const Styles(raw: <String, String>{
             'display': 'block',
             'margin-bottom': ArcaneSpacing.xs,
             'font-size': ArcaneTypography.fontSizeSm,
@@ -437,7 +437,7 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
             'autocomplete': autocomplete,
             'required': 'true',
           },
-          styles: Styles(raw: <String, String>{
+          styles: const Styles(raw: <String, String>{
             'width': '100%',
             'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
             'font-size': ArcaneTypography.fontSizeSm,
@@ -461,7 +461,7 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
         ),
         if (hint != null)
           ArcaneDiv(
-            styles: ArcaneStyleData(
+            styles: const ArcaneStyleData(
               margin: MarginPreset.topXs,
               fontSize: FontSize.xs,
               textColor: TextColor.muted,

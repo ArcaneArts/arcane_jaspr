@@ -60,7 +60,7 @@ class AppleSignInButton extends StatelessComponent {
 
   Component _buildAppleIcon() {
     // Apple logo SVG
-    return Component.element(
+    return const Component.element(
       tag: 'svg',
       attributes: <String, String>{
         'width': '18',

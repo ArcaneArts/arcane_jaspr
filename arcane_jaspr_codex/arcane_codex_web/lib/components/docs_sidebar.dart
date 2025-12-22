@@ -111,6 +111,10 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcaneCycleButton', href: '/docs/inputs/arcane-cycle-button'),
               _buildNavItem(label: 'ArcaneSelector', href: '/docs/inputs/arcane-selector'),
               _buildNavItem(label: 'ArcaneThemeToggle', href: '/docs/inputs/arcane-theme-toggle'),
+              _buildNavItem(label: 'ArcaneTagInput', href: '/docs/inputs/arcane-tag-input'),
+              _buildNavItem(label: 'ArcaneNumberInput', href: '/docs/inputs/arcane-number-input'),
+              _buildNavItem(label: 'ArcaneFileUpload', href: '/docs/inputs/arcane-file-upload'),
+              _buildNavItem(label: 'ArcaneColorInput', href: '/docs/inputs/arcane-color-input'),
             ]),
 
             // Layout Components section
@@ -138,6 +142,7 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcaneAuthLayout', href: '/docs/layout/arcane-auth-layout'),
               _buildNavItem(label: 'ArcaneDashboardLayout', href: '/docs/layout/arcane-dashboard-layout'),
               _buildNavItem(label: 'ArcanePageBody', href: '/docs/layout/arcane-page-body'),
+              _buildNavItem(label: 'ArcaneDrawer', href: '/docs/layout/arcane-drawer'),
             ]),
 
             // Typography Components section
@@ -173,6 +178,14 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcaneTooltip', href: '/docs/view/arcane-tooltip'),
               _buildNavItem(label: 'ArcaneAccordion', href: '/docs/view/arcane-accordion'),
               _buildNavItem(label: 'ArcaneToast', href: '/docs/view/arcane-toast'),
+              _buildNavItem(label: 'ArcaneCallout', href: '/docs/view/arcane-callout'),
+              _buildNavItem(label: 'ArcaneKbd', href: '/docs/view/arcane-kbd'),
+              _buildNavItem(label: 'ArcaneMeter', href: '/docs/view/arcane-meter'),
+              _buildNavItem(label: 'ArcaneAlert', href: '/docs/view/arcane-alert'),
+              _buildNavItem(label: 'ArcaneInlineTabs', href: '/docs/view/arcane-inline-tabs'),
+              _buildNavItem(label: 'ArcaneTreeView', href: '/docs/view/arcane-tree-view'),
+              _buildNavItem(label: 'ArcanePopover', href: '/docs/view/arcane-popover'),
+              _buildNavItem(label: 'ArcaneSvg', href: '/docs/view/arcane-svg'),
             ]),
 
             // Navigation Components section
@@ -183,6 +196,8 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcaneDropdownMenu', href: '/docs/navigation/arcane-dropdown-menu'),
               _buildNavItem(label: 'ArcaneMobileMenu', href: '/docs/navigation/arcane-mobile-menu'),
               _buildNavItem(label: 'ArcaneMegaMenu', href: '/docs/navigation/arcane-mega-menu'),
+              _buildNavItem(label: 'ArcaneBreadcrumbs', href: '/docs/navigation/arcane-breadcrumbs'),
+              _buildNavItem(label: 'ArcanePagination', href: '/docs/navigation/arcane-pagination'),
             ]),
 
             // Feedback Components section

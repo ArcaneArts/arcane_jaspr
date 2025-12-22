@@ -28,19 +28,19 @@ class AuthFormCard extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return ArcaneDiv(
-      styles: ArcaneStyleData(
+      styles: const ArcaneStyleData(
         width: Size.full,
       ),
       children: [
         // Header
         ArcaneDiv(
-          styles: ArcaneStyleData(
+          styles: const ArcaneStyleData(
             margin: MarginPreset.bottomXl,
             textAlign: TextAlign.center,
           ),
           children: [
             ArcaneDiv(
-              styles: ArcaneStyleData(
+              styles: const ArcaneStyleData(
                 fontSize: FontSize.xl2,
                 fontWeight: FontWeight.bold,
                 textColor: TextColor.primary,
@@ -51,7 +51,7 @@ class AuthFormCard extends StatelessComponent {
             ),
             if (subtitle != null)
               ArcaneDiv(
-                styles: ArcaneStyleData(
+                styles: const ArcaneStyleData(
                   fontSize: FontSize.sm,
                   textColor: TextColor.muted,
                   lineHeight: LineHeight.normal,
@@ -65,7 +65,7 @@ class AuthFormCard extends StatelessComponent {
         // Footer
         if (footer != null)
           ArcaneDiv(
-            styles: ArcaneStyleData(
+            styles: const ArcaneStyleData(
               margin: MarginPreset.topLg,
               textAlign: TextAlign.center,
             ),
