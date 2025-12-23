@@ -40,7 +40,7 @@ jobs:
         run: dart pub global activate jaspr_cli
 
       - name: Build static site
-        run: dart pub global run jaspr_cli:jaspr build --define=BASE_URL=/arcane_jaspr
+        run: dart pub global run jaspr_cli:jaspr build --dart-define=BASE_URL=/arcane_jaspr 
 
       - name: Add .nojekyll
         run: touch build/jaspr/.nojekyll
