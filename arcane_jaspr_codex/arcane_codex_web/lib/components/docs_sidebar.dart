@@ -17,6 +17,7 @@ class DocsSidebar extends StatelessComponent {
       width: '280px',
       topOffset: '0px',
       showBorder: true,
+      padding: '0',
       scrollPersistenceId: 'docs-sidebar',
       children: [
         // Header
