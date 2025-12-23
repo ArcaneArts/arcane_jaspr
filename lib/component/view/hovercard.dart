@@ -17,12 +17,12 @@ import 'package:jaspr/dom.dart'
 
 import '../../util/tokens/tokens.dart';
 
-/// Popover position
-enum PopoverPosition {
-  /// Above the trigger
+/// Hovercard position relative to the trigger element
+enum HovercardPosition {
+  /// Above the trigger, centered
   top,
 
-  /// Below the trigger
+  /// Below the trigger, centered
   bottom,
 
   /// To the left of the trigger
@@ -31,100 +31,80 @@ enum PopoverPosition {
   /// To the right of the trigger
   right,
 
-  /// Above and to the start (left in LTR)
+  /// Above and aligned to the start (left in LTR)
   topStart,
 
-  /// Above and to the end (right in LTR)
+  /// Above and aligned to the end (right in LTR)
   topEnd,
 
-  /// Below and to the start
+  /// Below and aligned to the start
   bottomStart,
 
-  /// Below and to the end
+  /// Below and aligned to the end
   bottomEnd,
 }
 
-/// Popover trigger type
-enum PopoverTrigger {
-  /// Trigger on click
-  click,
-
-  /// Trigger on hover
-  hover,
-
-  /// Manual control only
-  manual,
-}
-
-/// Popover component
+/// A floating card that appears on hover with rich, interactive content.
 ///
-/// A floating content panel that appears relative to a trigger element.
+/// Unlike tooltips, hovercards can contain interactive elements like buttons
+/// and links. The card stays open while the user hovers over either the
+/// trigger or the card itself.
 ///
 /// ```dart
-/// ArcanePopover(
-///   trigger: ArcaneButton(label: 'Open Menu'),
-///   content: MenuContent(),
-///   position: PopoverPosition.bottomStart,
+/// ArcaneHovercard(
+///   trigger: ArcaneAvatar(name: 'John Doe'),
+///   content: UserProfileCard(user: user),
+///   position: HovercardPosition.bottom,
+///   openDelay: 200,
+///   closeDelay: 300,
 /// )
 /// ```
-class ArcanePopover extends StatefulComponent {
-  /// Trigger element
+class ArcaneHovercard extends StatefulComponent {
+  /// The element that triggers the hovercard on hover
   final Component trigger;
 
-  /// Popover content
+  /// The content displayed inside the hovercard
   final Component content;
 
-  /// Position relative to trigger
-  final PopoverPosition position;
+  /// Position of the hovercard relative to the trigger
+  final HovercardPosition position;
 
-  /// Trigger behavior
-  final PopoverTrigger triggerType;
-
-  /// Whether popover is open (for manual control)
-  final bool? isOpen;
-
-  /// Callback when popover opens/closes
-  final void Function(bool isOpen)? onOpenChange;
-
-  /// Whether to show arrow
+  /// Whether to show an arrow pointing to the trigger
   final bool showArrow;
 
-  /// Close on outside click
-  final bool closeOnOutsideClick;
-
-  /// Close on escape key
-  final bool closeOnEscape;
-
-  /// Custom offset from trigger in pixels
-  final int offset;
-
-  /// Delay in milliseconds before opening (for hover trigger)
+  /// Delay in milliseconds before showing the hovercard
   final int openDelay;
 
-  /// Delay in milliseconds before closing (for hover trigger)
+  /// Delay in milliseconds before hiding the hovercard
   final int closeDelay;
 
-  const ArcanePopover({
+  /// Distance in pixels between the trigger and the hovercard
+  final int offset;
+
+  /// External control of the open state (optional)
+  final bool? isOpen;
+
+  /// Callback when the open state changes
+  final void Function(bool isOpen)? onOpenChange;
+
+  const ArcaneHovercard({
     required this.trigger,
     required this.content,
-    this.position = PopoverPosition.bottom,
-    this.triggerType = PopoverTrigger.click,
+    this.position = HovercardPosition.top,
+    this.showArrow = true,
+    this.openDelay = 200,
+    this.closeDelay = 300,
+    this.offset = 8,
     this.isOpen,
     this.onOpenChange,
-    this.showArrow = true,
-    this.closeOnOutsideClick = true,
-    this.closeOnEscape = true,
-    this.offset = 8,
-    this.openDelay = 0,
-    this.closeDelay = 0,
     super.key,
   });
 
   @override
-  State<ArcanePopover> createState() => _ArcanePopoverState();
+  State<ArcaneHovercard> createState() => _ArcaneHovercardState();
 }
 
-class _ArcanePopoverState extends State<ArcanePopover> {
+class _ArcaneHovercardState extends State<ArcaneHovercard> {
   bool _internalIsOpen = false;
   Timer? _openTimer;
   Timer? _closeTimer;
@@ -156,15 +136,6 @@ class _ArcanePopoverState extends State<ArcanePopover> {
     }
   }
 
-  void _toggle() {
-    _cancelTimers();
-    final newState = !_isOpen;
-    if (component.isOpen == null) {
-      setState(() => _internalIsOpen = newState);
-    }
-    component.onOpenChange?.call(newState);
-  }
-
   void _open() {
     if (!_isOpen) {
       if (component.isOpen == null) {
@@ -193,11 +164,11 @@ class _ArcanePopoverState extends State<ArcanePopover> {
     _startCloseTimer();
   }
 
-  void _handleContentEnter() {
+  void _handleCardEnter() {
     _cancelTimers();
   }
 
-  void _handleContentLeave() {
+  void _handleCardLeave() {
     _startCloseTimer();
   }
 
@@ -205,42 +176,42 @@ class _ArcanePopoverState extends State<ArcanePopover> {
     final offsetPx = '${component.offset}px';
 
     return switch (component.position) {
-      PopoverPosition.top => (
+      HovercardPosition.top => (
           'bottom',
           'calc(100% + $offsetPx)',
           'left: 50%; transform: translateX(-50%);'
         ),
-      PopoverPosition.bottom => (
+      HovercardPosition.bottom => (
           'top',
           'calc(100% + $offsetPx)',
           'left: 50%; transform: translateX(-50%);'
         ),
-      PopoverPosition.left => (
+      HovercardPosition.left => (
           'right',
           'calc(100% + $offsetPx)',
           'top: 50%; transform: translateY(-50%);'
         ),
-      PopoverPosition.right => (
+      HovercardPosition.right => (
           'left',
           'calc(100% + $offsetPx)',
           'top: 50%; transform: translateY(-50%);'
         ),
-      PopoverPosition.topStart => (
+      HovercardPosition.topStart => (
           'bottom',
           'calc(100% + $offsetPx)',
           'left: 0;'
         ),
-      PopoverPosition.topEnd => (
+      HovercardPosition.topEnd => (
           'bottom',
           'calc(100% + $offsetPx)',
           'right: 0;'
         ),
-      PopoverPosition.bottomStart => (
+      HovercardPosition.bottomStart => (
           'top',
           'calc(100% + $offsetPx)',
           'left: 0;'
         ),
-      PopoverPosition.bottomEnd => (
+      HovercardPosition.bottomEnd => (
           'top',
           'calc(100% + $offsetPx)',
           'right: 0;'
@@ -249,17 +220,17 @@ class _ArcanePopoverState extends State<ArcanePopover> {
   }
 
   String get _arrowPosition => switch (component.position) {
-        PopoverPosition.top ||
-        PopoverPosition.topStart ||
-        PopoverPosition.topEnd =>
+        HovercardPosition.top ||
+        HovercardPosition.topStart ||
+        HovercardPosition.topEnd =>
           'bottom: -6px; left: 50%; transform: translateX(-50%) rotate(45deg);',
-        PopoverPosition.bottom ||
-        PopoverPosition.bottomStart ||
-        PopoverPosition.bottomEnd =>
+        HovercardPosition.bottom ||
+        HovercardPosition.bottomStart ||
+        HovercardPosition.bottomEnd =>
           'top: -6px; left: 50%; transform: translateX(-50%) rotate(45deg);',
-        PopoverPosition.left =>
+        HovercardPosition.left =>
           'right: -6px; top: 50%; transform: translateY(-50%) rotate(45deg);',
-        PopoverPosition.right =>
+        HovercardPosition.right =>
           'left: -6px; top: 50%; transform: translateY(-50%) rotate(45deg);',
       };
 
@@ -290,39 +261,33 @@ class _ArcanePopoverState extends State<ArcanePopover> {
           styles: const Styles(raw: {
             'display': 'inline-block',
           }),
-          events: switch (component.triggerType) {
-            PopoverTrigger.click => {'click': (_) => _toggle()},
-            PopoverTrigger.hover => {
-                'mouseenter': (_) => _handleTriggerEnter(),
-                'mouseleave': (_) => _handleTriggerLeave(),
-              },
-            PopoverTrigger.manual => null,
+          events: {
+            'mouseenter': (_) => _handleTriggerEnter(),
+            'mouseleave': (_) => _handleTriggerLeave(),
           },
           [component.trigger],
         ),
 
-        // Popover content
+        // Hovercard content
         if (_isOpen)
           div(
             styles: Styles(raw: {
               'position': 'absolute',
               positionProp: positionValue,
               if (alignment != null) ..._parseStyleString(alignment),
-              'z-index': ArcaneZIndex.popover,
-              'min-width': '180px',
+              'z-index': ArcaneZIndex.tooltip,
+              'min-width': '200px',
               'background': ArcaneColors.surface,
               'border': '1px solid ${ArcaneColors.border}',
               'border-radius': ArcaneRadius.lg,
               'box-shadow': ArcaneEffects.shadowLg,
-              'padding': ArcaneSpacing.sm,
-              'animation': 'arcane-popover-fade 0.15s ease-out',
+              'padding': ArcaneSpacing.md,
+              'animation': 'arcane-hovercard-fade 0.15s ease-out',
             }),
-            events: component.triggerType == PopoverTrigger.hover
-                ? {
-                    'mouseenter': (_) => _handleContentEnter(),
-                    'mouseleave': (_) => _handleContentLeave(),
-                  }
-                : null,
+            events: {
+              'mouseenter': (_) => _handleCardEnter(),
+              'mouseleave': (_) => _handleCardLeave(),
+            },
             [
               // Arrow
               if (component.showArrow)
@@ -349,7 +314,7 @@ class _ArcanePopoverState extends State<ArcanePopover> {
 
   @css
   static final List<StyleRule> styles = [
-    css('@keyframes arcane-popover-fade').styles(raw: {
+    css('@keyframes arcane-hovercard-fade').styles(raw: {
       '0%': 'opacity: 0; transform: translateY(4px)',
       '100%': 'opacity: 1; transform: translateY(0)',
     }),

@@ -155,6 +155,7 @@ export 'component/view/alert.dart' hide AlertStyle;
 export 'component/view/tabs.dart' hide ArcaneTabs;
 export 'component/view/tree_view.dart';
 export 'component/view/popover.dart';
+export 'component/view/hovercard.dart';
 
 // ============================================================================
 // Navigation components

@@ -198,6 +198,8 @@ class DemoRegistry {
         return [const TreeViewDemo()];
       case 'popover':
         return ViewDemos.popover();
+      case 'hovercard':
+        return ViewDemos.hovercard();
       case 'icon':
         return ViewDemos.icon();
       case 'svg':

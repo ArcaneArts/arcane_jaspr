@@ -4,7 +4,7 @@ import 'package:jaspr_test/jaspr_test.dart';
 void main() {
   group('ColorScheme', () {
     test('has correct brightness', () {
-      final lightScheme = ColorScheme(
+      final lightScheme = const ColorScheme(
         brightness: Brightness.light,
         primary: Colors.blue,
         onPrimary: Colors.white,
@@ -41,7 +41,7 @@ void main() {
     });
 
     test('copyWith preserves unmodified colors', () {
-      final original = ColorScheme(
+      final original = const ColorScheme(
         brightness: Brightness.light,
         primary: Colors.blue,
         onPrimary: Colors.white,

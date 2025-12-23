@@ -246,6 +246,31 @@ class ViewDemos {
         ),
       ];
 
+  static List<Component> hovercard() => [
+        ArcaneHovercard(
+          trigger: ArcaneButton.secondary(label: 'Hover me', onPressed: () {}),
+          content: ArcaneColumn(
+            gapSize: Gap.sm,
+            children: [
+              ArcaneRow(
+                gapSize: Gap.sm,
+                children: [
+                  ArcaneAvatar(initials: 'JD'),
+                  ArcaneColumn(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ArcaneText('John Doe', weight: FontWeight.bold),
+                      ArcaneText('Software Engineer', color: TextColor.muted),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+          position: HovercardPosition.bottom,
+        ),
+      ];
+
   static List<Component> icon() => [
         ArcaneRow(
           gapSize: Gap.md,

@@ -35,6 +35,8 @@ ArcanePopover(
 | `closeOnOutsideClick` | `bool` | `true` | Close when clicking outside |
 | `closeOnEscape` | `bool` | `true` | Close on Escape key |
 | `offset` | `int` | `8` | Offset from trigger |
+| `openDelay` | `int` | `0` | Delay before opening (ms, hover mode) |
+| `closeDelay` | `int` | `0` | Delay before closing (ms, hover mode) |
 
 ## Positions
 
@@ -194,7 +196,22 @@ ArcanePopover(
 )
 ```
 
+## Hover with Delays
+
+When using `hover` trigger, you can add delays for a better user experience:
+
+```dart
+ArcanePopover(
+  trigger: trigger,
+  content: content,
+  triggerType: PopoverTrigger.hover,
+  openDelay: 200,  // Wait 200ms before showing
+  closeDelay: 300, // Wait 300ms before hiding
+)
+```
+
 ## Related Components
 
+- [ArcaneHovercard](/arcane_jaspr/docs/view/arcane-hovercard) - Hover-only card with delays
 - [ArcaneDropdownMenu](/arcane_jaspr/docs/navigation/arcane-dropdown-menu) - Dropdown menu
 - [ArcaneTooltip](/arcane_jaspr/docs/view/arcane-tooltip) - Simple tooltip

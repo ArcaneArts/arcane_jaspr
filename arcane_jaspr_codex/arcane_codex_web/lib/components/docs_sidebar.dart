@@ -185,6 +185,7 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcaneInlineTabs', href: '/docs/view/arcane-inline-tabs'),
               _buildNavItem(label: 'ArcaneTreeView', href: '/docs/view/arcane-tree-view'),
               _buildNavItem(label: 'ArcanePopover', href: '/docs/view/arcane-popover'),
+              _buildNavItem(label: 'ArcaneHovercard', href: '/docs/view/arcane-hovercard'),
               _buildNavItem(label: 'ArcaneSvg', href: '/docs/view/arcane-svg'),
             ]),
 
