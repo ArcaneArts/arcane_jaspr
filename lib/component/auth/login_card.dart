@@ -1,10 +1,5 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 
-import '../button/github_button.dart';
-import '../button/google_button.dart';
-import '../button/apple_button.dart';
-import '../../util/auth/password_policy.dart';
-
 /// Login card component
 ///
 /// Provides a complete login UI with email/password form and social sign-in buttons.

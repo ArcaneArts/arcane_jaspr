@@ -3,7 +3,7 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 
 import '../../util/tokens/tokens.dart';
 import '../../util/tokens/style_presets.dart';
-import '../../util/style_types/index.dart' hide BorderRadius;
+import '../../util/style_types/index.dart';
 
 /// Button style variants (legacy - prefer using ButtonStyle presets)
 @Deprecated('Use style parameter with ButtonStyle presets instead')

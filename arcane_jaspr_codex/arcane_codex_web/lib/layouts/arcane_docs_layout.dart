@@ -26,14 +26,8 @@ class ArcaneDocsLayout extends PageLayoutBase {
     yield meta(name: 'viewport', content: 'width=device-width, initial-scale=1');
 
     // Generate CSS variables for both themes
-    final darkTheme = ArcaneTheme.supabase(
-      accent: AccentTheme.emerald,
-      themeMode: ThemeMode.dark,
-    );
-    final lightTheme = ArcaneTheme.supabase(
-      accent: AccentTheme.emerald,
-      themeMode: ThemeMode.light,
-    );
+    final darkTheme = ArcaneTheme.green.copyWith(themeMode: ThemeMode.dark);
+    final lightTheme = ArcaneTheme.green.copyWith(themeMode: ThemeMode.light);
 
     // Inject theme CSS variables FIRST
     // Use :root for dark theme (default) so variables work immediately without a class
@@ -124,8 +118,7 @@ class _ThemedDocsPageState extends State<_ThemedDocsPage> {
       isDark: _isDark,
       onThemeToggle: _toggleTheme,
     );
-    final theme = ArcaneTheme.supabase(
-      accent: AccentTheme.emerald,
+    final theme = ArcaneTheme.green.copyWith(
       themeMode: _isDark ? ThemeMode.dark : ThemeMode.light,
     );
 

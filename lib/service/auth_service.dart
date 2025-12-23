@@ -39,6 +39,7 @@ extension type _FirebaseUser._(JSObject _) implements JSObject {
 }
 
 extension type _ProfileUpdate._(JSObject _) implements JSObject {
+  // ignore: unused_element_parameter - photoURL is part of Firebase API
   external factory _ProfileUpdate({String? displayName, String? photoURL});
 }
 

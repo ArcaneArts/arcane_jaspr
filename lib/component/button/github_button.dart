@@ -1,7 +1,5 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 
-import 'social_button.dart';
-
 /// GitHub sign-in button
 ///
 /// Branded button for GitHub OAuth authentication.

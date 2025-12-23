@@ -18,10 +18,7 @@ class App extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return ArcaneApp(
-      theme: ArcaneTheme.supabase(
-        accent: AccentTheme.emerald,
-        themeMode: ThemeMode.dark,
-      ),
+      theme: ArcaneTheme.green, // One line to theme your entire app!
       child: ArcaneScreen(
         header: const ArcaneBar(titleText: 'My App'),
         child: ArcaneContainer(
@@ -40,6 +37,94 @@ class App extends StatelessComponent {
   }
 }
 ```
+
+## Theming
+
+Change your entire app's appearance with a single line:
+
+```dart
+// Primary color themes
+ArcaneTheme.red
+ArcaneTheme.orange
+ArcaneTheme.yellow
+ArcaneTheme.green
+ArcaneTheme.blue
+ArcaneTheme.indigo
+ArcaneTheme.purple
+ArcaneTheme.pink
+
+// Neutral/monochromatic themes
+ArcaneTheme.darkGrey
+ArcaneTheme.grey
+ArcaneTheme.lightGrey
+ArcaneTheme.white
+ArcaneTheme.black
+
+// OLED themes (true black for battery saving)
+ArcaneTheme.oledRed
+ArcaneTheme.oledGreen
+ArcaneTheme.oledBlue
+ArcaneTheme.oledPurple
+ArcaneTheme.oledWhite
+```
+
+### Theme Configuration
+
+```dart
+ArcaneApp(
+  theme: ArcaneTheme.blue.copyWith(
+    themeMode: ThemeMode.dark,    // Force dark mode
+    radius: 0.75,                  // Rounder corners
+    surfaceOpacity: 0.9,           // Glass effect opacity
+  ),
+  child: MyApp(),
+)
+```
+
+### Custom Theme Schema
+
+Create your own theme by extending `ThemeSchema`:
+
+```dart
+class MyCustomTheme extends ThemeSchema {
+  const MyCustomTheme();
+
+  @override
+  String get id => 'my_custom';
+
+  @override
+  String get name => 'My Custom Theme';
+
+  @override
+  ColorSwatch get accentSwatch => Swatches.violet;
+
+  @override
+  ColorSwatch get neutralSwatch => Swatches.zinc;
+}
+
+// Use it
+ArcaneApp(
+  theme: ArcaneTheme(schema: const MyCustomTheme()),
+  child: MyApp(),
+)
+```
+
+### CSS Custom Properties
+
+All themes generate 150+ CSS variables:
+
+| Property | Description |
+|----------|-------------|
+| `--arcane-accent` | Primary accent color |
+| `--arcane-accent-50` to `--arcane-accent-950` | Full accent swatch |
+| `--arcane-background` | Page background |
+| `--arcane-surface` | Card/container surface |
+| `--arcane-on-surface` | Text on surface |
+| `--arcane-border` | Border color |
+| `--arcane-success` | Success color |
+| `--arcane-warning` | Warning color |
+| `--arcane-destructive` | Error/destructive color |
+| `--arcane-info` | Info color |
 
 ## Components
 
@@ -216,21 +301,6 @@ div(
 )
 ```
 
-### CSS Custom Properties
-
-| Property | Description |
-|----------|-------------|
-| `--arcane-primary` | Primary brand color |
-| `--arcane-accent` | Accent color |
-| `--arcane-background` | Page background |
-| `--arcane-surface` | Card/container surface |
-| `--arcane-surface-variant` | Alternate surface |
-| `--arcane-on-surface` | Text on surface |
-| `--arcane-outline` | Border color |
-| `--arcane-error` | Error color |
-| `--arcane-success` | Success color |
-| `--arcane-warning` | Warning color |
-
 ## Authentication
 
 Built-in Firebase authentication with OAuth:
@@ -322,29 +392,6 @@ PasswordPolicy(
 // Validation
 String? error = policy.validate(password);
 bool isValid = policy.isValid(password);
-```
-
-## Theming
-
-```dart
-// Preset themes
-ArcaneTheme.supabase(accent: AccentTheme.emerald)
-ArcaneTheme.vercel()
-ArcaneTheme.stripe()
-
-// Custom theme
-ArcaneTheme(
-  mode: ThemeMode.dark,
-  colorScheme: ContrastedColorScheme.emerald,
-  radius: 'md',
-  surfaceOpacity: 0.95,
-)
-
-// Color scheme presets
-ContrastedColorScheme.blue
-ContrastedColorScheme.green
-ContrastedColorScheme.purple
-ContrastedColorScheme.emerald
 ```
 
 ## Project Structure

@@ -7,7 +7,7 @@ component: theming
 
 # Theming
 
-Arcane Jaspr includes a powerful theme system built on CSS custom properties. The theme controls colors, accent colors, border radius, shadows, and more.
+Arcane Jaspr includes a powerful theme system built on CSS custom properties. A single line changes the entire appearance of your application.
 
 ## ArcaneApp
 
@@ -17,87 +17,114 @@ Every Arcane application must be wrapped in an `ArcaneApp` component which provi
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 
 ArcaneApp(
-  theme: ArcaneTheme.supabase(
-    accent: AccentTheme.emerald,
-    themeMode: ThemeMode.dark,
-  ),
+  theme: ArcaneTheme.green, // One line to theme your entire app!
   child: YourApp(),
 )
 ```
 
-## ArcaneTheme
+## Theme Presets
 
-The `ArcaneTheme` class configures the visual appearance of your application.
+Arcane provides 18 ready-to-use theme presets:
+
+### Primary Colors
+
+```dart
+ArcaneTheme.red
+ArcaneTheme.orange
+ArcaneTheme.yellow
+ArcaneTheme.green     // Default
+ArcaneTheme.blue
+ArcaneTheme.indigo
+ArcaneTheme.purple
+ArcaneTheme.pink
+```
+
+### Neutral/Monochromatic
+
+```dart
+ArcaneTheme.darkGrey
+ArcaneTheme.grey
+ArcaneTheme.lightGrey
+ArcaneTheme.white
+ArcaneTheme.black
+```
+
+### OLED (True Black)
+
+Battery-saving themes with true black (#000000) backgrounds for OLED displays:
+
+```dart
+ArcaneTheme.oledRed
+ArcaneTheme.oledGreen
+ArcaneTheme.oledBlue
+ArcaneTheme.oledPurple
+ArcaneTheme.oledWhite
+```
+
+## ArcaneTheme Configuration
 
 ### Properties
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
-| `accent` | `AccentTheme` | `emerald` | The accent color theme |
-| `themeMode` | `ThemeMode` | `dark` | Light, dark, or system mode |
+| `schema` | `ThemeSchema` | `GreenThemeSchema()` | The theme schema defining colors |
+| `themeMode` | `ThemeMode` | `system` | Light, dark, or system mode |
 | `radius` | `double` | `0.5` | Border radius scaling (0.0-1.0) |
 | `surfaceOpacity` | `double` | `0.8` | Glass effect opacity for dark mode |
 | `surfaceOpacityLight` | `double` | `0.9` | Glass effect opacity for light mode |
-| `surfaceBlur` | `double` | `8.0` | Blur radius for glass surfaces |
+| `surfaceBlur` | `double` | `12.0` | Blur radius for glass surfaces |
 | `scaling` | `double` | `1.0` | Global scaling factor |
-| `contrast` | `double` | `0.0` | Contrast adjustment (-1.0 to 1.0) |
-| `spin` | `double` | `0.0` | Hue spin in degrees |
+| `spin` | `double` | `0.0` | Hue rotation in degrees |
 
-### Creating a Theme
+### Customizing a Theme
 
-Use the `ArcaneTheme.supabase()` factory for the default Supabase-inspired design:
+Use `copyWith()` to modify any theme preset:
 
 ```dart
-ArcaneTheme.supabase(
-  accent: AccentTheme.emerald,
-  themeMode: ThemeMode.dark,
-  radius: 0.5,
+ArcaneApp(
+  theme: ArcaneTheme.blue.copyWith(
+    themeMode: ThemeMode.dark,
+    radius: 0.75,              // Rounder corners
+    surfaceOpacity: 0.9,       // Stronger glass effect
+  ),
+  child: MyApp(),
 )
 ```
 
-### Customizing the Theme
+### Changing Theme Schema
 
-You can modify any aspect using `copyWith()`:
+Use `withSchema()` to switch to a different color scheme:
 
 ```dart
-final theme = ArcaneTheme.supabase(accent: AccentTheme.cyan);
-
-final customTheme = theme.copyWith(
-  radius: 0.75,
-  surfaceOpacity: 0.9,
-);
+final theme = ArcaneTheme.blue.withSchema(const RedThemeSchema());
 ```
 
-### Switching Accents
+## Custom Theme Schema
 
-Create a new theme with a different accent:
-
-```dart
-final newTheme = theme.withAccent(AccentTheme.violet);
-```
-
-## AccentTheme
-
-The `AccentTheme` enum provides four accent color options:
-
-| Value | Primary (Dark) | Primary (Light) | Description |
-|-------|---------------|-----------------|-------------|
-| `emerald` | `#10b981` | `#059669` | Green/teal accent (default) |
-| `cyan` | `#06b6d4` | `#0891b2` | Blue/cyan accent |
-| `violet` | `#8b5cf6` | `#7c3aed` | Purple accent |
-| `amber` | `#f59e0b` | `#d97706` | Orange/amber accent |
-
-### Accent Colors
-
-Each accent provides multiple color variants:
+Create your own theme by extending `ThemeSchema`:
 
 ```dart
-AccentTheme.emerald.primaryDark   // Primary color for dark mode
-AccentTheme.emerald.primaryLight  // Primary color for light mode
-AccentTheme.emerald.hoverDark     // Hover state for dark mode
-AccentTheme.emerald.hoverLight    // Hover state for light mode
-AccentTheme.emerald.containerDark // Container color for dark mode
-AccentTheme.emerald.containerLight // Container color for light mode
+class MyBrandTheme extends ThemeSchema {
+  const MyBrandTheme();
+
+  @override
+  String get id => 'my_brand';
+
+  @override
+  String get name => 'My Brand';
+
+  @override
+  ColorSwatch get accentSwatch => Swatches.violet;
+
+  @override
+  ColorSwatch get neutralSwatch => Swatches.zinc;
+}
+
+// Use it
+ArcaneApp(
+  theme: ArcaneTheme(schema: const MyBrandTheme()),
+  child: MyApp(),
+)
 ```
 
 ## ThemeMode
@@ -106,7 +133,7 @@ The `ThemeMode` enum controls the color scheme:
 
 | Value | Description |
 |-------|-------------|
-| `system` | Follow the system preference |
+| `system` | Follow the system preference (defaults to dark) |
 | `light` | Force light mode |
 | `dark` | Force dark mode |
 
@@ -125,11 +152,13 @@ final brightness = themeMode.brightness; // Brightness.light or Brightness.dark
 Component build(BuildContext context) {
   final theme = ArcaneTheme.of(context);
   final colorScheme = theme.colorScheme;
+  final accentSwatch = theme.accentSwatch;
 
   return ArcaneDiv(
     styles: ArcaneStyleData(
       raw: {
         'color': colorScheme.primary.css,
+        'background': accentSwatch[500].css,
       },
     ),
     children: [...],
@@ -137,48 +166,110 @@ Component build(BuildContext context) {
 }
 ```
 
-### Using the Extension
+### Using Context Extensions
 
 ```dart
 final theme = context.arcaneTheme;
 final colorScheme = context.colorScheme;
+final accentSwatch = context.accentSwatch;
+final neutralSwatch = context.neutralSwatch;
+final isDark = context.isDarkMode;
+```
+
+## Color Swatches
+
+Each theme provides Tailwind-style color swatches with 11 shades:
+
+```dart
+theme.accentSwatch[50]   // Lightest
+theme.accentSwatch[100]
+theme.accentSwatch[200]
+theme.accentSwatch[300]
+theme.accentSwatch[400]
+theme.accentSwatch[500]  // Primary
+theme.accentSwatch[600]
+theme.accentSwatch[700]
+theme.accentSwatch[800]
+theme.accentSwatch[900]
+theme.accentSwatch[950]  // Darkest
+```
+
+### Available Swatches
+
+```dart
+Swatches.red
+Swatches.orange
+Swatches.amber
+Swatches.emerald
+Swatches.blue
+Swatches.indigo
+Swatches.violet
+Swatches.pink
+Swatches.zinc
+Swatches.slate
+Swatches.gray
+Swatches.neutral
 ```
 
 ## CSS Variables
 
-ArcaneTheme generates 70+ CSS custom properties that you can use throughout your application:
+ArcaneTheme generates 150+ CSS custom properties that you can use throughout your application.
 
-### Color Variables
+### Accent Swatch Variables
+
+```css
+--arcane-accent-50 through --arcane-accent-950
+--arcane-accent-50-rgb through --arcane-accent-950-rgb  /* For alpha compositing */
+```
+
+### Neutral Swatch Variables
+
+```css
+--arcane-neutral-50 through --arcane-neutral-950
+--arcane-neutral-50-rgb through --arcane-neutral-950-rgb
+```
+
+### Core Color Variables
 
 ```css
 --arcane-accent           /* Primary accent color */
 --arcane-accent-hover     /* Accent hover state */
 --arcane-accent-container /* Accent container background */
+--arcane-accent-foreground /* Text on accent */
 --arcane-background       /* Page background */
 --arcane-surface          /* Surface/card background */
---arcane-card             /* Card background */
+--arcane-on-surface       /* Text on surface */
 --arcane-border           /* Border color */
---arcane-text             /* Primary text color */
 --arcane-muted            /* Muted text color */
 ```
 
-### Status Variables
+### Status Color Variables
 
 ```css
 --arcane-success          /* Success color */
+--arcane-success-foreground
+--arcane-success-container
 --arcane-warning          /* Warning color */
---arcane-error            /* Error/destructive color */
+--arcane-warning-foreground
+--arcane-warning-container
+--arcane-destructive      /* Error/destructive color */
+--arcane-destructive-foreground
+--arcane-destructive-container
 --arcane-info             /* Info color */
+--arcane-info-foreground
+--arcane-info-container
 ```
 
 ### Radius Variables
 
 ```css
 --arcane-radius           /* Base radius */
+--arcane-radius-xs        /* Extra small radius */
 --arcane-radius-sm        /* Small radius */
 --arcane-radius-md        /* Medium radius */
 --arcane-radius-lg        /* Large radius */
 --arcane-radius-xl        /* Extra large radius */
+--arcane-radius-2xl       /* Double extra large radius */
 --arcane-radius-full      /* Full/pill radius */
 ```
 
@@ -186,6 +277,7 @@ ArcaneTheme generates 70+ CSS custom properties that you can use throughout your
 
 ```css
 --arcane-shadow-xs        /* Extra small shadow */
+--arcane-shadow-sm        /* Small shadow */
 --arcane-shadow           /* Default shadow */
 --arcane-shadow-lg        /* Large shadow */
 --arcane-shadow-xl        /* Extra large shadow */
@@ -201,7 +293,7 @@ ArcaneTheme generates 70+ CSS custom properties that you can use throughout your
 
 ## Using CSS Variables in Styles
 
-You can reference these variables in your `ArcaneStyleData`:
+Reference these variables in your `ArcaneStyleData`:
 
 ```dart
 ArcaneDiv(
@@ -209,7 +301,7 @@ ArcaneDiv(
     raw: {
       'background': 'var(--arcane-surface)',
       'border': '1px solid var(--arcane-border)',
-      'color': 'var(--arcane-text)',
+      'color': 'var(--arcane-on-surface)',
       'border-radius': 'var(--arcane-radius-md)',
     },
   ),
@@ -217,20 +309,22 @@ ArcaneDiv(
 )
 ```
 
-## Theme Toggle
+## Iterating All Themes
 
-Use `ArcaneThemeToggle` to let users switch between light and dark mode:
+Access all available themes programmatically:
 
 ```dart
-ArcaneThemeToggle(
-  onToggle: (isDark) {
-    // Update your theme state
-  },
-)
+for (final theme in ArcaneTheme.all) {
+  print('${theme.schema.name}: ${theme.schema.id}');
+}
 ```
 
-Or the simple version:
+## Theme Properties
+
+Check theme characteristics:
 
 ```dart
-ArcaneThemeToggleSimple()
+theme.isDark      // true if currently in dark mode
+theme.isLight     // true if currently in light mode
+theme.isOled      // true if using OLED theme (true black)
 ```

@@ -205,9 +205,6 @@ class ArcaneSheet extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final bool isHorizontal =
-        position == SheetPosition.left || position == SheetPosition.right;
-
     final Map<String, String> sheetStyles = {
       'position': 'fixed',
       'background-color': ArcaneColors.surface,

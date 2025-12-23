@@ -2,7 +2,6 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
 import '../../util/arcane.dart';
-import '../../util/tokens/tokens.dart';
 
 /// A panel component for action buttons, typically used in dialogs or footers.
 ///

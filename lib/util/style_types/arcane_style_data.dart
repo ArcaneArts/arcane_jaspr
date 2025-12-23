@@ -1,4 +1,3 @@
-import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' show Styles;
 import '../arcane.dart';
 import 'spacing.dart';

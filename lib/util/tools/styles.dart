@@ -1,4 +1,3 @@
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 import 'package:jaspr/dom.dart' as dom;
 import '../appearance/colors.dart';
 import '../arcane.dart';

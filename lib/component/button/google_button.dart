@@ -1,7 +1,5 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 
-import 'social_button.dart';
-
 /// Google sign-in button
 ///
 /// Branded button for Google OAuth authentication.

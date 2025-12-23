@@ -1,8 +1,4 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
-import '../../../service/auth_state.dart';
-import '../../button/github_button.dart';
-import '../../button/google_button.dart';
-import '../../button/apple_button.dart';
 
 /// Row of social OAuth provider buttons.
 ///

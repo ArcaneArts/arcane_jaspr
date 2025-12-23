@@ -1,9 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/appearance/theme.dart';
-import '../../util/tools/styles.dart';
-
 /// Headline levels
 enum HeadlineLevel {
   h1,
@@ -86,8 +83,6 @@ class ArcaneHeadline extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final theme = ArcaneTheme.of(context);
-
     // Get size and weight based on level (Supabase-style typography)
     final (fontSize, fontWeight, lineHeight, letterSpacing) = switch (level) {
       HeadlineLevel.h1 => ('3.5rem', '700', '1.1', '-0.02em'),

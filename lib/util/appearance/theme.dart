@@ -2,25 +2,41 @@ import 'package:jaspr/jaspr.dart';
 
 import 'colors.dart';
 import 'color_scheme.dart';
+import 'swatch.dart';
+import 'theme_schema.dart';
+import 'themes/themes.dart';
 
 export 'colors.dart';
 export 'color_scheme.dart';
+export 'swatch.dart';
+export 'theme_schema.dart';
+export 'themes/themes.dart';
 
 /// Main theme configuration for Arcane Jaspr
+///
+/// Use one of the preset themes to instantly style your entire app:
+/// ```dart
+/// ArcaneApp(
+///   theme: ArcaneTheme.red,
+///   child: MyApp(),
+/// )
+/// ```
+///
+/// All 19 theme presets are available:
+/// - Primary colors: red, orange, yellow, green, blue, indigo, purple, pink
+/// - Neutrals: darkGrey, grey, lightGrey, white, black
+/// - OLED variants: oledRed, oledGreen, oledBlue, oledPurple, oledWhite
 class ArcaneTheme {
-  /// The color scheme for light/dark mode
-  final ContrastedColorScheme? scheme;
+  /// The theme schema defining all colors
+  final ThemeSchema schema;
 
-  /// The current theme mode
+  /// The current theme mode (system, light, dark)
   final ThemeMode themeMode;
-
-  /// The accent color theme (emerald, cyan, violet, amber)
-  final AccentTheme accent;
 
   /// Border radius scaling (0.0 = square, 1.0 = fully rounded)
   final double radius;
 
-  /// Surface opacity for glass effects
+  /// Surface opacity for glass effects in dark mode
   final double surfaceOpacity;
 
   /// Surface opacity for light mode
@@ -32,10 +48,7 @@ class ArcaneTheme {
   /// Global scaling factor
   final double scaling;
 
-  /// Contrast adjustment (-1.0 to 1.0)
-  final double contrast;
-
-  /// Hue spin in degrees
+  /// Hue spin in degrees (rotates all colors)
   final double spin;
 
   /// Toast theme configuration
@@ -54,15 +67,13 @@ class ArcaneTheme {
   final ArcaneBarriers barrierColors;
 
   const ArcaneTheme({
-    this.scheme,
+    this.schema = const GreenThemeSchema(),
     this.themeMode = ThemeMode.system,
-    this.accent = AccentTheme.emerald,
     this.radius = 0.5,
     this.surfaceOpacity = 0.8,
     this.surfaceOpacityLight = 0.9,
     this.surfaceBlur = 12.0,
     this.scaling = 1.0,
-    this.contrast = 0.0,
     this.spin = 0.0,
     this.toast = const ArcaneToastTheme(),
     this.gutter = const GutterTheme(),
@@ -71,43 +82,101 @@ class ArcaneTheme {
     this.barrierColors = const ArcaneBarriers(),
   });
 
-  /// Create a Supabase-styled theme with the given accent color
-  factory ArcaneTheme.supabase({
-    AccentTheme accent = AccentTheme.emerald,
-    ThemeMode themeMode = ThemeMode.dark,
-    double radius = 0.75, // More rounded for Supabase style
-  }) {
-    return ArcaneTheme(
-      scheme: ContrastedColorScheme.supabase(accent: accent),
-      accent: accent,
-      themeMode: themeMode,
-      radius: radius,
-      surfaceOpacity: 0.9,
-      surfaceOpacityLight: 0.95,
-      surfaceBlur: 16.0,
-    );
-  }
+  // =========================================================================
+  // STATIC THEME PRESETS - Access as ArcaneTheme.red, ArcaneTheme.oledBlue
+  // =========================================================================
+
+  // Primary Color Themes
+  static const ArcaneTheme red = ArcaneTheme(schema: RedThemeSchema());
+  static const ArcaneTheme orange = ArcaneTheme(schema: OrangeThemeSchema());
+  static const ArcaneTheme yellow = ArcaneTheme(schema: YellowThemeSchema());
+  static const ArcaneTheme green = ArcaneTheme(schema: GreenThemeSchema());
+  static const ArcaneTheme blue = ArcaneTheme(schema: BlueThemeSchema());
+  static const ArcaneTheme indigo = ArcaneTheme(schema: IndigoThemeSchema());
+  static const ArcaneTheme purple = ArcaneTheme(schema: PurpleThemeSchema());
+  static const ArcaneTheme pink = ArcaneTheme(schema: PinkThemeSchema());
+
+  // Neutral/Monochromatic Themes
+  static const ArcaneTheme darkGrey =
+      ArcaneTheme(schema: DarkGreyThemeSchema());
+  static const ArcaneTheme grey = ArcaneTheme(schema: GreyThemeSchema());
+  static const ArcaneTheme lightGrey =
+      ArcaneTheme(schema: LightGreyThemeSchema());
+  static const ArcaneTheme white = ArcaneTheme(schema: WhiteThemeSchema());
+  static const ArcaneTheme black = ArcaneTheme(schema: BlackThemeSchema());
+
+  // OLED Themes (true black backgrounds for battery saving)
+  static const ArcaneTheme oledRed = ArcaneTheme(schema: OledRedThemeSchema());
+  static const ArcaneTheme oledGreen =
+      ArcaneTheme(schema: OledGreenThemeSchema());
+  static const ArcaneTheme oledBlue =
+      ArcaneTheme(schema: OledBlueThemeSchema());
+  static const ArcaneTheme oledPurple =
+      ArcaneTheme(schema: OledPurpleThemeSchema());
+  static const ArcaneTheme oledWhite =
+      ArcaneTheme(schema: OledWhiteThemeSchema());
+
+  /// List of all available theme presets
+  static const List<ArcaneTheme> all = [
+    red,
+    orange,
+    yellow,
+    green,
+    blue,
+    indigo,
+    purple,
+    pink,
+    darkGrey,
+    grey,
+    lightGrey,
+    white,
+    black,
+    oledRed,
+    oledGreen,
+    oledBlue,
+    oledPurple,
+    oledWhite,
+  ];
 
   /// Get the current brightness
-  Brightness get brightness => themeMode.brightness;
+  Brightness get brightness {
+    if (themeMode == ThemeMode.system) {
+      if (schema.prefersDark) return Brightness.dark;
+      if (schema.prefersLight) return Brightness.light;
+      return Brightness.dark; // Default to dark
+    }
+    return themeMode.brightness;
+  }
+
+  /// Whether currently in dark mode
+  bool get isDark => brightness == Brightness.dark;
+
+  /// Whether currently in light mode
+  bool get isLight => brightness == Brightness.light;
 
   /// Get the active color scheme
   ColorScheme get colorScheme {
-    final baseScheme = scheme ?? ContrastedColorScheme.indigo();
-    return baseScheme.scheme(brightness).spin(spin);
+    return schema.toColorScheme().scheme(brightness).spin(spin);
   }
+
+  /// Get the accent swatch
+  ColorSwatch get accentSwatch => schema.accentSwatch;
+
+  /// Get the neutral swatch
+  ColorSwatch get neutralSwatch => schema.neutralSwatch;
+
+  /// Whether this is an OLED theme
+  bool get isOled => schema.isOled;
 
   /// Copy with modifications
   ArcaneTheme copyWith({
-    ContrastedColorScheme? scheme,
+    ThemeSchema? schema,
     ThemeMode? themeMode,
-    AccentTheme? accent,
     double? radius,
     double? surfaceOpacity,
     double? surfaceOpacityLight,
     double? surfaceBlur,
     double? scaling,
-    double? contrast,
     double? spin,
     ArcaneToastTheme? toast,
     GutterTheme? gutter,
@@ -116,15 +185,13 @@ class ArcaneTheme {
     ArcaneBarriers? barrierColors,
   }) {
     return ArcaneTheme(
-      scheme: scheme ?? this.scheme,
+      schema: schema ?? this.schema,
       themeMode: themeMode ?? this.themeMode,
-      accent: accent ?? this.accent,
       radius: radius ?? this.radius,
       surfaceOpacity: surfaceOpacity ?? this.surfaceOpacity,
       surfaceOpacityLight: surfaceOpacityLight ?? this.surfaceOpacityLight,
       surfaceBlur: surfaceBlur ?? this.surfaceBlur,
       scaling: scaling ?? this.scaling,
-      contrast: contrast ?? this.contrast,
       spin: spin ?? this.spin,
       toast: toast ?? this.toast,
       gutter: gutter ?? this.gutter,
@@ -134,12 +201,9 @@ class ArcaneTheme {
     );
   }
 
-  /// Create a copy with a different accent color
-  ArcaneTheme withAccent(AccentTheme newAccent) {
-    return copyWith(
-      accent: newAccent,
-      scheme: ContrastedColorScheme.supabase(accent: newAccent),
-    );
+  /// Create a copy with a different theme schema
+  ArcaneTheme withSchema(ThemeSchema newSchema) {
+    return copyWith(schema: newSchema);
   }
 
   /// Get effective surface opacity based on brightness
@@ -152,20 +216,34 @@ class ArcaneTheme {
   /// CSS border radius value
   String get borderRadiusCss => '${borderRadiusPx}px';
 
-  /// Get accent colors based on current brightness
+  /// Get current accent color
   Color get accentPrimary =>
-      brightness == Brightness.light ? accent.primaryLight : accent.primaryDark;
+      isDark ? schema.accentDark : schema.accentLight;
+
+  /// Get current accent hover color
   Color get accentHover =>
-      brightness == Brightness.light ? accent.hoverLight : accent.hoverDark;
+      isDark ? schema.accentHoverDark : schema.accentHoverLight;
+
+  /// Get current accent container color
   Color get accentContainer =>
-      brightness == Brightness.light ? accent.containerLight : accent.containerDark;
+      isDark ? schema.accentContainerDark : schema.accentContainerLight;
+
+  /// Get current accent foreground color
+  Color get accentForeground =>
+      isDark ? schema.onAccentDark : schema.onAccentLight;
 
   /// Generate CSS custom properties for the theme
+  ///
+  /// This generates 150+ CSS variables that control the entire app appearance.
+  /// Components use these variables via ArcaneColors tokens.
   Map<String, String> get cssVariables {
     final cs = colorScheme;
     String rgb(Color color) => '${color.red}, ${color.green}, ${color.blue}';
-    return {
-      // Core color scheme
+
+    final vars = <String, String>{
+      // =====================================================================
+      // CORE COLOR SCHEME (Material-style semantic colors)
+      // =====================================================================
       '--arcane-primary': cs.primary.css,
       '--arcane-on-primary': cs.onPrimary.css,
       '--arcane-primary-container': cs.primaryContainer.css,
@@ -192,134 +270,134 @@ class ArcaneTheme {
       '--arcane-on-inverse-surface': cs.onInverseSurface.css,
       '--arcane-surface-tint': cs.surfaceTint.css,
 
-      // Accent colors (for Supabase-style theming)
+      // =====================================================================
+      // ACCENT COLORS (Primary brand/action colors)
+      // =====================================================================
       '--arcane-accent': accentPrimary.css,
       '--arcane-accent-hover': accentHover.css,
       '--arcane-accent-container': accentContainer.css,
-      '--arcane-accent-foreground': brightness == Brightness.dark
-          ? Colors.zinc950.css
-          : Colors.white.css,
+      '--arcane-accent-foreground': accentForeground.css,
 
-      // Muted/secondary text
+      // =====================================================================
+      // SEMANTIC COLORS (Success, Warning, Error, Info)
+      // =====================================================================
+      // Destructive/Error
+      '--arcane-destructive': isDark ? Colors.red400.css : Colors.red600.css,
+      '--arcane-destructive-foreground': Colors.white.css,
+      '--arcane-destructive-hover': isDark ? Colors.red300.css : Colors.red700.css,
+      '--arcane-destructive-container': 'rgba(${rgb(isDark ? Colors.red400 : Colors.red600)}, 0.1)',
+
+      // Success
+      '--arcane-success': isDark ? Colors.emerald400.css : Colors.emerald600.css,
+      '--arcane-success-foreground': Colors.white.css,
+      '--arcane-success-hover': isDark ? Colors.emerald300.css : Colors.emerald700.css,
+      '--arcane-success-container': 'rgba(${rgb(isDark ? Colors.emerald400 : Colors.emerald600)}, 0.1)',
+
+      // Warning
+      '--arcane-warning': isDark ? Colors.amber400.css : Colors.amber600.css,
+      '--arcane-warning-foreground': Colors.zinc950.css,
+      '--arcane-warning-hover': isDark ? Colors.amber300.css : Colors.amber700.css,
+      '--arcane-warning-container': 'rgba(${rgb(isDark ? Colors.amber400 : Colors.amber600)}, 0.1)',
+
+      // Info
+      '--arcane-info': isDark ? Colors.cyan400.css : Colors.cyan600.css,
+      '--arcane-info-foreground': Colors.white.css,
+      '--arcane-info-hover': isDark ? Colors.cyan300.css : Colors.cyan700.css,
+      '--arcane-info-container': 'rgba(${rgb(isDark ? Colors.cyan400 : Colors.cyan600)}, 0.1)',
+
+      // =====================================================================
+      // TEXT & MUTED COLORS
+      // =====================================================================
       '--arcane-muted': cs.onSurfaceVariant.css,
-      '--arcane-muted-foreground': brightness == Brightness.dark
-          ? Colors.zinc400.css
-          : Colors.zinc500.css,
+      '--arcane-muted-foreground':
+          isDark ? neutralSwatch.shade400.css : neutralSwatch.shade500.css,
+      '--arcane-text-subtle': 'rgba(${rgb(cs.onSurfaceVariant)}, 0.85)',
+      '--arcane-text-faint': 'rgba(${rgb(cs.onSurfaceVariant)}, 0.65)',
 
-      // Card styling
+      // =====================================================================
+      // SURFACE & CONTAINER COLORS
+      // =====================================================================
       '--arcane-card': cs.surface.css,
       '--arcane-card-foreground': cs.onSurface.css,
-
-      // Border colors
-      '--arcane-border': cs.outline.css,
-      '--arcane-border-subtle': cs.outlineVariant.css,
-
-      // Input styling
+      '--arcane-card-hover': isDark
+          ? 'rgba(${rgb(cs.onSurface)}, 0.05)'
+          : 'rgba(${rgb(cs.onSurface)}, 0.02)',
+      '--arcane-card-alt': cs.surfaceVariant.css,
       '--arcane-input': cs.surfaceVariant.css,
       '--arcane-input-foreground': cs.onSurface.css,
 
-      // Ring/focus color
-      '--arcane-ring': cs.primary.css,
+      // Extended backgrounds
+      '--arcane-background-secondary': isDark
+          ? cs.background.lighten(3).css
+          : cs.background.darken(3).css,
+      '--arcane-background-tertiary': isDark
+          ? cs.background.lighten(6).css
+          : cs.background.darken(6).css,
+      '--arcane-navbar':
+          'rgba(${rgb(cs.background)}, ${effectiveSurfaceOpacity})',
 
-      // Destructive colors
-      '--arcane-destructive': brightness == Brightness.dark
-          ? Colors.red400.css
-          : Colors.red600.css,
-      '--arcane-destructive-foreground': Colors.white.css,
+      // =====================================================================
+      // BORDER COLORS
+      // =====================================================================
+      '--arcane-border': cs.outline.css,
+      '--arcane-border-subtle': cs.outlineVariant.css,
+      '--arcane-ring': accentPrimary.css,
 
-      // Success colors
-      '--arcane-success': brightness == Brightness.dark
-          ? Colors.emerald400.css
-          : Colors.emerald600.css,
-      '--arcane-success-foreground': Colors.white.css,
+      // =====================================================================
+      // OVERLAY & BARRIER COLORS
+      // =====================================================================
+      '--arcane-overlay': barrierColors.dialog.css,
+      '--arcane-overlay-strong': cs.scrim.withOpacity(0.7).css,
+      '--arcane-barrier-color': barrierColors.dialog.css,
+      '--arcane-tooltip': cs.surfaceVariant.css,
+      '--arcane-tooltip-foreground': cs.onSurface.css,
+      '--arcane-code-background': cs.surfaceVariant.css,
 
-      // Warning colors
-      '--arcane-warning': brightness == Brightness.dark
-          ? Colors.amber400.css
-          : Colors.amber600.css,
-      '--arcane-warning-foreground': brightness == Brightness.dark
-          ? Colors.zinc950.css
-          : Colors.zinc950.css,
-
-      // Info colors
-      '--arcane-info': brightness == Brightness.dark
-          ? Colors.cyan400.css
-          : Colors.cyan600.css,
-      '--arcane-info-foreground': Colors.white.css,
-
-      // Border radius
+      // =====================================================================
+      // BORDER RADIUS
+      // =====================================================================
       '--arcane-radius': borderRadiusCss,
+      '--arcane-radius-xs': '${borderRadiusPx * 0.25}px',
       '--arcane-radius-sm': '${borderRadiusPx * 0.5}px',
-      '--arcane-radius-md': '${borderRadiusPx}px',
+      '--arcane-radius-md': borderRadiusCss,
       '--arcane-radius-lg': '${borderRadiusPx * 1.5}px',
       '--arcane-radius-xl': '${borderRadiusPx * 2}px',
       '--arcane-radius-2xl': '${borderRadiusPx * 3}px',
       '--arcane-radius-full': '9999px',
 
-      // Scaling and effects
+      // =====================================================================
+      // EFFECTS (Shadows, Transitions, Blur)
+      // =====================================================================
       '--arcane-scaling': '$scaling',
       '--arcane-surface-opacity': '$effectiveSurfaceOpacity',
       '--arcane-surface-blur': '${surfaceBlur}px',
-      '--arcane-barrier-color': barrierColors.dialog.css,
-      '--arcane-overlay': barrierColors.dialog.css,
-      '--arcane-overlay-strong': cs.scrim.withOpacity(0.7).css,
 
-      // Shadows (Supabase-style)
+      // Shadows
+      '--arcane-shadow-xs': '0 1px 2px rgba(0, 0, 0, 0.05)',
       '--arcane-shadow-sm': '0 1px 2px rgba(0, 0, 0, 0.05)',
-      '--arcane-shadow': brightness == Brightness.dark
+      '--arcane-shadow': isDark
           ? '0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2)'
           : '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-      '--arcane-shadow-lg': brightness == Brightness.dark
+      '--arcane-shadow-lg': isDark
           ? '0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3)'
           : '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-      '--arcane-shadow-xl': brightness == Brightness.dark
+      '--arcane-shadow-xl': isDark
           ? '0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3)'
           : '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
 
-      // Transition defaults
+      // Transitions
       '--arcane-transition-fast': '150ms ease',
       '--arcane-transition': '200ms ease',
       '--arcane-transition-slow': '300ms ease',
 
-      // Extended backgrounds (missing from original)
-      '--arcane-background-secondary': brightness == Brightness.dark
-          ? cs.background.lighten(3).css
-          : cs.background.darken(3).css,
-      '--arcane-background-tertiary': brightness == Brightness.dark
-          ? cs.background.lighten(6).css
-          : cs.background.darken(6).css,
-      '--arcane-card-hover': brightness == Brightness.dark
-          ? 'rgba(${rgb(cs.onSurface)}, 0.05)'
-          : 'rgba(${rgb(cs.onSurface)}, 0.02)',
-      '--arcane-card-alt': cs.surfaceVariant.css,
-      '--arcane-navbar': 'rgba(${rgb(cs.background)}, 0.8)',
-
-      // Extended text colors
-      '--arcane-text-subtle': 'rgba(${rgb(cs.onSurfaceVariant)}, 0.85)',
-      '--arcane-text-faint': 'rgba(${rgb(cs.onSurfaceVariant)}, 0.65)',
-
-      // Tooltip
-      '--arcane-tooltip': cs.surfaceVariant.css,
-      '--arcane-tooltip-foreground': cs.onSurface.css,
-
-      // Code
-      '--arcane-code-background': cs.surfaceVariant.css,
-
-      // Success extended
-      '--arcane-success-hover': brightness == Brightness.dark
-          ? Colors.emerald300.css
-          : Colors.emerald700.css,
-      '--arcane-success-container': 'rgba(${rgb(brightness == Brightness.dark ? Colors.emerald400 : Colors.emerald600)}, 0.1)',
-
-      // Extra shadow
-      '--arcane-shadow-xs': '0 1px 2px rgba(0, 0, 0, 0.05)',
-
-      // Accent glows and grid (auth layouts)
+      // Glows
       '--arcane-accent-glow': 'rgba(${rgb(accentPrimary)}, 0.10)',
       '--arcane-secondary-glow': 'rgba(${rgb(cs.tertiary)}, 0.10)',
       '--arcane-grid-color': 'rgba(${rgb(accentPrimary)}, 0.03)',
 
-      // RGB channels for alpha variants
+      // =====================================================================
+      // RGB CHANNELS (for alpha compositing)
+      // =====================================================================
       '--arcane-primary-rgb': rgb(cs.primary),
       '--arcane-secondary-rgb': rgb(cs.secondary),
       '--arcane-tertiary-rgb': rgb(cs.tertiary),
@@ -339,20 +417,29 @@ class ArcaneTheme {
       '--arcane-accent-rgb': rgb(accentPrimary),
       '--arcane-accent-hover-rgb': rgb(accentHover),
       '--arcane-accent-container-rgb': rgb(accentContainer),
-      '--arcane-destructive-rgb': rgb(
-        brightness == Brightness.dark ? Colors.red400 : Colors.red600,
-      ),
-      '--arcane-success-rgb': rgb(
-        brightness == Brightness.dark ? Colors.emerald400 : Colors.emerald600,
-      ),
-      '--arcane-warning-rgb': rgb(
-        brightness == Brightness.dark ? Colors.amber400 : Colors.amber600,
-      ),
-      '--arcane-info-rgb': rgb(
-        brightness == Brightness.dark ? Colors.cyan400 : Colors.cyan600,
-      ),
+      '--arcane-destructive-rgb': rgb(isDark ? Colors.red400 : Colors.red600),
+      '--arcane-success-rgb': rgb(isDark ? Colors.emerald400 : Colors.emerald600),
+      '--arcane-warning-rgb': rgb(isDark ? Colors.amber400 : Colors.amber600),
+      '--arcane-info-rgb': rgb(isDark ? Colors.cyan400 : Colors.cyan600),
       '--arcane-muted-rgb': rgb(cs.onSurfaceVariant),
     };
+
+    // =========================================================================
+    // ACCENT SWATCH (Full 50-950 scale)
+    // =========================================================================
+    vars.addAll(accentSwatch.toCssVariables('--arcane-accent'));
+
+    // =========================================================================
+    // NEUTRAL SWATCH (Full 50-950 scale)
+    // =========================================================================
+    vars.addAll(neutralSwatch.toCssVariables('--arcane-neutral'));
+
+    // =========================================================================
+    // ADDITIONAL SCHEMA-SPECIFIC VARIABLES
+    // =========================================================================
+    vars.addAll(schema.additionalCssVariables(brightness));
+
+    return vars;
   }
 
   /// Generate inline style string for CSS variables
@@ -470,4 +557,8 @@ class ArcaneThemeProvider extends InheritedComponent {
 extension ArcaneThemeContext on BuildContext {
   ArcaneTheme get arcaneTheme => ArcaneTheme.of(this);
   ColorScheme get colorScheme => arcaneTheme.colorScheme;
+  ColorSwatch get accentSwatch => arcaneTheme.accentSwatch;
+  ColorSwatch get neutralSwatch => arcaneTheme.neutralSwatch;
+  bool get isDarkMode => arcaneTheme.isDark;
+  bool get isLightMode => arcaneTheme.isLight;
 }

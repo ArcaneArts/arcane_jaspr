@@ -3,92 +3,175 @@ import 'package:jaspr_test/jaspr_test.dart';
 
 void main() {
   group('ColorScheme', () {
-    test('light scheme has correct brightness', () {
-      final scheme = ColorScheme.light();
-      expect(scheme.brightness, equals(Brightness.light));
-    });
-
-    test('dark scheme has correct brightness', () {
-      final scheme = ColorScheme.dark();
-      expect(scheme.brightness, equals(Brightness.dark));
-    });
-
-    test('light scheme has expected default colors', () {
-      final scheme = ColorScheme.light();
-      expect(scheme.primary, isNotNull);
-      expect(scheme.secondary, isNotNull);
-      expect(scheme.surface, isNotNull);
-      expect(scheme.background, isNotNull);
-      expect(scheme.error, isNotNull);
-    });
-
-    test('dark scheme has expected default colors', () {
-      final scheme = ColorScheme.dark();
-      expect(scheme.primary, isNotNull);
-      expect(scheme.secondary, isNotNull);
-      expect(scheme.surface, isNotNull);
-      expect(scheme.background, isNotNull);
-      expect(scheme.error, isNotNull);
-    });
-
-    test('custom colors override defaults', () {
-      final customPrimary = const Color(0xFF123456);
-      final scheme = ColorScheme.light(primary: customPrimary);
-      expect(scheme.primary.value, equals(customPrimary.value));
+    test('has correct brightness', () {
+      final lightScheme = ColorScheme(
+        brightness: Brightness.light,
+        primary: Colors.blue,
+        onPrimary: Colors.white,
+        primaryContainer: Colors.blue,
+        onPrimaryContainer: Colors.white,
+        secondary: Colors.gray,
+        onSecondary: Colors.white,
+        secondaryContainer: Colors.gray,
+        onSecondaryContainer: Colors.white,
+        tertiary: Colors.teal,
+        onTertiary: Colors.white,
+        tertiaryContainer: Colors.teal,
+        onTertiaryContainer: Colors.white,
+        error: Colors.red,
+        onError: Colors.white,
+        errorContainer: Colors.red,
+        onErrorContainer: Colors.white,
+        background: Colors.white,
+        onBackground: Colors.black,
+        surface: Colors.white,
+        onSurface: Colors.black,
+        surfaceVariant: Colors.gray,
+        onSurfaceVariant: Colors.black,
+        outline: Colors.gray,
+        outlineVariant: Colors.gray,
+        shadow: Colors.black,
+        scrim: Colors.black,
+        inverseSurface: Colors.black,
+        onInverseSurface: Colors.white,
+        inversePrimary: Colors.blue,
+        surfaceTint: Colors.blue,
+      );
+      expect(lightScheme.brightness, equals(Brightness.light));
     });
 
     test('copyWith preserves unmodified colors', () {
-      final original = ColorScheme.light();
-      final copied = original.copyWith(primary: const Color(0xFF000000));
+      final original = ColorScheme(
+        brightness: Brightness.light,
+        primary: Colors.blue,
+        onPrimary: Colors.white,
+        primaryContainer: Colors.blue,
+        onPrimaryContainer: Colors.white,
+        secondary: Colors.gray,
+        onSecondary: Colors.white,
+        secondaryContainer: Colors.gray,
+        onSecondaryContainer: Colors.white,
+        tertiary: Colors.teal,
+        onTertiary: Colors.white,
+        tertiaryContainer: Colors.teal,
+        onTertiaryContainer: Colors.white,
+        error: Colors.red,
+        onError: Colors.white,
+        errorContainer: Colors.red,
+        onErrorContainer: Colors.white,
+        background: Colors.white,
+        onBackground: Colors.black,
+        surface: Colors.white,
+        onSurface: Colors.black,
+        surfaceVariant: Colors.gray,
+        onSurfaceVariant: Colors.black,
+        outline: Colors.gray,
+        outlineVariant: Colors.gray,
+        shadow: Colors.black,
+        scrim: Colors.black,
+        inverseSurface: Colors.black,
+        onInverseSurface: Colors.white,
+        inversePrimary: Colors.blue,
+        surfaceTint: Colors.blue,
+      );
+      final copied = original.copyWith(primary: Colors.red);
       expect(copied.secondary.value, equals(original.secondary.value));
       expect(copied.surface.value, equals(original.surface.value));
-    });
-
-    test('copyWith updates specified colors', () {
-      final original = ColorScheme.light();
-      final newPrimary = const Color(0xFF123456);
-      final copied = original.copyWith(primary: newPrimary);
-      expect(copied.primary.value, equals(newPrimary.value));
+      expect(copied.primary.value, equals(Colors.red.value));
     });
   });
 
   group('ContrastedColorScheme', () {
     test('provides light and dark schemes', () {
-      final contrasted = ContrastedColorScheme.blue();
+      // Create using ThemeSchema
+      final schema = const BlueThemeSchema();
+      final contrasted = schema.toColorScheme();
       expect(contrasted.light.brightness, equals(Brightness.light));
       expect(contrasted.dark.brightness, equals(Brightness.dark));
     });
 
-    test('blue preset has blue primary', () {
-      final contrasted = ContrastedColorScheme.blue();
-      // Primary should be blue-ish
-      expect(contrasted.light.primary.blue, greaterThan(contrasted.light.primary.red));
-    });
-
-    test('green preset has green primary', () {
-      final contrasted = ContrastedColorScheme.green();
-      expect(contrasted.light.primary.green, greaterThan(contrasted.light.primary.blue));
-    });
-
-    test('purple preset has purple primary', () {
-      final contrasted = ContrastedColorScheme.purple();
-      // Purple has high red and blue
-      expect(contrasted.light.primary.red, greaterThan(contrasted.light.primary.green));
-      expect(contrasted.light.primary.blue, greaterThan(contrasted.light.primary.green));
-    });
-
-    test('custom scheme accepts light and dark', () {
-      final lightScheme = ColorScheme.light(primary: const Color(0xFF111111));
-      final darkScheme = ColorScheme.dark(primary: const Color(0xFFEEEEEE));
-      final contrasted = ContrastedColorScheme(light: lightScheme, dark: darkScheme);
-      expect(contrasted.light.primary.value, equals(0xFF111111));
-      expect(contrasted.dark.primary.value, equals(0xFFEEEEEE));
-    });
-
     test('scheme returns correct scheme based on brightness', () {
-      final contrasted = ContrastedColorScheme.blue();
+      final schema = const RedThemeSchema();
+      final contrasted = schema.toColorScheme();
       expect(contrasted.scheme(Brightness.light), equals(contrasted.light));
       expect(contrasted.scheme(Brightness.dark), equals(contrasted.dark));
+    });
+
+    test('spin rotates colors', () {
+      final schema = const GreenThemeSchema();
+      final contrasted = schema.toColorScheme();
+      final spun = contrasted.spin(180);
+      // After 180 degree spin, colors should be different
+      expect(spun.light.primary.value, isNot(equals(contrasted.light.primary.value)));
+    });
+  });
+
+  group('ColorSwatch', () {
+    test('predefined swatches are available', () {
+      expect(Swatches.red, isNotNull);
+      expect(Swatches.blue, isNotNull);
+      expect(Swatches.green, isNotNull);
+      expect(Swatches.amber, isNotNull);
+      expect(Swatches.violet, isNotNull);
+    });
+
+    test('swatch has all shade values', () {
+      final swatch = Swatches.blue;
+      expect(swatch.shade50, isNotNull);
+      expect(swatch.shade100, isNotNull);
+      expect(swatch.shade200, isNotNull);
+      expect(swatch.shade300, isNotNull);
+      expect(swatch.shade400, isNotNull);
+      expect(swatch.shade500, isNotNull);
+      expect(swatch.shade600, isNotNull);
+      expect(swatch.shade700, isNotNull);
+      expect(swatch.shade800, isNotNull);
+      expect(swatch.shade900, isNotNull);
+      expect(swatch.shade950, isNotNull);
+    });
+
+    test('swatch bracket operator works', () {
+      final swatch = Swatches.red;
+      expect(swatch[500], equals(swatch.shade500));
+      expect(swatch[100], equals(swatch.shade100));
+    });
+
+    test('toCssVariables generates variables', () {
+      final vars = Swatches.blue.toCssVariables('--test');
+      expect(vars['--test-500'], isNotNull);
+      expect(vars['--test-500-rgb'], isNotNull);
+    });
+  });
+
+  group('ThemeSchema', () {
+    test('generates ColorScheme for light mode', () {
+      final schema = const RedThemeSchema();
+      final colorScheme = schema.toColorScheme().light;
+      expect(colorScheme.brightness, equals(Brightness.light));
+      expect(colorScheme.primary, isNotNull);
+    });
+
+    test('generates ColorScheme for dark mode', () {
+      final schema = const BlueThemeSchema();
+      final colorScheme = schema.toColorScheme().dark;
+      expect(colorScheme.brightness, equals(Brightness.dark));
+      expect(colorScheme.primary, isNotNull);
+    });
+
+    test('OLED themes have isOled true', () {
+      expect(const OledBlueThemeSchema().isOled, isTrue);
+      expect(const OledRedThemeSchema().isOled, isTrue);
+      expect(const BlueThemeSchema().isOled, isFalse);
+    });
+
+    test('OLED themes have true black background', () {
+      final schema = const OledBlueThemeSchema();
+      expect(schema.backgroundDark, equals(Colors.black));
+    });
+
+    test('monochromatic themes use neutral as accent', () {
+      final schema = const GreyThemeSchema();
+      expect(schema.accentSwatch, equals(schema.neutralSwatch));
     });
   });
 }

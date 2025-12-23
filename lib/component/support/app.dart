@@ -4,7 +4,6 @@ import 'package:fast_log/fast_log.dart';
 
 import '../../util/appearance/theme.dart';
 import '../../util/arcane.dart';
-import '../../util/tools/styles.dart';
 
 /// Root application component for Arcane Jaspr apps.
 ///

@@ -2,7 +2,6 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
 import '../../util/tokens/tokens.dart';
-import '../../util/style_types/index.dart' hide BorderRadius;
 
 /// Empty state style variants
 enum EmptyStateStyle {

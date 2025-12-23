@@ -1,8 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, FontStyle, StyleRule, Display, Position, Overflow, Cursor, Visibility, Radius;
 
-import '../../util/tokens/tokens.dart';
-import '../../util/style_types/index.dart' hide BorderRadius;
+import '../../util/style_types/index.dart';
 
 /// Gutter size options
 enum ArcaneGutterSize {

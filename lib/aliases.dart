@@ -1,8 +1,8 @@
-/// Shorthand A* aliases for all Arcane* components.
-///
-/// Import this file to use shorter component names:
-/// ```dart
-/// import 'package:arcane_jaspr/aliases.dart';
+// Shorthand A* aliases for all Arcane* components.
+//
+// Import this file to use shorter component names:
+// ```dart
+// import 'package:arcane_jaspr/aliases.dart';
 ///
 /// // Now you can use:
 /// AButton(...)     // instead of ArcaneButton(...)

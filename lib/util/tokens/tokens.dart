@@ -1,6 +1,6 @@
-/// Centralized design tokens for Arcane Jaspr
-/// All values are static const strings that reference CSS variables for theme reactivity
-/// or provide consistent static values for spacing, typography, etc.
+// Centralized design tokens for Arcane Jaspr
+// All values are static const strings that reference CSS variables for theme reactivity
+// or provide consistent static values for spacing, typography, etc.
 
 // =============================================================================
 // COLORS
@@ -31,6 +31,76 @@ class ArcaneColors {
   static const String accentHoverRgb = 'var(--arcane-accent-hover-rgb)';
   static const String accentContainerRgb = 'var(--arcane-accent-container-rgb)';
   static const String accentAlpha10 = 'rgba(var(--arcane-accent-rgb), 0.10)';
+
+  // ---------------------------------------------------------------------------
+  // Accent Swatch Shades (50-950, available when using theme schema)
+  // ---------------------------------------------------------------------------
+
+  /// Accent shade 50 (lightest)
+  static const String accent50 = 'var(--arcane-accent-50)';
+  static const String accent100 = 'var(--arcane-accent-100)';
+  static const String accent200 = 'var(--arcane-accent-200)';
+  static const String accent300 = 'var(--arcane-accent-300)';
+  static const String accent400 = 'var(--arcane-accent-400)';
+  static const String accent500 = 'var(--arcane-accent-500)';
+  static const String accent600 = 'var(--arcane-accent-600)';
+  static const String accent700 = 'var(--arcane-accent-700)';
+  static const String accent800 = 'var(--arcane-accent-800)';
+  static const String accent900 = 'var(--arcane-accent-900)';
+  /// Accent shade 950 (darkest)
+  static const String accent950 = 'var(--arcane-accent-950)';
+
+  // Accent swatch RGB variants for alpha blending
+  static const String accent50Rgb = 'var(--arcane-accent-50-rgb)';
+  static const String accent100Rgb = 'var(--arcane-accent-100-rgb)';
+  static const String accent200Rgb = 'var(--arcane-accent-200-rgb)';
+  static const String accent300Rgb = 'var(--arcane-accent-300-rgb)';
+  static const String accent400Rgb = 'var(--arcane-accent-400-rgb)';
+  static const String accent500Rgb = 'var(--arcane-accent-500-rgb)';
+  static const String accent600Rgb = 'var(--arcane-accent-600-rgb)';
+  static const String accent700Rgb = 'var(--arcane-accent-700-rgb)';
+  static const String accent800Rgb = 'var(--arcane-accent-800-rgb)';
+  static const String accent900Rgb = 'var(--arcane-accent-900-rgb)';
+  static const String accent950Rgb = 'var(--arcane-accent-950-rgb)';
+
+  // Accent swatch alpha variants (using 500 as base)
+  static const String accent500Alpha05 = 'rgba(var(--arcane-accent-500-rgb), 0.05)';
+  static const String accent500Alpha10 = 'rgba(var(--arcane-accent-500-rgb), 0.10)';
+  static const String accent500Alpha15 = 'rgba(var(--arcane-accent-500-rgb), 0.15)';
+  static const String accent500Alpha20 = 'rgba(var(--arcane-accent-500-rgb), 0.20)';
+  static const String accent500Alpha30 = 'rgba(var(--arcane-accent-500-rgb), 0.30)';
+  static const String accent500Alpha50 = 'rgba(var(--arcane-accent-500-rgb), 0.50)';
+
+  // ---------------------------------------------------------------------------
+  // Neutral Swatch Shades (50-950, available when using theme schema)
+  // ---------------------------------------------------------------------------
+
+  /// Neutral shade 50 (lightest)
+  static const String neutral50 = 'var(--arcane-neutral-50)';
+  static const String neutral100 = 'var(--arcane-neutral-100)';
+  static const String neutral200 = 'var(--arcane-neutral-200)';
+  static const String neutral300 = 'var(--arcane-neutral-300)';
+  static const String neutral400 = 'var(--arcane-neutral-400)';
+  static const String neutral500 = 'var(--arcane-neutral-500)';
+  static const String neutral600 = 'var(--arcane-neutral-600)';
+  static const String neutral700 = 'var(--arcane-neutral-700)';
+  static const String neutral800 = 'var(--arcane-neutral-800)';
+  static const String neutral900 = 'var(--arcane-neutral-900)';
+  /// Neutral shade 950 (darkest)
+  static const String neutral950 = 'var(--arcane-neutral-950)';
+
+  // Neutral swatch RGB variants for alpha blending
+  static const String neutral50Rgb = 'var(--arcane-neutral-50-rgb)';
+  static const String neutral100Rgb = 'var(--arcane-neutral-100-rgb)';
+  static const String neutral200Rgb = 'var(--arcane-neutral-200-rgb)';
+  static const String neutral300Rgb = 'var(--arcane-neutral-300-rgb)';
+  static const String neutral400Rgb = 'var(--arcane-neutral-400-rgb)';
+  static const String neutral500Rgb = 'var(--arcane-neutral-500-rgb)';
+  static const String neutral600Rgb = 'var(--arcane-neutral-600-rgb)';
+  static const String neutral700Rgb = 'var(--arcane-neutral-700-rgb)';
+  static const String neutral800Rgb = 'var(--arcane-neutral-800-rgb)';
+  static const String neutral900Rgb = 'var(--arcane-neutral-900-rgb)';
+  static const String neutral950Rgb = 'var(--arcane-neutral-950-rgb)';
 
   // ---------------------------------------------------------------------------
   // Semantic Status Colors

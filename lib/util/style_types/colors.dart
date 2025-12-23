@@ -3,10 +3,6 @@ import '../tokens/tokens.dart';
 // CSS variable references for QualityNode brand colors
 const String _qnPrimary = 'var(--qn-primary, #059669)';
 const String _qnSecondary = 'var(--qn-secondary, #047857)';
-const String _qnGradient =
-    'var(--qn-gradient, linear-gradient(135deg, #059669 0%, #0891B2 100%))';
-const String _qnGlow = 'var(--qn-glow, rgba(5, 150, 105, 0.35))';
-const String _qnBorder = 'var(--qn-border, rgba(5, 150, 105, 0.25))';
 
 /// Background color presets
 enum Background {

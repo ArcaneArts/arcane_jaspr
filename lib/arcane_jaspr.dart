@@ -38,8 +38,6 @@ export 'package:jaspr/dom.dart'
         PointerEvents,
         ZIndex,
         Transform,
-        Opacity,
-        Shadow,
         FlexWrap,
         WhiteSpace,
         Spacing,
@@ -75,19 +73,19 @@ export 'component/support/app.dart';
 // Typography components
 // ============================================================================
 export 'component/typography/headline.dart';
-export 'component/typography/text.dart' hide Text;
+export 'component/typography/text.dart';
 
 // ============================================================================
 // Layout components
 // ============================================================================
 export 'component/layout/section.dart';
-export 'component/layout/gutter.dart' hide Gap;
+export 'component/layout/gutter.dart';
 export 'component/layout/flow.dart';
 export 'component/layout/carpet.dart';
 export 'component/layout/button_panel.dart';
 export 'component/layout/radio_cards.dart';
 export 'component/layout/tabs.dart';
-export 'component/layout/hero_section.dart' hide EdgeInsets;
+export 'component/layout/hero_section.dart';
 export 'component/layout/footer.dart';
 export 'component/layout/logo_carousel.dart';
 export 'component/layout/cta_banner.dart';
@@ -123,7 +121,7 @@ export 'component/view/glass.dart';
 export 'component/view/card.dart';
 export 'component/view/card_section.dart';
 export 'component/view/tile.dart';
-export 'component/view/expander.dart' hide AccordionItem, Accordion, ArcaneAccordionItem, ArcaneAccordion;
+export 'component/view/expander.dart' hide ArcaneAccordionItem, ArcaneAccordion;
 export 'component/view/center_body.dart';
 export 'component/view/data_table.dart';
 export 'component/view/static_table.dart';
@@ -209,7 +207,7 @@ export 'component/interactive/back_to_top.dart';
 // Collection components
 // ============================================================================
 export 'component/collection/collection.dart' hide Axis;
-export 'component/collection/card_carousel.dart' hide CardCarouselTheme;
+export 'component/collection/card_carousel.dart';
 export 'component/collection/infinite_carousel.dart';
 
 // ============================================================================
@@ -224,7 +222,7 @@ export 'component/html/arcane_text.dart' hide ArcaneText;
 export 'component/html/code_block.dart'; // ArcaneCodeBlock (and legacy ArcanePre, PreStyle)
 export 'component/html/div.dart';
 export 'component/html/footer.dart' show ArcaneHtmlFooter;
-export 'component/html/header.dart' hide Header, ArcaneHeader;
+export 'component/html/header.dart' hide ArcaneHeader;
 export 'component/html/heading.dart';
 export 'component/html/lists.dart'; // ArcaneBulletList, ArcaneNumberedList (and legacy ArcaneUnorderedList, ArcaneOrderedList)
 export 'component/html/main_element.dart';
