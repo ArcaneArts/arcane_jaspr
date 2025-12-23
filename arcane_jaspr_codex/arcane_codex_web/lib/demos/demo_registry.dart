@@ -17,8 +17,14 @@ import 'interactive/input_interactive.dart';
 import 'interactive/view_interactive.dart';
 import 'interactive/navigation_interactive.dart';
 
+/// Type alias for demo builder functions
+typedef DemoBuilder = List<Component> Function();
+
+/// Type alias for contextual demo builders (need theme state)
+typedef ContextualDemoBuilder = List<Component> Function(bool isDark, VoidCallback onThemeToggle);
+
 /// Central registry for component demos
-/// Maps component types to their demo builders
+/// Uses Map-based lookup instead of switch statement for better maintainability
 class DemoRegistry {
   final bool isDark;
   final VoidCallback onThemeToggle;
@@ -28,277 +34,208 @@ class DemoRegistry {
     required this.onThemeToggle,
   });
 
+  /// Static demos that don't require context
+  static final Map<String, DemoBuilder> _staticDemos = {
+    // Input components
+    'button': InputDemos.button,
+    'icon-button': InputDemos.iconButton,
+    'close-button': InputDemos.closeButton,
+    'fab': InputDemos.fab,
+    'text-input': InputDemos.textInput,
+    'text-area': InputDemos.textArea,
+    'file-upload': InputDemos.fileUpload,
+    'search-bar': InputDemos.searchBar,
+
+    // Layout components
+    'div': LayoutDemos.div,
+    'row': LayoutDemos.row,
+    'column': LayoutDemos.column,
+    'container': LayoutDemos.container,
+    'section': LayoutDemos.section,
+    'box': LayoutDemos.box,
+    'center': LayoutDemos.center,
+    'flow': LayoutDemos.flow,
+    'spacer': LayoutDemos.spacer,
+    'expanded': LayoutDemos.expanded,
+    'stack': LayoutDemos.stack,
+    'positioned': LayoutDemos.positioned,
+    'padding': LayoutDemos.padding,
+    'gutter': LayoutDemos.gutter,
+    'card': LayoutDemos.card,
+    'tabs': LayoutDemos.tabs,
+    'tile': LayoutDemos.tile,
+    'button-group': LayoutDemos.buttonGroup,
+    'hero-section': LayoutDemos.heroSection,
+    'footer': LayoutDemos.footer,
+    'auth-layout': LayoutDemos.authLayout,
+    'dashboard-layout': LayoutDemos.dashboardLayout,
+    'page-body': LayoutDemos.pageBody,
+
+    // Typography components
+    'text': TypographyDemos.text,
+    'heading': TypographyDemos.heading,
+    'headline': TypographyDemos.headline,
+    'subheadline': TypographyDemos.subheadline,
+    'paragraph': TypographyDemos.paragraph,
+    'span': TypographyDemos.span,
+    'gradient-text': TypographyDemos.gradientText,
+    'glow-text': TypographyDemos.glowText,
+    'rich-text': TypographyDemos.richText,
+    'code-snippet': TypographyDemos.codeSnippet,
+    'inline-code': TypographyDemos.inlineCode,
+    'pre': TypographyDemos.pre,
+
+    // View components
+    'avatar': ViewDemos.avatar,
+    'badge': ViewDemos.badge,
+    'chip': ViewDemos.chip,
+    'divider': ViewDemos.divider,
+    'loader': ViewDemos.loader,
+    'skeleton': ViewDemos.skeleton,
+    'empty-state': ViewDemos.emptyState,
+    'data-table': ViewDemos.dataTable,
+    'timeline': ViewDemos.timeline,
+    'feature-card': ViewDemos.featureCard,
+    'callout': ViewDemos.callout,
+    'kbd': ViewDemos.kbd,
+    'alert': ViewDemos.alert,
+    'icon': ViewDemos.icon,
+    'svg': ViewDemos.svg,
+
+    // Navigation components
+    'header': NavigationDemos.header,
+    'breadcrumbs': NavigationDemos.breadcrumbs,
+
+    // Feedback components
+    'dialog': FeedbackDemos.dialog,
+    'alert-banner': FeedbackDemos.alertBanner,
+
+    // Form components
+    'form': FormDemos.form,
+    'field': FormDemos.field,
+    'field-wrapper': FormDemos.fieldWrapper,
+
+    // Screen components
+    'screen': ScreenDemos.screen,
+
+    // Authentication components
+    'login-card': AuthDemos.loginCard,
+    'signup-card': AuthDemos.signupCard,
+    'forgot-password-card': AuthDemos.forgotPasswordCard,
+    'social-buttons': AuthDemos.socialButtons,
+    'github-button': AuthDemos.githubButton,
+    'google-button': AuthDemos.googleButton,
+    'apple-button': AuthDemos.appleButton,
+    'auth-split-layout': AuthDemos.authSplitLayout,
+    'auth-branding-panel': AuthDemos.authBrandingPanel,
+    'password-policy': AuthDemos.passwordPolicy,
+
+    // Style Reference demos
+    'display': StyleDemos.display,
+    'spacing': StyleDemos.spacing,
+    'typography-styles': StyleDemos.typography,
+    'colors': StyleDemos.colors,
+    'borders': StyleDemos.borders,
+    'effects': StyleDemos.effects,
+
+    // Concept demos
+    'aliases': ConceptDemos.aliases,
+    'styling': ConceptDemos.styling,
+    'theming': ConceptDemos.theming,
+    'tokens': ConceptDemos.tokens,
+  };
+
+  /// Interactive component demos (stateful widgets)
+  static final Map<String, Component> _interactiveDemos = {
+    // Input interactive
+    'search': const SearchDemo(),
+    'select': const SelectDemo(),
+    'checkbox': const CheckboxDemo(),
+    'radio': const RadioDemo(),
+    'toggle-switch': const ToggleSwitchDemo(),
+    'slider': const SliderDemo(),
+    'range-slider': const RangeSliderDemo(),
+    'toggle-button': const ToggleButtonDemo(),
+    'toggle-button-group': const ToggleButtonGroupDemo(),
+    'cycle-button': const CycleButtonDemo(),
+    'selector': const SelectorDemo(),
+    'tag-input': const TagInputDemo(),
+    'number-input': const NumberInputDemo(),
+    'color-input': const ColorInputDemo(),
+
+    // View interactive
+    'progress-bar': const ProgressBarDemo(),
+    'tooltip': const TooltipDemo(),
+    'accordion': const AccordionDemo(),
+    'toast': const ToastDemo(),
+    'meter': const MeterDemo(),
+    'inline-tabs': const TabBarDemo(),
+    'tree-view': const TreeViewDemo(),
+    'popover': const PopoverDemo(),
+    'hovercard': const HovercardDemo(),
+    'expander': const ExpanderDemo(),
+
+    // Navigation interactive
+    'drawer': const DrawerDemo(),
+    'sidebar': const SidebarDemo(),
+    'bottom-nav': const BottomNavDemo(),
+    'dropdown-menu': const DropdownMenuDemo(),
+    'mobile-menu': const MobileMenuDemo(),
+    'mega-menu': const MegaMenuDemo(),
+    'pagination': const PaginationDemo(),
+  };
+
+  /// Contextual demos that need theme state
+  static const Map<String, ContextualDemoBuilder> _contextualDemos = {
+    'theme-toggle': InputDemos.themeToggle,
+  };
+
+  /// Default placeholder for missing demos
+  static List<Component> _defaultDemo() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(
+            textColor: TextColor.muted,
+            fontStyle: FontStyle.italic,
+          ),
+          children: [ArcaneText('Demo coming soon...')],
+        ),
+      ];
+
   /// Get demo components for a given component type
   List<Component> getDemo(String componentType) {
-    switch (componentType) {
-      // Input components
-      case 'button':
-        return InputDemos.button();
-      case 'icon-button':
-        return InputDemos.iconButton();
-      case 'close-button':
-        return InputDemos.closeButton();
-      case 'fab':
-        return InputDemos.fab();
-      case 'text-input':
-        return InputDemos.textInput();
-      case 'text-area':
-        return InputDemos.textArea();
-      case 'search':
-        return [const SearchDemo()];
-      case 'select':
-        return [const SelectDemo()];
-      case 'checkbox':
-        return [const CheckboxDemo()];
-      case 'radio':
-        return [const RadioDemo()];
-      case 'toggle-switch':
-        return [const ToggleSwitchDemo()];
-      case 'slider':
-        return [const SliderDemo()];
-      case 'range-slider':
-        return [const RangeSliderDemo()];
-      case 'toggle-button':
-        return [const ToggleButtonDemo()];
-      case 'toggle-button-group':
-        return [const ToggleButtonGroupDemo()];
-      case 'cycle-button':
-        return [const CycleButtonDemo()];
-      case 'selector':
-        return [const SelectorDemo()];
-      case 'theme-toggle':
-        return InputDemos.themeToggle(isDark, onThemeToggle);
-      case 'tag-input':
-        return [const TagInputDemo()];
-      case 'number-input':
-        return [const NumberInputDemo()];
-      case 'file-upload':
-        return InputDemos.fileUpload();
-      case 'color-input':
-        return [const ColorInputDemo()];
-      case 'search-bar':
-        return InputDemos.searchBar();
-
-      // Layout components
-      case 'div':
-        return LayoutDemos.div();
-      case 'row':
-        return LayoutDemos.row();
-      case 'column':
-        return LayoutDemos.column();
-      case 'container':
-        return LayoutDemos.container();
-      case 'section':
-        return LayoutDemos.section();
-      case 'box':
-        return LayoutDemos.box();
-      case 'center':
-        return LayoutDemos.center();
-      case 'flow':
-        return LayoutDemos.flow();
-      case 'spacer':
-        return LayoutDemos.spacer();
-      case 'expanded':
-        return LayoutDemos.expanded();
-      case 'stack':
-        return LayoutDemos.stack();
-      case 'positioned':
-        return LayoutDemos.positioned();
-      case 'padding':
-        return LayoutDemos.padding();
-      case 'gutter':
-        return LayoutDemos.gutter();
-      case 'card':
-        return LayoutDemos.card();
-      case 'tabs':
-        return LayoutDemos.tabs();
-      case 'tile':
-        return LayoutDemos.tile();
-      case 'button-group':
-        return LayoutDemos.buttonGroup();
-      case 'hero-section':
-        return LayoutDemos.heroSection();
-      case 'footer':
-        return LayoutDemos.footer();
-      case 'auth-layout':
-        return LayoutDemos.authLayout();
-      case 'dashboard-layout':
-        return LayoutDemos.dashboardLayout();
-      case 'page-body':
-        return LayoutDemos.pageBody();
-      case 'drawer':
-        return [const DrawerDemo()];
-
-      // Typography components
-      case 'text':
-        return TypographyDemos.text();
-      case 'heading':
-        return TypographyDemos.heading();
-      case 'headline':
-        return TypographyDemos.headline();
-      case 'subheadline':
-        return TypographyDemos.subheadline();
-      case 'paragraph':
-        return TypographyDemos.paragraph();
-      case 'span':
-        return TypographyDemos.span();
-      case 'gradient-text':
-        return TypographyDemos.gradientText();
-      case 'glow-text':
-        return TypographyDemos.glowText();
-      case 'rich-text':
-        return TypographyDemos.richText();
-      case 'code-snippet':
-        return TypographyDemos.codeSnippet();
-      case 'inline-code':
-        return TypographyDemos.inlineCode();
-      case 'pre':
-        return TypographyDemos.pre();
-
-      // View components
-      case 'avatar':
-        return ViewDemos.avatar();
-      case 'badge':
-        return ViewDemos.badge();
-      case 'chip':
-        return ViewDemos.chip();
-      case 'divider':
-        return ViewDemos.divider();
-      case 'progress-bar':
-        return [const ProgressBarDemo()];
-      case 'loader':
-        return ViewDemos.loader();
-      case 'skeleton':
-        return ViewDemos.skeleton();
-      case 'empty-state':
-        return ViewDemos.emptyState();
-      case 'data-table':
-        return ViewDemos.dataTable();
-      case 'timeline':
-        return ViewDemos.timeline();
-      case 'feature-card':
-        return ViewDemos.featureCard();
-      case 'tooltip':
-        return [const TooltipDemo()];
-      case 'accordion':
-        return [const AccordionDemo()];
-      case 'toast':
-        return [const ToastDemo()];
-      case 'callout':
-        return ViewDemos.callout();
-      case 'kbd':
-        return ViewDemos.kbd();
-      case 'meter':
-        return [const MeterDemo()];
-      case 'alert':
-        return ViewDemos.alert();
-      case 'inline-tabs':
-        return [const TabBarDemo()];
-      case 'tree-view':
-        return [const TreeViewDemo()];
-      case 'popover':
-        return [const PopoverDemo()];
-      case 'hovercard':
-        return [const HovercardDemo()];
-      case 'expander':
-        return [const ExpanderDemo()];
-      case 'icon':
-        return ViewDemos.icon();
-      case 'svg':
-        return ViewDemos.svg();
-
-      // Navigation components
-      case 'header':
-        return NavigationDemos.header();
-      case 'sidebar':
-        return [const SidebarDemo()];
-      case 'bottom-nav':
-        return [const BottomNavDemo()];
-      case 'dropdown-menu':
-        return [const DropdownMenuDemo()];
-      case 'mobile-menu':
-        return [const MobileMenuDemo()];
-      case 'mega-menu':
-        return [const MegaMenuDemo()];
-      case 'breadcrumbs':
-        return NavigationDemos.breadcrumbs();
-      case 'pagination':
-        return [const PaginationDemo()];
-
-      // Feedback components
-      case 'dialog':
-        return FeedbackDemos.dialog();
-      case 'alert-banner':
-        return FeedbackDemos.alertBanner();
-
-      // Form components
-      case 'form':
-        return FormDemos.form();
-      case 'field':
-        return FormDemos.field();
-      case 'field-wrapper':
-        return FormDemos.fieldWrapper();
-
-      // Screen components
-      case 'screen':
-        return ScreenDemos.screen();
-
-      // Authentication components
-      case 'login-card':
-        return AuthDemos.loginCard();
-      case 'signup-card':
-        return AuthDemos.signupCard();
-      case 'forgot-password-card':
-        return AuthDemos.forgotPasswordCard();
-      case 'social-buttons':
-        return AuthDemos.socialButtons();
-      case 'github-button':
-        return AuthDemos.githubButton();
-      case 'google-button':
-        return AuthDemos.googleButton();
-      case 'apple-button':
-        return AuthDemos.appleButton();
-      case 'auth-split-layout':
-        return AuthDemos.authSplitLayout();
-      case 'auth-branding-panel':
-        return AuthDemos.authBrandingPanel();
-      case 'password-policy':
-        return AuthDemos.passwordPolicy();
-
-      // Style Reference demos
-      case 'display':
-        return StyleDemos.display();
-      case 'spacing':
-        return StyleDemos.spacing();
-      case 'typography-styles':
-        return StyleDemos.typography();
-      case 'colors':
-        return StyleDemos.colors();
-      case 'borders':
-        return StyleDemos.borders();
-      case 'effects':
-        return StyleDemos.effects();
-
-      // Concept demos
-      case 'aliases':
-        return ConceptDemos.aliases();
-      case 'styling':
-        return ConceptDemos.styling();
-      case 'theming':
-        return ConceptDemos.theming();
-      case 'tokens':
-        return ConceptDemos.tokens();
-
-      default:
-        return [
-          ArcaneDiv(
-            styles: const ArcaneStyleData(
-              textColor: TextColor.muted,
-              fontStyle: FontStyle.italic,
-            ),
-            children: [ArcaneText('Demo coming soon...')],
-          ),
-        ];
+    // Check static demos first (most common)
+    final staticBuilder = _staticDemos[componentType];
+    if (staticBuilder != null) {
+      return staticBuilder();
     }
+
+    // Check interactive demos
+    final interactiveDemo = _interactiveDemos[componentType];
+    if (interactiveDemo != null) {
+      return [interactiveDemo];
+    }
+
+    // Check contextual demos
+    final contextualBuilder = _contextualDemos[componentType];
+    if (contextualBuilder != null) {
+      return contextualBuilder(isDark, onThemeToggle);
+    }
+
+    // Fallback
+    return _defaultDemo();
   }
+
+  /// Check if a demo exists for a component type
+  static bool hasDemo(String componentType) {
+    return _staticDemos.containsKey(componentType) ||
+        _interactiveDemos.containsKey(componentType) ||
+        _contextualDemos.containsKey(componentType);
+  }
+
+  /// Get all registered component types
+  static Set<String> get allComponentTypes => {
+        ..._staticDemos.keys,
+        ..._interactiveDemos.keys,
+        ..._contextualDemos.keys,
+      };
 }
