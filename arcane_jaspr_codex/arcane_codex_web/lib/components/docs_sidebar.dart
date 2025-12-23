@@ -223,8 +223,6 @@ class DocsSidebar extends StatelessComponent {
             // Screens section
             _buildNavSection('Screens', [
               _buildNavItem(label: 'ArcaneScreen', href: '/docs/screens/arcane-screen'),
-              _buildNavItem(label: 'ArcaneDashboardLayout', href: '/docs/screens/arcane-dashboard-layout'),
-              _buildNavItem(label: 'ArcaneAuthLayout', href: '/docs/screens/arcane-auth-layout'),
             ]),
 
             // Guides section

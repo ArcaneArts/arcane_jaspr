@@ -50,15 +50,7 @@ class ArcaneDocsLayout extends PageLayoutBase {
   Iterable<Component> buildHead(Page page) sync* {
     yield* super.buildHead(page);
 
-    // Set base href for GitHub Pages subdirectory hosting (only if baseUrl is set)
-    if (AppConstants.baseUrl.isNotEmpty) {
-      yield Component.element(
-        tag: 'base',
-        attributes: {'href': '${AppConstants.baseUrl}/'},
-        children: [],
-      );
-    }
-
+    // Note: super.buildHead already handles the base tag, so we don't add another one
     final assetPrefix = AppConstants.baseUrl.isNotEmpty ? AppConstants.baseUrl : '';
     yield link(
         rel: 'icon', type: 'image/x-icon', href: '$assetPrefix/favicon.ico');
