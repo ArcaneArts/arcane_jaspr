@@ -5,6 +5,7 @@ import 'package:jaspr_content/jaspr_content.dart';
 import '../components/docs_sidebar.dart';
 import '../components/docs_header.dart';
 import '../demos/demo_registry.dart';
+import '../utils/constants.dart';
 
 /// Custom documentation layout using Arcane UI components
 class ArcaneDocsLayout extends PageLayoutBase {
@@ -47,7 +48,16 @@ class ArcaneDocsLayout extends PageLayoutBase {
   @override
   Iterable<Component> buildHead(Page page) sync* {
     yield* super.buildHead(page);
-    yield link(rel: 'icon', type: 'image/x-icon', href: '/favicon.ico');
+
+    // Set base href for GitHub Pages subdirectory hosting
+    yield Component.element(
+      tag: 'base',
+      attributes: {'href': '${AppConstants.baseUrl}/'},
+      children: [],
+    );
+
+    yield link(
+        rel: 'icon', type: 'image/x-icon', href: '${AppConstants.baseUrl}/favicon.ico');
     yield meta(name: 'viewport', content: 'width=device-width, initial-scale=1');
 
     // Generate CSS variables for ALL themes (dark and light modes)
@@ -81,7 +91,7 @@ class ArcaneDocsLayout extends PageLayoutBase {
     );
 
     // Load stylesheet AFTER theme variables so our overrides take precedence
-    yield link(rel: 'stylesheet', href: '/styles.css');
+    yield link(rel: 'stylesheet', href: '${AppConstants.baseUrl}/styles.css');
 
     // Theme initialization script - runs before page renders to prevent flash
     yield script(content: '''
@@ -166,8 +176,7 @@ class _ThemedDocsPageState extends State<_ThemedDocsPage> {
           'min-height': '100vh',
           'background-color': 'var(--arcane-surface)',
           'color': 'var(--arcane-on-surface)',
-          'font-family':
-              '"GeistSans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          'font-family': 'var(--font-sans)',
           '-webkit-font-smoothing': 'antialiased',
           '-moz-osx-font-smoothing': 'grayscale',
         }),
@@ -234,8 +243,8 @@ class _ThemedDocsPageState extends State<_ThemedDocsPage> {
   Component _buildMainContent(DemoRegistry demoRegistry) {
     return ArcaneDiv(
       styles: const ArcaneStyleData(
-        flexGrow: 1,
-        raw: {'min-width': '0'},
+        flex: FlexPreset.expand,
+        minWidth: '0',
       ),
       children: [
         if (component.title != null) _buildTitle(),
@@ -313,11 +322,9 @@ class _ThemedDocsPageState extends State<_ThemedDocsPage> {
         flexShrink: 0,
         position: Position.sticky,
         overflow: Overflow.auto,
-        raw: {
-          'top': '80px',
-          'align-self': 'flex-start',
-          'max-height': 'calc(100vh - 100px)',
-        },
+        top: '80px',
+        alignSelf: CrossAxisAlignment.start,
+        maxHeight: 'calc(100vh - 100px)',
       ),
       children: [
         ArcaneDiv(

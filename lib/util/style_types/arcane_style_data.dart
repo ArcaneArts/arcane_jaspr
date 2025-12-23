@@ -108,6 +108,34 @@ class ArcaneStyleData {
   /// Flex basis
   final String? flexBasis;
 
+  /// Flex shorthand (combines grow, shrink, basis)
+  final FlexPreset? flex;
+
+  // -------------------------------------------------------------------------
+  // Grid
+  // -------------------------------------------------------------------------
+
+  /// Grid template columns
+  final GridColumns? gridColumns;
+
+  /// Custom grid template columns
+  final String? gridColumnsCustom;
+
+  /// Grid template rows
+  final GridRows? gridRows;
+
+  /// Custom grid template rows
+  final String? gridRowsCustom;
+
+  /// Grid auto-flow
+  final GridAutoFlow? gridAutoFlow;
+
+  /// Place items (align-items + justify-items)
+  final PlaceItems? placeItems;
+
+  /// Place content (align-content + justify-content)
+  final PlaceContent? placeContent;
+
   // -------------------------------------------------------------------------
   // Spacing
   // -------------------------------------------------------------------------
@@ -207,6 +235,21 @@ class ArcaneStyleData {
 
   /// Outline offset
   final String? outlineOffset;
+
+  /// Border width (all sides)
+  final BorderWidth? borderWidth;
+
+  /// Border left width
+  final BorderWidth? borderLeftWidth;
+
+  /// Border right width
+  final BorderWidth? borderRightWidth;
+
+  /// Border top width
+  final BorderWidth? borderTopWidth;
+
+  /// Border bottom width
+  final BorderWidth? borderBottomWidth;
 
   // -------------------------------------------------------------------------
   // Typography
@@ -340,6 +383,15 @@ class ArcaneStyleData {
     this.flexGrow,
     this.flexShrink,
     this.flexBasis,
+    this.flex,
+    // Grid
+    this.gridColumns,
+    this.gridColumnsCustom,
+    this.gridRows,
+    this.gridRowsCustom,
+    this.gridAutoFlow,
+    this.placeItems,
+    this.placeContent,
     // Spacing
     this.padding,
     this.paddingCustom,
@@ -372,6 +424,11 @@ class ArcaneStyleData {
     this.borderRadiusClass,
     this.outline,
     this.outlineOffset,
+    this.borderWidth,
+    this.borderLeftWidth,
+    this.borderRightWidth,
+    this.borderTopWidth,
+    this.borderBottomWidth,
     // Typography
     this.fontSize,
     this.fontSizeCustom,
@@ -442,6 +499,18 @@ class ArcaneStyleData {
     if (flexGrow != null) css['flex-grow'] = '$flexGrow';
     if (flexShrink != null) css['flex-shrink'] = '$flexShrink';
     if (flexBasis != null) css['flex-basis'] = flexBasis!;
+    if (flex != null) css['flex'] = flex!.css;
+
+    // Grid
+    if (gridColumns != null) css['grid-template-columns'] = gridColumns!.css;
+    if (gridColumnsCustom != null) {
+      css['grid-template-columns'] = gridColumnsCustom!;
+    }
+    if (gridRows != null) css['grid-template-rows'] = gridRows!.css;
+    if (gridRowsCustom != null) css['grid-template-rows'] = gridRowsCustom!;
+    if (gridAutoFlow != null) css['grid-auto-flow'] = gridAutoFlow!.css;
+    if (placeItems != null) css['place-items'] = placeItems!.css;
+    if (placeContent != null) css['place-content'] = placeContent!.css;
 
     // Spacing
     if (padding != null) css['padding'] = padding!.css;
@@ -478,6 +547,15 @@ class ArcaneStyleData {
     if (borderRadiusClass != null) css['border-radius'] = borderRadiusClass!.css;
     if (outline != null) css['outline'] = outline!.css;
     if (outlineOffset != null) css['outline-offset'] = outlineOffset!;
+    if (borderWidth != null) css['border-width'] = borderWidth!.css;
+    if (borderLeftWidth != null) css['border-left-width'] = borderLeftWidth!.css;
+    if (borderRightWidth != null) {
+      css['border-right-width'] = borderRightWidth!.css;
+    }
+    if (borderTopWidth != null) css['border-top-width'] = borderTopWidth!.css;
+    if (borderBottomWidth != null) {
+      css['border-bottom-width'] = borderBottomWidth!.css;
+    }
 
     // Typography
     if (fontSize != null) css['font-size'] = fontSize!.css;
@@ -556,6 +634,18 @@ class ArcaneStyleData {
     if (flexGrow != null) css['flex-grow'] = '$flexGrow';
     if (flexShrink != null) css['flex-shrink'] = '$flexShrink';
     if (flexBasis != null) css['flex-basis'] = flexBasis!;
+    if (flex != null) css['flex'] = flex!.css;
+
+    // Grid
+    if (gridColumns != null) css['grid-template-columns'] = gridColumns!.css;
+    if (gridColumnsCustom != null) {
+      css['grid-template-columns'] = gridColumnsCustom!;
+    }
+    if (gridRows != null) css['grid-template-rows'] = gridRows!.css;
+    if (gridRowsCustom != null) css['grid-template-rows'] = gridRowsCustom!;
+    if (gridAutoFlow != null) css['grid-auto-flow'] = gridAutoFlow!.css;
+    if (placeItems != null) css['place-items'] = placeItems!.css;
+    if (placeContent != null) css['place-content'] = placeContent!.css;
 
     // Spacing
     if (padding != null) css['padding'] = padding!.css;
@@ -592,6 +682,15 @@ class ArcaneStyleData {
     if (borderRadiusClass != null) css['border-radius'] = borderRadiusClass!.css;
     if (outline != null) css['outline'] = outline!.css;
     if (outlineOffset != null) css['outline-offset'] = outlineOffset!;
+    if (borderWidth != null) css['border-width'] = borderWidth!.css;
+    if (borderLeftWidth != null) css['border-left-width'] = borderLeftWidth!.css;
+    if (borderRightWidth != null) {
+      css['border-right-width'] = borderRightWidth!.css;
+    }
+    if (borderTopWidth != null) css['border-top-width'] = borderTopWidth!.css;
+    if (borderBottomWidth != null) {
+      css['border-bottom-width'] = borderBottomWidth!.css;
+    }
 
     // Typography
     if (fontSize != null) css['font-size'] = fontSize!.css;
@@ -665,6 +764,15 @@ class ArcaneStyleData {
       flexGrow: other.flexGrow ?? flexGrow,
       flexShrink: other.flexShrink ?? flexShrink,
       flexBasis: other.flexBasis ?? flexBasis,
+      flex: other.flex ?? flex,
+      // Grid
+      gridColumns: other.gridColumns ?? gridColumns,
+      gridColumnsCustom: other.gridColumnsCustom ?? gridColumnsCustom,
+      gridRows: other.gridRows ?? gridRows,
+      gridRowsCustom: other.gridRowsCustom ?? gridRowsCustom,
+      gridAutoFlow: other.gridAutoFlow ?? gridAutoFlow,
+      placeItems: other.placeItems ?? placeItems,
+      placeContent: other.placeContent ?? placeContent,
       // Spacing
       padding: other.padding ?? padding,
       paddingCustom: other.paddingCustom ?? paddingCustom,
@@ -697,6 +805,11 @@ class ArcaneStyleData {
       borderRadiusClass: other.borderRadiusClass ?? borderRadiusClass,
       outline: other.outline ?? outline,
       outlineOffset: other.outlineOffset ?? outlineOffset,
+      borderWidth: other.borderWidth ?? borderWidth,
+      borderLeftWidth: other.borderLeftWidth ?? borderLeftWidth,
+      borderRightWidth: other.borderRightWidth ?? borderRightWidth,
+      borderTopWidth: other.borderTopWidth ?? borderTopWidth,
+      borderBottomWidth: other.borderBottomWidth ?? borderBottomWidth,
       // Typography
       fontSize: other.fontSize ?? fontSize,
       fontSizeCustom: other.fontSizeCustom ?? fontSizeCustom,
@@ -761,6 +874,15 @@ class ArcaneStyleData {
     int? flexGrow,
     int? flexShrink,
     String? flexBasis,
+    FlexPreset? flex,
+    // Grid
+    GridColumns? gridColumns,
+    String? gridColumnsCustom,
+    GridRows? gridRows,
+    String? gridRowsCustom,
+    GridAutoFlow? gridAutoFlow,
+    PlaceItems? placeItems,
+    PlaceContent? placeContent,
     // Spacing
     PaddingPreset? padding,
     EdgeInsets? paddingCustom,
@@ -793,6 +915,11 @@ class ArcaneStyleData {
     BorderRadius? borderRadiusClass,
     OutlinePreset? outline,
     String? outlineOffset,
+    BorderWidth? borderWidth,
+    BorderWidth? borderLeftWidth,
+    BorderWidth? borderRightWidth,
+    BorderWidth? borderTopWidth,
+    BorderWidth? borderBottomWidth,
     // Typography
     FontSize? fontSize,
     String? fontSizeCustom,
@@ -854,6 +981,14 @@ class ArcaneStyleData {
       flexGrow: flexGrow ?? this.flexGrow,
       flexShrink: flexShrink ?? this.flexShrink,
       flexBasis: flexBasis ?? this.flexBasis,
+      flex: flex ?? this.flex,
+      gridColumns: gridColumns ?? this.gridColumns,
+      gridColumnsCustom: gridColumnsCustom ?? this.gridColumnsCustom,
+      gridRows: gridRows ?? this.gridRows,
+      gridRowsCustom: gridRowsCustom ?? this.gridRowsCustom,
+      gridAutoFlow: gridAutoFlow ?? this.gridAutoFlow,
+      placeItems: placeItems ?? this.placeItems,
+      placeContent: placeContent ?? this.placeContent,
       padding: padding ?? this.padding,
       paddingCustom: paddingCustom ?? this.paddingCustom,
       margin: margin ?? this.margin,
@@ -882,6 +1017,11 @@ class ArcaneStyleData {
       borderRadiusClass: borderRadiusClass ?? this.borderRadiusClass,
       outline: outline ?? this.outline,
       outlineOffset: outlineOffset ?? this.outlineOffset,
+      borderWidth: borderWidth ?? this.borderWidth,
+      borderLeftWidth: borderLeftWidth ?? this.borderLeftWidth,
+      borderRightWidth: borderRightWidth ?? this.borderRightWidth,
+      borderTopWidth: borderTopWidth ?? this.borderTopWidth,
+      borderBottomWidth: borderBottomWidth ?? this.borderBottomWidth,
       fontSize: fontSize ?? this.fontSize,
       fontSizeCustom: fontSizeCustom ?? this.fontSizeCustom,
       fontWeight: fontWeight ?? this.fontWeight,

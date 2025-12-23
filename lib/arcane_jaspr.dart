@@ -92,6 +92,7 @@ export 'component/layout/cta_banner.dart';
 export 'component/layout/dashboard_layout.dart';
 export 'component/layout/auth_layout.dart';
 export 'component/layout/drawer.dart';
+export 'component/layout/scroll_rail.dart';
 
 // ============================================================================
 // Input components

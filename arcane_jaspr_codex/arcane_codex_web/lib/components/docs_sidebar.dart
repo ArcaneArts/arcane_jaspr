@@ -309,9 +309,7 @@ class DocsSidebar extends StatelessComponent {
         fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
         background: isActive ? Background.accentContainer : Background.transparent,
         borderLeft: isActive ? BorderPreset.accent : BorderPreset.none,
-        raw: isActive
-            ? const {'border-left-width': '3px'}
-            : const {'border-left': '3px solid transparent'},
+        borderLeftWidth: BorderWidth.thick,
       ),
       child: ArcaneSpan(child: ArcaneText(label)),
     );

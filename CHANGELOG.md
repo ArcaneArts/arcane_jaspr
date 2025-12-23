@@ -5,6 +5,123 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.0]
+
+### Added
+
+#### Enhanced ArcaneStyleData with New CSS Abstractions
+
+This release significantly reduces the need for `raw:` CSS by adding type-safe enums for common CSS patterns.
+
+**Flex Shorthand (`FlexPreset`)**
+- `FlexPreset.none` - No flex (0 0 auto)
+- `FlexPreset.initial` - Initial flex (0 1 auto)
+- `FlexPreset.auto` - Auto flex (1 1 auto)
+- `FlexPreset.expand` - Expand to fill (1 1 0%)
+- `FlexPreset.fixed` - Fixed size, no shrink (0 0 auto)
+- `FlexPreset.growOnly` - Grow but don't shrink (1 0 auto)
+- `FlexPreset.shrinkOnly` - Shrink but don't grow (0 1 auto)
+- `FlexPreset.equal` - Equal distribution (1 1 0)
+
+**Grid Template Columns (`GridColumns`)**
+- `GridColumns.one` through `GridColumns.six` - Fixed column counts
+- `GridColumns.autoFitSm/Md/Lg` - Auto-fit with min widths (200px/280px/320px)
+- `GridColumns.autoFillSm/Md/Lg` - Auto-fill with min widths
+- `GridColumns.sidebar` - Sidebar layout (280px 1fr)
+- `GridColumns.mainSidebar` - Main with sidebar (1fr 300px)
+- `GridColumns.holyGrail` - Classic three-column (200px 1fr 200px)
+
+**Grid Template Rows (`GridRows`)**
+- `GridRows.one` through `GridRows.three` - Fixed row counts
+- `GridRows.auto` - Auto rows
+- `GridRows.headerContentFooter` - App layout (auto 1fr auto)
+- `GridRows.minContent` / `GridRows.maxContent`
+
+**Grid Utilities**
+- `GridAutoFlow` enum - row, column, dense, rowDense, columnDense
+- `PlaceItems` enum - start, end, center, stretch, baseline
+- `PlaceContent` enum - start, end, center, stretch, spaceBetween, spaceAround, spaceEvenly
+
+**Border Width Properties**
+- `borderWidth` - All sides
+- `borderLeftWidth`, `borderRightWidth`, `borderTopWidth`, `borderBottomWidth` - Individual sides
+- Uses existing `BorderWidth` enum (none, hairline, thin, medium, thick, heavy)
+
+#### New Layout Component
+
+**ArcaneScrollRail** - Sticky scrollable sidebar that maintains position independently of page scroll
+- `ArcaneScrollRail` - Base component with scroll persistence
+- `ArcaneScrollRailLayout` - Complete two-column layout with scroll rail
+- Features:
+  - Sticky positioning relative to viewport
+  - Independent scrolling from main content
+  - Scroll position persistence via sessionStorage
+  - Customizable width, offsets, borders
+  - Custom scrollbar styling
+
+```dart
+ArcaneScrollRail(
+  width: '280px',
+  topOffset: '64px', // Below fixed header
+  scrollPersistenceId: 'sidebar',
+  children: [
+    // Navigation items...
+  ],
+)
+```
+
+### Changed
+
+#### Improved CSS Abstraction
+
+Before (raw CSS):
+```dart
+ArcaneDiv(
+  styles: ArcaneStyleData(
+    flexGrow: 1,
+    raw: {
+      'flex': '1',
+      'grid-template-columns': 'repeat(3, 1fr)',
+      'border-left-width': '3px',
+      'min-width': '0',
+    },
+  ),
+)
+```
+
+After (type-safe):
+```dart
+ArcaneDiv(
+  styles: ArcaneStyleData(
+    flex: FlexPreset.expand,
+    gridColumns: GridColumns.three,
+    borderLeftWidth: BorderWidth.thick,
+    minWidth: '0',
+  ),
+)
+```
+
+### Fixed
+
+#### ArcaneHovercard and ArcanePopover
+
+- **Hover functionality**: Fixed hover events not triggering properly on `ArcaneHovercard` and `ArcanePopover` (hover mode)
+  - Root cause: Events were on separate inner divs for trigger and content, causing premature close when mouse moved between them
+  - Fix: Events now placed on outer wrapper so mouse movement between trigger and content doesn't trigger close
+- Removed unused `@css` styles fields that were generating analyzer warnings
+
+#### Documentation Site (Codex)
+
+- **Font loading**: Added Google Fonts (Inter, Fira Code) via CSS imports - fonts now load correctly on GitHub Pages
+- **Base href**: Fixed asset paths for GitHub Pages subdirectory hosting at `/arcane_jaspr/`
+- **Theme consistency**: Fonts now consistent between local development and production deployment
+
+### Documentation
+
+- Updated docs_sidebar to use `borderLeftWidth: BorderWidth.thick` instead of raw CSS
+- Updated layout components to use `flex: FlexPreset.expand` instead of `raw: {'flex': '1'}`
+- Added ArcaneScrollRail to component exports
+
 ## [2.4.1]
 
 ### Added

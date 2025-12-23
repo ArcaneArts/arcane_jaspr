@@ -164,14 +164,6 @@ class _ArcaneHovercardState extends State<ArcaneHovercard> {
     _startCloseTimer();
   }
 
-  void _handleCardEnter() {
-    _cancelTimers();
-  }
-
-  void _handleCardLeave() {
-    _startCloseTimer();
-  }
-
   (String, String, String?) get _positionStyles {
     final offsetPx = '${component.offset}px';
 
@@ -250,23 +242,20 @@ class _ArcaneHovercardState extends State<ArcaneHovercard> {
   Component build(BuildContext context) {
     final (positionProp, positionValue, alignment) = _positionStyles;
 
+    // Put mouse events on the outer wrapper so there's no gap between
+    // trigger and card that would cause premature closing
     return div(
       styles: const Styles(raw: {
         'position': 'relative',
         'display': 'inline-block',
       }),
+      events: {
+        'mouseenter': (_) => _handleTriggerEnter(),
+        'mouseleave': (_) => _handleTriggerLeave(),
+      },
       [
-        // Trigger wrapper
-        div(
-          styles: const Styles(raw: {
-            'display': 'inline-block',
-          }),
-          events: {
-            'mouseenter': (_) => _handleTriggerEnter(),
-            'mouseleave': (_) => _handleTriggerLeave(),
-          },
-          [component.trigger],
-        ),
+        // Trigger (no events needed - outer wrapper handles it)
+        component.trigger,
 
         // Hovercard content
         if (_isOpen)
@@ -282,12 +271,7 @@ class _ArcaneHovercardState extends State<ArcaneHovercard> {
               'border-radius': ArcaneRadius.lg,
               'box-shadow': ArcaneEffects.shadowLg,
               'padding': ArcaneSpacing.md,
-              'animation': 'arcane-hovercard-fade 0.15s ease-out',
             }),
-            events: {
-              'mouseenter': (_) => _handleCardEnter(),
-              'mouseleave': (_) => _handleCardLeave(),
-            },
             [
               // Arrow
               if (component.showArrow)
@@ -311,12 +295,4 @@ class _ArcaneHovercardState extends State<ArcaneHovercard> {
       ],
     );
   }
-
-  @css
-  static final List<StyleRule> styles = [
-    css('@keyframes arcane-hovercard-fade').styles(raw: {
-      '0%': 'opacity: 0; transform: translateY(4px)',
-      '100%': 'opacity: 1; transform: translateY(0)',
-    }),
-  ];
 }

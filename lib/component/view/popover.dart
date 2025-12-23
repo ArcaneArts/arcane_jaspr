@@ -193,14 +193,6 @@ class _ArcanePopoverState extends State<ArcanePopover> {
     _startCloseTimer();
   }
 
-  void _handleContentEnter() {
-    _cancelTimers();
-  }
-
-  void _handleContentLeave() {
-    _startCloseTimer();
-  }
-
   (String, String, String?) get _positionStyles {
     final offsetPx = '${component.offset}px';
 
@@ -279,27 +271,33 @@ class _ArcanePopoverState extends State<ArcanePopover> {
   Component build(BuildContext context) {
     final (positionProp, positionValue, alignment) = _positionStyles;
 
+    // For hover trigger, put events on outer wrapper to avoid gap issues
+    // For click/manual, use the inner wrapper approach
+    final useOuterEvents = component.triggerType == PopoverTrigger.hover;
+
     return div(
       styles: const Styles(raw: {
         'position': 'relative',
         'display': 'inline-block',
       }),
+      events: useOuterEvents
+          ? {
+              'mouseenter': (_) => _handleTriggerEnter(),
+              'mouseleave': (_) => _handleTriggerLeave(),
+            }
+          : null,
       [
-        // Trigger wrapper
-        div(
-          styles: const Styles(raw: {
-            'display': 'inline-block',
-          }),
-          events: switch (component.triggerType) {
-            PopoverTrigger.click => {'click': (_) => _toggle()},
-            PopoverTrigger.hover => {
-                'mouseenter': (_) => _handleTriggerEnter(),
-                'mouseleave': (_) => _handleTriggerLeave(),
-              },
-            PopoverTrigger.manual => null,
-          },
-          [component.trigger],
-        ),
+        // Trigger wrapper (click events need to be on inner wrapper)
+        if (!useOuterEvents && component.triggerType == PopoverTrigger.click)
+          div(
+            styles: const Styles(raw: {
+              'display': 'inline-block',
+            }),
+            events: {'click': (_) => _toggle()},
+            [component.trigger],
+          )
+        else
+          component.trigger,
 
         // Popover content
         if (_isOpen)
@@ -315,14 +313,7 @@ class _ArcanePopoverState extends State<ArcanePopover> {
               'border-radius': ArcaneRadius.lg,
               'box-shadow': ArcaneEffects.shadowLg,
               'padding': ArcaneSpacing.sm,
-              'animation': 'arcane-popover-fade 0.15s ease-out',
             }),
-            events: component.triggerType == PopoverTrigger.hover
-                ? {
-                    'mouseenter': (_) => _handleContentEnter(),
-                    'mouseleave': (_) => _handleContentLeave(),
-                  }
-                : null,
             [
               // Arrow
               if (component.showArrow)
@@ -346,12 +337,4 @@ class _ArcanePopoverState extends State<ArcanePopover> {
       ],
     );
   }
-
-  @css
-  static final List<StyleRule> styles = [
-    css('@keyframes arcane-popover-fade').styles(raw: {
-      '0%': 'opacity: 0; transform: translateY(4px)',
-      '100%': 'opacity: 1; transform: translateY(0)',
-    }),
-  ];
 }

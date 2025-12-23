@@ -289,7 +289,56 @@ ArcaneDiv(
 )
 ```
 
-Or use raw CSS:
+### Flex Shorthand
+
+Use `FlexPreset` instead of raw CSS for common flex patterns:
+
+```dart
+ArcaneDiv(
+  styles: const ArcaneStyleData(
+    flex: FlexPreset.expand,    // flex: 1 1 0%
+    // flex: FlexPreset.none,   // flex: 0 0 auto
+    // flex: FlexPreset.auto,   // flex: 1 1 auto
+    // flex: FlexPreset.fixed,  // flex: 0 0 auto
+  ),
+)
+```
+
+### Grid Layouts
+
+Type-safe grid templates:
+
+```dart
+ArcaneDiv(
+  styles: const ArcaneStyleData(
+    display: Display.grid,
+    gridColumns: GridColumns.three,      // repeat(3, 1fr)
+    // gridColumns: GridColumns.autoFitMd, // repeat(auto-fit, minmax(280px, 1fr))
+    // gridColumns: GridColumns.sidebar,   // 280px 1fr
+    gridRows: GridRows.headerContentFooter, // auto 1fr auto
+    gap: Gap.lg,
+    placeItems: PlaceItems.center,
+  ),
+)
+```
+
+### Border Width
+
+Control border widths without raw CSS:
+
+```dart
+ArcaneDiv(
+  styles: const ArcaneStyleData(
+    borderLeft: BorderPreset.accent,
+    borderLeftWidth: BorderWidth.thick,  // 3px
+    // borderWidth: BorderWidth.medium,  // 2px all sides
+  ),
+)
+```
+
+### Raw CSS Fallback
+
+For properties not covered by enums, use raw CSS:
 
 ```dart
 div(
@@ -298,6 +347,28 @@ div(
     'custom-property': 'value',
   }),
   [...],
+)
+```
+
+### Scroll Rail Layout
+
+Create sticky scrollable sidebars that maintain position:
+
+```dart
+ArcaneScrollRail(
+  width: '280px',
+  topOffset: '64px', // Below fixed header
+  scrollPersistenceId: 'sidebar', // Persists scroll position
+  children: [
+    // Navigation items...
+  ],
+)
+
+// Or use the complete layout:
+ArcaneScrollRailLayout(
+  headerHeight: '64px',
+  rail: MySidebar(),
+  child: MainContent(),
 )
 ```
 

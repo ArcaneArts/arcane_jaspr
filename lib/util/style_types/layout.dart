@@ -408,3 +408,197 @@ enum MinWidth {
         MinWidth.lg => '300px',
       };
 }
+
+/// Flex shorthand presets for common flex patterns
+/// These combine flex-grow, flex-shrink, and flex-basis
+enum FlexPreset {
+  /// No flex (flex: none = 0 0 auto)
+  none,
+
+  /// Initial flex (flex: initial = 0 1 auto)
+  initial,
+
+  /// Auto flex (flex: auto = 1 1 auto)
+  auto,
+
+  /// Expand to fill (flex: 1 = 1 1 0%)
+  expand,
+
+  /// Fixed size, no shrink (flex: 0 0 auto) - alias for none
+  fixed,
+
+  /// Grow but don't shrink (flex: 1 0 auto)
+  growOnly,
+
+  /// Shrink but don't grow (flex: 0 1 auto) - same as initial
+  shrinkOnly,
+
+  /// Equal distribution (flex: 1 1 0)
+  equal;
+
+  String get css => switch (this) {
+        FlexPreset.none => '0 0 auto',
+        FlexPreset.initial => '0 1 auto',
+        FlexPreset.auto => '1 1 auto',
+        FlexPreset.expand => '1 1 0%',
+        FlexPreset.fixed => '0 0 auto',
+        FlexPreset.growOnly => '1 0 auto',
+        FlexPreset.shrinkOnly => '0 1 auto',
+        FlexPreset.equal => '1 1 0',
+      };
+}
+
+/// Grid template column presets
+enum GridColumns {
+  /// Single column
+  one,
+
+  /// Two equal columns
+  two,
+
+  /// Three equal columns
+  three,
+
+  /// Four equal columns
+  four,
+
+  /// Five equal columns
+  five,
+
+  /// Six equal columns
+  six,
+
+  /// Auto-fit with min 200px columns
+  autoFitSm,
+
+  /// Auto-fit with min 280px columns
+  autoFitMd,
+
+  /// Auto-fit with min 320px columns
+  autoFitLg,
+
+  /// Auto-fill with min 200px columns
+  autoFillSm,
+
+  /// Auto-fill with min 280px columns
+  autoFillMd,
+
+  /// Auto-fill with min 320px columns
+  autoFillLg,
+
+  /// Sidebar layout (280px auto)
+  sidebar,
+
+  /// Main with sidebar (1fr 300px)
+  mainSidebar,
+
+  /// Holy grail (200px 1fr 200px)
+  holyGrail;
+
+  String get css => switch (this) {
+        GridColumns.one => '1fr',
+        GridColumns.two => 'repeat(2, 1fr)',
+        GridColumns.three => 'repeat(3, 1fr)',
+        GridColumns.four => 'repeat(4, 1fr)',
+        GridColumns.five => 'repeat(5, 1fr)',
+        GridColumns.six => 'repeat(6, 1fr)',
+        GridColumns.autoFitSm => 'repeat(auto-fit, minmax(200px, 1fr))',
+        GridColumns.autoFitMd => 'repeat(auto-fit, minmax(280px, 1fr))',
+        GridColumns.autoFitLg => 'repeat(auto-fit, minmax(320px, 1fr))',
+        GridColumns.autoFillSm => 'repeat(auto-fill, minmax(200px, 1fr))',
+        GridColumns.autoFillMd => 'repeat(auto-fill, minmax(280px, 1fr))',
+        GridColumns.autoFillLg => 'repeat(auto-fill, minmax(320px, 1fr))',
+        GridColumns.sidebar => '280px 1fr',
+        GridColumns.mainSidebar => '1fr 300px',
+        GridColumns.holyGrail => '200px 1fr 200px',
+      };
+}
+
+/// Grid template row presets
+enum GridRows {
+  /// Single row
+  one,
+
+  /// Two equal rows
+  two,
+
+  /// Three equal rows
+  three,
+
+  /// Auto rows
+  auto,
+
+  /// Header, content, footer layout
+  headerContentFooter,
+
+  /// Min-content rows
+  minContent,
+
+  /// Max-content rows
+  maxContent;
+
+  String get css => switch (this) {
+        GridRows.one => '1fr',
+        GridRows.two => 'repeat(2, 1fr)',
+        GridRows.three => 'repeat(3, 1fr)',
+        GridRows.auto => 'auto',
+        GridRows.headerContentFooter => 'auto 1fr auto',
+        GridRows.minContent => 'min-content',
+        GridRows.maxContent => 'max-content',
+      };
+}
+
+/// Grid auto-flow
+enum GridAutoFlow {
+  row,
+  column,
+  dense,
+  rowDense,
+  columnDense;
+
+  String get css => switch (this) {
+        GridAutoFlow.row => 'row',
+        GridAutoFlow.column => 'column',
+        GridAutoFlow.dense => 'dense',
+        GridAutoFlow.rowDense => 'row dense',
+        GridAutoFlow.columnDense => 'column dense',
+      };
+}
+
+/// Place items (align-items + justify-items shorthand)
+enum PlaceItems {
+  start,
+  end,
+  center,
+  stretch,
+  baseline;
+
+  String get css => switch (this) {
+        PlaceItems.start => 'start',
+        PlaceItems.end => 'end',
+        PlaceItems.center => 'center',
+        PlaceItems.stretch => 'stretch',
+        PlaceItems.baseline => 'baseline',
+      };
+}
+
+/// Place content (align-content + justify-content shorthand)
+enum PlaceContent {
+  start,
+  end,
+  center,
+  stretch,
+  spaceBetween,
+  spaceAround,
+  spaceEvenly;
+
+  String get css => switch (this) {
+        PlaceContent.start => 'start',
+        PlaceContent.end => 'end',
+        PlaceContent.center => 'center',
+        PlaceContent.stretch => 'stretch',
+        PlaceContent.spaceBetween => 'space-between',
+        PlaceContent.spaceAround => 'space-around',
+        PlaceContent.spaceEvenly => 'space-evenly',
+      };
+}
