@@ -98,6 +98,12 @@ class ArcaneButton extends StatelessComponent {
   /// Additional ArcaneStyleData for full customization
   final ArcaneStyleData? customStyle;
 
+  /// Custom HTML attributes (e.g., data-* attributes)
+  final Map<String, String>? attributes;
+
+  /// Optional ID for the button element
+  final String? id;
+
   const ArcaneButton({
     this.label,
     this.child,
@@ -117,6 +123,8 @@ class ArcaneButton extends StatelessComponent {
     this.textColor,
     this.shadow,
     this.customStyle,
+    this.attributes,
+    this.id,
     super.key,
   });
 
@@ -138,6 +146,8 @@ class ArcaneButton extends StatelessComponent {
     this.textColor,
     this.shadow,
     this.customStyle,
+    this.attributes,
+    this.id,
     super.key,
   })  : style = ButtonStyle.primary,
         variant = null;
@@ -160,6 +170,8 @@ class ArcaneButton extends StatelessComponent {
     this.textColor,
     this.shadow,
     this.customStyle,
+    this.attributes,
+    this.id,
     super.key,
   })  : style = ButtonStyle.secondary,
         variant = null;
@@ -182,6 +194,8 @@ class ArcaneButton extends StatelessComponent {
     this.textColor,
     this.shadow,
     this.customStyle,
+    this.attributes,
+    this.id,
     super.key,
   })  : style = ButtonStyle.outline,
         variant = null;
@@ -204,6 +218,8 @@ class ArcaneButton extends StatelessComponent {
     this.textColor,
     this.shadow,
     this.customStyle,
+    this.attributes,
+    this.id,
     super.key,
   })  : style = ButtonStyle.ghost,
         variant = null;
@@ -226,6 +242,8 @@ class ArcaneButton extends StatelessComponent {
     this.textColor,
     this.shadow,
     this.customStyle,
+    this.attributes,
+    this.id,
     super.key,
   })  : style = ButtonStyle.destructive,
         variant = null;
@@ -248,6 +266,8 @@ class ArcaneButton extends StatelessComponent {
     this.textColor,
     this.shadow,
     this.customStyle,
+    this.attributes,
+    this.id,
     super.key,
   })  : style = ButtonStyle.warning,
         variant = null;
@@ -270,6 +290,8 @@ class ArcaneButton extends StatelessComponent {
     this.textColor,
     this.shadow,
     this.customStyle,
+    this.attributes,
+    this.id,
     super.key,
   })  : style = ButtonStyle.success,
         variant = null;
@@ -292,6 +314,8 @@ class ArcaneButton extends StatelessComponent {
     this.textColor,
     this.shadow,
     this.customStyle,
+    this.attributes,
+    this.id,
     super.key,
   })  : style = ButtonStyle.link,
         variant = null;
@@ -380,10 +404,12 @@ class ArcaneButton extends StatelessComponent {
     }
 
     return button(
+      id: id,
       classes: 'arcane-button ${isDisabled ? 'disabled' : ''}',
       attributes: {
         if (isDisabled) 'disabled': 'true',
         'type': 'button',
+        ...?attributes,
       },
       styles: Styles(raw: buttonStyles),
       events: {

@@ -143,115 +143,111 @@ class ConceptDemos {
         ),
       ];
 
-  /// Theming demo - shows accent colors and theme properties
+  /// Theming demo - shows all theme presets as interactive buttons
   static List<Component> theming() => [
         ArcaneColumn(
-          gapSize: Gap.lg,
+          gapSize: Gap.xl,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Accent color swatches
-            _buildStyleDemo('Accent Color Themes', [
-              ArcaneRow(
-                gapSize: Gap.sm,
+            // Primary color themes
+            _buildStyleDemo('Primary Colors', [
+              ArcaneDiv(
+                styles: const ArcaneStyleData(
+                  display: Display.flex,
+                  flexWrap: FlexWrap.wrap,
+                  gap: Gap.sm,
+                ),
                 children: [
-                  for (final accent in [
-                    ('Emerald', Colors.emerald),
-                    ('Blue', Colors.blue),
-                    ('Purple', Colors.purple),
-                    ('Rose', Colors.rose),
-                    ('Orange', Colors.orange),
-                  ])
-                    ArcaneColumn(
-                      gapSize: Gap.xs,
-                      children: [
-                        ArcaneDiv(
-                          styles: ArcaneStyleData(
-                            widthCustom: '48px',
-                            heightCustom: '48px',
-                            borderRadius: Radius.md,
-                            raw: {'background': accent.$2.css},
-                          ),
-                          children: [],
-                        ),
-                        ArcaneText(accent.$1, size: FontSize.xs, color: TextColor.muted),
-                      ],
-                    ),
+                  _themeButton('red', 'Red', '#ef4444'),
+                  _themeButton('orange', 'Orange', '#f97316'),
+                  _themeButton('yellow', 'Yellow', '#f59e0b'),
+                  _themeButton('green', 'Green', '#22c55e'),
+                  _themeButton('blue', 'Blue', '#3b82f6'),
+                  _themeButton('indigo', 'Indigo', '#6366f1'),
+                  _themeButton('purple', 'Purple', '#8b5cf6'),
+                  _themeButton('pink', 'Pink', '#ec4899'),
                 ],
               ),
             ]),
-            // Theme mode
-            _buildStyleDemo('Theme Modes', [
-              ArcaneRow(
-                gapSize: Gap.lg,
+            // Neutral themes
+            _buildStyleDemo('Neutral / Monochromatic', [
+              ArcaneDiv(
+                styles: const ArcaneStyleData(
+                  display: Display.flex,
+                  flexWrap: FlexWrap.wrap,
+                  gap: Gap.sm,
+                ),
                 children: [
-                  ArcaneColumn(
-                    gapSize: Gap.xs,
-                    children: [
-                      ArcaneDiv(
-                        styles: const ArcaneStyleData(
-                          widthCustom: '80px',
-                          heightCustom: '50px',
-                          borderRadius: Radius.md,
-                          border: BorderPreset.subtle,
-                          raw: {'background': 'var(--arcane-background)'},
-                        ),
-                        children: [],
-                      ),
-                      ArcaneText('Dark', size: FontSize.xs, color: TextColor.muted),
-                    ],
-                  ),
-                  ArcaneColumn(
-                    gapSize: Gap.xs,
-                    children: [
-                      ArcaneDiv(
-                        styles: const ArcaneStyleData(
-                          widthCustom: '80px',
-                          heightCustom: '50px',
-                          borderRadius: Radius.md,
-                          border: BorderPreset.subtle,
-                          raw: {'background': 'var(--arcane-surface)'},
-                        ),
-                        children: [],
-                      ),
-                      ArcaneText('Light', size: FontSize.xs, color: TextColor.muted),
-                    ],
-                  ),
+                  _themeButton('dark-grey', 'Dark Grey', '#3f3f46'),
+                  _themeButton('grey', 'Grey', '#71717a'),
+                  _themeButton('light-grey', 'Light Grey', '#a1a1aa'),
+                  _themeButton('white', 'White', '#f4f4f5'),
+                  _themeButton('black', 'Black', '#18181b'),
                 ],
               ),
             ]),
-            // Radius scaling
-            _buildStyleDemo('Border Radius Scaling', [
-              ArcaneRow(
-                gapSize: Gap.md,
+            // OLED themes
+            _buildStyleDemo('OLED (True Black)', [
+              ArcaneDiv(
+                styles: const ArcaneStyleData(
+                  display: Display.flex,
+                  flexWrap: FlexWrap.wrap,
+                  gap: Gap.sm,
+                ),
                 children: [
-                  for (final radius in [
-                    ('0.0', Radius.xs),
-                    ('0.25', Radius.sm),
-                    ('0.5', Radius.md),
-                    ('0.75', Radius.lg),
-                    ('1.0', Radius.xl),
-                  ])
-                    ArcaneColumn(
-                      gapSize: Gap.xs,
-                      children: [
-                        ArcaneDiv(
-                          styles: ArcaneStyleData(
-                            widthCustom: '40px',
-                            heightCustom: '40px',
-                            background: Background.accent,
-                            borderRadius: radius.$2,
-                          ),
-                          children: [],
-                        ),
-                        ArcaneText(radius.$1, size: FontSize.xs, color: TextColor.muted),
-                      ],
-                    ),
+                  _themeButton('oled-red', 'OLED Red', '#ef4444'),
+                  _themeButton('oled-green', 'OLED Green', '#22c55e'),
+                  _themeButton('oled-blue', 'OLED Blue', '#3b82f6'),
+                  _themeButton('oled-purple', 'OLED Purple', '#8b5cf6'),
+                  _themeButton('oled-white', 'OLED White', '#e4e4e7'),
                 ],
               ),
             ]),
+            // Instructions
+            ArcaneDiv(
+              styles: const ArcaneStyleData(
+                padding: PaddingPreset.md,
+                background: Background.surfaceVariant,
+                borderRadius: Radius.md,
+                margin: MarginPreset.topMd,
+              ),
+              children: [
+                ArcaneText(
+                  'Click any theme above to change the entire Codex appearance. Use the sun/moon toggle in the header to switch between light and dark modes.',
+                  size: FontSize.sm,
+                  color: TextColor.muted,
+                ),
+              ],
+            ),
           ],
         ),
       ];
+
+  /// Create a theme button with data attribute for JS handling
+  static Component _themeButton(String id, String name, String color) {
+    return ArcaneButton.outline(
+      attributes: {'data-theme-preset': id},
+      size: ButtonSize.small,
+      child: ArcaneRow(
+        gapSize: Gap.sm,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Color swatch
+          ArcaneDiv(
+            styles: ArcaneStyleData(
+              widthCustom: '16px',
+              heightCustom: '16px',
+              borderRadius: Radius.sm,
+              raw: {'background': color},
+            ),
+            children: const [],
+          ),
+          // Label
+          ArcaneText(name, size: FontSize.sm),
+        ],
+      ),
+    );
+  }
 
   /// Design tokens demo - shows colors, spacing, etc
   static List<Component> tokens() => [

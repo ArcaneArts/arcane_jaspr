@@ -19,32 +19,65 @@ class ArcaneDocsLayout extends PageLayoutBase {
     return vars.entries.map((e) => '  ${e.key}: ${e.value};').join('\n');
   }
 
+  /// All available theme presets with their CSS class names
+  static const List<(String id, String name, ArcaneTheme theme)> _allThemes = [
+    // Primary colors
+    ('red', 'Red', ArcaneTheme.red),
+    ('orange', 'Orange', ArcaneTheme.orange),
+    ('yellow', 'Yellow', ArcaneTheme.yellow),
+    ('green', 'Green', ArcaneTheme.green),
+    ('blue', 'Blue', ArcaneTheme.blue),
+    ('indigo', 'Indigo', ArcaneTheme.indigo),
+    ('purple', 'Purple', ArcaneTheme.purple),
+    ('pink', 'Pink', ArcaneTheme.pink),
+    // Neutrals
+    ('dark-grey', 'Dark Grey', ArcaneTheme.darkGrey),
+    ('grey', 'Grey', ArcaneTheme.grey),
+    ('light-grey', 'Light Grey', ArcaneTheme.lightGrey),
+    ('white', 'White', ArcaneTheme.white),
+    ('black', 'Black', ArcaneTheme.black),
+    // OLED
+    ('oled-red', 'OLED Red', ArcaneTheme.oledRed),
+    ('oled-green', 'OLED Green', ArcaneTheme.oledGreen),
+    ('oled-blue', 'OLED Blue', ArcaneTheme.oledBlue),
+    ('oled-purple', 'OLED Purple', ArcaneTheme.oledPurple),
+    ('oled-white', 'OLED White', ArcaneTheme.oledWhite),
+  ];
+
   @override
   Iterable<Component> buildHead(Page page) sync* {
     yield* super.buildHead(page);
     yield link(rel: 'icon', type: 'image/x-icon', href: '/favicon.ico');
     yield meta(name: 'viewport', content: 'width=device-width, initial-scale=1');
 
-    // Generate CSS variables for both themes
-    final darkTheme = ArcaneTheme.green.copyWith(themeMode: ThemeMode.dark);
-    final lightTheme = ArcaneTheme.green.copyWith(themeMode: ThemeMode.light);
+    // Generate CSS variables for ALL themes (dark and light modes)
+    final cssBuffer = StringBuffer();
 
-    // Inject theme CSS variables FIRST
-    // Use :root for dark theme (default) so variables work immediately without a class
+    // Default theme (green dark) for :root
+    final defaultTheme =
+        ArcaneTheme.green.copyWith(themeMode: ThemeMode.dark);
+    cssBuffer.writeln(':root {');
+    cssBuffer.writeln(_generateThemeCss(defaultTheme));
+    cssBuffer.writeln('}');
+
+    // Generate CSS for each theme in both dark and light modes
+    for (final (id, _, theme) in _allThemes) {
+      final darkTheme = theme.copyWith(themeMode: ThemeMode.dark);
+      final lightTheme = theme.copyWith(themeMode: ThemeMode.light);
+
+      cssBuffer.writeln('html.theme-$id-dark, .theme-$id-dark {');
+      cssBuffer.writeln(_generateThemeCss(darkTheme));
+      cssBuffer.writeln('}');
+
+      cssBuffer.writeln('html.theme-$id-light, .theme-$id-light {');
+      cssBuffer.writeln(_generateThemeCss(lightTheme));
+      cssBuffer.writeln('}');
+    }
+
     yield Component.element(
       tag: 'style',
       attributes: {'id': 'arcane-theme-vars'},
-      children: [
-        RawText('''
-:root, html.arcane-dark, .arcane-dark {
-${_generateThemeCss(darkTheme)}
-}
-
-html.arcane-light, .arcane-light {
-${_generateThemeCss(lightTheme)}
-}
-'''),
-      ],
+      children: [RawText(cssBuffer.toString())],
     );
 
     // Load stylesheet AFTER theme variables so our overrides take precedence
@@ -53,8 +86,9 @@ ${_generateThemeCss(lightTheme)}
     // Theme initialization script - runs before page renders to prevent flash
     yield script(content: '''
       (function() {
-        var theme = localStorage.getItem('arcane-theme') || 'dark';
-        document.documentElement.className = 'arcane-' + theme;
+        var savedTheme = localStorage.getItem('arcane-theme-preset') || 'green';
+        var savedMode = localStorage.getItem('arcane-theme-mode') || 'dark';
+        document.documentElement.className = 'theme-' + savedTheme + '-' + savedMode;
       })();
     ''');
   }
@@ -318,6 +352,61 @@ class _ThemedDocsPageState extends State<_ThemedDocsPage> {
   Component _buildScripts() {
     return script(content: '''
       document.addEventListener('DOMContentLoaded', function() {
+        // ===== THEME UTILITIES =====
+        function getCurrentTheme() {
+          return localStorage.getItem('arcane-theme-preset') || 'green';
+        }
+        function getCurrentMode() {
+          return localStorage.getItem('arcane-theme-mode') || 'dark';
+        }
+        function setTheme(preset, mode) {
+          localStorage.setItem('arcane-theme-preset', preset);
+          localStorage.setItem('arcane-theme-mode', mode);
+          document.documentElement.className = 'theme-' + preset + '-' + mode;
+          updateModeToggleIcon(mode);
+          updateThemeButtons(preset);
+        }
+        function updateModeToggleIcon(mode) {
+          var themeToggle = document.getElementById('theme-toggle');
+          if (!themeToggle) return;
+          var iconContainer = themeToggle.querySelector('div > div');
+          if (iconContainer) {
+            if (mode === 'dark') {
+              iconContainer.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
+            } else {
+              iconContainer.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+            }
+          }
+        }
+        function updateThemeButtons(activePreset) {
+          document.querySelectorAll('[data-theme-preset]').forEach(function(btn) {
+            var isActive = btn.dataset.themePreset === activePreset;
+            btn.style.outline = isActive ? '2px solid var(--arcane-accent)' : 'none';
+            btn.style.outlineOffset = isActive ? '2px' : '0';
+          });
+        }
+
+        // ===== THEME MODE TOGGLE (sun/moon button) =====
+        var themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+          themeToggle.addEventListener('click', function() {
+            var currentMode = getCurrentMode();
+            var newMode = currentMode === 'dark' ? 'light' : 'dark';
+            setTheme(getCurrentTheme(), newMode);
+          });
+        }
+
+        // ===== THEME PRESET BUTTONS =====
+        document.querySelectorAll('[data-theme-preset]').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            var preset = this.dataset.themePreset;
+            setTheme(preset, getCurrentMode());
+          });
+        });
+
+        // Initialize button states
+        updateThemeButtons(getCurrentTheme());
+
         // ===== SEARCH FUNCTIONALITY =====
         var searchInput = document.getElementById('docs-search');
         var searchResults = document.getElementById('search-results');

@@ -10,9 +10,9 @@ void main() {
         onPrimary: Colors.white,
         primaryContainer: Colors.blue,
         onPrimaryContainer: Colors.white,
-        secondary: Colors.gray,
+        secondary: Colors.gray500,
         onSecondary: Colors.white,
-        secondaryContainer: Colors.gray,
+        secondaryContainer: Colors.gray500,
         onSecondaryContainer: Colors.white,
         tertiary: Colors.teal,
         onTertiary: Colors.white,
@@ -26,10 +26,10 @@ void main() {
         onBackground: Colors.black,
         surface: Colors.white,
         onSurface: Colors.black,
-        surfaceVariant: Colors.gray,
+        surfaceVariant: Colors.gray500,
         onSurfaceVariant: Colors.black,
-        outline: Colors.gray,
-        outlineVariant: Colors.gray,
+        outline: Colors.gray500,
+        outlineVariant: Colors.gray500,
         shadow: Colors.black,
         scrim: Colors.black,
         inverseSurface: Colors.black,
@@ -47,9 +47,9 @@ void main() {
         onPrimary: Colors.white,
         primaryContainer: Colors.blue,
         onPrimaryContainer: Colors.white,
-        secondary: Colors.gray,
+        secondary: Colors.gray500,
         onSecondary: Colors.white,
-        secondaryContainer: Colors.gray,
+        secondaryContainer: Colors.gray500,
         onSecondaryContainer: Colors.white,
         tertiary: Colors.teal,
         onTertiary: Colors.white,
@@ -63,10 +63,10 @@ void main() {
         onBackground: Colors.black,
         surface: Colors.white,
         onSurface: Colors.black,
-        surfaceVariant: Colors.gray,
+        surfaceVariant: Colors.gray500,
         onSurfaceVariant: Colors.black,
-        outline: Colors.gray,
-        outlineVariant: Colors.gray,
+        outline: Colors.gray500,
+        outlineVariant: Colors.gray500,
         shadow: Colors.black,
         scrim: Colors.black,
         inverseSurface: Colors.black,
@@ -110,7 +110,7 @@ void main() {
     test('predefined swatches are available', () {
       expect(Swatches.red, isNotNull);
       expect(Swatches.blue, isNotNull);
-      expect(Swatches.green, isNotNull);
+      expect(Swatches.emerald, isNotNull);
       expect(Swatches.amber, isNotNull);
       expect(Swatches.violet, isNotNull);
     });
