@@ -1,5 +1,6 @@
 .dart_tool/package_config.json
 main.client.dart.js
+main.client.dart.js_1.part.js
 packages/$sdk/dev_compiler/amd/require.js
 packages/$sdk/dev_compiler/ddc/ddc_module_loader.js
 packages/$sdk/dev_compiler/web/dart_stack_trace_mapper.js
@@ -7,6 +8,8 @@ packages/_fe_analyzer_shared/src/parser/parser.md
 packages/analyzer/fix_data.yaml
 packages/analyzer/src/summary/format.fbs
 packages/analyzer/src/wolf/README.md
+packages/arcane_codex_web/clients.bundle.json
+packages/arcane_codex_web/components/interactive_demo.client.module.json
 packages/arcane_jaspr/.DS_Store
 packages/arcane_jaspr/component/.DS_Store
 packages/arcane_jaspr/component/collection/card_carousel.styles.json

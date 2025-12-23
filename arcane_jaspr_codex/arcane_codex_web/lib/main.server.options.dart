@@ -5,6 +5,8 @@
 // Generated with jaspr_builder
 
 import 'package:jaspr/server.dart';
+import 'package:arcane_codex_web/components/interactive_demo.dart'
+    as _interactive_demo;
 import 'package:arcane_jaspr/component/collection/card_carousel.dart'
     as _card_carousel;
 import 'package:arcane_jaspr/component/collection/infinite_carousel.dart'
@@ -80,7 +82,13 @@ import 'package:arcane_jaspr/component/view/tile.dart' as _tile;
 /// ```
 ServerOptions get defaultServerOptions => ServerOptions(
   clientId: 'main.client.dart.js',
-
+  clients: {
+    _interactive_demo.InteractiveDemo:
+        ClientTarget<_interactive_demo.InteractiveDemo>(
+          'interactive_demo',
+          params: __interactive_demoInteractiveDemo,
+        ),
+  },
   styles: () => [
     ..._card_carousel.ArcaneCardCarousel.styles,
     ..._card_carousel.ArcaneHeroCarousel.styles,
@@ -147,3 +155,7 @@ ServerOptions get defaultServerOptions => ServerOptions(
     ..._tile.ArcaneTile.styles,
   ],
 );
+
+Map<String, Object?> __interactive_demoInteractiveDemo(
+  _interactive_demo.InteractiveDemo c,
+) => {'componentType': c.componentType};

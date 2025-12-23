@@ -6,6 +6,9 @@
 
 import 'package:jaspr/client.dart';
 
+import 'package:arcane_codex_web/components/interactive_demo.dart'
+    deferred as _interactive_demo;
+
 /// Default [ClientOptions] for use with your Jaspr project.
 ///
 /// Use this to initialize Jaspr **before** calling [runApp].
@@ -22,4 +25,13 @@ import 'package:jaspr/client.dart';
 ///   runApp(...);
 /// }
 /// ```
-ClientOptions get defaultClientOptions => ClientOptions();
+ClientOptions get defaultClientOptions => ClientOptions(
+  clients: {
+    'interactive_demo': ClientLoader(
+      (p) => _interactive_demo.InteractiveDemo(
+        componentType: p['componentType'] as String,
+      ),
+      loader: _interactive_demo.loadLibrary,
+    ),
+  },
+);

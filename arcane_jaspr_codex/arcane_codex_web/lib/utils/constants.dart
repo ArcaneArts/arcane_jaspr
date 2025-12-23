@@ -13,5 +13,15 @@ class AppConstants {
   static const String githubUrl = '';
 
   /// Base URL for the site (for GitHub Pages subdirectory hosting)
-  static const String baseUrl = '/arcane_jaspr';
+  ///
+  /// In development: Empty string (serves from root)
+  /// In production: '/arcane_jaspr' (GitHub Pages subdirectory)
+  ///
+  /// Usage:
+  ///   - Dev: `jaspr serve` (defaults to empty)
+  ///   - Build: `jaspr build --define=BASE_URL=/arcane_jaspr`
+  static const String baseUrl = String.fromEnvironment(
+    'BASE_URL',
+    defaultValue: '', // Empty for local dev, override for production
+  );
 }

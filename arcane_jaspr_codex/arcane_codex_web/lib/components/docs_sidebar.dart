@@ -2,7 +2,7 @@ import 'package:arcane_jaspr/arcane_jaspr.dart';
 
 import '../utils/constants.dart';
 
-/// Documentation sidebar with navigation groups
+/// Documentation sidebar with navigation groups - uses ArcaneScrollRail for sticky scrolling
 class DocsSidebar extends StatelessComponent {
   final String currentPath;
 
@@ -13,16 +13,11 @@ class DocsSidebar extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return ArcaneSideContent(
-      styles: const ArcaneStyleData(
-        display: Display.flex,
-        flexDirection: FlexDirection.column,
-        widthCustom: '280px',
-        minHeight: '100vh',
-        flexShrink: 0,
-        background: Background.surface,
-        borderRight: BorderPreset.subtle,
-      ),
+    return ArcaneScrollRail(
+      width: '280px',
+      topOffset: '0px',
+      showBorder: true,
+      scrollPersistenceId: 'docs-sidebar',
       children: [
         // Header
         ArcaneDiv(
@@ -61,8 +56,6 @@ class DocsSidebar extends StatelessComponent {
         ArcaneNav(
           styles: const ArcaneStyleData(
             padding: PaddingPreset.md,
-            flexGrow: 1,
-            overflowY: OverflowAxis.auto,
           ),
           children: [
             // Getting Started section
@@ -219,16 +212,12 @@ class DocsSidebar extends StatelessComponent {
 
             // Authentication section
             _buildNavSection('Authentication', [
-              _buildNavItem(label: 'Overview', href: '/docs/auth/overview'),
-              _buildNavItem(label: 'ArcaneAuthProvider', href: '/docs/auth/arcane-auth-provider'),
-              _buildNavItem(label: 'AuthGuard', href: '/docs/auth/auth-guard'),
-              _buildNavItem(label: 'GuestGuard', href: '/docs/auth/guest-guard'),
               _buildNavItem(label: 'ArcaneLoginCard', href: '/docs/auth/arcane-login-card'),
               _buildNavItem(label: 'ArcaneSignupCard', href: '/docs/auth/arcane-signup-card'),
               _buildNavItem(label: 'ArcaneForgotPasswordCard', href: '/docs/auth/arcane-forgot-password-card'),
-              _buildNavItem(label: 'GithubSignInButton', href: '/docs/auth/github-signin-button'),
-              _buildNavItem(label: 'GoogleSignInButton', href: '/docs/auth/google-signin-button'),
-              _buildNavItem(label: 'AppleSignInButton', href: '/docs/auth/apple-signin-button'),
+              _buildNavItem(label: 'GithubSignInButton', href: '/docs/auth/github-button'),
+              _buildNavItem(label: 'GoogleSignInButton', href: '/docs/auth/google-button'),
+              _buildNavItem(label: 'AppleSignInButton', href: '/docs/auth/apple-button'),
               _buildNavItem(label: 'AuthSplitLayout', href: '/docs/auth/auth-split-layout'),
               _buildNavItem(label: 'AuthBrandingPanel', href: '/docs/auth/auth-branding-panel'),
               _buildNavItem(label: 'PasswordPolicy', href: '/docs/auth/password-policy'),

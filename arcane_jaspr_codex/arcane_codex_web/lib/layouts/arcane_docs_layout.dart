@@ -4,6 +4,7 @@ import 'package:jaspr_content/jaspr_content.dart';
 
 import '../components/docs_sidebar.dart';
 import '../components/docs_header.dart';
+import '../components/interactive_demo.dart';
 import '../demos/demo_registry.dart';
 import '../utils/constants.dart';
 
@@ -49,15 +50,18 @@ class ArcaneDocsLayout extends PageLayoutBase {
   Iterable<Component> buildHead(Page page) sync* {
     yield* super.buildHead(page);
 
-    // Set base href for GitHub Pages subdirectory hosting
-    yield Component.element(
-      tag: 'base',
-      attributes: {'href': '${AppConstants.baseUrl}/'},
-      children: [],
-    );
+    // Set base href for GitHub Pages subdirectory hosting (only if baseUrl is set)
+    if (AppConstants.baseUrl.isNotEmpty) {
+      yield Component.element(
+        tag: 'base',
+        attributes: {'href': '${AppConstants.baseUrl}/'},
+        children: [],
+      );
+    }
 
+    final assetPrefix = AppConstants.baseUrl.isNotEmpty ? AppConstants.baseUrl : '';
     yield link(
-        rel: 'icon', type: 'image/x-icon', href: '${AppConstants.baseUrl}/favicon.ico');
+        rel: 'icon', type: 'image/x-icon', href: '$assetPrefix/favicon.ico');
     yield meta(name: 'viewport', content: 'width=device-width, initial-scale=1');
 
     // Generate CSS variables for ALL themes (dark and light modes)
@@ -91,7 +95,7 @@ class ArcaneDocsLayout extends PageLayoutBase {
     );
 
     // Load stylesheet AFTER theme variables so our overrides take precedence
-    yield link(rel: 'stylesheet', href: '${AppConstants.baseUrl}/styles.css');
+    yield link(rel: 'stylesheet', href: '$assetPrefix/styles.css');
 
     // Theme initialization script - runs before page renders to prevent flash
     yield script(content: '''
@@ -106,7 +110,7 @@ class ArcaneDocsLayout extends PageLayoutBase {
   @override
   Component buildBody(Page page, Component child) {
     final pageData = page.data.page;
-    return _ThemedDocsPage(
+    return ThemedDocsPage(
       title: pageData['title'] as String?,
       description: pageData['description'] as String?,
       toc: page.data['toc'] as TableOfContents?,
@@ -118,7 +122,7 @@ class ArcaneDocsLayout extends PageLayoutBase {
 }
 
 /// Stateful wrapper for theme toggling
-class _ThemedDocsPage extends StatefulComponent {
+class ThemedDocsPage extends StatefulComponent {
   final String? title;
   final String? description;
   final TableOfContents? toc;
@@ -126,7 +130,7 @@ class _ThemedDocsPage extends StatefulComponent {
   final Component content;
   final String? componentType;
 
-  const _ThemedDocsPage({
+  const ThemedDocsPage({
     this.title,
     this.description,
     this.toc,
@@ -136,10 +140,10 @@ class _ThemedDocsPage extends StatefulComponent {
   });
 
   @override
-  State<_ThemedDocsPage> createState() => _ThemedDocsPageState();
+  State<ThemedDocsPage> createState() => _ThemedDocsPageState();
 }
 
-class _ThemedDocsPageState extends State<_ThemedDocsPage> {
+class _ThemedDocsPageState extends State<ThemedDocsPage> {
   bool _isDark = true; // Default to dark theme
 
   @override
@@ -249,8 +253,9 @@ class _ThemedDocsPageState extends State<_ThemedDocsPage> {
       children: [
         if (component.title != null) _buildTitle(),
         if (component.description != null) _buildDescription(),
+        // Use @client InteractiveDemo for hydrated, interactive demos
         if (component.componentType != null)
-          _buildLiveDemo(demoRegistry, component.componentType!),
+          InteractiveDemo(componentType: component.componentType!),
         div(classes: 'prose', [component.content]),
       ],
     );
@@ -279,40 +284,6 @@ class _ThemedDocsPageState extends State<_ThemedDocsPage> {
     );
   }
 
-  /// Live demo section
-  Component _buildLiveDemo(DemoRegistry demoRegistry, String componentType) {
-    return ArcaneDiv(
-      styles: const ArcaneStyleData(
-        margin: MarginPreset.bottomXl,
-        padding: PaddingPreset.lg,
-        borderRadius: Radius.lg,
-        background: Background.surfaceVariant,
-        border: BorderPreset.subtle,
-      ),
-      children: [
-        ArcaneDiv(
-          styles: const ArcaneStyleData(
-            fontSize: FontSize.sm,
-            fontWeight: FontWeight.w600,
-            textColor: TextColor.muted,
-            margin: MarginPreset.bottomMd,
-            textTransform: TextTransform.uppercase,
-            letterSpacing: LetterSpacing.wide,
-          ),
-          children: [ArcaneText('Live Demo')],
-        ),
-        ArcaneDiv(
-          styles: const ArcaneStyleData(
-            display: Display.flex,
-            flexWrap: FlexWrap.wrap,
-            alignItems: AlignItems.center,
-            gap: Gap.md,
-          ),
-          children: demoRegistry.getDemo(componentType),
-        ),
-      ],
-    );
-  }
 
   /// Table of contents sidebar
   Component _buildTableOfContents() {
