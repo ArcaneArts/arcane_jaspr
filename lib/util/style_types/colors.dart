@@ -4,7 +4,43 @@ import '../tokens/tokens.dart';
 const String _qnPrimary = 'var(--qn-primary, #059669)';
 const String _qnSecondary = 'var(--qn-secondary, #047857)';
 
-/// Background color presets
+/// Background color presets for container backgrounds.
+///
+/// These presets map to CSS custom properties that automatically adapt
+/// to the current theme (light/dark mode and color scheme).
+///
+/// ## Semantic Backgrounds
+///
+/// | Preset              | Use Case                               |
+/// |---------------------|----------------------------------------|
+/// | `background`        | Page/app background                    |
+/// | `surface`           | Elevated surfaces (cards, panels)      |
+/// | `surfaceVariant`    | Secondary surfaces                     |
+/// | `card`              | Card backgrounds                       |
+/// | `input`             | Form input backgrounds                 |
+///
+/// ## Status Backgrounds
+///
+/// | Preset              | Use Case                               |
+/// |---------------------|----------------------------------------|
+/// | `accent`            | Primary actions, highlights            |
+/// | `success`           | Success states, confirmations          |
+/// | `warning`           | Warning states, cautions               |
+/// | `error`             | Error states, destructive actions      |
+/// | `info`              | Informational states                   |
+///
+/// ## Example
+///
+/// ```dart
+/// ArcaneDiv(
+///   styles: const ArcaneStyleData(
+///     background: Background.surface,      // Standard card
+///     // background: Background.accent,    // Highlighted card
+///     // background: Background.glassTint, // Glass morphism
+///   ),
+///   children: [...],
+/// )
+/// ```
 enum Background {
   /// Fully transparent
   transparent,
@@ -142,7 +178,40 @@ enum Background {
       };
 }
 
-/// Text/foreground color presets
+/// Text/foreground color presets for typography.
+///
+/// These colors automatically adapt to theme changes and ensure proper
+/// contrast ratios for accessibility.
+///
+/// ## Common Text Colors
+///
+/// | Preset           | Use Case                                |
+/// |------------------|----------------------------------------|
+/// | `primary`        | Main body text                          |
+/// | `secondary`      | Secondary/supporting text               |
+/// | `muted`          | De-emphasized text                      |
+/// | `accent`         | Links, highlighted text                 |
+/// | `onSurface`      | Text on surface backgrounds             |
+///
+/// ## Status Colors
+///
+/// | Preset              | Use Case                             |
+/// |---------------------|--------------------------------------|
+/// | `success`           | Success messages                     |
+/// | `warning`           | Warning messages                     |
+/// | `error`             | Error messages                       |
+/// | `info`              | Info messages                        |
+///
+/// ## Example
+///
+/// ```dart
+/// ArcaneText(
+///   'Hello World',
+///   color: TextColor.primary,   // Main text
+///   // color: TextColor.muted,  // De-emphasized
+///   // color: TextColor.accent, // Highlighted
+/// )
+/// ```
 enum TextColor {
   /// Primary text (on background)
   primary,
@@ -292,7 +361,30 @@ enum TextColor {
       };
 }
 
-/// Border color presets
+/// Border color presets for element borders.
+///
+/// Use with [BorderPreset] for complete border styling, or use
+/// these colors with custom border widths and styles.
+///
+/// ## Common Border Colors
+///
+/// | Preset       | Use Case                                  |
+/// |--------------|-------------------------------------------|
+/// | `standard`   | Default borders                           |
+/// | `subtle`     | Barely visible dividers                   |
+/// | `accent`     | Highlighted/focused elements              |
+/// | `ring`       | Focus ring color                          |
+///
+/// ## Example
+///
+/// ```dart
+/// ArcaneDiv(
+///   styles: const ArcaneStyleData(
+///     border: BorderPreset.accent, // Complete border
+///     // Or use borderColor with custom styles
+///   ),
+/// )
+/// ```
 enum BorderColor {
   /// Primary border
   standard,

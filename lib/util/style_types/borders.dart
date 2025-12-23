@@ -3,7 +3,42 @@ import '../tokens/tokens.dart';
 // CSS variable references for QualityNode brand colors
 const String _qnBorder = 'var(--qn-border, rgba(5, 150, 105, 0.25))';
 
-/// Complete border presets (width + style + color)
+/// Complete border presets combining width, style, and color.
+///
+/// These presets provide ready-to-use border configurations for common
+/// UI patterns. Use for quick, consistent border styling.
+///
+/// ## Standard Borders
+///
+/// | Preset       | Description                    |
+/// |--------------|--------------------------------|
+/// | `none`       | No border                      |
+/// | `subtle`     | 1px barely visible             |
+/// | `standard`   | 1px default border             |
+/// | `medium`     | 1px medium emphasis            |
+/// | `accent`     | 1px accent color               |
+///
+/// ## Status Borders
+///
+/// | Preset    | Use Case                          |
+/// |-----------|-----------------------------------|
+/// | `success` | Success/confirmation states       |
+/// | `warning` | Warning/caution states            |
+/// | `error`   | Error/destructive states          |
+/// | `info`    | Informational states              |
+/// | `focus`   | Focus ring (2px)                  |
+///
+/// ## Example
+///
+/// ```dart
+/// ArcaneDiv(
+///   styles: const ArcaneStyleData(
+///     border: BorderPreset.standard,    // All sides
+///     borderLeft: BorderPreset.accent,  // Left only
+///     borderBottom: BorderPreset.subtle, // Bottom only
+///   ),
+/// )
+/// ```
 enum BorderPreset {
   /// No border
   none,
@@ -81,7 +116,34 @@ enum BorderPreset {
       };
 }
 
-/// Border radius presets
+/// Border radius presets for rounded corners.
+///
+/// These presets use CSS custom properties that can be themed.
+///
+/// ## Radius Scale
+///
+/// | Value   | Size   | Use Case                           |
+/// |---------|--------|-------------------------------------|
+/// | `none`  | 0      | Sharp corners                       |
+/// | `xs`    | 4px    | Subtle rounding                     |
+/// | `sm`    | 6px    | Buttons, inputs                     |
+/// | `md`    | 8px    | Cards, dialogs                      |
+/// | `lg`    | 12px   | Large cards, panels                 |
+/// | `xl`    | 16px   | Hero sections                       |
+/// | `full`  | 9999px | Pill shapes                         |
+/// | `circle`| 50%    | Perfect circles (avatars)           |
+///
+/// ## Example
+///
+/// ```dart
+/// ArcaneDiv(
+///   styles: const ArcaneStyleData(
+///     borderRadius: Radius.md,       // Standard card
+///     // borderRadius: Radius.full,  // Pill button
+///     // borderRadius: Radius.circle, // Avatar
+///   ),
+/// )
+/// ```
 enum Radius {
   /// No radius (0)
   none,
@@ -136,7 +198,31 @@ enum Radius {
       };
 }
 
-/// Border width presets
+/// Border width presets for controlling border thickness.
+///
+/// Use with directional border properties for fine-grained control.
+///
+/// ## Width Scale
+///
+/// | Value      | Size | Use Case                      |
+/// |------------|------|-------------------------------|
+/// | `none`     | 0    | Remove border                 |
+/// | `hairline` | 1px  | Subtle dividers               |
+/// | `thin`     | 1px  | Standard borders              |
+/// | `medium`   | 2px  | Emphasized borders            |
+/// | `thick`    | 3px  | Strong emphasis               |
+/// | `heavy`    | 4px  | Maximum emphasis              |
+///
+/// ## Example
+///
+/// ```dart
+/// ArcaneDiv(
+///   styles: const ArcaneStyleData(
+///     borderLeft: BorderPreset.accent,
+///     borderLeftWidth: BorderWidth.thick,  // 3px accent left
+///   ),
+/// )
+/// ```
 enum BorderWidth {
   /// No border
   none,

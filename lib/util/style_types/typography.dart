@@ -1,6 +1,36 @@
 import '../tokens/tokens.dart';
 
-/// Font size presets
+/// Font size presets using a modular typographic scale.
+///
+/// Sizes are defined in rem units for accessibility (respects user
+/// browser font size preferences).
+///
+/// ## Size Scale
+///
+/// | Value    | Size          | Use Case                    |
+/// |----------|---------------|------------------------------|
+/// | `xs`     | 12px / 0.75rem| Labels, captions            |
+/// | `sm`     | 14px / 0.875rem| Secondary text, metadata   |
+/// | `md`     | 15px / 0.9375rem| Standard UI text          |
+/// | `base`   | 16px / 1rem   | Body text (default)         |
+/// | `lg`     | 18px / 1.125rem| Large body, subheadings    |
+/// | `xl`     | 20px / 1.25rem| Section headers             |
+/// | `xl2`    | 24px / 1.5rem | H3 headings                 |
+/// | `xl3`    | 32px / 2rem   | H2 headings                 |
+/// | `xl4`    | 40px / 2.5rem | H1 headings                 |
+/// | `xl5`    | 48px / 3rem   | Hero headings               |
+/// | `hero`   | 56px / 3.5rem | Display text                |
+/// | `mega`   | 72px / 4.5rem | Oversized display           |
+///
+/// ## Example
+///
+/// ```dart
+/// ArcaneText(
+///   'Welcome',
+///   size: FontSize.xl3,        // H2 size
+///   weight: FontWeight.w700,
+/// )
+/// ```
 enum FontSize {
   /// Extra small (12px / 0.75rem)
   xs,
@@ -58,7 +88,29 @@ enum FontSize {
       };
 }
 
-/// Line height presets
+/// Line height presets for controlling vertical rhythm.
+///
+/// Proper line height improves readability, especially for longer text.
+///
+/// ## Line Height Scale
+///
+/// | Value     | Ratio | Use Case                        |
+/// |-----------|-------|---------------------------------|
+/// | `none`    | 1     | Single line, icons              |
+/// | `tight`   | 1.1   | Headings, display text          |
+/// | `snug`    | 1.25  | Short paragraphs                |
+/// | `normal`  | 1.5   | Body text (default)             |
+/// | `relaxed` | 1.7   | Long-form content               |
+/// | `loose`   | 2     | Maximum readability             |
+///
+/// ## Example
+///
+/// ```dart
+/// ArcaneText(
+///   'Long paragraph...',
+///   lineHeight: LineHeight.relaxed,  // Better for reading
+/// )
+/// ```
 enum LineHeight {
   /// None (1)
   none,
@@ -182,7 +234,28 @@ enum WordBreak {
       };
 }
 
-/// Font family presets
+/// Font family presets for the Arcane design system.
+///
+/// The Arcane theme uses carefully selected font stacks for optimal
+/// readability and brand consistency.
+///
+/// ## Font Families
+///
+/// | Value     | Stack                       | Use Case           |
+/// |-----------|-----------------------------|--------------------|
+/// | `sans`    | Akzidenz-GroteskPro, system | Body text, UI      |
+/// | `heading` | ITCAvantGardeStd            | Headings, display  |
+/// | `mono`    | JetBrains Mono              | Code, data         |
+/// | `inherit` | inherit                     | From parent        |
+///
+/// ## Example
+///
+/// ```dart
+/// ArcaneText(
+///   'function myCode()',
+///   fontFamily: FontFamily.mono,  // Monospace for code
+/// )
+/// ```
 enum FontFamily {
   /// System sans-serif (Akzidenz-GroteskPro, etc.)
   sans,

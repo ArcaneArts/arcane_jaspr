@@ -21,6 +21,42 @@ jaspr build
 jaspr clean
 ```
 
+## Architecture
+
+### Content-Driven Static Generation
+
+The site uses Jaspr's static site generation with markdown content:
+
+1. **Content Layer** (`content/`) - Markdown files with YAML frontmatter
+2. **Layout Layer** (`lib/layouts/`) - Jaspr components that wrap content
+3. **Demo Layer** (`lib/demos/`) - Live component demonstrations
+4. **Client Layer** (`lib/main.client.dart`) - JavaScript hydration for interactivity
+
+### Demo Registry Pattern
+
+The demo system uses a **Map-based registry** for O(1) lookups:
+
+```dart
+// Static demos (stateless) - just return components
+static final Map<String, DemoBuilder> _staticDemos = {
+  'button': InputDemos.button,
+  'text-input': InputDemos.textInput,
+};
+
+// Interactive demos (stateful) - return StatefulComponent instances
+static final Map<String, Component> _interactiveDemos = {
+  'checkbox': const CheckboxDemo(),
+  'slider': const SliderDemo(),
+};
+```
+
+### Script Extraction
+
+Client-side JavaScript is modularized in `lib/utils/docs_scripts.dart`:
+- `DocsIcons` - SVG icon definitions
+- `DocsScriptConfig` - Configuration constants
+- `DocsScripts.generate()` - Full interactive script generation
+
 ## Project Structure
 
 ```
@@ -50,7 +86,8 @@ arcane_codex_web/
 │   │   ├── docs_sidebar.dart  # Navigation sidebar
 │   │   └── docs_header.dart   # Page header
 │   ├── demos/
-│   │   ├── demo_registry.dart # Demo component registry
+│   │   ├── demo_registry.dart # Demo component registry (Map-based)
+│   │   ├── demo_utils.dart    # Reusable demo utilities
 │   │   ├── input_demos.dart   # Input component demos
 │   │   ├── layout_demos.dart  # Layout component demos
 │   │   ├── typography_demos.dart
@@ -63,7 +100,8 @@ arcane_codex_web/
 │   ├── layouts/
 │   │   └── arcane_docs_layout.dart
 │   └── utils/
-│       └── constants.dart     # Site configuration
+│       ├── constants.dart     # Site configuration
+│       └── docs_scripts.dart  # Extracted JavaScript utilities
 └── web/
     ├── index.html             # Entry HTML
     └── styles.css             # Global styles
@@ -116,15 +154,46 @@ static List<Component> myComponent() {
 
 2. Register in `lib/demos/demo_registry.dart`:
 
+For **static demos** (no state), add to `_staticDemos` map:
 ```dart
-case 'my-component':
-  return InputDemos.myComponent();
+static final Map<String, DemoBuilder> _staticDemos = {
+  // ... existing entries
+  'my-component': InputDemos.myComponent,
+};
+```
+
+For **interactive demos** (stateful), add to `_interactiveDemos` map:
+```dart
+static final Map<String, Component> _interactiveDemos = {
+  // ... existing entries
+  'my-component': const MyComponentDemo(),
+};
 ```
 
 3. Reference in markdown with demo tag:
 
 ```markdown
 ::demo{component="my-component"}
+```
+
+### Demo Utilities
+
+Use `DemoUtils` for consistent demo layouts:
+
+```dart
+import 'demo_utils.dart';
+
+static List<Component> myDemo() {
+  return [
+    DemoUtils.section(
+      title: 'Basic Usage',
+      children: [
+        DemoUtils.row(children: [MyComponent(), MyComponent()]),
+        DemoUtils.statusText('Interactive demo'),
+      ],
+    ),
+  ];
+}
 ```
 
 ## Dependencies

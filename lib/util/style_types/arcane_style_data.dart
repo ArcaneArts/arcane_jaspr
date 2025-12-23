@@ -7,20 +7,112 @@ import 'layout.dart';
 import 'typography.dart';
 import 'effects.dart';
 
-/// Immutable style configuration that converts enum-based properties to CSS.
+/// Immutable style configuration with type-safe enum properties.
 ///
-/// This is the core class that enables Flutter-like declarative styling.
-/// All properties are optional and only non-null values are included in output.
+/// [ArcaneStyleData] is the core styling class in Arcane Jaspr, providing
+/// a Flutter-like declarative API for CSS styling. It converts enum-based
+/// properties to CSS, ensuring type safety and IDE autocomplete support.
 ///
-/// Example:
+/// ## Basic Usage
+///
+/// ```dart
+/// ArcaneDiv(
+///   styles: const ArcaneStyleData(
+///     display: Display.flex,
+///     flexDirection: FlexDirection.column,
+///     gap: Gap.md,
+///     padding: PaddingPreset.lg,
+///     background: Background.surface,
+///     borderRadius: Radius.lg,
+///   ),
+///   children: [...],
+/// )
+/// ```
+///
+/// ## Property Categories
+///
+/// ### Layout
+/// - [display], [flexDirection], [flexWrap] - Flex container setup
+/// - [mainAxisAlignment], [crossAxisAlignment] - Alignment
+/// - [position], [zIndex] - Positioning
+/// - [overflow], [overflowX], [overflowY] - Overflow handling
+///
+/// ### Sizing
+/// - [width], [height] - Using [Size] enum
+/// - [widthCustom], [heightCustom] - Custom string values
+/// - [maxWidth], [minWidth], [maxHeight], [minHeight] - Constraints
+/// - [flex], [flexGrow], [flexShrink], [flexBasis] - Flex item sizing
+///
+/// ### Grid
+/// - [gridColumns], [gridRows] - Grid template definitions
+/// - [placeItems], [placeContent] - Grid alignment
+/// - [gridAutoFlow] - Auto-placement direction
+///
+/// ### Spacing
+/// - [padding] - Using [PaddingPreset] enum
+/// - [margin] - Using [MarginPreset] enum
+/// - [gap], [rowGap], [columnGap] - Flex/grid gaps
+///
+/// ### Colors
+/// - [background] - Using [Background] enum (theme-aware)
+/// - [textColor] - Using [TextColor] enum (theme-aware)
+///
+/// ### Borders
+/// - [border], [borderTop], [borderBottom], etc. - Using [BorderPreset]
+/// - [borderRadius] - Using [Radius] enum
+/// - [borderWidth], [borderLeftWidth], etc. - Using [BorderWidth]
+///
+/// ### Typography
+/// - [fontSize] - Using [FontSize] enum
+/// - [fontWeight] - Using [FontWeight] enum
+/// - [lineHeight], [letterSpacing] - Text spacing
+/// - [textAlign], [textDecoration], [textTransform]
+///
+/// ### Effects
+/// - [shadow] - Using [Shadow] enum
+/// - [transition] - Using [Transition] enum
+/// - [opacity], [cursor], [transform]
+///
+/// ## Merging Styles
+///
+/// ```dart
+/// final baseStyle = ArcaneStyleData(padding: PaddingPreset.md);
+/// final combinedStyle = baseStyle.merge(ArcaneStyleData(
+///   background: Background.surface,
+/// ));
+/// ```
+///
+/// ## Custom CSS (Escape Hatch)
+///
+/// For properties not covered by enums, use [raw]:
+///
 /// ```dart
 /// ArcaneStyleData(
 ///   display: Display.flex,
-///   padding: PaddingPreset.md,
-///   background: Background.card,
-///   borderRadius: Radius.lg,
-/// ).toStyles()
+///   raw: {'backdrop-filter': 'blur(10px)'},
+/// )
 /// ```
+///
+/// ## Static Presets
+///
+/// Common patterns available as static constants:
+///
+/// ```dart
+/// ArcaneStyleData.row          // Flex row with center alignment
+/// ArcaneStyleData.rowSpaced    // Flex row with space-between
+/// ArcaneStyleData.column       // Flex column
+/// ArcaneStyleData.flexCenter   // Centered on both axes
+/// ArcaneStyleData.fullSize     // 100% width and height
+/// ArcaneStyleData.absoluteFill // Position absolute with inset: 0
+/// ```
+///
+/// ## See Also
+///
+/// - [PaddingPreset] - Padding values
+/// - [MarginPreset] - Margin values
+/// - [Gap] - Flex/grid gap values
+/// - [Background] - Theme-aware background colors
+/// - [TextColor] - Theme-aware text colors
 class ArcaneStyleData {
   // -------------------------------------------------------------------------
   // Layout

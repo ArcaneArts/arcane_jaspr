@@ -1,6 +1,32 @@
 import '../tokens/tokens.dart';
 
-/// Single-value spacing for uniform padding/margin
+/// Single-value spacing scale for uniform padding/margin values.
+///
+/// Based on a 4px base unit, provides consistent spacing throughout the UI.
+///
+/// ## Spacing Scale
+///
+/// | Value     | Size  | Use Case                    |
+/// |-----------|-------|------------------------------|
+/// | `none`    | 0px   | No spacing                   |
+/// | `xs`      | 4px   | Tight spacing, icons         |
+/// | `sm`      | 8px   | Compact elements             |
+/// | `md`      | 16px  | Standard spacing             |
+/// | `lg`      | 24px  | Generous spacing             |
+/// | `xl`      | 32px  | Section spacing              |
+/// | `xxl`     | 48px  | Large sections               |
+/// | `xxxl`    | 64px  | Major sections               |
+/// | `huge`    | 96px  | Hero sections                |
+/// | `massive` | 128px | Full-page hero               |
+///
+/// ## Example
+///
+/// ```dart
+/// ArcaneStyleData(
+///   padding: PaddingPreset.md,  // 16px all sides
+///   gap: Gap.sm,                // 8px between items
+/// )
+/// ```
 enum Spacing {
   none,
   xs,
@@ -40,7 +66,49 @@ enum Spacing {
       };
 }
 
-/// Compound padding presets for common patterns (vertical_horizontal)
+/// Compound padding presets for common UI patterns.
+///
+/// These presets combine vertical and horizontal padding values for
+/// common use cases like buttons, cards, and sections.
+///
+/// ## Naming Convention
+///
+/// - **Single values** (`xs`, `sm`, `md`, `lg`, `xl`): Equal padding all sides
+/// - **Compound values** (`smMd`, `mdLg`): `{vertical}{horizontal}` format
+/// - **Directional** (`horizontalSm`, `verticalMd`, `topLg`): One direction only
+/// - **Semantic** (`button*`, `card`, `section`): Use-case specific
+///
+/// ## Common Presets
+///
+/// ```dart
+/// // Buttons
+/// PaddingPreset.buttonSm  // 6px 12px  - Small button
+/// PaddingPreset.buttonMd  // 10px 16px - Medium button
+/// PaddingPreset.buttonLg  // 12px 24px - Large button
+///
+/// // Cards and sections
+/// PaddingPreset.card      // 16px 32px
+/// PaddingPreset.section   // 24px 48px
+///
+/// // Chips and badges
+/// PaddingPreset.badge     // 2px 8px
+/// PaddingPreset.chip      // 4px 12px
+/// ```
+///
+/// ## Example
+///
+/// ```dart
+/// ArcaneDiv(
+///   styles: const ArcaneStyleData(
+///     padding: PaddingPreset.md,      // 16px all sides
+///     // or
+///     padding: PaddingPreset.smMd,    // 8px vertical, 16px horizontal
+///     // or
+///     padding: PaddingPreset.buttonMd, // Standard button padding
+///   ),
+///   children: [...],
+/// )
+/// ```
 enum PaddingPreset {
   /// No padding
   none,
@@ -352,7 +420,41 @@ enum MarginPreset {
       };
 }
 
-/// Gap presets for flex/grid layouts
+/// Gap presets for flex and grid layouts.
+///
+/// Controls spacing between child elements in flex containers and grid cells.
+///
+/// ## Gap Scale
+///
+/// | Value  | Size | Typical Use                    |
+/// |--------|------|--------------------------------|
+/// | `none` | 0px  | No gap between items           |
+/// | `xs`   | 4px  | Very tight spacing             |
+/// | `sm`   | 8px  | Compact layouts, icon groups   |
+/// | `md`   | 16px | Standard spacing               |
+/// | `lg`   | 24px | Card grids, form sections      |
+/// | `xl`   | 32px | Major sections                 |
+/// | `xxl`  | 48px | Page sections                  |
+/// | `xxxl` | 64px | Hero content                   |
+///
+/// ## Example
+///
+/// ```dart
+/// // Flex container with gap
+/// ArcaneRow(
+///   gapSize: Gap.md,
+///   children: [Button1(), Button2()],
+/// )
+///
+/// // Grid with custom gaps
+/// ArcaneStyleData(
+///   display: Display.grid,
+///   gridColumns: GridColumns.three,
+///   gap: Gap.lg,        // Both row and column gap
+///   rowGap: Gap.xl,     // Override row gap only
+///   columnGap: Gap.md,  // Override column gap only
+/// )
+/// ```
 enum Gap {
   none,
   xs,

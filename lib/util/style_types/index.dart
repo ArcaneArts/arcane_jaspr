@@ -1,9 +1,10 @@
-/// Barrel export for all style types
+/// Barrel export for all style types.
 ///
 /// Import this file to get access to all enum-based styling types:
 /// ```dart
 /// import 'package:arcane_jaspr/util/style_types/index.dart';
 /// ```
+library style_types;
 
 // Core style data class
 export 'arcane_style_data.dart';

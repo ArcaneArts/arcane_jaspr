@@ -1,6 +1,44 @@
 import '../tokens/tokens.dart';
 
-/// Box shadow presets
+/// Box shadow presets for depth and emphasis.
+///
+/// Shadows create visual hierarchy by simulating elevation.
+/// The Arcane design system includes both standard shadows
+/// and colored glows for gaming/neon aesthetics.
+///
+/// ## Standard Shadows
+///
+/// | Value  | Description                   | Use Case            |
+/// |--------|-------------------------------|---------------------|
+/// | `none` | No shadow                     | Flat elements       |
+/// | `xs`   | Minimal shadow                | Subtle elevation    |
+/// | `sm`   | Small shadow                  | Buttons, inputs     |
+/// | `md`   | Medium shadow (default)       | Cards, dialogs      |
+/// | `lg`   | Large shadow                  | Modals, popovers    |
+/// | `xl`   | Extra large shadow            | Floating elements   |
+/// | `card` | Card-specific shadow          | Card components     |
+///
+/// ## Glow Effects
+///
+/// | Value         | Color   | Use Case                |
+/// |---------------|---------|-------------------------|
+/// | `glowAccent`  | Theme   | Highlighted buttons     |
+/// | `glowSuccess` | Green   | Success states          |
+/// | `glowError`   | Red     | Error states            |
+/// | `glowCyan`    | Cyan    | Gaming/neon style       |
+/// | `glowPurple`  | Purple  | Gaming/neon style       |
+/// | `glowPink`    | Pink    | Gaming/neon style       |
+///
+/// ## Example
+///
+/// ```dart
+/// ArcaneDiv(
+///   styles: const ArcaneStyleData(
+///     boxShadow: Shadow.lg,          // Standard elevation
+///     // boxShadow: Shadow.glowCyan, // Neon glow
+///   ),
+/// )
+/// ```
 enum Shadow {
   /// No shadow
   none,
@@ -70,7 +108,39 @@ enum Shadow {
       };
 }
 
-/// Transition presets
+/// Transition presets for smooth state changes.
+///
+/// Transitions animate property changes between states, improving
+/// perceived performance and user experience.
+///
+/// ## Timing Presets
+///
+/// | Value    | Duration | Use Case                      |
+/// |----------|----------|-------------------------------|
+/// | `none`   | -        | Instant changes               |
+/// | `fast`   | 150ms    | Micro-interactions            |
+/// | `normal` | 200ms    | Standard transitions          |
+/// | `slow`   | 300ms    | Emphasis, modals              |
+/// | `bounce` | 300ms    | Playful interactions          |
+///
+/// ## Property-Specific
+///
+/// | Value       | Properties             |
+/// |-------------|------------------------|
+/// | `colors`    | Color changes only     |
+/// | `transform` | Transform changes only |
+/// | `opacity`   | Fade in/out            |
+/// | `shadow`    | Shadow changes         |
+///
+/// ## Example
+///
+/// ```dart
+/// ArcaneButton(
+///   styles: const ArcaneStyleData(
+///     transition: Transition.fast,  // Quick hover response
+///   ),
+/// )
+/// ```
 enum Transition {
   /// No transition
   none,
@@ -250,7 +320,45 @@ enum UserSelect {
       };
 }
 
-/// Transform presets
+/// Transform presets for visual manipulations.
+///
+/// Transforms modify element appearance without affecting layout.
+/// Common for hover effects, centering, and animations.
+///
+/// ## Hover Effects
+///
+/// | Value             | Effect          | Use Case             |
+/// |-------------------|-----------------|----------------------|
+/// | `hoverLift`       | translateY(-4px)| Cards, buttons       |
+/// | `hoverScale`      | scale(1.02)     | Interactive elements |
+/// | `hoverScaleSubtle`| scale(1.01)     | Subtle feedback      |
+///
+/// ## Positioning
+///
+/// | Value     | Transform              | Use Case            |
+/// |-----------|------------------------|---------------------|
+/// | `center`  | translate(-50%, -50%)  | Absolute centering  |
+/// | `centerX` | translateX(-50%)       | Horizontal center   |
+/// | `centerY` | translateY(-50%)       | Vertical center     |
+///
+/// ## Rotation
+///
+/// | Value       | Degrees | Use Case              |
+/// |-------------|---------|----------------------|
+/// | `rotate90`  | 90°     | Rotated icons        |
+/// | `rotate180` | 180°    | Flipped elements     |
+/// | `flipX`     | scaleX(-1)| Mirror horizontal  |
+/// | `flipY`     | scaleY(-1)| Mirror vertical    |
+///
+/// ## Example
+///
+/// ```dart
+/// ArcaneCard(
+///   styles: const ArcaneStyleData(
+///     hoverTransform: Transform.hoverLift,  // Lift on hover
+///   ),
+/// )
+/// ```
 enum Transform {
   /// No transform
   none,

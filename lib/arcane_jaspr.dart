@@ -1,5 +1,92 @@
-/// Arcane Jaspr - A Jaspr port of the Arcane UI component library
-/// Supabase-inspired design with switchable accent colors
+/// # Arcane Jaspr
+///
+/// A comprehensive UI component library for building beautiful web applications
+/// with [Jaspr](https://pub.dev/packages/jaspr). Inspired by Supabase's design
+/// system with full theme customization support.
+///
+/// ## Quick Start
+///
+/// ```dart
+/// import 'package:arcane_jaspr/arcane_jaspr.dart';
+///
+/// class MyApp extends StatelessComponent {
+///   @override
+///   Component build(BuildContext context) {
+///     return ArcaneApp(
+///       theme: ArcaneTheme.green,
+///       child: ArcaneColumn(
+///         gapSize: Gap.md,
+///         children: [
+///           ArcaneButton.primary(
+///             label: 'Click Me',
+///             onPressed: () => print('Clicked!'),
+///           ),
+///         ],
+///       ),
+///     );
+///   }
+/// }
+/// ```
+///
+/// ## Key Concepts
+///
+/// ### Styling with ArcaneStyleData
+///
+/// All components support type-safe styling through [ArcaneStyleData]:
+///
+/// ```dart
+/// ArcaneDiv(
+///   styles: const ArcaneStyleData(
+///     display: Display.flex,
+///     flexDirection: FlexDirection.column,
+///     gap: Gap.md,
+///     padding: PaddingPreset.lg,
+///     background: Background.surface,
+///     borderRadius: Radius.lg,
+///   ),
+///   children: [...],
+/// )
+/// ```
+///
+/// ### Theming
+///
+/// Choose from 18 built-in themes or create custom ones:
+///
+/// ```dart
+/// ArcaneApp(
+///   theme: ArcaneTheme.blue,  // or .green, .purple, .oledBlue, etc.
+///   child: myApp,
+/// )
+/// ```
+///
+/// ### Component Categories
+///
+/// - **Layout**: [ArcaneDiv], [ArcaneRow], [ArcaneColumn], [ArcaneCard], [ArcaneTabs]
+/// - **Input**: [ArcaneButton], [ArcaneTextInput], [ArcaneCheckbox], [ArcaneSlider]
+/// - **View**: [ArcaneBadge], [ArcaneChip], [ArcaneAvatar], [ArcaneDataTable]
+/// - **Navigation**: [ArcaneSidebar], [ArcaneHeader], [ArcaneBreadcrumbs]
+/// - **Feedback**: [ArcaneDialog], [ArcaneToast], [ArcaneLoader], [ArcaneSkeleton]
+/// - **Auth**: [ArcaneLoginCard], [ArcaneSignupCard], social sign-in buttons
+///
+/// ## Authentication
+///
+/// Built-in Firebase authentication support:
+///
+/// ```dart
+/// ArcaneAuthProvider(
+///   serverApiUrl: 'https://api.example.com',
+///   child: AuthGuard(
+///     child: ProtectedContent(),
+///   ),
+/// )
+/// ```
+///
+/// ## See Also
+///
+/// - [ArcaneStyleData] - Core styling class
+/// - [ArcaneTheme] - Theme configuration
+/// - [ButtonStyle] - Button style presets
+/// - Documentation site: https://arcanearts.github.io/arcane_jaspr/
 library arcane_jaspr;
 
 // Re-export Jaspr core for convenience
