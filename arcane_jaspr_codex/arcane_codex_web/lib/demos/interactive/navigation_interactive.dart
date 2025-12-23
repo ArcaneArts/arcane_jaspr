@@ -298,3 +298,221 @@ class _DrawerDemoState extends State<DrawerDemo> {
     );
   }
 }
+
+/// Interactive dropdown menu demo
+class DropdownMenuDemo extends StatefulComponent {
+  const DropdownMenuDemo({super.key});
+
+  @override
+  State<DropdownMenuDemo> createState() => _DropdownMenuDemoState();
+}
+
+class _DropdownMenuDemoState extends State<DropdownMenuDemo> {
+  String _selectedItem = 'None';
+
+  @override
+  Component build(BuildContext context) {
+    return ArcaneColumn(
+      gapSize: Gap.md,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ArcaneDropdownMenu(
+          trigger: ArcaneButton.secondary(label: 'Open Menu ▼', onPressed: () {}),
+          items: [
+            ArcaneDropdownItem(
+              label: 'Edit',
+              icon: ArcaneIcon.edit(),
+              onTap: () => setState(() => _selectedItem = 'Edit'),
+            ),
+            ArcaneDropdownItem(
+              label: 'Duplicate',
+              icon: ArcaneIcon.copy(),
+              onTap: () => setState(() => _selectedItem = 'Duplicate'),
+            ),
+            ArcaneDropdownItem(
+              label: 'Delete',
+              icon: ArcaneIcon.trash(),
+              onTap: () => setState(() => _selectedItem = 'Delete'),
+            ),
+          ],
+        ),
+        ArcaneText(
+          'Selected: $_selectedItem',
+          size: FontSize.sm,
+          color: TextColor.muted,
+        ),
+      ],
+    );
+  }
+}
+
+/// Interactive mobile menu demo
+class MobileMenuDemo extends StatefulComponent {
+  const MobileMenuDemo({super.key});
+
+  @override
+  State<MobileMenuDemo> createState() => _MobileMenuDemoState();
+}
+
+class _MobileMenuDemoState extends State<MobileMenuDemo> {
+  bool _isOpen = false;
+
+  @override
+  Component build(BuildContext context) {
+    return ArcaneColumn(
+      gapSize: Gap.md,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(
+            widthCustom: '300px',
+            padding: PaddingPreset.md,
+            background: Background.surface,
+            borderRadius: Radius.md,
+          ),
+          children: [
+            ArcaneRow(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ArcaneText('Logo', weight: FontWeight.bold),
+                ArcaneIconButton(
+                  icon: _isOpen ? ArcaneIcon.close() : ArcaneIcon.menu(),
+                  onPressed: () => setState(() => _isOpen = !_isOpen),
+                ),
+              ],
+            ),
+            if (_isOpen)
+              ArcaneDiv(
+                styles: const ArcaneStyleData(
+                  margin: MarginPreset.topMd,
+                  padding: PaddingPreset.md,
+                  background: Background.surfaceVariant,
+                  borderRadius: Radius.md,
+                ),
+                children: [
+                  ArcaneColumn(
+                    gapSize: Gap.sm,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ArcaneText('Home'),
+                      ArcaneText('About'),
+                      ArcaneText('Services'),
+                      ArcaneText('Contact'),
+                    ],
+                  ),
+                ],
+              ),
+          ],
+        ),
+        ArcaneText(
+          'Click the menu icon to toggle the mobile menu.',
+          size: FontSize.sm,
+          color: TextColor.muted,
+        ),
+      ],
+    );
+  }
+}
+
+/// Interactive mega menu demo
+class MegaMenuDemo extends StatefulComponent {
+  const MegaMenuDemo({super.key});
+
+  @override
+  State<MegaMenuDemo> createState() => _MegaMenuDemoState();
+}
+
+class _MegaMenuDemoState extends State<MegaMenuDemo> {
+  bool _isOpen = false;
+
+  @override
+  Component build(BuildContext context) {
+    return ArcaneColumn(
+      gapSize: Gap.md,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(
+            widthCustom: '400px',
+            background: Background.surface,
+            borderRadius: Radius.md,
+            overflow: Overflow.visible,
+          ),
+          children: [
+            // Header bar
+            ArcaneDiv(
+              styles: const ArcaneStyleData(
+                padding: PaddingPreset.md,
+                display: Display.flex,
+                gap: Gap.lg,
+              ),
+              children: [
+                ArcaneText('Home'),
+                div(
+                  events: {
+                    'mouseenter': (_) => setState(() => _isOpen = true),
+                    'mouseleave': (_) => setState(() => _isOpen = false),
+                  },
+                  styles: const Styles(raw: {
+                    'position': 'relative',
+                  }),
+                  [
+                    ArcaneText('Products ▼', color: TextColor.accent),
+                    if (_isOpen)
+                      ArcaneDiv(
+                        styles: const ArcaneStyleData(
+                          position: Position.absolute,
+                          raw: {'top': '100%', 'left': '0'},
+                          padding: PaddingPreset.lg,
+                          background: Background.surface,
+                          borderRadius: Radius.md,
+                          border: BorderPreset.subtle,
+                          minWidth: '350px',
+                          zIndex: ZIndex.dropdown,
+                        ),
+                        children: [
+                          ArcaneRow(
+                            gapSize: Gap.xl,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ArcaneColumn(
+                                gapSize: Gap.sm,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ArcaneText('Category 1', weight: FontWeight.w600),
+                                  ArcaneText('Product A', color: TextColor.muted),
+                                  ArcaneText('Product B', color: TextColor.muted),
+                                  ArcaneText('Product C', color: TextColor.muted),
+                                ],
+                              ),
+                              ArcaneColumn(
+                                gapSize: Gap.sm,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ArcaneText('Category 2', weight: FontWeight.w600),
+                                  ArcaneText('Service X', color: TextColor.muted),
+                                  ArcaneText('Service Y', color: TextColor.muted),
+                                  ArcaneText('Service Z', color: TextColor.muted),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                  ],
+                ),
+                ArcaneText('About'),
+                ArcaneText('Contact'),
+              ],
+            ),
+          ],
+        ),
+        ArcaneText(
+          'Hover over "Products" to see the mega menu.',
+          size: FontSize.sm,
+          color: TextColor.muted,
+        ),
+      ],
+    );
+  }
+}

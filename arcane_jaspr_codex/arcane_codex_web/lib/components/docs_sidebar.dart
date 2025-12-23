@@ -23,7 +23,7 @@ class DocsSidebar extends StatelessComponent {
         // Header
         ArcaneDiv(
           styles: const ArcaneStyleData(
-            padding: PaddingPreset.lg,
+            padding: PaddingPreset.md,
             borderBottom: BorderPreset.subtle,
             background: Background.surfaceVariant,
           ),
@@ -56,7 +56,7 @@ class DocsSidebar extends StatelessComponent {
         // Navigation
         ArcaneNav(
           styles: const ArcaneStyleData(
-            padding: PaddingPreset.md,
+            padding: PaddingPreset.sm,
           ),
           children: [
             // Getting Started section
@@ -180,6 +180,7 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcaneTreeView', href: '/docs/view/arcane-tree-view'),
               _buildNavItem(label: 'ArcanePopover', href: '/docs/view/arcane-popover'),
               _buildNavItem(label: 'ArcaneHovercard', href: '/docs/view/arcane-hovercard'),
+              _buildNavItem(label: 'ArcaneExpander', href: '/docs/view/arcane-expander'),
               _buildNavItem(label: 'ArcaneSvg', href: '/docs/view/arcane-svg'),
             ]),
 
@@ -198,10 +199,7 @@ class DocsSidebar extends StatelessComponent {
             // Feedback Components section
             _buildNavSection('Feedback', [
               _buildNavItem(label: 'ArcaneDialog', href: '/docs/feedback/arcane-dialog'),
-              _buildNavItem(label: 'ArcaneToast', href: '/docs/feedback/arcane-toast'),
               _buildNavItem(label: 'ArcaneAlertBanner', href: '/docs/feedback/arcane-alert-banner'),
-              _buildNavItem(label: 'ArcaneTooltip', href: '/docs/feedback/arcane-tooltip'),
-              _buildNavItem(label: 'ArcaneAccordion', href: '/docs/feedback/arcane-accordion'),
             ]),
 
             // Forms section
@@ -216,9 +214,7 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcaneLoginCard', href: '/docs/auth/arcane-login-card'),
               _buildNavItem(label: 'ArcaneSignupCard', href: '/docs/auth/arcane-signup-card'),
               _buildNavItem(label: 'ArcaneForgotPasswordCard', href: '/docs/auth/arcane-forgot-password-card'),
-              _buildNavItem(label: 'GithubSignInButton', href: '/docs/auth/github-button'),
-              _buildNavItem(label: 'GoogleSignInButton', href: '/docs/auth/google-button'),
-              _buildNavItem(label: 'AppleSignInButton', href: '/docs/auth/apple-button'),
+              _buildNavItem(label: 'Social Sign-In Buttons', href: '/docs/auth/social-buttons'),
               _buildNavItem(label: 'AuthSplitLayout', href: '/docs/auth/auth-split-layout'),
               _buildNavItem(label: 'AuthBrandingPanel', href: '/docs/auth/auth-branding-panel'),
               _buildNavItem(label: 'PasswordPolicy', href: '/docs/auth/password-policy'),

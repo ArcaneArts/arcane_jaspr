@@ -319,3 +319,194 @@ class _ProgressBarDemoState extends State<ProgressBarDemo> {
     );
   }
 }
+
+/// Interactive popover demo
+class PopoverDemo extends StatefulComponent {
+  const PopoverDemo({super.key});
+
+  @override
+  State<PopoverDemo> createState() => _PopoverDemoState();
+}
+
+class _PopoverDemoState extends State<PopoverDemo> {
+  @override
+  Component build(BuildContext context) {
+    return ArcaneColumn(
+      gapSize: Gap.lg,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Click trigger popover
+        ArcaneRow(
+          gapSize: Gap.md,
+          children: [
+            ArcanePopover(
+              trigger: ArcaneButton.secondary(
+                label: 'Click Me',
+                onPressed: () {},
+              ),
+              content: ArcaneDiv(
+                styles: const ArcaneStyleData(
+                  padding: PaddingPreset.md,
+                  minWidth: '200px',
+                ),
+                children: [
+                  ArcaneColumn(
+                    gapSize: Gap.sm,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ArcaneText('Popover Content', weight: FontWeight.w600),
+                      ArcaneText(
+                        'Click anywhere outside to close.',
+                        color: TextColor.muted,
+                        size: FontSize.sm,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              position: PopoverPosition.bottom,
+              triggerType: PopoverTrigger.click,
+            ),
+            ArcanePopover(
+              trigger: ArcaneButton.outline(
+                label: 'Hover Me',
+                onPressed: () {},
+              ),
+              content: ArcaneDiv(
+                styles: const ArcaneStyleData(
+                  padding: PaddingPreset.md,
+                ),
+                children: [
+                  ArcaneText('Hover popover!', color: TextColor.muted),
+                ],
+              ),
+              position: PopoverPosition.top,
+              triggerType: PopoverTrigger.hover,
+            ),
+          ],
+        ),
+        ArcaneText(
+          'Click or hover the buttons above to see popovers.',
+          size: FontSize.sm,
+          color: TextColor.muted,
+        ),
+      ],
+    );
+  }
+}
+
+/// Interactive hovercard demo
+class HovercardDemo extends StatefulComponent {
+  const HovercardDemo({super.key});
+
+  @override
+  State<HovercardDemo> createState() => _HovercardDemoState();
+}
+
+class _HovercardDemoState extends State<HovercardDemo> {
+  @override
+  Component build(BuildContext context) {
+    return ArcaneColumn(
+      gapSize: Gap.lg,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ArcaneRow(
+          gapSize: Gap.lg,
+          children: [
+            ArcaneHovercard(
+              trigger: ArcaneDiv(
+                styles: const ArcaneStyleData(
+                  padding: PaddingPreset.sm,
+                  background: Background.surface,
+                  borderRadius: Radius.md,
+                  cursor: Cursor.pointer,
+                ),
+                children: [
+                  ArcaneRow(
+                    gapSize: Gap.sm,
+                    children: [
+                      ArcaneAvatar(initials: 'JD', size: AvatarSize.sm),
+                      ArcaneText('@johndoe'),
+                    ],
+                  ),
+                ],
+              ),
+              content: ArcaneColumn(
+                gapSize: Gap.sm,
+                children: [
+                  ArcaneRow(
+                    gapSize: Gap.sm,
+                    children: [
+                      ArcaneAvatar(initials: 'JD', size: AvatarSize.lg),
+                      ArcaneColumn(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ArcaneText('John Doe', weight: FontWeight.bold),
+                          ArcaneText('Software Engineer', color: TextColor.muted, size: FontSize.sm),
+                        ],
+                      ),
+                    ],
+                  ),
+                  ArcaneDivider(),
+                  ArcaneText(
+                    'Building amazing web apps with Dart and Jaspr.',
+                    color: TextColor.muted,
+                    size: FontSize.sm,
+                  ),
+                ],
+              ),
+              position: HovercardPosition.bottom,
+            ),
+            ArcaneHovercard(
+              trigger: ArcaneText(
+                'Hover for info',
+                color: TextColor.accent,
+              ),
+              content: ArcaneDiv(
+                styles: const ArcaneStyleData(maxWidthCustom: '250px'),
+                children: [
+                  ArcaneText(
+                    'This is additional information that appears on hover.',
+                    color: TextColor.muted,
+                    size: FontSize.sm,
+                  ),
+                ],
+              ),
+              position: HovercardPosition.right,
+            ),
+          ],
+        ),
+        ArcaneText(
+          'Hover over the elements above to see hovercards.',
+          size: FontSize.sm,
+          color: TextColor.muted,
+        ),
+      ],
+    );
+  }
+}
+
+/// Interactive tooltip demo
+class TooltipDemo extends StatelessComponent {
+  const TooltipDemo({super.key});
+
+  @override
+  Component build(BuildContext context) {
+    return ArcaneRow(
+      gapSize: Gap.lg,
+      children: [
+        ArcaneTooltip(
+          content: 'This is a helpful tooltip',
+          child: ArcaneButton.secondary(label: 'Hover me', onPressed: () {}),
+        ),
+        ArcaneTooltip(
+          content: 'Another tooltip with more info',
+          child: ArcaneIconButton(
+            icon: ArcaneIcon.info(),
+            onPressed: () {},
+          ),
+        ),
+      ],
+    );
+  }
+}

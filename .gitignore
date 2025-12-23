@@ -8,3 +8,5 @@ CLAUDE.md
 pubspec.lock
 
 .claude/
+
+build/

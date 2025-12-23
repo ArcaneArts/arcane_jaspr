@@ -179,7 +179,7 @@ class DemoRegistry {
       case 'feature-card':
         return ViewDemos.featureCard();
       case 'tooltip':
-        return ViewDemos.tooltip();
+        return [const TooltipDemo()];
       case 'accordion':
         return [const AccordionDemo()];
       case 'toast':
@@ -197,9 +197,11 @@ class DemoRegistry {
       case 'tree-view':
         return [const TreeViewDemo()];
       case 'popover':
-        return ViewDemos.popover();
+        return [const PopoverDemo()];
       case 'hovercard':
-        return ViewDemos.hovercard();
+        return [const HovercardDemo()];
+      case 'expander':
+        return [const ExpanderDemo()];
       case 'icon':
         return ViewDemos.icon();
       case 'svg':
@@ -213,11 +215,11 @@ class DemoRegistry {
       case 'bottom-nav':
         return [const BottomNavDemo()];
       case 'dropdown-menu':
-        return NavigationDemos.dropdownMenu();
+        return [const DropdownMenuDemo()];
       case 'mobile-menu':
-        return NavigationDemos.mobileMenu();
+        return [const MobileMenuDemo()];
       case 'mega-menu':
-        return NavigationDemos.megaMenu();
+        return [const MegaMenuDemo()];
       case 'breadcrumbs':
         return NavigationDemos.breadcrumbs();
       case 'pagination':
@@ -248,6 +250,8 @@ class DemoRegistry {
         return AuthDemos.signupCard();
       case 'forgot-password-card':
         return AuthDemos.forgotPasswordCard();
+      case 'social-buttons':
+        return AuthDemos.socialButtons();
       case 'github-button':
         return AuthDemos.githubButton();
       case 'google-button':

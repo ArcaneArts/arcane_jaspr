@@ -151,26 +151,54 @@ class AuthDemos {
     return [
       ArcaneDiv(
         styles: const ArcaneStyleData(
-          heightCustom: '500px',
+          heightCustom: '400px',
+          widthCustom: '100%',
           overflow: Overflow.hidden,
           borderRadius: Radius.lg,
           border: BorderPreset.standard,
         ),
         children: [
           AuthSplitLayout(
-            brandingContent: const AuthBrandingPanel(
-              tagline: 'Build amazing apps',
-              description: 'The complete authentication solution for your Jaspr web applications.',
-              features: [
-                'Firebase Authentication',
-                'OAuth providers (GitHub, Google, Apple)',
-                'Email/password support',
-                'Route protection with guards',
+            brandingContent: ArcaneDiv(
+              styles: const ArcaneStyleData(
+                padding: PaddingPreset.xl,
+                display: Display.flex,
+                flexDirection: FlexDirection.column,
+                justifyContent: JustifyContent.center,
+                heightCustom: '100%',
+              ),
+              children: [
+                ArcaneHeadline('Welcome Back'),
+                ArcaneDiv(
+                  styles: const ArcaneStyleData(margin: MarginPreset.topMd),
+                  children: [
+                    ArcaneText(
+                      'Sign in to continue to your account.',
+                      color: TextColor.muted,
+                    ),
+                  ],
+                ),
               ],
             ),
-            formContent: ArcaneLoginCard(
-              methods: const [AuthMethod.email, AuthMethod.github],
-              signupRoute: '/signup',
+            formContent: ArcaneDiv(
+              styles: const ArcaneStyleData(
+                padding: PaddingPreset.xl,
+                display: Display.flex,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                justifyContent: JustifyContent.center,
+                heightCustom: '100%',
+              ),
+              children: [
+                ArcaneColumn(
+                  gapSize: Gap.md,
+                  children: [
+                    ArcaneText('Sign In', weight: FontWeight.bold, size: FontSize.xl),
+                    ArcaneTextInput(label: 'Email'),
+                    ArcaneTextInput(label: 'Password', type: InputType.password),
+                    ArcaneButton.primary(label: 'Sign In', onPressed: () {}),
+                  ],
+                ),
+              ],
             ),
           ),
         ],
@@ -284,6 +312,49 @@ class AuthDemos {
               ],
             ),
           ),
+        ],
+      ),
+    ];
+  }
+
+  /// All social sign-in buttons demo
+  static List<Component> socialButtons() {
+    return [
+      ArcaneDiv(
+        styles: const ArcaneStyleData(
+          display: Display.flex,
+          flexDirection: FlexDirection.column,
+          gap: Gap.md,
+          padding: PaddingPreset.lg,
+          maxWidth: MaxWidth.card,
+        ),
+        children: [
+          // Primary providers
+          ArcaneText('Primary Providers', weight: FontWeight.w600, size: FontSize.sm),
+          const GithubSignInButton(fullWidth: true, onPressed: null),
+          const GoogleSignInButton(fullWidth: true, onPressed: null),
+          const AppleSignInButton(fullWidth: true, onPressed: null),
+          const MicrosoftSignInButton(fullWidth: true, onPressed: null),
+
+          ArcaneDiv(
+            styles: const ArcaneStyleData(margin: MarginPreset.topMd),
+            children: [
+              ArcaneText('Social Providers', weight: FontWeight.w600, size: FontSize.sm),
+            ],
+          ),
+          const FacebookSignInButton(fullWidth: true, onPressed: null),
+          const TwitterSignInButton(fullWidth: true, onPressed: null),
+          const LinkedInSignInButton(fullWidth: true, onPressed: null),
+
+          ArcaneDiv(
+            styles: const ArcaneStyleData(margin: MarginPreset.topMd),
+            children: [
+              ArcaneText('Developer Providers', weight: FontWeight.w600, size: FontSize.sm),
+            ],
+          ),
+          const GitLabSignInButton(fullWidth: true, onPressed: null),
+          const DiscordSignInButton(fullWidth: true, onPressed: null),
+          const SlackSignInButton(fullWidth: true, onPressed: null),
         ],
       ),
     ];

@@ -263,6 +263,13 @@ export 'component/button/social_button.dart';
 export 'component/button/github_button.dart';
 export 'component/button/google_button.dart';
 export 'component/button/apple_button.dart';
+export 'component/button/microsoft_button.dart';
+export 'component/button/discord_button.dart';
+export 'component/button/twitter_button.dart';
+export 'component/button/facebook_button.dart';
+export 'component/button/linkedin_button.dart';
+export 'component/button/slack_button.dart';
+export 'component/button/gitlab_button.dart';
 
 // ============================================================================
 // Authentication - Form Components
