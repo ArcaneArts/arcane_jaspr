@@ -5,153 +5,143 @@ import '../../util/tokens/tokens.dart';
 
 /// Theme toggle size
 enum ThemeToggleSize {
-  small,
-  medium,
-  large,
+  sm,
+  md,
+  lg,
 }
 
-/// Day/Night theme toggle switch
+/// A toggle switch for dark/light theme selection.
+///
+/// Clean, accessible toggle with clear visual states.
+///
+/// ```dart
+/// ArcaneThemeToggle(
+///   isDark: true,
+///   onChanged: (isDark) => print(isDark),
+/// )
+/// ```
 class ArcaneThemeToggle extends StatelessComponent {
+  /// Current theme state (true = dark)
   final bool isDark;
+
+  /// Size variant
   final ThemeToggleSize size;
-  final void Function(bool)? onChanged;
+
+  /// Callback when theme changes
+  final void Function(bool isDark)? onChanged;
 
   const ArcaneThemeToggle({
     this.isDark = true,
-    this.size = ThemeToggleSize.medium,
+    this.size = ThemeToggleSize.md,
     this.onChanged,
     super.key,
   });
 
   @override
   Component build(BuildContext context) {
-    final (width, height, iconSize, thumbSize) = switch (size) {
-      ThemeToggleSize.small => ('52px', '28px', '14px', '20px'),
-      ThemeToggleSize.medium => ('64px', '36px', '18px', '28px'),
-      ThemeToggleSize.large => ('80px', '44px', '22px', '36px'),
+    final (width, height, thumbSize, iconSize) = switch (size) {
+      ThemeToggleSize.sm => ('48px', '26px', '20px', '12px'),
+      ThemeToggleSize.md => ('56px', '30px', '24px', '14px'),
+      ThemeToggleSize.lg => ('68px', '36px', '30px', '18px'),
     };
 
-    return div(
+    return button(
+      type: ButtonType.button,
+      classes: 'arcane-theme-toggle',
+      attributes: {
+        'data-theme': isDark ? 'dark' : 'light',
+        'aria-label': isDark ? 'Switch to light mode' : 'Switch to dark mode',
+        'role': 'switch',
+        'aria-checked': isDark.toString(),
+      },
       styles: Styles(raw: {
         'position': 'relative',
+        'display': 'flex',
+        'align-items': 'center',
         'width': width,
         'height': height,
+        'padding': '3px',
+        'border': 'none',
         'border-radius': ArcaneRadius.full,
         'background': isDark
-            ? 'linear-gradient(135deg, ${ArcaneColors.accent} 0%, ${ArcaneColors.info} 100%)'
-            : 'linear-gradient(135deg, ${ArcaneColors.warning} 0%, ${ArcaneColors.accent} 100%)',
+            ? ArcaneColors.surfaceVariant
+            : ArcaneColors.warningAlpha30,
         'cursor': 'pointer',
-        'transition': ArcaneEffects.transitionNormal,
-        'box-shadow': isDark
-            ? 'inset 0 2px 4px ${ArcaneColors.onSurfaceAlpha30}, 0 0 20px ${ArcaneColors.accentAlpha10}'
-            : 'inset 0 2px 4px ${ArcaneColors.onSurfaceAlpha10}, 0 0 20px ${ArcaneColors.warningAlpha30}',
-        'overflow': 'hidden',
+        'transition': 'background 0.2s ease',
       }),
       events: onChanged != null
-          ? {
-              'click': (event) => onChanged!(!isDark),
-            }
+          ? {'click': (_) => onChanged!(!isDark)}
           : null,
       [
-        // Stars (visible in dark mode)
-        if (isDark) ...[
-          for (var i = 0; i < 5; i++)
-            div(
-              styles: Styles(raw: {
-                'position': 'absolute',
-                'width': '2px',
-                'height': '2px',
-                'background': ArcaneColors.onBackground,
-                'border-radius': ArcaneRadius.full,
-                'opacity': '0.6',
-                'left': '${10 + i * 8}px',
-                'top': '${8 + (i % 3) * 6}px',
-              }),
-              [],
-            ),
-        ],
-        // Clouds (visible in light mode)
-        if (!isDark) ...[
-          const div(
-            styles: Styles(raw: {
-              'position': 'absolute',
-              'width': '16px',
-              'height': '8px',
-              'background': ArcaneColors.surface,
-              'border-radius': ArcaneRadius.full,
-              'opacity': '0.8',
-              'left': '8px',
-              'top': '10px',
-            }),
-            [],
-          ),
-          const div(
-            styles: Styles(raw: {
-              'position': 'absolute',
-              'width': '12px',
-              'height': '6px',
-              'background': ArcaneColors.surface,
-              'border-radius': ArcaneRadius.full,
-              'opacity': '0.6',
-              'left': '14px',
-              'top': '20px',
-            }),
-            [],
-          ),
-        ],
-        // Thumb (sun/moon)
+        // Track icons
         div(
+          classes: 'arcane-theme-toggle-icons',
           styles: Styles(raw: {
             'position': 'absolute',
-            'top': '50%',
-            'transform': 'translateY(-50%)',
-            'left': isDark ? 'calc(100% - $thumbSize - 4px)' : '4px',
+            'inset': '0',
+            'display': 'flex',
+            'align-items': 'center',
+            'justify-content': 'space-between',
+            'padding': '0 6px',
+            'font-size': iconSize,
+            'pointer-events': 'none',
+          }),
+          [
+            // Sun icon (left)
+            span(
+              classes: 'arcane-theme-toggle-sun',
+              styles: Styles(raw: {
+                'opacity': isDark ? '0.3' : '1',
+                'transition': 'opacity 0.2s ease',
+              }),
+              [text('☀️')],
+            ),
+            // Moon icon (right)
+            span(
+              classes: 'arcane-theme-toggle-moon',
+              styles: Styles(raw: {
+                'opacity': isDark ? '1' : '0.3',
+                'transition': 'opacity 0.2s ease',
+              }),
+              [text('🌙')],
+            ),
+          ],
+        ),
+
+        // Thumb
+        div(
+          classes: 'arcane-theme-toggle-thumb',
+          styles: Styles(raw: {
+            'position': 'relative',
             'width': thumbSize,
             'height': thumbSize,
             'border-radius': ArcaneRadius.full,
             'background': isDark ? ArcaneColors.onSurface : ArcaneColors.warning,
-            'box-shadow': isDark
-                ? '0 0 10px ${ArcaneColors.onSurfaceAlpha50}'
-                : '0 0 15px ${ArcaneColors.warningAlpha30}',
-            'transition': ArcaneEffects.transitionNormal,
-            'display': 'flex',
-            'align-items': 'center',
-            'justify-content': 'center',
-            'overflow': 'hidden',
+            'box-shadow': '0 2px 4px ${ArcaneColors.onSurfaceAlpha20}',
+            'transition': 'transform 0.2s ease, background 0.2s ease',
+            'transform': isDark ? 'translateX(calc($width - $thumbSize - 6px))' : 'translateX(0)',
           }),
-          [
-            // Moon craters or sun rays
-            if (isDark)
-              const div(
-                styles: Styles(raw: {
-                  'position': 'absolute',
-                  'width': '40%',
-                  'height': '40%',
-                  'background': ArcaneColors.onSurfaceAlpha30,
-                  'border-radius': ArcaneRadius.full,
-                  'top': '20%',
-                  'right': '20%',
-                }),
-                [],
-              ),
-            span(
-              styles: Styles(raw: {
-                'font-size': iconSize,
-                'line-height': '1',
-              }),
-              [text(isDark ? '🌙' : '☀️')],
-            ),
-          ],
+          [],
         ),
       ],
     );
   }
 }
 
-/// Simple text-based theme toggle
+/// Simple inline theme toggle with labels.
+///
+/// ```dart
+/// ArcaneThemeToggleSimple(
+///   isDark: true,
+///   onChanged: (isDark) => print(isDark),
+/// )
+/// ```
 class ArcaneThemeToggleSimple extends StatelessComponent {
+  /// Current theme state (true = dark)
   final bool isDark;
-  final void Function(bool)? onChanged;
+
+  /// Callback when theme changes
+  final void Function(bool isDark)? onChanged;
 
   const ArcaneThemeToggleSimple({
     this.isDark = true,
@@ -161,60 +151,76 @@ class ArcaneThemeToggleSimple extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
+    return button(
+      type: ButtonType.button,
+      classes: 'arcane-theme-toggle-simple',
+      attributes: {
+        'data-theme': isDark ? 'dark' : 'light',
+        'aria-label': isDark ? 'Switch to light mode' : 'Switch to dark mode',
+        'role': 'switch',
+        'aria-checked': isDark.toString(),
+      },
       styles: const Styles(raw: {
-        'display': 'flex',
+        'display': 'inline-flex',
         'align-items': 'center',
         'gap': ArcaneSpacing.sm,
-        'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
+        'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
+        'border': 'none',
         'border-radius': ArcaneRadius.full,
-        'background': ArcaneColors.onSurfaceAlpha30,
+        'background': ArcaneColors.surfaceVariant,
         'cursor': 'pointer',
       }),
       events: onChanged != null
-          ? {
-              'click': (event) => onChanged!(!isDark),
-            }
+          ? {'click': (_) => onChanged!(!isDark)}
           : null,
       [
+        // Sun
         span(
+          classes: 'arcane-theme-toggle-simple-sun',
           styles: Styles(raw: {
-            'font-size': ArcaneTypography.fontLg,
+            'font-size': ArcaneTypography.fontMd,
             'opacity': isDark ? '0.4' : '1',
-            'transition': ArcaneEffects.transitionFast,
+            'transition': 'opacity 0.2s ease',
           }),
           [text('☀️')],
         ),
+
         // Toggle track
         div(
+          classes: 'arcane-theme-toggle-simple-track',
           styles: Styles(raw: {
             'position': 'relative',
-            'width': '40px',
-            'height': '20px',
+            'width': '36px',
+            'height': '18px',
             'border-radius': ArcaneRadius.full,
-            'background': isDark ? ArcaneColors.surfaceVariant : ArcaneColors.warningAlpha30,
+            'background': isDark ? ArcaneColors.accent : ArcaneColors.warning,
           }),
           [
+            // Thumb
             div(
+              classes: 'arcane-theme-toggle-simple-thumb',
               styles: Styles(raw: {
                 'position': 'absolute',
                 'top': '2px',
-                'left': isDark ? '22px' : '2px',
-                'width': '16px',
-                'height': '16px',
+                'width': '14px',
+                'height': '14px',
                 'border-radius': ArcaneRadius.full,
-                'background': ArcaneColors.onSurface,
-                'transition': ArcaneEffects.transitionFast,
+                'background': ArcaneColors.surface,
+                'transition': 'left 0.2s ease',
+                'left': isDark ? '20px' : '2px',
               }),
               [],
             ),
           ],
         ),
+
+        // Moon
         span(
+          classes: 'arcane-theme-toggle-simple-moon',
           styles: Styles(raw: {
-            'font-size': ArcaneTypography.fontLg,
+            'font-size': ArcaneTypography.fontMd,
             'opacity': isDark ? '1' : '0.4',
-            'transition': ArcaneEffects.transitionFast,
+            'transition': 'opacity 0.2s ease',
           }),
           [text('🌙')],
         ),

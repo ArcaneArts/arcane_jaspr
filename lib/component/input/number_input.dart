@@ -3,18 +3,6 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 
 import '../../util/tokens/tokens.dart';
 
-/// Number input style variants
-enum NumberInputStyle {
-  /// Default style with buttons on sides
-  sideBySide,
-
-  /// Compact with stacked buttons on right
-  stacked,
-
-  /// Inline minimal style
-  inline,
-}
-
 /// Number input size variants
 enum NumberInputSize {
   sm,
@@ -22,14 +10,15 @@ enum NumberInputSize {
   lg,
 }
 
-/// Numeric input with increment/decrement controls
+/// Numeric input with increment/decrement controls.
+///
+/// Clean stepper with +/- buttons and proper data attributes for static site support.
 ///
 /// ```dart
 /// ArcaneNumberInput(
 ///   value: 5,
 ///   min: 0,
 ///   max: 100,
-///   step: 1,
 ///   onChanged: (value) => print(value),
 /// )
 /// ```
@@ -49,9 +38,6 @@ class ArcaneNumberInput extends StatelessComponent {
   /// Callback when value changes
   final void Function(num)? onChanged;
 
-  /// Style variant
-  final NumberInputStyle style;
-
   /// Size variant
   final NumberInputSize size;
 
@@ -67,11 +53,8 @@ class ArcaneNumberInput extends StatelessComponent {
   /// Suffix text (e.g., "kg")
   final String? suffix;
 
-  /// Whether to allow decimal values
-  final bool allowDecimals;
-
   /// Number of decimal places to display
-  final int decimalPlaces;
+  final int decimals;
 
   const ArcaneNumberInput({
     required this.value,
@@ -79,50 +62,39 @@ class ArcaneNumberInput extends StatelessComponent {
     this.max = 100,
     this.step = 1,
     this.onChanged,
-    this.style = NumberInputStyle.sideBySide,
     this.size = NumberInputSize.md,
     this.disabled = false,
     this.label,
     this.prefix,
     this.suffix,
-    this.allowDecimals = false,
-    this.decimalPlaces = 2,
+    this.decimals = 0,
     super.key,
   });
 
-  (String height, String fontSize, String buttonSize) get _sizeStyles =>
-      switch (size) {
-        NumberInputSize.sm => ('32px', ArcaneTypography.fontSm, '28px'),
-        NumberInputSize.md => ('40px', ArcaneTypography.fontMd, '36px'),
-        NumberInputSize.lg => ('48px', ArcaneTypography.fontLg, '44px'),
-      };
-
-  void _increment() {
-    if (disabled) return;
-    final newValue = (value + step).clamp(min, max);
-    onChanged?.call(allowDecimals ? newValue : newValue.toInt());
-  }
-
-  void _decrement() {
-    if (disabled) return;
-    final newValue = (value - step).clamp(min, max);
-    onChanged?.call(allowDecimals ? newValue : newValue.toInt());
-  }
-
-  String _formatValue() {
-    if (allowDecimals) {
-      return value.toStringAsFixed(decimalPlaces);
-    }
-    return value.toInt().toString();
-  }
-
   @override
   Component build(BuildContext context) {
-    final (height, fontSize, buttonSize) = _sizeStyles;
+    final (height, fontSize, buttonWidth) = switch (size) {
+      NumberInputSize.sm => ('32px', ArcaneTypography.fontSm, '32px'),
+      NumberInputSize.md => ('40px', ArcaneTypography.fontMd, '40px'),
+      NumberInputSize.lg => ('48px', ArcaneTypography.fontLg, '48px'),
+    };
+
     final canDecrement = value > min;
     final canIncrement = value < max;
+    final displayValue = decimals > 0
+        ? value.toStringAsFixed(decimals)
+        : value.toInt().toString();
 
     return div(
+      classes: 'arcane-number-input',
+      attributes: {
+        'data-value': value.toString(),
+        'data-min': min.toString(),
+        'data-max': max.toString(),
+        'data-step': step.toString(),
+        'data-decimals': decimals.toString(),
+        'data-disabled': disabled.toString(),
+      },
       styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
@@ -131,205 +103,145 @@ class ArcaneNumberInput extends StatelessComponent {
       [
         // Label
         if (label != null)
-          Component.element(
-            tag: 'label',
+          span(
+            classes: 'arcane-number-input-label',
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
               'font-weight': ArcaneTypography.weightMedium,
               'color': ArcaneColors.onSurface,
             }),
-            children: [text(label!)],
+            [text(label!)],
           ),
 
         // Input container
         div(
+          classes: 'arcane-number-input-container',
           styles: Styles(raw: {
-            'display': 'flex',
-            'align-items': 'center',
+            'display': 'inline-flex',
+            'align-items': 'stretch',
             'height': height,
+            'border': '1px solid ${ArcaneColors.border}',
+            'border-radius': ArcaneRadius.md,
+            'overflow': 'hidden',
             'opacity': disabled ? '0.5' : '1',
           }),
           [
-            if (style == NumberInputStyle.sideBySide) ...[
-              // Decrement button
-              _buildButton('-', canDecrement && !disabled, _decrement, buttonSize, fontSize,
-                  isLeft: true),
+            // Decrement button
+            button(
+              type: ButtonType.button,
+              classes: 'arcane-number-input-decrement',
+              attributes: {
+                if (!canDecrement || disabled) 'disabled': 'true',
+              },
+              styles: Styles(raw: {
+                'display': 'flex',
+                'align-items': 'center',
+                'justify-content': 'center',
+                'width': buttonWidth,
+                'height': '100%',
+                'padding': '0',
+                'border': 'none',
+                'border-right': '1px solid ${ArcaneColors.border}',
+                'background': (canDecrement && !disabled)
+                    ? ArcaneColors.surfaceVariant
+                    : ArcaneColors.surface,
+                'color': (canDecrement && !disabled)
+                    ? ArcaneColors.onSurface
+                    : ArcaneColors.muted,
+                'font-size': fontSize,
+                'font-weight': ArcaneTypography.weightBold,
+                'cursor': (canDecrement && !disabled) ? 'pointer' : 'not-allowed',
+                'transition': ArcaneEffects.transitionFast,
+                'user-select': 'none',
+              }),
+              events: (canDecrement && !disabled)
+                  ? {
+                      'click': (_) {
+                        final newValue = (value - step).clamp(min, max);
+                        onChanged?.call(decimals > 0 ? newValue : newValue.toInt());
+                      },
+                    }
+                  : null,
+              [text('-')],
+            ),
 
-              // Value display
-              div(
-                styles: Styles(raw: {
-                  'display': 'flex',
-                  'align-items': 'center',
-                  'justify-content': 'center',
-                  'gap': ArcaneSpacing.xs,
-                  'height': '100%',
-                  'min-width': '60px',
-                  'padding': '0 ${ArcaneSpacing.sm}',
-                  'background': ArcaneColors.input,
-                  'border-top': '1px solid ${ArcaneColors.border}',
-                  'border-bottom': '1px solid ${ArcaneColors.border}',
-                  'font-size': fontSize,
-                  'font-weight': ArcaneTypography.weightMedium,
-                  'color': ArcaneColors.onSurface,
-                }),
-                [
-                  if (prefix != null)
-                    span(
-                      styles: const Styles(raw: {'color': ArcaneColors.muted}),
-                      [text(prefix!)],
-                    ),
-                  text(_formatValue()),
-                  if (suffix != null)
-                    span(
-                      styles: const Styles(raw: {'color': ArcaneColors.muted}),
-                      [text(suffix!)],
-                    ),
-                ],
-              ),
+            // Value display
+            div(
+              classes: 'arcane-number-input-value',
+              styles: Styles(raw: {
+                'display': 'flex',
+                'align-items': 'center',
+                'justify-content': 'center',
+                'gap': ArcaneSpacing.xs,
+                'min-width': '60px',
+                'padding': '0 ${ArcaneSpacing.sm}',
+                'background': ArcaneColors.input,
+                'font-size': fontSize,
+                'font-weight': ArcaneTypography.weightMedium,
+                'font-variant-numeric': 'tabular-nums',
+                'color': ArcaneColors.onSurface,
+              }),
+              [
+                if (prefix != null)
+                  span(
+                    classes: 'arcane-number-input-prefix',
+                    styles: const Styles(raw: {'color': ArcaneColors.muted}),
+                    [text(prefix!)],
+                  ),
+                span(
+                  classes: 'arcane-number-input-display',
+                  [text(displayValue)],
+                ),
+                if (suffix != null)
+                  span(
+                    classes: 'arcane-number-input-suffix',
+                    styles: const Styles(raw: {'color': ArcaneColors.muted}),
+                    [text(suffix!)],
+                  ),
+              ],
+            ),
 
-              // Increment button
-              _buildButton('+', canIncrement && !disabled, _increment, buttonSize, fontSize,
-                  isRight: true),
-            ] else if (style == NumberInputStyle.stacked) ...[
-              // Value display with stacked buttons
-              div(
-                styles: Styles(raw: {
-                  'display': 'flex',
-                  'align-items': 'center',
-                  'height': '100%',
-                  'padding': '0 ${ArcaneSpacing.md}',
-                  'background': ArcaneColors.input,
-                  'border': '1px solid ${ArcaneColors.border}',
-                  'border-radius': '${ArcaneRadius.md} 0 0 ${ArcaneRadius.md}',
-                  'font-size': fontSize,
-                  'color': ArcaneColors.onSurface,
-                  'gap': ArcaneSpacing.xs,
-                }),
-                [
-                  if (prefix != null)
-                    span(
-                      styles: const Styles(raw: {'color': ArcaneColors.muted}),
-                      [text(prefix!)],
-                    ),
-                  text(_formatValue()),
-                  if (suffix != null)
-                    span(
-                      styles: const Styles(raw: {'color': ArcaneColors.muted}),
-                      [text(suffix!)],
-                    ),
-                ],
-              ),
-              div(
-                styles: const Styles(raw: {
-                  'display': 'flex',
-                  'flex-direction': 'column',
-                  'height': '100%',
-                }),
-                [
-                  _buildStackedButton('▲', canIncrement && !disabled, _increment),
-                  _buildStackedButton('▼', canDecrement && !disabled, _decrement),
-                ],
-              ),
-            ] else ...[
-              // Inline style
-              _buildInlineButton('-', canDecrement && !disabled, _decrement),
-              span(
-                styles: Styles(raw: {
-                  'padding': '0 ${ArcaneSpacing.sm}',
-                  'font-size': fontSize,
-                  'font-weight': ArcaneTypography.weightMedium,
-                  'color': ArcaneColors.onSurface,
-                  'min-width': '40px',
-                  'text-align': 'center',
-                }),
-                [
-                  if (prefix != null) text(prefix!),
-                  text(_formatValue()),
-                  if (suffix != null) text(suffix!),
-                ],
-              ),
-              _buildInlineButton('+', canIncrement && !disabled, _increment),
-            ],
+            // Increment button
+            button(
+              type: ButtonType.button,
+              classes: 'arcane-number-input-increment',
+              attributes: {
+                if (!canIncrement || disabled) 'disabled': 'true',
+              },
+              styles: Styles(raw: {
+                'display': 'flex',
+                'align-items': 'center',
+                'justify-content': 'center',
+                'width': buttonWidth,
+                'height': '100%',
+                'padding': '0',
+                'border': 'none',
+                'border-left': '1px solid ${ArcaneColors.border}',
+                'background': (canIncrement && !disabled)
+                    ? ArcaneColors.surfaceVariant
+                    : ArcaneColors.surface,
+                'color': (canIncrement && !disabled)
+                    ? ArcaneColors.onSurface
+                    : ArcaneColors.muted,
+                'font-size': fontSize,
+                'font-weight': ArcaneTypography.weightBold,
+                'cursor': (canIncrement && !disabled) ? 'pointer' : 'not-allowed',
+                'transition': ArcaneEffects.transitionFast,
+                'user-select': 'none',
+              }),
+              events: (canIncrement && !disabled)
+                  ? {
+                      'click': (_) {
+                        final newValue = (value + step).clamp(min, max);
+                        onChanged?.call(decimals > 0 ? newValue : newValue.toInt());
+                      },
+                    }
+                  : null,
+              [text('+')],
+            ),
           ],
         ),
       ],
-    );
-  }
-
-  Component _buildButton(String content, bool enabled, VoidCallback onTap,
-      String buttonSize, String fontSize,
-      {bool isLeft = false, bool isRight = false}) {
-    return button(
-      type: ButtonType.button,
-      attributes: enabled ? null : {'disabled': 'true'},
-      styles: Styles(raw: {
-        'display': 'flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'width': buttonSize,
-        'height': '100%',
-        'padding': '0',
-        'border': '1px solid ${ArcaneColors.border}',
-        'background': enabled ? ArcaneColors.surfaceVariant : ArcaneColors.surface,
-        'color': enabled ? ArcaneColors.onSurface : ArcaneColors.muted,
-        'font-size': fontSize,
-        'font-weight': ArcaneTypography.weightBold,
-        'cursor': enabled ? 'pointer' : 'not-allowed',
-        'transition': ArcaneEffects.transitionFast,
-        if (isLeft) 'border-radius': '${ArcaneRadius.md} 0 0 ${ArcaneRadius.md}',
-        if (isRight) 'border-radius': '0 ${ArcaneRadius.md} ${ArcaneRadius.md} 0',
-      }),
-      events: enabled ? {'click': (_) => onTap()} : null,
-      [text(content)],
-    );
-  }
-
-  Component _buildStackedButton(String content, bool enabled, VoidCallback onTap) {
-    return button(
-      type: ButtonType.button,
-      attributes: enabled ? null : {'disabled': 'true'},
-      styles: Styles(raw: {
-        'display': 'flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'width': '24px',
-        'flex': '1',
-        'padding': '0',
-        'border': '1px solid ${ArcaneColors.border}',
-        'border-left': 'none',
-        'background': enabled ? ArcaneColors.surfaceVariant : ArcaneColors.surface,
-        'color': enabled ? ArcaneColors.onSurface : ArcaneColors.muted,
-        'font-size': '8px',
-        'cursor': enabled ? 'pointer' : 'not-allowed',
-        'transition': ArcaneEffects.transitionFast,
-      }),
-      events: enabled ? {'click': (_) => onTap()} : null,
-      [text(content)],
-    );
-  }
-
-  Component _buildInlineButton(String content, bool enabled, VoidCallback onTap) {
-    return button(
-      type: ButtonType.button,
-      attributes: enabled ? null : {'disabled': 'true'},
-      styles: Styles(raw: {
-        'display': 'flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'width': '28px',
-        'height': '28px',
-        'padding': '0',
-        'border': 'none',
-        'background': 'transparent',
-        'color': enabled ? ArcaneColors.accent : ArcaneColors.muted,
-        'font-size': ArcaneTypography.fontLg,
-        'font-weight': ArcaneTypography.weightBold,
-        'cursor': enabled ? 'pointer' : 'not-allowed',
-        'border-radius': ArcaneRadius.full,
-        'transition': ArcaneEffects.transitionFast,
-      }),
-      events: enabled ? {'click': (_) => onTap()} : null,
-      [text(content)],
     );
   }
 }

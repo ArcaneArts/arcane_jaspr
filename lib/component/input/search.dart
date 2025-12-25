@@ -3,6 +3,7 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 
 import '../../util/tokens/tokens.dart';
 import '../../util/tokens/style_presets.dart';
+import '../view/icon.dart';
 
 /// A search input component with optional icon and clear button.
 class ArcaneSearch extends StatefulComponent {
@@ -21,10 +22,13 @@ class ArcaneSearch extends StatefulComponent {
   /// Whether to show the clear button
   final bool showClear;
 
+  /// Whether to show the search icon
+  final bool showIcon;
+
   /// Whether the search is loading
   final bool loading;
 
-  /// Custom leading icon
+  /// Custom leading icon (overrides default search icon)
   final Component? icon;
 
   /// Whether to autofocus
@@ -45,6 +49,7 @@ class ArcaneSearch extends StatefulComponent {
     this.onChanged,
     this.onSubmitted,
     this.showClear = true,
+    this.showIcon = true,
     this.loading = false,
     this.icon,
     this.autofocus = false,
@@ -111,8 +116,10 @@ class _ArcaneSearchState extends State<ArcaneSearch> {
         // Search icon
         if (component.loading)
           _buildSpinner()
-        else
-          component.icon ?? _buildSearchIcon(),
+        else if (component.icon != null)
+          component.icon!
+        else if (component.showIcon)
+          _buildSearchIcon(),
 
         // Input field
         input(
@@ -176,13 +183,9 @@ class _ArcaneSearchState extends State<ArcaneSearch> {
   }
 
   Component _buildSearchIcon() {
-    return span(
-      classes: 'arcane-search-icon',
-      styles: const Styles(raw: {
-        'color': ArcaneColors.muted,
-        'font-size': ArcaneTypography.fontReg,
-      }),
-      [text('🔍')],
+    return ArcaneIcon.search(
+      size: IconSize.md,
+      color: ArcaneColors.muted,
     );
   }
 

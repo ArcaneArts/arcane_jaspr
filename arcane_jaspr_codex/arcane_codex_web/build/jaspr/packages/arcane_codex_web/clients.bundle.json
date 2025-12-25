@@ -1,1 +1,0 @@
-[{"name":"InteractiveDemo","id":["arcane_codex_web","lib/components/interactive_demo.dart"],"import":"package:arcane_codex_web/components/interactive_demo.dart","params":[{"name":"componentType","isNamed":true,"decoder":"p['componentType'] as String","encoder":"c.componentType"}]}]

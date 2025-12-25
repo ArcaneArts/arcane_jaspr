@@ -4,10 +4,12 @@ import 'package:fast_log/fast_log.dart';
 
 import '../../util/appearance/theme.dart';
 import '../../util/arcane.dart';
+import '../../util/interactivity/arcane_scripts.dart';
 
 /// Root application component for Arcane Jaspr apps.
 ///
 /// Wraps the app with theme provider and applies CSS custom properties.
+/// Automatically injects fallback JavaScript for static sites.
 class ArcaneApp extends StatefulComponent {
   /// The theme configuration
   final ArcaneTheme theme;
@@ -24,12 +26,23 @@ class ArcaneApp extends StatefulComponent {
   /// Optional additional head elements
   final List<Component>? head;
 
+  /// Whether to include fallback scripts for static sites.
+  ///
+  /// When true (default), JavaScript is injected that provides interactivity
+  /// for Arcane components when Jaspr client hydration is unavailable
+  /// (e.g., on static sites built with `jaspr build`).
+  ///
+  /// The scripts automatically detect if hydration is active and skip
+  /// themselves if so, preventing any conflicts.
+  final bool includeFallbackScripts;
+
   const ArcaneApp({
     this.theme = const ArcaneTheme(),
     required this.child,
     this.title,
     this.description,
     this.head,
+    this.includeFallbackScripts = true,
     super.key,
   });
 
@@ -136,7 +149,11 @@ class _ArcaneAppState extends State<ArcaneApp> {
         '-webkit-font-smoothing': 'antialiased',
         '-moz-osx-font-smoothing': 'grayscale',
       }),
-      [component.child],
+      [
+        component.child,
+        // Include fallback scripts for static sites
+        if (component.includeFallbackScripts) const ArcaneScriptsComponent(),
+      ],
     );
     verbose('_ArcaneAppState.build() - div created');
 

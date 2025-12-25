@@ -9,6 +9,262 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+#### Automatic Fallback Scripts for Static Sites
+
+`ArcaneApp` now automatically injects JavaScript fallback scripts when Jaspr client hydration is unavailable (e.g., on static sites built with `jaspr build`).
+
+- **Zero configuration**: Just use `ArcaneApp` and interactivity works on static sites
+- **Hydration-aware**: Scripts detect if Jaspr hydration is active and skip themselves
+- **Comprehensive coverage**: All interactive components (sliders, checkboxes, toggles, inputs, accordions, tabs, etc.)
+- **Opt-out available**: Set `includeFallbackScripts: false` if not needed
+
+```dart
+// Works automatically on static sites
+ArcaneApp(
+  theme: ArcaneTheme.green,
+  child: MyContent(),
+)
+
+// Opt out if using full Jaspr hydration
+ArcaneApp(
+  includeFallbackScripts: false,
+  child: MyContent(),
+)
+```
+
+New exports:
+- `ArcaneScripts` - Contains all fallback JavaScript
+- `ArcaneScriptsComponent` - Component to manually inject scripts
+
+**Modular Script Organization**
+
+Scripts are now organized into separate files for maintainability:
+- `SliderScripts` - Range sliders
+- `InputScripts` - Checkboxes, toggles, color pickers, file uploads, tag inputs, number inputs
+- `ButtonScripts` - Buttons, toggle buttons, cycle buttons, theme toggles
+- `NavigationScripts` - Tabs, accordions, dropdowns, selectors, tree views, pagination, chips
+- `DialogScripts` - Dialogs, toasts, popovers, tooltips, drawers, mobile menus
+
+**Complete Component Coverage**
+
+JavaScript handlers added for all interactive components:
+- Sliders and range sliders
+- Color inputs with preset swatches
+- Checkboxes and radio buttons
+- Toggle switches and toggle buttons
+- Cycle buttons (rotating options)
+- Number inputs (+/- buttons)
+- Tag inputs (add/remove tags)
+- File uploads (dropzone and button styles)
+- Theme toggles (fancy and simple)
+- Tabs and accordions
+- Dropdown selectors
+- Tree views with expand/collapse
+- Pagination controls
+- Dismissible chips
+- Back-to-top buttons
+- Dialogs and modals
+- Toasts and notifications
+- Popovers and hovercards
+- Tooltips
+- Drawers and mobile menus
+
+**Codex Documentation Site**
+- Fixed interactive component demos on static site
+- Custom layouts like `ArcaneDocsLayout` now properly inject `ArcaneScriptsComponent` for fallback interactivity
+
+#### Redesigned ArcaneSlider
+
+Modern shadcn-inspired slider with cleaner aesthetics:
+- Thinner, more elegant track (4-8px based on size)
+- Refined thumb with border accent instead of heavy shadow
+- Size variants: `SliderSize.sm`, `SliderSize.md`, `SliderSize.lg`
+- Optional step markers (`showSteps: true`)
+- Disabled state support
+- Decimal place control for value display (`valueDecimals`)
+- Better hit area for easier interaction
+
+```dart
+ArcaneSlider(
+  value: 50,
+  size: SliderSize.md,
+  step: 10,
+  showSteps: true,
+  onChanged: (v) => setState(() => value = v),
+)
+```
+
+#### Enhanced ArcaneSearch
+
+- `showIcon` parameter to optionally hide the search icon
+- Uses `ArcaneIcon.search` (SVG) instead of emoji
+
+#### Enhanced ArcaneSelector
+
+Comprehensive upgrade with many new customization options:
+
+**Size Variants**
+- `SelectorSize.sm`, `SelectorSize.md`, `SelectorSize.lg` for different contexts
+
+**Multi-Select Support**
+- `multiSelect: true` to allow multiple selections
+- `values` and `onMultiChanged` for multi-select state management
+- `maxSelections` to limit number of selections
+- `showCheckboxes` to display checkboxes in options
+- `showSelectedCount` to display count badge when multiple selected
+- `closeOnSelect` to control dropdown behavior after selection
+
+**Loading State**
+- `loading: true` shows spinner and loading text
+- `loadingText` to customize loading message
+
+**Form Integration**
+- `required` to show required indicator asterisk
+- `helperText` for additional guidance below selector
+- `error` for validation error messages
+
+**Dropdown Customization**
+- `maxDropdownHeight` to control dropdown size
+- `dropdownDirection` (up/down) for positioning
+- `prefix` to add icon/component before value
+- `searchPlaceholder` to customize search input text
+- `emptyMessage` for custom "no results" text
+
+**Enhanced Options**
+- `ArcaneSelectorOption.subtitle` for secondary text
+- `ArcaneSelectorOption.description` for right-side text
+- `ArcaneSelectorOption.searchKeywords` for additional search terms
+- `ArcaneSelectorOption.group` for option grouping
+- `filterFn` for custom search filtering logic
+
+```dart
+// Multi-select with all features
+ArcaneSelector<String>(
+  label: 'Skills',
+  required: true,
+  multiSelect: true,
+  searchable: true,
+  values: selectedSkills,
+  maxSelections: 5,
+  helperText: 'Select up to 5 skills',
+  options: skills.map((s) => ArcaneSelectorOption(
+    value: s.id,
+    label: s.name,
+    subtitle: s.category,
+  )).toList(),
+  onMultiChanged: (v) => setState(() => selectedSkills = v),
+)
+```
+
+#### Enhanced ArcaneCycleButton
+
+- Options now embedded as data attributes for static site support
+- Properly cycles through all options on click
+- Added `.arcane-cycle-button-label` and `.arcane-cycle-button-indicator` classes for reliable JS targeting
+
+#### Completely Rewritten Components for Static Site Support
+
+The following components have been completely rewritten with proper class-based selectors and data attributes for reliable JavaScript interactivity on static sites:
+
+**ArcaneColorInput** (Rewritten)
+- Simplified, focused design with clear class structure
+- Classes: `.arcane-color-input`, `.arcane-color-input-swatch`, `.arcane-color-input-native`, `.arcane-color-input-hex`, `.arcane-color-input-preset`
+- Data attributes: `data-value`, `data-disabled`, `data-color` (on presets)
+- Size variants via `ColorInputSize` enum (sm, md, lg)
+- `showHexInput` parameter to optionally hide hex text input
+- Proper synchronization between native picker, hex input, and preset swatches
+
+```dart
+ArcaneColorInput(
+  value: '#10b981',
+  size: ColorInputSize.md,
+  label: 'Primary Color',
+  onChanged: (color) => print(color),
+)
+```
+
+**ArcaneThemeToggle** (Rewritten)
+- Now uses `<button>` element for proper accessibility
+- Classes: `.arcane-theme-toggle`, `.arcane-theme-toggle-thumb`, `.arcane-theme-toggle-sun`, `.arcane-theme-toggle-moon`
+- Data attribute: `data-theme` ("dark" or "light")
+- Size variants via `ThemeToggleSize` enum (sm, md, lg)
+- Proper ARIA attributes (`role="switch"`, `aria-checked`, `aria-label`)
+- Clean toggle animation with smooth transitions
+
+```dart
+ArcaneThemeToggle(
+  isDark: true,
+  size: ThemeToggleSize.md,
+  onChanged: (isDark) => print(isDark),
+)
+```
+
+**ArcaneThemeToggleSimple** (Rewritten)
+- Inline toggle with sun/moon labels
+- Classes: `.arcane-theme-toggle-simple`, `.arcane-theme-toggle-simple-track`, `.arcane-theme-toggle-simple-thumb`
+- Same accessibility improvements as main toggle
+
+**ArcaneNumberInput** (Rewritten)
+- Clean stepper design with +/- buttons
+- Classes: `.arcane-number-input`, `.arcane-number-input-decrement`, `.arcane-number-input-increment`, `.arcane-number-input-display`, `.arcane-number-input-value`
+- Data attributes: `data-value`, `data-min`, `data-max`, `data-step`, `data-decimals`
+- Size variants via `NumberInputSize` enum (sm, md, lg)
+- `decimals` parameter for decimal place display
+- Proper button state management (disabled when at min/max)
+
+```dart
+ArcaneNumberInput(
+  value: 5,
+  min: 0,
+  max: 100,
+  step: 1,
+  size: NumberInputSize.md,
+  prefix: '\$',
+  onChanged: (value) => print(value),
+)
+```
+
+#### Slider Start/End Indicators
+
+Both `ArcaneSlider` and `ArcaneRangeSlider` now have visual indicators at the track boundaries:
+- Start indicator (0%): Accent-colored vertical bar, more prominent
+- End indicator (100%): Muted/accent-colored vertical bar
+- 3px wide bars extending slightly beyond track height for visibility
+- Makes slider boundaries immediately obvious to users
+
+#### ArcaneTextArea Resize Enhancement
+
+- Demo page now uses `resize: TextAreaResize.both` for bidirectional resizing
+- Added `minWidth` and `minHeight` constraints in demo
+
+#### JavaScript Handler Improvements
+
+Completely rewritten JavaScript handlers in `input_scripts.dart` and `button_scripts.dart`:
+
+**Color Input Handler**
+- Targets `.arcane-color-input` container
+- Synchronizes native picker, hex input, and preset swatches
+- Updates `data-value` attribute for state tracking
+- Proper preset border highlighting
+
+**Number Input Handler**
+- Targets `.arcane-number-input` container
+- Reads min/max/step/decimals from data attributes
+- Updates display and button states on value change
+- Proper clamping to min/max bounds
+
+**Theme Toggle Handler**
+- Targets `.arcane-theme-toggle` and `.arcane-theme-toggle-simple`
+- Updates `data-theme` attribute
+- Animates thumb position and icon opacity
+- Updates background colors based on theme
+
+**Cycle Button Handler**
+- Targets `.arcane-cycle-button`
+- Reads options from `data-options` (pipe-delimited)
+- Updates `.arcane-cycle-button-label` text
+- Spins `.arcane-cycle-button-indicator` on click
+
 #### Enhanced ArcaneStyleData with New CSS Abstractions
 
 This release significantly reduces the need for `raw:` CSS by adding type-safe enums for common CSS patterns.
@@ -103,6 +359,19 @@ ArcaneDiv(
 
 ### Fixed
 
+#### ArcaneSlider and ArcaneRangeSlider
+
+- **Interactivity**: Fixed sliders being purely visual with no user interaction
+  - Root cause: Components rendered custom visual elements but had no event handlers or native input elements
+  - Fix: Added hidden native `<input type="range">` elements that overlay the visual slider and capture user input
+  - Both `ArcaneSlider` and `ArcaneRangeSlider` now respond to drag/click interactions
+
+#### ArcaneColorInput
+
+- **Click handling**: Fixed color picker not opening when clicking the color swatch
+  - Root cause: Overlapping positioned elements blocked pointer events to the hidden color input
+  - Fix: Wrapped swatch in `<label>` element and added `pointer-events: none` to visual layers, ensuring clicks reach the native color picker
+
 #### ArcaneHovercard and ArcanePopover
 
 - **Hover functionality**: Fixed hover events not triggering properly on `ArcaneHovercard` and `ArcanePopover` (hover mode)
@@ -115,6 +384,10 @@ ArcaneDiv(
 - **Font loading**: Added Google Fonts (Inter, Fira Code) via CSS imports - fonts now load correctly on GitHub Pages
 - **Base href**: Fixed asset paths for GitHub Pages subdirectory hosting at `/arcane_jaspr/`
 - **Theme consistency**: Fonts now consistent between local development and production deployment
+- **Interactive demos**: Added comprehensive JavaScript handlers for all interactive components on static site
+  - **Input components**: Range sliders, color inputs with preset swatches, number input increment/decrement, tag input add/remove, select dropdowns, toggle button groups, radio buttons, cycle buttons
+  - **View components**: Expanders/accordions expand/collapse, inline tabs selection, toast notifications, tree view node expand/collapse, popovers and hovercards on hover/click
+  - **Navigation components**: Drawer open/close with backdrop, sidebar nav item selection, bottom nav selection
 
 ### Documentation
 

@@ -60,10 +60,10 @@ class _ArcaneCycleButtonState<T> extends State<ArcaneCycleButton<T>> {
   @override
   Component build(BuildContext context) {
     final effectiveStyle = component.style ?? ButtonStyle.outline;
-    final currentOption = component.options.firstWhere(
-      (opt) => opt.value == component.value,
-      orElse: () => component.options.first,
-    );
+    final currentIndex = component.options.indexWhere((opt) => opt.value == component.value);
+    final currentOption = currentIndex >= 0
+        ? component.options[currentIndex]
+        : component.options.first;
 
     // Get size-specific styles
     final sizeStyle = switch (component.size) {
@@ -72,11 +72,19 @@ class _ArcaneCycleButtonState<T> extends State<ArcaneCycleButton<T>> {
       ButtonSize.large => ButtonSizeStyle.lg,
     };
 
+    // Encode options as JSON for static site JavaScript
+    final optionsJson = component.options
+        .map((opt) => opt.label ?? opt.value.toString())
+        .toList()
+        .join('|');
+
     return button(
       classes: 'arcane-cycle-button ${component.disabled ? 'disabled' : ''}',
       attributes: {
         if (component.disabled) 'disabled': 'true',
         'type': 'button',
+        'data-options': optionsJson,
+        'data-index': '${currentIndex >= 0 ? currentIndex : 0}',
       },
       styles: Styles(raw: {
         'display': 'inline-flex',
@@ -97,12 +105,18 @@ class _ArcaneCycleButtonState<T> extends State<ArcaneCycleButton<T>> {
       },
       [
         if (currentOption.icon != null) currentOption.icon!,
-        if (currentOption.label != null) text(currentOption.label!),
+        if (currentOption.label != null)
+          span(
+            classes: 'arcane-cycle-button-label',
+            [text(currentOption.label!)],
+          ),
         // Cycle indicator
         span(
+          classes: 'arcane-cycle-button-indicator',
           styles: const Styles(raw: {
             'font-size': '0.75em',
             'opacity': '0.7',
+            'display': 'inline-block',
           }),
           [text('⟳')],
         ),

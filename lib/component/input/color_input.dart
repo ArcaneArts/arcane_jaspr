@@ -3,18 +3,6 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 
 import '../../util/tokens/tokens.dart';
 
-/// Color input style variants
-enum ColorInputStyle {
-  /// Color swatch only
-  swatch,
-
-  /// Swatch with hex input
-  withInput,
-
-  /// Inline swatch in text input
-  inline,
-}
-
 /// Color input size variants
 enum ColorInputSize {
   sm,
@@ -22,9 +10,9 @@ enum ColorInputSize {
   lg,
 }
 
-/// Color picker/input component
+/// Color picker/input component with swatch preview and hex input.
 ///
-/// Allows users to select colors.
+/// Uses native color picker with custom styling for consistent appearance.
 ///
 /// ```dart
 /// ArcaneColorInput(
@@ -39,9 +27,6 @@ class ArcaneColorInput extends StatelessComponent {
   /// Callback when color changes
   final void Function(String color)? onChanged;
 
-  /// Style variant
-  final ColorInputStyle style;
-
   /// Size variant
   final ColorInputSize size;
 
@@ -54,48 +39,51 @@ class ArcaneColorInput extends StatelessComponent {
   /// Preset color swatches
   final List<String>? presets;
 
-  /// Whether to show the alpha channel
-  final bool showAlpha;
+  /// Whether to show the hex text input
+  final bool showHexInput;
 
   const ArcaneColorInput({
     required this.value,
     this.onChanged,
-    this.style = ColorInputStyle.withInput,
     this.size = ColorInputSize.md,
     this.disabled = false,
     this.label,
     this.presets,
-    this.showAlpha = false,
+    this.showHexInput = true,
     super.key,
   });
 
   /// Common color presets
   static const defaultPresets = [
-    '#ef4444', // red
-    '#f97316', // orange
-    '#eab308', // yellow
-    '#22c55e', // green
-    '#14b8a6', // teal
-    '#3b82f6', // blue
-    '#8b5cf6', // violet
-    '#ec4899', // pink
-    '#6b7280', // gray
-    '#000000', // black
+    '#ef4444',
+    '#f97316',
+    '#eab308',
+    '#22c55e',
+    '#14b8a6',
+    '#3b82f6',
+    '#8b5cf6',
+    '#ec4899',
+    '#6b7280',
+    '#000000',
   ];
-
-  (String swatchSize, String fontSize, String padding) get _sizeStyles =>
-      switch (size) {
-        ColorInputSize.sm => ('24px', ArcaneTypography.fontSm, '6px 10px'),
-        ColorInputSize.md => ('32px', ArcaneTypography.fontMd, '8px 12px'),
-        ColorInputSize.lg => ('40px', ArcaneTypography.fontLg, '10px 16px'),
-      };
 
   @override
   Component build(BuildContext context) {
-    final (swatchSize, fontSize, inputPadding) = _sizeStyles;
+    final (swatchSize, fontSize, inputPadding) = switch (size) {
+      ColorInputSize.sm => ('28px', ArcaneTypography.fontSm, '6px 10px'),
+      ColorInputSize.md => ('36px', ArcaneTypography.fontMd, '8px 12px'),
+      ColorInputSize.lg => ('44px', ArcaneTypography.fontLg, '10px 16px'),
+    };
+
     final colorPresets = presets ?? defaultPresets;
+    final normalizedValue = _normalizeColor(value);
 
     return div(
+      classes: 'arcane-color-input',
+      attributes: {
+        'data-value': normalizedValue,
+        'data-disabled': disabled.toString(),
+      },
       styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
@@ -104,64 +92,47 @@ class ArcaneColorInput extends StatelessComponent {
       [
         // Label
         if (label != null)
-          Component.element(
-            tag: 'label',
+          span(
+            classes: 'arcane-color-input-label',
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
               'font-weight': ArcaneTypography.weightMedium,
               'color': ArcaneColors.onSurface,
             }),
-            children: [text(label!)],
+            [text(label!)],
           ),
 
-        // Input row
+        // Main input row
         div(
+          classes: 'arcane-color-input-row',
           styles: const Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
             'gap': ArcaneSpacing.sm,
           }),
           [
-            // Color swatch/picker
+            // Color swatch with native picker
             div(
+              classes: 'arcane-color-input-swatch',
               styles: Styles(raw: {
                 'position': 'relative',
                 'width': swatchSize,
                 'height': swatchSize,
                 'border-radius': ArcaneRadius.md,
-                'overflow': 'hidden',
+                'background': normalizedValue,
                 'border': '2px solid ${ArcaneColors.border}',
                 'cursor': disabled ? 'not-allowed' : 'pointer',
                 'opacity': disabled ? '0.5' : '1',
+                'overflow': 'hidden',
+                'flex-shrink': '0',
               }),
               [
-                // Background checkerboard (for alpha)
-                if (showAlpha)
-                  const div(
-                    styles: Styles(raw: {
-                      'position': 'absolute',
-                      'inset': '0',
-                    'background':
-                        'repeating-conic-gradient(${ArcaneColors.onSurfaceAlpha20} 0% 25%, ${ArcaneColors.onSurfaceAlpha05} 0% 50%) 50% / 8px 8px',
-                    }),
-                    [],
-                  ),
-
-                // Color display
-                div(
-                  styles: Styles(raw: {
-                    'position': 'absolute',
-                    'inset': '0',
-                    'background': value,
-                  }),
-                  [],
-                ),
-
-                // Native color input (hidden but functional)
+                // Native color input (invisible but functional)
                 input(
                   type: InputType.color,
+                  classes: 'arcane-color-input-native',
                   attributes: {
-                    'value': value.length == 7 ? value : '#000000',
+                    'value': normalizedValue,
                     if (disabled) 'disabled': 'true',
                   },
                   styles: const Styles(raw: {
@@ -170,15 +141,18 @@ class ArcaneColorInput extends StatelessComponent {
                     'width': '100%',
                     'height': '100%',
                     'opacity': '0',
-                    'cursor': 'pointer',
+                    'cursor': 'inherit',
+                    'border': 'none',
+                    'padding': '0',
                   }),
                   events: disabled
                       ? null
                       : {
                           'input': (e) {
-                            final color = (e.target as dynamic)?.value as String?;
+                            final color =
+                                (e.target as dynamic)?.value as String?;
                             if (color != null) {
-                              onChanged?.call(color);
+                              onChanged?.call(color.toUpperCase());
                             }
                           },
                         },
@@ -186,18 +160,20 @@ class ArcaneColorInput extends StatelessComponent {
               ],
             ),
 
-            // Hex input
-            if (style == ColorInputStyle.withInput)
+            // Hex text input
+            if (showHexInput)
               input(
                 type: InputType.text,
+                classes: 'arcane-color-input-hex',
                 attributes: {
-                  'value': value.toUpperCase(),
+                  'value': normalizedValue.toUpperCase(),
                   'placeholder': '#000000',
-                  'maxlength': showAlpha ? '9' : '7',
+                  'maxlength': '7',
+                  'spellcheck': 'false',
                   if (disabled) 'disabled': 'true',
                 },
                 styles: Styles(raw: {
-                  'flex': '1',
+                  'width': '90px',
                   'padding': inputPadding,
                   'font-size': fontSize,
                   'font-family': ArcaneTypography.fontFamilyMono,
@@ -217,8 +193,8 @@ class ArcaneColorInput extends StatelessComponent {
                             if (!color.startsWith('#')) {
                               color = '#$color';
                             }
-                            if (RegExp(r'^#[0-9A-Fa-f]{6,8}$').hasMatch(color)) {
-                              onChanged?.call(color);
+                            if (RegExp(r'^#[0-9A-Fa-f]{6}$').hasMatch(color)) {
+                              onChanged?.call(color.toUpperCase());
                             }
                           }
                         },
@@ -230,6 +206,7 @@ class ArcaneColorInput extends StatelessComponent {
         // Preset swatches
         if (colorPresets.isNotEmpty)
           div(
+            classes: 'arcane-color-input-presets',
             styles: const Styles(raw: {
               'display': 'flex',
               'flex-wrap': 'wrap',
@@ -239,28 +216,27 @@ class ArcaneColorInput extends StatelessComponent {
               for (final preset in colorPresets)
                 button(
                   type: ButtonType.button,
+                  classes: 'arcane-color-input-preset',
                   attributes: {
+                    'data-color': preset.toUpperCase(),
                     if (disabled) 'disabled': 'true',
-                    'title': preset,
                   },
                   styles: Styles(raw: {
                     'width': '24px',
                     'height': '24px',
                     'padding': '0',
-                    'border': preset == value
+                    'border': preset.toUpperCase() == normalizedValue.toUpperCase()
                         ? '2px solid ${ArcaneColors.accent}'
-                        : '2px solid transparent',
+                        : '2px solid ${ArcaneColors.border}',
                     'border-radius': ArcaneRadius.sm,
                     'background': preset,
                     'cursor': disabled ? 'not-allowed' : 'pointer',
                     'transition': ArcaneEffects.transitionFast,
-                    'outline': '2px solid transparent',
-                    'outline-offset': '1px',
                   }),
                   events: disabled
                       ? null
                       : {
-                          'click': (_) => onChanged?.call(preset),
+                          'click': (_) => onChanged?.call(preset.toUpperCase()),
                         },
                   [],
                 ),
@@ -268,5 +244,16 @@ class ArcaneColorInput extends StatelessComponent {
           ),
       ],
     );
+  }
+
+  String _normalizeColor(String color) {
+    if (!color.startsWith('#')) {
+      color = '#$color';
+    }
+    if (color.length == 4) {
+      // Expand shorthand #RGB to #RRGGBB
+      color = '#${color[1]}${color[1]}${color[2]}${color[2]}${color[3]}${color[3]}';
+    }
+    return color.length == 7 ? color : '#000000';
   }
 }

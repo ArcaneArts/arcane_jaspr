@@ -137,6 +137,7 @@ export 'util/appearance/colors.dart';
 export 'util/appearance/color_scheme.dart';
 export 'util/appearance/theme.dart';
 export 'util/arcane.dart';
+export 'util/interactivity/arcane_scripts.dart';
 export 'util/tools/styles.dart';
 
 // ============================================================================

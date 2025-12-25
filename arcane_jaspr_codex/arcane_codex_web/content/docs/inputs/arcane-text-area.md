@@ -28,16 +28,20 @@ ArcaneTextArea(
 | `label` | `String?` | `null` | Field label |
 | `placeholder` | `String?` | `null` | Placeholder text |
 | `value` | `String?` | `null` | Current value |
-| `onChanged` | `ValueChanged<String>?` | `null` | Change handler |
+| `onChange` | `void Function(String)?` | `null` | Change handler |
 | `rows` | `int` | `4` | Number of visible rows |
-| `maxLength` | `int?` | `null` | Maximum characters |
-| `isDisabled` | `bool` | `false` | Disable input |
-| `isReadOnly` | `bool` | `false` | Read-only mode |
-| `isRequired` | `bool` | `false` | Mark as required |
+| `cols` | `int?` | `null` | Number of visible columns (affects initial width) |
+| `disabled` | `bool` | `false` | Disable input |
+| `required` | `bool` | `false` | Mark as required |
 | `error` | `String?` | `null` | Error message |
-| `hint` | `String?` | `null` | Hint text |
-| `resize` | `TextAreaResize` | `vertical` | Resize behavior |
-| `styles` | `ArcaneStyleData?` | `null` | Custom styling |
+| `helperText` | `String?` | `null` | Helper text below input |
+| `resize` | `TextAreaResize` | `vertical` | Resize direction |
+| `minWidth` | `String?` | `null` | Minimum width (e.g., '200px') |
+| `maxWidth` | `String?` | `null` | Maximum width (e.g., '600px') |
+| `minHeight` | `String?` | `null` | Minimum height (e.g., '100px') |
+| `maxHeight` | `String?` | `null` | Maximum height (e.g., '400px') |
+| `fullWidth` | `bool` | `true` | Whether to fill container width |
+| `style` | `InputStyle?` | `null` | Input style preset |
 
 ## Row Configuration
 
@@ -94,7 +98,43 @@ ArcaneTextArea(
 ArcaneTextArea(
   label: 'Fixed',
   resize: TextAreaResize.none,
-  onChanged: (v) {},
+  onChange: (v) {},
+)
+```
+
+## Size Constraints
+
+Control minimum and maximum dimensions when resizing:
+
+```dart
+// Constrained vertical resize
+ArcaneTextArea(
+  label: 'Notes',
+  resize: TextAreaResize.vertical,
+  minHeight: '100px',
+  maxHeight: '400px',
+  onChange: (v) {},
+)
+
+// Constrained horizontal resize
+ArcaneTextArea(
+  label: 'Wide content',
+  resize: TextAreaResize.horizontal,
+  minWidth: '300px',
+  maxWidth: '800px',
+  fullWidth: false,
+  onChange: (v) {},
+)
+
+// Both directions with full constraints
+ArcaneTextArea(
+  label: 'Flexible editor',
+  resize: TextAreaResize.both,
+  minWidth: '200px',
+  maxWidth: '100%',
+  minHeight: '80px',
+  maxHeight: '500px',
+  onChange: (v) {},
 )
 ```
 

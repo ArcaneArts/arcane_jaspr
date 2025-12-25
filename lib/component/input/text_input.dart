@@ -295,6 +295,21 @@ class ArcaneTextInput extends StatelessComponent {
   ];
 }
 
+/// Resize direction for textarea
+enum TextAreaResize {
+  /// No resizing allowed
+  none,
+
+  /// Vertical resizing only (default)
+  vertical,
+
+  /// Horizontal resizing only
+  horizontal,
+
+  /// Both directions
+  both,
+}
+
 /// A textarea component
 class ArcaneTextArea extends StatelessComponent {
   /// Placeholder text
@@ -302,6 +317,9 @@ class ArcaneTextArea extends StatelessComponent {
 
   /// Number of rows
   final int rows;
+
+  /// Number of columns (affects initial width)
+  final int? cols;
 
   /// Style preset
   final InputStyle? style;
@@ -312,8 +330,20 @@ class ArcaneTextArea extends StatelessComponent {
   /// Whether required
   final bool required;
 
-  /// Whether resizable
-  final bool resizable;
+  /// Resize direction (default: vertical)
+  final TextAreaResize resize;
+
+  /// Minimum width constraint (e.g., '200px', '50%')
+  final String? minWidth;
+
+  /// Maximum width constraint (e.g., '600px', '100%')
+  final String? maxWidth;
+
+  /// Minimum height constraint (e.g., '100px')
+  final String? minHeight;
+
+  /// Maximum height constraint (e.g., '400px')
+  final String? maxHeight;
 
   /// Value
   final String? value;
@@ -342,10 +372,15 @@ class ArcaneTextArea extends StatelessComponent {
   const ArcaneTextArea({
     this.placeholder,
     this.rows = 4,
+    this.cols,
     this.style,
     this.disabled = false,
     this.required = false,
-    this.resizable = true,
+    this.resize = TextAreaResize.vertical,
+    this.minWidth,
+    this.maxWidth,
+    this.minHeight,
+    this.maxHeight,
     this.value,
     this.name,
     this.id,
@@ -362,6 +397,14 @@ class ArcaneTextArea extends StatelessComponent {
     final effectiveStyle = style ?? InputStyle.standard;
     final hasError = error != null;
 
+    // Map resize enum to CSS value
+    final resizeValue = switch (resize) {
+      TextAreaResize.none => 'none',
+      TextAreaResize.vertical => 'vertical',
+      TextAreaResize.horizontal => 'horizontal',
+      TextAreaResize.both => 'both',
+    };
+
     final textareaElement = Component.element(
       tag: 'textarea',
       id: id,
@@ -370,11 +413,12 @@ class ArcaneTextArea extends StatelessComponent {
         if (name != null) 'name': name!,
         if (placeholder != null) 'placeholder': placeholder!,
         'rows': rows.toString(),
+        if (cols != null) 'cols': cols.toString(),
         if (disabled) 'disabled': 'true',
         if (required) 'required': 'true',
       },
       styles: Styles(raw: {
-        'width': '100%',
+        if (fullWidth) 'width': '100%',
         'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
         'font-size': ArcaneTypography.fontMd,
         'font-family': 'inherit',
@@ -382,7 +426,11 @@ class ArcaneTextArea extends StatelessComponent {
         ...effectiveStyle.base,
         if (hasError) ...effectiveStyle.error,
         'outline': 'none',
-        'resize': resizable ? 'vertical' : 'none',
+        'resize': resizeValue,
+        if (minWidth != null) 'min-width': minWidth!,
+        if (maxWidth != null) 'max-width': maxWidth!,
+        if (minHeight != null) 'min-height': minHeight!,
+        if (maxHeight != null) 'max-height': maxHeight!,
         if (disabled) ...effectiveStyle.disabled,
       }),
       events: {

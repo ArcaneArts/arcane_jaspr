@@ -1,12 +1,23 @@
-# arcane_jaspr
+# Arcane Jaspr
 
-A comprehensive Dart/Jaspr UI component library implementing the Arcane design system for web applications. Components render to semantic HTML with CSS styling, with built-in Firebase authentication support.
+A modern, comprehensive UI component library for [Jaspr](https://github.com/schultek/jaspr) web applications. Build beautiful, accessible interfaces with semantic HTML and CSS—no Flutter widgets required.
+
+**Works everywhere**: Full interactivity on both hydrated Jaspr apps and static sites.
+
+## Features
+
+- **50+ Components** — Buttons, inputs, dialogs, navigation, data display, and more
+- **One-Line Theming** — 20+ built-in themes with full customization
+- **Static Site Support** — Automatic JavaScript fallbacks when hydration is unavailable
+- **Type-Safe Styling** — `ArcaneStyleData` with enum-based CSS properties
+- **Firebase Auth** — Built-in authentication UI with OAuth support
+- **Accessible** — ARIA attributes, keyboard navigation, semantic HTML
 
 ## Installation
 
 ```yaml
 dependencies:
-  arcane_jaspr: ^2.0.0
+  arcane_jaspr: ^2.5.0
 ```
 
 ## Quick Start
@@ -18,7 +29,7 @@ class App extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return ArcaneApp(
-      theme: ArcaneTheme.green, // One line to theme your entire app!
+      theme: ArcaneTheme.green,
       child: ArcaneScreen(
         header: const ArcaneBar(titleText: 'My App'),
         child: ArcaneContainer(
@@ -40,157 +51,85 @@ class App extends StatelessComponent {
 
 ## Theming
 
-Change your entire app's appearance with a single line:
+Change your entire app's look with one line:
 
 ```dart
-// Primary color themes
-ArcaneTheme.red
-ArcaneTheme.orange
-ArcaneTheme.yellow
-ArcaneTheme.green
-ArcaneTheme.blue
-ArcaneTheme.indigo
-ArcaneTheme.purple
-ArcaneTheme.pink
-
-// Neutral/monochromatic themes
-ArcaneTheme.darkGrey
-ArcaneTheme.grey
-ArcaneTheme.lightGrey
-ArcaneTheme.white
-ArcaneTheme.black
-
-// OLED themes (true black for battery saving)
-ArcaneTheme.oledRed
-ArcaneTheme.oledGreen
-ArcaneTheme.oledBlue
-ArcaneTheme.oledPurple
-ArcaneTheme.oledWhite
+ArcaneApp(
+  theme: ArcaneTheme.blue,  // or .green, .purple, .orange, etc.
+  child: MyApp(),
+)
 ```
 
-### Theme Configuration
+### Available Themes
+
+| Category | Themes |
+|----------|--------|
+| **Primary** | `red`, `orange`, `yellow`, `green`, `blue`, `indigo`, `purple`, `pink` |
+| **Neutral** | `darkGrey`, `grey`, `lightGrey`, `white`, `black` |
+| **OLED** | `oledRed`, `oledGreen`, `oledBlue`, `oledPurple`, `oledWhite` |
+
+### Theme Customization
 
 ```dart
 ArcaneApp(
   theme: ArcaneTheme.blue.copyWith(
-    themeMode: ThemeMode.dark,    // Force dark mode
-    radius: 0.75,                  // Rounder corners
-    surfaceOpacity: 0.9,           // Glass effect opacity
+    themeMode: ThemeMode.dark,
+    radius: 0.75,           // Corner roundness
+    surfaceOpacity: 0.9,    // Glass effect
   ),
   child: MyApp(),
 )
 ```
 
-### Custom Theme Schema
-
-Create your own theme by extending `ThemeSchema`:
-
-```dart
-class MyCustomTheme extends ThemeSchema {
-  const MyCustomTheme();
-
-  @override
-  String get id => 'my_custom';
-
-  @override
-  String get name => 'My Custom Theme';
-
-  @override
-  ColorSwatch get accentSwatch => Swatches.violet;
-
-  @override
-  ColorSwatch get neutralSwatch => Swatches.zinc;
-}
-
-// Use it
-ArcaneApp(
-  theme: ArcaneTheme(schema: const MyCustomTheme()),
-  child: MyApp(),
-)
-```
-
-### CSS Custom Properties
-
-All themes generate 150+ CSS variables:
-
-| Property | Description |
-|----------|-------------|
-| `--arcane-accent` | Primary accent color |
-| `--arcane-accent-50` to `--arcane-accent-950` | Full accent swatch |
-| `--arcane-background` | Page background |
-| `--arcane-surface` | Card/container surface |
-| `--arcane-on-surface` | Text on surface |
-| `--arcane-border` | Border color |
-| `--arcane-success` | Success color |
-| `--arcane-warning` | Warning color |
-| `--arcane-destructive` | Error/destructive color |
-| `--arcane-info` | Info color |
-
 ## Components
 
-### Input Components
+### Buttons
 
 ```dart
-// Buttons
 ArcaneButton.primary(label: 'Primary', onPressed: () {})
 ArcaneButton.secondary(label: 'Secondary', onPressed: () {})
 ArcaneButton.outline(label: 'Outline', onPressed: () {})
 ArcaneButton.ghost(label: 'Ghost', onPressed: () {})
 ArcaneButton.destructive(label: 'Delete', onPressed: () {})
+ArcaneButton.link(label: 'Link', onPressed: () {})
 
-// Icon button
-ArcaneIconButton(
-  icon: span([Component.text('\u2699')]),
-  tooltip: 'Settings',
-  onPressed: () {},
-)
-
-// Text inputs
-ArcaneTextInput(
-  label: 'Email',
-  placeholder: 'Enter email...',
-  onChanged: (value) {},
-)
-
-ArcaneTextArea(
-  rows: 5,
-  placeholder: 'Enter description...',
-  onChanged: (value) {},
-)
-
-// Selection
-ArcaneSelect<String>(
-  value: selectedValue,
-  options: [
-    ArcaneSelectOption(value: 'a', label: 'Option A'),
-    ArcaneSelectOption(value: 'b', label: 'Option B'),
-  ],
-  onChanged: (value) {},
-)
-
-ArcaneCheckbox(
-  label: 'Accept terms',
-  checked: accepted,
-  onChanged: (value) {},
-)
-
-ArcaneToggleSwitch(
-  value: enabled,
-  onChanged: (value) {},
-)
-
-ArcaneSlider(
-  value: 50,
-  min: 0,
-  max: 100,
-  onChanged: (value) {},
-)
+ArcaneIconButton(icon: ArcaneIcon.settings, onPressed: () {})
 ```
 
-### Layout Components
+### Inputs
 
 ```dart
-// Flex layouts
+// Text
+ArcaneTextInput(label: 'Email', placeholder: 'you@example.com')
+ArcaneTextArea(label: 'Bio', rows: 4, resize: TextAreaResize.both)
+ArcaneSearch(placeholder: 'Search...')
+
+// Selection
+ArcaneSelect(options: [...], value: selected)
+ArcaneSelector(options: [...], value: selected, searchable: true)
+ArcaneCheckbox(checked: true, onChanged: (_) {})
+ArcaneRadio(selected: true, label: 'Option A')
+ArcaneToggleSwitch(value: true, onChanged: (_) {})
+
+// Specialized
+ArcaneSlider(value: 50, min: 0, max: 100)
+ArcaneRangeSlider(minValue: 20, maxValue: 80)
+ArcaneNumberInput(value: 5, min: 0, max: 10)
+ArcaneColorInput(value: '#10b981', label: 'Color')
+ArcaneTagInput(tags: ['React', 'Vue'], placeholder: 'Add tag...')
+ArcaneFileUpload(onFilesSelected: (_) {})
+
+// Toggles
+ArcaneThemeToggle(isDark: true, onChanged: (_) {})
+ArcaneCycleButton(options: [...], value: 'a')
+ArcaneToggleButton(value: false, label: 'Bold')
+ArcaneToggleButtonGroup(options: ['S', 'M', 'L'], selectedIndex: 1)
+```
+
+### Layout
+
+```dart
+// Flex
 ArcaneRow(children: [...])
 ArcaneColumn(children: [...])
 ArcaneCenter(child: ...)
@@ -200,37 +139,44 @@ ArcaneContainer(maxWidth: MaxWidth.lg, child: ...)
 ArcaneCard(child: ...)
 ArcaneSection(header: 'Title', children: [...])
 
-// Positioning
-ArcaneStack(children: [...])
-ArcanePositioned(top: '10px', left: '20px', child: ...)
+// Grid
+ArcaneDiv(
+  styles: ArcaneStyleData(
+    display: Display.grid,
+    gridColumns: GridColumns.three,
+    gap: Gap.lg,
+  ),
+  children: [...],
+)
 
 // Spacing
 ArcanePadding(padding: PaddingPreset.lg, child: ...)
 ArcaneGutter.medium()
 ArcaneSpacer()
 
-// Tabs
-ArcaneTabs(tabs: [
-  ArcaneTab(label: 'Tab 1', content: ...),
-  ArcaneTab(label: 'Tab 2', content: ...),
-])
+// Scroll Rail (sticky sidebar)
+ArcaneScrollRail(
+  width: '280px',
+  topOffset: '64px',
+  children: [...],
+)
 ```
 
-### Typography
+### Navigation
 
 ```dart
-ArcaneHeadline('Main Title')
-ArcaneSubheadline('Subtitle')
-ArcaneHeading(level: 2, text: 'Section Title')
-ArcaneParagraph(child: ArcaneText('Body text...'))
-ArcaneCodeSnippet(code: 'print("Hello");', language: 'dart')
-ArcaneInlineCode('variable')
+ArcaneBar(titleText: 'App', trailing: [...])
+ArcaneSidebar(children: [...])
+ArcaneBottomNav(items: [...], selectedIndex: 0)
+ArcaneTabs(tabs: [...])
+ArcaneDropdownMenu(trigger: ..., items: [...])
+ArcaneBreadcrumb(items: [...])
 ```
 
-### View Components
+### Display
 
 ```dart
-ArcaneAvatar(imageUrl: 'https://...', size: 48)
+ArcaneAvatar(imageUrl: '...', size: 48)
 ArcaneBadge(label: 'New', variant: BadgeVariant.success)
 ArcaneChip(label: 'Tag', onRemove: () {})
 ArcaneDivider()
@@ -238,40 +184,22 @@ ArcaneProgressBar(value: 0.75)
 ArcaneLoader()
 ArcaneSkeleton(width: 200, height: 20)
 ArcaneEmptyState(message: 'No items found')
-ArcaneTooltip(message: 'Help text', child: ...)
+ArcaneTooltip(message: 'Help', child: ...)
 ArcaneAccordion(items: [...])
-```
-
-### Navigation
-
-```dart
-ArcaneHeader(title: 'App Name', trailing: [...])
-ArcaneSidebar(children: [...])
-ArcaneBottomNav(items: [...], selectedIndex: 0)
-ArcaneDropdownMenu(trigger: ..., items: [...])
+ArcaneDataTable(columns: [...], rows: [...])
 ```
 
 ### Feedback
 
 ```dart
-ArcaneDialog(
-  title: 'Confirm',
-  child: Component.text('Are you sure?'),
-  actions: [...],
-  onClose: () {},
-)
-
-ArcaneAlertBanner(
-  message: 'Operation successful',
-  variant: AlertVariant.success,
-)
-
+ArcaneDialog(title: 'Confirm', child: ..., onClose: () {})
+ArcaneAlertBanner(message: 'Success!', variant: AlertVariant.success)
 ArcaneToast(message: 'Saved!')
 ```
 
 ## Styling System
 
-Use `ArcaneStyleData` for type-safe CSS:
+Use `ArcaneStyleData` for type-safe, enum-based CSS:
 
 ```dart
 ArcaneDiv(
@@ -283,94 +211,76 @@ ArcaneDiv(
     background: Background.surface,
     borderRadius: Radius.lg,
     shadow: Shadow.md,
-    transition: Transition.allFast,
   ),
   children: [...],
 )
 ```
 
-### Flex Shorthand
-
-Use `FlexPreset` instead of raw CSS for common flex patterns:
+### Flex Presets
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
-    flex: FlexPreset.expand,    // flex: 1 1 0%
-    // flex: FlexPreset.none,   // flex: 0 0 auto
-    // flex: FlexPreset.auto,   // flex: 1 1 auto
-    // flex: FlexPreset.fixed,  // flex: 0 0 auto
-  ),
-)
+flex: FlexPreset.expand,    // flex: 1 1 0% (fill available space)
+flex: FlexPreset.none,      // flex: 0 0 auto (fixed size)
+flex: FlexPreset.auto,      // flex: 1 1 auto
+flex: FlexPreset.equal,     // flex: 1 1 0 (equal distribution)
 ```
 
-### Grid Layouts
-
-Type-safe grid templates:
+### Grid Templates
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
-    display: Display.grid,
-    gridColumns: GridColumns.three,      // repeat(3, 1fr)
-    // gridColumns: GridColumns.autoFitMd, // repeat(auto-fit, minmax(280px, 1fr))
-    // gridColumns: GridColumns.sidebar,   // 280px 1fr
-    gridRows: GridRows.headerContentFooter, // auto 1fr auto
-    gap: Gap.lg,
-    placeItems: PlaceItems.center,
-  ),
-)
+gridColumns: GridColumns.three,        // repeat(3, 1fr)
+gridColumns: GridColumns.autoFitMd,    // repeat(auto-fit, minmax(280px, 1fr))
+gridColumns: GridColumns.sidebar,      // 280px 1fr
+gridRows: GridRows.headerContentFooter, // auto 1fr auto
 ```
 
 ### Border Width
 
-Control border widths without raw CSS:
-
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
-    borderLeft: BorderPreset.accent,
-    borderLeftWidth: BorderWidth.thick,  // 3px
-    // borderWidth: BorderWidth.medium,  // 2px all sides
-  ),
-)
+borderLeft: BorderPreset.accent,
+borderLeftWidth: BorderWidth.thick,  // 3px
 ```
 
 ### Raw CSS Fallback
 
-For properties not covered by enums, use raw CSS:
-
 ```dart
-div(
-  styles: Styles(raw: {
-    'backdrop-filter': 'blur(10px)',
-    'custom-property': 'value',
-  }),
-  [...],
+ArcaneDiv(
+  styles: ArcaneStyleData(
+    raw: {'backdrop-filter': 'blur(10px)'},
+  ),
+  children: [...],
 )
 ```
 
-### Scroll Rail Layout
+## Static Site Support
 
-Create sticky scrollable sidebars that maintain position:
+`ArcaneApp` automatically injects JavaScript fallbacks for static sites built with `jaspr build`. All interactive components work without hydration:
 
 ```dart
-ArcaneScrollRail(
-  width: '280px',
-  topOffset: '64px', // Below fixed header
-  scrollPersistenceId: 'sidebar', // Persists scroll position
-  children: [
-    // Navigation items...
-  ],
+// Works on both hydrated apps and static sites
+ArcaneApp(
+  theme: ArcaneTheme.green,
+  child: MyContent(),
 )
 
-// Or use the complete layout:
-ArcaneScrollRailLayout(
-  headerHeight: '64px',
-  rail: MySidebar(),
-  child: MainContent(),
+// Opt out if using full Jaspr hydration
+ArcaneApp(
+  includeFallbackScripts: false,
+  child: MyContent(),
 )
 ```
+
+### Supported Components
+
+All interactive components have JavaScript fallbacks:
+- Sliders, range sliders
+- Color inputs, number inputs
+- Checkboxes, radios, toggle switches
+- Theme toggles, cycle buttons
+- Dropdowns, selectors
+- Tabs, accordions
+- Dialogs, toasts, popovers
+- And more...
 
 ## Authentication
 
@@ -381,48 +291,31 @@ Built-in Firebase authentication with OAuth:
 ArcaneAuthProvider(
   serverApiUrl: 'https://api.example.com',
   redirectOnLogin: '/dashboard',
-  redirectOnLogout: '/login',
   child: App(),
 )
 
 // 2. Protect routes
-AuthGuard(
-  redirectTo: '/login',
-  child: DashboardScreen(),
-)
+AuthGuard(redirectTo: '/login', child: Dashboard())
 
 // 3. Guest-only routes
-GuestGuard(
-  redirectTo: '/dashboard',
-  child: LoginScreen(),
-)
+GuestGuard(redirectTo: '/dashboard', child: LoginPage())
 
 // 4. Pre-built auth UI
 ArcaneLoginCard(
-  methods: const [AuthMethod.email, AuthMethod.github, AuthMethod.google],
+  methods: [AuthMethod.email, AuthMethod.github, AuthMethod.google],
   signupRoute: '/signup',
-  forgotPasswordRoute: '/forgot-password',
 )
 
-ArcaneSignupCard(
-  methods: const [AuthMethod.email, AuthMethod.github],
-  loginRoute: '/login',
-  passwordPolicy: PasswordPolicy.strong,
-  termsUrl: '/terms',
-  privacyUrl: '/privacy',
-)
-
-// 5. Auth context access
+// 5. Access auth state
 if (context.isAuthenticated) {
   final user = context.currentUser;
 }
 
 context.signInWithGitHub();
-context.signInWithGoogle();
 context.signOut();
 ```
 
-### Social Sign-in Buttons
+### Social Sign-In Buttons
 
 ```dart
 GithubSignInButton(onPressed: () => context.signInWithGitHub())
@@ -430,87 +323,87 @@ GoogleSignInButton(onPressed: () => context.signInWithGoogle())
 AppleSignInButton(onPressed: () => context.signInWithApple())
 ```
 
-### Auth Layouts
-
-```dart
-AuthSplitLayout(
-  brandingContent: AuthBrandingPanel(
-    tagline: 'Build amazing apps',
-    description: 'The complete solution.',
-    features: ['Feature 1', 'Feature 2'],
-  ),
-  formContent: ArcaneLoginCard(...),
-)
-```
-
 ### Password Policies
 
 ```dart
-// Presets
-PasswordPolicy.weak    // 6+ chars
-PasswordPolicy.medium  // 8+ chars, uppercase, number
-PasswordPolicy.strong  // 8+ chars, upper, lower, number, special
+PasswordPolicy.weak     // 6+ chars
+PasswordPolicy.medium   // 8+ chars, uppercase, number
+PasswordPolicy.strong   // 8+ chars, upper, lower, number, special
 
 // Custom
 PasswordPolicy(
-  minLength: 10,
+  minLength: 12,
   requireUppercase: true,
-  requireLowercase: true,
-  requireNumber: true,
   requireSpecialChar: true,
 )
+```
 
-// Validation
-String? error = policy.validate(password);
-bool isValid = policy.isValid(password);
+## CSS Custom Properties
+
+All themes generate 150+ CSS variables:
+
+```css
+--arcane-accent           /* Primary accent color */
+--arcane-accent-50..950   /* Full accent swatch */
+--arcane-background       /* Page background */
+--arcane-surface          /* Card/container surface */
+--arcane-on-surface       /* Text on surface */
+--arcane-border           /* Border color */
+--arcane-success          /* Success states */
+--arcane-warning          /* Warning states */
+--arcane-error            /* Error states */
+--arcane-info             /* Info states */
 ```
 
 ## Project Structure
 
 ```
 lib/
-├── arcane_jaspr.dart       # Main barrel export
+├── arcane_jaspr.dart       # Main export
 ├── component/
-│   ├── auth/               # Auth UI (login, signup, forgot password)
+│   ├── auth/               # Auth UI components
 │   ├── button/             # Social sign-in buttons
-│   ├── dialog/             # Modals, toasts
-│   ├── feedback/           # Alerts, loaders
-│   ├── form/               # Form fields, wrappers
+│   ├── dialog/             # Modals, toasts, popovers
+│   ├── feedback/           # Alerts, loaders, progress
+│   ├── form/               # Form fields, validation
 │   ├── html/               # HTML element wrappers
 │   ├── input/              # Buttons, inputs, toggles
-│   ├── layout/             # Containers, grids, layouts
+│   ├── layout/             # Containers, grids, tabs
 │   ├── navigation/         # Sidebar, header, nav
 │   ├── screen/             # Full-page screens
 │   └── view/               # Display components
-├── provider/
-│   ├── auth_provider.dart  # Auth context provider
-│   └── auth_guard.dart     # Route protection guards
-├── service/
-│   ├── auth_service.dart   # Firebase Auth via JS interop
-│   └── auth_state.dart     # Auth models
+├── provider/               # Auth context, guards
+├── service/                # Firebase auth service
 └── util/
-    ├── appearance/         # Colors, schemes, themes
+    ├── appearance/         # Colors, themes
+    ├── interactivity/      # Static site scripts
     ├── style_types/        # ArcaneStyleData enums
-    ├── tokens/             # Design tokens
-    └── auth/               # Password policy
-```
-
-## Testing
-
-```bash
-# Run tests (requires Chrome for web APIs)
-dart test -p chrome
+    └── tokens/             # Design tokens
 ```
 
 ## Documentation
 
-See the [ArcaneCodex documentation site](arcane_jaspr_codex/) for full API reference and examples.
+Full documentation with live examples: [ArcaneCodex](arcane_jaspr_codex/)
+
+```bash
+cd arcane_jaspr_codex/arcane_codex_web
+jaspr serve  # http://localhost:8080
+```
+
+## Commands
+
+```bash
+dart pub get                    # Install dependencies
+dart analyze lib/               # Run analyzer
+dart test -p chrome             # Run tests
+dart run build_runner build     # Code generation
+```
 
 ## Dependencies
 
-- `jaspr: ^0.22.0` - Core web framework
-- `web: ^1.1.1` - Web APIs
-- `http: ^1.6.0` - HTTP client
+- `jaspr: ^0.22.0` — Core web framework
+- `web: ^1.1.1` — Web APIs
+- `http: ^1.6.0` — HTTP client
 
 ## License
 

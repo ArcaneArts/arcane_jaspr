@@ -179,7 +179,7 @@ class _ThemedDocsPageState extends State<ThemedDocsPage> {
         }),
         [
           _buildPageLayout(demoRegistry),
-          _buildScripts(),
+          ..._buildScripts(),
         ],
       ),
     );
@@ -320,8 +320,10 @@ class _ThemedDocsPageState extends State<ThemedDocsPage> {
   }
 
   /// JavaScript for static site functionality
-  Component _buildScripts() {
+  Iterable<Component> _buildScripts() sync* {
     final basePath = AppConstants.baseUrl.isNotEmpty ? AppConstants.baseUrl : '/arcane_jaspr';
-    return script(content: DocsScripts.generate(basePath: basePath));
+    yield script(content: DocsScripts.generate(basePath: basePath));
+    // Component interactivity scripts from arcane_jaspr
+    yield const ArcaneScriptsComponent();
   }
 }
