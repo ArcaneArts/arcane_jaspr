@@ -501,5 +501,225 @@ class InputScripts {
       });
     });
   }
+
+  // ===== OTP INPUTS =====
+  function bindOtpInputs() {
+    document.querySelectorAll('.arcane-otp-input').forEach(function(container) {
+      if (container.dataset.arcaneInteractive === 'true') return;
+      container.dataset.arcaneInteractive = 'true';
+
+      var inputs = container.querySelectorAll('.arcane-otp-digit');
+      if (!inputs.length) return;
+
+      inputs.forEach(function(input, index) {
+        // Handle input
+        input.addEventListener('input', function(e) {
+          var value = input.value;
+
+          // Handle paste (multiple characters)
+          if (value.length > 1) {
+            var digits = value.replace(/[^0-9]/g, '').split('');
+            inputs.forEach(function(inp, i) {
+              if (digits[i]) inp.value = digits[i];
+            });
+            var lastIndex = Math.min(digits.length, inputs.length) - 1;
+            if (lastIndex >= 0) inputs[lastIndex].focus();
+            return;
+          }
+
+          // Single digit - auto advance
+          if (value && index < inputs.length - 1) {
+            inputs[index + 1].focus();
+          }
+        });
+
+        // Handle backspace
+        input.addEventListener('keydown', function(e) {
+          if (e.key === 'Backspace' && !input.value && index > 0) {
+            inputs[index - 1].focus();
+          } else if (e.key === 'ArrowLeft' && index > 0) {
+            inputs[index - 1].focus();
+          } else if (e.key === 'ArrowRight' && index < inputs.length - 1) {
+            inputs[index + 1].focus();
+          }
+        });
+
+        // Select all on focus
+        input.addEventListener('focus', function() {
+          input.select();
+        });
+      });
+    });
+  }
+
+  // ===== COMBOBOXES =====
+  function bindComboboxes() {
+    document.querySelectorAll('.arcane-combobox').forEach(function(container) {
+      if (container.dataset.arcaneInteractive === 'true') return;
+      container.dataset.arcaneInteractive = 'true';
+
+      var trigger = container.querySelector('.arcane-combobox-trigger');
+      var dropdown = container.querySelector('.arcane-combobox-dropdown');
+      var searchInput = container.querySelector('.arcane-combobox-search');
+      var options = container.querySelectorAll('.arcane-combobox-option');
+
+      if (!trigger) return;
+
+      var isOpen = false;
+      var selectedIndex = -1;
+
+      function openDropdown() {
+        if (dropdown) {
+          dropdown.style.display = 'block';
+          isOpen = true;
+          container.classList.add('open');
+          if (searchInput) searchInput.focus();
+        }
+      }
+
+      function closeDropdown() {
+        if (dropdown) {
+          dropdown.style.display = 'none';
+          isOpen = false;
+          container.classList.remove('open');
+          selectedIndex = -1;
+        }
+      }
+
+      function updateHighlight() {
+        options.forEach(function(opt, i) {
+          opt.style.backgroundColor = i === selectedIndex ? 'var(--arcane-surface-variant)' : '';
+        });
+      }
+
+      trigger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (isOpen) closeDropdown();
+        else openDropdown();
+      });
+
+      // Search filtering
+      if (searchInput) {
+        searchInput.addEventListener('input', function() {
+          var query = searchInput.value.toLowerCase();
+          options.forEach(function(opt) {
+            var label = opt.textContent.toLowerCase();
+            opt.style.display = label.includes(query) ? '' : 'none';
+          });
+        });
+      }
+
+      // Keyboard navigation
+      container.addEventListener('keydown', function(e) {
+        if (!isOpen) return;
+
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          selectedIndex = Math.min(selectedIndex + 1, options.length - 1);
+          updateHighlight();
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          selectedIndex = Math.max(selectedIndex - 1, 0);
+          updateHighlight();
+        } else if (e.key === 'Enter' && selectedIndex >= 0) {
+          e.preventDefault();
+          options[selectedIndex].click();
+        } else if (e.key === 'Escape') {
+          closeDropdown();
+        }
+      });
+
+      // Option selection
+      options.forEach(function(opt) {
+        opt.addEventListener('click', function() {
+          var label = opt.querySelector('div > div')?.textContent || opt.textContent;
+          var valueSpan = trigger.querySelector('span');
+          if (valueSpan) {
+            valueSpan.textContent = label;
+            valueSpan.style.color = 'var(--arcane-on-surface)';
+          }
+          closeDropdown();
+        });
+      });
+
+      // Close on outside click
+      document.addEventListener('click', function(e) {
+        if (!container.contains(e.target)) closeDropdown();
+      });
+    });
+  }
+
+  // ===== CALENDARS =====
+  function bindCalendars() {
+    document.querySelectorAll('.arcane-calendar').forEach(function(calendar) {
+      if (calendar.dataset.arcaneInteractive === 'true') return;
+      calendar.dataset.arcaneInteractive = 'true';
+
+      var days = calendar.querySelectorAll('.arcane-calendar-day:not(.disabled):not(.outside)');
+      days.forEach(function(day) {
+        day.addEventListener('click', function() {
+          // Remove previous selection
+          calendar.querySelectorAll('.arcane-calendar-day.selected').forEach(function(d) {
+            d.classList.remove('selected');
+            d.style.background = 'transparent';
+            d.style.color = 'var(--arcane-on-surface)';
+          });
+
+          // Select this day
+          day.classList.add('selected');
+          day.style.background = 'var(--arcane-accent)';
+          day.style.color = 'var(--arcane-on-accent)';
+        });
+      });
+    });
+  }
+
+  // ===== DATE PICKERS =====
+  function bindDatePickers() {
+    document.querySelectorAll('.arcane-date-picker').forEach(function(container) {
+      if (container.dataset.arcaneInteractive === 'true') return;
+      container.dataset.arcaneInteractive = 'true';
+
+      var trigger = container.querySelector('.arcane-date-picker-trigger');
+      var dropdown = container.querySelector('.arcane-date-picker-dropdown');
+      var clearBtn = container.querySelector('.arcane-date-picker-clear');
+
+      if (!trigger) return;
+
+      var isOpen = false;
+
+      function toggleDropdown() {
+        isOpen = !isOpen;
+        if (dropdown) dropdown.style.display = isOpen ? 'block' : 'none';
+        container.classList.toggle('open', isOpen);
+      }
+
+      trigger.addEventListener('click', function(e) {
+        if (e.target.closest('.arcane-date-picker-clear')) return;
+        e.stopPropagation();
+        toggleDropdown();
+      });
+
+      if (clearBtn) {
+        clearBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var valueSpan = trigger.querySelector('span:nth-child(2)');
+          if (valueSpan) {
+            valueSpan.textContent = container.dataset.placeholder || 'Select date...';
+            valueSpan.style.color = 'var(--arcane-muted)';
+          }
+        });
+      }
+
+      // Close on outside click
+      document.addEventListener('click', function(e) {
+        if (!container.contains(e.target) && isOpen) {
+          isOpen = false;
+          if (dropdown) dropdown.style.display = 'none';
+          container.classList.remove('open');
+        }
+      });
+    });
+  }
 ''';
 }

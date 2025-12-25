@@ -14,22 +14,22 @@ Reference: https://ui.shadcn.com/docs/components
 | Accordion | ✅ `ArcaneAccordion` | Full feature parity |
 | Alert | ✅ `ArcaneAlert` | 4 variants |
 | Alert Dialog | ⚠️ Partial | Have `ArcaneDialog`, need async alert |
-| Aspect Ratio | ❌ Missing | Add `ArcaneAspectRatio` |
+| Aspect Ratio | ✅ `ArcaneAspectRatio` | With presets (video, square, portrait, etc.) |
 | Avatar | ✅ `ArcaneAvatar` | With fallback |
 | Badge | ✅ `ArcaneBadge` | Multiple variants |
 | Breadcrumb | ✅ `ArcaneBreadcrumbs` | 4 separator styles |
 | Button | ✅ `ArcaneButton` | 8+ variants |
-| Calendar | ❌ Missing | Priority for date picker |
+| Calendar | ✅ `ArcaneCalendar` | Single, multiple, range modes |
 | Card | ✅ `ArcaneCard` | With sections |
 | Carousel | ⚠️ Basic | Have `ArcaneCardCarousel`, need full features |
 | Chart | ❌ Missing | Consider charting library integration |
 | Checkbox | ✅ `ArcaneCheckbox` | Full feature |
 | Collapsible | ✅ `ArcaneExpander` | Standalone collapsible |
-| Combobox | ❌ Missing | Priority input component |
-| Command | ❌ Missing | Command palette (Cmd+K) |
-| Context Menu | ❌ Missing | Right-click menu |
+| Combobox | ✅ `ArcaneCombobox` | Searchable autocomplete |
+| Command | ✅ `ArcaneCommand` | Command palette (Cmd+K) |
+| Context Menu | ✅ `ArcaneContextMenu` | Right-click menu with submenus |
 | Data Table | ✅ `ArcaneDataTable` | Sortable, selectable |
-| Date Picker | ❌ Missing | Requires Calendar first |
+| Date Picker | ✅ `ArcaneDatePicker` | Calendar popup with presets |
 | Dialog | ✅ `ArcaneDialog` | With confirm variant |
 | Drawer | ✅ `ArcaneDrawer` | All 4 sides |
 | Dropdown Menu | ✅ `ArcaneDropdownMenu` | Full feature |
@@ -38,18 +38,18 @@ Reference: https://ui.shadcn.com/docs/components
 | Hover Card | ✅ `ArcaneHovercard` | With delays |
 | Input | ✅ `ArcaneTextInput` | With prefix/suffix |
 | Input Group | ❌ Missing | Grouped inputs |
-| Input OTP | ❌ Missing | OTP code input |
+| Input OTP | ✅ `ArcaneOtpInput` | OTP code input with auto-advance |
 | Item | ⚠️ Partial | Various item components |
 | Kbd | ✅ `ArcaneKbd` | With combo support |
 | Label | ✅ `ArcaneLabel` | HTML wrapper |
-| Menubar | ❌ Missing | Horizontal menu bar |
+| Menubar | ✅ `ArcaneMenubar` | Horizontal menu bar with submenus |
 | Native Select | ✅ `ArcaneSelect` | Native HTML select |
 | Navigation Menu | ⚠️ Partial | Have `ArcaneHeader`, need full nav menu |
 | Pagination | ✅ `ArcanePagination` | Multiple styles |
 | Popover | ✅ `ArcanePopover` | Click/hover triggers |
 | Progress | ✅ `ArcaneProgressBar` | With variants |
 | Radio Group | ✅ `ArcaneRadioGroup` | 4 variants (NEW) |
-| Resizable | ❌ Missing | Resizable panels |
+| Resizable | ✅ `ArcaneResizable` | Resizable panel groups |
 | Scroll Area | ✅ `ArcaneScrollArea` | With virtual scroll (NEW) |
 | Select | ✅ `ArcaneSelector` | Searchable, multi-select |
 | Separator | ✅ `ArcaneSeparator` | Multiple styles (NEW) |
@@ -87,7 +87,7 @@ Reference: https://ui.shadcn.com/docs/components
 | 11 OAuth buttons | GitHub, Google, Apple, etc. |
 | 20 built-in themes | With customization |
 
-**Summary:** 42/54 shadcn components (78%), plus 15+ unique components
+**Summary:** 51/54 shadcn components (94%), plus 15+ unique components
 
 ---
 
@@ -195,13 +195,13 @@ ArcaneForm(
 
 **Components to Add:**
 - [ ] `ArcaneTextarea` - Multi-line text input with auto-resize, character counter
-- [ ] `ArcaneDatePicker` - Date selection with calendar popup
+- [x] `ArcaneDatePicker` - Date selection with calendar popup
 - [ ] `ArcaneTimePicker` - Time selection
 - [ ] `ArcaneDateTimePicker` - Combined date/time
-- [ ] `ArcaneDateRangePicker` - Date range selection
-- [ ] `ArcaneRadioGroup` - Radio button group with proper ARIA
+- [x] `ArcaneDateRangePicker` - Date range selection (via ArcaneCalendar range mode)
+- [x] `ArcaneRadioGroup` - Radio button group with proper ARIA
 - [ ] `ArcaneMultiSelect` - Multiple selection with checkboxes
-- [ ] `ArcaneCombobox` - Searchable select with custom input
+- [x] `ArcaneCombobox` - Searchable select with custom input
 - [ ] `ArcanePhoneInput` - Phone number with country code
 - [ ] `ArcaneCurrencyInput` - Currency formatting
 - [ ] `ArcanePasswordStrengthMeter` - Visual password strength indicator
@@ -243,9 +243,9 @@ ArcaneForm(
 **Components to Add:**
 - [ ] `ArcaneTabNav` - Navigation-style tabs (vs content tabs)
 - [ ] `ArcaneStepper` - Multi-step wizard navigation
-- [ ] `ArcaneCommandPalette` - Command/search palette (Cmd+K pattern)
+- [x] `ArcaneCommand` - Command/search palette (Cmd+K pattern)
 - [ ] `ArcaneMegaMenu` - Multi-column dropdown mega menu
-- [ ] `ArcaneContextMenu` - Right-click context menu
+- [x] `ArcaneContextMenu` - Right-click context menu
 - [ ] `ArcaneSkipLink` - Skip to main content link
 - [ ] `ArcaneStickyNav` - Scroll-aware sticky navigation
 
@@ -518,8 +518,8 @@ ButtonVariants.pill(onPressed: () {}, child: Text('Subscribe'))
 **Components to Add:**
 - [ ] `ArcaneDragDrop` - Drag and drop primitives
 - [ ] `ArcaneSortableList` - Reorderable list
-- [ ] `ArcaneResizable` - Resizable container
-- [ ] `ArcaneSplitPane` - Split pane layout
+- [x] `ArcaneResizable` - Resizable container/panel groups
+- [ ] `ArcaneSplitPane` - Split pane layout (covered by ArcaneResizable)
 - [ ] `ArcaneInfiniteScroll` - Infinite scroll wrapper
 - [ ] `ArcanePullToRefresh` - Pull to refresh (mobile)
 - [ ] `ArcaneGesture` - Touch gesture handling
@@ -543,7 +543,7 @@ ButtonVariants.pill(onPressed: () {}, child: Text('Subscribe'))
 ### 6.3 Layout Patterns
 
 **Components to Add:**
-- [ ] `ArcaneAspectRatio` - Aspect ratio container
+- [x] `ArcaneAspectRatio` - Aspect ratio container
 - [ ] `ArcaneParallax` - Parallax scrolling section
 - [ ] `ArcaneSticky` - Sticky positioning wrapper
 - [ ] `ArcaneStickyHeader` - Sticky header on scroll
@@ -630,16 +630,16 @@ ButtonVariants.pill(onPressed: () {}, child: Text('Subscribe'))
 
 ### Missing (To Add)
 - [ ] Textarea
-- [ ] DatePicker, TimePicker, DateRangePicker
-- [ ] RadioGroup
+- [x] DatePicker, DateRangePicker (TimePicker still needed)
+- [x] RadioGroup
 - [ ] MultiSelect
-- [ ] Combobox
+- [x] Combobox
 - [ ] PhoneInput, CurrencyInput, InputMask
 - [ ] Drawer/Sheet
 - [ ] AlertDialog, PromptDialog
 - [ ] Stepper
-- [ ] CommandPalette
-- [ ] ContextMenu
+- [x] CommandPalette (ArcaneCommand)
+- [x] ContextMenu
 - [ ] MegaMenu
 - [ ] Carousel (full-featured)
 - [ ] Lightbox
@@ -648,9 +648,8 @@ ButtonVariants.pill(onPressed: () {}, child: Text('Subscribe'))
 - [ ] KanbanBoard
 - [ ] ImageGallery
 - [ ] DragDrop, SortableList
-- [ ] Resizable, SplitPane
+- [x] Resizable (ArcaneResizable covers SplitPane use case)
 - [ ] InfiniteScroll
-- [ ] AspectRatio
 - [ ] SkipLink
 
 ---
@@ -736,4 +735,4 @@ ButtonVariants.pill(onPressed: () {}, child: Text('Subscribe'))
 
 ---
 
-*Last Updated: 2024-12-24*
+*Last Updated: 2025-12-24*

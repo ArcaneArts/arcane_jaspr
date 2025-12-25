@@ -70,6 +70,8 @@ class DemoRegistry {
     'auth-layout': LayoutDemos.authLayout,
     'dashboard-layout': LayoutDemos.dashboardLayout,
     'page-body': LayoutDemos.pageBody,
+    'aspect-ratio': LayoutDemos.aspectRatio,
+    'resizable': LayoutDemos.resizable,
 
     // Typography components
     'text': TypographyDemos.text,
@@ -164,6 +166,10 @@ class DemoRegistry {
     'color-input': const ColorInputDemo(),
     'mutable-text': const MutableTextDemo(),
     'radio-group': const RadioGroupDemo(),
+    'otp-input': const OtpInputDemo(),
+    'combobox': const ComboboxDemo(),
+    'calendar': const CalendarDemo(),
+    'date-picker': const DatePickerDemo(),
 
     // View interactive
     'progress-bar': const ProgressBarDemo(),
@@ -188,6 +194,9 @@ class DemoRegistry {
     'mobile-menu': const MobileMenuDemo(),
     'mega-menu': const MegaMenuDemo(),
     'pagination': const PaginationDemo(),
+    'context-menu': const ContextMenuDemo(),
+    'menubar': const MenubarDemo(),
+    'command': const CommandDemo(),
   };
 
   /// Contextual demos that need theme state

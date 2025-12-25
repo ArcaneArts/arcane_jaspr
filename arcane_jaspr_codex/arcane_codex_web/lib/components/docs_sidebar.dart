@@ -107,6 +107,10 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcaneFileUpload', href: '/docs/inputs/arcane-file-upload'),
               _buildNavItem(label: 'ArcaneColorInput', href: '/docs/inputs/arcane-color-input'),
               _buildNavItem(label: 'ArcaneMutableText', href: '/docs/inputs/arcane-mutable-text'),
+              _buildNavItem(label: 'ArcaneOtpInput', href: '/docs/inputs/arcane-otp-input'),
+              _buildNavItem(label: 'ArcaneCombobox', href: '/docs/inputs/arcane-combobox'),
+              _buildNavItem(label: 'ArcaneCalendar', href: '/docs/inputs/arcane-calendar'),
+              _buildNavItem(label: 'ArcaneDatePicker', href: '/docs/inputs/arcane-date-picker'),
             ], defaultOpen: _sectionContainsPath('inputs')),
 
             // Layout Components section
@@ -136,6 +140,8 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcanePageBody', href: '/docs/layout/arcane-page-body'),
               _buildNavItem(label: 'ArcaneDrawer', href: '/docs/layout/arcane-drawer'),
               _buildNavItem(label: 'ArcaneScrollArea', href: '/docs/layout/arcane-scroll-area'),
+              _buildNavItem(label: 'ArcaneAspectRatio', href: '/docs/layout/arcane-aspect-ratio'),
+              _buildNavItem(label: 'ArcaneResizable', href: '/docs/layout/arcane-resizable'),
             ], defaultOpen: _sectionContainsPath('layout')),
 
             // Typography Components section
@@ -195,12 +201,15 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcaneMegaMenu', href: '/docs/navigation/arcane-mega-menu'),
               _buildNavItem(label: 'ArcaneBreadcrumbs', href: '/docs/navigation/arcane-breadcrumbs'),
               _buildNavItem(label: 'ArcanePagination', href: '/docs/navigation/arcane-pagination'),
+              _buildNavItem(label: 'ArcaneContextMenu', href: '/docs/navigation/arcane-context-menu'),
+              _buildNavItem(label: 'ArcaneMenubar', href: '/docs/navigation/arcane-menubar'),
             ], defaultOpen: _sectionContainsPath('navigation')),
 
             // Feedback Components section
             _buildCollapsibleSection('Feedback', [
               _buildNavItem(label: 'ArcaneDialog', href: '/docs/feedback/arcane-dialog'),
               _buildNavItem(label: 'ArcaneAlertBanner', href: '/docs/feedback/arcane-alert-banner'),
+              _buildNavItem(label: 'ArcaneCommand', href: '/docs/feedback/arcane-command'),
             ], defaultOpen: _sectionContainsPath('feedback')),
 
             // Forms section

@@ -59,6 +59,10 @@ class ArcaneScripts {
     bindTagInputs();
     bindFileUploads();
     bindMutableText();
+    bindOtpInputs();
+    bindComboboxes();
+    bindCalendars();
+    bindDatePickers();
 
     // Buttons
     bindToggleButtonGroups();
@@ -76,6 +80,10 @@ class ArcaneScripts {
     bindPagination();
     bindChips();
     bindBackToTop();
+    bindContextMenus();
+    bindMenubars();
+    bindResizables();
+    bindCommandPalettes();
 
     // Dialogs & Overlays
     bindToasts();

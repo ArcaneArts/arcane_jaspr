@@ -332,6 +332,137 @@ class LayoutDemos {
         ),
       ];
 
+  static List<Component> aspectRatio() => [
+        ArcaneRow(
+          gapSize: Gap.lg,
+          children: [
+            ArcaneColumn(
+              gapSize: Gap.sm,
+              children: [
+                ArcaneDiv(
+                  styles: const ArcaneStyleData(widthCustom: '120px'),
+                  children: [
+                    ArcaneAspectRatio.square(
+                      child: ArcaneDiv(
+                        styles: const ArcaneStyleData(
+                          background: Background.accent,
+                          borderRadius: Radius.md,
+                          display: Display.flex,
+                          alignItems: AlignItems.center,
+                          justifyContent: JustifyContent.center,
+                        ),
+                        children: [ArcaneText('1:1')],
+                      ),
+                    ),
+                  ],
+                ),
+                ArcaneText('Square', size: FontSize.sm, color: TextColor.muted),
+              ],
+            ),
+            ArcaneColumn(
+              gapSize: Gap.sm,
+              children: [
+                ArcaneDiv(
+                  styles: const ArcaneStyleData(widthCustom: '160px'),
+                  children: [
+                    ArcaneAspectRatio.video(
+                      child: ArcaneDiv(
+                        styles: const ArcaneStyleData(
+                          background: Background.surfaceVariant,
+                          borderRadius: Radius.md,
+                          display: Display.flex,
+                          alignItems: AlignItems.center,
+                          justifyContent: JustifyContent.center,
+                        ),
+                        children: [ArcaneText('16:9')],
+                      ),
+                    ),
+                  ],
+                ),
+                ArcaneText('Video', size: FontSize.sm, color: TextColor.muted),
+              ],
+            ),
+            ArcaneColumn(
+              gapSize: Gap.sm,
+              children: [
+                ArcaneDiv(
+                  styles: const ArcaneStyleData(widthCustom: '80px'),
+                  children: [
+                    ArcaneAspectRatio.portrait(
+                      child: ArcaneDiv(
+                        styles: const ArcaneStyleData(
+                          background: Background.surface,
+                          border: BorderPreset.subtle,
+                          borderRadius: Radius.md,
+                          display: Display.flex,
+                          alignItems: AlignItems.center,
+                          justifyContent: JustifyContent.center,
+                        ),
+                        children: [ArcaneText('3:4')],
+                      ),
+                    ),
+                  ],
+                ),
+                ArcaneText('Portrait', size: FontSize.sm, color: TextColor.muted),
+              ],
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> resizable() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(
+            widthCustom: '100%',
+            heightCustom: '200px',
+            borderRadius: Radius.md,
+            overflow: Overflow.hidden,
+            border: BorderPreset.subtle,
+          ),
+          children: [
+            ArcaneResizable(
+              direction: ResizeDirection.horizontal,
+              panels: [
+                ResizablePanel(
+                  defaultSize: 30,
+                  minSize: 20,
+                  child: ArcaneDiv(
+                    styles: const ArcaneStyleData(
+                      heightCustom: '100%',
+                      background: Background.surfaceVariant,
+                      padding: PaddingPreset.md,
+                    ),
+                    children: [ArcaneText('Sidebar (30%)')],
+                  ),
+                ),
+                ResizablePanel(
+                  child: ArcaneDiv(
+                    styles: const ArcaneStyleData(
+                      heightCustom: '100%',
+                      background: Background.surface,
+                      padding: PaddingPreset.md,
+                    ),
+                    children: [ArcaneText('Main Content')],
+                  ),
+                ),
+                ResizablePanel(
+                  defaultSize: 25,
+                  minSize: 15,
+                  child: ArcaneDiv(
+                    styles: const ArcaneStyleData(
+                      heightCustom: '100%',
+                      background: Background.surfaceVariant,
+                      padding: PaddingPreset.md,
+                    ),
+                    children: [ArcaneText('Panel (25%)')],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ];
+
   static List<Component> drawer() => [
         ArcaneDiv(
           styles: const ArcaneStyleData(

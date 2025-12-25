@@ -516,3 +516,274 @@ class _MegaMenuDemoState extends State<MegaMenuDemo> {
     );
   }
 }
+
+/// Interactive context menu demo
+class ContextMenuDemo extends StatefulComponent {
+  const ContextMenuDemo({super.key});
+
+  @override
+  State<ContextMenuDemo> createState() => _ContextMenuDemoState();
+}
+
+class _ContextMenuDemoState extends State<ContextMenuDemo> {
+  String _lastAction = 'Right-click the box';
+
+  @override
+  Component build(BuildContext context) {
+    return ArcaneColumn(
+      gapSize: Gap.md,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ArcaneContextMenu(
+          trigger: ArcaneDiv(
+            styles: const ArcaneStyleData(
+              widthCustom: '200px',
+              heightCustom: '120px',
+              background: Background.surfaceVariant,
+              borderRadius: Radius.md,
+              display: Display.flex,
+              alignItems: AlignItems.center,
+              justifyContent: JustifyContent.center,
+              raw: {'border': '2px dashed var(--arcane-border)'},
+            ),
+            children: [
+              ArcaneText('Right-click me', color: TextColor.muted),
+            ],
+          ),
+          items: [
+            ContextMenuItem(
+              label: 'Edit',
+              shortcut: '⌘E',
+              onSelect: () => setState(() => _lastAction = 'Edit clicked'),
+            ),
+            ContextMenuItem(
+              label: 'Copy',
+              shortcut: '⌘C',
+              onSelect: () => setState(() => _lastAction = 'Copy clicked'),
+            ),
+            ContextMenuItem(
+              label: 'Paste',
+              shortcut: '⌘V',
+              onSelect: () => setState(() => _lastAction = 'Paste clicked'),
+            ),
+            ContextMenuItem.separator(),
+            ContextMenuItem(
+              label: 'Delete',
+              destructive: true,
+              shortcut: '⌫',
+              onSelect: () => setState(() => _lastAction = 'Delete clicked'),
+            ),
+          ],
+        ),
+        ArcaneText(
+          _lastAction,
+          size: FontSize.sm,
+          color: TextColor.muted,
+        ),
+      ],
+    );
+  }
+}
+
+/// Interactive menubar demo
+class MenubarDemo extends StatefulComponent {
+  const MenubarDemo({super.key});
+
+  @override
+  State<MenubarDemo> createState() => _MenubarDemoState();
+}
+
+class _MenubarDemoState extends State<MenubarDemo> {
+  String _lastAction = 'Click a menu item';
+
+  @override
+  Component build(BuildContext context) {
+    return ArcaneColumn(
+      gapSize: Gap.md,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(
+            widthCustom: '100%',
+            background: Background.surface,
+            borderRadius: Radius.md,
+            overflow: Overflow.visible,
+          ),
+          children: [
+            ArcaneMenubar(
+              items: [
+                MenubarItem(
+                  label: 'File',
+                  menu: [
+                    MenuItem(
+                      label: 'New',
+                      shortcut: '⌘N',
+                      onSelect: () => setState(() => _lastAction = 'New'),
+                    ),
+                    MenuItem(
+                      label: 'Open',
+                      shortcut: '⌘O',
+                      onSelect: () => setState(() => _lastAction = 'Open'),
+                    ),
+                    MenuItem.separator(),
+                    MenuItem(
+                      label: 'Save',
+                      shortcut: '⌘S',
+                      onSelect: () => setState(() => _lastAction = 'Save'),
+                    ),
+                  ],
+                ),
+                MenubarItem(
+                  label: 'Edit',
+                  menu: [
+                    MenuItem(
+                      label: 'Undo',
+                      shortcut: '⌘Z',
+                      onSelect: () => setState(() => _lastAction = 'Undo'),
+                    ),
+                    MenuItem(
+                      label: 'Redo',
+                      shortcut: '⇧⌘Z',
+                      onSelect: () => setState(() => _lastAction = 'Redo'),
+                    ),
+                    MenuItem.separator(),
+                    MenuItem(
+                      label: 'Cut',
+                      shortcut: '⌘X',
+                      onSelect: () => setState(() => _lastAction = 'Cut'),
+                    ),
+                    MenuItem(
+                      label: 'Copy',
+                      shortcut: '⌘C',
+                      onSelect: () => setState(() => _lastAction = 'Copy'),
+                    ),
+                    MenuItem(
+                      label: 'Paste',
+                      shortcut: '⌘V',
+                      onSelect: () => setState(() => _lastAction = 'Paste'),
+                    ),
+                  ],
+                ),
+                MenubarItem(
+                  label: 'View',
+                  menu: [
+                    MenuItem(
+                      label: 'Zoom In',
+                      shortcut: '⌘+',
+                      onSelect: () => setState(() => _lastAction = 'Zoom In'),
+                    ),
+                    MenuItem(
+                      label: 'Zoom Out',
+                      shortcut: '⌘-',
+                      onSelect: () => setState(() => _lastAction = 'Zoom Out'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+        ArcaneText(
+          'Last action: $_lastAction',
+          size: FontSize.sm,
+          color: TextColor.muted,
+        ),
+      ],
+    );
+  }
+}
+
+/// Interactive command palette demo
+class CommandDemo extends StatefulComponent {
+  const CommandDemo({super.key});
+
+  @override
+  State<CommandDemo> createState() => _CommandDemoState();
+}
+
+class _CommandDemoState extends State<CommandDemo> {
+  bool _isOpen = false;
+  String _lastAction = 'Press the button to open';
+
+  @override
+  Component build(BuildContext context) {
+    return ArcaneColumn(
+      gapSize: Gap.md,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ArcaneButton.primary(
+          label: 'Open Command Palette (⌘K)',
+          onPressed: () => setState(() => _isOpen = true),
+        ),
+        ArcaneCommand(
+          isOpen: _isOpen,
+          onClose: () => setState(() => _isOpen = false),
+          placeholder: 'Type a command or search...',
+          groups: [
+            CommandGroup(
+              heading: 'Navigation',
+              items: [
+                CommandItem(
+                  label: 'Go to Dashboard',
+                  shortcut: '⌘D',
+                  onSelect: () => setState(() {
+                    _lastAction = 'Dashboard';
+                    _isOpen = false;
+                  }),
+                ),
+                CommandItem(
+                  label: 'Go to Settings',
+                  shortcut: '⌘,',
+                  onSelect: () => setState(() {
+                    _lastAction = 'Settings';
+                    _isOpen = false;
+                  }),
+                ),
+                CommandItem(
+                  label: 'Go to Profile',
+                  onSelect: () => setState(() {
+                    _lastAction = 'Profile';
+                    _isOpen = false;
+                  }),
+                ),
+              ],
+            ),
+            CommandGroup(
+              heading: 'Actions',
+              items: [
+                CommandItem(
+                  label: 'Create New File',
+                  shortcut: '⌘N',
+                  onSelect: () => setState(() {
+                    _lastAction = 'New File';
+                    _isOpen = false;
+                  }),
+                ),
+                CommandItem(
+                  label: 'Save Current',
+                  shortcut: '⌘S',
+                  onSelect: () => setState(() {
+                    _lastAction = 'Save';
+                    _isOpen = false;
+                  }),
+                ),
+                CommandItem(
+                  label: 'Toggle Dark Mode',
+                  onSelect: () => setState(() {
+                    _lastAction = 'Toggle Theme';
+                    _isOpen = false;
+                  }),
+                ),
+              ],
+            ),
+          ],
+        ),
+        ArcaneText(
+          'Last action: $_lastAction',
+          size: FontSize.sm,
+          color: TextColor.muted,
+        ),
+      ],
+    );
+  }
+}

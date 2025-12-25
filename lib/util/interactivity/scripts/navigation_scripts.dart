@@ -290,5 +290,301 @@ class NavigationScripts {
       });
     });
   }
+
+  // ===== CONTEXT MENUS =====
+  function bindContextMenus() {
+    document.querySelectorAll('.arcane-context-menu-trigger').forEach(function(trigger) {
+      if (trigger.dataset.arcaneInteractive === 'true') return;
+      trigger.dataset.arcaneInteractive = 'true';
+
+      var menu = trigger.querySelector('.arcane-context-menu');
+      if (!menu) return;
+
+      trigger.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+
+        // Close any open context menus
+        document.querySelectorAll('.arcane-context-menu').forEach(function(m) {
+          m.style.display = 'none';
+        });
+
+        // Position and show menu
+        menu.style.display = 'block';
+        menu.style.left = e.clientX + 'px';
+        menu.style.top = e.clientY + 'px';
+
+        // Keep menu in viewport
+        var rect = menu.getBoundingClientRect();
+        if (rect.right > window.innerWidth) {
+          menu.style.left = (e.clientX - rect.width) + 'px';
+        }
+        if (rect.bottom > window.innerHeight) {
+          menu.style.top = (e.clientY - rect.height) + 'px';
+        }
+      });
+
+      // Menu item clicks
+      menu.querySelectorAll('.arcane-context-menu-item:not(.disabled)').forEach(function(item) {
+        item.addEventListener('click', function() {
+          menu.style.display = 'none';
+        });
+      });
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function() {
+      document.querySelectorAll('.arcane-context-menu').forEach(function(m) {
+        m.style.display = 'none';
+      });
+    });
+
+    // Close on escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.arcane-context-menu').forEach(function(m) {
+          m.style.display = 'none';
+        });
+      }
+    });
+  }
+
+  // ===== MENUBARS =====
+  function bindMenubars() {
+    document.querySelectorAll('.arcane-menubar').forEach(function(menubar) {
+      if (menubar.dataset.arcaneInteractive === 'true') return;
+      menubar.dataset.arcaneInteractive = 'true';
+
+      var items = menubar.querySelectorAll('.arcane-menubar-item');
+      var activeItem = null;
+
+      items.forEach(function(item) {
+        var trigger = item.querySelector('.arcane-menubar-trigger');
+        var dropdown = item.querySelector('.arcane-menubar-dropdown');
+
+        if (!trigger || !dropdown) return;
+
+        trigger.addEventListener('click', function(e) {
+          e.stopPropagation();
+
+          if (activeItem === item) {
+            dropdown.style.display = 'none';
+            activeItem = null;
+          } else {
+            // Close others
+            items.forEach(function(other) {
+              var d = other.querySelector('.arcane-menubar-dropdown');
+              if (d) d.style.display = 'none';
+            });
+
+            dropdown.style.display = 'block';
+            activeItem = item;
+          }
+        });
+
+        // Hover to switch when one is open
+        item.addEventListener('mouseenter', function() {
+          if (activeItem && activeItem !== item) {
+            var oldDropdown = activeItem.querySelector('.arcane-menubar-dropdown');
+            if (oldDropdown) oldDropdown.style.display = 'none';
+
+            dropdown.style.display = 'block';
+            activeItem = item;
+          }
+        });
+
+        // Menu item clicks
+        dropdown.querySelectorAll('.arcane-menubar-menu-item:not(.disabled)').forEach(function(menuItem) {
+          menuItem.addEventListener('click', function() {
+            dropdown.style.display = 'none';
+            activeItem = null;
+          });
+        });
+      });
+
+      // Close on outside click
+      document.addEventListener('click', function(e) {
+        if (!menubar.contains(e.target)) {
+          items.forEach(function(item) {
+            var d = item.querySelector('.arcane-menubar-dropdown');
+            if (d) d.style.display = 'none';
+          });
+          activeItem = null;
+        }
+      });
+    });
+  }
+
+  // ===== RESIZABLE PANELS =====
+  function bindResizables() {
+    document.querySelectorAll('.arcane-resizable').forEach(function(container) {
+      if (container.dataset.arcaneInteractive === 'true') return;
+      container.dataset.arcaneInteractive = 'true';
+
+      var isHorizontal = container.dataset.direction === 'horizontal';
+      var handles = container.querySelectorAll('.arcane-resizable-handle');
+      var panels = container.querySelectorAll('.arcane-resizable-panel');
+
+      handles.forEach(function(handle, handleIndex) {
+        var isDragging = false;
+        var startPos = 0;
+        var startSizes = [];
+
+        handle.addEventListener('mousedown', function(e) {
+          e.preventDefault();
+          isDragging = true;
+          startPos = isHorizontal ? e.clientX : e.clientY;
+
+          // Store current sizes
+          startSizes = [];
+          panels.forEach(function(p) {
+            var rect = p.getBoundingClientRect();
+            startSizes.push(isHorizontal ? rect.width : rect.height);
+          });
+
+          container.classList.add('dragging');
+          document.body.style.cursor = isHorizontal ? 'col-resize' : 'row-resize';
+          document.body.style.userSelect = 'none';
+        });
+
+        document.addEventListener('mousemove', function(e) {
+          if (!isDragging) return;
+
+          var currentPos = isHorizontal ? e.clientX : e.clientY;
+          var delta = currentPos - startPos;
+
+          var panel1 = panels[handleIndex];
+          var panel2 = panels[handleIndex + 1];
+
+          if (panel1 && panel2) {
+            var newSize1 = startSizes[handleIndex] + delta;
+            var newSize2 = startSizes[handleIndex + 1] - delta;
+
+            // Get min/max constraints
+            var min1 = parseFloat(panel1.dataset.minSize) || 10;
+            var max1 = parseFloat(panel1.dataset.maxSize) || 90;
+            var min2 = parseFloat(panel2.dataset.minSize) || 10;
+            var max2 = parseFloat(panel2.dataset.maxSize) || 90;
+
+            var containerSize = isHorizontal ? container.clientWidth : container.clientHeight;
+            var minPx1 = containerSize * min1 / 100;
+            var maxPx1 = containerSize * max1 / 100;
+            var minPx2 = containerSize * min2 / 100;
+            var maxPx2 = containerSize * max2 / 100;
+
+            if (newSize1 >= minPx1 && newSize1 <= maxPx1 && newSize2 >= minPx2 && newSize2 <= maxPx2) {
+              panel1.style.flex = '0 0 ' + newSize1 + 'px';
+              panel2.style.flex = '0 0 ' + newSize2 + 'px';
+            }
+          }
+        });
+
+        document.addEventListener('mouseup', function() {
+          if (isDragging) {
+            isDragging = false;
+            container.classList.remove('dragging');
+            document.body.style.cursor = '';
+            document.body.style.userSelect = '';
+          }
+        });
+
+        // Keyboard support
+        handle.addEventListener('keydown', function(e) {
+          var step = e.shiftKey ? 50 : 10;
+          var delta = 0;
+
+          if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            delta = -step;
+          } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            delta = step;
+          }
+
+          if (delta !== 0) {
+            e.preventDefault();
+            var panel1 = panels[handleIndex];
+            var panel2 = panels[handleIndex + 1];
+
+            if (panel1 && panel2) {
+              var rect1 = panel1.getBoundingClientRect();
+              var rect2 = panel2.getBoundingClientRect();
+              var size1 = isHorizontal ? rect1.width : rect1.height;
+              var size2 = isHorizontal ? rect2.width : rect2.height;
+
+              panel1.style.flex = '0 0 ' + (size1 + delta) + 'px';
+              panel2.style.flex = '0 0 ' + (size2 - delta) + 'px';
+            }
+          }
+        });
+      });
+    });
+  }
+
+  // ===== COMMAND PALETTES =====
+  function bindCommandPalettes() {
+    document.querySelectorAll('.arcane-command-overlay').forEach(function(overlay) {
+      if (overlay.dataset.arcaneInteractive === 'true') return;
+      overlay.dataset.arcaneInteractive = 'true';
+
+      var dialog = overlay.querySelector('.arcane-command-dialog');
+      var input = overlay.querySelector('.arcane-command-input');
+      var items = overlay.querySelectorAll('.arcane-command-item');
+      var selectedIndex = -1;
+
+      function updateSelection() {
+        items.forEach(function(item, i) {
+          item.classList.toggle('selected', i === selectedIndex);
+        });
+        if (selectedIndex >= 0 && items[selectedIndex]) {
+          items[selectedIndex].scrollIntoView({ block: 'nearest' });
+        }
+      }
+
+      // Keyboard navigation
+      overlay.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
+          updateSelection();
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          selectedIndex = Math.max(selectedIndex - 1, 0);
+          updateSelection();
+        } else if (e.key === 'Enter' && selectedIndex >= 0) {
+          e.preventDefault();
+          items[selectedIndex].click();
+        } else if (e.key === 'Escape') {
+          overlay.style.display = 'none';
+        }
+      });
+
+      // Search filtering
+      if (input) {
+        input.addEventListener('input', function() {
+          var query = input.value.toLowerCase();
+          items.forEach(function(item) {
+            var label = item.textContent.toLowerCase();
+            item.style.display = label.includes(query) ? '' : 'none';
+          });
+          selectedIndex = -1;
+          updateSelection();
+        });
+      }
+
+      // Click outside to close
+      overlay.addEventListener('click', function(e) {
+        if (!dialog.contains(e.target)) {
+          overlay.style.display = 'none';
+        }
+      });
+
+      // Item clicks
+      items.forEach(function(item) {
+        item.addEventListener('click', function() {
+          if (!item.classList.contains('disabled')) {
+            overlay.style.display = 'none';
+          }
+        });
+      });
+    });
+  }
 ''';
 }

@@ -11,6 +11,7 @@ import 'package:arcane_jaspr/component/collection/card_carousel.dart'
     as _card_carousel;
 import 'package:arcane_jaspr/component/collection/infinite_carousel.dart'
     as _infinite_carousel;
+import 'package:arcane_jaspr/component/dialog/command.dart' as _command;
 import 'package:arcane_jaspr/component/dialog/dialog.dart' as _dialog;
 import 'package:arcane_jaspr/component/dialog/text.dart' as _text;
 import 'package:arcane_jaspr/component/dialog/toast.dart' as _toast;
@@ -23,8 +24,12 @@ import 'package:arcane_jaspr/component/form/field_wrapper.dart'
     as _field_wrapper;
 import 'package:arcane_jaspr/component/form/newsletter_form.dart'
     as _newsletter_form;
+import 'package:arcane_jaspr/component/input/calendar.dart' as _calendar;
+import 'package:arcane_jaspr/component/input/combobox.dart' as _combobox;
+import 'package:arcane_jaspr/component/input/date_picker.dart' as _date_picker;
 import 'package:arcane_jaspr/component/input/mutable_text.dart'
     as _mutable_text;
+import 'package:arcane_jaspr/component/input/otp_input.dart' as _otp_input;
 import 'package:arcane_jaspr/component/input/radio_group.dart' as _radio_group;
 import 'package:arcane_jaspr/component/input/text_input.dart' as _text_input;
 import 'package:arcane_jaspr/component/interactive/accordion.dart'
@@ -37,12 +42,16 @@ import 'package:arcane_jaspr/component/layout/dashboard_layout.dart'
 import 'package:arcane_jaspr/component/layout/footer.dart' as _footer;
 import 'package:arcane_jaspr/component/layout/logo_carousel.dart'
     as _logo_carousel;
+import 'package:arcane_jaspr/component/layout/resizable.dart' as _resizable;
 import 'package:arcane_jaspr/component/layout/scroll_area.dart' as _scroll_area;
 import 'package:arcane_jaspr/component/navigation/bottom_navigation_bar.dart'
     as _bottom_navigation_bar;
+import 'package:arcane_jaspr/component/navigation/context_menu.dart'
+    as _context_menu;
 import 'package:arcane_jaspr/component/navigation/dropdown_menu.dart'
     as _dropdown_menu;
 import 'package:arcane_jaspr/component/navigation/header.dart' as _header;
+import 'package:arcane_jaspr/component/navigation/menubar.dart' as _menubar;
 import 'package:arcane_jaspr/component/navigation/mobile_menu.dart'
     as _mobile_menu;
 import 'package:arcane_jaspr/component/navigation/sidebar.dart' as _sidebar;
@@ -99,6 +108,7 @@ ServerOptions get defaultServerOptions => ServerOptions(
     ..._card_carousel.ArcaneHeroCarousel.styles,
     ..._card_carousel.ArcaneNavigableCarousel.styles,
     ..._infinite_carousel.ArcaneInfiniteCarousel.styles,
+    ..._command.ArcaneCommand.styles,
     ..._dialog.ArcaneDialog.styles,
     ..._dialog.ArcaneSheet.styles,
     ..._text.ArcaneTextInputDialog.styles,
@@ -114,7 +124,11 @@ ServerOptions get defaultServerOptions => ServerOptions(
     ..._field.ArcaneFieldStyles.styles,
     ..._field_wrapper.ArcaneForm.styles,
     ..._newsletter_form.ArcaneNewsletterForm.styles,
+    ..._calendar.ArcaneCalendar.styles,
+    ..._combobox.ArcaneCombobox.styles,
+    ..._date_picker.ArcaneDatePicker.styles,
     ..._mutable_text.ArcaneMutableText.styles,
+    ..._otp_input.ArcaneOtpInput.styles,
     ..._radio_group.ArcaneRadioGroup.styles,
     ..._text_input.ArcaneSelect.styles,
     ..._text_input.ArcaneTextArea.styles,
@@ -129,12 +143,15 @@ ServerOptions get defaultServerOptions => ServerOptions(
     ..._footer.ArcaneSocialIcon.styles,
     ..._logo_carousel.ArcaneLogoCarousel.styles,
     ..._logo_carousel.ArcaneLogoGrid.styles,
+    ..._resizable.ArcaneResizable.styles,
     ..._scroll_area.ArcaneScrollArea.styles,
     ..._bottom_navigation_bar.ArcaneBottomNavigationBar.styles,
+    ..._context_menu.ArcaneContextMenu.styles,
     ..._dropdown_menu.ArcaneDropdownMenu.styles,
     ..._dropdown_menu.ArcaneMegaMenu.styles,
     ..._header.ArcaneHeader.styles,
     ..._header.ArcaneNavLink.styles,
+    ..._menubar.ArcaneMenubar.styles,
     ..._mobile_menu.ArcaneMobileMenu.styles,
     ..._sidebar.ArcaneSidebar.styles,
     ..._sidebar.ArcaneSidebarItem.styles,

@@ -326,6 +326,163 @@ ArcaneScrollRail(
 )
 ```
 
+#### New shadcn-Inspired Components
+
+**ArcaneAspectRatio** - Container that maintains a specific aspect ratio
+- Uses CSS `aspect-ratio` property with fallback
+- Common presets: `.square()`, `.video()`, `.portrait()`, `.photo()`, `.golden()`, `.ultrawide()`
+
+```dart
+ArcaneAspectRatio.video(
+  child: ArcaneImage(src: 'thumbnail.jpg'),
+)
+```
+
+**ArcaneOtpInput** - One-time password input with separate digit fields
+- Auto-advance focus on digit entry
+- Backspace navigates to previous field
+- Paste support (fills all fields)
+- Size variants: `OtpInputSize.sm`, `md`, `lg`
+- Separator support for grouped digits
+
+```dart
+ArcaneOtpInput(
+  length: 6,
+  onComplete: (code) => verifyCode(code),
+)
+```
+
+**ArcaneCalendar** - Full calendar component for date selection
+- Month navigation with previous/next buttons
+- Today button for quick navigation
+- Range selection mode (`CalendarMode.range`)
+- Minimum/maximum date constraints
+- Custom disabled dates
+- Week number display option
+
+```dart
+ArcaneCalendar(
+  selected: selectedDate,
+  onSelect: (date) => setState(() => selectedDate = date),
+  minDate: DateTime.now(),
+)
+```
+
+**ArcaneDatePicker** - Date picker input with calendar dropdown
+- Combines input field with calendar popup
+- Date range picker variant (`.range()`)
+- Clearable selection
+- Custom date formatting
+- Size variants: `DatePickerSize.sm`, `md`, `lg`
+
+```dart
+ArcaneDatePicker(
+  value: birthDate,
+  onChanged: (date) => setState(() => birthDate = date),
+  label: 'Birth Date',
+)
+```
+
+**ArcaneCombobox** - Autocomplete dropdown with search filtering
+- Type-ahead search with custom filter function
+- Keyboard navigation (arrow keys, enter, escape)
+- Option descriptions and icons
+- Empty state and loading support
+- Size variants
+
+```dart
+ArcaneCombobox<String>(
+  options: fruits.map((f) => ComboboxOption(value: f, label: f)).toList(),
+  value: selectedFruit,
+  onChanged: (fruit) => setState(() => selectedFruit = fruit),
+  placeholder: 'Select a fruit...',
+)
+```
+
+**ArcaneContextMenu** - Right-click context menu
+- Appears at cursor position
+- Submenus with nested items
+- Separators and disabled items
+- Destructive item styling
+- Keyboard shortcut hints
+
+```dart
+ArcaneContextMenu(
+  trigger: MyComponent(),
+  items: [
+    ContextMenuItem(label: 'Edit', shortcut: '⌘E', onSelect: edit),
+    ContextMenuItem.separator(),
+    ContextMenuItem(label: 'Delete', destructive: true, onSelect: delete),
+  ],
+)
+```
+
+**ArcaneMenubar** - Horizontal application menu bar
+- Desktop app-style menu structure
+- Hover to switch between open menus
+- Submenus and nested items
+- Keyboard shortcuts display
+
+```dart
+ArcaneMenubar(
+  items: [
+    MenubarItem(label: 'File', menu: [
+      MenuItem(label: 'New', shortcut: '⌘N', onSelect: newFile),
+      MenuItem(label: 'Open', shortcut: '⌘O', onSelect: openFile),
+    ]),
+    MenubarItem(label: 'Edit', menu: [...]),
+  ],
+)
+```
+
+**ArcaneResizable** - Resizable panel groups with drag handles
+- Horizontal and vertical directions
+- Min/max size constraints
+- Collapsible panels
+- Keyboard support (arrow keys)
+- Visual grip indicator
+
+```dart
+ArcaneResizable(
+  direction: ResizeDirection.horizontal,
+  panels: [
+    ResizablePanel(defaultSize: 25, minSize: 15, child: Sidebar()),
+    ResizablePanel(child: MainContent()),
+  ],
+)
+```
+
+**ArcaneCommand** - Command palette (cmdk-style)
+- Search filtering with keyboard navigation
+- Command groups with headings
+- Keyboard shortcut hints
+- Empty state message
+- Overlay with click-outside-to-close
+
+```dart
+ArcaneCommand(
+  isOpen: showCommand,
+  onClose: () => setState(() => showCommand = false),
+  groups: [
+    CommandGroup(heading: 'Actions', items: [
+      CommandItem(label: 'New Document', shortcut: '⌘N', onSelect: newDoc),
+    ]),
+  ],
+)
+```
+
+**JavaScript Fallback Scripts for New Components**
+
+All new interactive components include static site support via `ArcaneScripts`:
+- OTP inputs with auto-advance and paste handling
+- Combobox search filtering and keyboard navigation
+- Context menus with right-click positioning
+- Menubars with hover-switch behavior
+- Resizable panels with drag handling
+- Command palette keyboard navigation
+- Calendar day selection
+- Date picker dropdown toggle
+
 ### Changed
 
 #### Improved CSS Abstraction

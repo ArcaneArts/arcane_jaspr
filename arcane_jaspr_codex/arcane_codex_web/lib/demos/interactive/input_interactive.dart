@@ -758,3 +758,227 @@ class _RadioGroupDemoState extends State<RadioGroupDemo> {
     );
   }
 }
+
+/// Interactive OTP input demo
+class OtpInputDemo extends StatefulComponent {
+  const OtpInputDemo({super.key});
+
+  @override
+  State<OtpInputDemo> createState() => _OtpInputDemoState();
+}
+
+class _OtpInputDemoState extends State<OtpInputDemo> {
+  String _value4 = '';
+  String _value6 = '';
+
+  @override
+  Component build(BuildContext context) {
+    return ArcaneColumn(
+      gapSize: Gap.xl,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ArcaneColumn(
+          gapSize: Gap.sm,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ArcaneText('4-Digit Code', size: FontSize.sm, color: TextColor.muted),
+            ArcaneOtpInput(
+              length: 4,
+              onComplete: (code) => setState(() => _value4 = code),
+              onChange: (code) => setState(() => _value4 = code),
+            ),
+            if (_value4.isNotEmpty)
+              ArcaneText('Entered: $_value4', size: FontSize.sm, color: TextColor.accent),
+          ],
+        ),
+        ArcaneColumn(
+          gapSize: Gap.sm,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ArcaneText('6-Digit Code', size: FontSize.sm, color: TextColor.muted),
+            ArcaneOtpInput(
+              length: 6,
+              onComplete: (code) => setState(() => _value6 = code),
+              onChange: (code) => setState(() => _value6 = code),
+            ),
+            if (_value6.length == 6)
+              ArcaneText('Code complete!', size: FontSize.sm, color: TextColor.success),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+/// Interactive combobox demo
+class ComboboxDemo extends StatefulComponent {
+  const ComboboxDemo({super.key});
+
+  @override
+  State<ComboboxDemo> createState() => _ComboboxDemoState();
+}
+
+class _ComboboxDemoState extends State<ComboboxDemo> {
+  String? _selectedFruit;
+  String? _selectedFramework;
+
+  @override
+  Component build(BuildContext context) {
+    return ArcaneRow(
+      gapSize: Gap.xl,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ArcaneColumn(
+          gapSize: Gap.sm,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ArcaneDiv(
+              styles: const ArcaneStyleData(widthCustom: '200px'),
+              children: [
+                ArcaneCombobox<String>(
+                  label: 'Select Fruit',
+                  placeholder: 'Choose a fruit...',
+                  options: const [
+                    ComboboxOption(value: 'apple', label: 'Apple'),
+                    ComboboxOption(value: 'banana', label: 'Banana'),
+                    ComboboxOption(value: 'cherry', label: 'Cherry'),
+                    ComboboxOption(value: 'grape', label: 'Grape'),
+                    ComboboxOption(value: 'orange', label: 'Orange'),
+                  ],
+                  value: _selectedFruit,
+                  onChanged: (v) => setState(() => _selectedFruit = v),
+                ),
+              ],
+            ),
+            if (_selectedFruit != null)
+              ArcaneText('Selected: $_selectedFruit', size: FontSize.sm, color: TextColor.muted),
+          ],
+        ),
+        ArcaneColumn(
+          gapSize: Gap.sm,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ArcaneDiv(
+              styles: const ArcaneStyleData(widthCustom: '250px'),
+              children: [
+                ArcaneCombobox<String>(
+                  label: 'Framework',
+                  placeholder: 'Search frameworks...',
+                  searchPlaceholder: 'Type to filter...',
+                  options: const [
+                    ComboboxOption(value: 'react', label: 'React', description: 'A JavaScript library'),
+                    ComboboxOption(value: 'vue', label: 'Vue', description: 'Progressive framework'),
+                    ComboboxOption(value: 'angular', label: 'Angular', description: 'Platform for web apps'),
+                    ComboboxOption(value: 'svelte', label: 'Svelte', description: 'Compile-time framework'),
+                  ],
+                  value: _selectedFramework,
+                  onChanged: (v) => setState(() => _selectedFramework = v),
+                ),
+              ],
+            ),
+            if (_selectedFramework != null)
+              ArcaneText('Selected: $_selectedFramework', size: FontSize.sm, color: TextColor.muted),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+/// Interactive calendar demo
+class CalendarDemo extends StatefulComponent {
+  const CalendarDemo({super.key});
+
+  @override
+  State<CalendarDemo> createState() => _CalendarDemoState();
+}
+
+class _CalendarDemoState extends State<CalendarDemo> {
+  DateTime? _selectedDate;
+  DateRange? _selectedRange;
+
+  @override
+  Component build(BuildContext context) {
+    return ArcaneRow(
+      gapSize: Gap.xl,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ArcaneColumn(
+          gapSize: Gap.sm,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ArcaneText('Single Date', weight: FontWeight.w600),
+            ArcaneCalendar(
+              mode: CalendarMode.single,
+              selected: _selectedDate,
+              onSelect: (date) => setState(() => _selectedDate = date),
+            ),
+            if (_selectedDate != null)
+              ArcaneText(
+                'Selected: ${_selectedDate!.month}/${_selectedDate!.day}/${_selectedDate!.year}',
+                size: FontSize.sm,
+                color: TextColor.muted,
+              ),
+          ],
+        ),
+        ArcaneColumn(
+          gapSize: Gap.sm,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ArcaneText('Date Range', weight: FontWeight.w600),
+            ArcaneCalendar(
+              mode: CalendarMode.range,
+              selectedRange: _selectedRange,
+              onRangeSelect: (range) => setState(() => _selectedRange = range),
+            ),
+            if (_selectedRange != null)
+              ArcaneText(
+                'Range: ${_selectedRange!.start.month}/${_selectedRange!.start.day} - ${_selectedRange!.end.month}/${_selectedRange!.end.day}',
+                size: FontSize.sm,
+                color: TextColor.muted,
+              ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+/// Interactive date picker demo
+class DatePickerDemo extends StatefulComponent {
+  const DatePickerDemo({super.key});
+
+  @override
+  State<DatePickerDemo> createState() => _DatePickerDemoState();
+}
+
+class _DatePickerDemoState extends State<DatePickerDemo> {
+  DateTime? _selectedDate;
+
+  @override
+  Component build(BuildContext context) {
+    return ArcaneColumn(
+      gapSize: Gap.lg,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(widthCustom: '280px'),
+          children: [
+            ArcaneDatePicker(
+              label: 'Select Date',
+              value: _selectedDate,
+              onChanged: (date) => setState(() => _selectedDate = date),
+              placeholder: 'Pick a date...',
+            ),
+          ],
+        ),
+        if (_selectedDate != null)
+          ArcaneText(
+            'Selected: ${_selectedDate!.month}/${_selectedDate!.day}/${_selectedDate!.year}',
+            size: FontSize.sm,
+            color: TextColor.accent,
+          ),
+      ],
+    );
+  }
+}
