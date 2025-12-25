@@ -215,13 +215,11 @@ typedef AStatCard = ArcaneStatCard;
 typedef AStatCardRow = ArcaneStatCardRow;
 typedef AStaticTable = ArcaneStaticTable;
 typedef AStepItem = ArcaneStepItem;
-typedef AStepper = ArcaneStepper;
 typedef AStructuredCard = ArcaneStructuredCard;
 typedef ATestimonialCard = ArcaneTestimonialCard;
 typedef ATile = ArcaneTile;
 typedef ATimeline = ArcaneTimeline;
 typedef ATimelineItem = ArcaneTimelineItem;
-typedef AVerticalStepper = ArcaneVerticalStepper;
 
 // Typography
 typedef ABodyText = ArcaneBodyText;

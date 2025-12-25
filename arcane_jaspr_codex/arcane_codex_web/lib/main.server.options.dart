@@ -113,7 +113,6 @@ ServerOptions get defaultServerOptions => ServerOptions(
     ..._dialog.ArcaneSheet.styles,
     ..._text.ArcaneTextInputDialog.styles,
     ..._toast.ArcaneToast.styles,
-    ..._toast.ArcaneToaster.styles,
     ..._alert_banner.ArcaneLoader.styles,
     ..._alert_banner.ArcaneProgressBar.styles,
     ..._loader.ArcaneDotsLoader.styles,

@@ -7,17 +7,16 @@ component: tooltip
 
 # ArcaneTooltip
 
-A tooltip component that displays contextual information when hovering over an element.
+A tooltip component that displays contextual information when hovering over an element. Features smooth animations, an arrow pointer, and support for all four positions.
+
+**Aliases:** `ArcaneTooltip`, `ATooltip`
 
 ## Basic Usage
 
 ```dart
 ArcaneTooltip(
   content: 'Helpful information',
-  child: ArcaneIconButton(
-    icon: span([text('❓')]),
-    onPressed: () {},
-  ),
+  child: ArcaneButton(label: 'Hover me', onPressed: () {}),
 )
 ```
 
@@ -28,8 +27,7 @@ ArcaneTooltip(
 | `content` | `String` | required | Tooltip text |
 | `child` | `Component` | required | Trigger element |
 | `position` | `TooltipPosition` | `top` | Tooltip position |
-| `delay` | `Duration?` | `200ms` | Show delay |
-| `styles` | `ArcaneStyleData?` | `null` | Additional styling |
+| `maxWidth` | `double` | `250` | Maximum tooltip width |
 
 ## Positions
 
@@ -38,85 +36,93 @@ ArcaneTooltip(
 ArcaneTooltip(
   position: TooltipPosition.top,
   content: 'Above the element',
-  child: TriggerElement(),
+  child: ArcaneButton.secondary(label: 'Top'),
 )
 
 // Bottom
 ArcaneTooltip(
   position: TooltipPosition.bottom,
   content: 'Below the element',
-  child: TriggerElement(),
+  child: ArcaneButton.secondary(label: 'Bottom'),
 )
 
 // Left
 ArcaneTooltip(
   position: TooltipPosition.left,
   content: 'To the left',
-  child: TriggerElement(),
+  child: ArcaneButton.secondary(label: 'Left'),
 )
 
 // Right
 ArcaneTooltip(
   position: TooltipPosition.right,
   content: 'To the right',
-  child: TriggerElement(),
+  child: ArcaneButton.secondary(label: 'Right'),
+)
+```
+
+## Info Tooltip
+
+An info icon with a built-in tooltip:
+
+```dart
+ArcaneInfoTooltip(
+  content: 'This field is required for form submission',
+)
+```
+
+## Custom Content Tooltip
+
+For tooltips with custom content (not just text):
+
+```dart
+ArcaneTooltipCustom(
+  position: TooltipPosition.bottom,
+  tooltipContent: ArcaneColumn(
+    children: [
+      ArcaneText('User Info', weight: FontWeight.w600),
+      ArcaneText('john@example.com'),
+    ],
+  ),
+  child: ArcaneAvatar(name: 'John Doe'),
 )
 ```
 
 ## Examples
 
-### Button Tooltip
-
-```dart
-ArcaneTooltip(
-  content: 'Save your changes',
-  child: ArcaneButton.primary(
-    label: 'Save',
-    onPressed: save,
-  ),
-)
-```
-
-### Icon Explanation
+### Icon Button Tooltips
 
 ```dart
 ArcaneRow(
-  gap: Gap.sm,
+  gapSize: Gap.sm,
   children: [
     ArcaneTooltip(
-      content: 'Edit item',
-      child: ArcaneIconButton(icon: span([text('✏')]), onPressed: edit),
+      content: 'Copy to clipboard',
+      child: ArcaneIconButton(icon: ArcaneIcon.copy(), onPressed: copy),
     ),
     ArcaneTooltip(
-      content: 'Delete item',
-      child: ArcaneIconButton(icon: span([text('🗑')]), onPressed: delete),
-    ),
-    ArcaneTooltip(
-      content: 'Share item',
-      child: ArcaneIconButton(icon: span([text('↗')]), onPressed: share),
+      content: 'Settings',
+      child: ArcaneIconButton(icon: ArcaneIcon.settings(), onPressed: openSettings),
     ),
   ],
 )
 ```
 
-### Truncated Text
+### Form Field Help
 
 ```dart
-ArcaneTooltip(
-  content: veryLongText,
-  child: ArcaneText(
-    truncatedText,
-    styles: const ArcaneStyleData(
-      textOverflow: TextOverflow.ellipsis,
-      whiteSpace: WhiteSpace.nowrap,
-      overflow: Overflow.hidden,
-      maxWidthCustom: '200px',
+ArcaneRow(
+  gapSize: Gap.sm,
+  children: [
+    ArcaneText('Email'),
+    ArcaneInfoTooltip(
+      content: 'We will never share your email',
     ),
-  ),
+  ],
 )
 ```
 
-### Disabled Button
+### Disabled Button Explanation
 
 ```dart
 ArcaneTooltip(
@@ -129,49 +135,31 @@ ArcaneTooltip(
 )
 ```
 
-### Table Cell Info
-
-```dart
-ArcaneDataTable(
-  columns: [...],
-  rows: [
-    DataRow(cells: [
-      ArcaneTooltip(
-        content: 'john.doe@example.com',
-        child: ArcaneRow(
-          gap: Gap.sm,
-          children: [
-            ArcaneAvatar(imageUrl: user.avatar, size: AvatarSize.small),
-            ArcaneText('John Doe'),
-          ],
-        ),
-      ),
-      // Other cells...
-    ]),
-  ],
-)
-```
-
 ### Keyboard Shortcut Hint
 
 ```dart
 ArcaneTooltip(
-  content: 'Search (⌘K)',
+  content: 'Search (Cmd+K)',
   child: ArcaneSearch(placeholder: 'Search...'),
 )
 ```
 
-### Status Explanation
+## Visual Features
 
-```dart
-ArcaneTooltip(
-  content: 'User is currently active',
-  position: TooltipPosition.right,
-  child: ArcaneStatusIndicator(status: 'online'),
-)
-```
+- **Arrow pointer** - Points to the trigger element
+- **Smooth animation** - Fades in with subtle transform
+- **Dark background** - High contrast for readability
+- **Responsive positioning** - Adapts to all four directions
+
+## Static Site Support
+
+The JavaScript fallback system fully supports tooltips:
+- Binds hover events to `.arcane-tooltip-trigger` elements
+- Creates tooltip with arrow dynamically if needed
+- Supports all four positions
+- Smooth opacity and transform animations
 
 ## Related Components
 
-- [ArcaneInfoTooltip](/arcane_jaspr/docs/view/arcane-info-tooltip) - Info icon with tooltip
-- [ArcaneDropdownMenu](/arcane_jaspr/docs/navigation/arcane-dropdown-menu) - Dropdown menu
+- [ArcaneHovercard](/arcane_jaspr/docs/view/arcane-hovercard) - Rich content on hover
+- [ArcanePopover](/arcane_jaspr/docs/view/arcane-popover) - Clickable popup content

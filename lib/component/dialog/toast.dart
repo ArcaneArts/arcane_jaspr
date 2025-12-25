@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart'
     hide
@@ -14,6 +16,7 @@ import 'package:jaspr/dom.dart'
         FontWeight;
 
 import '../../util/tokens/tokens.dart';
+import '../view/icon.dart';
 
 /// Toast notification variant
 enum ToastVariant {
@@ -31,9 +34,6 @@ enum ToastVariant {
 
   /// Loading toast with spinner
   loading,
-
-  /// Promise-based toast (internal use)
-  promise,
 }
 
 /// Toast position on screen
@@ -48,13 +48,8 @@ enum ToastPosition {
 
 /// Toast action button configuration
 class ToastAction {
-  /// Button label
   final String label;
-
-  /// Click handler
   final void Function() onPressed;
-
-  /// Optional: makes this a destructive action (red styling)
   final bool destructive;
 
   const ToastAction({
@@ -64,374 +59,129 @@ class ToastAction {
   });
 }
 
-/// Toast data model for the queue
-class ToastData {
-  /// Unique identifier for this toast
-  final String id;
-
-  /// Toast message
+/// A toast notification component.
+///
+/// Can be used standalone or with the global [toast] API.
+///
+/// ## Standalone Usage
+/// ```dart
+/// ArcaneToast(
+///   message: 'Changes saved!',
+///   variant: ToastVariant.success,
+///   position: ToastPosition.bottomRight,
+/// )
+/// ```
+///
+/// ## Global API Usage
+/// ```dart
+/// // Add ArcaneToast.container() once at app root
+/// toast.success('Saved!');
+/// toast.error('Failed!');
+/// toast.warning('Check input');
+/// toast.info('New update');
+/// toast.loading('Processing...');
+/// ```
+class ArcaneToast extends StatefulComponent {
+  /// Toast message (required)
   final String message;
 
-  /// Optional title
+  /// Optional title displayed above message
   final String? title;
 
-  /// Toast variant/type
+  /// Optional description displayed below message
+  final String? description;
+
+  /// Toast variant (info, success, warning, error, loading)
   final ToastVariant variant;
 
-  /// Custom icon (overrides default)
-  final Component? icon;
+  /// Screen position
+  final ToastPosition position;
+
+  /// Auto-dismiss duration in milliseconds (0 = no auto-dismiss)
+  final int duration;
+
+  /// Whether the toast can be dismissed by clicking close
+  final bool dismissible;
 
   /// Optional action button
   final ToastAction? action;
 
-  /// Description text (shown below message)
-  final String? description;
+  /// Custom icon (overrides default variant icon)
+  final Component? icon;
 
-  /// Duration in milliseconds (0 = no auto-dismiss)
-  final int duration;
-
-  /// Whether this toast can be dismissed
-  final bool dismissible;
-
-  /// Callback when toast is dismissed
-  final void Function()? onDismiss;
-
-  /// Callback when toast auto-closes
-  final void Function()? onAutoClose;
-
-  /// Creation timestamp
-  final DateTime createdAt;
-
-  /// Whether this toast is expanded (shows full content)
-  final bool expanded;
-
-  ToastData({
-    required this.id,
-    required this.message,
-    this.title,
-    this.variant = ToastVariant.info,
-    this.icon,
-    this.action,
-    this.description,
-    this.duration = 4000,
-    this.dismissible = true,
-    this.onDismiss,
-    this.onAutoClose,
-    this.expanded = false,
-  }) : createdAt = DateTime.now();
-
-  ToastData copyWith({
-    String? message,
-    String? title,
-    ToastVariant? variant,
-    Component? icon,
-    ToastAction? action,
-    String? description,
-    int? duration,
-    bool? dismissible,
-    void Function()? onDismiss,
-    void Function()? onAutoClose,
-    bool? expanded,
-  }) {
-    return ToastData(
-      id: id,
-      message: message ?? this.message,
-      title: title ?? this.title,
-      variant: variant ?? this.variant,
-      icon: icon ?? this.icon,
-      action: action ?? this.action,
-      description: description ?? this.description,
-      duration: duration ?? this.duration,
-      dismissible: dismissible ?? this.dismissible,
-      onDismiss: onDismiss ?? this.onDismiss,
-      onAutoClose: onAutoClose ?? this.onAutoClose,
-      expanded: expanded ?? this.expanded,
-    );
-  }
-}
-
-/// Global toast state manager (singleton)
-class ToastManager {
-  static ToastManager? _instance;
-  static ToastManager get instance => _instance ??= ToastManager._();
-
-  ToastManager._();
-
-  /// List of active toasts
-  final List<ToastData> _toasts = [];
-
-  /// Listeners for toast state changes
-  final List<void Function()> _listeners = [];
-
-  /// Maximum number of visible toasts
-  int maxVisible = 3;
-
-  /// Get current toasts (most recent first, limited to maxVisible)
-  List<ToastData> get toasts => _toasts.take(maxVisible).toList();
-
-  /// Get all toasts including queued ones
-  List<ToastData> get allToasts => List.unmodifiable(_toasts);
-
-  /// Add a listener for state changes
-  void addListener(void Function() listener) {
-    _listeners.add(listener);
-  }
-
-  /// Remove a listener
-  void removeListener(void Function() listener) {
-    _listeners.remove(listener);
-  }
-
-  void _notifyListeners() {
-    for (final listener in _listeners) {
-      listener();
-    }
-  }
-
-  /// Generate unique ID
-  String _generateId() => 'toast_${DateTime.now().millisecondsSinceEpoch}';
-
-  /// Show a toast and return its ID
-  String show(ToastData data) {
-    _toasts.insert(0, data);
-    _notifyListeners();
-    return data.id;
-  }
-
-  /// Update an existing toast by ID
-  void update(String id, ToastData Function(ToastData) updater) {
-    final index = _toasts.indexWhere((t) => t.id == id);
-    if (index != -1) {
-      _toasts[index] = updater(_toasts[index]);
-      _notifyListeners();
-    }
-  }
-
-  /// Dismiss a toast by ID
-  void dismiss(String id) {
-    final index = _toasts.indexWhere((t) => t.id == id);
-    if (index != -1) {
-      final toast = _toasts[index];
-      toast.onDismiss?.call();
-      _toasts.removeAt(index);
-      _notifyListeners();
-    }
-  }
-
-  /// Dismiss all toasts
-  void dismissAll() {
-    for (final toast in _toasts) {
-      toast.onDismiss?.call();
-    }
-    _toasts.clear();
-    _notifyListeners();
-  }
-
-  // ============================================================================
-  // Convenience methods (Sonner-style API)
-  // ============================================================================
-
-  /// Show an info toast
-  String info(
-    String message, {
-    String? title,
-    String? description,
-    int duration = 4000,
-    ToastAction? action,
-    Component? icon,
-  }) {
-    final id = _generateId();
-    return show(ToastData(
-      id: id,
-      message: message,
-      title: title,
-      description: description,
-      variant: ToastVariant.info,
-      duration: duration,
-      action: action,
-      icon: icon,
-    ));
-  }
-
-  /// Show a success toast
-  String success(
-    String message, {
-    String? title,
-    String? description,
-    int duration = 4000,
-    ToastAction? action,
-    Component? icon,
-  }) {
-    final id = _generateId();
-    return show(ToastData(
-      id: id,
-      message: message,
-      title: title,
-      description: description,
-      variant: ToastVariant.success,
-      duration: duration,
-      action: action,
-      icon: icon,
-    ));
-  }
-
-  /// Show a warning toast
-  String warning(
-    String message, {
-    String? title,
-    String? description,
-    int duration = 5000,
-    ToastAction? action,
-    Component? icon,
-  }) {
-    final id = _generateId();
-    return show(ToastData(
-      id: id,
-      message: message,
-      title: title,
-      description: description,
-      variant: ToastVariant.warning,
-      duration: duration,
-      action: action,
-      icon: icon,
-    ));
-  }
-
-  /// Show an error toast
-  String error(
-    String message, {
-    String? title,
-    String? description,
-    int duration = 6000,
-    ToastAction? action,
-    Component? icon,
-  }) {
-    final id = _generateId();
-    return show(ToastData(
-      id: id,
-      message: message,
-      title: title,
-      description: description,
-      variant: ToastVariant.error,
-      duration: duration,
-      action: action,
-      icon: icon,
-    ));
-  }
-
-  /// Show a loading toast (no auto-dismiss)
-  String loading(
-    String message, {
-    String? title,
-    String? description,
-  }) {
-    final id = _generateId();
-    return show(ToastData(
-      id: id,
-      message: message,
-      title: title,
-      description: description,
-      variant: ToastVariant.loading,
-      duration: 0, // No auto-dismiss for loading
-      dismissible: false,
-    ));
-  }
-
-  /// Show a promise-based toast that updates based on async result
-  /// Returns the toast ID immediately
-  String promise<T>(
-    Future<T> promise, {
-    required String loading,
-    required String Function(T) success,
-    required String Function(Object) error,
-    String? title,
-    int successDuration = 4000,
-    int errorDuration = 6000,
-  }) {
-    final id = this.loading(loading, title: title);
-
-    promise.then((result) {
-      update(id, (t) => t.copyWith(
-            message: success(result),
-            variant: ToastVariant.success,
-            duration: successDuration,
-            dismissible: true,
-          ));
-    }).catchError((e) {
-      update(id, (t) => t.copyWith(
-            message: error(e),
-            variant: ToastVariant.error,
-            duration: errorDuration,
-            dismissible: true,
-          ));
-    });
-
-    return id;
-  }
-
-  /// Show a custom toast
-  String custom(
-    Component child, {
-    int duration = 4000,
-    bool dismissible = true,
-  }) {
-    final id = _generateId();
-    return show(ToastData(
-      id: id,
-      message: '', // Not used for custom
-      variant: ToastVariant.info,
-      duration: duration,
-      dismissible: dismissible,
-      icon: child, // Abuse icon field for custom content
-    ));
-  }
-}
-
-/// Global toast function for easy access
-/// Usage: toast.success('Saved!'), toast.error('Failed'), etc.
-ToastManager get toast => ToastManager.instance;
-
-/// A single toast notification component
-class ArcaneToast extends StatefulComponent {
-  /// Toast data
-  final ToastData data;
-
-  /// Close handler
+  /// Callback when toast is closed
   final void Function()? onClose;
 
+  /// Unique ID for this toast (used by toast manager)
+  final String? id;
+
   const ArcaneToast({
-    required this.data,
+    required this.message,
+    this.title,
+    this.description,
+    this.variant = ToastVariant.info,
+    this.position = ToastPosition.bottomRight,
+    this.duration = 4000,
+    this.dismissible = true,
+    this.action,
+    this.icon,
     this.onClose,
+    this.id,
     super.key,
   });
+
+  /// Creates a toast container for the global toast API.
+  /// Place this once at your app root.
+  static Component container({
+    ToastPosition position = ToastPosition.bottomRight,
+    int maxVisible = 3,
+    double gap = 12,
+    double offset = 20,
+    Key? key,
+  }) {
+    return _ToastContainer(
+      position: position,
+      maxVisible: maxVisible,
+      gap: gap,
+      offset: offset,
+      key: key,
+    );
+  }
 
   @override
   State<ArcaneToast> createState() => _ArcaneToastState();
 
   @css
   static final List<StyleRule> styles = [
-    css('@keyframes arcane-toast-in').styles(raw: {
-      'from': 'opacity: 0; transform: translateY(-12px) scale(0.95)',
-      'to': 'opacity: 1; transform: translateY(0) scale(1)',
+    // Entry animation
+    css('@keyframes arcane-toast-enter').styles(raw: {
+      '0%': 'opacity: 0; transform: translateY(16px) scale(0.95)',
+      '100%': 'opacity: 1; transform: translateY(0) scale(1)',
     }),
-    css('@keyframes arcane-toast-out').styles(raw: {
-      'from': 'opacity: 1; transform: translateY(0) scale(1)',
-      'to': 'opacity: 0; transform: translateY(-12px) scale(0.95)',
+    // Exit animation
+    css('@keyframes arcane-toast-exit').styles(raw: {
+      '0%': 'opacity: 1; transform: translateY(0) scale(1)',
+      '100%': 'opacity: 0; transform: translateY(-16px) scale(0.95)',
     }),
+    // Spinner animation
     css('@keyframes arcane-toast-spin').styles(raw: {
       '0%': 'transform: rotate(0deg)',
       '100%': 'transform: rotate(360deg)',
     }),
+    // Progress bar animation
     css('@keyframes arcane-toast-progress').styles(raw: {
-      'from': 'width: 100%',
-      'to': 'width: 0%',
+      '0%': 'width: 100%',
+      '100%': 'width: 0%',
+    }),
+    // Hover effects
+    css('.arcane-toast:hover .arcane-toast-close').styles(raw: {
+      'opacity': '1',
     }),
     css('.arcane-toast-close:hover').styles(raw: {
-      'background-color': ArcaneColors.surfaceVariant,
-      'color': ArcaneColors.onSurface,
+      'background': 'rgba(255, 255, 255, 0.1)',
     }),
     css('.arcane-toast-action:hover').styles(raw: {
-      'background-color': ArcaneColors.surfaceVariant,
+      'opacity': '0.8',
     }),
   ];
 }
@@ -439,126 +189,188 @@ class ArcaneToast extends StatefulComponent {
 class _ArcaneToastState extends State<ArcaneToast> {
   bool _isExiting = false;
   bool _isHovered = false;
+  Timer? _dismissTimer;
+  Timer? _exitTimer;
 
   @override
   void initState() {
     super.initState();
-    _startDismissTimer();
+    _scheduleDismissTimer();
   }
 
-  void _startDismissTimer() {
-    if (component.data.duration > 0) {
-      // Auto-dismiss after duration
-      Future.delayed(Duration(milliseconds: component.data.duration), () {
-        if (mounted && !_isHovered) {
-          _dismiss();
-        }
-      });
+  @override
+  void dispose() {
+    _cancelTimers();
+    super.dispose();
+  }
+
+  void _cancelTimers() {
+    _dismissTimer?.cancel();
+    _dismissTimer = null;
+    _exitTimer?.cancel();
+    _exitTimer = null;
+  }
+
+  void _scheduleDismissTimer() {
+    _dismissTimer?.cancel();
+    if (component.duration > 0 && !_isHovered) {
+      _dismissTimer = Timer(
+        Duration(milliseconds: component.duration),
+        () {
+          if (mounted && !_isHovered) {
+            _startExitAnimation();
+          }
+        },
+      );
     }
   }
 
-  void _dismiss() {
+  void _startExitAnimation() {
     if (_isExiting) return;
     setState(() => _isExiting = true);
 
-    // Wait for exit animation
-    Future.delayed(const Duration(milliseconds: 200), () {
-      component.data.onAutoClose?.call();
-      component.onClose?.call();
-    });
+    _exitTimer = Timer(
+      const Duration(milliseconds: 200),
+      () {
+        if (mounted) {
+          component.onClose?.call();
+        }
+      },
+    );
+  }
+
+  void _onMouseEnter() {
+    setState(() => _isHovered = true);
+    _dismissTimer?.cancel();
+    _dismissTimer = null;
+  }
+
+  void _onMouseLeave() {
+    setState(() => _isHovered = false);
+    _scheduleDismissTimer();
+  }
+
+  void _onDismissClick() {
+    _startExitAnimation();
+  }
+
+  Component _buildIcon() {
+    if (component.icon != null) {
+      return component.icon!;
+    }
+
+    final iconWidget = switch (component.variant) {
+      ToastVariant.success => ArcaneIcon.success(size: IconSize.md),
+      ToastVariant.error => ArcaneIcon.error(size: IconSize.md),
+      ToastVariant.warning => ArcaneIcon.warning(size: IconSize.md),
+      ToastVariant.info => ArcaneIcon.info(size: IconSize.md),
+      ToastVariant.loading => ArcaneIcon.loader(size: IconSize.md),
+    };
+
+    final isLoading = component.variant == ToastVariant.loading;
+
+    return div(
+      styles: Styles(raw: {
+        'color': _getIconColor(),
+        if (isLoading) 'animation': 'arcane-toast-spin 1s linear infinite',
+      }),
+      [iconWidget],
+    );
+  }
+
+  String _getIconColor() {
+    return switch (component.variant) {
+      ToastVariant.success => ArcaneColors.success,
+      ToastVariant.error => ArcaneColors.error,
+      ToastVariant.warning => ArcaneColors.warning,
+      ToastVariant.info => ArcaneColors.info,
+      ToastVariant.loading => ArcaneColors.accent,
+    };
+  }
+
+  String _getBorderColor() {
+    return switch (component.variant) {
+      ToastVariant.success => ArcaneColors.successAlpha30,
+      ToastVariant.error => ArcaneColors.errorAlpha30,
+      ToastVariant.warning => ArcaneColors.warningAlpha30,
+      ToastVariant.info => ArcaneColors.infoAlpha30,
+      ToastVariant.loading => ArcaneColors.border,
+    };
+  }
+
+  String _getBackgroundColor() {
+    return switch (component.variant) {
+      ToastVariant.success => ArcaneColors.successAlpha05,
+      ToastVariant.error => ArcaneColors.errorAlpha05,
+      ToastVariant.warning => ArcaneColors.warningAlpha05,
+      ToastVariant.info => ArcaneColors.infoAlpha05,
+      ToastVariant.loading => ArcaneColors.surface,
+    };
+  }
+
+  String _getProgressColor() {
+    return switch (component.variant) {
+      ToastVariant.success => ArcaneColors.success,
+      ToastVariant.error => ArcaneColors.error,
+      ToastVariant.warning => ArcaneColors.warning,
+      ToastVariant.info => ArcaneColors.info,
+      ToastVariant.loading => ArcaneColors.accent,
+    };
   }
 
   @override
   Component build(BuildContext context) {
-    final data = component.data;
-
-    final (String borderColor, String iconColor, String defaultIcon) =
-        switch (data.variant) {
-      ToastVariant.info => (
-          ArcaneColors.border,
-          ArcaneColors.accent,
-          '○',
-        ),
-      ToastVariant.success => (
-          ArcaneColors.success,
-          ArcaneColors.success,
-          '✓',
-        ),
-      ToastVariant.warning => (
-          ArcaneColors.warning,
-          ArcaneColors.warning,
-          '⚠',
-        ),
-      ToastVariant.error => (
-          ArcaneColors.error,
-          ArcaneColors.error,
-          '✕',
-        ),
-      ToastVariant.loading => (
-          ArcaneColors.accent,
-          ArcaneColors.accent,
-          '◌',
-        ),
-      ToastVariant.promise => (
-          ArcaneColors.accent,
-          ArcaneColors.accent,
-          '◌',
-        ),
-    };
-
-    final isLoading = data.variant == ToastVariant.loading;
-
     return div(
-      classes:
-          'arcane-toast arcane-toast-${data.variant.name} ${_isExiting ? "arcane-toast-exit" : ""}',
+      classes: 'arcane-toast arcane-toast-${component.variant.name}',
+      id: component.id != null ? 'toast-${component.id}' : null,
       attributes: {
         'role': 'alert',
-        'aria-live': 'polite',
-        'data-toast-id': data.id,
+        'aria-live':
+            component.variant == ToastVariant.error ? 'assertive' : 'polite',
+        'aria-atomic': 'true',
+        'data-variant': component.variant.name,
+        'data-duration': '${component.duration}',
+        'data-dismissible': '${component.dismissible}',
+        'data-position': component.position.name,
       },
       styles: Styles(raw: {
         'display': 'flex',
         'align-items': 'flex-start',
         'gap': ArcaneSpacing.sm,
         'padding': ArcaneSpacing.md,
-        'background-color': ArcaneColors.surface,
-        'border': '1px solid $borderColor',
+        'background': _getBackgroundColor(),
+        'border': '1px solid ${_getBorderColor()}',
         'border-radius': ArcaneRadius.lg,
         'box-shadow': ArcaneEffects.shadowLg,
         'min-width': '320px',
         'max-width': '420px',
-        'animation': _isExiting
-            ? 'arcane-toast-out 200ms ease forwards'
-            : 'arcane-toast-in 300ms cubic-bezier(0.21, 1.02, 0.73, 1) forwards',
         'pointer-events': 'auto',
         'position': 'relative',
         'overflow': 'hidden',
+        'backdrop-filter': 'blur(8px)',
+        'transition': 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+        'animation': _isExiting
+            ? 'arcane-toast-exit 200ms cubic-bezier(0.4, 0, 1, 1) forwards'
+            : 'arcane-toast-enter 300ms cubic-bezier(0, 0, 0.2, 1) forwards',
       }),
       events: {
-        'mouseenter': (e) => setState(() => _isHovered = true),
-        'mouseleave': (e) {
-          setState(() => _isHovered = false);
-          if (data.duration > 0) {
-            _startDismissTimer();
-          }
-        },
+        'mouseenter': (_) => _onMouseEnter(),
+        'mouseleave': (_) => _onMouseLeave(),
       },
       [
         // Icon
         div(
           classes: 'arcane-toast-icon',
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'center',
             'width': '20px',
             'height': '20px',
-            'font-size': '16px',
-            'color': iconColor,
             'flex-shrink': '0',
-            if (isLoading) 'animation': 'arcane-toast-spin 1s linear infinite',
+            'margin-top': '2px',
           }),
-          [data.icon ?? text(defaultIcon)],
+          [_buildIcon()],
         ),
 
         // Content
@@ -567,54 +379,47 @@ class _ArcaneToastState extends State<ArcaneToast> {
           styles: const Styles(raw: {
             'flex': '1',
             'min-width': '0',
+            'display': 'flex',
+            'flex-direction': 'column',
+            'gap': '2px',
           }),
           [
-            // Title
-            if (data.title != null)
-              div(
+            if (component.title != null)
+              span(
                 classes: 'arcane-toast-title',
                 styles: const Styles(raw: {
                   'font-weight': ArcaneTypography.weightSemibold,
+                  'font-size': ArcaneTypography.fontSm,
                   'color': ArcaneColors.onSurface,
-                  'font-size': ArcaneTypography.fontMd,
                   'line-height': '1.4',
                 }),
-                [text(data.title!)],
+                [Component.text(component.title!)],
               ),
-
-            // Message
-            div(
+            span(
               classes: 'arcane-toast-message',
               styles: Styles(raw: {
                 'font-size': ArcaneTypography.fontSm,
-                'color': data.title != null
+                'color': component.title != null
                     ? ArcaneColors.muted
                     : ArcaneColors.onSurface,
                 'line-height': '1.5',
-                if (data.title != null) 'margin-top': '2px',
               }),
-              [text(data.message)],
+              [Component.text(component.message)],
             ),
-
-            // Description
-            if (data.description != null)
-              div(
+            if (component.description != null)
+              span(
                 classes: 'arcane-toast-description',
                 styles: const Styles(raw: {
-                  'font-size': ArcaneTypography.fontSm,
+                  'font-size': ArcaneTypography.fontXs,
                   'color': ArcaneColors.muted,
                   'line-height': '1.5',
-                  'margin-top': ArcaneSpacing.xs,
+                  'margin-top': '4px',
                 }),
-                [text(data.description!)],
+                [Component.text(component.description!)],
               ),
-
-            // Action button
-            if (data.action != null)
+            if (component.action != null)
               div(
-                styles: const Styles(raw: {
-                  'margin-top': ArcaneSpacing.sm,
-                }),
+                styles: const Styles(raw: {'margin-top': ArcaneSpacing.sm}),
                 [
                   button(
                     classes: 'arcane-toast-action',
@@ -623,21 +428,20 @@ class _ArcaneToastState extends State<ArcaneToast> {
                       'display': 'inline-flex',
                       'align-items': 'center',
                       'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
-                      'font-size': ArcaneTypography.fontSm,
+                      'font-size': ArcaneTypography.fontXs,
                       'font-weight': ArcaneTypography.weightMedium,
-                      'color': data.action!.destructive
+                      'color': component.action!.destructive
                           ? ArcaneColors.error
                           : ArcaneColors.accent,
-                      'background': ArcaneColors.transparent,
-                      'border': 'none',
+                      'background': 'transparent',
+                      'border':
+                          '1px solid ${component.action!.destructive ? ArcaneColors.errorAlpha30 : ArcaneColors.border}',
                       'border-radius': ArcaneRadius.sm,
                       'cursor': 'pointer',
                       'transition': ArcaneEffects.transitionFast,
                     }),
-                    events: {
-                      'click': (e) => data.action!.onPressed(),
-                    },
-                    [text(data.action!.label)],
+                    events: {'click': (_) => component.action!.onPressed()},
+                    [Component.text(component.action!.label)],
                   ),
                 ],
               ),
@@ -645,36 +449,32 @@ class _ArcaneToastState extends State<ArcaneToast> {
         ),
 
         // Close button
-        if (data.dismissible)
+        if (component.dismissible)
           button(
             classes: 'arcane-toast-close',
-            attributes: {'type': 'button', 'aria-label': 'Close notification'},
+            attributes: {'type': 'button', 'aria-label': 'Dismiss'},
             styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
               'justify-content': 'center',
               'width': '24px',
               'height': '24px',
-              'border-radius': ArcaneRadius.sm,
-              'background': ArcaneColors.transparent,
+              'padding': '0',
               'border': 'none',
+              'background': 'transparent',
               'color': ArcaneColors.muted,
               'cursor': 'pointer',
+              'border-radius': ArcaneRadius.sm,
               'transition': ArcaneEffects.transitionFast,
               'flex-shrink': '0',
-              'margin-left': ArcaneSpacing.xs,
+              'opacity': '0.7',
             }),
-            events: {
-              'click': (event) {
-                data.onDismiss?.call();
-                component.onClose?.call();
-              },
-            },
-            [text('×')],
+            events: {'click': (_) => _onDismissClick()},
+            [ArcaneIcon.close(size: IconSize.sm)],
           ),
 
-        // Progress bar (for auto-dismiss)
-        if (data.duration > 0 && !_isHovered)
+        // Progress bar
+        if (component.duration > 0 && !_isHovered && !_isExiting)
           div(
             classes: 'arcane-toast-progress',
             styles: Styles(raw: {
@@ -682,10 +482,10 @@ class _ArcaneToastState extends State<ArcaneToast> {
               'bottom': '0',
               'left': '0',
               'height': '2px',
-              'background': iconColor,
-              'opacity': '0.3',
+              'background': _getProgressColor(),
+              'border-radius': '0 0 0 ${ArcaneRadius.lg}',
               'animation':
-                  'arcane-toast-progress ${data.duration}ms linear forwards',
+                  'arcane-toast-progress ${component.duration}ms linear forwards',
             }),
             [],
           ),
@@ -694,52 +494,280 @@ class _ArcaneToastState extends State<ArcaneToast> {
   }
 }
 
-/// The Toaster component - renders all active toasts
-/// Place this once at the root of your app
-class ArcaneToaster extends StatefulComponent {
-  /// Position of the toast container
+// =============================================================================
+// Toast Manager & Container (Global API)
+// =============================================================================
+
+/// Toast data for the queue
+class ToastData {
+  final String id;
+  final String message;
+  final String? title;
+  final String? description;
+  final ToastVariant variant;
+  final int duration;
+  final bool dismissible;
+  final ToastAction? action;
+  final Component? icon;
   final ToastPosition position;
 
-  /// Gap between toasts
-  final double gap;
+  ToastData({
+    required this.id,
+    required this.message,
+    this.title,
+    this.description,
+    this.variant = ToastVariant.info,
+    this.duration = 4000,
+    this.dismissible = true,
+    this.action,
+    this.icon,
+    this.position = ToastPosition.bottomRight,
+  });
 
-  /// Maximum number of visible toasts
+  ToastData copyWith({
+    String? message,
+    String? title,
+    String? description,
+    ToastVariant? variant,
+    int? duration,
+    bool? dismissible,
+    ToastAction? action,
+    Component? icon,
+  }) {
+    return ToastData(
+      id: id,
+      message: message ?? this.message,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      variant: variant ?? this.variant,
+      duration: duration ?? this.duration,
+      dismissible: dismissible ?? this.dismissible,
+      action: action ?? this.action,
+      icon: icon ?? this.icon,
+      position: position,
+    );
+  }
+}
+
+/// Global toast manager singleton
+class ToastManager {
+  static ToastManager? _instance;
+  static ToastManager get instance => _instance ??= ToastManager._();
+
+  ToastManager._();
+
+  final List<ToastData> _toasts = [];
+  final List<void Function()> _listeners = [];
+  ToastPosition _defaultPosition = ToastPosition.bottomRight;
+
+  List<ToastData> get toasts => List.unmodifiable(_toasts);
+
+  void setDefaultPosition(ToastPosition position) {
+    _defaultPosition = position;
+  }
+
+  void addListener(void Function() listener) => _listeners.add(listener);
+  void removeListener(void Function() listener) => _listeners.remove(listener);
+  void _notify() {
+    for (final l in _listeners) {
+      l();
+    }
+  }
+
+  String _generateId() => 'toast_${DateTime.now().millisecondsSinceEpoch}';
+
+  String _show(ToastData data) {
+    _toasts.insert(0, data);
+    _notify();
+    return data.id;
+  }
+
+  void dismiss(String id) {
+    _toasts.removeWhere((t) => t.id == id);
+    _notify();
+  }
+
+  void dismissAll() {
+    _toasts.clear();
+    _notify();
+  }
+
+  void update(String id, ToastData Function(ToastData) updater) {
+    final index = _toasts.indexWhere((t) => t.id == id);
+    if (index != -1) {
+      _toasts[index] = updater(_toasts[index]);
+      _notify();
+    }
+  }
+
+  // Convenience methods
+  String info(
+    String message, {
+    String? title,
+    String? description,
+    int duration = 4000,
+    ToastAction? action,
+    Component? icon,
+    ToastPosition? position,
+  }) {
+    return _show(ToastData(
+      id: _generateId(),
+      message: message,
+      title: title,
+      description: description,
+      variant: ToastVariant.info,
+      duration: duration,
+      action: action,
+      icon: icon,
+      position: position ?? _defaultPosition,
+    ));
+  }
+
+  String success(
+    String message, {
+    String? title,
+    String? description,
+    int duration = 4000,
+    ToastAction? action,
+    Component? icon,
+    ToastPosition? position,
+  }) {
+    return _show(ToastData(
+      id: _generateId(),
+      message: message,
+      title: title,
+      description: description,
+      variant: ToastVariant.success,
+      duration: duration,
+      action: action,
+      icon: icon,
+      position: position ?? _defaultPosition,
+    ));
+  }
+
+  String warning(
+    String message, {
+    String? title,
+    String? description,
+    int duration = 5000,
+    ToastAction? action,
+    Component? icon,
+    ToastPosition? position,
+  }) {
+    return _show(ToastData(
+      id: _generateId(),
+      message: message,
+      title: title,
+      description: description,
+      variant: ToastVariant.warning,
+      duration: duration,
+      action: action,
+      icon: icon,
+      position: position ?? _defaultPosition,
+    ));
+  }
+
+  String error(
+    String message, {
+    String? title,
+    String? description,
+    int duration = 6000,
+    ToastAction? action,
+    Component? icon,
+    ToastPosition? position,
+  }) {
+    return _show(ToastData(
+      id: _generateId(),
+      message: message,
+      title: title,
+      description: description,
+      variant: ToastVariant.error,
+      duration: duration,
+      action: action,
+      icon: icon,
+      position: position ?? _defaultPosition,
+    ));
+  }
+
+  String loading(
+    String message, {
+    String? title,
+    String? description,
+    ToastPosition? position,
+  }) {
+    return _show(ToastData(
+      id: _generateId(),
+      message: message,
+      title: title,
+      description: description,
+      variant: ToastVariant.loading,
+      duration: 0,
+      dismissible: false,
+      position: position ?? _defaultPosition,
+    ));
+  }
+
+  String promise<T>(
+    Future<T> future, {
+    required String loading,
+    required String Function(T) success,
+    required String Function(Object) error,
+    String? title,
+    ToastPosition? position,
+  }) {
+    final id = this.loading(loading, title: title, position: position);
+
+    future.then((result) {
+      update(
+          id,
+          (t) => t.copyWith(
+                message: success(result),
+                variant: ToastVariant.success,
+                duration: 4000,
+                dismissible: true,
+              ));
+    }).catchError((e) {
+      update(
+          id,
+          (t) => t.copyWith(
+                message: error(e),
+                variant: ToastVariant.error,
+                duration: 6000,
+                dismissible: true,
+              ));
+    });
+
+    return id;
+  }
+}
+
+/// Global toast accessor
+ToastManager get toast => ToastManager.instance;
+
+/// Toast container component - renders all active toasts
+class _ToastContainer extends StatefulComponent {
+  final ToastPosition position;
   final int maxVisible;
-
-  /// Whether to show expand button when toasts are stacked
-  final bool expandable;
-
-  /// Custom offset from edges
+  final double gap;
   final double offset;
 
-  const ArcaneToaster({
+  const _ToastContainer({
     this.position = ToastPosition.bottomRight,
-    this.gap = 8,
     this.maxVisible = 3,
-    this.expandable = true,
-    this.offset = 16,
+    this.gap = 12,
+    this.offset = 20,
     super.key,
   });
 
   @override
-  State<ArcaneToaster> createState() => _ArcaneToasterState();
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-toaster-expand:hover').styles(raw: {
-      'background-color': ArcaneColors.surfaceVariant,
-      'color': ArcaneColors.onSurface,
-    }),
-  ];
+  State<_ToastContainer> createState() => _ToastContainerState();
 }
 
-class _ArcaneToasterState extends State<ArcaneToaster> {
-  bool _expanded = false;
-
+class _ToastContainerState extends State<_ToastContainer> {
   @override
   void initState() {
     super.initState();
-    ToastManager.instance.maxVisible = component.maxVisible;
+    ToastManager.instance.setDefaultPosition(component.position);
     ToastManager.instance.addListener(_onToastsChanged);
   }
 
@@ -753,33 +781,28 @@ class _ArcaneToasterState extends State<ArcaneToaster> {
     setState(() {});
   }
 
-  @override
-  Component build(BuildContext context) {
-    final toasts = _expanded
-        ? ToastManager.instance.allToasts
-        : ToastManager.instance.toasts;
-
-    final position = component.position;
+  Map<String, String> _getPositionStyles() {
     final offset = '${component.offset}px';
-    final hasMore = ToastManager.instance.allToasts.length >
-        ToastManager.instance.maxVisible;
 
-    final Map<String, String> positionStyles = switch (position) {
+    return switch (component.position) {
       ToastPosition.topLeft => {
           'top': offset,
           'left': offset,
           'align-items': 'flex-start',
+          'flex-direction': 'column',
         },
       ToastPosition.topCenter => {
           'top': offset,
           'left': '50%',
           'transform': 'translateX(-50%)',
           'align-items': 'center',
+          'flex-direction': 'column',
         },
       ToastPosition.topRight => {
           'top': offset,
           'right': offset,
           'align-items': 'flex-end',
+          'flex-direction': 'column',
         },
       ToastPosition.bottomLeft => {
           'bottom': offset,
@@ -801,74 +824,49 @@ class _ArcaneToasterState extends State<ArcaneToaster> {
           'flex-direction': 'column-reverse',
         },
     };
+  }
+
+  @override
+  Component build(BuildContext context) {
+    final toasts = ToastManager.instance.toasts.take(component.maxVisible);
 
     return div(
       classes: 'arcane-toaster',
       attributes: {
-        'aria-live': 'polite',
+        'role': 'region',
         'aria-label': 'Notifications',
+        'data-position': component.position.name,
       },
       styles: Styles(raw: {
         'position': 'fixed',
-        'z-index': '9999',
+        'z-index': ArcaneZIndex.toast,
         'display': 'flex',
-        'flex-direction': 'column',
         'gap': '${component.gap}px',
         'pointer-events': 'none',
-        'max-height': 'calc(100vh - 32px)',
+        'max-height': 'calc(100vh - 40px)',
         'overflow': 'visible',
-        ...positionStyles,
+        ..._getPositionStyles(),
       }),
       [
-        // Toast items
-        for (var i = 0; i < toasts.length; i++)
-          div(
-            styles: Styles(raw: {
-              'transition': 'all 200ms ease',
-              if (!_expanded && i > 0)
-                'transform': 'scale(${1 - (i * 0.05)}) translateY(${i * -8}px)',
-              if (!_expanded && i > 0) 'opacity': '${1 - (i * 0.15)}',
-            }),
-            [
-              ArcaneToast(
-                key: ValueKey(toasts[i].id),
-                data: toasts[i],
-                onClose: () => ToastManager.instance.dismiss(toasts[i].id),
-              ),
-            ],
-          ),
-
-        // Expand/collapse button when there are more toasts
-        if (hasMore && component.expandable)
-          button(
-            classes: 'arcane-toaster-expand',
-            attributes: {'type': 'button'},
-            styles: const Styles(raw: {
-              'display': 'flex',
-              'align-items': 'center',
-              'justify-content': 'center',
-              'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
-              'margin-top': ArcaneSpacing.xs,
-              'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.muted,
-              'background': ArcaneColors.surface,
-              'border': '1px solid ${ArcaneColors.border}',
-              'border-radius': ArcaneRadius.md,
-              'cursor': 'pointer',
-              'pointer-events': 'auto',
-              'transition': ArcaneEffects.transitionFast,
-            }),
-            events: {
-              'click': (e) => setState(() => _expanded = !_expanded),
-            },
-            [
-              text(_expanded
-                  ? 'Collapse'
-                  : '+${ToastManager.instance.allToasts.length - ToastManager.instance.maxVisible} more'),
-            ],
+        for (final data in toasts)
+          ArcaneToast(
+            key: ValueKey(data.id),
+            id: data.id,
+            message: data.message,
+            title: data.title,
+            description: data.description,
+            variant: data.variant,
+            duration: data.duration,
+            dismissible: data.dismissible,
+            action: data.action,
+            icon: data.icon,
+            position: data.position,
+            onClose: () => ToastManager.instance.dismiss(data.id),
           ),
       ],
     );
   }
 }
 
+/// Short alias for ArcaneToast
+typedef AToast = ArcaneToast;

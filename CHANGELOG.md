@@ -9,6 +9,63 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+#### ArcaneTimeline Redesign
+
+Complete redesign of the timeline component with multiple layout options:
+
+- **Layout options**: `vertical` (default), `horizontal`, and `alternating` layouts
+- **Size variants**: `sm`, `md`, `lg` sizes
+- **Status types**: `complete`, `current`, `pending`, `error`, and `default_`
+- **Named constructors**: `ArcaneTimeline.vertical()`, `ArcaneTimeline.horizontal()`, `ArcaneTimeline.alternating()`
+- **Custom icons**: Support for custom icons in timeline items
+- **Rich content**: Support for custom content in timeline items via `content` property
+- **Date display**: Built-in date/time display with `date` property
+- **Alias**: Added `ATimeline` alias
+
+```dart
+ArcaneTimeline.alternating(
+  items: [
+    ArcaneTimelineItem(
+      title: 'Project Started',
+      date: 'Jan 1, 2024',
+      status: TimelineStatus.complete,
+    ),
+    ArcaneTimelineItem(
+      title: 'In Progress',
+      status: TimelineStatus.current,
+    ),
+  ],
+)
+```
+
+#### ArcaneSteps Component
+
+New numbered steps component for multi-step processes (replaces ArcaneStepper):
+
+- **Layout options**: `horizontal` (default) and `vertical` layouts
+- **Size variants**: `sm`, `md`, `lg` sizes
+- **Auto-status**: Use `currentStep` to automatically set step statuses
+- **Clickable navigation**: Click completed steps to navigate back
+- **Named constructors**: `ArcaneSteps.horizontal()`, `ArcaneSteps.vertical()`
+- **Alias**: Added `ASteps` alias
+
+```dart
+ArcaneSteps(
+  currentStep: 1,
+  onStepTap: (index) => setState(() => _step = index),
+  items: [
+    ArcaneStepItem(title: 'Account', description: 'Create account'),
+    ArcaneStepItem(title: 'Profile', description: 'Set up profile'),
+    ArcaneStepItem(title: 'Complete', description: 'Start using app'),
+  ],
+)
+```
+
+### Changed
+
+- **ArcaneStepper** deprecated in favor of `ArcaneSteps`
+- **ArcaneVerticalStepper** deprecated in favor of `ArcaneSteps.vertical()`
+
 #### Automatic Fallback Scripts for Static Sites
 
 `ArcaneApp` now automatically injects JavaScript fallback scripts when Jaspr client hydration is unavailable (e.g., on static sites built with `jaspr build`).
@@ -514,6 +571,106 @@ ArcaneDiv(
 )
 ```
 
+### Changed
+
+#### Redesigned ArcaneTooltip Component
+
+Complete rewrite of the tooltip system with CSS-based hover and proper JS fallbacks:
+
+**New Design**
+- Pure CSS hover-based display (no JavaScript required for hydrated apps)
+- Arrow pointer that points to the trigger element
+- Smooth fade and transform animations
+- Support for all four positions (top, bottom, left, right)
+- `ATooltip` short alias added
+
+**JS Fallback Improvements**
+- Binds to `.arcane-tooltip-trigger` elements
+- Creates tooltip with arrow dynamically
+- Proper opacity/visibility transitions
+- Position-aware transform animations
+- Also handles native `[title]` attributes
+
+```dart
+ArcaneTooltip(
+  content: 'Helpful information',
+  position: TooltipPosition.top,
+  child: ArcaneButton.secondary(label: 'Hover me'),
+)
+```
+
+#### Redesigned ArcaneToast Component
+
+Complete rewrite of the toast notification system with simplified API and all variants working:
+
+**Simplified API**
+
+Standalone toasts now use direct properties instead of `ToastData`:
+
+```dart
+// Old API
+ArcaneToast(
+  data: ToastData(id: 'x', message: 'Hello', variant: ToastVariant.success),
+  onClose: () {},
+)
+
+// New API
+ArcaneToast(
+  message: 'Hello',
+  variant: ToastVariant.success,
+  onClose: () {},
+)
+```
+
+**Type Aliases**
+- `AToast` - Short alias for `ArcaneToast`
+
+Container setup with configurable position:
+
+```dart
+// Add once at app root
+ArcaneToast.container(
+  position: ToastPosition.topRight,  // 6 positions available
+  maxVisible: 3,
+  offset: 20,
+)
+```
+
+**All Variants Working**
+- `ToastVariant.info` - Blue accent with info icon
+- `ToastVariant.success` - Green accent with checkmark icon
+- `ToastVariant.warning` - Yellow/orange accent with warning triangle
+- `ToastVariant.error` - Red accent with X icon
+- `ToastVariant.loading` - Accent color with animated spinner
+
+**Configurable Positioning**
+- `ToastPosition.topLeft`, `topCenter`, `topRight`
+- `ToastPosition.bottomLeft`, `bottomCenter`, `bottomRight`
+- Position can be set on container or per-toast via global API
+
+**Enhanced JS Fallbacks**
+- Complete static site support for all toast variants
+- Variant-specific SVG icons and colors in JS-created toasts
+- Proper progress bar animation with hover pause/resume
+- Dynamic toaster container creation with correct positioning
+- MutationObserver for dynamically added toasts
+- Action button support with callbacks in JS-created toasts
+- Description text support in JS-created toasts
+
+**Visual Improvements**
+- Variant-specific backgrounds using design tokens (e.g., `successAlpha05`)
+- Variant-specific borders (e.g., `errorAlpha30`)
+- Proper SVG icons using `ArcaneIcon`
+- Backdrop blur for depth effect
+- Progress bar with variant-specific colors
+- Smooth enter/exit animations with cubic-bezier curves
+
+**Technical Improvements**
+- Dart-native `Timer` instead of JS interop for reliability
+- Proper timer cleanup in `dispose()`
+- Improved accessibility with `aria-live` (assertive for errors)
+- Added `aria-atomic` and proper ARIA roles
+
 ### Fixed
 
 #### ArcaneSlider and ArcaneRangeSlider
@@ -551,7 +708,7 @@ ArcaneDiv(
 Complete rewrite of the toast system with modern patterns:
 
 **New Components:**
-- `ArcaneToaster` - Root toast container component (place once at app root)
+- `ArcaneToast.container()` - Root toast container (place once at app root)
 - `ToastManager` - Global singleton for managing toast state
 - `ToastData` - Toast data model with all configuration options
 - `ToastAction` - Action button configuration

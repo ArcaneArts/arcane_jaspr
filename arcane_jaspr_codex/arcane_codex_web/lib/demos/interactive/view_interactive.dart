@@ -206,7 +206,7 @@ class _ExpanderDemoState extends State<ExpanderDemo> {
   }
 }
 
-/// Interactive toast demo
+/// Interactive toast demo - standalone toasts
 class ToastDemo extends StatefulComponent {
   const ToastDemo({super.key});
 
@@ -217,55 +217,148 @@ class ToastDemo extends StatefulComponent {
 class _ToastDemoState extends State<ToastDemo> {
   bool _showToast = false;
   ToastVariant _variant = ToastVariant.info;
+  bool _requiresAction = false;
+  ToastAction? _action;
+
+  String _getMessage() {
+    return switch (_variant) {
+      ToastVariant.success => 'Action completed successfully!',
+      ToastVariant.error => 'Something went wrong. Please try again.',
+      ToastVariant.warning => 'Please review before continuing.',
+      ToastVariant.info => 'Here is some helpful information.',
+      ToastVariant.loading => 'Processing your request...',
+    };
+  }
+
+  void _showVariantToast(ToastVariant variant) {
+    setState(() {
+      _variant = variant;
+      _showToast = true;
+      _requiresAction = false;
+      _action = null;
+    });
+  }
+
+  void _showActionToast({
+    required ToastVariant variant,
+    required String message,
+    required String title,
+    required ToastAction action,
+    bool requiresAction = false,
+  }) {
+    setState(() {
+      _variant = variant;
+      _showToast = true;
+      _requiresAction = requiresAction;
+      _action = action;
+    });
+  }
 
   @override
   Component build(BuildContext context) {
     return ArcaneColumn(
-      gapSize: Gap.md,
+      gapSize: Gap.lg,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Auto-dismiss variants
+        ArcaneText('Auto-Dismiss Toasts', weight: FontWeight.w600),
         ArcaneRow(
           gapSize: Gap.sm,
           children: [
             ArcaneButton.primary(
               label: 'Info',
-              onPressed: () => setState(() {
-                _variant = ToastVariant.info;
-                _showToast = true;
-              }),
+              onPressed: () => _showVariantToast(ToastVariant.info),
             ),
             ArcaneButton(
               label: 'Success',
               style: ButtonStyle.success,
-              onPressed: () => setState(() {
-                _variant = ToastVariant.success;
-                _showToast = true;
-              }),
+              onPressed: () => _showVariantToast(ToastVariant.success),
             ),
             ArcaneButton(
               label: 'Warning',
               style: ButtonStyle.warning,
-              onPressed: () => setState(() {
-                _variant = ToastVariant.warning;
-                _showToast = true;
-              }),
+              onPressed: () => _showVariantToast(ToastVariant.warning),
             ),
             ArcaneButton.destructive(
               label: 'Error',
-              onPressed: () => setState(() {
-                _variant = ToastVariant.error;
-                _showToast = true;
-              }),
+              onPressed: () => _showVariantToast(ToastVariant.error),
+            ),
+            ArcaneButton.outline(
+              label: 'Loading',
+              onPressed: () => _showVariantToast(ToastVariant.loading),
             ),
           ],
         ),
+
+        // Manual dismiss / action required
+        ArcaneText('Manual Dismiss Required', weight: FontWeight.w600),
+        ArcaneRow(
+          gapSize: Gap.sm,
+          children: [
+            ArcaneButton.secondary(
+              label: 'Acknowledge Required',
+              onPressed: () => _showActionToast(
+                variant: ToastVariant.warning,
+                message: 'Your session will expire in 5 minutes.',
+                title: 'Session Warning',
+                requiresAction: true,
+                action: ToastAction(
+                  label: 'OK',
+                  onPressed: () => setState(() => _showToast = false),
+                ),
+              ),
+            ),
+            ArcaneButton.secondary(
+              label: 'Confirm Action',
+              onPressed: () => _showActionToast(
+                variant: ToastVariant.error,
+                message: 'This action cannot be undone.',
+                title: 'Are you sure?',
+                requiresAction: true,
+                action: ToastAction(
+                  label: 'I Understand',
+                  onPressed: () => setState(() => _showToast = false),
+                  destructive: true,
+                ),
+              ),
+            ),
+            ArcaneButton.secondary(
+              label: 'With Undo',
+              onPressed: () => _showActionToast(
+                variant: ToastVariant.info,
+                message: 'Item moved to trash.',
+                title: 'Deleted',
+                requiresAction: false,
+                action: ToastAction(
+                  label: 'Undo',
+                  onPressed: () => setState(() => _showToast = false),
+                ),
+              ),
+            ),
+          ],
+        ),
+
+        // Toast display
         if (_showToast)
           ArcaneToast(
-            data: ToastData(
-              id: 'demo-toast',
-              message: 'This is a ${_variant.name} message!',
-              variant: _variant,
-            ),
+            message: _action != null
+                ? (_variant == ToastVariant.warning
+                    ? 'Your session will expire in 5 minutes.'
+                    : _variant == ToastVariant.error
+                        ? 'This action cannot be undone.'
+                        : 'Item moved to trash.')
+                : _getMessage(),
+            title: _action != null
+                ? (_variant == ToastVariant.warning
+                    ? 'Session Warning'
+                    : _variant == ToastVariant.error
+                        ? 'Are you sure?'
+                        : 'Deleted')
+                : _variant.name[0].toUpperCase() + _variant.name.substring(1),
+            variant: _variant,
+            duration: _requiresAction || _variant == ToastVariant.loading ? 0 : 4000,
+            dismissible: !_requiresAction && _variant != ToastVariant.loading,
+            action: _action,
             onClose: () => setState(() => _showToast = false),
           ),
       ],
@@ -495,102 +588,59 @@ class TooltipDemo extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return ArcaneRow(
-      gapSize: Gap.lg,
-      children: [
-        ArcaneTooltip(
-          content: 'This is a helpful tooltip',
-          child: ArcaneButton.secondary(label: 'Hover me', onPressed: () {}),
-        ),
-        ArcaneTooltip(
-          content: 'Another tooltip with more info',
-          child: ArcaneIconButton(
-            icon: ArcaneIcon.info(),
-            onPressed: () {},
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-/// Interactive toaster demo (Sonner-style toast system)
-class ToasterDemo extends StatefulComponent {
-  const ToasterDemo({super.key});
-
-  @override
-  State<ToasterDemo> createState() => _ToasterDemoState();
-}
-
-class _ToasterDemoState extends State<ToasterDemo> {
-  @override
-  Component build(BuildContext context) {
     return ArcaneColumn(
       gapSize: Gap.lg,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ArcaneText('Toast Types', weight: FontWeight.w600),
+        ArcaneText('Positions', weight: FontWeight.w600),
         ArcaneRow(
-          gapSize: Gap.sm,
+          gapSize: Gap.lg,
           children: [
-            ArcaneButton(
-              label: 'Success',
-              style: ButtonStyle.success,
-              onPressed: () => toast.success(
-                'Your action was completed successfully.',
-                title: 'Success!',
-              ),
+            ArcaneTooltip(
+              content: 'Tooltip on top',
+              position: TooltipPosition.top,
+              child: ArcaneButton.secondary(label: 'Top', onPressed: () {}),
             ),
-            ArcaneButton.destructive(
-              label: 'Error',
-              onPressed: () => toast.error(
-                'Something went wrong. Please try again.',
-                title: 'Error',
-              ),
+            ArcaneTooltip(
+              content: 'Tooltip on bottom',
+              position: TooltipPosition.bottom,
+              child: ArcaneButton.secondary(label: 'Bottom', onPressed: () {}),
             ),
-            ArcaneButton(
-              label: 'Warning',
-              style: ButtonStyle.warning,
-              onPressed: () => toast.warning(
-                'Please review before continuing.',
-                title: 'Warning',
-              ),
+            ArcaneTooltip(
+              content: 'Tooltip on left',
+              position: TooltipPosition.left,
+              child: ArcaneButton.secondary(label: 'Left', onPressed: () {}),
             ),
-            ArcaneButton.primary(
-              label: 'Info',
-              onPressed: () => toast.info(
-                'Here is some helpful information.',
-                title: 'Information',
-              ),
+            ArcaneTooltip(
+              content: 'Tooltip on right',
+              position: TooltipPosition.right,
+              child: ArcaneButton.secondary(label: 'Right', onPressed: () {}),
             ),
           ],
         ),
-        ArcaneText('With Actions', weight: FontWeight.w600),
+        ArcaneText('Usage Examples', weight: FontWeight.w600),
         ArcaneRow(
-          gapSize: Gap.sm,
+          gapSize: Gap.lg,
           children: [
-            ArcaneButton.secondary(
-              label: 'With Action',
-              onPressed: () => toast.info(
-                'You have a new message from John.',
-                title: 'New message',
-                action: ToastAction(
-                  label: 'View',
-                  onPressed: () {},
-                ),
+            ArcaneTooltip(
+              content: 'Click to copy to clipboard',
+              child: ArcaneIconButton(
+                icon: ArcaneIcon.copy(),
+                onPressed: () {},
               ),
             ),
-            ArcaneButton.outline(
-              label: 'Loading Toast',
-              onPressed: () => toast.loading(
-                'Please wait while we process your request.',
-                title: 'Processing...',
+            ArcaneTooltip(
+              content: 'View settings',
+              child: ArcaneIconButton(
+                icon: ArcaneIcon.settings(),
+                onPressed: () {},
               ),
+            ),
+            ArcaneInfoTooltip(
+              content: 'This field is required for form submission',
             ),
           ],
         ),
-        // The toaster component that displays toasts
-        const ArcaneToaster(position: ToastPosition.bottomRight),
       ],
     );
   }
@@ -664,6 +714,203 @@ class SeparatorDemo extends StatelessComponent {
             ),
             ArcaneText('Right'),
           ],
+        ),
+      ],
+    );
+  }
+}
+
+/// Interactive timeline demo with layout switching
+class TimelineDemo extends StatefulComponent {
+  const TimelineDemo({super.key});
+
+  @override
+  State<TimelineDemo> createState() => _TimelineDemoState();
+}
+
+class _TimelineDemoState extends State<TimelineDemo> {
+  TimelineLayout _layout = TimelineLayout.vertical;
+
+  @override
+  Component build(BuildContext context) {
+    return ArcaneColumn(
+      gapSize: Gap.lg,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Layout selector
+        ArcaneText('Layout', weight: FontWeight.w600),
+        ArcaneRow(
+          gapSize: Gap.sm,
+          children: [
+            ArcaneButton(
+              label: 'Vertical',
+              style: _layout == TimelineLayout.vertical
+                  ? ButtonStyle.primary
+                  : ButtonStyle.secondary,
+              onPressed: () => setState(() => _layout = TimelineLayout.vertical),
+            ),
+            ArcaneButton(
+              label: 'Horizontal',
+              style: _layout == TimelineLayout.horizontal
+                  ? ButtonStyle.primary
+                  : ButtonStyle.secondary,
+              onPressed: () => setState(() => _layout = TimelineLayout.horizontal),
+            ),
+            ArcaneButton(
+              label: 'Alternating',
+              style: _layout == TimelineLayout.alternating
+                  ? ButtonStyle.primary
+                  : ButtonStyle.secondary,
+              onPressed: () => setState(() => _layout = TimelineLayout.alternating),
+            ),
+          ],
+        ),
+
+        // Timeline
+        ArcaneDiv(
+          styles: const ArcaneStyleData(
+            widthCustom: '100%',
+            maxWidthCustom: '600px',
+          ),
+          children: [
+            ArcaneTimeline(
+              layout: _layout,
+              items: const [
+                ArcaneTimelineItem(
+                  title: 'Order Placed',
+                  description: 'Your order #12345 has been received',
+                  date: 'Jan 15, 2024',
+                  status: TimelineStatus.complete,
+                ),
+                ArcaneTimelineItem(
+                  title: 'Processing',
+                  description: 'Items are being prepared for shipping',
+                  date: 'Jan 16, 2024',
+                  status: TimelineStatus.complete,
+                ),
+                ArcaneTimelineItem(
+                  title: 'Shipped',
+                  description: 'Your package is on its way',
+                  date: 'Jan 17, 2024',
+                  status: TimelineStatus.current,
+                ),
+                ArcaneTimelineItem(
+                  title: 'Delivered',
+                  description: 'Expected delivery',
+                  date: 'Jan 19, 2024',
+                  status: TimelineStatus.pending,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+/// Interactive steps demo with layout switching and step navigation
+class StepsDemo extends StatefulComponent {
+  const StepsDemo({super.key});
+
+  @override
+  State<StepsDemo> createState() => _StepsDemoState();
+}
+
+class _StepsDemoState extends State<StepsDemo> {
+  StepsLayout _layout = StepsLayout.horizontal;
+  int _currentStep = 1;
+
+  @override
+  Component build(BuildContext context) {
+    return ArcaneColumn(
+      gapSize: Gap.lg,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Layout selector
+        ArcaneText('Layout', weight: FontWeight.w600),
+        ArcaneRow(
+          gapSize: Gap.sm,
+          children: [
+            ArcaneButton(
+              label: 'Horizontal',
+              style: _layout == StepsLayout.horizontal
+                  ? ButtonStyle.primary
+                  : ButtonStyle.secondary,
+              onPressed: () => setState(() => _layout = StepsLayout.horizontal),
+            ),
+            ArcaneButton(
+              label: 'Vertical',
+              style: _layout == StepsLayout.vertical
+                  ? ButtonStyle.primary
+                  : ButtonStyle.secondary,
+              onPressed: () => setState(() => _layout = StepsLayout.vertical),
+            ),
+          ],
+        ),
+
+        // Steps
+        ArcaneDiv(
+          styles: const ArcaneStyleData(
+            widthCustom: '100%',
+            maxWidthCustom: '600px',
+          ),
+          children: [
+            ArcaneSteps(
+              layout: _layout,
+              currentStep: _currentStep,
+              onStepTap: (index) => setState(() => _currentStep = index),
+              items: const [
+                ArcaneStepItem(
+                  title: 'Account',
+                  description: 'Create your account',
+                ),
+                ArcaneStepItem(
+                  title: 'Profile',
+                  description: 'Set up your profile',
+                ),
+                ArcaneStepItem(
+                  title: 'Preferences',
+                  description: 'Configure settings',
+                ),
+                ArcaneStepItem(
+                  title: 'Complete',
+                  description: 'Start using the app',
+                ),
+              ],
+            ),
+          ],
+        ),
+
+        // Navigation controls
+        ArcaneText('Navigation', weight: FontWeight.w600),
+        ArcaneRow(
+          gapSize: Gap.sm,
+          children: [
+            ArcaneButton.outline(
+              label: 'Previous',
+              disabled: _currentStep <= 0,
+              onPressed: () => setState(() => _currentStep--),
+            ),
+            ArcaneButton.primary(
+              label: _currentStep >= 3 ? 'Complete' : 'Next',
+              onPressed: () {
+                if (_currentStep < 3) {
+                  setState(() => _currentStep++);
+                }
+              },
+            ),
+            ArcaneButton.secondary(
+              label: 'Reset',
+              onPressed: () => setState(() => _currentStep = 0),
+            ),
+          ],
+        ),
+
+        ArcaneText(
+          'Current step: ${_currentStep + 1} of 4',
+          size: FontSize.sm,
+          color: TextColor.muted,
         ),
       ],
     );

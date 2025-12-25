@@ -96,7 +96,6 @@ class DemoRegistry {
     'skeleton': ViewDemos.skeleton,
     'empty-state': ViewDemos.emptyState,
     'data-table': ViewDemos.dataTable,
-    'timeline': ViewDemos.timeline,
     'feature-card': ViewDemos.featureCard,
     'callout': ViewDemos.callout,
     'kbd': ViewDemos.kbd,
@@ -176,7 +175,6 @@ class DemoRegistry {
     'tooltip': const TooltipDemo(),
     'accordion': const AccordionDemo(),
     'toast': const ToastDemo(),
-    'toaster': const ToasterDemo(),
     'meter': const MeterDemo(),
     'inline-tabs': const TabBarDemo(),
     'tree-view': const TreeViewDemo(),
@@ -185,6 +183,8 @@ class DemoRegistry {
     'expander': const ExpanderDemo(),
     'separator': const SeparatorDemo(),
     'scroll-area': const ScrollAreaDemo(),
+    'timeline': const TimelineDemo(),
+    'steps': const StepsDemo(),
 
     // Navigation interactive
     'drawer': const DrawerDemo(),

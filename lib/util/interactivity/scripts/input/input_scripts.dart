@@ -1,0 +1,50 @@
+/// Input component interactivity scripts barrel file.
+///
+/// Aggregates all input-related scripts for use in static sites.
+library;
+
+import 'checkbox_scripts.dart';
+import 'calendar_scripts.dart';
+import 'color_input_scripts.dart';
+import 'combobox_scripts.dart';
+import 'date_picker_scripts.dart';
+import 'file_upload_scripts.dart';
+import 'mutable_text_scripts.dart';
+import 'number_input_scripts.dart';
+import 'otp_input_scripts.dart';
+import 'radio_scripts.dart';
+import 'tag_input_scripts.dart';
+import 'toggle_switch_scripts.dart';
+
+export 'checkbox_scripts.dart';
+export 'calendar_scripts.dart';
+export 'color_input_scripts.dart';
+export 'combobox_scripts.dart';
+export 'date_picker_scripts.dart';
+export 'file_upload_scripts.dart';
+export 'mutable_text_scripts.dart';
+export 'number_input_scripts.dart';
+export 'otp_input_scripts.dart';
+export 'radio_scripts.dart';
+export 'tag_input_scripts.dart';
+export 'toggle_switch_scripts.dart';
+
+/// Combined input scripts for backward compatibility.
+class InputScripts {
+  InputScripts._();
+
+  static String get code => '''
+${ColorInputScripts.code}
+${NumberInputScripts.code}
+${CheckboxScripts.code}
+${ToggleSwitchScripts.code}
+${RadioScripts.code}
+${MutableTextScripts.code}
+${TagInputScripts.code}
+${FileUploadScripts.code}
+${OtpInputScripts.code}
+${ComboboxScripts.code}
+${CalendarScripts.code}
+${DatePickerScripts.code}
+''';
+}

@@ -84,15 +84,6 @@ class ViewDemos {
         ),
       ];
 
-  static List<Component> timeline() => [
-        ArcaneTimeline(
-          items: [
-            ArcaneTimelineItem(title: 'Step 1', description: 'First step'),
-            ArcaneTimelineItem(title: 'Step 2', description: 'Second step'),
-          ],
-        ),
-      ];
-
   static List<Component> featureCard() => [
         ArcaneFeatureCard(
           title: 'Feature',

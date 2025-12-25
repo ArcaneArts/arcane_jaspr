@@ -2,10 +2,10 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'scripts/slider_scripts.dart';
-import 'scripts/input_scripts.dart';
-import 'scripts/button_scripts.dart';
-import 'scripts/navigation_scripts.dart';
-import 'scripts/dialog_scripts.dart';
+import 'scripts/input/input_scripts.dart';
+import 'scripts/button/button_scripts.dart';
+import 'scripts/navigation/navigation_scripts.dart';
+import 'scripts/dialog/dialog_scripts.dart';
 
 /// Provides fallback JavaScript for Arcane components on static sites.
 ///
@@ -84,6 +84,8 @@ class ArcaneScripts {
     bindMenubars();
     bindResizables();
     bindCommandPalettes();
+    bindSteps();
+    bindTimelines();
 
     // Dialogs & Overlays
     bindToasts();
