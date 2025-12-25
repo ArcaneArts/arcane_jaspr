@@ -45,6 +45,7 @@ class DemoRegistry {
     'text-area': InputDemos.textArea,
     'file-upload': InputDemos.fileUpload,
     'search-bar': InputDemos.searchBar,
+    'cta-link': InputDemos.ctaLink,
 
     // Layout components
     'div': LayoutDemos.div,
@@ -72,6 +73,8 @@ class DemoRegistry {
     'page-body': LayoutDemos.pageBody,
     'aspect-ratio': LayoutDemos.aspectRatio,
     'resizable': LayoutDemos.resizable,
+    'section-header': LayoutDemos.sectionHeader,
+    'footer-column': LayoutDemos.footerColumn,
 
     // Typography components
     'text': TypographyDemos.text,
@@ -102,6 +105,12 @@ class DemoRegistry {
     'alert': ViewDemos.alert,
     'icon': ViewDemos.icon,
     'svg': ViewDemos.svg,
+    'fade-edge': ViewDemos.fadeEdge,
+    'marquee': ViewDemos.marquee,
+    'stat-display': ViewDemos.statDisplay,
+    'author-card': ViewDemos.authorCard,
+    'code-window': ViewDemos.codeWindow,
+    'check-list': ViewDemos.checkList,
 
     // Navigation components
     'header': NavigationDemos.header,
@@ -110,6 +119,7 @@ class DemoRegistry {
     // Feedback components
     'dialog': FeedbackDemos.dialog,
     'alert-banner': FeedbackDemos.alertBanner,
+    'status-badge': FeedbackDemos.statusBadge,
 
     // Form components
     'form': FormDemos.form,

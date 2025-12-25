@@ -246,4 +246,56 @@ class InputDemos {
           ],
         ),
       ];
+
+  static List<Component> ctaLink() => [
+        ArcaneRow(
+          gapSize: Gap.md,
+          children: [
+            ArcaneCtaLink.primary(
+              label: 'Get Started',
+              href: '#',
+              showArrow: true,
+            ),
+            ArcaneCtaLink.secondary(
+              label: 'Learn More',
+              href: '#',
+            ),
+            ArcaneCtaLink.ghost(
+              label: 'View Docs',
+              href: '#',
+            ),
+            ArcaneCtaLink.accent(
+              label: 'Try Now',
+              href: '#',
+              showArrow: true,
+            ),
+          ],
+        ),
+        ArcaneDiv(
+          styles: const ArcaneStyleData(margin: MarginPreset.topMd),
+          children: [
+            ArcaneRow(
+              gapSize: Gap.md,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ArcaneCtaLink.primary(
+                  label: 'Small',
+                  href: '#',
+                  size: CtaLinkSize.sm,
+                ),
+                ArcaneCtaLink.primary(
+                  label: 'Medium',
+                  href: '#',
+                  size: CtaLinkSize.md,
+                ),
+                ArcaneCtaLink.primary(
+                  label: 'Large',
+                  href: '#',
+                  size: CtaLinkSize.lg,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ];
 }

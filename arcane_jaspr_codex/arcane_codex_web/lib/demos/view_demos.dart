@@ -276,6 +276,186 @@ class ViewDemos {
         ),
       ];
 
+  static List<Component> fadeEdge() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(
+            position: Position.relative,
+            widthCustom: '300px',
+            heightCustom: '100px',
+            background: Background.surface,
+            borderRadius: Radius.md,
+            overflow: Overflow.hidden,
+          ),
+          children: [
+            ArcaneDiv(
+              styles: const ArcaneStyleData(
+                padding: PaddingPreset.md,
+              ),
+              children: [
+                ArcaneText('Content with fade edges on left and right.'),
+              ],
+            ),
+            ArcaneFadeEdge.left(),
+            ArcaneFadeEdge.right(),
+          ],
+        ),
+      ];
+
+  static List<Component> marquee() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(
+            widthCustom: '100%',
+            overflow: Overflow.hidden,
+          ),
+          children: [
+            ArcaneMarquee(
+              duration: '20s',
+              showFadeEdges: true,
+              pauseOnHover: true,
+              children: [
+                for (final tech in ['React', 'Vue', 'Angular', 'Svelte', 'Next.js', 'Nuxt', 'Astro', 'Remix'])
+                  ArcaneDiv(
+                    styles: const ArcaneStyleData(
+                      padding: PaddingPreset.md,
+                      background: Background.surface,
+                      borderRadius: Radius.md,
+                      border: BorderPreset.subtle,
+                    ),
+                    children: [ArcaneText(tech)],
+                  ),
+              ],
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> statDisplay() => [
+        ArcaneStatRow(
+          stats: [
+            ArcaneStatDisplay(value: '99.9%', label: 'Uptime SLA'),
+            ArcaneStatDisplay(value: '10K+', label: 'Active Servers'),
+            ArcaneStatDisplay(value: '<60s', label: 'Deploy Time'),
+          ],
+        ),
+        ArcaneDiv(
+          styles: const ArcaneStyleData(margin: MarginPreset.topLg),
+          children: [
+            ArcaneRow(
+              gapSize: Gap.xl,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ArcaneStatDisplay.accent(
+                  value: '5M+',
+                  label: 'Downloads',
+                ),
+                ArcaneStatDisplay.accent(
+                  value: '150+',
+                  label: 'Contributors',
+                  layout: StatDisplayLayout.horizontal,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> authorCard() => [
+        ArcaneRow(
+          gapSize: Gap.xl,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ArcaneAuthorCard.sm(
+              name: 'Jane Doe',
+              role: 'Developer',
+              initials: 'JD',
+            ),
+            ArcaneAuthorCard(
+              name: 'John Smith',
+              role: 'Software Engineer',
+              initials: 'JS',
+            ),
+            ArcaneAuthorCard.lg(
+              name: 'Alice Johnson',
+              role: 'CEO & Founder',
+              initials: 'AJ',
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> codeWindow() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(widthCustom: '400px'),
+          children: [
+            ArcaneCodeWindow(
+              title: 'main.dart',
+              code: '''void main() {
+  print('Hello, World!');
+}''',
+            ),
+          ],
+        ),
+        ArcaneDiv(
+          styles: const ArcaneStyleData(
+            widthCustom: '400px',
+            margin: MarginPreset.topMd,
+          ),
+          children: [
+            ArcaneCodeWindow.terminal(
+              title: 'Terminal',
+              code: '\$ dart run\nHello, World!\n\$ ',
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> checkList() => [
+        ArcaneRow(
+          gapSize: Gap.xxl,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ArcaneColumn(
+              gapSize: Gap.sm,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ArcaneText('Brand Icons', weight: FontWeight.bold),
+                ArcaneCheckList.brand(
+                  items: [
+                    'Shared models',
+                    'Type-safe API calls',
+                    'Hot reload',
+                  ],
+                ),
+              ],
+            ),
+            ArcaneColumn(
+              gapSize: Gap.sm,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ArcaneText('Success Icons', weight: FontWeight.bold),
+                ArcaneCheckList.success(
+                  items: [
+                    'All tests passing',
+                    'Build successful',
+                    'Deployed to prod',
+                  ],
+                ),
+              ],
+            ),
+            ArcaneColumn(
+              gapSize: Gap.sm,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ArcaneText('Feature Rows', weight: FontWeight.bold),
+                ArcaneFeatureRow(feature: 'Unlimited API calls', included: true),
+                ArcaneFeatureRow(feature: 'Priority support', included: true),
+                ArcaneFeatureRow(feature: 'Custom domain', included: false),
+              ],
+            ),
+          ],
+        ),
+      ];
+
   static List<Component> svg() => [
         ArcaneColumn(
           gapSize: Gap.lg,

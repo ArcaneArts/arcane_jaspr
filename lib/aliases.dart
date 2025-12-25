@@ -94,8 +94,12 @@ typedef ADivider = ArcaneDivider;
 typedef AExpanded = ArcaneExpanded;
 typedef AFlow = ArcaneFlow;
 typedef AFooter = ArcaneFooter;
+typedef AFooterColumn = ArcaneFooterColumn;
+typedef AFooterBrandColumn = ArcaneFooterBrandColumn;
 typedef AFooterLink = ArcaneFooterLink;
 typedef AFooterLinkGroup = ArcaneFooterLinkGroup;
+typedef ASectionHeader = ArcaneSectionHeader;
+typedef ASectionHeaderAlign = SectionHeaderAlign;
 typedef AGap = ArcaneGap;
 typedef AGutter = ArcaneGutter;
 typedef AHeroSection = ArcaneHeroSection;
@@ -145,6 +149,9 @@ typedef AWindow = ArcaneWindow;
 
 // Input
 typedef AButton = ArcaneButton;
+typedef ACtaLink = ArcaneCtaLink;
+typedef ACtaLinkVariant = CtaLinkVariant;
+typedef ACtaLinkSize = CtaLinkSize;
 typedef ACheckbox = ArcaneCheckbox;
 typedef ACloseButton = ArcaneCloseButton;
 typedef ACycleButton = ArcaneCycleButton;
@@ -220,6 +227,22 @@ typedef ATestimonialCard = ArcaneTestimonialCard;
 typedef ATile = ArcaneTile;
 typedef ATimeline = ArcaneTimeline;
 typedef ATimelineItem = ArcaneTimelineItem;
+typedef AFadeEdge = ArcaneFadeEdge;
+typedef AFadeDirection = FadeDirection;
+typedef AMarquee = ArcaneMarquee;
+typedef AMarqueeReverse = ArcaneMarqueeReverse;
+typedef AMarqueeDirection = MarqueeDirection;
+typedef AStatDisplay = ArcaneStatDisplay;
+typedef AStatDisplayLayout = StatDisplayLayout;
+typedef AStatRow = ArcaneStatRow;
+typedef AAuthorCard = ArcaneAuthorCard;
+typedef AAuthorCardSize = AuthorCardSize;
+typedef ACodeWindow = ArcaneCodeWindow;
+typedef ACodeWindowStyle = CodeWindowStyle;
+typedef ACheckList = ArcaneCheckList;
+typedef ACheckItem = ArcaneCheckItem;
+typedef ACheckStyle = CheckStyle;
+typedef AFeatureRow = ArcaneFeatureRow;
 
 // Typography
 typedef ABodyText = ArcaneBodyText;
@@ -233,6 +256,8 @@ typedef ADialog = ArcaneDialog;
 
 // Feedback
 typedef ALoader = ArcaneLoader;
+typedef AStatusBadge = ArcaneStatusBadge;
+typedef AStatusBadgeSize = StatusBadgeSize;
 
 // Form
 typedef AField = ArcaneField;

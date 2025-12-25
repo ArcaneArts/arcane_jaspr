@@ -5,9 +5,231 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.5.0]
+## [2.7.0]
 
 ### Added
+
+#### Theme Enhancement: `uniformBackgrounds`
+
+New theme option for sleek, uniform dark designs without section contrast:
+
+- `uniformBackgrounds` boolean field on `ArcaneTheme` (default: `false`)
+- When enabled, `--arcane-background-secondary` and `--arcane-background-tertiary` equal the base background
+- Perfect for OLED/pure-black design aesthetics
+
+```dart
+ArcaneApp(
+  theme: ArcaneTheme.oledGreen.copyWith(
+    themeMode: ThemeMode.dark,
+    uniformBackgrounds: true, // Uniform backgrounds
+  ),
+  child: ...
+)
+```
+
+#### New Token: `ArcaneColors.accentGradient`
+
+Standard gradient token for accent-colored gradients:
+
+```dart
+ArcaneColors.accentGradient
+// Returns: 'linear-gradient(135deg, var(--arcane-accent) 0%, var(--arcane-secondary) 100%)'
+```
+
+#### ArcaneCtaLink Component
+
+Call-to-action link buttons with multiple variants for different visual hierarchies:
+
+- `ArcaneCtaLink.primary()` - Solid accent background
+- `ArcaneCtaLink.secondary()` - Outline/border style
+- `ArcaneCtaLink.ghost()` - Text-only style
+- `ArcaneCtaLink.accent()` - Gradient background
+- Sizes: `CtaLinkSize.sm`, `md`, `lg`
+- `showArrow` parameter for arrow indicator
+
+```dart
+ArcaneCtaLink.primary(
+  label: 'Get Started',
+  href: '/signup',
+  showArrow: true,
+  size: CtaLinkSize.lg,
+)
+```
+
+#### ArcaneSectionHeader Component
+
+Reusable section headers with label, heading, and description:
+
+- Uppercase accent label
+- Large heading text
+- Muted description
+- Alignment options: `left`, `center`, `right`
+
+```dart
+ArcaneSectionHeader(
+  label: 'Features',
+  heading: 'Why Choose Us',
+  description: 'Discover what makes us different.',
+  align: SectionHeaderAlign.center,
+)
+```
+
+#### ArcaneStatusBadge Component
+
+Status indicator badges with pulse animation for system status displays:
+
+- `ArcaneStatusBadge.success()` - Green, operational
+- `ArcaneStatusBadge.warning()` - Yellow, degraded
+- `ArcaneStatusBadge.error()` - Red, down
+- `ArcaneStatusBadge.info()` - Blue, informational
+- `ArcaneStatusBadge.offline()` - Gray, offline
+- Configurable glow and pulse effects
+- Size variants: `sm`, `md`, `lg`
+
+```dart
+ArcaneStatusBadge.success('All Systems Operational')
+```
+
+#### ArcaneFadeEdge Component
+
+Gradient fade overlays for carousels and scrolling content edges:
+
+- Directions: `.left()`, `.right()`, `.top()`, `.bottom()`
+- Customizable color, width/height, and z-index
+- Perfect for marquee/carousel edges
+
+```dart
+Stack([
+  ScrollContent(...),
+  ArcaneFadeEdge.left(color: '#09090b'),
+  ArcaneFadeEdge.right(color: '#09090b'),
+])
+```
+
+#### ArcaneMarquee Component
+
+Infinite scrolling marquee/carousel with optional fade edges:
+
+- Automatic content duplication for seamless looping
+- Configurable speed via `duration`
+- Optional fade edges
+- Pause on hover support
+- `ArcaneMarqueeReverse` for opposite direction
+
+```dart
+ArcaneMarquee(
+  children: [
+    for (final item in items) ItemCard(item),
+  ],
+  duration: '30s',
+  showFadeEdges: true,
+  pauseOnHover: true,
+)
+```
+
+#### ArcaneFooterColumn Components
+
+Footer columns with title and link lists, plus brand column variant:
+
+- `ArcaneFooterColumn` - Column with title and `FooterLink` items
+- `ArcaneFooterBrandColumn` - Brand section with logo, description, and optional bottom content
+
+```dart
+ArcaneFooterColumn(
+  title: 'Resources',
+  links: [
+    FooterLink(label: 'Documentation', href: '/docs'),
+    FooterLink(label: 'API Reference', href: '/api'),
+  ],
+)
+
+ArcaneFooterBrandColumn(
+  logo: MyLogo(),
+  description: 'Premium game server hosting.',
+  bottomContent: ArcaneStatusBadge.success('All Systems Operational'),
+)
+```
+
+#### ArcaneStatDisplay Component
+
+Metric/stat display with large value and label for trust indicators:
+
+- `ArcaneStatDisplay.accent()` - Accent-colored value
+- `ArcaneStatDisplay.brand()` - Brand-colored value
+- `ArcaneStatRow` - Container for multiple stats
+- Layouts: `vertical` (default), `horizontal`
+
+```dart
+ArcaneStatRow(
+  stats: [
+    ArcaneStatDisplay(value: '99.9%', label: 'Uptime SLA'),
+    ArcaneStatDisplay(value: '10K+', label: 'Active Servers'),
+    ArcaneStatDisplay(value: '<60s', label: 'Deploy Time'),
+  ],
+)
+```
+
+#### ArcaneAuthorCard Component
+
+Author attribution card with avatar, name, and role:
+
+- Size variants: `sm`, `md`, `lg`
+- Supports avatar URL or initials fallback
+- Customizable colors
+
+```dart
+ArcaneAuthorCard(
+  avatarUrl: 'https://example.com/avatar.jpg',
+  name: 'John Doe',
+  role: 'Software Engineer',
+  size: AuthorCardSize.md,
+)
+```
+
+#### ArcaneCodeWindow Component
+
+Code display with macOS-style window chrome (traffic light buttons):
+
+- `ArcaneCodeWindow` - Full window with header and code
+- `ArcaneCodeWindow.terminal()` - Terminal style with green text
+- Styles: `dark`, `light`, `terminal`
+
+```dart
+ArcaneCodeWindow(
+  title: 'main.dart',
+  code: '''
+void main() {
+  print('Hello, World!');
+}
+''',
+)
+```
+
+#### ArcaneCheckList Components
+
+Lists with checkmark icons for features, benefits, and requirements:
+
+- `ArcaneCheckItem` - Single item with icon and text
+- `ArcaneCheckList` - List of check items
+- `ArcaneCheckList.brand()` - Brand/accent colored icons
+- `ArcaneCheckList.success()` - Success/green colored icons
+- `ArcaneFeatureRow` - Feature row with included/excluded state
+- Icon styles: `check`, `bullet`, `arrow`, `plus`, `star`
+
+```dart
+ArcaneCheckList.brand(
+  items: [
+    'Shared models across web and server',
+    'Type-safe API calls',
+    'Hot reload in development',
+  ],
+)
+
+ArcaneFeatureRow(
+  feature: 'Unlimited API calls',
+  included: true,
+)
+```
 
 #### ArcaneTimeline Redesign
 

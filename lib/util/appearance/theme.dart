@@ -66,6 +66,10 @@ class ArcaneTheme {
   /// Barrier colors for dialogs/overlays
   final ArcaneBarriers barrierColors;
 
+  /// When true, secondary and tertiary backgrounds match the primary background.
+  /// Use this for sleek, uniform dark designs without section contrast.
+  final bool uniformBackgrounds;
+
   const ArcaneTheme({
     this.schema = const GreenThemeSchema(),
     this.themeMode = ThemeMode.system,
@@ -80,6 +84,7 @@ class ArcaneTheme {
     this.navigation = const NavigationTheme(),
     this.cardCarousel = const CardCarouselTheme(),
     this.barrierColors = const ArcaneBarriers(),
+    this.uniformBackgrounds = false,
   });
 
   // =========================================================================
@@ -183,6 +188,7 @@ class ArcaneTheme {
     NavigationTheme? navigation,
     CardCarouselTheme? cardCarousel,
     ArcaneBarriers? barrierColors,
+    bool? uniformBackgrounds,
   }) {
     return ArcaneTheme(
       schema: schema ?? this.schema,
@@ -198,6 +204,7 @@ class ArcaneTheme {
       navigation: navigation ?? this.navigation,
       cardCarousel: cardCarousel ?? this.cardCarousel,
       barrierColors: barrierColors ?? this.barrierColors,
+      uniformBackgrounds: uniformBackgrounds ?? this.uniformBackgrounds,
     );
   }
 
@@ -326,13 +333,13 @@ class ArcaneTheme {
       '--arcane-input': cs.surfaceVariant.css,
       '--arcane-input-foreground': cs.onSurface.css,
 
-      // Extended backgrounds
-      '--arcane-background-secondary': isDark
-          ? cs.background.lighten(3).css
-          : cs.background.darken(3).css,
-      '--arcane-background-tertiary': isDark
-          ? cs.background.lighten(6).css
-          : cs.background.darken(6).css,
+      // Extended backgrounds (uniform mode uses same color for sleek designs)
+      '--arcane-background-secondary': uniformBackgrounds
+          ? cs.background.css
+          : (isDark ? cs.background.lighten(3).css : cs.background.darken(3).css),
+      '--arcane-background-tertiary': uniformBackgrounds
+          ? cs.background.css
+          : (isDark ? cs.background.lighten(6).css : cs.background.darken(6).css),
       '--arcane-navbar':
           'rgba(${rgb(cs.background)}, ${effectiveSurfaceOpacity})',
 

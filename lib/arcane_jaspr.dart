@@ -184,6 +184,8 @@ export 'component/layout/scroll_rail.dart';
 export 'component/layout/scroll_area.dart';
 export 'component/layout/aspect_ratio.dart';
 export 'component/layout/resizable.dart';
+export 'component/layout/section_header.dart';
+export 'component/layout/footer_column.dart';
 
 // ============================================================================
 // Input components
@@ -239,7 +241,7 @@ export 'component/view/timeline.dart';
 export 'component/view/stepper.dart';
 export 'component/view/skeleton.dart';
 export 'component/view/chip.dart' hide ArcaneChip, ArcaneChipGroup;
-export 'component/view/status_indicator.dart';
+export 'component/view/status_indicator.dart' hide ArcaneStatusBadge;
 export 'component/view/animated_counter.dart';
 export 'component/view/gradient_text.dart';
 export 'component/view/social_icons.dart' hide ArcaneSocialIcon;
@@ -256,6 +258,12 @@ export 'component/view/popover.dart';
 export 'component/view/hovercard.dart';
 export 'component/view/separator.dart';
 export 'component/view/disclosure.dart';
+export 'component/view/fade_edge.dart';
+export 'component/view/marquee.dart';
+export 'component/view/stat_display.dart';
+export 'component/view/author_card.dart';
+export 'component/view/code_window.dart' hide ArcaneCodeSnippet;
+export 'component/view/check_list.dart';
 
 // ============================================================================
 // Navigation components
@@ -300,6 +308,7 @@ export 'component/form/newsletter_form.dart';
 export 'component/feedback/alert_banner.dart' hide ArcaneProgressBar, ArcaneLoader;
 export 'component/feedback/tooltip.dart';
 export 'component/feedback/loader.dart';
+export 'component/feedback/status_badge.dart' hide StatusType;
 
 // ============================================================================
 // Interactive components
@@ -372,6 +381,7 @@ export 'component/button/facebook_button.dart';
 export 'component/button/linkedin_button.dart';
 export 'component/button/slack_button.dart';
 export 'component/button/gitlab_button.dart';
+export 'component/button/cta_link.dart';
 
 // ============================================================================
 // Authentication - Form Components

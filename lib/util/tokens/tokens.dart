@@ -387,6 +387,11 @@ class ArcaneColors {
   static const String accentGlow = 'var(--arcane-accent-glow)';
   static const String secondaryGlow = 'var(--arcane-secondary-glow)';
   static const String gridColor = 'var(--arcane-grid-color)';
+
+  // Gradients
+  /// Accent gradient (accent to secondary transition)
+  static const String accentGradient =
+      'linear-gradient(135deg, var(--arcane-accent) 0%, var(--arcane-secondary) 100%)';
 }
 
 // =============================================================================

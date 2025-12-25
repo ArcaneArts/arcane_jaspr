@@ -463,6 +463,70 @@ class LayoutDemos {
         ),
       ];
 
+  static List<Component> sectionHeader() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(widthCustom: '100%'),
+          children: [
+            ArcaneSectionHeader(
+              label: 'Features',
+              heading: 'Why Choose Us',
+              description: 'Discover what makes our platform different from the rest.',
+              align: SectionHeaderAlign.center,
+            ),
+          ],
+        ),
+        ArcaneDiv(
+          styles: const ArcaneStyleData(
+            margin: MarginPreset.topXxl,
+            widthCustom: '100%',
+          ),
+          children: [
+            ArcaneSectionHeader.left(
+              label: 'Pricing',
+              heading: 'Simple, Transparent Pricing',
+              description: 'No hidden fees or surprise charges.',
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> footerColumn() => [
+        ArcaneRow(
+          gapSize: Gap.xxl,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ArcaneFooterBrandColumn(
+              logo: ArcaneText('Acme Inc', weight: FontWeight.bold, size: FontSize.lg),
+              description: 'Building the future of web development with modern tools and best practices.',
+              bottomContent: ArcaneStatusBadge.success('All Systems Operational'),
+            ),
+            ArcaneFooterColumn(
+              title: 'Product',
+              links: [
+                FooterLink(label: 'Features', href: '#'),
+                FooterLink(label: 'Pricing', href: '#'),
+                FooterLink(label: 'Documentation', href: '#'),
+              ],
+            ),
+            ArcaneFooterColumn(
+              title: 'Company',
+              links: [
+                FooterLink(label: 'About', href: '#'),
+                FooterLink(label: 'Blog', href: '#'),
+                FooterLink(label: 'Careers', href: '#'),
+              ],
+            ),
+            ArcaneFooterColumn(
+              title: 'Legal',
+              links: [
+                FooterLink(label: 'Privacy', href: '#'),
+                FooterLink(label: 'Terms', href: '#'),
+              ],
+            ),
+          ],
+        ),
+      ];
+
   static List<Component> drawer() => [
         ArcaneDiv(
           styles: const ArcaneStyleData(
