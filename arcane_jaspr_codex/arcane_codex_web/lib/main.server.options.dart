@@ -23,6 +23,9 @@ import 'package:arcane_jaspr/component/form/field_wrapper.dart'
     as _field_wrapper;
 import 'package:arcane_jaspr/component/form/newsletter_form.dart'
     as _newsletter_form;
+import 'package:arcane_jaspr/component/input/mutable_text.dart'
+    as _mutable_text;
+import 'package:arcane_jaspr/component/input/radio_group.dart' as _radio_group;
 import 'package:arcane_jaspr/component/input/text_input.dart' as _text_input;
 import 'package:arcane_jaspr/component/interactive/accordion.dart'
     as _accordion;
@@ -34,6 +37,7 @@ import 'package:arcane_jaspr/component/layout/dashboard_layout.dart'
 import 'package:arcane_jaspr/component/layout/footer.dart' as _footer;
 import 'package:arcane_jaspr/component/layout/logo_carousel.dart'
     as _logo_carousel;
+import 'package:arcane_jaspr/component/layout/scroll_area.dart' as _scroll_area;
 import 'package:arcane_jaspr/component/navigation/bottom_navigation_bar.dart'
     as _bottom_navigation_bar;
 import 'package:arcane_jaspr/component/navigation/dropdown_menu.dart'
@@ -51,6 +55,7 @@ import 'package:arcane_jaspr/component/view/card.dart' as _card;
 import 'package:arcane_jaspr/component/view/center_body.dart' as _center_body;
 import 'package:arcane_jaspr/component/view/code_snippet.dart' as _code_snippet;
 import 'package:arcane_jaspr/component/view/data_table.dart' as _data_table;
+import 'package:arcane_jaspr/component/view/disclosure.dart' as _disclosure;
 import 'package:arcane_jaspr/component/view/expander.dart' as _expander;
 import 'package:arcane_jaspr/component/view/feature_card.dart' as _feature_card;
 import 'package:arcane_jaspr/component/view/game_tile.dart' as _game_tile;
@@ -98,6 +103,7 @@ ServerOptions get defaultServerOptions => ServerOptions(
     ..._dialog.ArcaneSheet.styles,
     ..._text.ArcaneTextInputDialog.styles,
     ..._toast.ArcaneToast.styles,
+    ..._toast.ArcaneToaster.styles,
     ..._alert_banner.ArcaneLoader.styles,
     ..._alert_banner.ArcaneProgressBar.styles,
     ..._loader.ArcaneDotsLoader.styles,
@@ -108,6 +114,8 @@ ServerOptions get defaultServerOptions => ServerOptions(
     ..._field.ArcaneFieldStyles.styles,
     ..._field_wrapper.ArcaneForm.styles,
     ..._newsletter_form.ArcaneNewsletterForm.styles,
+    ..._mutable_text.ArcaneMutableText.styles,
+    ..._radio_group.ArcaneRadioGroup.styles,
     ..._text_input.ArcaneSelect.styles,
     ..._text_input.ArcaneTextArea.styles,
     ..._text_input.ArcaneTextInput.styles,
@@ -121,6 +129,7 @@ ServerOptions get defaultServerOptions => ServerOptions(
     ..._footer.ArcaneSocialIcon.styles,
     ..._logo_carousel.ArcaneLogoCarousel.styles,
     ..._logo_carousel.ArcaneLogoGrid.styles,
+    ..._scroll_area.ArcaneScrollArea.styles,
     ..._bottom_navigation_bar.ArcaneBottomNavigationBar.styles,
     ..._dropdown_menu.ArcaneDropdownMenu.styles,
     ..._dropdown_menu.ArcaneMegaMenu.styles,
@@ -139,6 +148,7 @@ ServerOptions get defaultServerOptions => ServerOptions(
     ..._code_snippet.ArcaneCodeSnippet.styles,
     ..._code_snippet.ArcaneTerminal.styles,
     ..._data_table.ArcaneDataTable.styles,
+    ..._disclosure.ArcaneDisclosure.styles,
     ..._expander.ArcaneExpander.styles,
     ..._feature_card.ArcaneFeatureCard.styles,
     ..._feature_card.ArcaneIconCard.styles,

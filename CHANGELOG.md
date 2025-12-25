@@ -389,6 +389,181 @@ ArcaneDiv(
   - **View components**: Expanders/accordions expand/collapse, inline tabs selection, toast notifications, tree view node expand/collapse, popovers and hovercards on hover/click
   - **Navigation components**: Drawer open/close with backdrop, sidebar nav item selection, bottom nav selection
 
+#### Enhanced Toast System (Sonner-style)
+
+Complete rewrite of the toast system with modern patterns:
+
+**New Components:**
+- `ArcaneToaster` - Root toast container component (place once at app root)
+- `ToastManager` - Global singleton for managing toast state
+- `ToastData` - Toast data model with all configuration options
+- `ToastAction` - Action button configuration
+
+**Global Toast API:**
+```dart
+// Simple usage via global `toast` getter
+toast.success('Changes saved!');
+toast.error('Something went wrong');
+toast.warning('Please check your input');
+toast.info('New update available');
+toast.loading('Processing...');
+
+// With options
+toast.success('Profile updated', title: 'Success', description: 'Your changes have been saved.');
+
+// Promise-based toast (loading → success/error)
+toast.promise(
+  saveData(),
+  loading: 'Saving...',
+  success: (data) => 'Saved ${data.name}!',
+  error: (e) => 'Failed: ${e.message}',
+);
+
+// With action button
+toast.error('Failed to save', action: ToastAction(
+  label: 'Retry',
+  onPressed: () => retry(),
+));
+
+// Dismiss programmatically
+final id = toast.success('Saved');
+toast.dismiss(id);
+toast.dismissAll();
+```
+
+**Features:**
+- Auto-dismiss with configurable duration (default 4s)
+- Progress bar indicator for auto-dismiss
+- Pause on hover
+- Toast stacking with collapse/expand
+- Queue management (max visible: 3)
+- 6 position options (top/bottom × left/center/right)
+- Loading variant with spinner animation
+- Promise-based toasts for async operations
+- Action buttons in toasts
+- Exit animations
+
+#### New Input Components
+
+**ArcaneMutableText** - Inline editable text component
+- Click/double-click/hover to edit triggers
+- Single-line and multiline modes
+- Validation support with error messages
+- Character counter
+- Multiple display styles: inline, subtle, underline, dashed, input
+- Save on blur or explicit action
+- Keyboard navigation (Enter to save, Escape to cancel)
+
+```dart
+ArcaneMutableText(
+  value: 'Click to edit',
+  onSave: (newValue) => updateTitle(newValue),
+  displayStyle: MutableTextStyle.subtle,
+  placeholder: 'Enter title...',
+  required: true,
+)
+```
+
+**ArcaneRadioGroup** - Radio button group with variants
+- Standard radio buttons
+- Card-style selection
+- Button group (segmented control)
+- Chip/pill style
+- Horizontal, vertical, and grid layouts
+- Full accessibility (ARIA, keyboard nav)
+- Group-level validation
+
+```dart
+ArcaneRadioGroup<String>(
+  value: selected,
+  variant: RadioGroupVariant.cards,
+  layout: RadioGroupLayout.grid,
+  gridColumns: 3,
+  options: [
+    RadioOption(value: 'a', label: 'Option A', description: 'Description'),
+    RadioOption(value: 'b', label: 'Option B', icon: ArcaneIcon.star()),
+  ],
+  onChanged: (value) => setState(() => selected = value),
+)
+```
+
+#### New View Components
+
+**ArcaneSeparator** - Visual divider/separator
+- Horizontal and vertical orientations
+- Multiple styles: solid, dashed, dotted, gradient, double
+- Thickness presets: thin, normal, medium, thick
+- Optional label or icon in center
+- Decorative or semantic (with ARIA roles)
+
+```dart
+ArcaneSeparator()
+ArcaneSeparator.vertical()
+ArcaneSeparator.withLabel(label: 'OR')
+ArcaneSeparator(style: SeparatorStyle.dashed, thickness: SeparatorThickness.medium)
+```
+
+**ArcaneDisclosure** - Native HTML disclosure widget (details/summary)
+- Works on static sites without JavaScript (browser-native expand/collapse)
+- Multiple visual variants: default, minimal, bordered, filled
+- Optional chevron indicator
+- Perfect for FAQs, collapsible sections, and navigation menus
+- Unlike `ArcaneExpander`, doesn't require Jaspr hydration
+
+```dart
+// Basic usage
+ArcaneDisclosure(
+  summary: ArcaneText('Click to expand'),
+  child: ArcaneText('Hidden content'),
+)
+
+// Variants
+ArcaneDisclosure.minimal(...)  // No background/borders
+ArcaneDisclosure.bordered(...) // Bordered container
+ArcaneDisclosure.filled(...)   // Filled background
+
+// Disclosure group
+ArcaneDisclosureGroup(
+  items: [
+    ArcaneDisclosureItem(summary: ..., content: ...),
+    ArcaneDisclosureItem(summary: ..., content: ...),
+  ],
+)
+```
+
+#### New Layout Components
+
+**ArcaneScrollArea** - Styled scrollable container
+- Custom scrollbar styling (thin, minimal, custom)
+- Vertical, horizontal, or both scroll directions
+- Scrollbar visibility control (always, hover, auto, hidden)
+- Optional scroll shadows at edges
+- Touch scrolling support
+
+```dart
+ArcaneScrollArea(
+  height: '400px',
+  scrollbarStyle: ScrollbarStyle.thin,
+  showScrollShadows: true,
+  child: LongContent(),
+)
+```
+
+**ArcaneVirtualScroll** - Virtualized list for large datasets
+- Only renders visible items for performance
+- Fixed item height for calculation
+- Configurable overscan (items to render outside viewport)
+- Smooth scrolling
+
+```dart
+ArcaneVirtualScroll<User>(
+  items: users,
+  itemHeight: 48,
+  height: '500px',
+  itemBuilder: (context, user, index) => UserRow(user: user),
+)
+```
+
 ### Documentation
 
 - Updated docs_sidebar to use `borderLeftWidth: BorderWidth.thick` instead of raw CSS

@@ -181,6 +181,7 @@ export 'component/layout/dashboard_layout.dart';
 export 'component/layout/auth_layout.dart';
 export 'component/layout/drawer.dart';
 export 'component/layout/scroll_rail.dart';
+export 'component/layout/scroll_area.dart';
 
 // ============================================================================
 // Input components
@@ -201,6 +202,8 @@ export 'component/input/tag_input.dart';
 export 'component/input/number_input.dart';
 export 'component/input/file_upload.dart';
 export 'component/input/color_input.dart';
+export 'component/input/mutable_text.dart';
+export 'component/input/radio_group.dart';
 
 // ============================================================================
 // View components
@@ -245,6 +248,8 @@ export 'component/view/tabs.dart' hide ArcaneTabs;
 export 'component/view/tree_view.dart';
 export 'component/view/popover.dart';
 export 'component/view/hovercard.dart';
+export 'component/view/separator.dart';
+export 'component/view/disclosure.dart';
 
 // ============================================================================
 // Navigation components

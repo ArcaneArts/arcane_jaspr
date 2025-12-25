@@ -58,6 +58,7 @@ class ArcaneScripts {
     bindNumberInputs();
     bindTagInputs();
     bindFileUploads();
+    bindMutableText();
 
     // Buttons
     bindToggleButtonGroups();

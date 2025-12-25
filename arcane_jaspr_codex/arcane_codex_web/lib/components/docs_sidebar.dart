@@ -2,7 +2,7 @@ import 'package:arcane_jaspr/arcane_jaspr.dart';
 
 import '../utils/constants.dart';
 
-/// Documentation sidebar with navigation groups - uses ArcaneScrollRail for sticky scrolling
+/// Documentation sidebar with collapsible navigation groups
 class DocsSidebar extends StatelessComponent {
   final String currentPath;
 
@@ -59,15 +59,11 @@ class DocsSidebar extends StatelessComponent {
             padding: PaddingPreset.sm,
           ),
           children: [
-            // Getting Started section
-            _buildNavSection('Getting Started', [
+            // Getting Started section (always expanded, not collapsible)
+            _buildFixedSection('Getting Started', [
               _buildNavItem(label: 'Introduction', href: '/docs'),
               _buildNavItem(label: 'Installation', href: '/docs/installation'),
               _buildNavItem(label: 'Quick Start', href: '/docs/quick-start'),
-            ]),
-
-            // Core Concepts section
-            _buildNavSection('Core Concepts', [
               _buildNavItem(label: 'Theming', href: '/docs/concepts/theming'),
               _buildNavItem(label: 'Styling', href: '/docs/concepts/styling'),
               _buildNavItem(label: 'Design Tokens', href: '/docs/concepts/tokens'),
@@ -75,17 +71,17 @@ class DocsSidebar extends StatelessComponent {
             ]),
 
             // Style Reference section
-            _buildNavSection('Style Reference', [
+            _buildCollapsibleSection('Style Reference', [
               _buildNavItem(label: 'Display & Layout', href: '/docs/styles/display'),
               _buildNavItem(label: 'Spacing', href: '/docs/styles/spacing'),
               _buildNavItem(label: 'Typography', href: '/docs/styles/typography'),
               _buildNavItem(label: 'Colors', href: '/docs/styles/colors'),
               _buildNavItem(label: 'Borders', href: '/docs/styles/borders'),
               _buildNavItem(label: 'Effects', href: '/docs/styles/effects'),
-            ]),
+            ], defaultOpen: _sectionContainsPath('styles')),
 
             // Input Components section
-            _buildNavSection('Inputs', [
+            _buildCollapsibleSection('Inputs', [
               _buildNavItem(label: 'ArcaneButton', href: '/docs/inputs/arcane-button'),
               _buildNavItem(label: 'ArcaneIconButton', href: '/docs/inputs/arcane-icon-button'),
               _buildNavItem(label: 'ArcaneCloseButton', href: '/docs/inputs/arcane-close-button'),
@@ -97,6 +93,7 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcaneSelect', href: '/docs/inputs/arcane-select'),
               _buildNavItem(label: 'ArcaneCheckbox', href: '/docs/inputs/arcane-checkbox'),
               _buildNavItem(label: 'ArcaneRadio', href: '/docs/inputs/arcane-radio'),
+              _buildNavItem(label: 'ArcaneRadioGroup', href: '/docs/inputs/arcane-radio-group'),
               _buildNavItem(label: 'ArcaneToggleSwitch', href: '/docs/inputs/arcane-toggle-switch'),
               _buildNavItem(label: 'ArcaneSlider', href: '/docs/inputs/arcane-slider'),
               _buildNavItem(label: 'ArcaneRangeSlider', href: '/docs/inputs/arcane-range-slider'),
@@ -109,10 +106,11 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcaneNumberInput', href: '/docs/inputs/arcane-number-input'),
               _buildNavItem(label: 'ArcaneFileUpload', href: '/docs/inputs/arcane-file-upload'),
               _buildNavItem(label: 'ArcaneColorInput', href: '/docs/inputs/arcane-color-input'),
-            ]),
+              _buildNavItem(label: 'ArcaneMutableText', href: '/docs/inputs/arcane-mutable-text'),
+            ], defaultOpen: _sectionContainsPath('inputs')),
 
             // Layout Components section
-            _buildNavSection('Layout', [
+            _buildCollapsibleSection('Layout', [
               _buildNavItem(label: 'ArcaneDiv', href: '/docs/layout/arcane-div'),
               _buildNavItem(label: 'ArcaneRow', href: '/docs/layout/arcane-row'),
               _buildNavItem(label: 'ArcaneColumn', href: '/docs/layout/arcane-column'),
@@ -137,10 +135,11 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcaneDashboardLayout', href: '/docs/layout/arcane-dashboard-layout'),
               _buildNavItem(label: 'ArcanePageBody', href: '/docs/layout/arcane-page-body'),
               _buildNavItem(label: 'ArcaneDrawer', href: '/docs/layout/arcane-drawer'),
-            ]),
+              _buildNavItem(label: 'ArcaneScrollArea', href: '/docs/layout/arcane-scroll-area'),
+            ], defaultOpen: _sectionContainsPath('layout')),
 
             // Typography Components section
-            _buildNavSection('Typography', [
+            _buildCollapsibleSection('Typography', [
               _buildNavItem(label: 'ArcaneText', href: '/docs/typography/arcane-text'),
               _buildNavItem(label: 'ArcaneHeading', href: '/docs/typography/arcane-heading'),
               _buildNavItem(label: 'ArcaneHeadline', href: '/docs/typography/arcane-headline'),
@@ -153,15 +152,16 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcaneCodeSnippet', href: '/docs/typography/arcane-code-snippet'),
               _buildNavItem(label: 'ArcaneInlineCode', href: '/docs/typography/arcane-inline-code'),
               _buildNavItem(label: 'ArcaneCodeBlock', href: '/docs/typography/arcane-pre'),
-            ]),
+            ], defaultOpen: _sectionContainsPath('typography')),
 
             // View Components section
-            _buildNavSection('View', [
+            _buildCollapsibleSection('View', [
               _buildNavItem(label: 'ArcaneIcon', href: '/docs/view/arcane-icon'),
               _buildNavItem(label: 'ArcaneAvatar', href: '/docs/view/arcane-avatar'),
               _buildNavItem(label: 'ArcaneBadge', href: '/docs/view/arcane-badge'),
               _buildNavItem(label: 'ArcaneChip', href: '/docs/view/arcane-chip'),
               _buildNavItem(label: 'ArcaneDivider', href: '/docs/view/arcane-divider'),
+              _buildNavItem(label: 'ArcaneSeparator', href: '/docs/view/arcane-separator'),
               _buildNavItem(label: 'ArcaneProgressBar', href: '/docs/view/arcane-progress-bar'),
               _buildNavItem(label: 'ArcaneLoader', href: '/docs/view/arcane-loader'),
               _buildNavItem(label: 'ArcaneSkeleton', href: '/docs/view/arcane-skeleton'),
@@ -172,6 +172,7 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcaneTooltip', href: '/docs/view/arcane-tooltip'),
               _buildNavItem(label: 'ArcaneAccordion', href: '/docs/view/arcane-accordion'),
               _buildNavItem(label: 'ArcaneToast', href: '/docs/view/arcane-toast'),
+              _buildNavItem(label: 'ArcaneToaster', href: '/docs/view/arcane-toaster'),
               _buildNavItem(label: 'ArcaneCallout', href: '/docs/view/arcane-callout'),
               _buildNavItem(label: 'ArcaneKbd', href: '/docs/view/arcane-kbd'),
               _buildNavItem(label: 'ArcaneMeter', href: '/docs/view/arcane-meter'),
@@ -182,10 +183,10 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcaneHovercard', href: '/docs/view/arcane-hovercard'),
               _buildNavItem(label: 'ArcaneExpander', href: '/docs/view/arcane-expander'),
               _buildNavItem(label: 'ArcaneSvg', href: '/docs/view/arcane-svg'),
-            ]),
+            ], defaultOpen: _sectionContainsPath('view')),
 
             // Navigation Components section
-            _buildNavSection('Navigation', [
+            _buildCollapsibleSection('Navigation', [
               _buildNavItem(label: 'ArcaneHeader', href: '/docs/navigation/arcane-header'),
               _buildNavItem(label: 'ArcaneSidebar', href: '/docs/navigation/arcane-sidebar'),
               _buildNavItem(label: 'ArcaneBottomNav', href: '/docs/navigation/arcane-bottom-nav'),
@@ -194,23 +195,23 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcaneMegaMenu', href: '/docs/navigation/arcane-mega-menu'),
               _buildNavItem(label: 'ArcaneBreadcrumbs', href: '/docs/navigation/arcane-breadcrumbs'),
               _buildNavItem(label: 'ArcanePagination', href: '/docs/navigation/arcane-pagination'),
-            ]),
+            ], defaultOpen: _sectionContainsPath('navigation')),
 
             // Feedback Components section
-            _buildNavSection('Feedback', [
+            _buildCollapsibleSection('Feedback', [
               _buildNavItem(label: 'ArcaneDialog', href: '/docs/feedback/arcane-dialog'),
               _buildNavItem(label: 'ArcaneAlertBanner', href: '/docs/feedback/arcane-alert-banner'),
-            ]),
+            ], defaultOpen: _sectionContainsPath('feedback')),
 
             // Forms section
-            _buildNavSection('Forms', [
+            _buildCollapsibleSection('Forms', [
               _buildNavItem(label: 'ArcaneForm', href: '/docs/forms/arcane-form'),
               _buildNavItem(label: 'ArcaneField', href: '/docs/forms/arcane-field'),
               _buildNavItem(label: 'ArcaneFieldWrapper', href: '/docs/forms/arcane-field-wrapper'),
-            ]),
+            ], defaultOpen: _sectionContainsPath('forms')),
 
             // Authentication section
-            _buildNavSection('Authentication', [
+            _buildCollapsibleSection('Authentication', [
               _buildNavItem(label: 'ArcaneLoginCard', href: '/docs/auth/arcane-login-card'),
               _buildNavItem(label: 'ArcaneSignupCard', href: '/docs/auth/arcane-signup-card'),
               _buildNavItem(label: 'ArcaneForgotPasswordCard', href: '/docs/auth/arcane-forgot-password-card'),
@@ -218,37 +219,42 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'AuthSplitLayout', href: '/docs/auth/auth-split-layout'),
               _buildNavItem(label: 'AuthBrandingPanel', href: '/docs/auth/auth-branding-panel'),
               _buildNavItem(label: 'PasswordPolicy', href: '/docs/auth/password-policy'),
-            ]),
+            ], defaultOpen: _sectionContainsPath('auth')),
 
             // Screens section
-            _buildNavSection('Screens', [
+            _buildCollapsibleSection('Screens', [
               _buildNavItem(label: 'ArcaneScreen', href: '/docs/screens/arcane-screen'),
-            ]),
+            ], defaultOpen: _sectionContainsPath('screens')),
 
             // Guides section
-            _buildNavSection('Guides', [
+            _buildCollapsibleSection('Guides', [
               _buildNavItem(label: 'Deployment', href: '/guides/deployment'),
-            ]),
+            ], defaultOpen: currentPath.startsWith('/guides')),
           ],
         ),
       ],
     );
   }
 
-  Component _buildNavSection(String title, List<Component> items) {
+  bool _sectionContainsPath(String section) {
+    return currentPath.startsWith('/docs/$section');
+  }
+
+  /// Build a fixed section that's always expanded (no toggle)
+  Component _buildFixedSection(String title, List<Component> items) {
     return ArcaneDiv(
       styles: const ArcaneStyleData(
-        margin: MarginPreset.bottomMd,
-        borderBottom: BorderPreset.subtle,
-        padding: PaddingPreset.bottomMd,
+        margin: MarginPreset.bottomSm,
       ),
       children: [
-        // Section header with background
+        // Section header (not clickable)
         ArcaneDiv(
           styles: const ArcaneStyleData(
+            display: Display.flex,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             fontSize: FontSize.xs,
             fontWeight: FontWeight.w700,
-            margin: MarginPreset.bottomSm,
             textTransform: TextTransform.uppercase,
             letterSpacing: LetterSpacing.wide,
             padding: PaddingPreset.smMd,
@@ -256,16 +262,75 @@ class DocsSidebar extends StatelessComponent {
             borderRadius: Radius.sm,
             textColor: TextColor.onSurface,
           ),
-          children: [ArcaneText(title)],
+          children: [
+            ArcaneRow(
+              gapSize: Gap.sm,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ArcaneText(title),
+                // Item count badge
+                ArcaneDiv(
+                  styles: const ArcaneStyleData(
+                    fontSize: FontSize.xs,
+                    textColor: TextColor.muted,
+                    background: Background.surface,
+                    padding: PaddingPreset.xs,
+                    borderRadius: Radius.full,
+                  ),
+                  children: [ArcaneText('${items.length}')],
+                ),
+              ],
+            ),
+          ],
         ),
-        // Navigation items
+        // Items (always visible)
         ArcaneDiv(
           styles: const ArcaneStyleData(
             padding: PaddingPreset.horizontalSm,
+            margin: MarginPreset.topXs,
           ),
           children: items,
         ),
       ],
+    );
+  }
+
+  /// Build a collapsible section using ArcaneDisclosure
+  Component _buildCollapsibleSection(String title, List<Component> items, {bool defaultOpen = false}) {
+    final itemCount = items.length;
+
+    return ArcaneDisclosure.minimal(
+      open: defaultOpen,
+      summary: ArcaneRow(
+        gapSize: Gap.sm,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          ArcaneDiv(
+            styles: const ArcaneStyleData(
+              fontSize: FontSize.xs,
+              fontWeight: FontWeight.w700,
+              textTransform: TextTransform.uppercase,
+              letterSpacing: LetterSpacing.wide,
+              textColor: TextColor.onSurface,
+            ),
+            children: [ArcaneText(title)],
+          ),
+          // Item count badge
+          ArcaneDiv(
+            styles: const ArcaneStyleData(
+              fontSize: FontSize.xs,
+              textColor: TextColor.muted,
+              background: Background.surface,
+              padding: PaddingPreset.xs,
+              borderRadius: Radius.full,
+            ),
+            children: [ArcaneText('$itemCount')],
+          ),
+        ],
+      ),
+      child: ArcaneColumn(
+        children: items,
+      ),
     );
   }
 

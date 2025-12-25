@@ -162,18 +162,23 @@ class DemoRegistry {
     'tag-input': const TagInputDemo(),
     'number-input': const NumberInputDemo(),
     'color-input': const ColorInputDemo(),
+    'mutable-text': const MutableTextDemo(),
+    'radio-group': const RadioGroupDemo(),
 
     // View interactive
     'progress-bar': const ProgressBarDemo(),
     'tooltip': const TooltipDemo(),
     'accordion': const AccordionDemo(),
     'toast': const ToastDemo(),
+    'toaster': const ToasterDemo(),
     'meter': const MeterDemo(),
     'inline-tabs': const TabBarDemo(),
     'tree-view': const TreeViewDemo(),
     'popover': const PopoverDemo(),
     'hovercard': const HovercardDemo(),
     'expander': const ExpanderDemo(),
+    'separator': const SeparatorDemo(),
+    'scroll-area': const ScrollAreaDemo(),
 
     // Navigation interactive
     'drawer': const DrawerDemo(),

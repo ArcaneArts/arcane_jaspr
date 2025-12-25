@@ -3,31 +3,176 @@ class DialogScripts {
   DialogScripts._();
 
   static const String code = r'''
-  // ===== TOASTS =====
+  // ===== TOASTS (ArcaneToaster) =====
   function bindToasts() {
+    // Bind ArcaneToaster containers
+    document.querySelectorAll('.arcane-toaster').forEach(function(toaster) {
+      if (toaster.dataset.arcaneInteractive === 'true') return;
+      toaster.dataset.arcaneInteractive = 'true';
+
+      // Bind all toasts within this toaster
+      bindToasterToasts(toaster);
+
+      // Watch for new toasts being added
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          mutation.addedNodes.forEach(function(node) {
+            if (node.classList && node.classList.contains('arcane-toast')) {
+              bindSingleToast(node, toaster);
+            }
+          });
+        });
+      });
+      observer.observe(toaster, { childList: true });
+    });
+
+    // Fallback: bind any standalone toasts
+    document.querySelectorAll('.arcane-toast').forEach(function(toast) {
+      if (toast.dataset.arcaneInteractive === 'true') return;
+      bindSingleToast(toast, null);
+    });
+
+    // Legacy: demo button support
     document.querySelectorAll('button').forEach(function(btn) {
       var text = btn.textContent.toLowerCase();
       if ((!text.includes('toast') && !text.includes('show')) || btn.dataset.arcaneToastInteractive) return;
       btn.dataset.arcaneToastInteractive = 'true';
-
       btn.addEventListener('click', function() {
-        var toast = document.createElement('div');
-        toast.style.cssText = 'position: fixed; bottom: 20px; right: 20px; padding: 12px 20px; background: var(--arcane-surface); border: 1px solid var(--arcane-border); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 9999; transform: translateX(100%); opacity: 0; transition: all 0.3s ease;';
-        toast.innerHTML = '<div style="display: flex; align-items: center; gap: 8px;"><span style="color: var(--arcane-success);">✓</span><span style="color: var(--arcane-on-surface);">Toast notification!</span></div>';
-
-        document.body.appendChild(toast);
-        requestAnimationFrame(function() {
-          toast.style.transform = 'translateX(0)';
-          toast.style.opacity = '1';
-        });
-
-        setTimeout(function() {
-          toast.style.transform = 'translateX(100%)';
-          toast.style.opacity = '0';
-          setTimeout(function() { toast.remove(); }, 300);
-        }, 3000);
+        createDemoToast(text.includes('success') ? 'success' : text.includes('error') ? 'error' : text.includes('warning') ? 'warning' : 'info');
       });
     });
+  }
+
+  function bindToasterToasts(toaster) {
+    toaster.querySelectorAll('.arcane-toast').forEach(function(toast) {
+      bindSingleToast(toast, toaster);
+    });
+  }
+
+  function bindSingleToast(toast, toaster) {
+    if (toast.dataset.arcaneInteractive === 'true') return;
+    toast.dataset.arcaneInteractive = 'true';
+
+    // Get duration from data attribute or default to 4000ms
+    var duration = parseInt(toast.dataset.duration) || 4000;
+    var dismissible = toast.dataset.dismissible !== 'false';
+
+    // Animate in
+    toast.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+    requestAnimationFrame(function() {
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateY(0) scale(1)';
+    });
+
+    // Progress bar animation
+    var progressBar = toast.querySelector('.arcane-toast-progress');
+    if (progressBar && duration > 0) {
+      progressBar.style.transition = 'width ' + duration + 'ms linear';
+      requestAnimationFrame(function() {
+        progressBar.style.width = '0%';
+      });
+    }
+
+    // Auto-dismiss
+    var dismissTimer = null;
+    if (duration > 0) {
+      dismissTimer = setTimeout(function() {
+        dismissToast(toast);
+      }, duration);
+    }
+
+    // Close button
+    var closeBtn = toast.querySelector('.arcane-toast-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (dismissTimer) clearTimeout(dismissTimer);
+        dismissToast(toast);
+      });
+    }
+
+    // Click to dismiss (if enabled)
+    if (dismissible && !toast.dataset.clickDismiss) {
+      toast.dataset.clickDismiss = 'true';
+      toast.style.cursor = 'pointer';
+      toast.addEventListener('click', function(e) {
+        if (e.target.closest('button')) return;
+        if (dismissTimer) clearTimeout(dismissTimer);
+        dismissToast(toast);
+      });
+    }
+
+    // Action button handlers
+    toast.querySelectorAll('.arcane-toast-action').forEach(function(actionBtn) {
+      if (actionBtn.dataset.arcaneActionBound) return;
+      actionBtn.dataset.arcaneActionBound = 'true';
+      actionBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (dismissTimer) clearTimeout(dismissTimer);
+        dismissToast(toast);
+      });
+    });
+
+    // Pause on hover
+    toast.addEventListener('mouseenter', function() {
+      if (dismissTimer) {
+        clearTimeout(dismissTimer);
+        dismissTimer = null;
+      }
+      if (progressBar) {
+        progressBar.style.transition = 'none';
+      }
+    });
+
+    toast.addEventListener('mouseleave', function() {
+      if (duration > 0 && !toast.dataset.dismissed) {
+        dismissTimer = setTimeout(function() {
+          dismissToast(toast);
+        }, 2000);
+        if (progressBar) {
+          progressBar.style.transition = 'width 2000ms linear';
+          progressBar.style.width = '0%';
+        }
+      }
+    });
+  }
+
+  function dismissToast(toast) {
+    if (toast.dataset.dismissed === 'true') return;
+    toast.dataset.dismissed = 'true';
+
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateY(-10px) scale(0.95)';
+
+    setTimeout(function() {
+      toast.remove();
+    }, 300);
+  }
+
+  function createDemoToast(type) {
+    var icons = { success: '✓', error: '✗', warning: '⚠', info: 'ℹ' };
+    var colors = { success: 'var(--arcane-success)', error: 'var(--arcane-error)', warning: 'var(--arcane-warning)', info: 'var(--arcane-info)' };
+    var messages = { success: 'Action completed successfully!', error: 'Something went wrong.', warning: 'Please review before continuing.', info: 'Here is some information.' };
+
+    var toaster = document.querySelector('.arcane-toaster') || createToasterContainer();
+
+    var toast = document.createElement('div');
+    toast.className = 'arcane-toast arcane-toast-' + type;
+    toast.dataset.duration = '4000';
+    toast.style.cssText = 'display: flex; align-items: flex-start; gap: 12px; padding: 16px; background: var(--arcane-surface); border: 1px solid var(--arcane-border); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); min-width: 300px; max-width: 400px; opacity: 0; transform: translateY(10px) scale(0.95); position: relative; overflow: hidden;';
+    toast.innerHTML = '<span style="color: ' + colors[type] + '; font-size: 18px; line-height: 1;">' + icons[type] + '</span><div style="flex: 1;"><div style="font-weight: 500; color: var(--arcane-on-surface);">' + type.charAt(0).toUpperCase() + type.slice(1) + '</div><div style="font-size: 0.875rem; color: var(--arcane-muted);">' + messages[type] + '</div></div><button class="arcane-toast-close" style="background: none; border: none; color: var(--arcane-muted); cursor: pointer; padding: 0; font-size: 18px; line-height: 1;">×</button><div class="arcane-toast-progress" style="position: absolute; bottom: 0; left: 0; height: 2px; width: 100%; background: ' + colors[type] + ';"></div>';
+
+    toaster.appendChild(toast);
+    bindSingleToast(toast, toaster);
+  }
+
+  function createToasterContainer() {
+    var toaster = document.createElement('div');
+    toaster.className = 'arcane-toaster';
+    toaster.style.cssText = 'position: fixed; bottom: 16px; right: 16px; display: flex; flex-direction: column-reverse; gap: 8px; z-index: 9999; pointer-events: none;';
+    toaster.querySelectorAll('.arcane-toast').forEach(function(t) { t.style.pointerEvents = 'auto'; });
+    document.body.appendChild(toaster);
+    return toaster;
   }
 
   // ===== POPOVERS/HOVERCARDS =====

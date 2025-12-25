@@ -261,8 +261,11 @@ class _ToastDemoState extends State<ToastDemo> {
         ),
         if (_showToast)
           ArcaneToast(
-            message: 'This is a ${_variant.name} message!',
-            variant: _variant,
+            data: ToastData(
+              id: 'demo-toast',
+              message: 'This is a ${_variant.name} message!',
+              variant: _variant,
+            ),
             onClose: () => setState(() => _showToast = false),
           ),
       ],
@@ -504,6 +507,214 @@ class TooltipDemo extends StatelessComponent {
           child: ArcaneIconButton(
             icon: ArcaneIcon.info(),
             onPressed: () {},
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// Interactive toaster demo (Sonner-style toast system)
+class ToasterDemo extends StatefulComponent {
+  const ToasterDemo({super.key});
+
+  @override
+  State<ToasterDemo> createState() => _ToasterDemoState();
+}
+
+class _ToasterDemoState extends State<ToasterDemo> {
+  @override
+  Component build(BuildContext context) {
+    return ArcaneColumn(
+      gapSize: Gap.lg,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ArcaneText('Toast Types', weight: FontWeight.w600),
+        ArcaneRow(
+          gapSize: Gap.sm,
+          children: [
+            ArcaneButton(
+              label: 'Success',
+              style: ButtonStyle.success,
+              onPressed: () => toast.success(
+                'Your action was completed successfully.',
+                title: 'Success!',
+              ),
+            ),
+            ArcaneButton.destructive(
+              label: 'Error',
+              onPressed: () => toast.error(
+                'Something went wrong. Please try again.',
+                title: 'Error',
+              ),
+            ),
+            ArcaneButton(
+              label: 'Warning',
+              style: ButtonStyle.warning,
+              onPressed: () => toast.warning(
+                'Please review before continuing.',
+                title: 'Warning',
+              ),
+            ),
+            ArcaneButton.primary(
+              label: 'Info',
+              onPressed: () => toast.info(
+                'Here is some helpful information.',
+                title: 'Information',
+              ),
+            ),
+          ],
+        ),
+        ArcaneText('With Actions', weight: FontWeight.w600),
+        ArcaneRow(
+          gapSize: Gap.sm,
+          children: [
+            ArcaneButton.secondary(
+              label: 'With Action',
+              onPressed: () => toast.info(
+                'You have a new message from John.',
+                title: 'New message',
+                action: ToastAction(
+                  label: 'View',
+                  onPressed: () {},
+                ),
+              ),
+            ),
+            ArcaneButton.outline(
+              label: 'Loading Toast',
+              onPressed: () => toast.loading(
+                'Please wait while we process your request.',
+                title: 'Processing...',
+              ),
+            ),
+          ],
+        ),
+        // The toaster component that displays toasts
+        const ArcaneToaster(position: ToastPosition.bottomRight),
+      ],
+    );
+  }
+}
+
+/// Separator demo (visual divider with multiple styles)
+class SeparatorDemo extends StatelessComponent {
+  const SeparatorDemo({super.key});
+
+  @override
+  Component build(BuildContext context) {
+    return ArcaneColumn(
+      gapSize: Gap.lg,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Horizontal separators
+        ArcaneText('Horizontal Styles', weight: FontWeight.w600),
+        ArcaneColumn(
+          gapSize: Gap.md,
+          children: [
+            ArcaneRow(
+              gapSize: Gap.sm,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ArcaneText('Solid', size: FontSize.sm, color: TextColor.muted),
+                ArcaneExpanded(child: ArcaneSeparator()),
+              ],
+            ),
+            ArcaneRow(
+              gapSize: Gap.sm,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ArcaneText('Dashed', size: FontSize.sm, color: TextColor.muted),
+                ArcaneExpanded(child: ArcaneSeparator(style: SeparatorStyle.dashed)),
+              ],
+            ),
+            ArcaneRow(
+              gapSize: Gap.sm,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ArcaneText('Dotted', size: FontSize.sm, color: TextColor.muted),
+                ArcaneExpanded(child: ArcaneSeparator(style: SeparatorStyle.dotted)),
+              ],
+            ),
+            ArcaneRow(
+              gapSize: Gap.sm,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ArcaneText('Gradient', size: FontSize.sm, color: TextColor.muted),
+                ArcaneExpanded(child: ArcaneSeparator(style: SeparatorStyle.gradient)),
+              ],
+            ),
+          ],
+        ),
+
+        // With label
+        ArcaneText('With Label', weight: FontWeight.w600),
+        ArcaneSeparator.withLabel(label: 'OR'),
+        ArcaneSeparator.withLabel(label: 'Section'),
+
+        // Vertical separator
+        ArcaneText('Vertical', weight: FontWeight.w600),
+        ArcaneRow(
+          gapSize: Gap.md,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            ArcaneText('Left'),
+            ArcaneDiv(
+              styles: const ArcaneStyleData(heightCustom: '40px'),
+              children: [ArcaneSeparator.vertical()],
+            ),
+            ArcaneText('Right'),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+/// Scroll area demo
+class ScrollAreaDemo extends StatelessComponent {
+  const ScrollAreaDemo({super.key});
+
+  @override
+  Component build(BuildContext context) {
+    return ArcaneColumn(
+      gapSize: Gap.lg,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ArcaneText('Vertical Scroll', weight: FontWeight.w600),
+        ArcaneScrollArea.vertical(
+          height: '200px',
+          child: ArcaneColumn(
+            gapSize: Gap.sm,
+            children: [
+              for (var i = 1; i <= 20; i++)
+                ArcaneDiv(
+                  styles: const ArcaneStyleData(
+                    padding: PaddingPreset.sm,
+                    background: Background.surfaceVariant,
+                    borderRadius: Radius.sm,
+                  ),
+                  children: [ArcaneText('Item $i')],
+                ),
+            ],
+          ),
+        ),
+        ArcaneText('Horizontal Scroll', weight: FontWeight.w600),
+        ArcaneScrollArea.horizontal(
+          width: '100%',
+          child: ArcaneRow(
+            gapSize: Gap.sm,
+            children: [
+              for (var i = 1; i <= 15; i++)
+                ArcaneDiv(
+                  styles: const ArcaneStyleData(
+                    padding: PaddingPreset.md,
+                    background: Background.surfaceVariant,
+                    borderRadius: Radius.sm,
+                    minWidth: '100px',
+                  ),
+                  children: [ArcaneText('Card $i')],
+                ),
+            ],
           ),
         ),
       ],

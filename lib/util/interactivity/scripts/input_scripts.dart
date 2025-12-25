@@ -209,37 +209,200 @@ class InputScripts {
     });
   }
 
-  // ===== RADIO BUTTONS =====
+  // ===== RADIO BUTTONS/GROUPS =====
   function bindRadioButtons() {
     document.querySelectorAll('.arcane-radio-group').forEach(function(group) {
       if (group.dataset.arcaneInteractive === 'true') return;
       group.dataset.arcaneInteractive = 'true';
 
-      var radios = group.querySelectorAll('.arcane-radio');
+      // Support all variants: standard (.arcane-radio-item), cards (.arcane-radio-card),
+      // buttons (.arcane-radio-button), chips (.arcane-radio-chip)
+      var radios = group.querySelectorAll('.arcane-radio-item, .arcane-radio-card, .arcane-radio-button, .arcane-radio-chip, .arcane-radio');
+
       radios.forEach(function(radio) {
-        if (radio.dataset.disabled === 'true') return;
+        var input = radio.querySelector('input[type="radio"]');
+        if (!input || input.disabled) return;
 
         radio.addEventListener('click', function(e) {
+          if (e.target === input) return; // Let native input handle it
           e.preventDefault();
 
-          // Deselect all
+          // Trigger the hidden input
+          input.checked = true;
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+
+          // Update visual states for all variants
           radios.forEach(function(r) {
-            r.dataset.checked = 'false';
+            var rInput = r.querySelector('input[type="radio"]');
+            var isChecked = rInput && rInput.checked;
+
+            // Standard radio circle
+            var circle = r.querySelector('.arcane-radio-circle');
+            if (circle) {
+              circle.style.borderColor = isChecked ? 'var(--arcane-accent)' : 'var(--arcane-border)';
+              var dot = circle.querySelector('div');
+              if (isChecked && !dot) {
+                dot = document.createElement('div');
+                dot.style.cssText = 'width: 10px; height: 10px; border-radius: 50%; background: var(--arcane-accent);';
+                circle.appendChild(dot);
+              } else if (!isChecked && dot) {
+                dot.remove();
+              }
+            }
+
+            // Card variant styling
+            if (r.classList.contains('arcane-radio-card')) {
+              r.style.borderColor = isChecked ? 'var(--arcane-accent)' : 'var(--arcane-border)';
+              r.style.borderWidth = isChecked ? '2px' : '1px';
+              r.style.background = isChecked ? 'var(--arcane-accent-container)' : 'var(--arcane-surface)';
+            }
+
+            // Button variant styling
+            if (r.classList.contains('arcane-radio-button')) {
+              r.style.background = isChecked ? 'var(--arcane-accent)' : 'var(--arcane-surface)';
+              r.style.color = isChecked ? 'var(--arcane-accent-foreground)' : 'var(--arcane-on-surface)';
+              r.style.borderColor = isChecked ? 'var(--arcane-accent)' : 'var(--arcane-border)';
+            }
+
+            // Chip variant styling
+            if (r.classList.contains('arcane-radio-chip')) {
+              r.style.background = isChecked ? 'var(--arcane-accent-container)' : 'var(--arcane-surface)';
+              r.style.color = isChecked ? 'var(--arcane-accent)' : 'var(--arcane-on-surface)';
+              r.style.borderColor = isChecked ? 'var(--arcane-accent)' : 'var(--arcane-border)';
+            }
+
+            // Legacy indicator support
             var indicator = r.querySelector('.arcane-radio-indicator');
             if (indicator) {
-              indicator.style.borderColor = 'var(--arcane-border)';
-              indicator.innerHTML = '';
+              indicator.style.borderColor = isChecked ? 'var(--arcane-accent)' : 'var(--arcane-border)';
+              if (isChecked) {
+                indicator.innerHTML = '<div style="width: 10px; height: 10px; border-radius: 9999px; background: var(--arcane-accent);"></div>';
+              } else {
+                indicator.innerHTML = '';
+              }
             }
           });
-
-          // Select this one
-          radio.dataset.checked = 'true';
-          var indicator = radio.querySelector('.arcane-radio-indicator');
-          if (indicator) {
-            indicator.style.borderColor = 'var(--arcane-success)';
-            indicator.innerHTML = '<div style="width: 10px; height: 10px; border-radius: 9999px; background: var(--arcane-success);"></div>';
-          }
         });
+      });
+    });
+  }
+
+  // ===== MUTABLE TEXT (Inline Editable) =====
+  function bindMutableText() {
+    document.querySelectorAll('.arcane-mutable-text').forEach(function(container) {
+      if (container.dataset.arcaneInteractive === 'true') return;
+      container.dataset.arcaneInteractive = 'true';
+
+      var display = container.querySelector('.arcane-mutable-display');
+      var editContainer = container.querySelector('.arcane-mutable-edit');
+      var input = container.querySelector('.arcane-mutable-input');
+      var saveBtn = container.querySelector('.arcane-mutable-save');
+      var cancelBtn = container.querySelector('.arcane-mutable-cancel');
+      var charCounter = container.querySelector('.arcane-mutable-counter');
+
+      if (!display || !editContainer || !input) return;
+
+      var trigger = container.dataset.trigger || 'click';
+      var originalValue = '';
+
+      function showEdit() {
+        originalValue = display.textContent.trim();
+        input.value = originalValue;
+        display.style.display = 'none';
+        editContainer.style.display = 'flex';
+        input.focus();
+        input.select();
+        updateCharCounter();
+      }
+
+      function hideEdit(save) {
+        if (save) {
+          var newValue = input.value.trim();
+          var minLength = parseInt(container.dataset.minLength) || 0;
+          var maxLength = parseInt(container.dataset.maxLength) || Infinity;
+
+          if (newValue.length < minLength || newValue.length > maxLength) {
+            input.style.borderColor = 'var(--arcane-error)';
+            return;
+          }
+
+          display.textContent = newValue || originalValue;
+          container.dataset.value = newValue;
+        }
+        display.style.display = '';
+        editContainer.style.display = 'none';
+        input.style.borderColor = '';
+      }
+
+      function updateCharCounter() {
+        if (!charCounter) return;
+        var maxLength = parseInt(container.dataset.maxLength) || 0;
+        if (maxLength > 0) {
+          charCounter.textContent = input.value.length + '/' + maxLength;
+          charCounter.style.color = input.value.length > maxLength ? 'var(--arcane-error)' : 'var(--arcane-muted)';
+        }
+      }
+
+      // Trigger handlers
+      if (trigger === 'click' || trigger === 'doubleClick') {
+        var eventType = trigger === 'doubleClick' ? 'dblclick' : 'click';
+        display.addEventListener(eventType, function(e) {
+          e.preventDefault();
+          showEdit();
+        });
+      } else if (trigger === 'hover') {
+        var hoverTimer = null;
+        display.addEventListener('mouseenter', function() {
+          hoverTimer = setTimeout(showEdit, 500);
+        });
+        display.addEventListener('mouseleave', function() {
+          if (hoverTimer) clearTimeout(hoverTimer);
+        });
+      }
+      // 'always' trigger means it's already in edit mode
+
+      // Edit icon click
+      var editIcon = container.querySelector('.arcane-mutable-edit-icon');
+      if (editIcon) {
+        editIcon.addEventListener('click', function(e) {
+          e.stopPropagation();
+          showEdit();
+        });
+      }
+
+      // Keyboard handling
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          hideEdit(true);
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          hideEdit(false);
+        }
+      });
+
+      input.addEventListener('input', updateCharCounter);
+
+      // Button handlers
+      if (saveBtn) {
+        saveBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          hideEdit(true);
+        });
+      }
+
+      if (cancelBtn) {
+        cancelBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          hideEdit(false);
+        });
+      }
+
+      // Click outside to cancel
+      document.addEventListener('click', function(e) {
+        if (editContainer.style.display !== 'none' && !container.contains(e.target)) {
+          hideEdit(false);
+        }
       });
     });
   }
