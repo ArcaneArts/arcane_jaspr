@@ -407,4 +407,4 @@ dart run build_runner build     # Code generation
 
 ## License
 
-MIT License
+GNU Public
