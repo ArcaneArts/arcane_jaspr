@@ -12,6 +12,7 @@ This is your guide to building web applications with Arcane Jaspr. We've organiz
 
 New here? Start with the basics:
 
+- [Why Jaspr?](/arcane_jaspr/docs/why-jaspr) - When to choose Jaspr over Flutter Web
 - [Installation](/arcane_jaspr/docs/installation) - Get Arcane Jaspr into your project
 - [Quick Start](/arcane_jaspr/docs/quick-start) - Your first component in under 5 minutes
 

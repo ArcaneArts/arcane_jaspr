@@ -62,6 +62,7 @@ class DocsSidebar extends StatelessComponent {
             // Getting Started section (always expanded, not collapsible)
             _buildFixedSection('Getting Started', [
               _buildNavItem(label: 'Introduction', href: '/docs'),
+              _buildNavItem(label: 'Why Jaspr?', href: '/docs/why-jaspr'),
               _buildNavItem(label: 'Installation', href: '/docs/installation'),
               _buildNavItem(label: 'Quick Start', href: '/docs/quick-start'),
               _buildNavItem(label: 'Theming', href: '/docs/concepts/theming'),
