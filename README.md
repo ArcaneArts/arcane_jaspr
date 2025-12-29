@@ -383,7 +383,7 @@ lib/
 
 ## Documentation
 
-Full documentation with live examples: [ArcaneCodex](arcane_jaspr_codex/)
+Full documentation with live examples: **[arcanearts.github.io/arcane_jaspr](https://arcanearts.github.io/arcane_jaspr/)**
 
 ```bash
 cd arcane_jaspr_codex/arcane_codex_web
