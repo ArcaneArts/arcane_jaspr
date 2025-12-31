@@ -119,6 +119,12 @@ ArcaneColorInput(value: '#10b981', label: 'Color')
 ArcaneTagInput(tags: ['React', 'Vue'], placeholder: 'Add tag...')
 ArcaneFileUpload(onFilesSelected: (_) {})
 
+// Time & Date
+ArcaneTimePicker(value: TimeOfDay(hour: 14, minute: 30))
+ArcaneFormattedInput.date(initialMonth: '01', initialDay: '15', initialYear: '2024')
+ArcaneFormattedInput.phone()
+ArcaneFormattedInput.creditCard()
+
 // Toggles
 ArcaneThemeToggle(isDark: true, onChanged: (_) {})
 ArcaneCycleButton(options: [...], value: 'a')
@@ -177,6 +183,7 @@ ArcaneBreadcrumb(items: [...])
 
 ```dart
 ArcaneAvatar(imageUrl: '...', size: 48)
+ArcaneAvatarBadge(status: AvatarBadgeStatus.online, child: avatar)
 ArcaneBadge(label: 'New', variant: BadgeVariant.success)
 ArcaneChip(label: 'Tag', onRemove: () {})
 ArcaneDivider()
@@ -187,14 +194,35 @@ ArcaneEmptyState(message: 'No items found')
 ArcaneTooltip(message: 'Help', child: ...)
 ArcaneAccordion(items: [...])
 ArcaneDataTable(columns: [...], rows: [...])
+ArcaneSwitcher(direction: SwitcherDirection.fade, child: content)
+ArcaneSurfaceCard(effect: SurfaceEffect.frosted, child: content)
+ArcaneTracker(data: [...])  // GitHub-style contribution grid
+ArcaneDotIndicator(count: 5, currentIndex: 2)  // Carousel dots
 ```
 
-### Feedback
+### Feedback & Dialogs
 
 ```dart
 ArcaneDialog(title: 'Confirm', child: ..., onClose: () {})
+ArcaneSheet(position: SheetPosition.bottom, child: content)  // Slide-in panel
+ArcaneActionSheet(actions: [...])  // Mobile action sheet
 ArcaneAlertBanner(message: 'Success!', variant: AlertVariant.success)
 ArcaneToast(message: 'Saved!')
+ArcaneItemPicker(items: [...], onSelect: (item) {})  // Item picker dialog
+ArcaneEmailDialog(onSubmit: (email) {})  // Email input dialog
+ArcaneTimeDialog(onConfirm: (time) {})  // Time picker dialog
+```
+
+### Screens
+
+```dart
+ArcaneScreen(header: ..., child: content)
+ArcaneFillScreen(child: content)  // Full viewport height
+ArcaneChatScreen(  // Chat interface
+  provider: chatProvider,
+  currentUserId: 'user123',
+  style: ChatStyle.bubbles,  // or .tiles
+)
 ```
 
 ## Styling System
@@ -274,12 +302,15 @@ ArcaneApp(
 
 All interactive components have JavaScript fallbacks:
 - Sliders, range sliders
-- Color inputs, number inputs
+- Color inputs, number inputs, formatted inputs
 - Checkboxes, radios, toggle switches
 - Theme toggles, cycle buttons
-- Dropdowns, selectors
-- Tabs, accordions
+- Dropdowns, selectors, item pickers
+- Tabs, accordions, dot indicators
 - Dialogs, toasts, popovers
+- Sheets, drawers, mobile menus
+- Time pickers, date pickers
+- Trackers, chat screens
 - And more...
 
 ## Authentication

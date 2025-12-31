@@ -86,6 +86,31 @@ jaspr build
 
 Deploy the `build/jaspr/` directory to any static hosting service (Firebase, Vercel, Netlify, etc.).
 
+## Component Categories
+
+The documentation covers all arcane_jaspr components:
+
+### Input Components
+Button, IconButton, TextInput, TextArea, Search, Checkbox, Radio, ToggleSwitch, Slider, RangeSlider, NumberInput, ColorInput, TagInput, FileUpload, TimePicker, FormattedInput, Selector, CycleButton, ToggleButton, OtpInput, Combobox, Calendar, DatePicker
+
+### Layout Components
+Div, Row, Column, Card, Section, Container, Gutter, Tabs, Sheet, ActionSheet, ScrollRail, ScrollArea, AspectRatio, Resizable, Drawer
+
+### View Components
+Avatar, AvatarBadge, Badge, Chip, Divider, ProgressBar, Loader, Skeleton, Tooltip, Accordion, DataTable, Switcher, SurfaceCard, Tracker, UptimeTracker, DotIndicator, StepIndicator, Timeline, Stepper, TreeView, Popover, Hovercard, CodeWindow, CheckList
+
+### Navigation Components
+Bar, Sidebar, BottomNav, Breadcrumbs, Pagination, DropdownMenu, ContextMenu, Menubar, MobileMenu
+
+### Feedback & Dialog Components
+Dialog, Toast, AlertBanner, Sheet, EmailDialog, TimeDialog, ItemPicker, Command
+
+### Screen Components
+Screen, FillScreen, NavigationScreen, ChatScreen
+
+### Authentication Components
+LoginCard, SignupCard, ForgotPasswordCard, AuthProvider, AuthGuard, GuestGuard, Social Sign-In Buttons
+
 ## Related
 
 - [arcane_jaspr](../) - Main UI component library

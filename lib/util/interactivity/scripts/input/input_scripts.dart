@@ -9,11 +9,13 @@ import 'color_input_scripts.dart';
 import 'combobox_scripts.dart';
 import 'date_picker_scripts.dart';
 import 'file_upload_scripts.dart';
+import 'formatted_input_scripts.dart';
 import 'mutable_text_scripts.dart';
 import 'number_input_scripts.dart';
 import 'otp_input_scripts.dart';
 import 'radio_scripts.dart';
 import 'tag_input_scripts.dart';
+import 'time_picker_scripts.dart';
 import 'toggle_switch_scripts.dart';
 
 export 'checkbox_scripts.dart';
@@ -22,11 +24,13 @@ export 'color_input_scripts.dart';
 export 'combobox_scripts.dart';
 export 'date_picker_scripts.dart';
 export 'file_upload_scripts.dart';
+export 'formatted_input_scripts.dart';
 export 'mutable_text_scripts.dart';
 export 'number_input_scripts.dart';
 export 'otp_input_scripts.dart';
 export 'radio_scripts.dart';
 export 'tag_input_scripts.dart';
+export 'time_picker_scripts.dart';
 export 'toggle_switch_scripts.dart';
 
 /// Combined input scripts for backward compatibility.
@@ -46,5 +50,7 @@ ${OtpInputScripts.code}
 ${ComboboxScripts.code}
 ${CalendarScripts.code}
 ${DatePickerScripts.code}
+${TimePickerScripts.code}
+${FormattedInputScripts.code}
 ''';
 }

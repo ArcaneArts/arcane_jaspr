@@ -14,7 +14,6 @@ import 'package:jaspr/dom.dart'
         FontWeight;
 
 import '../../util/tokens/tokens.dart';
-import 'icon.dart';
 
 /// Timeline layout options
 enum TimelineLayout {

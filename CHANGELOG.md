@@ -9,6 +9,199 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+#### New Input Components
+
+**ArcaneTimePicker** - Time selection component with hour/minute columns
+- 12-hour and 24-hour format support
+- Configurable minute intervals (1, 5, 15, 30)
+- AM/PM period selection for 12-hour format
+- Size variants: `sm`, `md`, `lg`
+- `TimeOfDay` class for value representation
+
+```dart
+ArcaneTimePicker(
+  value: TimeOfDay(hour: 14, minute: 30),
+  use24HourFormat: false,
+  minuteInterval: 15,
+  onChanged: (time) => print('${time.hour}:${time.minute}'),
+)
+```
+
+**ArcaneFormattedInput** - Patterned input for structured data
+- Pre-built patterns: `.date()`, `.time()`, `.phone()`, `.creditCard()`
+- Auto-advance between segments when filled
+- Backspace navigation between segments
+- Arrow key navigation support
+
+```dart
+ArcaneFormattedInput.date(
+  initialMonth: '01',
+  initialDay: '15',
+  initialYear: '2024',
+  onChanged: (value) => print(value.combinedValue),
+)
+```
+
+#### New Layout Components
+
+**ArcaneSheet** - Modal sheet sliding from screen edges
+- Positions: `bottom`, `top`, `end`, `start`
+- Configurable width/height and max constraints
+- Backdrop dismiss option
+- Close button with title support
+
+**ArcaneActionSheet** - Mobile-style action sheet
+- Destructive item styling
+- Cancel button at bottom
+- Full-width on mobile
+
+```dart
+ArcaneSheet(
+  position: SheetPosition.bottom,
+  title: 'Options',
+  child: content,
+  onClose: () => closeSheet(),
+)
+```
+
+#### New View Components
+
+**ArcaneSwitcher** - Animated content transition
+- Transition directions: `up`, `down`, `left`, `right`, `fade`
+- `ArcaneKeyedSwitcher<T>` for key-based switching
+- `ArcaneIndexedStack` for state-preserving indexed children
+
+```dart
+ArcaneSwitcher(
+  direction: SwitcherDirection.up,
+  child: currentView,
+)
+```
+
+**ArcaneSurfaceCard** - Card with visual effects
+- Effects: `none`, `blur`, `frosted`, `gradient`, `glass`, `ice`
+- Customizable blur intensity, opacity, and blend color
+- `ArcaneThumbHashCard` for placeholder backgrounds
+
+```dart
+ArcaneSurfaceCard(
+  effect: SurfaceEffect.frosted,
+  blurIntensity: 12,
+  child: content,
+)
+```
+
+**ArcaneTracker** - GitHub-style contribution/status grid
+- Grid-based tracker with severity levels (fine, warning, critical, unknown)
+- Configurable columns, cell size, and gap
+- Optional legend display
+- Cell click callbacks
+
+**ArcaneUptimeTracker** - Uptime percentage bar chart
+- Percentage bars with color coding
+- Average uptime calculation
+- Hover tooltips with date/percentage
+
+```dart
+ArcaneTracker.weekly(
+  data: List.generate(90, (i) => TrackerData(
+    level: TrackerLevel.fine,
+    tooltip: 'Day ${i + 1}: 100% uptime',
+  )),
+)
+```
+
+**ArcaneAvatarBadge** - Status indicator badge for avatars
+- Status types: `online`, `offline`, `busy`, `away`, `count`
+- Positions: `topLeft`, `topRight`, `bottomLeft`, `bottomRight`
+- Pulse animation option
+
+```dart
+ArcaneAvatarBadge(
+  status: AvatarBadgeStatus.online,
+  position: AvatarBadgePosition.bottomRight,
+  pulse: true,
+  child: ArcaneAvatar(...),
+)
+```
+
+#### New Navigation Components
+
+**ArcaneDotIndicator** - Carousel/page indicator dots
+- Interactive mode with click callbacks
+- Customizable dot size, active/inactive colors
+- Gap spacing control
+
+**ArcaneStepIndicator** - Step-based progress indicator
+- Vertical and horizontal orientations
+- Step labels and descriptions
+- Clickable navigation for completed steps
+- Size variants
+
+```dart
+ArcaneDotIndicator(
+  count: 5,
+  currentIndex: 2,
+  interactive: true,
+  onDotTap: (index) => goToPage(index),
+)
+```
+
+#### New Dialog Components
+
+**ArcaneEmailDialog** - Email input dialog with validation
+- Work email requirement option
+- Blocked domains configuration
+- Real-time validation feedback
+
+**ArcaneTimeDialog** - Time picker dialog
+- Column-based hour/minute selection
+- 12/24 hour format support
+- Visual time display
+
+**ArcaneItemPicker** - General-purpose item picker dialog
+- Single and multi-select modes
+- Search/filter support
+- Immediate or confirm-based selection
+
+```dart
+ArcaneItemPicker<String>(
+  title: 'Select Country',
+  items: ['USA', 'Canada', 'UK'],
+  itemBuilder: (item) => text(item),
+  onSelect: (country) => handleSelection(country),
+)
+```
+
+#### New Screen Components
+
+**ArcaneChatScreen** - Full chat interface
+- Chat styles: `bubbles` (WhatsApp) and `tiles` (Slack)
+- Message input with auto-resize textarea
+- Timestamp and avatar display
+- Abstract interfaces for custom message/user types
+
+```dart
+ArcaneChatScreen(
+  style: ChatStyle.bubbles,
+  provider: myChatProvider,
+  currentUserId: 'user123',
+)
+```
+
+#### JavaScript Fallback Scripts
+
+New JavaScript fallback scripts for static site support:
+- `TimePickerScripts` - Time picker column selection
+- `FormattedInputScripts` - Auto-advance and navigation between segments
+- `SheetScripts` - Sheet open/close and backdrop dismiss
+- `DotIndicatorScripts` - Dot and step indicator interactions
+- `TrackerScripts` - Tracker cell hover and click
+- `ChatScripts` - Chat input resize, send, and scroll
+- `EmailDialogScripts` - Email validation and submission
+- `TimeDialogScripts` - Time selection in dialogs
+- `ItemPickerScripts` - Search filtering and item selection
+
 #### Theme Enhancement: `uniformBackgrounds`
 
 New theme option for sleek, uniform dark designs without section contrast:

@@ -548,4 +548,165 @@ class ViewDemos {
           ],
         ),
       ];
+
+  static List<Component> dotIndicator() => [
+        ArcaneColumn(
+          gapSize: Gap.lg,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ArcaneText('Basic Dot Indicator', weight: FontWeight.w600),
+            ArcaneDotIndicator(
+              index: 2,
+              length: 5,
+              onChanged: (_) {},
+            ),
+            ArcaneText('Large Dots', weight: FontWeight.w600),
+            ArcaneDotIndicator(
+              index: 1,
+              length: 4,
+              size: DotIndicatorSize.lg,
+              onChanged: (_) {},
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> stepIndicator() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(widthCustom: '500px'),
+          children: [
+            ArcaneStepIndicator(
+              currentStep: 1,
+              steps: const ['Account', 'Profile', 'Review', 'Complete'],
+              onStepTap: (_) {},
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> tracker() => [
+        ArcaneColumn(
+          gapSize: Gap.lg,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ArcaneText('Contribution Grid', weight: FontWeight.w600),
+            ArcaneTracker(
+              data: List.generate(90, (i) => TrackerData(
+                level: i % 5 == 0 ? TrackerLevel.fine
+                    : i % 7 == 0 ? TrackerLevel.warning
+                    : i % 11 == 0 ? TrackerLevel.critical
+                    : TrackerLevel.unknown,
+                tooltip: 'Day ${i + 1}',
+              )),
+              showLegend: true,
+            ),
+            ArcaneText('Uptime Tracker', weight: FontWeight.w600),
+            ArcaneDiv(
+              styles: const ArcaneStyleData(widthCustom: '300px'),
+              children: [
+                ArcaneUptimeTracker(
+                  days: List.generate(30, (i) => UptimeDay(
+                    date: DateTime.now().subtract(Duration(days: i)),
+                    uptime: 99.0 + (i % 10) / 10,
+                  )),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> surfaceCard() => [
+        ArcaneRow(
+          gapSize: Gap.lg,
+          children: [
+            ArcaneSurfaceCard(
+              effect: SurfaceEffect.none,
+              child: ArcaneText('Plain'),
+            ),
+            ArcaneSurfaceCard.blur(
+              child: ArcaneText('Blur'),
+            ),
+            ArcaneSurfaceCard.frosted(
+              child: ArcaneText('Frosted'),
+            ),
+            ArcaneSurfaceCard.glass(
+              child: ArcaneText('Glass'),
+            ),
+            ArcaneSurfaceCard.gradient(
+              child: ArcaneText('Gradient'),
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> switcher() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(
+            widthCustom: '300px',
+            heightCustom: '100px',
+            background: Background.surfaceVariant,
+            borderRadius: Radius.md,
+          ),
+          children: [
+            ArcaneSwitcher(
+              index: 0,
+              direction: SwitcherDirection.fade,
+              children: [
+                ArcaneCenter(child: ArcaneText('Step 1 Content')),
+                ArcaneCenter(child: ArcaneText('Step 2 Content')),
+                ArcaneCenter(child: ArcaneText('Step 3 Content')),
+              ],
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> avatarGroup() => [
+        ArcaneColumn(
+          gapSize: Gap.lg,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ArcaneText('Avatar Group', weight: FontWeight.w600),
+            ArcaneAvatarGroup.toRight(
+              avatars: [
+                ArcaneAvatar(initials: 'AB'),
+                ArcaneAvatar(initials: 'CD'),
+                ArcaneAvatar(initials: 'EF'),
+                ArcaneAvatar(initials: 'GH'),
+                ArcaneAvatar(initials: 'IJ'),
+                ArcaneAvatar(initials: 'KL'),
+              ],
+              maxVisible: 4,
+            ),
+            ArcaneText('With Avatar Badge', weight: FontWeight.w600),
+            ArcaneRow(
+              gapSize: Gap.lg,
+              children: [
+                ArcaneDiv(
+                  styles: const ArcaneStyleData(position: Position.relative),
+                  children: [
+                    ArcaneAvatar(initials: 'JD'),
+                    ArcaneAvatarBadge.online(),
+                  ],
+                ),
+                ArcaneDiv(
+                  styles: const ArcaneStyleData(position: Position.relative),
+                  children: [
+                    ArcaneAvatar(initials: 'AB'),
+                    ArcaneAvatarBadge.busy(),
+                  ],
+                ),
+                ArcaneDiv(
+                  styles: const ArcaneStyleData(position: Position.relative),
+                  children: [
+                    ArcaneAvatar(initials: 'CD'),
+                    ArcaneAvatarBadge.away(),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ];
 }

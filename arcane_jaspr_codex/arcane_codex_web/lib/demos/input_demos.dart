@@ -298,4 +298,41 @@ class InputDemos {
           ],
         ),
       ];
+
+  static List<Component> timePicker() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(widthCustom: '200px'),
+          children: [
+            ArcaneTimePicker(
+              value: TimeOfDay(hour: 14, minute: 30),
+              label: 'Start Time',
+              onChanged: (_) {},
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> formattedInput() => [
+        ArcaneColumn(
+          gapSize: Gap.lg,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ArcaneFormattedInput.date(
+              initialMonth: '01',
+              initialDay: '15',
+              initialYear: '2024',
+              onChanged: (_) {},
+            ),
+            ArcaneFormattedInput.phone(
+              initialAreaCode: '555',
+              initialPrefix: '123',
+              initialLine: '4567',
+              onChanged: (_) {},
+            ),
+            ArcaneFormattedInput.creditCard(
+              onChanged: (_) {},
+            ),
+          ],
+        ),
+      ];
 }

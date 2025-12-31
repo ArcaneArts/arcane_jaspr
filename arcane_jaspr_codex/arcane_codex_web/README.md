@@ -250,3 +250,40 @@ ArcaneApp(
   child: ...,
 )
 ```
+
+## Documented Components
+
+### Input Components
+- **Basic**: Button, IconButton, TextInput, TextArea, Search
+- **Selection**: Checkbox, Radio, ToggleSwitch, Selector, Combobox
+- **Specialized**: Slider, RangeSlider, NumberInput, ColorInput, TagInput, FileUpload
+- **Time & Date**: TimePicker, FormattedInput, Calendar, DatePicker
+- **Toggle**: CycleButton, ToggleButton, ThemeToggle, OtpInput
+
+### Layout Components
+- **Flex**: Div, Row, Column, Center
+- **Container**: Card, Section, Container, Gutter
+- **Panels**: Sheet, ActionSheet, Drawer, Tabs
+- **Scroll**: ScrollRail, ScrollArea, AspectRatio, Resizable
+
+### View Components
+- **Display**: Avatar, AvatarBadge, Badge, Chip, Divider
+- **Progress**: ProgressBar, Loader, Skeleton
+- **Info**: Tooltip, Popover, Hovercard
+- **Lists**: Accordion, DataTable, TreeView, CheckList
+- **Animation**: Switcher, SurfaceCard
+- **Metrics**: Tracker, UptimeTracker, DotIndicator, StepIndicator
+- **Timeline**: Timeline, Stepper
+- **Code**: CodeWindow, CodeSnippet
+
+### Navigation Components
+Bar, Sidebar, BottomNav, Breadcrumbs, Pagination, DropdownMenu, ContextMenu, Menubar, MobileMenu
+
+### Feedback & Dialog Components
+Dialog, Toast, AlertBanner, EmailDialog, TimeDialog, ItemPicker, Command
+
+### Screen Components
+Screen, FillScreen, NavigationScreen, ChatScreen
+
+### Authentication
+LoginCard, SignupCard, ForgotPasswordCard, AuthProvider, AuthGuard, GuestGuard, Social Sign-In Buttons (GitHub, Google, Apple, etc.)

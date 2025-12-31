@@ -63,6 +63,8 @@ class ArcaneScripts {
     bindComboboxes();
     bindCalendars();
     bindDatePickers();
+    bindTimePickers();
+    bindFormattedInputs();
 
     // Buttons
     bindToggleButtonGroups();
@@ -86,6 +88,8 @@ class ArcaneScripts {
     bindCommandPalettes();
     bindSteps();
     bindTimelines();
+    bindDotIndicators();
+    bindTrackers();
 
     // Dialogs & Overlays
     bindToasts();
@@ -94,6 +98,11 @@ class ArcaneScripts {
     bindDialogs();
     bindDrawers();
     bindMobileMenus();
+    bindSheets();
+    bindEmailDialogs();
+    bindTimeDialogs();
+    bindItemPickers();
+    bindChatScreens();
   }
 
   ${SliderScripts.code}

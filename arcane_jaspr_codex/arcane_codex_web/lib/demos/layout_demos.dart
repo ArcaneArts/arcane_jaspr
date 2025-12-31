@@ -555,4 +555,61 @@ class LayoutDemos {
           ],
         ),
       ];
+
+  static List<Component> sheet() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(
+            padding: PaddingPreset.md,
+            background: Background.surface,
+            borderRadius: Radius.md,
+          ),
+          children: [
+            ArcaneColumn(
+              gapSize: Gap.sm,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ArcaneText('Sheet Component', weight: FontWeight.bold),
+                ArcaneText('Modal sheets that slide in from screen edges', color: TextColor.muted),
+                ArcaneRow(
+                  gapSize: Gap.sm,
+                  children: [
+                    ArcaneButton.secondary(
+                      label: 'Bottom Sheet',
+                      onPressed: () {},
+                    ),
+                    ArcaneButton.secondary(
+                      label: 'Side Sheet',
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> actionSheet() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(
+            padding: PaddingPreset.md,
+            background: Background.surface,
+            borderRadius: Radius.md,
+          ),
+          children: [
+            ArcaneColumn(
+              gapSize: Gap.sm,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ArcaneText('Action Sheet', weight: FontWeight.bold),
+                ArcaneText('Mobile-style action menu', color: TextColor.muted),
+                ArcaneButton.secondary(
+                  label: 'Show Actions',
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ],
+        ),
+      ];
 }

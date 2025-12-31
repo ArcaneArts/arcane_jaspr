@@ -180,6 +180,7 @@ export 'component/layout/cta_banner.dart';
 export 'component/layout/dashboard_layout.dart';
 export 'component/layout/auth_layout.dart';
 export 'component/layout/drawer.dart';
+export 'component/layout/sheet.dart';
 export 'component/layout/scroll_rail.dart';
 export 'component/layout/scroll_area.dart';
 export 'component/layout/aspect_ratio.dart';
@@ -212,6 +213,8 @@ export 'component/input/otp_input.dart';
 export 'component/input/combobox.dart';
 export 'component/input/calendar.dart';
 export 'component/input/date_picker.dart';
+export 'component/input/time_picker.dart';
+export 'component/input/formatted_input.dart';
 
 // ============================================================================
 // View components
@@ -264,6 +267,9 @@ export 'component/view/stat_display.dart';
 export 'component/view/author_card.dart';
 export 'component/view/code_window.dart' hide ArcaneCodeSnippet;
 export 'component/view/check_list.dart';
+export 'component/view/switcher.dart';
+export 'component/view/surface_card.dart';
+export 'component/view/tracker.dart';
 
 // ============================================================================
 // Navigation components
@@ -277,6 +283,7 @@ export 'component/navigation/breadcrumbs.dart';
 export 'component/navigation/pagination.dart';
 export 'component/navigation/context_menu.dart';
 export 'component/navigation/menubar.dart';
+export 'component/navigation/dot_indicator.dart';
 
 // ============================================================================
 // Screen components
@@ -284,15 +291,19 @@ export 'component/navigation/menubar.dart';
 export 'component/screen/screen.dart';
 export 'component/screen/fill_screen.dart';
 export 'component/screen/navigation_screen.dart';
+export 'component/screen/chat_screen.dart';
 
 // ============================================================================
 // Dialog components
 // ============================================================================
-export 'component/dialog/dialog.dart';
+export 'component/dialog/dialog.dart' hide ArcaneSheet, SheetPosition;
 export 'component/dialog/confirm.dart';
 export 'component/dialog/text.dart';
 export 'component/dialog/toast.dart';
 export 'component/dialog/command.dart';
+export 'component/dialog/email.dart';
+export 'component/dialog/time.dart';
+export 'component/dialog/item_picker.dart';
 
 // ============================================================================
 // Form components

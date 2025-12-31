@@ -113,6 +113,8 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcaneCombobox', href: '/docs/inputs/arcane-combobox'),
               _buildNavItem(label: 'ArcaneCalendar', href: '/docs/inputs/arcane-calendar'),
               _buildNavItem(label: 'ArcaneDatePicker', href: '/docs/inputs/arcane-date-picker'),
+              _buildNavItem(label: 'ArcaneTimePicker', href: '/docs/inputs/arcane-time-picker'),
+              _buildNavItem(label: 'ArcaneFormattedInput', href: '/docs/inputs/arcane-formatted-input'),
             ], defaultOpen: _sectionContainsPath('inputs')),
 
             // Layout Components section
@@ -146,6 +148,8 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcaneScrollArea', href: '/docs/layout/arcane-scroll-area'),
               _buildNavItem(label: 'ArcaneAspectRatio', href: '/docs/layout/arcane-aspect-ratio'),
               _buildNavItem(label: 'ArcaneResizable', href: '/docs/layout/arcane-resizable'),
+              _buildNavItem(label: 'ArcaneSheet', href: '/docs/layout/arcane-sheet'),
+              _buildNavItem(label: 'ArcaneActionSheet', href: '/docs/layout/arcane-action-sheet'),
             ], defaultOpen: _sectionContainsPath('layout')),
 
             // Typography Components section
@@ -199,6 +203,12 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcaneFadeEdge', href: '/docs/view/arcane-fade-edge'),
               _buildNavItem(label: 'ArcaneMarquee', href: '/docs/view/arcane-marquee'),
               _buildNavItem(label: 'ArcaneSvg', href: '/docs/view/arcane-svg'),
+              _buildNavItem(label: 'ArcaneAvatarGroup', href: '/docs/view/arcane-avatar-group'),
+              _buildNavItem(label: 'ArcaneDotIndicator', href: '/docs/view/arcane-dot-indicator'),
+              _buildNavItem(label: 'ArcaneStepIndicator', href: '/docs/view/arcane-step-indicator'),
+              _buildNavItem(label: 'ArcaneTracker', href: '/docs/view/arcane-tracker'),
+              _buildNavItem(label: 'ArcaneSurfaceCard', href: '/docs/view/arcane-surface-card'),
+              _buildNavItem(label: 'ArcaneSwitcher', href: '/docs/view/arcane-switcher'),
             ], defaultOpen: _sectionContainsPath('view')),
 
             // Navigation Components section
@@ -221,6 +231,9 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcaneAlertBanner', href: '/docs/feedback/arcane-alert-banner'),
               _buildNavItem(label: 'ArcaneStatusBadge', href: '/docs/feedback/arcane-status-badge'),
               _buildNavItem(label: 'ArcaneCommand', href: '/docs/feedback/arcane-command'),
+              _buildNavItem(label: 'ArcaneEmailDialog', href: '/docs/feedback/arcane-email-dialog'),
+              _buildNavItem(label: 'ArcaneTimeDialog', href: '/docs/feedback/arcane-time-dialog'),
+              _buildNavItem(label: 'ArcaneItemPicker', href: '/docs/feedback/arcane-item-picker'),
             ], defaultOpen: _sectionContainsPath('feedback')),
 
             // Forms section
@@ -244,6 +257,7 @@ class DocsSidebar extends StatelessComponent {
             // Screens section
             _buildCollapsibleSection('Screens', [
               _buildNavItem(label: 'ArcaneScreen', href: '/docs/screens/arcane-screen'),
+              _buildNavItem(label: 'ArcaneChatScreen', href: '/docs/screens/arcane-chat-screen'),
             ], defaultOpen: _sectionContainsPath('screens')),
 
             // Guides section

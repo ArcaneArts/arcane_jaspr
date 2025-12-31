@@ -46,6 +46,8 @@ class DemoRegistry {
     'file-upload': InputDemos.fileUpload,
     'search-bar': InputDemos.searchBar,
     'cta-link': InputDemos.ctaLink,
+    'time-picker': InputDemos.timePicker,
+    'formatted-input': InputDemos.formattedInput,
 
     // Layout components
     'div': LayoutDemos.div,
@@ -75,6 +77,8 @@ class DemoRegistry {
     'resizable': LayoutDemos.resizable,
     'section-header': LayoutDemos.sectionHeader,
     'footer-column': LayoutDemos.footerColumn,
+    'sheet': LayoutDemos.sheet,
+    'action-sheet': LayoutDemos.actionSheet,
 
     // Typography components
     'text': TypographyDemos.text,
@@ -92,6 +96,7 @@ class DemoRegistry {
 
     // View components
     'avatar': ViewDemos.avatar,
+    'avatar-group': ViewDemos.avatarGroup,
     'badge': ViewDemos.badge,
     'chip': ViewDemos.chip,
     'divider': ViewDemos.divider,
@@ -111,6 +116,11 @@ class DemoRegistry {
     'author-card': ViewDemos.authorCard,
     'code-window': ViewDemos.codeWindow,
     'check-list': ViewDemos.checkList,
+    'dot-indicator': ViewDemos.dotIndicator,
+    'step-indicator': ViewDemos.stepIndicator,
+    'tracker': ViewDemos.tracker,
+    'surface-card': ViewDemos.surfaceCard,
+    'switcher': ViewDemos.switcher,
 
     // Navigation components
     'header': NavigationDemos.header,
@@ -120,6 +130,9 @@ class DemoRegistry {
     'dialog': FeedbackDemos.dialog,
     'alert-banner': FeedbackDemos.alertBanner,
     'status-badge': FeedbackDemos.statusBadge,
+    'email-dialog': FeedbackDemos.emailDialog,
+    'time-dialog': FeedbackDemos.timeDialog,
+    'item-picker': FeedbackDemos.itemPicker,
 
     // Form components
     'form': FormDemos.form,
@@ -128,6 +141,7 @@ class DemoRegistry {
 
     // Screen components
     'screen': ScreenDemos.screen,
+    'chat-screen': ScreenDemos.chatScreen,
 
     // Authentication components
     'login-card': AuthDemos.loginCard,

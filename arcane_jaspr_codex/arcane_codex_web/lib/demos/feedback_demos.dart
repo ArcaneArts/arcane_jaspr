@@ -77,4 +77,76 @@ class FeedbackDemos {
           variant: AlertVariant.success,
         ),
       ];
+
+  static List<Component> emailDialog() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(
+            padding: PaddingPreset.md,
+            background: Background.surface,
+            borderRadius: Radius.md,
+          ),
+          children: [
+            ArcaneColumn(
+              gapSize: Gap.sm,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ArcaneText('Email Dialog', weight: FontWeight.bold),
+                ArcaneText('Collect email addresses with validation', color: TextColor.muted),
+                ArcaneButton.secondary(
+                  label: 'Open Email Dialog',
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> timeDialog() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(
+            padding: PaddingPreset.md,
+            background: Background.surface,
+            borderRadius: Radius.md,
+          ),
+          children: [
+            ArcaneColumn(
+              gapSize: Gap.sm,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ArcaneText('Time Dialog', weight: FontWeight.bold),
+                ArcaneText('Time picker in dialog format', color: TextColor.muted),
+                ArcaneButton.secondary(
+                  label: 'Open Time Dialog',
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ],
+        ),
+      ];
+
+  static List<Component> itemPicker() => [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(
+            padding: PaddingPreset.md,
+            background: Background.surface,
+            borderRadius: Radius.md,
+          ),
+          children: [
+            ArcaneColumn(
+              gapSize: Gap.sm,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ArcaneText('Item Picker', weight: FontWeight.bold),
+                ArcaneText('Select from a list of items', color: TextColor.muted),
+                ArcaneButton.secondary(
+                  label: 'Open Item Picker',
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ],
+        ),
+      ];
 }
