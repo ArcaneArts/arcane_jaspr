@@ -1,5 +1,4 @@
-import 'package:arcane_jaspr/arcane_jaspr.dart';
-import 'package:jaspr/dom.dart' show RawText;
+import 'package:arcane_jaspr/arcane_jaspr.dart' hide TableOfContents;
 import 'package:jaspr_content/jaspr_content.dart';
 
 import '../components/docs_sidebar.dart';

@@ -291,8 +291,8 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
             'click': (e) => _toggleOpen(),
           },
           [
-            span(
-              styles: const Styles(raw: {
+            const span(
+              styles: Styles(raw: {
                 'color': ArcaneColors.muted,
               }),
               [Component.text('🕐')],
@@ -324,7 +324,7 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
                     _clear();
                   },
                 },
-                [Component.text('✕')],
+                [const Component.text('✕')],
               ),
           ],
         ),
@@ -385,8 +385,8 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
                         'gap': ArcaneSpacing.xs,
                       }),
                       [
-                        span(
-                          styles: const Styles(raw: {
+                        const span(
+                          styles: Styles(raw: {
                             'font-size': ArcaneTypography.fontXs,
                             'font-weight': ArcaneTypography.weightMedium,
                             'color': ArcaneColors.muted,
@@ -416,7 +416,7 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
                               if (_isPM) _togglePeriod();
                             },
                           },
-                          [Component.text('AM')],
+                          [const Component.text('AM')],
                         ),
                         button(
                           classes:
@@ -439,7 +439,7 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
                               if (!_isPM) _togglePeriod();
                             },
                           },
-                          [Component.text('PM')],
+                          [const Component.text('PM')],
                         ),
                       ],
                     ),
@@ -470,7 +470,7 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
                     events: {
                       'click': (e) => setState(() => _isOpen = false),
                     },
-                    [Component.text('Cancel')],
+                    [const Component.text('Cancel')],
                   ),
                   button(
                     styles: const Styles(raw: {
@@ -485,7 +485,7 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
                     events: {
                       'click': (e) => _confirm(),
                     },
-                    [Component.text('Confirm')],
+                    [const Component.text('Confirm')],
                   ),
                 ],
               ),

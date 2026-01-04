@@ -246,7 +246,7 @@ class _ArcaneComboboxState<T> extends State<ArcaneCombobox<T>> {
                 'transition': ArcaneEffects.transitionFast,
                 'transform': _isOpen ? 'rotate(180deg)' : 'rotate(0)',
               }),
-              [Component.text('▼')],
+              [const Component.text('▼')],
             ),
           ],
         ),
@@ -372,8 +372,8 @@ class _ArcaneComboboxState<T> extends State<ArcaneCombobox<T>> {
                             ],
                           ),
                           if (option.value == component.value)
-                            span(
-                              styles: const Styles(raw: {
+                            const span(
+                              styles: Styles(raw: {
                                 'color': ArcaneColors.accent,
                               }),
                               [Component.text('✓')],

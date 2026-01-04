@@ -271,7 +271,7 @@ class ArcaneFeatureRow extends StatelessComponent {
     final effectiveExcludedColor = excludedColor ?? ArcaneColors.muted;
 
     return div(
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
         'gap': ArcaneSpacing.sm,

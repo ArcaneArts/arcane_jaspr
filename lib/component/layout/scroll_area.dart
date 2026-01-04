@@ -267,7 +267,7 @@ class ArcaneScrollArea extends StatelessComponent {
       );
     }
 
-    return span([], styles: const Styles(raw: {'display': 'none'}));
+    return const span([], styles: Styles(raw: {'display': 'none'}));
   }
 
   @css

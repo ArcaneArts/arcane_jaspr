@@ -165,8 +165,8 @@ class ArcaneResizable extends StatelessComponent {
             }),
             [
               for (var i = 0; i < 3; i++)
-                div(
-                  styles: const Styles(raw: {
+                const div(
+                  styles: Styles(raw: {
                     'width': '4px',
                     'height': '4px',
                     'border-radius': '50%',

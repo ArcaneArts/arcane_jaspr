@@ -38,18 +38,21 @@ enum HeadingLevel { h1, h2, h3, h4, h5, h6 }
 ///
 /// Example:
 /// ```dart
+/// // Using child:
+/// ArcaneHeading.h1(child: ArcaneText('Main Title'))
+///
+/// // Using text: convenience parameter
+/// ArcaneHeading.h1(text: 'Main Title')
+///
+/// // With styling:
 /// ArcaneHeading(
 ///   level: HeadingLevel.h1,
+///   text: 'Page Title',
 ///   styles: ArcaneStyleData(
 ///     fontSize: FontSize.hero,
 ///     textColor: TextColor.primary,
 ///   ),
-///   child: ArcaneText('Page Title'),
 /// )
-///
-/// // Or use named constructors:
-/// ArcaneHeading.h1(child: ArcaneText('Main Title'))
-/// ArcaneHeading.h2(child: ArcaneText('Section Title'))
 /// ```
 class ArcaneHeading extends StatelessComponent {
   /// The heading level (h1-h6)
@@ -61,6 +64,9 @@ class ArcaneHeading extends StatelessComponent {
   /// The content of the heading (multiple children)
   final List<Component>? _children;
 
+  /// Convenience text parameter - creates a Text component automatically
+  final String? text;
+
   /// Optional styling using ArcaneStyleData
   final ArcaneStyleData? styles;
 
@@ -70,19 +76,26 @@ class ArcaneHeading extends StatelessComponent {
   /// Optional ID attribute
   final String? id;
 
+  /// Creates a heading with the specified level.
+  ///
+  /// Provide either [child], [text], or use [ArcaneHeading._withChildren] for multiple children.
   const ArcaneHeading({
     required this.level,
-    required Component child,
+    Component? child,
+    this.text,
     this.styles,
     this.classes,
     this.id,
     super.key,
   })  : _child = child,
-        _children = null;
+        _children = null,
+        assert(child != null || text != null,
+            'Either child or text must be provided');
 
   const ArcaneHeading._withChildren({
     required this.level,
     required List<Component> children,
+    this.text,
     this.styles,
     this.classes,
     this.id,
@@ -90,9 +103,12 @@ class ArcaneHeading extends StatelessComponent {
   })  : _child = null,
         _children = children;
 
-  /// Create an h1 heading with single child
+  /// Create an h1 heading
+  ///
+  /// Provide either [child] or [text].
   const ArcaneHeading.h1({
-    required Component child,
+    Component? child,
+    String? text,
     ArcaneStyleData? styles,
     String? classes,
     String? id,
@@ -100,6 +116,7 @@ class ArcaneHeading extends StatelessComponent {
   }) : this(
           level: HeadingLevel.h1,
           child: child,
+          text: text,
           styles: styles,
           classes: classes,
           id: id,
@@ -122,9 +139,12 @@ class ArcaneHeading extends StatelessComponent {
           key: key,
         );
 
-  /// Create an h2 heading with single child
+  /// Create an h2 heading
+  ///
+  /// Provide either [child] or [text].
   const ArcaneHeading.h2({
-    required Component child,
+    Component? child,
+    String? text,
     ArcaneStyleData? styles,
     String? classes,
     String? id,
@@ -132,6 +152,7 @@ class ArcaneHeading extends StatelessComponent {
   }) : this(
           level: HeadingLevel.h2,
           child: child,
+          text: text,
           styles: styles,
           classes: classes,
           id: id,
@@ -154,9 +175,12 @@ class ArcaneHeading extends StatelessComponent {
           key: key,
         );
 
-  /// Create an h3 heading with single child
+  /// Create an h3 heading
+  ///
+  /// Provide either [child] or [text].
   const ArcaneHeading.h3({
-    required Component child,
+    Component? child,
+    String? text,
     ArcaneStyleData? styles,
     String? classes,
     String? id,
@@ -164,6 +188,7 @@ class ArcaneHeading extends StatelessComponent {
   }) : this(
           level: HeadingLevel.h3,
           child: child,
+          text: text,
           styles: styles,
           classes: classes,
           id: id,
@@ -186,9 +211,12 @@ class ArcaneHeading extends StatelessComponent {
           key: key,
         );
 
-  /// Create an h4 heading with single child
+  /// Create an h4 heading
+  ///
+  /// Provide either [child] or [text].
   const ArcaneHeading.h4({
-    required Component child,
+    Component? child,
+    String? text,
     ArcaneStyleData? styles,
     String? classes,
     String? id,
@@ -196,6 +224,7 @@ class ArcaneHeading extends StatelessComponent {
   }) : this(
           level: HeadingLevel.h4,
           child: child,
+          text: text,
           styles: styles,
           classes: classes,
           id: id,
@@ -218,9 +247,12 @@ class ArcaneHeading extends StatelessComponent {
           key: key,
         );
 
-  /// Create an h5 heading with single child
+  /// Create an h5 heading
+  ///
+  /// Provide either [child] or [text].
   const ArcaneHeading.h5({
-    required Component child,
+    Component? child,
+    String? text,
     ArcaneStyleData? styles,
     String? classes,
     String? id,
@@ -228,6 +260,7 @@ class ArcaneHeading extends StatelessComponent {
   }) : this(
           level: HeadingLevel.h5,
           child: child,
+          text: text,
           styles: styles,
           classes: classes,
           id: id,
@@ -250,9 +283,12 @@ class ArcaneHeading extends StatelessComponent {
           key: key,
         );
 
-  /// Create an h6 heading with single child
+  /// Create an h6 heading
+  ///
+  /// Provide either [child] or [text].
   const ArcaneHeading.h6({
-    required Component child,
+    Component? child,
+    String? text,
     ArcaneStyleData? styles,
     String? classes,
     String? id,
@@ -260,6 +296,7 @@ class ArcaneHeading extends StatelessComponent {
   }) : this(
           level: HeadingLevel.h6,
           child: child,
+          text: text,
           styles: styles,
           classes: classes,
           id: id,
@@ -284,7 +321,15 @@ class ArcaneHeading extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final content = _children ?? [_child!];
+    // Resolve content: children > child > text
+    final List<Component> content;
+    if (_children != null) {
+      content = _children!;
+    } else if (_child != null) {
+      content = [_child!];
+    } else {
+      content = [Component.text(text!)];
+    }
 
     // Apply heading font family as default, user styles override
     final baseStyles = styles?.toMap() ?? <String, String>{};

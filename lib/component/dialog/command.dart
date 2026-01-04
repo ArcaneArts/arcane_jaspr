@@ -135,7 +135,7 @@ class _ArcaneCommandState extends State<ArcaneCommand> {
   @override
   Component build(BuildContext context) {
     if (!component.isOpen) {
-      return div([], styles: const Styles(raw: {'display': 'none'}));
+      return const div([], styles: Styles(raw: {'display': 'none'}));
     }
 
     final items = _filteredItems;
@@ -192,8 +192,8 @@ class _ArcaneCommandState extends State<ArcaneCommand> {
                 'border-bottom': '1px solid ${ArcaneColors.border}',
               }),
               [
-                span(
-                  styles: const Styles(raw: {
+                const span(
+                  styles: Styles(raw: {
                     'color': ArcaneColors.muted,
                     'font-size': ArcaneTypography.fontLg,
                   }),
@@ -326,7 +326,7 @@ class _ArcaneCommandState extends State<ArcaneCommand> {
         ),
         if (item.shortcut != null)
           span(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontXs,
               'color': ArcaneColors.muted,
               'padding': '2px ${ArcaneSpacing.xs}',
@@ -349,7 +349,7 @@ class _ArcaneCommandState extends State<ArcaneCommand> {
       }),
       [
         span(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'padding': '2px 6px',
             'background-color': ArcaneColors.surfaceVariant,
             'border-radius': ArcaneRadius.sm,

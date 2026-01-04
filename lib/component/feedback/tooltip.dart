@@ -13,8 +13,9 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
+import 'package:jaspr_lucide/jaspr_lucide.dart' hide Factory, Target, Key, List, Timer, View, Map;
+
 import '../../util/tokens/tokens.dart';
-import '../view/icon.dart';
 
 /// Tooltip position
 enum TooltipPosition {
@@ -314,7 +315,7 @@ class ArcaneInfoTooltip extends StatelessComponent {
           'cursor': 'help',
           'transition': ArcaneEffects.transitionFast,
         }),
-        [ArcaneIcon.info(size: IconSize.sm)],
+        [Info(width: const Unit.pixels(16), height: const Unit.pixels(16))],
       ),
     );
   }

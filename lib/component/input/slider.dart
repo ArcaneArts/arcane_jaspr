@@ -3,18 +3,9 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 
 import '../../util/tokens/tokens.dart';
 import '../../util/tokens/style_presets.dart';
+import 'slider_types.dart';
 
-/// Slider size variants
-enum SliderSize {
-  /// Small - 4px track, 14px thumb
-  sm,
-
-  /// Medium (default) - 6px track, 18px thumb
-  md,
-
-  /// Large - 8px track, 22px thumb
-  lg,
-}
+export 'slider_types.dart';
 
 /// Range slider input component with modern shadcn-inspired design.
 ///
@@ -371,8 +362,8 @@ class ArcaneSlider extends StatelessComponent {
       }),
       [
         for (var i = 0; i <= steps; i++)
-          div(
-            styles: const Styles(raw: {
+          const div(
+            styles: Styles(raw: {
               'width': '2px',
               'height': '2px',
               'background': ArcaneColors.muted,

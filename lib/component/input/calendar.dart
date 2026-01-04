@@ -286,7 +286,7 @@ class _ArcaneCalendarState extends State<ArcaneCalendar> {
                 'transition': ArcaneEffects.transitionFast,
               }),
               events: {'click': (e) => _previousMonth()},
-              [Component.text('◀')],
+              [const Component.text('◀')],
             ),
             span(
               styles: const Styles(raw: {
@@ -316,7 +316,7 @@ class _ArcaneCalendarState extends State<ArcaneCalendar> {
                 'transition': ArcaneEffects.transitionFast,
               }),
               events: {'click': (e) => _nextMonth()},
-              [Component.text('▶')],
+              [const Component.text('▶')],
             ),
           ],
         ),
@@ -332,8 +332,8 @@ class _ArcaneCalendarState extends State<ArcaneCalendar> {
           }),
           [
             if (component.showWeekNumbers)
-              div(
-                styles: const Styles(raw: {
+              const div(
+                styles: Styles(raw: {
                   'width': '32px',
                 }),
                 [],
@@ -402,7 +402,7 @@ class _ArcaneCalendarState extends State<ArcaneCalendar> {
               'align-self': 'center',
             }),
             events: {'click': (e) => _goToToday()},
-            [Component.text('Today')],
+            [const Component.text('Today')],
           ),
       ],
     );

@@ -211,13 +211,13 @@ class ViewDemos {
                 TreeNode(
                   id: 'src',
                   label: 'src',
-                  icon: ArcaneIcon.folder(),
+                  icon: Folder(),
                   children: [
-                    TreeNode(id: 'main', label: 'main.dart', icon: ArcaneIcon.file()),
-                    TreeNode(id: 'app', label: 'app.dart', icon: ArcaneIcon.file()),
+                    TreeNode(id: 'main', label: 'main.dart', icon: File()),
+                    TreeNode(id: 'app', label: 'app.dart', icon: File()),
                   ],
                 ),
-                TreeNode(id: 'pubspec', label: 'pubspec.yaml', icon: ArcaneIcon.file()),
+                TreeNode(id: 'pubspec', label: 'pubspec.yaml', icon: File()),
               ],
             ),
           ],
@@ -266,12 +266,12 @@ class ViewDemos {
         ArcaneRow(
           gapSize: Gap.md,
           children: [
-            ArcaneIcon.home(),
-            ArcaneIcon.search(),
-            ArcaneIcon.settings(),
-            ArcaneIcon.user(),
-            ArcaneIcon.heart(),
-            ArcaneIcon.star(),
+            House(),
+            Search(),
+            Settings(),
+            User(),
+            Heart(),
+            Star(),
           ],
         ),
       ];

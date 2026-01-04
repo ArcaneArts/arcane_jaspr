@@ -50,7 +50,7 @@ class DocsHeader extends StatelessComponent {
           resultsId: 'search-results',
           placeholder: 'Search docs...',
           width: '240px',
-          iconSize: IconSize.md,
+          iconSize: 20,
           styles: const ArcaneStyleData(
             margin: MarginPreset.rightMd,
           ),
@@ -125,8 +125,8 @@ class DocsHeader extends StatelessComponent {
             lineHeight: LineHeight.none,
           ),
           children: [
-            if (isDark) ArcaneIcon.sun(size: IconSize.lg),
-            if (!isDark) ArcaneIcon.moon(size: IconSize.lg),
+            if (isDark) Sun(width: Unit.pixels(20), height: Unit.pixels(20)),
+            if (!isDark) Moon(width: Unit.pixels(20), height: Unit.pixels(20)),
           ],
         ),
       ],

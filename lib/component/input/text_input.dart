@@ -11,6 +11,7 @@ import '../../util/tokens/style_presets.dart';
 /// ArcaneTextInput(
 ///   style: InputStyle.standard,
 ///   size: InputSizeStyle.md,
+///   onInput: (value) => print(value),  // or use onChange
 /// )
 /// ```
 class ArcaneTextInput extends StatelessComponent {
@@ -60,7 +61,7 @@ class ArcaneTextInput extends StatelessComponent {
   final String? label;
 
   /// Change callback
-  final void Function(String)? onChange;
+  final void Function(String)? _onChange;
 
   /// Focus callback
   final void Function()? onFocus;
@@ -74,6 +75,9 @@ class ArcaneTextInput extends StatelessComponent {
   /// Full width
   final bool fullWidth;
 
+  /// Creates a text input.
+  ///
+  /// Use [onChange] or [onInput] for value change handling.
   const ArcaneTextInput({
     this.placeholder,
     this.type = InputType.text,
@@ -90,13 +94,14 @@ class ArcaneTextInput extends StatelessComponent {
     this.error,
     this.helperText,
     this.label,
-    this.onChange,
+    void Function(String)? onChange,
+    void Function(String)? onInput,
     this.onFocus,
     this.onBlur,
     this.onSubmit,
     this.fullWidth = false,
     super.key,
-  });
+  }) : _onChange = onChange ?? onInput;
 
   @override
   Component build(BuildContext context) {
@@ -129,10 +134,10 @@ class ArcaneTextInput extends StatelessComponent {
       },
       styles: Styles(raw: inputStyles),
       events: {
-        if (onChange != null)
+        if (_onChange != null)
           'input': (e) {
             final target = e.target as dynamic;
-            onChange!(target.value as String);
+            _onChange!(target.value as String);
           },
         if (onFocus != null) 'focus': (e) => onFocus!(),
         if (onBlur != null) 'blur': (e) => onBlur!(),
@@ -228,10 +233,10 @@ class ArcaneTextInput extends StatelessComponent {
                     'outline': 'none',
                   }),
                   events: {
-                    if (onChange != null)
+                    if (_onChange != null)
                       'input': (e) {
                         final target = e.target as dynamic;
-                        onChange!(target.value as String);
+                        _onChange!(target.value as String);
                       },
                     if (onFocus != null) 'focus': (e) => onFocus!(),
                     if (onBlur != null) 'blur': (e) => onBlur!(),
@@ -364,11 +369,14 @@ class ArcaneTextArea extends StatelessComponent {
   final String? helperText;
 
   /// Change callback
-  final void Function(String)? onChange;
+  final void Function(String)? _onChange;
 
   /// Full width
   final bool fullWidth;
 
+  /// Creates a textarea.
+  ///
+  /// Use [onChange] or [onInput] for value change handling.
   const ArcaneTextArea({
     this.placeholder,
     this.rows = 4,
@@ -387,10 +395,11 @@ class ArcaneTextArea extends StatelessComponent {
     this.label,
     this.error,
     this.helperText,
-    this.onChange,
+    void Function(String)? onChange,
+    void Function(String)? onInput,
     this.fullWidth = true,
     super.key,
-  });
+  }) : _onChange = onChange ?? onInput;
 
   @override
   Component build(BuildContext context) {
@@ -434,10 +443,10 @@ class ArcaneTextArea extends StatelessComponent {
         if (disabled) ...effectiveStyle.disabled,
       }),
       events: {
-        if (onChange != null)
+        if (_onChange != null)
           'input': (e) {
             final target = e.target as dynamic;
-            onChange!(target.value as String);
+            _onChange!(target.value as String);
           },
       },
       children: value != null ? [text(value!)] : [],
@@ -546,11 +555,14 @@ class ArcaneSelect extends StatelessComponent {
   final String? error;
 
   /// Change callback
-  final void Function(String)? onChange;
+  final void Function(String)? _onChange;
 
   /// Full width
   final bool fullWidth;
 
+  /// Creates a select input.
+  ///
+  /// Use [onChange], [onInput], or [onSelect] for value change handling.
   const ArcaneSelect({
     required this.options,
     this.value,
@@ -563,10 +575,12 @@ class ArcaneSelect extends StatelessComponent {
     this.id,
     this.label,
     this.error,
-    this.onChange,
+    void Function(String)? onChange,
+    void Function(String)? onInput,
+    void Function(String)? onSelect,
     this.fullWidth = false,
     super.key,
-  });
+  }) : _onChange = onChange ?? onInput ?? onSelect;
 
   @override
   Component build(BuildContext context) {
@@ -598,10 +612,10 @@ class ArcaneSelect extends StatelessComponent {
         if (disabled) ...effectiveStyle.disabled,
       }),
       events: {
-        if (onChange != null)
+        if (_onChange != null)
           'change': (e) {
             final target = e.target as dynamic;
-            onChange!(target.value as String);
+            _onChange!(target.value as String);
           },
       },
       children: [

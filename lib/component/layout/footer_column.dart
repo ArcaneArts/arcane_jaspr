@@ -67,7 +67,7 @@ class ArcaneFooterColumn extends StatelessComponent {
     final effectiveLinkGap = linkGap ?? ArcaneSpacing.sm;
 
     return div(
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
         'align-items': 'flex-start',
@@ -143,7 +143,7 @@ class ArcaneFooterBrandColumn extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return div(
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
         'align-items': 'flex-start',
@@ -151,7 +151,7 @@ class ArcaneFooterBrandColumn extends StatelessComponent {
       [
         // Logo
         div(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'margin-bottom': ArcaneSpacing.md,
           }),
           [logo],

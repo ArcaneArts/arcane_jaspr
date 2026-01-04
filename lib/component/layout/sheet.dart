@@ -14,42 +14,9 @@ import 'package:jaspr/dom.dart'
         FontWeight;
 
 import '../../util/tokens/tokens.dart';
+import 'sheet_types.dart';
 
-/// Sheet position (edge from which it slides)
-enum SheetPosition {
-  /// Slides up from bottom
-  bottom,
-
-  /// Slides down from top
-  top,
-
-  /// Slides in from right (action sheet style)
-  end,
-
-  /// Slides in from left
-  start,
-}
-
-/// Sheet size variants
-enum SheetSize {
-  /// Compact - fits content
-  auto,
-
-  /// Small (30% viewport)
-  sm,
-
-  /// Medium (50% viewport)
-  md,
-
-  /// Large (70% viewport)
-  lg,
-
-  /// Nearly full (90% viewport)
-  xl,
-
-  /// Full viewport
-  full,
-}
+export 'sheet_types.dart';
 
 /// A modal sheet that slides in from screen edges.
 ///
@@ -325,16 +292,16 @@ class ArcaneSheet extends StatelessComponent {
               [
                 // Drag handle (for bottom/top sheets)
                 if (showDragHandle && _isVertical)
-                  div(
+                  const div(
                     classes: 'arcane-sheet-drag-handle',
-                    styles: const Styles(raw: {
+                    styles: Styles(raw: {
                       'display': 'flex',
                       'justify-content': 'center',
                       'padding': '${ArcaneSpacing.sm} 0',
                     }),
                     [
                       div(
-                        styles: const Styles(raw: {
+                        styles: Styles(raw: {
                           'width': '36px',
                           'height': '4px',
                           'background': ArcaneColors.muted,
@@ -562,8 +529,8 @@ class ArcaneActionSheet extends StatelessComponent {
 
           // Cancel button
           if (showCancel) ...[
-            div(
-              styles: const Styles(raw: {
+            const div(
+              styles: Styles(raw: {
                 'height': ArcaneSpacing.sm,
               }),
               [],

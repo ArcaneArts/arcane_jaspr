@@ -25,7 +25,7 @@ ArcaneToggleSwitch(
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
 | `value` | `bool` | `false` | Current toggle state |
-| `onChanged` | `ValueChanged<bool>?` | `null` | State change handler |
+| `onChanged` / `onToggle` | `ValueChanged<bool>?` | `null` | State change handler (aliases) |
 | `label` | `String?` | `null` | Label text |
 | `labelPosition` | `LabelPosition` | `right` | Label placement |
 | `isDisabled` | `bool` | `false` | Disable interaction |

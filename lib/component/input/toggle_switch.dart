@@ -15,9 +15,10 @@ enum ToggleSwitchSize {
 ///
 /// Use style presets for cleaner code:
 /// ```dart
-/// ToggleSwitch(
+/// ArcaneToggleSwitch(
 ///   value: true,
 ///   style: ToggleStyle.success,
+///   onToggle: (value) => print(value),  // or use onChanged
 /// )
 /// ```
 class ArcaneToggleSwitch extends StatefulComponent {
@@ -42,38 +43,46 @@ class ArcaneToggleSwitch extends StatefulComponent {
   /// Whether to show the label on the left side
   final bool labelLeft;
 
+  /// Creates a toggle switch.
+  ///
+  /// Use [onChanged] or [onToggle] for value change handling.
   const ArcaneToggleSwitch({
     required this.value,
-    this.onChanged,
+    void Function(bool)? onChanged,
+    void Function(bool)? onToggle,
     this.disabled = false,
     this.size = ToggleSwitchSize.medium,
     this.style,
     this.label,
     this.labelLeft = false,
     super.key,
-  });
+  }) : onChanged = onChanged ?? onToggle;
 
   /// Primary toggle
   const ArcaneToggleSwitch.primary({
     required this.value,
-    this.onChanged,
+    void Function(bool)? onChanged,
+    void Function(bool)? onToggle,
     this.disabled = false,
     this.size = ToggleSwitchSize.medium,
     this.label,
     this.labelLeft = false,
     super.key,
-  }) : style = ToggleStyle.primary;
+  })  : onChanged = onChanged ?? onToggle,
+        style = ToggleStyle.primary;
 
   /// Success toggle
   const ArcaneToggleSwitch.success({
     required this.value,
-    this.onChanged,
+    void Function(bool)? onChanged,
+    void Function(bool)? onToggle,
     this.disabled = false,
     this.size = ToggleSwitchSize.medium,
     this.label,
     this.labelLeft = false,
     super.key,
-  }) : style = ToggleStyle.success;
+  })  : onChanged = onChanged ?? onToggle,
+        style = ToggleStyle.success;
 
   @override
   State<ArcaneToggleSwitch> createState() => _ArcaneToggleSwitchState();

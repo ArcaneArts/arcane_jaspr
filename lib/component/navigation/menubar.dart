@@ -136,9 +136,9 @@ class ArcaneMenubar extends StatelessComponent {
 
   Component _buildMenuItem(MenuItem item) {
     if (item.isSeparator) {
-      return div(
+      return const div(
         classes: 'arcane-menubar-separator',
-        styles: const Styles(raw: {
+        styles: Styles(raw: {
           'height': '1px',
           'margin': '${ArcaneSpacing.xs} 0',
           'background-color': ArcaneColors.border,
@@ -178,8 +178,8 @@ class ArcaneMenubar extends StatelessComponent {
             }),
             [Component.text(item.label)],
           ),
-          span(
-            styles: const Styles(raw: {
+          const span(
+            styles: Styles(raw: {
               'color': ArcaneColors.muted,
               'font-size': ArcaneTypography.fontXs,
             }),

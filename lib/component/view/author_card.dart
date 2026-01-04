@@ -98,7 +98,7 @@ class ArcaneAuthorCard extends StatelessComponent {
     final effectiveAvatarBg = avatarBackground ?? ArcaneColors.accent;
 
     return div(
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
         'gap': ArcaneSpacing.md,
@@ -122,7 +122,7 @@ class ArcaneAuthorCard extends StatelessComponent {
               img(
                 src: avatarUrl!,
                 alt: name,
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'width': '100%',
                   'height': '100%',
                   'object-fit': 'cover',
@@ -141,7 +141,7 @@ class ArcaneAuthorCard extends StatelessComponent {
         ),
         // Name and role
         div(
-          styles: Styles(raw: {
+          styles: const Styles(raw: {
             'display': 'flex',
             'flex-direction': 'column',
           }),

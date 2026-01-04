@@ -12,8 +12,17 @@ A container component styled as a card with background, border, shadow, and opti
 ## Basic Usage
 
 ```dart
+// Single child
 ArcaneCard(
   child: ArcaneText('Card content'),
+)
+
+// Multiple children (convenience)
+ArcaneCard(
+  children: [
+    ArcaneHeading(text: 'Title'),
+    ArcaneText('Description here'),
+  ],
 )
 ```
 
@@ -21,13 +30,16 @@ ArcaneCard(
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
-| `child` | `Component` | required | Card content |
+| `child` | `Component?` | `null` | Card content (single) |
+| `children` | `List<Component>?` | `null` | Card content (multiple) |
 | `padding` | `PaddingPreset?` | `md` | Internal padding |
 | `shadow` | `Shadow?` | `sm` | Shadow depth |
 | `borderRadius` | `Radius?` | `lg` | Corner radius |
 | `isClickable` | `bool` | `false` | Enable hover effects |
-| `onPressed` | `VoidCallback?` | `null` | Click handler |
+| `onTap` / `onClick` | `VoidCallback?` | `null` | Click handler (aliases) |
 | `styles` | `ArcaneStyleData?` | `null` | Additional styling |
+
+**Note:** Provide either `child` or `children`. The `onClick` parameter is an alias for `onTap`.
 
 ## Shadow Levels
 

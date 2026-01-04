@@ -1,15 +1,49 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
+import 'package:jaspr/dom.dart'
+    hide
+        Color,
+        Colors,
+        ColorScheme,
+        Gap,
+        Padding,
+        TextAlign,
+        TextOverflow,
+        Border,
+        BorderRadius,
+        BoxShadow,
+        FontWeight;
 
 import '../../util/tokens/tokens.dart';
 
 /// A modal dialog component.
+///
+/// Example:
+/// ```dart
+/// // Using child:
+/// ArcaneDialog(
+///   title: 'Confirm',
+///   child: Text('Are you sure?'),
+///   actions: [ArcaneButton(label: 'OK', onPressed: () {})],
+/// )
+///
+/// // Using children: for multiple elements
+/// ArcaneDialog(
+///   title: 'Settings',
+///   children: [
+///     ArcaneTextInput(label: 'Name'),
+///     ArcaneTextInput(label: 'Email'),
+///   ],
+/// )
+/// ```
 class ArcaneDialog extends StatelessComponent {
   /// Dialog title
   final String? title;
 
-  /// Dialog content
-  final Component child;
+  /// Dialog content (single component)
+  final Component? _child;
+
+  /// Dialog content (multiple components) - convenience parameter
+  final List<Component>? _children;
 
   /// Footer actions
   final List<Component>? actions;
@@ -26,19 +60,29 @@ class ArcaneDialog extends StatelessComponent {
   /// Whether to close on barrier click
   final bool barrierDismissible;
 
+  /// Creates a dialog.
+  ///
+  /// Provide either [child] or [children].
   const ArcaneDialog({
     this.title,
-    required this.child,
+    Component? child,
+    List<Component>? children,
     this.actions,
     this.showCloseButton = true,
     this.onClose,
     this.maxWidth = 500,
     this.barrierDismissible = true,
     super.key,
-  });
+  })  : _child = child,
+        _children = children,
+        assert(child != null || children != null,
+            'Either child or children must be provided');
 
   @override
   Component build(BuildContext context) {
+    // Resolve content: children takes precedence over child
+    final content = _children ?? [_child!];
+
     return div(
       classes: 'arcane-dialog-overlay',
       styles: const Styles(raw: {
@@ -112,7 +156,10 @@ class ArcaneDialog extends StatelessComponent {
                     const div([]),
                   if (showCloseButton && onClose != null)
                     button(
-                      attributes: {'type': 'button', 'aria-label': 'Close dialog'},
+                      attributes: {
+                        'type': 'button',
+                        'aria-label': 'Close dialog'
+                      },
                       styles: const Styles(raw: {
                         'display': 'flex',
                         'align-items': 'center',
@@ -143,7 +190,7 @@ class ArcaneDialog extends StatelessComponent {
                 'overflow-y': 'auto',
                 'flex': '1',
               }),
-              [child],
+              content,
             ),
 
             // Footer
@@ -183,17 +230,56 @@ class ArcaneDialog extends StatelessComponent {
 }
 
 /// A sheet/drawer dialog that slides in from the edge.
+///
+/// Example:
+/// ```dart
+/// // Using child:
+/// ArcaneSheet(
+///   title: 'Menu',
+///   position: SheetPosition.left,
+///   child: NavigationList(),
+/// )
+///
+/// // Using children: for multiple elements
+/// ArcaneSheet(
+///   title: 'Settings',
+///   children: [
+///     SettingsSection(title: 'General'),
+///     SettingsSection(title: 'Privacy'),
+///   ],
+/// )
+/// ```
 class ArcaneSheet extends StatelessComponent {
-  final Component child;
+  /// Sheet content (single component)
+  final Component? _child;
+
+  /// Sheet content (multiple components) - convenience parameter
+  final List<Component>? _children;
+
+  /// Sheet position
   final SheetPosition position;
+
+  /// Close handler
   final void Function()? onClose;
+
+  /// Whether to show close button
   final bool showCloseButton;
+
+  /// Sheet title
   final String? title;
+
+  /// Custom width (for left/right sheets)
   final double? width;
+
+  /// Custom height (for top/bottom sheets)
   final double? height;
 
+  /// Creates a sheet.
+  ///
+  /// Provide either [child] or [children].
   const ArcaneSheet({
-    required this.child,
+    Component? child,
+    List<Component>? children,
     this.position = SheetPosition.right,
     this.onClose,
     this.showCloseButton = true,
@@ -201,10 +287,16 @@ class ArcaneSheet extends StatelessComponent {
     this.width,
     this.height,
     super.key,
-  });
+  })  : _child = child,
+        _children = children,
+        assert(child != null || children != null,
+            'Either child or children must be provided');
 
   @override
   Component build(BuildContext context) {
+    // Resolve content: children takes precedence over child
+    final content = _children ?? [_child!];
+
     final Map<String, String> sheetStyles = {
       'position': 'fixed',
       'background-color': ArcaneColors.surface,
@@ -339,7 +431,7 @@ class ArcaneSheet extends StatelessComponent {
                 'overflow-y': 'auto',
                 'padding': '20px',
               }),
-              [child],
+              content,
             ),
           ],
         ),

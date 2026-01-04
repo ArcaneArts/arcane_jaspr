@@ -1,9 +1,10 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
+import 'package:jaspr_lucide/jaspr_lucide.dart' hide Factory, Target, Key, List, Timer, View, Map;
+
 import '../../util/tokens/tokens.dart';
 import '../../util/tokens/style_presets.dart';
-import '../view/icon.dart';
 
 /// A search input component with optional icon and clear button.
 class ArcaneSearch extends StatefulComponent {
@@ -183,9 +184,10 @@ class _ArcaneSearchState extends State<ArcaneSearch> {
   }
 
   Component _buildSearchIcon() {
-    return ArcaneIcon.search(
-      size: IconSize.md,
-      color: ArcaneColors.muted,
+    return Search(
+      width: const Unit.pixels(20),
+      height: const Unit.pixels(20),
+      attributes: {'stroke': ArcaneColors.muted},
     );
   }
 

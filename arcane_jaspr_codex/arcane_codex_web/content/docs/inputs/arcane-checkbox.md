@@ -24,8 +24,8 @@ ArcaneCheckbox(
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
-| `value` | `bool` | `false` | Current checked state |
-| `onChanged` | `ValueChanged<bool>?` | `null` | Change handler |
+| `checked` | `bool` | `false` | Current checked state |
+| `onChanged` / `onToggle` | `ValueChanged<bool>?` | `null` | Change handler (aliases) |
 | `label` | `String?` | `null` | Label text |
 | `isDisabled` | `bool` | `false` | Disable interaction |
 | `size` | `CheckboxSize` | `medium` | Checkbox size |

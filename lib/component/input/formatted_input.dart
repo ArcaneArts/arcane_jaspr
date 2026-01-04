@@ -151,13 +151,13 @@ class ArcaneFormattedInput extends StatefulComponent {
   }) {
     return ArcaneFormattedInput(
       initialValue: FormattedValue([
-        InputPart.editable(length: 2, width: 40, placeholder: 'MM', inputType: 'number')
+        const InputPart.editable(length: 2, width: 40, placeholder: 'MM', inputType: 'number')
             .withValue(initialMonth ?? ''),
         const InputPart.static('/'),
-        InputPart.editable(length: 2, width: 40, placeholder: 'DD', inputType: 'number')
+        const InputPart.editable(length: 2, width: 40, placeholder: 'DD', inputType: 'number')
             .withValue(initialDay ?? ''),
         const InputPart.static('/'),
-        InputPart.editable(length: 4, width: 60, placeholder: 'YYYY', inputType: 'number')
+        const InputPart.editable(length: 4, width: 60, placeholder: 'YYYY', inputType: 'number')
             .withValue(initialYear ?? ''),
       ]),
       onChanged: onChanged,
@@ -178,10 +178,10 @@ class ArcaneFormattedInput extends StatefulComponent {
   }) {
     return ArcaneFormattedInput(
       initialValue: FormattedValue([
-        InputPart.editable(length: 2, width: 40, placeholder: 'HH', inputType: 'number')
+        const InputPart.editable(length: 2, width: 40, placeholder: 'HH', inputType: 'number')
             .withValue(initialHour ?? ''),
         const InputPart.static(':'),
-        InputPart.editable(length: 2, width: 40, placeholder: 'MM', inputType: 'number')
+        const InputPart.editable(length: 2, width: 40, placeholder: 'MM', inputType: 'number')
             .withValue(initialMinute ?? ''),
       ]),
       onChanged: onChanged,
@@ -204,13 +204,13 @@ class ArcaneFormattedInput extends StatefulComponent {
     return ArcaneFormattedInput(
       initialValue: FormattedValue([
         const InputPart.static('('),
-        InputPart.editable(length: 3, width: 45, placeholder: '000', inputType: 'tel')
+        const InputPart.editable(length: 3, width: 45, placeholder: '000', inputType: 'tel')
             .withValue(initialAreaCode ?? ''),
         const InputPart.static(') '),
-        InputPart.editable(length: 3, width: 45, placeholder: '000', inputType: 'tel')
+        const InputPart.editable(length: 3, width: 45, placeholder: '000', inputType: 'tel')
             .withValue(initialPrefix ?? ''),
         const InputPart.static('-'),
-        InputPart.editable(length: 4, width: 55, placeholder: '0000', inputType: 'tel')
+        const InputPart.editable(length: 4, width: 55, placeholder: '0000', inputType: 'tel')
             .withValue(initialLine ?? ''),
       ]),
       onChanged: onChanged,
@@ -229,16 +229,16 @@ class ArcaneFormattedInput extends StatefulComponent {
   }) {
     return ArcaneFormattedInput(
       initialValue: FormattedValue([
-        InputPart.editable(length: 4, width: 55, placeholder: '0000', inputType: 'number')
+        const InputPart.editable(length: 4, width: 55, placeholder: '0000', inputType: 'number')
             .withValue(''),
         const InputPart.static(' '),
-        InputPart.editable(length: 4, width: 55, placeholder: '0000', inputType: 'number')
+        const InputPart.editable(length: 4, width: 55, placeholder: '0000', inputType: 'number')
             .withValue(''),
         const InputPart.static(' '),
-        InputPart.editable(length: 4, width: 55, placeholder: '0000', inputType: 'number')
+        const InputPart.editable(length: 4, width: 55, placeholder: '0000', inputType: 'number')
             .withValue(''),
         const InputPart.static(' '),
-        InputPart.editable(length: 4, width: 55, placeholder: '0000', inputType: 'number')
+        const InputPart.editable(length: 4, width: 55, placeholder: '0000', inputType: 'number')
             .withValue(''),
       ]),
       onChanged: onChanged,

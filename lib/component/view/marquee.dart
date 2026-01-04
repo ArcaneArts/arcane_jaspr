@@ -75,7 +75,7 @@ class ArcaneMarquee extends StatelessComponent {
     final animationName = 'arcane-marquee-scroll-$marqueeId';
 
     return div(
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'position': 'relative',
         'overflow': 'hidden',
         'width': '100%',
@@ -193,7 +193,7 @@ class ArcaneMarqueeReverse extends StatelessComponent {
     final animationName = 'arcane-marquee-scroll-reverse-$marqueeId';
 
     return div(
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'position': 'relative',
         'overflow': 'hidden',
         'width': '100%',

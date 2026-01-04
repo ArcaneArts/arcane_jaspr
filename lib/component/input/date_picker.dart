@@ -241,8 +241,8 @@ class _ArcaneDatePickerState extends State<ArcaneDatePicker> {
             'click': (e) => _toggleOpen(),
           },
           [
-            span(
-              styles: const Styles(raw: {
+            const span(
+              styles: Styles(raw: {
                 'color': ArcaneColors.muted,
               }),
               [Component.text('📅')],
@@ -274,7 +274,7 @@ class _ArcaneDatePickerState extends State<ArcaneDatePicker> {
                     _clear();
                   },
                 },
-                [Component.text('✕')],
+                [const Component.text('✕')],
               ),
           ],
         ),

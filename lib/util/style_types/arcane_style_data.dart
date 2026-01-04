@@ -1185,4 +1185,243 @@ class ArcaneStyleData {
     position: Position.absolute,
     inset: '0',
   );
+
+  // ---------------------------------------------------------------------------
+  // Aliases & Additional Presets
+  // ---------------------------------------------------------------------------
+
+  /// Alias for [flexCenter] - centered on both axes
+  static const centered = flexCenter;
+
+  /// Grid container with centered items
+  static const gridCenter = ArcaneStyleData(
+    display: Display.grid,
+    placeItems: PlaceItems.center,
+  );
+
+  // ---------------------------------------------------------------------------
+  // Spacing Presets
+  // ---------------------------------------------------------------------------
+
+  /// Standard padding (medium)
+  static const padded = ArcaneStyleData(
+    padding: PaddingPreset.md,
+  );
+
+  /// Large padding
+  static const paddedLg = ArcaneStyleData(
+    padding: PaddingPreset.lg,
+  );
+
+  /// Small padding
+  static const paddedSm = ArcaneStyleData(
+    padding: PaddingPreset.sm,
+  );
+
+  /// Extra small padding
+  static const paddedXs = ArcaneStyleData(
+    padding: PaddingPreset.xs,
+  );
+
+  /// Extra large padding
+  static const paddedXl = ArcaneStyleData(
+    padding: PaddingPreset.xl,
+  );
+
+  /// Standard gap between flex/grid children
+  static const spaced = ArcaneStyleData(
+    gap: Gap.md,
+  );
+
+  /// Large gap between flex/grid children
+  static const spacedLg = ArcaneStyleData(
+    gap: Gap.lg,
+  );
+
+  /// Small gap between flex/grid children
+  static const spacedSm = ArcaneStyleData(
+    gap: Gap.sm,
+  );
+
+  /// Extra small gap
+  static const spacedXs = ArcaneStyleData(
+    gap: Gap.xs,
+  );
+
+  /// Extra large gap
+  static const spacedXl = ArcaneStyleData(
+    gap: Gap.xl,
+  );
+
+  // ---------------------------------------------------------------------------
+  // Size Shortcuts
+  // ---------------------------------------------------------------------------
+
+  /// Full width only
+  static const fullWidth = ArcaneStyleData(
+    width: Size.full,
+  );
+
+  /// Full height only
+  static const fullHeight = ArcaneStyleData(
+    height: Size.full,
+  );
+
+  // ---------------------------------------------------------------------------
+  // Overflow Presets
+  // ---------------------------------------------------------------------------
+
+  /// Scrollable container (overflow auto)
+  static const scrollable = ArcaneStyleData(
+    overflow: Overflow.auto,
+  );
+
+  /// Scrollable Y only
+  static const scrollableY = ArcaneStyleData(
+    overflowY: OverflowAxis.auto,
+    overflowX: OverflowAxis.hidden,
+  );
+
+  /// Scrollable X only
+  static const scrollableX = ArcaneStyleData(
+    overflowX: OverflowAxis.auto,
+    overflowY: OverflowAxis.hidden,
+  );
+
+  /// Hidden overflow (clip content)
+  static const clipContent = ArcaneStyleData(
+    overflow: Overflow.hidden,
+  );
+
+  // ---------------------------------------------------------------------------
+  // Flex Item Presets
+  // ---------------------------------------------------------------------------
+
+  /// Flex item that grows to fill space
+  static const grow = ArcaneStyleData(
+    flex: FlexPreset.expand,
+  );
+
+  /// Flex item that doesn't grow or shrink
+  static const noGrow = ArcaneStyleData(
+    flex: FlexPreset.none,
+  );
+
+  // ---------------------------------------------------------------------------
+  // Combined Layout Presets
+  // ---------------------------------------------------------------------------
+
+  /// Column with medium gap
+  static const columnSpaced = ArcaneStyleData(
+    display: Display.flex,
+    flexDirection: FlexDirection.column,
+    gap: Gap.md,
+  );
+
+  /// Column with small gap
+  static const columnTight = ArcaneStyleData(
+    display: Display.flex,
+    flexDirection: FlexDirection.column,
+    gap: Gap.sm,
+  );
+
+  /// Column with large gap
+  static const columnLoose = ArcaneStyleData(
+    display: Display.flex,
+    flexDirection: FlexDirection.column,
+    gap: Gap.lg,
+  );
+
+  /// Row with small gap and center alignment
+  static const rowTight = ArcaneStyleData(
+    display: Display.flex,
+    flexDirection: FlexDirection.row,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    gap: Gap.sm,
+  );
+
+  /// Row with medium gap
+  static const rowGapped = ArcaneStyleData(
+    display: Display.flex,
+    flexDirection: FlexDirection.row,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    gap: Gap.md,
+  );
+
+  /// Row with large gap
+  static const rowLoose = ArcaneStyleData(
+    display: Display.flex,
+    flexDirection: FlexDirection.row,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    gap: Gap.lg,
+  );
+
+  // ---------------------------------------------------------------------------
+  // Text Presets
+  // ---------------------------------------------------------------------------
+
+  /// Truncate text with ellipsis
+  static const truncate = ArcaneStyleData(
+    textOverflow: TextOverflow.ellipsis,
+    whiteSpace: WhiteSpace.nowrap,
+    overflow: Overflow.hidden,
+  );
+
+  /// Center-aligned text
+  static const textCenter = ArcaneStyleData(
+    textAlign: TextAlign.center,
+  );
+
+  /// Right-aligned text
+  static const textRight = ArcaneStyleData(
+    textAlign: TextAlign.right,
+  );
+
+  /// Left-aligned text
+  static const textLeft = ArcaneStyleData(
+    textAlign: TextAlign.left,
+  );
+
+  // ---------------------------------------------------------------------------
+  // Positioning Presets
+  // ---------------------------------------------------------------------------
+
+  /// Relative positioned container (for stacking children)
+  static const stack = ArcaneStyleData(
+    position: Position.relative,
+  );
+
+  /// Absolute positioned child in a stack
+  static const stackChild = ArcaneStyleData(
+    position: Position.absolute,
+  );
+
+  /// Fixed positioning
+  static const fixed = ArcaneStyleData(
+    position: Position.fixed,
+  );
+
+  /// Sticky positioning
+  static const sticky = ArcaneStyleData(
+    position: Position.sticky,
+  );
+
+  // ---------------------------------------------------------------------------
+  // Interactive Presets
+  // ---------------------------------------------------------------------------
+
+  /// Clickable element
+  static const clickable = ArcaneStyleData(
+    cursor: Cursor.pointer,
+  );
+
+  /// Non-interactive element
+  static const nonInteractive = ArcaneStyleData(
+    pointerEvents: PointerEvents.none,
+  );
+
+  /// Unselectable text
+  static const unselectable = ArcaneStyleData(
+    userSelect: UserSelect.none,
+  );
 }

@@ -167,10 +167,10 @@ class ArcaneDisclosure extends StatelessComponent {
               children: [summary],
             ),
             if (showChevron)
-              Component.element(
+              const Component.element(
                 tag: 'span',
                 classes: 'arcane-disclosure-chevron',
-                styles: const Styles(raw: {
+                styles: Styles(raw: {
                   'color': ArcaneColors.muted,
                   'font-size': ArcaneTypography.fontSm,
                   'transition': ArcaneEffects.transitionFast,

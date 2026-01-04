@@ -147,25 +147,25 @@ class _SidebarDemoState extends State<SidebarDemo> {
         ArcaneSidebar(
           children: [
             ArcaneSidebarItem(
-              icon: ArcaneIcon.home(),
+              icon: House(),
               label: 'Dashboard',
               selected: _selectedItem == 'dashboard',
               onTap: () => setState(() => _selectedItem = 'dashboard'),
             ),
             ArcaneSidebarItem(
-              icon: ArcaneIcon.user(),
+              icon: User(),
               label: 'Users',
               selected: _selectedItem == 'users',
               onTap: () => setState(() => _selectedItem = 'users'),
             ),
             ArcaneSidebarItem(
-              icon: ArcaneIcon.settings(),
+              icon: Settings(),
               label: 'Settings',
               selected: _selectedItem == 'settings',
               onTap: () => setState(() => _selectedItem = 'settings'),
             ),
             ArcaneSidebarItem(
-              icon: ArcaneIcon.folder(),
+              icon: Folder(),
               label: 'Files',
               selected: _selectedItem == 'files',
               onTap: () => setState(() => _selectedItem = 'files'),
@@ -200,19 +200,19 @@ class _BottomNavDemoState extends State<BottomNavDemo> {
             ArcaneBottomNavigationBar(
               items: [
                 ArcaneBottomNavItem(
-                  icon: ArcaneIcon.home(),
+                  icon: House(),
                   label: 'Home',
                 ),
                 ArcaneBottomNavItem(
-                  icon: ArcaneIcon.search(),
+                  icon: Search(),
                   label: 'Search',
                 ),
                 ArcaneBottomNavItem(
-                  icon: ArcaneIcon.bell(),
+                  icon: Bell(),
                   label: 'Alerts',
                 ),
                 ArcaneBottomNavItem(
-                  icon: ArcaneIcon.user(),
+                  icon: User(),
                   label: 'Profile',
                 ),
               ],
@@ -321,17 +321,17 @@ class _DropdownMenuDemoState extends State<DropdownMenuDemo> {
           items: [
             ArcaneDropdownItem(
               label: 'Edit',
-              icon: ArcaneIcon.edit(),
+              icon: Pencil(),
               onTap: () => setState(() => _selectedItem = 'Edit'),
             ),
             ArcaneDropdownItem(
               label: 'Duplicate',
-              icon: ArcaneIcon.copy(),
+              icon: Copy(),
               onTap: () => setState(() => _selectedItem = 'Duplicate'),
             ),
             ArcaneDropdownItem(
               label: 'Delete',
-              icon: ArcaneIcon.trash(),
+              icon: Trash(),
               onTap: () => setState(() => _selectedItem = 'Delete'),
             ),
           ],
@@ -376,7 +376,7 @@ class _MobileMenuDemoState extends State<MobileMenuDemo> {
               children: [
                 ArcaneText('Logo', weight: FontWeight.bold),
                 ArcaneIconButton(
-                  icon: _isOpen ? ArcaneIcon.close() : ArcaneIcon.menu(),
+                  icon: _isOpen ? X() : Menu(),
                   onPressed: () => setState(() => _isOpen = !_isOpen),
                 ),
               ],

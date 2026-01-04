@@ -5,6 +5,95 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [x.x.x]
+
+### Added
+
+#### Convenience Features for Improved Developer Experience
+
+**ArcaneStyleData Presets**
+New static presets for common style patterns:
+- Layout aliases: `centered`, `gridCenter`
+- Spacing presets: `padded`, `paddedSm/Lg/Xs/Xl`, `spaced`, `spacedSm/Lg/Xs/Xl`
+- Size shortcuts: `fullWidth`, `fullHeight`
+- Overflow: `scrollable`, `scrollableY`, `scrollableX`, `clipContent`
+- Flex item: `grow`, `noGrow`
+- Combined layouts: `columnSpaced`, `columnTight`, `columnLoose`, `rowTight`, `rowGapped`, `rowLoose`
+- Text: `truncate`, `textCenter`, `textRight`, `textLeft`
+- Positioning: `stack`, `stackChild`, `fixed`, `sticky`
+- Interactive: `clickable`, `nonInteractive`, `unselectable`
+
+**ArcaneHeading `text:` Parameter**
+Convenience string parameter for headings:
+```dart
+// Before
+ArcaneHeading.h1(child: Text('Title'))
+
+// After (both work)
+ArcaneHeading.h1(text: 'Title')
+ArcaneHeading.h1(child: Text('Title'))
+```
+
+**ArcaneDialog/ArcaneSheet `children:` Parameter**
+Multi-child convenience for dialogs:
+```dart
+// Before
+ArcaneDialog(
+  child: ArcaneColumn(children: [item1, item2, item3]),
+)
+
+// After (both work)
+ArcaneDialog(children: [item1, item2, item3])
+ArcaneDialog(child: singleChild)
+```
+
+**ArcaneCard `children:` and `onClick` Parameters**
+- Added `children:` parameter for multiple children without wrapping in Column
+- Added `onClick` as alias for `onTap` for consistency with web conventions
+
+**Parameter Aliases for Input Components**
+- `ArcaneTextInput`: Added `onInput` alias for `onChange`
+- `ArcaneTextArea`: Added `onInput` alias for `onChange`
+- `ArcaneSelect`: Added `onInput` and `onSelect` aliases for `onChange`
+- `ArcaneCheckbox`: Added `onToggle` alias for `onChanged`
+- `ArcaneRadio`: Added `onTap` alias for `onSelected`
+- `ArcaneToggleSwitch`: Added `onToggle` alias for `onChanged`
+
+**Lucide Icons Integration**
+Replaced custom `ArcaneIcon` with `jaspr_lucide` package integration:
+- Added `jaspr_lucide` (^0.21.0) dependency for 1500+ professional icons
+- Icons are now imported directly from `jaspr_lucide` (re-exported via arcane_jaspr)
+- Usage: `ChevronDown()`, `Github()`, `Search()`, etc.
+- Icons support `width`, `height`, `attributes` for customization
+- Some icon names hidden due to conflicts: `Factory`, `Target`, `Key`, `List`, `Timer`, `View`, `Map`, `Import`, `Contrast`, `Radius`, `SpellCheck`, `TextWrap`
+
+### Removed
+- `ArcaneIcon` component (replaced by jaspr_lucide icons)
+- `IconSize` enum (use `Unit.pixels()` instead)
+- Custom SVG icon factories
+
+### Breaking Changes
+- **Icons**: Replace `ArcaneIcon.chevronDown()` with `ChevronDown()`
+- **Icon sizing**: Replace `IconSize.md` with `Unit.pixels(20)` or similar
+- **Icon color**: Use `attributes: {'stroke': 'color'}` instead of `color:` parameter
+
+### Changed
+
+**Component File Refactoring**
+Split large component files for better maintainability:
+- `toast.dart` (872→590 lines): Extracted `toast_types.dart` and `toast_manager.dart`
+- `selector.dart`: Extracted `selector_types.dart` (enums, option classes)
+- `slider.dart`: Extracted `slider_types.dart` (SliderSize enum)
+- `sheet.dart`: Extracted `sheet_types.dart` (SheetPosition, SheetSize enums)
+- `mutable_text.dart`: Extracted `mutable_text_types.dart` (trigger/input/style enums)
+
+All types are re-exported from their parent files, so imports remain unchanged.
+
+### Documentation
+- Updated ArcaneCard documentation with `children:` and `onClick` parameters
+- Updated ArcaneTextInput, ArcaneCheckbox, ArcaneToggleSwitch documentation with alias info
+- Updated icon documentation for jaspr_lucide usage
+
 ## [2.7.0]
 
 ### Added

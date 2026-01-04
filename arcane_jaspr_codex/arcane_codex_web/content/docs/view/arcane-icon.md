@@ -1,175 +1,177 @@
 ---
-title: ArcaneIcon
-description: SVG icon component with built-in common icons
+title: Icons (Lucide)
+description: Professional SVG icons via jaspr_lucide
 layout: docs
 component: icon
 ---
 
-# ArcaneIcon
+# Icons
 
-A component for rendering SVG icons with consistent styling and built-in common icons.
+Arcane Jaspr includes **jaspr_lucide** for 1500+ professional Lucide icons.
 
-## Usage
+## Basic Usage
 
-### Built-in Icons
-
-ArcaneIcon comes with many common icons ready to use:
+Icons are Component classes you instantiate directly:
 
 ```dart
-// Search icon
-ArcaneIcon.search()
+// Default 24x24 icon
+Search()
 
-// Theme icons
-ArcaneIcon.sun()
-ArcaneIcon.moon()
+// Sized icon
+ChevronDown(
+  width: Unit.pixels(20),
+  height: Unit.pixels(20),
+)
 
-// Navigation icons
-ArcaneIcon.menu()
-ArcaneIcon.close()
-ArcaneIcon.chevronDown()
-ArcaneIcon.chevronRight()
-ArcaneIcon.arrowLeft()
-ArcaneIcon.home()
-
-// Action icons
-ArcaneIcon.check()
-ArcaneIcon.copy()
-ArcaneIcon.externalLink()
-ArcaneIcon.settings()
-
-// Brand icons
-ArcaneIcon.github()
-
-// Documentation
-ArcaneIcon.book()
-```
-
-### Icon Sizes
-
-All icons support size presets:
-
-```dart
-ArcaneIcon.search(size: IconSize.xs)  // 12px
-ArcaneIcon.search(size: IconSize.sm)  // 14px
-ArcaneIcon.search(size: IconSize.md)  // 16px (default)
-ArcaneIcon.search(size: IconSize.lg)  // 20px
-ArcaneIcon.search(size: IconSize.xl)  // 24px
-ArcaneIcon.search(size: IconSize.xl2) // 32px
-
-// Or custom size
-ArcaneIcon.search(sizeCustom: '48')
-```
-
-### Custom Colors
-
-Icons inherit `currentColor` by default, but you can customize:
-
-```dart
-ArcaneIcon.sun(color: 'var(--arcane-accent)')
-ArcaneIcon.moon(color: '#10b981')
-```
-
-### Custom Stroke Width
-
-```dart
-ArcaneIcon.search(strokeWidth: '1.5')
-ArcaneIcon.check(strokeWidth: '3')
-```
-
-## Custom Icons
-
-Create custom icons using SVG path elements:
-
-```dart
-ArcaneIcon(
-  viewBox: '0 0 24 24',
-  size: IconSize.lg,
-  children: [
-    ArcaneIconPath(d: 'M12 2L2 7l10 5 10-5-10-5z'),
-    ArcaneIconPath(d: 'M2 17l10 5 10-5'),
-  ],
+// Colored icon
+Github(
+  attributes: {'stroke': ArcaneColors.primary},
 )
 ```
 
-Or use raw SVG elements:
+## Common Icons
+
+### Navigation
 
 ```dart
-ArcaneIcon(
-  viewBox: '0 0 24 24',
-  children: [
-    Component.element(
-      tag: 'circle',
-      attributes: {'cx': '12', 'cy': '12', 'r': '10'},
-    ),
-    Component.element(
-      tag: 'path',
-      attributes: {'d': 'M12 6v6l4 2'},
-    ),
-  ],
+ChevronDown()
+ChevronUp()
+ChevronLeft()
+ChevronRight()
+ArrowLeft()
+ArrowRight()
+ArrowUp()
+ArrowDown()
+Menu()
+X()  // Close/X icon
+Home()
+```
+
+### Actions
+
+```dart
+Search()
+Plus()
+Minus()
+Check()
+Copy()
+Trash2()
+Edit()
+Settings()
+ExternalLink()
+Download()
+Upload()
+Save()
+Share()
+```
+
+### Status
+
+```dart
+Info()
+CircleCheck()  // Success
+CircleX()      // Error
+TriangleAlert() // Warning
+Loader()
+LoaderCircle()
+```
+
+### Social
+
+```dart
+Github()
+Twitter()
+Linkedin()
+Youtube()
+Instagram()
+Facebook()
+```
+
+### Media
+
+```dart
+Play()
+Pause()
+SkipForward()
+SkipBack()
+Volume2()
+VolumeX()
+```
+
+## Size Reference
+
+| Size | Pixels | Usage |
+|------|--------|-------|
+| Small | 16px | Inline, tight spaces |
+| Medium | 20px | Default for most UIs |
+| Large | 24px | Default Lucide size |
+| XL | 32px | Prominent icons |
+
+```dart
+// Small icon
+Search(width: Unit.pixels(16), height: Unit.pixels(16))
+
+// Medium icon
+Search(width: Unit.pixels(20), height: Unit.pixels(20))
+
+// Large icon (default)
+Search()  // 24x24
+
+// Extra large
+Search(width: Unit.pixels(32), height: Unit.pixels(32))
+```
+
+## Customization
+
+### Color
+
+```dart
+// Via stroke attribute
+Info(attributes: {'stroke': ArcaneColors.primary})
+
+// Via CSS variable
+Info(attributes: {'stroke': 'var(--arcane-primary)'})
+```
+
+### Stroke Width
+
+```dart
+Github(attributes: {'stroke-width': '1.5'})
+```
+
+### Styles
+
+```dart
+Search(
+  styles: Styles(raw: {
+    'opacity': '0.5',
+    'cursor': 'pointer',
+  }),
 )
 ```
 
-## Props
+## Hidden Icons
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `viewBox` | `String` | `'0 0 24 24'` | SVG viewBox attribute |
-| `size` | `IconSize` | `IconSize.md` | Size preset (xs, sm, md, lg, xl, xl2) |
-| `sizeCustom` | `String?` | `null` | Custom size in pixels |
-| `color` | `String?` | `null` | Stroke color (defaults to currentColor) |
-| `strokeWidth` | `String` | `'2'` | Stroke width |
-| `fill` | `String` | `'none'` | Fill color |
-| `strokeLinecap` | `String` | `'round'` | Stroke linecap |
-| `strokeLinejoin` | `String` | `'round'` | Stroke linejoin |
-| `styles` | `ArcaneStyleData?` | `null` | Additional styling |
-| `children` | `List<Component>` | required | SVG child elements |
+Some Lucide icon names conflict with Dart/jaspr types and are hidden from the export:
+- `Factory`, `Target`, `Key`, `List`, `Timer`, `View`, `Map`
+- `Import`, `Contrast`, `Radius`, `SpellCheck`, `TextWrap`
 
-## Available Icons
-
-| Factory | Description |
-|---------|-------------|
-| `ArcaneIcon.search()` | Magnifying glass |
-| `ArcaneIcon.sun()` | Sun with rays |
-| `ArcaneIcon.moon()` | Crescent moon |
-| `ArcaneIcon.close()` | X / close |
-| `ArcaneIcon.menu()` | Hamburger menu |
-| `ArcaneIcon.chevronDown()` | Chevron pointing down |
-| `ArcaneIcon.chevronRight()` | Chevron pointing right |
-| `ArcaneIcon.check()` | Checkmark |
-| `ArcaneIcon.externalLink()` | External link arrow |
-| `ArcaneIcon.copy()` | Copy/duplicate |
-| `ArcaneIcon.settings()` | Gear/cog |
-| `ArcaneIcon.github()` | GitHub logo |
-| `ArcaneIcon.arrowLeft()` | Left arrow |
-| `ArcaneIcon.home()` | House |
-| `ArcaneIcon.book()` | Book/documentation |
-
-## Alias
+To use these icons, import jaspr_lucide directly with a prefix:
 
 ```dart
-import 'package:arcane_jaspr/aliases.dart';
+import 'package:jaspr_lucide/jaspr_lucide.dart' as lucide;
 
-AIcon.search()
-AIconPath(d: 'M...')
+// Then use:
+lucide.Key()
+lucide.List()
+lucide.Timer()
 ```
 
-## Theme Integration
+## Browse All Icons
 
-Icons automatically use `currentColor`, so they inherit the text color of their parent:
+Visit [lucide.dev/icons](https://lucide.dev/icons) to browse all 1500+ available icons.
 
-```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
-    textColor: TextColor.accent,
-  ),
-  children: [
-    ArcaneIcon.check(), // Will be accent colored
-  ],
-)
-```
-
-Or use CSS variables directly:
-
-```dart
-ArcaneIcon.sun(color: 'var(--arcane-accent)')
-```
+Icon class names match the Lucide icon names in PascalCase:
+- `arrow-right` → `ArrowRight()`
+- `chevron-down` → `ChevronDown()`
+- `circle-check` → `CircleCheck()`

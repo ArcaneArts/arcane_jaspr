@@ -117,7 +117,7 @@ class ArcaneSwitcher extends StatelessComponent {
         'data-index': '$safeIndex',
         'data-direction': direction.name,
       },
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'position': 'relative',
         'overflow': 'hidden',
         'width': '100%',

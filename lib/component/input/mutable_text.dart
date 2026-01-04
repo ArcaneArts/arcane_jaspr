@@ -14,57 +14,9 @@ import 'package:jaspr/dom.dart'
         FontWeight;
 
 import '../../util/tokens/tokens.dart';
+import 'mutable_text_types.dart';
 
-/// Edit trigger mode for mutable text
-enum MutableTextTrigger {
-  /// Click on text to edit
-  click,
-
-  /// Double-click on text to edit
-  doubleClick,
-
-  /// Hover shows edit icon, click to edit
-  hover,
-
-  /// Always in edit mode
-  always,
-}
-
-/// Input type for mutable text
-enum MutableTextInputType {
-  /// Single line text input
-  text,
-
-  /// Multi-line textarea
-  multiline,
-
-  /// Number input
-  number,
-
-  /// Email input
-  email,
-
-  /// URL input
-  url,
-}
-
-/// Display style when not editing
-enum MutableTextStyle {
-  /// Inline text with no decoration
-  inline,
-
-  /// Shows subtle border/background on hover
-  subtle,
-
-  /// Shows underline indicating editability
-  underline,
-
-  /// Shows dashed underline
-  dashed,
-
-  /// Looks like a text input (with border)
-  input,
-}
+export 'mutable_text_types.dart';
 
 /// A text component that can be clicked to edit inline.
 /// Similar to shadcn's inline editable patterns.
@@ -269,7 +221,7 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
 
     return div(
       classes: 'arcane-mutable-text',
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'display': 'inline-flex',
         'flex-direction': 'column',
         'gap': ArcaneSpacing.xs,
@@ -446,7 +398,7 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
             if (isMultiline || !component.saveOnBlur) ...[
               button(
                 attributes: {'type': 'button', 'aria-label': 'Save'},
-                styles: Styles(raw: {
+                styles: const Styles(raw: {
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'center',

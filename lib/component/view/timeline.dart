@@ -445,7 +445,7 @@ class ArcaneTimeline extends StatelessComponent {
             [],
           )
         else
-          div(
+          const div(
             styles: Styles(raw: {
               'width': '8px',
               'height': '8px',

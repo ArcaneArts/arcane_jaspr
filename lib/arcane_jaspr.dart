@@ -92,6 +92,23 @@ library arcane_jaspr;
 // Re-export Jaspr core for convenience
 export 'package:jaspr/jaspr.dart';
 
+// Re-export Lucide icons for convenience
+// Hide names that conflict with Dart/jaspr core types
+export 'package:jaspr_lucide/jaspr_lucide.dart'
+    hide
+        Factory,
+        Target,
+        Key,
+        List,
+        Timer,
+        View,
+        Map,
+        Import,
+        Contrast,
+        Radius,
+        SpellCheck,
+        TextWrap;
+
 // Re-export Jaspr DOM for HTML elements (div, span, button, text, etc.)
 // Hide types that conflict with our custom implementations
 export 'package:jaspr/dom.dart'
@@ -249,7 +266,6 @@ export 'component/view/animated_counter.dart';
 export 'component/view/gradient_text.dart';
 export 'component/view/social_icons.dart' hide ArcaneSocialIcon;
 export 'component/view/settings_section.dart';
-export 'component/view/icon.dart';
 export 'component/view/empty_state.dart' hide ArcaneEmptyState;
 export 'component/view/callout.dart';
 export 'component/view/kbd.dart';

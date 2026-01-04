@@ -84,9 +84,9 @@ class ArcaneContextMenu extends StatelessComponent {
 
   Component _buildMenuItem(ContextMenuItem item) {
     if (item.isSeparator) {
-      return div(
+      return const div(
         classes: 'arcane-context-menu-separator',
-        styles: const Styles(raw: {
+        styles: Styles(raw: {
           'height': '1px',
           'margin': '${ArcaneSpacing.xs} 0',
           'background-color': ArcaneColors.border,
@@ -126,8 +126,8 @@ class ArcaneContextMenu extends StatelessComponent {
             }),
             [Component.text(item.label)],
           ),
-          span(
-            styles: const Styles(raw: {
+          const span(
+            styles: Styles(raw: {
               'color': ArcaneColors.muted,
               'font-size': ArcaneTypography.fontXs,
             }),

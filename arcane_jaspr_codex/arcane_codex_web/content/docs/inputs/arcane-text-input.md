@@ -28,7 +28,7 @@ ArcaneTextInput(
 | `label` | `String?` | `null` | Field label |
 | `placeholder` | `String?` | `null` | Placeholder text |
 | `value` | `String?` | `null` | Current value |
-| `onChanged` | `ValueChanged<String>?` | `null` | Change handler |
+| `onChange` / `onInput` | `ValueChanged<String>?` | `null` | Change handler (aliases) |
 | `onSubmit` | `ValueChanged<String>?` | `null` | Submit handler (Enter key) |
 | `type` | `String` | `'text'` | Input type (text, email, password, etc.) |
 | `isDisabled` | `bool` | `false` | Disable the input |

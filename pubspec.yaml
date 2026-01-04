@@ -9,17 +9,18 @@ environment:
   sdk: '>=3.10.0 <4.0.0'
 
 dependencies:
-  jaspr: ^0.22.0
+  jaspr: '>=0.22.1 <1.0.0'
+  jaspr_lucide: '>=0.21.0 <1.0.0'
   meta: ^1.17.0
   fast_log: ^1.0.7
   web: ^1.1.1
   http: ^1.6.0
 
 dev_dependencies:
-  jaspr_test: ^0.22.0
+  jaspr_test:  '>=0.22.1 <1.0.0'
   lints: ^6.0.0
   build_runner: ^2.10.4
-  jaspr_builder: ^0.22.0
+  jaspr_builder: '>=0.22.1 <1.0.0'
 
 
 

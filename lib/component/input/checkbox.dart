@@ -15,9 +15,10 @@ enum CheckboxSize {
 ///
 /// Use style presets for cleaner code:
 /// ```dart
-/// Checkbox(
+/// ArcaneCheckbox(
 ///   checked: true,
 ///   style: CheckboxStyle.success,
+///   onToggle: (value) => print(value),  // or use onChanged
 /// )
 /// ```
 class ArcaneCheckbox extends StatelessComponent {
@@ -27,8 +28,11 @@ class ArcaneCheckbox extends StatelessComponent {
   final CheckboxSize size;
   final CheckboxStyle? style;
   final bool disabled;
-  final void Function(bool)? onChanged;
+  final void Function(bool)? _onChanged;
 
+  /// Creates a checkbox.
+  ///
+  /// Use [onChanged] or [onToggle] for value change handling.
   const ArcaneCheckbox({
     required this.checked,
     this.label,
@@ -36,9 +40,10 @@ class ArcaneCheckbox extends StatelessComponent {
     this.size = CheckboxSize.medium,
     this.style,
     this.disabled = false,
-    this.onChanged,
+    void Function(bool)? onChanged,
+    void Function(bool)? onToggle,
     super.key,
-  });
+  }) : _onChanged = onChanged ?? onToggle;
 
   /// Primary checkbox
   const ArcaneCheckbox.primary({
@@ -47,9 +52,11 @@ class ArcaneCheckbox extends StatelessComponent {
     this.description,
     this.size = CheckboxSize.medium,
     this.disabled = false,
-    this.onChanged,
+    void Function(bool)? onChanged,
+    void Function(bool)? onToggle,
     super.key,
-  }) : style = CheckboxStyle.primary;
+  })  : _onChanged = onChanged ?? onToggle,
+        style = CheckboxStyle.primary;
 
   /// Success checkbox
   const ArcaneCheckbox.success({
@@ -58,9 +65,11 @@ class ArcaneCheckbox extends StatelessComponent {
     this.description,
     this.size = CheckboxSize.medium,
     this.disabled = false,
-    this.onChanged,
+    void Function(bool)? onChanged,
+    void Function(bool)? onToggle,
     super.key,
-  }) : style = CheckboxStyle.success;
+  })  : _onChanged = onChanged ?? onToggle,
+        style = CheckboxStyle.success;
 
   @override
   Component build(BuildContext context) {
@@ -87,10 +96,10 @@ class ArcaneCheckbox extends StatelessComponent {
         'cursor': disabled ? 'not-allowed' : 'pointer',
         'opacity': disabled ? '0.5' : '1',
       }),
-      events: disabled || onChanged == null
+      events: disabled || _onChanged == null
           ? null
           : {
-              'click': (event) => onChanged!(!checked),
+              'click': (event) => _onChanged!(!checked),
             },
       [
         // Checkbox box
@@ -166,8 +175,11 @@ class ArcaneRadio extends StatelessComponent {
   final CheckboxSize size;
   final CheckboxStyle? style;
   final bool disabled;
-  final void Function()? onSelected;
+  final void Function()? _onSelected;
 
+  /// Creates a radio button.
+  ///
+  /// Use [onSelected] or [onTap] for selection handling.
   const ArcaneRadio({
     required this.selected,
     this.label,
@@ -175,9 +187,10 @@ class ArcaneRadio extends StatelessComponent {
     this.size = CheckboxSize.medium,
     this.style,
     this.disabled = false,
-    this.onSelected,
+    void Function()? onSelected,
+    void Function()? onTap,
     super.key,
-  });
+  }) : _onSelected = onSelected ?? onTap;
 
   @override
   Component build(BuildContext context) {
@@ -204,10 +217,10 @@ class ArcaneRadio extends StatelessComponent {
         'cursor': disabled ? 'not-allowed' : 'pointer',
         'opacity': disabled ? '0.5' : '1',
       }),
-      events: disabled || onSelected == null
+      events: disabled || _onSelected == null
           ? null
           : {
-              'click': (event) => onSelected!(),
+              'click': (event) => _onSelected!(),
             },
       [
         // Radio circle

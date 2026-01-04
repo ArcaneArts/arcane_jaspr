@@ -214,7 +214,7 @@ class ArcaneCodeSnippet extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return div(
-      styles: Styles(raw: {
+      styles: const Styles(raw: {
         'background': ArcaneColors.surfaceVariant,
         'border': '1px solid ${ArcaneColors.borderSubtle}',
         'border-radius': ArcaneRadius.md,
@@ -223,7 +223,7 @@ class ArcaneCodeSnippet extends StatelessComponent {
       [
         if (language != null)
           div(
-            styles: Styles(raw: {
+            styles: const Styles(raw: {
               'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
               'background': ArcaneColors.surface,
               'border-bottom': '1px solid ${ArcaneColors.borderSubtle}',

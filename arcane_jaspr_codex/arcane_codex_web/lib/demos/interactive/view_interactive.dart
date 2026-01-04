@@ -100,22 +100,22 @@ class _TreeViewDemoState extends State<TreeViewDemo> {
                 TreeNode(
                   id: 'src',
                   label: 'src',
-                  icon: ArcaneIcon.folder(),
+                  icon: Folder(),
                   children: [
-                    TreeNode(id: 'main', label: 'main.dart', icon: ArcaneIcon.file()),
-                    TreeNode(id: 'app', label: 'app.dart', icon: ArcaneIcon.file()),
+                    TreeNode(id: 'main', label: 'main.dart', icon: File()),
+                    TreeNode(id: 'app', label: 'app.dart', icon: File()),
                   ],
                 ),
                 TreeNode(
                   id: 'lib',
                   label: 'lib',
-                  icon: ArcaneIcon.folder(),
+                  icon: Folder(),
                   children: [
-                    TreeNode(id: 'utils', label: 'utils.dart', icon: ArcaneIcon.file()),
-                    TreeNode(id: 'models', label: 'models.dart', icon: ArcaneIcon.file()),
+                    TreeNode(id: 'utils', label: 'utils.dart', icon: File()),
+                    TreeNode(id: 'models', label: 'models.dart', icon: File()),
                   ],
                 ),
-                TreeNode(id: 'pubspec', label: 'pubspec.yaml', icon: ArcaneIcon.file()),
+                TreeNode(id: 'pubspec', label: 'pubspec.yaml', icon: File()),
               ],
               initiallyExpanded: const {'src', 'lib'},
               onNodeSelect: (node) => setState(() => _selectedLabel = node.label),
@@ -625,14 +625,14 @@ class TooltipDemo extends StatelessComponent {
             ArcaneTooltip(
               content: 'Click to copy to clipboard',
               child: ArcaneIconButton(
-                icon: ArcaneIcon.copy(),
+                icon: Copy(),
                 onPressed: () {},
               ),
             ),
             ArcaneTooltip(
               content: 'View settings',
               child: ArcaneIconButton(
-                icon: ArcaneIcon.settings(),
+                icon: Settings(),
                 onPressed: () {},
               ),
             ),

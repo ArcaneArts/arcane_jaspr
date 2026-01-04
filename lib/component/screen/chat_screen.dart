@@ -331,7 +331,7 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
       [
         // Avatar (for received messages)
         if (component.showAvatars && !isCurrentUser)
-          ArcaneAvatar(
+          const ArcaneAvatar(
             initials: '?', // Would use actual user initials
             size: AvatarSize.sm,
           ),
@@ -381,7 +381,7 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
       [
         // Avatar
         if (component.showAvatars)
-          ArcaneAvatar(
+          const ArcaneAvatar(
             initials: '?', // Would use actual user initials
             size: AvatarSize.sm,
           ),

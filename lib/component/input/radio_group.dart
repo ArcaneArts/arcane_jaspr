@@ -291,8 +291,8 @@ class ArcaneRadioGroup<T> extends StatelessComponent {
           [
             // Inner dot when selected
             if (isSelected)
-              div(
-                styles: const Styles(raw: {
+              const div(
+                styles: Styles(raw: {
                   'width': '10px',
                   'height': '10px',
                   'border-radius': '50%',

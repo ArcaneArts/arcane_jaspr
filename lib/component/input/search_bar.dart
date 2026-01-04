@@ -29,10 +29,11 @@ import 'package:jaspr/dom.dart'
         ZIndex,
         events;
 
+import 'package:jaspr_lucide/jaspr_lucide.dart' hide Factory, Target, Key, List, Timer, View, Map;
+
 import '../../util/arcane.dart';
 import '../../util/style_types/index.dart';
 import '../../util/tokens/tokens.dart';
-import '../view/icon.dart';
 import '../html/div.dart';
 import '../html/arcane_link.dart';
 import '../typography/text.dart';
@@ -96,8 +97,8 @@ class ArcaneSearchBar extends StatefulComponent {
   /// Custom width
   final String width;
 
-  /// Icon size
-  final IconSize iconSize;
+  /// Icon size in pixels
+  final int iconSize;
 
   /// Whether to show the dropdown results container
   final bool showDropdown;
@@ -122,7 +123,7 @@ class ArcaneSearchBar extends StatefulComponent {
     this.resultsId,
     this.placeholder = 'Search...',
     this.width = '240px',
-    this.iconSize = IconSize.md,
+    this.iconSize = 20,
     this.showDropdown = true,
     this.dropdownMaxHeight = '300px',
     this.results,
@@ -214,7 +215,7 @@ class _ArcaneSearchBarState extends State<ArcaneSearchBar> {
                 },
               ),
               children: [
-                ArcaneIcon.search(size: component.iconSize),
+                Search(width: Unit.pixels(component.iconSize.toDouble()), height: Unit.pixels(component.iconSize.toDouble())),
               ],
             ),
           ],
