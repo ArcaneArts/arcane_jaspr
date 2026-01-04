@@ -60,7 +60,7 @@ class DocsSidebar extends StatelessComponent {
           ),
           children: [
             // Getting Started section (always expanded, not collapsible)
-            _buildFixedSection('Getting Started', [
+            _buildFixedSection('Getting Started', ArcaneIcon.zap(size: IconSize.sm), [
               _buildNavItem(label: 'Introduction', href: '/docs'),
               _buildNavItem(label: 'Why Jaspr?', href: '/docs/why-jaspr'),
               _buildNavItem(label: 'Installation', href: '/docs/installation'),
@@ -72,7 +72,7 @@ class DocsSidebar extends StatelessComponent {
             ]),
 
             // Style Reference section
-            _buildCollapsibleSection('Style Reference', [
+            _buildCollapsibleSection('Style Reference', ArcaneIcon.edit(size: IconSize.sm), [
               _buildNavItem(label: 'Display & Layout', href: '/docs/styles/display'),
               _buildNavItem(label: 'Spacing', href: '/docs/styles/spacing'),
               _buildNavItem(label: 'Typography', href: '/docs/styles/typography'),
@@ -82,7 +82,7 @@ class DocsSidebar extends StatelessComponent {
             ], defaultOpen: _sectionContainsPath('styles')),
 
             // Input Components section
-            _buildCollapsibleSection('Inputs', [
+            _buildCollapsibleSection('Inputs', ArcaneIcon.settings(size: IconSize.sm), [
               _buildNavItem(label: 'ArcaneButton', href: '/docs/inputs/arcane-button'),
               _buildNavItem(label: 'ArcaneIconButton', href: '/docs/inputs/arcane-icon-button'),
               _buildNavItem(label: 'ArcaneCloseButton', href: '/docs/inputs/arcane-close-button'),
@@ -118,7 +118,7 @@ class DocsSidebar extends StatelessComponent {
             ], defaultOpen: _sectionContainsPath('inputs')),
 
             // Layout Components section
-            _buildCollapsibleSection('Layout', [
+            _buildCollapsibleSection('Layout', ArcaneIcon.grid(size: IconSize.sm), [
               _buildNavItem(label: 'ArcaneDiv', href: '/docs/layout/arcane-div'),
               _buildNavItem(label: 'ArcaneRow', href: '/docs/layout/arcane-row'),
               _buildNavItem(label: 'ArcaneColumn', href: '/docs/layout/arcane-column'),
@@ -153,7 +153,7 @@ class DocsSidebar extends StatelessComponent {
             ], defaultOpen: _sectionContainsPath('layout')),
 
             // Typography Components section
-            _buildCollapsibleSection('Typography', [
+            _buildCollapsibleSection('Typography', ArcaneIcon.fileText(size: IconSize.sm), [
               _buildNavItem(label: 'ArcaneText', href: '/docs/typography/arcane-text'),
               _buildNavItem(label: 'ArcaneHeading', href: '/docs/typography/arcane-heading'),
               _buildNavItem(label: 'ArcaneHeadline', href: '/docs/typography/arcane-headline'),
@@ -169,7 +169,7 @@ class DocsSidebar extends StatelessComponent {
             ], defaultOpen: _sectionContainsPath('typography')),
 
             // View Components section
-            _buildCollapsibleSection('View', [
+            _buildCollapsibleSection('View', ArcaneIcon.eye(size: IconSize.sm), [
               _buildNavItem(label: 'ArcaneIcon', href: '/docs/view/arcane-icon'),
               _buildNavItem(label: 'ArcaneAvatar', href: '/docs/view/arcane-avatar'),
               _buildNavItem(label: 'ArcaneBadge', href: '/docs/view/arcane-badge'),
@@ -212,7 +212,7 @@ class DocsSidebar extends StatelessComponent {
             ], defaultOpen: _sectionContainsPath('view')),
 
             // Navigation Components section
-            _buildCollapsibleSection('Navigation', [
+            _buildCollapsibleSection('Navigation', ArcaneIcon.compass(size: IconSize.sm), [
               _buildNavItem(label: 'ArcaneHeader', href: '/docs/navigation/arcane-header'),
               _buildNavItem(label: 'ArcaneSidebar', href: '/docs/navigation/arcane-sidebar'),
               _buildNavItem(label: 'ArcaneBottomNav', href: '/docs/navigation/arcane-bottom-nav'),
@@ -226,7 +226,7 @@ class DocsSidebar extends StatelessComponent {
             ], defaultOpen: _sectionContainsPath('navigation')),
 
             // Feedback Components section
-            _buildCollapsibleSection('Feedback', [
+            _buildCollapsibleSection('Feedback', ArcaneIcon.bell(size: IconSize.sm), [
               _buildNavItem(label: 'ArcaneDialog', href: '/docs/feedback/arcane-dialog'),
               _buildNavItem(label: 'ArcaneAlertBanner', href: '/docs/feedback/arcane-alert-banner'),
               _buildNavItem(label: 'ArcaneStatusBadge', href: '/docs/feedback/arcane-status-badge'),
@@ -237,14 +237,14 @@ class DocsSidebar extends StatelessComponent {
             ], defaultOpen: _sectionContainsPath('feedback')),
 
             // Forms section
-            _buildCollapsibleSection('Forms', [
+            _buildCollapsibleSection('Forms', ArcaneIcon.file(size: IconSize.sm), [
               _buildNavItem(label: 'ArcaneForm', href: '/docs/forms/arcane-form'),
               _buildNavItem(label: 'ArcaneField', href: '/docs/forms/arcane-field'),
               _buildNavItem(label: 'ArcaneFieldWrapper', href: '/docs/forms/arcane-field-wrapper'),
             ], defaultOpen: _sectionContainsPath('forms')),
 
             // Authentication section
-            _buildCollapsibleSection('Authentication', [
+            _buildCollapsibleSection('Authentication', ArcaneIcon.lock(size: IconSize.sm), [
               _buildNavItem(label: 'ArcaneLoginCard', href: '/docs/auth/arcane-login-card'),
               _buildNavItem(label: 'ArcaneSignupCard', href: '/docs/auth/arcane-signup-card'),
               _buildNavItem(label: 'ArcaneForgotPasswordCard', href: '/docs/auth/arcane-forgot-password-card'),
@@ -255,13 +255,13 @@ class DocsSidebar extends StatelessComponent {
             ], defaultOpen: _sectionContainsPath('auth')),
 
             // Screens section
-            _buildCollapsibleSection('Screens', [
+            _buildCollapsibleSection('Screens', ArcaneIcon.monitor(size: IconSize.sm), [
               _buildNavItem(label: 'ArcaneScreen', href: '/docs/screens/arcane-screen'),
               _buildNavItem(label: 'ArcaneChatScreen', href: '/docs/screens/arcane-chat-screen'),
             ], defaultOpen: _sectionContainsPath('screens')),
 
             // Guides section
-            _buildCollapsibleSection('Guides', [
+            _buildCollapsibleSection('Guides', ArcaneIcon.bookmark(size: IconSize.sm), [
               _buildNavItem(label: 'Deployment', href: '/guides/deployment'),
             ], defaultOpen: currentPath.startsWith('/guides')),
           ],
@@ -275,7 +275,7 @@ class DocsSidebar extends StatelessComponent {
   }
 
   /// Build a fixed section that's always expanded (no toggle)
-  Component _buildFixedSection(String title, List<Component> items) {
+  Component _buildFixedSection(String title, Component icon, List<Component> items) {
     return ArcaneDiv(
       styles: const ArcaneStyleData(
         margin: MarginPreset.bottomSm,
@@ -301,6 +301,7 @@ class DocsSidebar extends StatelessComponent {
               gapSize: Gap.sm,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                icon,
                 ArcaneText(title),
                 // Item count badge
                 ArcaneDiv(
@@ -330,7 +331,7 @@ class DocsSidebar extends StatelessComponent {
   }
 
   /// Build a collapsible section using ArcaneDisclosure
-  Component _buildCollapsibleSection(String title, List<Component> items, {bool defaultOpen = false}) {
+  Component _buildCollapsibleSection(String title, Component icon, List<Component> items, {bool defaultOpen = false}) {
     final itemCount = items.length;
 
     return ArcaneDisclosure.minimal(
@@ -339,6 +340,7 @@ class DocsSidebar extends StatelessComponent {
         gapSize: Gap.sm,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          icon,
           ArcaneDiv(
             styles: const ArcaneStyleData(
               fontSize: FontSize.xs,

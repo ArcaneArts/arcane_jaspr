@@ -147,25 +147,25 @@ class _SidebarDemoState extends State<SidebarDemo> {
         ArcaneSidebar(
           children: [
             ArcaneSidebarItem(
-              icon: House(),
+              icon: ArcaneIcon.home(),
               label: 'Dashboard',
               selected: _selectedItem == 'dashboard',
               onTap: () => setState(() => _selectedItem = 'dashboard'),
             ),
             ArcaneSidebarItem(
-              icon: User(),
+              icon: ArcaneIcon.user(),
               label: 'Users',
               selected: _selectedItem == 'users',
               onTap: () => setState(() => _selectedItem = 'users'),
             ),
             ArcaneSidebarItem(
-              icon: Settings(),
+              icon: ArcaneIcon.settings(),
               label: 'Settings',
               selected: _selectedItem == 'settings',
               onTap: () => setState(() => _selectedItem = 'settings'),
             ),
             ArcaneSidebarItem(
-              icon: Folder(),
+              icon: ArcaneIcon.folder(),
               label: 'Files',
               selected: _selectedItem == 'files',
               onTap: () => setState(() => _selectedItem = 'files'),
@@ -200,19 +200,19 @@ class _BottomNavDemoState extends State<BottomNavDemo> {
             ArcaneBottomNavigationBar(
               items: [
                 ArcaneBottomNavItem(
-                  icon: House(),
+                  icon: ArcaneIcon.home(),
                   label: 'Home',
                 ),
                 ArcaneBottomNavItem(
-                  icon: Search(),
+                  icon: ArcaneIcon.search(),
                   label: 'Search',
                 ),
                 ArcaneBottomNavItem(
-                  icon: Bell(),
+                  icon: ArcaneIcon.bell(),
                   label: 'Alerts',
                 ),
                 ArcaneBottomNavItem(
-                  icon: User(),
+                  icon: ArcaneIcon.user(),
                   label: 'Profile',
                 ),
               ],
@@ -317,21 +317,25 @@ class _DropdownMenuDemoState extends State<DropdownMenuDemo> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ArcaneDropdownMenu(
-          trigger: ArcaneButton.secondary(label: 'Open Menu ▼', onPressed: () {}),
+          trigger: ArcaneButton.secondary(
+            label: 'Open Menu',
+            trailing: ArcaneIcon.chevronDown(size: IconSize.sm),
+            onPressed: () {},
+          ),
           items: [
             ArcaneDropdownItem(
               label: 'Edit',
-              icon: Pencil(),
+              icon: ArcaneIcon.edit(),
               onTap: () => setState(() => _selectedItem = 'Edit'),
             ),
             ArcaneDropdownItem(
               label: 'Duplicate',
-              icon: Copy(),
+              icon: ArcaneIcon.copy(),
               onTap: () => setState(() => _selectedItem = 'Duplicate'),
             ),
             ArcaneDropdownItem(
               label: 'Delete',
-              icon: Trash(),
+              icon: ArcaneIcon.trash(),
               onTap: () => setState(() => _selectedItem = 'Delete'),
             ),
           ],
@@ -376,7 +380,7 @@ class _MobileMenuDemoState extends State<MobileMenuDemo> {
               children: [
                 ArcaneText('Logo', weight: FontWeight.bold),
                 ArcaneIconButton(
-                  icon: _isOpen ? X() : Menu(),
+                  icon: _isOpen ? ArcaneIcon.close() : ArcaneIcon.menu(),
                   onPressed: () => setState(() => _isOpen = !_isOpen),
                 ),
               ],
@@ -457,7 +461,13 @@ class _MegaMenuDemoState extends State<MegaMenuDemo> {
                     'position': 'relative',
                   }),
                   [
-                    ArcaneText('Products ▼', color: TextColor.accent),
+                    ArcaneRow(
+                      gapSize: Gap.xs,
+                      children: [
+                        ArcaneText('Products', color: TextColor.accent),
+                        ArcaneIcon.chevronDown(size: IconSize.xs),
+                      ],
+                    ),
                     if (_isOpen)
                       ArcaneDiv(
                         styles: const ArcaneStyleData(

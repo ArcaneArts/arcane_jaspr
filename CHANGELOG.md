@@ -59,23 +59,49 @@ ArcaneDialog(child: singleChild)
 - `ArcaneRadio`: Added `onTap` alias for `onSelected`
 - `ArcaneToggleSwitch`: Added `onToggle` alias for `onChanged`
 
-**Lucide Icons Integration**
-Replaced custom `ArcaneIcon` with `jaspr_lucide` package integration:
+**Lucide Icons Integration with ArcaneIcon Wrapper**
+Clean icon API wrapping jaspr_lucide for better developer experience:
 - Added `jaspr_lucide` (^0.21.0) dependency for 1500+ professional icons
-- Icons are now imported directly from `jaspr_lucide` (re-exported via arcane_jaspr)
-- Usage: `ChevronDown()`, `Github()`, `Search()`, etc.
-- Icons support `width`, `height`, `attributes` for customization
-- Some icon names hidden due to conflicts: `Factory`, `Target`, `Key`, `List`, `Timer`, `View`, `Map`, `Import`, `Contrast`, `Radius`, `SpellCheck`, `TextWrap`
+- **`ArcaneIcon`** wrapper class provides semantic, discoverable icon methods
+- **`IconSize`** enum for consistent sizing: `xs` (12px), `sm` (16px), `md` (20px), `lg` (24px), `xl` (32px), `xl2` (48px)
+- **`AIcon`** and **`AIconSize`** aliases in `aliases.dart`
 
-### Removed
-- `ArcaneIcon` component (replaced by jaspr_lucide icons)
-- `IconSize` enum (use `Unit.pixels()` instead)
-- Custom SVG icon factories
+Usage:
+```dart
+ArcaneIcon.home()                    // Default md size (20px)
+ArcaneIcon.search(size: IconSize.lg) // Large size (24px)
+ArcaneIcon.settings()                // Settings gear
+ArcaneIcon.user()                    // User profile
+ArcaneIcon.folder()                  // Folder
+ArcaneIcon.file()                    // File
+ArcaneIcon.edit()                    // Pencil/edit
+ArcaneIcon.trash()                   // Delete
+ArcaneIcon.sun()                     // Light mode
+ArcaneIcon.moon()                    // Dark mode
+// ... and 80+ more common icons
+```
 
-### Breaking Changes
-- **Icons**: Replace `ArcaneIcon.chevronDown()` with `ChevronDown()`
-- **Icon sizing**: Replace `IconSize.md` with `Unit.pixels(20)` or similar
-- **Icon color**: Use `attributes: {'stroke': 'color'}` instead of `color:` parameter
+Raw jaspr_lucide icons are also available for icons not wrapped:
+```dart
+ChevronDown()  // Direct jaspr_lucide usage
+Github()       // Social icons
+```
+
+Icons with Dart naming conflicts are accessible via the wrapper:
+```dart
+ArcaneIcon.factory()    // Factory building
+ArcaneIcon.target()     // Crosshair target
+ArcaneIcon.keyIcon()    // Key shape
+ArcaneIcon.listIcon()   // List
+ArcaneIcon.timer()      // Timer
+ArcaneIcon.view()       // View/eye
+ArcaneIcon.map()        // Map
+ArcaneIcon.importIcon() // Import arrow
+ArcaneIcon.contrast()   // Contrast
+ArcaneIcon.radius()     // Radius
+ArcaneIcon.spellCheck() // Spell check
+ArcaneIcon.textWrap()   // Text wrap
+```
 
 ### Changed
 

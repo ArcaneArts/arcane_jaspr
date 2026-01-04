@@ -12,9 +12,9 @@ class InputDemos {
       ];
 
   static List<Component> iconButton() => [
-        ArcaneIconButton(icon: ArcaneText('+'), onPressed: () {}),
-        ArcaneIconButton(icon: ArcaneText('×'), onPressed: () {}),
-        ArcaneIconButton(icon: ArcaneText('⚙'), onPressed: () {}),
+        ArcaneIconButton(icon: ArcaneIcon.plus(), onPressed: () {}),
+        ArcaneIconButton(icon: ArcaneIcon.close(), onPressed: () {}),
+        ArcaneIconButton(icon: ArcaneIcon.settings(), onPressed: () {}),
       ];
 
   static List<Component> closeButton() => [
@@ -22,7 +22,7 @@ class InputDemos {
       ];
 
   static List<Component> fab() => [
-        ArcaneFAB(icon: ArcaneText('+'), onPressed: () {}),
+        ArcaneFAB(icon: ArcaneIcon.plus(size: IconSize.lg), onPressed: () {}),
       ];
 
   static List<Component> textInput() => [

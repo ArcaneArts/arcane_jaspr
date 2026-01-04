@@ -131,7 +131,7 @@ class ViewDemos {
             ArcaneRow(
               gapSize: Gap.sm,
               children: [
-                ArcaneText('✓'),
+                ArcaneIcon.check(size: IconSize.sm),
                 ArcaneText('Toast notification'),
               ],
             ),
@@ -211,13 +211,13 @@ class ViewDemos {
                 TreeNode(
                   id: 'src',
                   label: 'src',
-                  icon: Folder(),
+                  icon: ArcaneIcon.folder(),
                   children: [
-                    TreeNode(id: 'main', label: 'main.dart', icon: File()),
-                    TreeNode(id: 'app', label: 'app.dart', icon: File()),
+                    TreeNode(id: 'main', label: 'main.dart', icon: ArcaneIcon.file()),
+                    TreeNode(id: 'app', label: 'app.dart', icon: ArcaneIcon.file()),
                   ],
                 ),
-                TreeNode(id: 'pubspec', label: 'pubspec.yaml', icon: File()),
+                TreeNode(id: 'pubspec', label: 'pubspec.yaml', icon: ArcaneIcon.file()),
               ],
             ),
           ],
@@ -263,15 +263,197 @@ class ViewDemos {
       ];
 
   static List<Component> icon() => [
-        ArcaneRow(
-          gapSize: Gap.md,
+        ArcaneColumn(
+          gapSize: Gap.lg,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            House(),
-            Search(),
-            Settings(),
-            User(),
-            Heart(),
-            Star(),
+            // Size comparison
+            ArcaneText('Icon Sizes', weight: FontWeight.w600),
+            ArcaneRow(
+              gapSize: Gap.md,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                ArcaneColumn(
+                  gapSize: Gap.xs,
+                  children: [
+                    ArcaneIcon.star(size: IconSize.xs),
+                    ArcaneText('xs', size: FontSize.xs, color: TextColor.muted),
+                  ],
+                ),
+                ArcaneColumn(
+                  gapSize: Gap.xs,
+                  children: [
+                    ArcaneIcon.star(size: IconSize.sm),
+                    ArcaneText('sm', size: FontSize.xs, color: TextColor.muted),
+                  ],
+                ),
+                ArcaneColumn(
+                  gapSize: Gap.xs,
+                  children: [
+                    ArcaneIcon.star(size: IconSize.md),
+                    ArcaneText('md', size: FontSize.xs, color: TextColor.muted),
+                  ],
+                ),
+                ArcaneColumn(
+                  gapSize: Gap.xs,
+                  children: [
+                    ArcaneIcon.star(size: IconSize.lg),
+                    ArcaneText('lg', size: FontSize.xs, color: TextColor.muted),
+                  ],
+                ),
+                ArcaneColumn(
+                  gapSize: Gap.xs,
+                  children: [
+                    ArcaneIcon.star(size: IconSize.xl),
+                    ArcaneText('xl', size: FontSize.xs, color: TextColor.muted),
+                  ],
+                ),
+                ArcaneColumn(
+                  gapSize: Gap.xs,
+                  children: [
+                    ArcaneIcon.star(size: IconSize.xl2),
+                    ArcaneText('xl2', size: FontSize.xs, color: TextColor.muted),
+                  ],
+                ),
+              ],
+            ),
+
+            // Navigation icons
+            ArcaneText('Navigation', weight: FontWeight.w600),
+            ArcaneRow(
+              gapSize: Gap.md,
+              children: [
+                ArcaneIcon.home(),
+                ArcaneIcon.search(),
+                ArcaneIcon.settings(),
+                ArcaneIcon.menu(),
+                ArcaneIcon.close(),
+                ArcaneIcon.chevronDown(),
+                ArcaneIcon.chevronRight(),
+                ArcaneIcon.arrowLeft(),
+                ArcaneIcon.externalLink(),
+              ],
+            ),
+
+            // Actions
+            ArcaneText('Actions', weight: FontWeight.w600),
+            ArcaneRow(
+              gapSize: Gap.md,
+              children: [
+                ArcaneIcon.edit(),
+                ArcaneIcon.copy(),
+                ArcaneIcon.trash(),
+                ArcaneIcon.save(),
+                ArcaneIcon.download(),
+                ArcaneIcon.upload(),
+                ArcaneIcon.refresh(),
+                ArcaneIcon.plus(),
+                ArcaneIcon.check(),
+              ],
+            ),
+
+            // Files & Folders
+            ArcaneText('Files & Folders', weight: FontWeight.w600),
+            ArcaneRow(
+              gapSize: Gap.md,
+              children: [
+                ArcaneIcon.file(),
+                ArcaneIcon.fileText(),
+                ArcaneIcon.folder(),
+                ArcaneIcon.folderOpen(),
+                ArcaneIcon.code(),
+                ArcaneIcon.terminal(),
+                ArcaneIcon.database(),
+              ],
+            ),
+
+            // Communication
+            ArcaneText('Communication', weight: FontWeight.w600),
+            ArcaneRow(
+              gapSize: Gap.md,
+              children: [
+                ArcaneIcon.bell(),
+                ArcaneIcon.mail(),
+                ArcaneIcon.message(),
+                ArcaneIcon.send(),
+                ArcaneIcon.info(),
+                ArcaneIcon.warning(),
+                ArcaneIcon.help(),
+              ],
+            ),
+
+            // Social & Feedback
+            ArcaneText('Social & Feedback', weight: FontWeight.w600),
+            ArcaneRow(
+              gapSize: Gap.md,
+              children: [
+                ArcaneIcon.heart(),
+                ArcaneIcon.star(),
+                ArcaneIcon.thumbsUp(),
+                ArcaneIcon.thumbsDown(),
+                ArcaneIcon.share(),
+                ArcaneIcon.bookmark(),
+              ],
+            ),
+
+            // Theme & Display
+            ArcaneText('Theme & Display', weight: FontWeight.w600),
+            ArcaneRow(
+              gapSize: Gap.md,
+              children: [
+                ArcaneIcon.sun(),
+                ArcaneIcon.moon(),
+                ArcaneIcon.eye(),
+                ArcaneIcon.eyeOff(),
+                ArcaneIcon.monitor(),
+                ArcaneIcon.smartphone(),
+              ],
+            ),
+
+            // Security
+            ArcaneText('Security', weight: FontWeight.w600),
+            ArcaneRow(
+              gapSize: Gap.md,
+              children: [
+                ArcaneIcon.lock(),
+                ArcaneIcon.unlock(),
+                ArcaneIcon.key(),
+                ArcaneIcon.shield(),
+                ArcaneIcon.shieldCheck(),
+              ],
+            ),
+
+            // Previously hidden icons
+            ArcaneText('Previously Hidden (Now Accessible)', weight: FontWeight.w600),
+            ArcaneRow(
+              gapSize: Gap.md,
+              children: [
+                ArcaneIcon.factory(),
+                ArcaneIcon.target(),
+                ArcaneIcon.map(),
+                ArcaneIcon.timer(),
+                ArcaneIcon.contrast(),
+                ArcaneIcon.spellCheck(),
+                ArcaneIcon.textWrap(),
+              ],
+            ),
+
+            // Misc
+            ArcaneText('Misc', weight: FontWeight.w600),
+            ArcaneRow(
+              gapSize: Gap.md,
+              children: [
+                ArcaneIcon.moreHorizontal(),
+                ArcaneIcon.moreVertical(),
+                ArcaneIcon.filter(),
+                ArcaneIcon.sort(),
+                ArcaneIcon.zap(),
+                ArcaneIcon.globe(),
+                ArcaneIcon.mapPin(),
+                ArcaneIcon.tag(),
+                ArcaneIcon.power(),
+              ],
+            ),
           ],
         ),
       ];

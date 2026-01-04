@@ -14,13 +14,25 @@ class NavigationDemos {
             ArcaneRow(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ArcaneText('Logo', weight: FontWeight.bold),
+                ArcaneRow(gapSize: Gap.sm, children: [
+                  ArcaneIcon.zap(size: IconSize.md),
+                  ArcaneText('Logo', weight: FontWeight.bold),
+                ]),
                 ArcaneRow(
-                  gapSize: Gap.md,
+                  gapSize: Gap.lg,
                   children: [
-                    ArcaneText('Home'),
-                    ArcaneText('About'),
-                    ArcaneText('Contact'),
+                    ArcaneRow(gapSize: Gap.xs, children: [
+                      ArcaneIcon.home(size: IconSize.sm),
+                      ArcaneText('Home'),
+                    ]),
+                    ArcaneRow(gapSize: Gap.xs, children: [
+                      ArcaneIcon.info(size: IconSize.sm),
+                      ArcaneText('About'),
+                    ]),
+                    ArcaneRow(gapSize: Gap.xs, children: [
+                      ArcaneIcon.mail(size: IconSize.sm),
+                      ArcaneText('Contact'),
+                    ]),
                   ],
                 ),
               ],
@@ -32,7 +44,7 @@ class NavigationDemos {
   static List<Component> sidebar() => [
         ArcaneDiv(
           styles: const ArcaneStyleData(
-            widthCustom: '150px',
+            widthCustom: '180px',
             padding: PaddingPreset.md,
             background: Background.surface,
             borderRadius: Radius.md,
@@ -41,9 +53,18 @@ class NavigationDemos {
             ArcaneColumn(
               gapSize: Gap.sm,
               children: [
-                ArcaneText('Dashboard'),
-                ArcaneText('Settings'),
-                ArcaneText('Profile'),
+                ArcaneRow(gapSize: Gap.sm, children: [
+                  ArcaneIcon.home(size: IconSize.sm),
+                  ArcaneText('Dashboard'),
+                ]),
+                ArcaneRow(gapSize: Gap.sm, children: [
+                  ArcaneIcon.settings(size: IconSize.sm),
+                  ArcaneText('Settings'),
+                ]),
+                ArcaneRow(gapSize: Gap.sm, children: [
+                  ArcaneIcon.user(size: IconSize.sm),
+                  ArcaneText('Profile'),
+                ]),
               ],
             ),
           ],
@@ -62,10 +83,10 @@ class NavigationDemos {
             ArcaneRow(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                ArcaneText('🏠'),
-                ArcaneText('🔍'),
-                ArcaneText('👤'),
-                ArcaneText('⚙'),
+                ArcaneIcon.home(size: IconSize.lg),
+                ArcaneIcon.search(size: IconSize.lg),
+                ArcaneIcon.user(size: IconSize.lg),
+                ArcaneIcon.settings(size: IconSize.lg),
               ],
             ),
           ],
@@ -74,7 +95,11 @@ class NavigationDemos {
 
   static List<Component> dropdownMenu() => [
         ArcaneDropdownMenu(
-          trigger: ArcaneButton.secondary(label: 'Menu ▼', onPressed: () {}),
+          trigger: ArcaneButton.secondary(
+            label: 'Menu',
+            trailing: ArcaneIcon.chevronDown(size: IconSize.sm),
+            onPressed: () {},
+          ),
           items: [
             ArcaneDropdownItem(label: 'Option 1', onTap: () {}),
             ArcaneDropdownItem(label: 'Option 2', onTap: () {}),
@@ -94,7 +119,7 @@ class NavigationDemos {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ArcaneText('Logo'),
-                ArcaneIconButton(icon: ArcaneText('☰'), onPressed: () {}),
+                ArcaneIconButton(icon: ArcaneIcon.menu(), onPressed: () {}),
               ],
             ),
           ],

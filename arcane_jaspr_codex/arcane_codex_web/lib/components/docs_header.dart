@@ -55,8 +55,7 @@ class DocsHeader extends StatelessComponent {
             margin: MarginPreset.rightMd,
           ),
         ),
-
-        // Navigation links using ArcaneLink
+        // Navigation links using ArcaneLink with icons
         ArcaneLink(
           href: '$base/docs',
           styles: const ArcaneStyleData(
@@ -64,6 +63,7 @@ class DocsHeader extends StatelessComponent {
           ),
           child: ArcaneButton.ghost(
             label: 'Docs',
+            icon: ArcaneIcon.fileText(size: IconSize.sm),
             onPressed: () {},
           ),
         ),
@@ -74,6 +74,7 @@ class DocsHeader extends StatelessComponent {
           ),
           child: ArcaneButton.ghost(
             label: 'Guides',
+            icon: ArcaneIcon.bookmark(size: IconSize.sm),
             onPressed: () {},
           ),
         ),
@@ -85,6 +86,7 @@ class DocsHeader extends StatelessComponent {
             ),
             child: ArcaneButton.ghost(
               label: 'GitHub',
+              icon: Github(width: Unit.pixels(16), height: Unit.pixels(16)),
               onPressed: () {},
             ),
           ),
@@ -125,8 +127,8 @@ class DocsHeader extends StatelessComponent {
             lineHeight: LineHeight.none,
           ),
           children: [
-            if (isDark) Sun(width: Unit.pixels(20), height: Unit.pixels(20)),
-            if (!isDark) Moon(width: Unit.pixels(20), height: Unit.pixels(20)),
+            if (isDark) ArcaneIcon.sun(size: IconSize.md),
+            if (!isDark) ArcaneIcon.moon(size: IconSize.md),
           ],
         ),
       ],

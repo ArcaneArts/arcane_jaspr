@@ -286,6 +286,7 @@ export 'component/view/check_list.dart';
 export 'component/view/switcher.dart';
 export 'component/view/surface_card.dart';
 export 'component/view/tracker.dart';
+export 'component/view/icon.dart';
 
 // ============================================================================
 // Navigation components

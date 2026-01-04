@@ -272,3 +272,7 @@ typedef AFormScope = ArcaneFormScope;
 
 // Collection
 typedef AInfiniteCarousel = ArcaneInfiniteCarousel;
+
+// Icons
+typedef AIcon = ArcaneIcon;
+typedef AIconSize = IconSize;
