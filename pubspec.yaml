@@ -29,3 +29,5 @@ scripts:
   autoconst: dart-auto-const
   # Code Generation
   build_runner: dart run build_runner build --delete-conflicting-outputs
+  # Generate ArcaneIcon wrapper for all Lucide icons
+  generate_icons: dart tool/generate_icons.dart

@@ -59,48 +59,48 @@ ArcaneDialog(child: singleChild)
 - `ArcaneRadio`: Added `onTap` alias for `onSelected`
 - `ArcaneToggleSwitch`: Added `onToggle` alias for `onChanged`
 
-**Lucide Icons Integration with ArcaneIcon Wrapper**
-Clean icon API wrapping jaspr_lucide for better developer experience:
-- Added `jaspr_lucide` (^0.21.0) dependency for 1500+ professional icons
-- **`ArcaneIcon`** wrapper class provides semantic, discoverable icon methods
+**Complete Lucide Icons Integration with ArcaneIcon Wrapper**
+Full programmatic wrapping of all 1,666 Lucide icons with clean API:
+- Added `jaspr_lucide` (^0.21.0) dependency for complete icon library
+- **`ArcaneIcon`** wrapper class provides semantic, discoverable icon methods for ALL icons
 - **`IconSize`** enum for consistent sizing: `xs` (12px), `sm` (16px), `md` (20px), `lg` (24px), `xl` (32px), `xl2` (48px)
 - **`AIcon`** and **`AIconSize`** aliases in `aliases.dart`
+- Generator tool at `tool/generate_icons.dart` for regeneration when jaspr_lucide updates
 
 Usage:
 ```dart
-ArcaneIcon.home()                    // Default md size (20px)
+ArcaneIcon.home()                    // Semantic alias for house()
 ArcaneIcon.search(size: IconSize.lg) // Large size (24px)
 ArcaneIcon.settings()                // Settings gear
 ArcaneIcon.user()                    // User profile
-ArcaneIcon.folder()                  // Folder
-ArcaneIcon.file()                    // File
-ArcaneIcon.edit()                    // Pencil/edit
-ArcaneIcon.trash()                   // Delete
-ArcaneIcon.sun()                     // Light mode
-ArcaneIcon.moon()                    // Dark mode
-// ... and 80+ more common icons
+ArcaneIcon.edit()                    // Semantic alias for pencil()
+ArcaneIcon.close()                   // Semantic alias for x()
+ArcaneIcon.delete()                  // Semantic alias for trash2()
+// ... all 1,666 Lucide icons available!
 ```
 
-Raw jaspr_lucide icons are also available for icons not wrapped:
+Semantic aliases for intuitive naming:
 ```dart
-ChevronDown()  // Direct jaspr_lucide usage
-Github()       // Social icons
+ArcaneIcon.home()         // -> house()
+ArcaneIcon.edit()         // -> pencil()
+ArcaneIcon.close()        // -> x()
+ArcaneIcon.delete()       // -> trash2()
+ArcaneIcon.success()      // -> circleCheck()
+ArcaneIcon.error()        // -> circleX()
+ArcaneIcon.warning()      // -> triangleAlert()
+ArcaneIcon.loading()      // -> loaderCircle()
+ArcaneIcon.grid()         // -> grid3x3()
+ArcaneIcon.moreHorizontal() // -> ellipsis()
+// ... 70+ semantic aliases
 ```
 
-Icons with Dart naming conflicts are accessible via the wrapper:
+Icons with Dart naming conflicts use suffix:
 ```dart
-ArcaneIcon.factory()    // Factory building
-ArcaneIcon.target()     // Crosshair target
-ArcaneIcon.keyIcon()    // Key shape
-ArcaneIcon.listIcon()   // List
-ArcaneIcon.timer()      // Timer
-ArcaneIcon.view()       // View/eye
-ArcaneIcon.map()        // Map
-ArcaneIcon.importIcon() // Import arrow
-ArcaneIcon.contrast()   // Contrast
-ArcaneIcon.radius()     // Radius
-ArcaneIcon.spellCheck() // Spell check
-ArcaneIcon.textWrap()   // Text wrap
+ArcaneIcon.keyIcon()      // Key shape (key is reserved)
+ArcaneIcon.mapIcon()      // Map (map is reserved)
+ArcaneIcon.factoryIcon()  // Factory building
+ArcaneIcon.targetIcon()   // Crosshair target
+ArcaneIcon.contrastIcon() // Contrast circle
 ```
 
 ### Changed

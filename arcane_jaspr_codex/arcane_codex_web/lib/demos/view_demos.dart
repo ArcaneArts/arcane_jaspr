@@ -423,18 +423,33 @@ class ViewDemos {
               ],
             ),
 
-            // Previously hidden icons
-            ArcaneText('Previously Hidden (Now Accessible)', weight: FontWeight.w600),
+            // Semantic Aliases (intuitive names)
+            ArcaneText('Semantic Aliases', weight: FontWeight.w600),
             ArcaneRow(
               gapSize: Gap.md,
               children: [
-                ArcaneIcon.factory(),
-                ArcaneIcon.target(),
-                ArcaneIcon.map(),
-                ArcaneIcon.timer(),
-                ArcaneIcon.contrast(),
-                ArcaneIcon.spellCheck(),
-                ArcaneIcon.textWrap(),
+                ArcaneIcon.home(), // -> house()
+                ArcaneIcon.close(), // -> x()
+                ArcaneIcon.edit(), // -> pencil()
+                ArcaneIcon.delete(), // -> trash2()
+                ArcaneIcon.success(), // -> circleCheck()
+                ArcaneIcon.error(), // -> circleX()
+                ArcaneIcon.loading(), // -> loaderCircle()
+                ArcaneIcon.grid(), // -> grid3x3()
+              ],
+            ),
+
+            // Status icons
+            ArcaneText('Status', weight: FontWeight.w600),
+            ArcaneRow(
+              gapSize: Gap.md,
+              children: [
+                ArcaneIcon.success(),
+                ArcaneIcon.error(),
+                ArcaneIcon.warning(),
+                ArcaneIcon.info(),
+                ArcaneIcon.help(),
+                ArcaneIcon.loading(),
               ],
             ),
 
@@ -448,11 +463,16 @@ class ViewDemos {
                 ArcaneIcon.filter(),
                 ArcaneIcon.sort(),
                 ArcaneIcon.zap(),
-                ArcaneIcon.globe(),
-                ArcaneIcon.mapPin(),
-                ArcaneIcon.tag(),
-                ArcaneIcon.power(),
+                ArcaneIcon.sparkles(),
+                ArcaneIcon.rocket(),
+                ArcaneIcon.flame(),
               ],
+            ),
+
+            // Total count
+            ArcaneText('1,666 icons available!',
+              size: FontSize.sm,
+              color: TextColor.muted,
             ),
           ],
         ),
