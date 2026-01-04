@@ -3,7 +3,8 @@ import 'package:web/web.dart' as web;
 
 /// A code block component with syntax highlighting and copy-to-clipboard functionality.
 ///
-/// Displays code in a styled container with a language label and copy button.
+/// Displays code in a styled container with a language label and copy button
+/// overlaid in the top-right corner.
 class CodeBlock extends StatefulComponent {
   final String code;
   final String? language;
@@ -47,52 +48,52 @@ class _CodeBlockState extends State<CodeBlock> {
         border: BorderPreset.standard,
       ),
       children: [
-        // Header with language label and copy button
+        // Language label (top-left, if present)
+        if (component.language != null || component.title != null)
+          ArcaneDiv(
+            styles: const ArcaneStyleData(
+              position: Position.absolute,
+              top: '0',
+              left: '0',
+              padding: PaddingPreset.smMd,
+              zIndex: ZIndex.base,
+            ),
+            children: [
+              if (component.title != null)
+                ArcaneSpan(
+                  styles: const ArcaneStyleData(
+                    fontSize: FontSize.xs,
+                    textColor: TextColor.muted,
+                  ),
+                  child: ArcaneText(component.title!),
+                )
+              else if (component.language != null)
+                ArcaneSpan(
+                  styles: const ArcaneStyleData(
+                    fontSize: FontSize.xs,
+                    textColor: TextColor.muted,
+                    padding: PaddingPreset.badge,
+                    background: Background.glassTint,
+                    borderRadius: Radius.xs,
+                  ),
+                  child: ArcaneText(component.language!),
+                ),
+            ],
+          ),
+
+        // Copy button (top-right, overlaid)
         ArcaneDiv(
           styles: const ArcaneStyleData(
-            display: Display.flex,
-            justifyContent: JustifyContent.spaceBetween,
-            alignItems: AlignItems.center,
-            padding: PaddingPreset.smMd,
-            background: Background.glassHeader,
-            borderBottom: BorderPreset.standard,
+            position: Position.absolute,
+            top: '0',
+            right: '0',
+            padding: PaddingPreset.sm,
+            zIndex: ZIndex.dropdown,
           ),
           children: [
-            // Language label
-            ArcaneDiv(
-              styles: const ArcaneStyleData(
-                display: Display.flex,
-                alignItems: AlignItems.center,
-                gap: Gap.sm,
-              ),
-              children: [
-                if (component.title != null)
-                  ArcaneSpan(
-                    styles: const ArcaneStyleData(
-                      fontSize: FontSize.sm,
-                      textColor: TextColor.muted,
-                    ),
-                    child: ArcaneText(component.title!),
-                  ),
-                if (component.language != null)
-                  ArcaneSpan(
-                    styles: const ArcaneStyleData(
-                      fontSize: FontSize.xs,
-                      textColor: TextColor.muted,
-                      padding: PaddingPreset.badge,
-                      background: Background.glassTint,
-                      borderRadius: Radius.xs,
-                    ),
-                    child: ArcaneText(component.language!),
-                  ),
-              ],
-            ),
-
-            // Copy button
-            ArcaneButton(
-              style: ButtonStyle.ghost,
-              size: ButtonSize.small,
-              label: _copied ? 'Copied!' : 'Copy',
+            ArcaneIconButton.ghost(
+              icon: _copied ? ArcaneIcon.check(size: IconSize.sm) : ArcaneIcon.copy(size: IconSize.sm),
+              size: IconButtonSize.small,
               onPressed: _copyToClipboard,
             ),
           ],
@@ -100,10 +101,14 @@ class _CodeBlockState extends State<CodeBlock> {
 
         // Code content
         ArcaneDiv(
-          styles: const ArcaneStyleData(
-            padding: PaddingPreset.md,
+          styles: ArcaneStyleData(
+            padding: PaddingPreset.lg,
             overflow: Overflow.auto,
             maxHeight: '500px',
+            // Add top padding when there's a language label or title
+            raw: (component.language != null || component.title != null)
+                ? const {'padding-top': '40px'}
+                : null,
           ),
           children: [
             ArcaneCodeBlock(

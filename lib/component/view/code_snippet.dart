@@ -2,8 +2,9 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
 import '../../util/tokens/tokens.dart';
+import 'icon.dart';
 
-/// A code snippet component with copy button (Supabase-style)
+/// A code snippet component with copy button overlaid in top-right corner
 class ArcaneCodeSnippet extends StatefulComponent {
   /// The code to display
   final String code;
@@ -50,6 +51,12 @@ class _CodeSnippetState extends State<ArcaneCodeSnippet> {
 
   void _copyToClipboard() {
     setState(() => _copied = true);
+    // Reset after 2 seconds
+    Future.delayed(const Duration(seconds: 2), () {
+      if (mounted) {
+        setState(() => _copied = false);
+      }
+    });
   }
 
   @override
@@ -66,79 +73,83 @@ class _CodeSnippetState extends State<ArcaneCodeSnippet> {
         'overflow': 'hidden',
       }),
       [
-        // Header with title and copy button
-        if (component.title != null || component.showCopyButton)
+        // Language/title label (top-left, if present)
+        if (component.title != null || component.language != null)
           div(
-            classes: 'arcane-code-snippet-header',
             styles: const Styles(raw: {
-              'display': 'flex',
-              'align-items': 'center',
-              'justify-content': 'space-between',
+              'position': 'absolute',
+              'top': '0',
+              'left': '0',
               'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
-              'background-color': ArcaneColors.surfaceVariant,
-              'border-bottom': '1px solid ${ArcaneColors.border}',
+              'z-index': '1',
             }),
             [
-              // Title/Language
-              div(
-                styles: const Styles(raw: {
-                  'display': 'flex',
-                  'align-items': 'center',
-                  'gap': ArcaneSpacing.sm,
-                }),
-                [
-                  if (component.title != null)
-                    span(
-                      styles: const Styles(raw: {
-                        'font-size': ArcaneTypography.fontSm,
-                        'font-weight': ArcaneTypography.weightMedium,
-                        'color': ArcaneColors.onSurface,
-                      }),
-                      [text(component.title!)],
-                    )
-                  else if (component.language != null)
-                    span(
-                      styles: const Styles(raw: {
-                        'font-size': ArcaneTypography.fontXs,
-                        'font-weight': ArcaneTypography.weightMedium,
-                        'color': ArcaneColors.muted,
-                        'text-transform': 'uppercase',
-                      }),
-                      [text(component.language!)],
-                    ),
-                ],
-              ),
-
-              // Copy button
-              if (component.showCopyButton)
-                button(
-                  classes: 'arcane-code-copy-btn',
-                  attributes: {
-                    'type': 'button',
-                    'aria-label': 'Copy code',
-                    'data-code': component.code,
-                  },
-                  styles: Styles(raw: {
-                    'display': 'flex',
-                    'align-items': 'center',
-                    'gap': '6px',
-                    'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
+              if (component.title != null)
+                span(
+                  styles: const Styles(raw: {
+                    'font-size': ArcaneTypography.fontSm,
+                    'font-weight': ArcaneTypography.weightMedium,
+                    'color': ArcaneColors.muted,
+                  }),
+                  [text(component.title!)],
+                )
+              else if (component.language != null)
+                span(
+                  styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontXs,
                     'font-weight': ArcaneTypography.weightMedium,
-                    'color': _copied ? ArcaneColors.success : ArcaneColors.muted,
-                    'background': ArcaneColors.transparent,
-                    'border': '1px solid ${ArcaneColors.border}',
-                    'border-radius': ArcaneRadius.sm,
-                    'cursor': 'pointer',
-                    'transition': ArcaneEffects.transitionFast,
+                    'color': ArcaneColors.muted,
+                    'text-transform': 'uppercase',
+                    'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
+                    'background-color': ArcaneColors.surfaceVariant,
+                    'border-radius': ArcaneRadius.xs,
                   }),
-                  events: {
-                    'click': (e) => _copyToClipboard(),
-                  },
-                  [
-                    text(_copied ? 'Copied!' : 'Copy'),
-                  ],
+                  [text(component.language!)],
                 ),
+            ],
+          ),
+
+        // Copy button (top-right, overlaid)
+        if (component.showCopyButton)
+          div(
+            styles: const Styles(raw: {
+              'position': 'absolute',
+              'top': '0',
+              'right': '0',
+              'padding': ArcaneSpacing.sm,
+              'z-index': '2',
+            }),
+            [
+              button(
+                classes: 'arcane-code-copy-btn',
+                attributes: {
+                  'type': 'button',
+                  'aria-label': 'Copy code',
+                  'data-code': component.code,
+                },
+                styles: Styles(raw: {
+                  'display': 'flex',
+                  'align-items': 'center',
+                  'justify-content': 'center',
+                  'width': '28px',
+                  'height': '28px',
+                  'padding': '0',
+                  'color': _copied ? ArcaneColors.success : ArcaneColors.muted,
+                  'background': ArcaneColors.transparent,
+                  'border': 'none',
+                  'border-radius': ArcaneRadius.sm,
+                  'cursor': 'pointer',
+                  'transition': ArcaneEffects.transitionFast,
+                }),
+                events: {
+                  'click': (e) => _copyToClipboard(),
+                },
+                [
+                  _copied
+                      ? ArcaneIcon.check(size: IconSize.sm)
+                      : ArcaneIcon.copy(size: IconSize.sm),
+                ],
+              ),
             ],
           ),
 
@@ -148,6 +159,9 @@ class _CodeSnippetState extends State<ArcaneCodeSnippet> {
           styles: Styles(raw: {
             'overflow': 'auto',
             if (component.maxHeight != null) 'max-height': '${component.maxHeight}px',
+            // Add top padding when there's a language label or title
+            if (component.title != null || component.language != null)
+              'padding-top': '40px',
           }),
           [
             Component.element(
@@ -259,8 +273,8 @@ class ArcaneInlineCode extends StatelessComponent {
   }
 }
 
-/// A terminal/command line component
-class ArcaneTerminal extends StatelessComponent {
+/// A terminal/command line component with copy button overlaid in top-right
+class ArcaneTerminal extends StatefulComponent {
   /// Commands to display
   final List<String> commands;
 
@@ -282,25 +296,51 @@ class ArcaneTerminal extends StatelessComponent {
   });
 
   @override
+  State<ArcaneTerminal> createState() => _TerminalState();
+
+  @css
+  static final List<StyleRule> styles = [
+    css('.arcane-terminal-copy:hover').styles(raw: {
+      'color': ArcaneColors.onSurface,
+      'background-color': ArcaneColors.surfaceVariant,
+    }),
+  ];
+}
+
+class _TerminalState extends State<ArcaneTerminal> {
+  bool _copied = false;
+
+  void _copyToClipboard() {
+    setState(() => _copied = true);
+    // Reset after 2 seconds
+    Future.delayed(const Duration(seconds: 2), () {
+      if (mounted) {
+        setState(() => _copied = false);
+      }
+    });
+  }
+
+  @override
   Component build(BuildContext context) {
-    final String allCommands = commands.join('\n');
+    final String allCommands = component.commands.join('\n');
 
     return div(
       classes: 'arcane-terminal',
       styles: const Styles(raw: {
+        'position': 'relative',
         'background-color': ArcaneColors.codeBackground,
         'border': '1px solid ${ArcaneColors.border}',
         'border-radius': ArcaneRadius.md,
         'overflow': 'hidden',
       }),
       [
-        // Terminal header
+        // Terminal header with window dots
         div(
           classes: 'arcane-terminal-header',
           styles: const Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'justify-content': 'space-between',
+            'gap': ArcaneSpacing.md,
             'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
             'background-color': ArcaneColors.surfaceVariant,
             'border-bottom': '1px solid ${ArcaneColors.border}',
@@ -319,18 +359,29 @@ class ArcaneTerminal extends StatelessComponent {
               ],
             ),
             // Title
-            if (title != null)
+            if (component.title != null)
               span(
                 styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontSm,
                   'color': ArcaneColors.muted,
+                  'flex': '1',
                 }),
-                [text(title!)],
-              )
-            else
-              const span([]),
-            // Copy button
-            if (showCopyButton)
+                [text(component.title!)],
+              ),
+          ],
+        ),
+
+        // Copy button (top-right, overlaid over content area)
+        if (component.showCopyButton)
+          div(
+            styles: const Styles(raw: {
+              'position': 'absolute',
+              'top': '40px', // Below header
+              'right': '0',
+              'padding': ArcaneSpacing.sm,
+              'z-index': '2',
+            }),
+            [
               button(
                 classes: 'arcane-terminal-copy',
                 attributes: {
@@ -338,22 +389,32 @@ class ArcaneTerminal extends StatelessComponent {
                   'aria-label': 'Copy commands',
                   'data-code': allCommands,
                 },
-                styles: const Styles(raw: {
-                  'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
-                  'font-size': ArcaneTypography.fontXs,
-                  'color': ArcaneColors.muted,
+                styles: Styles(raw: {
+                  'display': 'flex',
+                  'align-items': 'center',
+                  'justify-content': 'center',
+                  'width': '28px',
+                  'height': '28px',
+                  'padding': '0',
+                  'color': _copied ? ArcaneColors.success : ArcaneColors.muted,
                   'background': ArcaneColors.transparent,
-                  'border': '1px solid ${ArcaneColors.border}',
+                  'border': 'none',
                   'border-radius': ArcaneRadius.sm,
                   'cursor': 'pointer',
                   'transition': ArcaneEffects.transitionFast,
                 }),
-                [text('Copy')],
-              )
-            else
-              const span([]),
-          ],
-        ),
+                events: {
+                  'click': (e) => _copyToClipboard(),
+                },
+                [
+                  _copied
+                      ? ArcaneIcon.check(size: IconSize.sm)
+                      : ArcaneIcon.copy(size: IconSize.sm),
+                ],
+              ),
+            ],
+          ),
+
         // Terminal content
         Component.element(
           tag: 'pre',
@@ -364,14 +425,14 @@ class ArcaneTerminal extends StatelessComponent {
             'overflow-x': 'auto',
           }),
           children: [
-            for (final cmd in commands) ...[
+            for (final cmd in component.commands) ...[
               span(
                 styles: const Styles(raw: {
                   'color': ArcaneColors.success,
                   'font-family': ArcaneTypography.fontFamilyMono,
                   'font-size': ArcaneTypography.fontSm,
                 }),
-                [text('$prompt ')],
+                [text('${component.prompt} ')],
               ),
               span(
                 styles: const Styles(raw: {
@@ -400,12 +461,4 @@ class ArcaneTerminal extends StatelessComponent {
       [],
     );
   }
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-terminal-copy:hover').styles(raw: {
-      'color': ArcaneColors.onSurface,
-      'border-color': ArcaneColors.muted,
-    }),
-  ];
 }
