@@ -3,7 +3,7 @@ import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/props/promo_props.dart';
 
-/// Neon Marquee Ticker Bar renderer.
+/// Neon Marquee Ticker Bar renderer (neutral placeholder skeleton).
 ///
 /// A scrolling marquee-style announcement bar.
 class NeonMarqueeTickerBar extends StatefulComponent {
@@ -51,20 +51,13 @@ class _NeonMarqueeTickerBarState extends State<NeonMarqueeTickerBar> {
           'display': 'flex',
           'align-items': 'center',
           'overflow': 'hidden',
-          // Neon: glass effect
-          'background-color': 'rgba(10, 10, 10, 0.95)',
-          'backdrop-filter': 'blur(12px)',
-          '-webkit-backdrop-filter': 'blur(12px)',
+          'background-color': 'var(--card)',
           'border-bottom': component.props.showAtBottom
               ? 'none'
-              : '1px solid var(--neon-accent)',
+              : '1px solid var(--border)',
           'border-top': component.props.showAtBottom
-              ? '1px solid var(--neon-accent)'
+              ? '1px solid var(--border)'
               : 'none',
-          // Neon: accent glow
-          'box-shadow': component.props.showAtBottom
-              ? '0 -4px 20px color-mix(in srgb, var(--neon-accent) 15%, transparent)'
-              : '0 4px 20px color-mix(in srgb, var(--neon-accent) 15%, transparent)',
         },
       ),
       [
@@ -106,14 +99,14 @@ class _NeonMarqueeTickerBarState extends State<NeonMarqueeTickerBar> {
                     styles: const dom.Styles(
                       raw: {
                         'padding': '0.25rem 0.75rem',
-                        'background': 'color-mix(in srgb, var(--neon-accent) 15%, transparent)',
-                        'border': '1px solid color-mix(in srgb, var(--neon-accent) 30%, transparent)',
+                        'background': 'var(--muted)',
+                        'border': '1px solid var(--border)',
                         'border-radius': 'var(--radius-sm)',
                         'font-family':
                             'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                         'font-size': 'var(--font-size-sm)',
                         'font-weight': 'var(--font-weight-bold)',
-                        'color': 'var(--neon-accent)',
+                        'color': 'var(--foreground)',
                       },
                     ),
                     [Component.text(component.props.promoCode!)],
@@ -147,14 +140,14 @@ class _NeonMarqueeTickerBarState extends State<NeonMarqueeTickerBar> {
                     styles: const dom.Styles(
                       raw: {
                         'padding': '0.25rem 0.75rem',
-                        'background': 'color-mix(in srgb, var(--neon-accent) 15%, transparent)',
-                        'border': '1px solid color-mix(in srgb, var(--neon-accent) 30%, transparent)',
+                        'background': 'var(--muted)',
+                        'border': '1px solid var(--border)',
                         'border-radius': 'var(--radius-sm)',
                         'font-family':
                             'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                         'font-size': 'var(--font-size-sm)',
                         'font-weight': 'var(--font-weight-bold)',
-                        'color': 'var(--neon-accent)',
+                        'color': 'var(--foreground)',
                       },
                     ),
                     [Component.text(component.props.promoCode!)],
@@ -175,8 +168,7 @@ class _NeonMarqueeTickerBarState extends State<NeonMarqueeTickerBar> {
                 'align-items': 'center',
                 'gap': '1rem',
                 'padding': '0 1rem',
-                'background':
-                    'linear-gradient(90deg, transparent, rgba(10, 10, 10, 0.95) 20%)',
+                'background': 'var(--card)',
               },
             ),
             [
@@ -185,15 +177,14 @@ class _NeonMarqueeTickerBarState extends State<NeonMarqueeTickerBar> {
                 styles: const dom.Styles(
                   raw: {
                     'padding': '0.5rem 1rem',
-                    'background': 'var(--neon-accent)',
+                    'background': 'var(--primary)',
                     'border': 'none',
                     'border-radius': 'var(--radius-sm)',
-                    'color': '#ffffff',
+                    'color': 'var(--primary-foreground)',
                     'font-size': 'var(--font-size-sm)',
                     'font-weight': 'var(--font-weight-medium)',
                     'text-decoration': 'none',
                     'cursor': 'pointer',
-                    'box-shadow': '0 14px 10px color-mix(in srgb, var(--neon-accent) 30%, transparent)',
                   },
                 ),
                 events: component.props.onCtaClick != null

@@ -1,19 +1,9 @@
 import 'package:arcane_jaspr/core/props/slider_props.dart';
 import 'package:arcane_jaspr/core/rendering/base/slider_render_base.dart';
 
-/// Neon slider renderer with restrained accent treatment.
+/// Neon slider renderer (neutralized skeleton).
 class NeonSlider extends SliderRenderBase {
   const NeonSlider(super.props, {super.key});
-
-  String get _tone => switch (props.variant) {
-    SliderVariant.primary => 'var(--neon-accent)',
-    SliderVariant.success => 'var(--success)',
-    SliderVariant.warning => 'var(--warning)',
-    SliderVariant.error => 'var(--destructive)',
-  };
-
-  String get _fillGradient =>
-      'linear-gradient(90deg, color-mix(in srgb, $_tone 70%, var(--neon-accent-cool)), $_tone)';
 
   @override
   String get classPrefix => 'neon-slider';
@@ -48,37 +38,13 @@ class NeonSlider extends SliderRenderBase {
   };
 
   @override
-  Map<String, String> labelTextStyles() => const <String, String>{
-    'font-family': 'var(--font-heading)',
-    'font-size': '0.75rem',
-    'font-weight': '600',
-    'letter-spacing': '0.08em',
-    'text-transform': 'uppercase',
-    'color': 'var(--muted-foreground)',
-  };
+  Map<String, String> labelTextStyles() => const <String, String>{};
 
   @override
-  Map<String, String> valueTextStyles() => const <String, String>{
-    'font-size': 'var(--font-size-sm)',
-    'font-weight': 'var(--font-weight-semibold)',
-    'font-variant-numeric': 'tabular-nums',
-    'color': 'var(--neon-accent)',
-    'min-width': '52px',
-    'text-align': 'right',
-  };
+  Map<String, String> valueTextStyles() => const <String, String>{};
 
   @override
-  Map<String, String> trackStyles(String trackHeight) => <String, String>{
-    'position': 'absolute',
-    'left': '0',
-    'right': '0',
-    'height': trackHeight,
-    'background': 'color-mix(in srgb, var(--neon-surface-2) 88%, transparent)',
-    'border': '1px solid var(--neon-panel-border)',
-    'border-radius': '999px',
-    'overflow': 'hidden',
-    'box-shadow': 'var(--neon-inset)',
-  };
+  Map<String, String> trackStyles(String trackHeight) => const <String, String>{};
 
   @override
   Map<String, String> trackFillStyles({
@@ -86,68 +52,18 @@ class NeonSlider extends SliderRenderBase {
     required double percentage,
     required double loPct,
     required double hiPct,
-  }) {
-    if (!isRange) {
-      return <String, String>{
-        'position': 'absolute',
-        'left': '0',
-        'top': '0',
-        'width': '$percentage%',
-        'height': '100%',
-        'background': _fillGradient,
-        'box-shadow':
-            'inset 0 0 12px color-mix(in srgb, $_tone 28%, transparent)',
-        'transition': 'width 0.1s ease-out',
-      };
-    }
-    return <String, String>{
-      'position': 'absolute',
-      'left': '$loPct%',
-      'right': '${100 - hiPct}%',
-      'top': '0',
-      'height': '100%',
-      'background': _fillGradient,
-      'box-shadow':
-          'inset 0 0 12px color-mix(in srgb, $_tone 28%, transparent)',
-      'transition': 'left 0.1s ease-out, right 0.1s ease-out',
-    };
-  }
+  }) => const <String, String>{};
 
   @override
-  Map<String, String> stepMarkerStyles() => <String, String>{
-    'width': '3px',
-    'height': '3px',
-    'border-radius': '50%',
-    'background': 'color-mix(in srgb, $_tone 55%, var(--muted-foreground))',
-  };
+  Map<String, String> stepMarkerStyles() => const <String, String>{};
 
   @override
   Map<String, String> thumbStyles({
     required double leftPct,
     required String thumbSize,
     required int thumbSizeNum,
-  }) => <String, String>{
-    'position': 'absolute',
-    'left': 'calc($leftPct% - ${thumbSizeNum / 2}px)',
-    'top': '50%',
-    'transform': 'translateY(-50%)',
-    'width': thumbSize,
-    'height': thumbSize,
-    'background':
-        'radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--card) 88%, $_tone), var(--card))',
-    'border': '1.5px solid $_tone',
-    'border-radius': '50%',
-    'box-shadow':
-        '0 0 0 2px color-mix(in srgb, $_tone 22%, transparent), 0 6px 14px rgba(0, 0, 0, 0.32)',
-    'transition': 'left 0.1s ease-out',
-    'cursor': props.disabled ? 'not-allowed' : 'grab',
-    'z-index': '2',
-  };
+  }) => const <String, String>{};
 
   @override
-  Map<String, String> minMaxLabelStyles() => const <String, String>{
-    'font-size': 'var(--font-size-sm)',
-    'font-variant-numeric': 'tabular-nums',
-    'color': 'var(--muted-foreground)',
-  };
+  Map<String, String> minMaxLabelStyles() => const <String, String>{};
 }

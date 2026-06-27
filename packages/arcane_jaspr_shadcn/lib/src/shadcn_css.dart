@@ -133,9 +133,12 @@ html:has(#arcane-root.arcane-theme-shadcn) body::-webkit-scrollbar-thumb:hover,
 }
 
 #arcane-root.arcane-theme-shadcn .kb-topbar {
-  position: static;
+  position: sticky;
+  top: 0;
+  z-index: 50;
   border: 0;
-  background: transparent;
+  border-bottom: 1px solid var(--shadcn-hairline);
+  background: var(--background);
   box-shadow: none;
 }
 
@@ -262,6 +265,17 @@ html:has(#arcane-root.arcane-theme-shadcn) body::-webkit-scrollbar-thumb:hover,
 
 #arcane-root.arcane-theme-shadcn .arcane-scaffold-sidebar .kb-sidebar-panel {
   min-height: 0 !important;
+}
+
+/* Docs knowledge-base sidebar (rendered directly under .kb-scaffold, not the
+   arcane scaffold). Pin it directly below the 3.5rem sticky topbar and let it
+   scroll on its own instead of forcing the whole page to scroll. The inline
+   --kb-sidebar-rail-top (56px) otherwise double-counts the topbar height,
+   leaving a gap above the nav. */
+#arcane-root.arcane-theme-shadcn .shadcn-kb-sidebar {
+  top: 3.5rem;
+  max-height: calc(100vh - 3.5rem);
+  overflow-y: auto;
 }
 
 #arcane-root.arcane-theme-shadcn .sidebar-header {
@@ -437,19 +451,30 @@ html:has(#arcane-root.arcane-theme-shadcn) body::-webkit-scrollbar-thumb:hover,
 
 #arcane-root.arcane-theme-shadcn .kb-content-area {
   display: grid !important;
-  grid-template-columns: minmax(0, 1fr) minmax(12rem, 17rem) !important;
+  grid-template-columns: minmax(0, 1fr) !important;
   align-items: start !important;
   width: 100% !important;
-  max-width: none !important;
-  margin: 0 !important;
+  max-width: var(--container-2xl, 90rem) !important;
+  margin: 0 auto !important;
   gap: clamp(1.75rem, 3vw, 3rem) !important;
   padding: clamp(1.75rem, 3vw, 3rem) clamp(1.5rem, 4vw, 3.5rem) !important;
+}
+
+/* Reserve the right-hand TOC column only when a table of contents is actually
+   present (prose pages with headings). TOC-less pages (e.g. component docs)
+   render a single centered column instead of leaving an empty 17rem gap. */
+@media (min-width: 1201px) {
+  #arcane-root.arcane-theme-shadcn .kb-content-area:has(.kb-toc-panel) {
+    grid-template-columns: minmax(0, 1fr) minmax(12rem, 17rem) !important;
+  }
 }
 
 #arcane-root.arcane-theme-shadcn .kb-article-panel {
   min-width: 0 !important;
   width: 100% !important;
   max-width: 68rem !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 #arcane-root.arcane-theme-shadcn .kb-page-metadata,

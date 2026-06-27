@@ -13,18 +13,18 @@ class NeonScrollRail extends ScrollRailRenderBase {
   String get idPrefix => 'neon-scroll-rail-';
 
   @override
-  String get defaultBackground => 'var(--neon-surface-1)';
+  String get defaultBackground => 'transparent';
 
   @override
   String borderStyle(bool showBorder) {
     if (!showBorder) {
       return 'none';
     }
-    return '1px solid var(--neon-control-border)';
+    return '1px solid var(--border)';
   }
 
   @override
-  String get scrollbarColor => 'var(--neon-accent) transparent';
+  String get scrollbarColor => 'auto';
 }
 
 class NeonScrollRailLayout extends ScrollRailLayoutRenderBase {
@@ -40,7 +40,7 @@ class NeonScrollRailLayout extends ScrollRailLayoutRenderBase {
   String get mainRailPersistenceId => 'neon-main-rail';
 
   @override
-  String get defaultContentBackground => 'var(--neon-surface-0)';
+  String get defaultContentBackground => 'transparent';
 
   @override
   Component buildRail(ScrollRailProps railProps) => NeonScrollRail(railProps);

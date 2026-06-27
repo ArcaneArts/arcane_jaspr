@@ -7,7 +7,7 @@ import 'package:arcane_jaspr/core/rendering/base/confirm_dialog_render_base.dart
 import 'button.dart';
 import 'dialog.dart';
 
-/// Neon Confirm Dialog renderer.
+/// Neon Confirm Dialog renderer (neutralized skeleton).
 class NeonConfirmDialog extends ConfirmDialogRenderBase {
   const NeonConfirmDialog(super.props, {super.key});
 
@@ -30,34 +30,23 @@ class NeonConfirmDialog extends ConfirmDialogRenderBase {
   String get messageFontSize => '0.9375rem';
 
   @override
-  Component buildIcon(Component icon, bool destructive) {
-    final String accent = destructive
-        ? 'var(--destructive)'
-        : 'var(--neon-accent)';
-    return dom.div(
-      classes: 'neon-confirm-dialog-icon',
-      styles: dom.Styles(
-        raw: {
-          'display': 'inline-flex',
-          'align-items': 'center',
-          'justify-content': 'center',
-          'width': '3rem',
-          'height': '3rem',
-          'font-size': '1.5rem',
-          'color': accent,
-          'background': 'color-mix(in srgb, $accent 8%, transparent)',
-          'border': '1px solid color-mix(in srgb, $accent 32%, transparent)',
-          'border-radius': 'var(--neon-radius-control)',
-          'clip-path': 'var(--neon-clip-xs)',
-          'box-shadow': '0 0 18px color-mix(in srgb, $accent 22%, transparent)',
-        },
-      ),
-      [icon],
-    );
-  }
+  Component buildIcon(Component icon, bool destructive) => dom.div(
+    classes: 'neon-confirm-dialog-icon',
+    styles: const dom.Styles(
+      raw: <String, String>{
+        'display': 'inline-flex',
+        'align-items': 'center',
+        'justify-content': 'center',
+        'width': '3rem',
+        'height': '3rem',
+        'font-size': '1.5rem',
+      },
+    ),
+    <Component>[icon],
+  );
 }
 
-/// Neon Alert Dialog renderer.
+/// Neon Alert Dialog renderer (neutralized skeleton).
 class NeonAlertDialog extends AlertDialogRenderBase {
   const NeonAlertDialog(super.props, {super.key});
 
@@ -80,23 +69,15 @@ class NeonAlertDialog extends AlertDialogRenderBase {
   Component buildIcon(Component icon) => dom.div(
     classes: 'neon-confirm-dialog-icon',
     styles: const dom.Styles(
-      raw: {
+      raw: <String, String>{
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
         'width': '3rem',
         'height': '3rem',
         'font-size': '1.5rem',
-        'color': 'var(--neon-accent)',
-        'background': 'color-mix(in srgb, var(--neon-accent) 8%, transparent)',
-        'border':
-            '1px solid color-mix(in srgb, var(--neon-accent) 32%, transparent)',
-        'border-radius': 'var(--neon-radius-control)',
-        'clip-path': 'var(--neon-clip-xs)',
-        'box-shadow':
-            '0 0 18px color-mix(in srgb, var(--neon-accent) 22%, transparent)',
       },
     ),
-    [icon],
+    <Component>[icon],
   );
 }

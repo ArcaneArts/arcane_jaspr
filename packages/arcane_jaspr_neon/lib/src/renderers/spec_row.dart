@@ -1,9 +1,6 @@
 import 'package:arcane_jaspr/core/rendering/base/spec_row_render_base.dart';
 
-/// Neon SpecRow renderer.
-///
-/// Displays a label-value pair with space-between layout.
-/// Used in pricing cards for specifications.
+/// Neon SpecRow renderer (neutralized skeleton).
 class NeonSpecRow extends SpecRowRenderBase {
   const NeonSpecRow(super.props, {super.key});
 
@@ -11,7 +8,7 @@ class NeonSpecRow extends SpecRowRenderBase {
   String get cssPrefix => 'neon';
 
   @override
-  String get highlightColor => 'var(--neon-accent)';
+  String get highlightColor => 'var(--foreground)';
 
   @override
   String get valueFontWeight => 'var(--font-weight-semibold)';

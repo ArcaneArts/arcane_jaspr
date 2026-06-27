@@ -5,7 +5,7 @@ import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/props/promo_props.dart';
 
-/// Neon Corner Promo Toast renderer.
+/// Neon Corner Promo Toast renderer (neutral placeholder skeleton).
 ///
 /// A corner toast-style promo notification that slides in from a corner.
 class NeonCornerPromoToast extends StatefulComponent {
@@ -76,15 +76,10 @@ class _NeonCornerPromoToastState extends State<NeonCornerPromoToast> {
           'z-index': '100',
           'width': '340px',
           'max-width': 'calc(100vw - 3rem)',
-          // Neon: glass effect
-          'background-color': 'rgba(10, 10, 10, 0.95)',
-          'backdrop-filter': 'blur(12px)',
-          '-webkit-backdrop-filter': 'blur(12px)',
-          'border': '1px solid var(--neon-accent)',
+          'background-color': 'var(--card)',
+          'border': '1px solid var(--border)',
           'border-radius': 'var(--radius-lg)',
-          // Neon: accent glow
-          'box-shadow':
-              '0 0 30px color-mix(in srgb, var(--neon-accent) 20%, transparent), 0 20px 40px -12px rgba(0, 0, 0, 0.4)',
+          'box-shadow': '0 8px 24px rgba(0, 0, 0, 0.15)',
           'padding': '1.25rem',
         },
       ),
@@ -111,9 +106,9 @@ class _NeonCornerPromoToastState extends State<NeonCornerPromoToast> {
                     'display': 'flex',
                     'align-items': 'center',
                     'justify-content': 'center',
-                    'background': 'color-mix(in srgb, var(--neon-accent) 15%, transparent)',
+                    'background': 'var(--muted)',
                     'border-radius': 'var(--radius)',
-                    'color': 'var(--neon-accent)',
+                    'color': 'var(--foreground)',
                   },
                 ),
                 [component.props.icon!],
@@ -177,8 +172,8 @@ class _NeonCornerPromoToastState extends State<NeonCornerPromoToast> {
             styles: const dom.Styles(
               raw: {
                 'padding': '0.625rem',
-                'background': 'color-mix(in srgb, var(--neon-accent) 10%, transparent)',
-                'border': '1px dashed color-mix(in srgb, var(--neon-accent) 30%, transparent)',
+                'background': 'var(--muted)',
+                'border': '1px dashed var(--border)',
                 'border-radius': 'var(--radius-sm)',
                 'margin-bottom': '0.875rem',
                 'text-align': 'center',
@@ -192,8 +187,7 @@ class _NeonCornerPromoToastState extends State<NeonCornerPromoToast> {
                         'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                     'font-size': 'var(--font-size-base)',
                     'font-weight': 'var(--font-weight-bold)',
-                    'color': 'var(--neon-accent)',
-                    'letter-spacing': '0',
+                    'color': 'var(--foreground)',
                   },
                 ),
                 [Component.text(component.props.promoCode!)],
@@ -210,17 +204,16 @@ class _NeonCornerPromoToastState extends State<NeonCornerPromoToast> {
                 'display': 'block',
                 'width': '100%',
                 'padding': '0.75rem',
-                'background': 'var(--neon-accent)',
+                'background': 'var(--primary)',
                 'border': 'none',
                 'border-radius': 'var(--radius)',
-                'color': '#ffffff',
+                'color': 'var(--primary-foreground)',
                 'font-size': 'var(--font-size-sm)',
                 'font-weight': 'var(--font-weight-semibold)',
                 'text-align': 'center',
                 'text-decoration': 'none',
                 'cursor': 'pointer',
                 'transition': 'all var(--transition)',
-                'box-shadow': '0 14px 15px color-mix(in srgb, var(--neon-accent) 30%, transparent)',
               },
             ),
             events: component.props.onCtaClick != null

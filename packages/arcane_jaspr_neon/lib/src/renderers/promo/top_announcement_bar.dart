@@ -3,12 +3,9 @@ import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/props/promo_props.dart';
 
-/// Neon Top Announcement Bar renderer.
+/// Neon Top Announcement Bar renderer (neutral placeholder skeleton).
 ///
-/// A thin sticky announcement bar at the top of the page with Neon styling:
-/// - Glass effect with backdrop blur
-/// - Accent-colored glows
-/// - OLED-optimized dark background
+/// A thin sticky announcement bar at the top of the page.
 class NeonTopAnnouncementBar extends StatefulComponent {
   final TopAnnouncementBarProps props;
 
@@ -63,11 +60,8 @@ class _NeonTopAnnouncementBarState extends State<NeonTopAnnouncementBar> {
           'justify-content': 'center',
           'gap': '1rem',
           'padding': '0.5rem 1.5rem',
-          'background-color': 'rgba(10, 10, 10, 0.95)',
-          'backdrop-filter': 'blur(12px)',
-          '-webkit-backdrop-filter': 'blur(12px)',
-          'border-bottom': '1px solid var(--neon-accent)',
-          'box-shadow': '0 14px 20px color-mix(in srgb, var(--neon-accent) 20%, transparent)',
+          'background-color': 'var(--card)',
+          'border-bottom': '1px solid var(--border)',
         },
       ),
       [
@@ -94,15 +88,14 @@ class _NeonTopAnnouncementBarState extends State<NeonTopAnnouncementBar> {
                 styles: const dom.Styles(
                   raw: {
                     'padding': '0.375rem 0.75rem',
-                    'background': 'color-mix(in srgb, var(--neon-accent) 15%, transparent)',
-                    'border': '1px solid color-mix(in srgb, var(--neon-accent) 30%, transparent)',
+                    'background': 'var(--muted)',
+                    'border': '1px solid var(--border)',
                     'border-radius': 'var(--radius-sm)',
                     'font-family':
                         'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                     'font-size': 'var(--font-size-sm)',
                     'font-weight': 'var(--font-weight-semibold)',
-                    'color': 'var(--neon-accent)',
-                    'letter-spacing': '0',
+                    'color': 'var(--foreground)',
                   },
                 ),
                 [Component.text(component.props.promoCode!)],
@@ -134,16 +127,15 @@ class _NeonTopAnnouncementBarState extends State<NeonTopAnnouncementBar> {
             styles: const dom.Styles(
               raw: {
                 'padding': '0.5rem 1rem',
-                'background': 'var(--neon-accent)',
+                'background': 'var(--primary)',
                 'border': 'none',
                 'border-radius': 'var(--radius-sm)',
-                'color': '#ffffff',
+                'color': 'var(--primary-foreground)',
                 'font-size': 'var(--font-size-sm)',
                 'font-weight': 'var(--font-weight-medium)',
                 'text-decoration': 'none',
                 'cursor': 'pointer',
                 'transition': 'all var(--transition)',
-                'box-shadow': '0 14px 10px color-mix(in srgb, var(--neon-accent) 30%, transparent)',
               },
             ),
             events: component.props.onCtaClick != null

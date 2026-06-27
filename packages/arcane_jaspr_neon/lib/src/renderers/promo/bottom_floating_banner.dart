@@ -5,7 +5,7 @@ import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/props/promo_props.dart';
 
-/// Neon Bottom Floating Banner renderer.
+/// Neon Bottom Floating Banner renderer (neutral placeholder skeleton).
 ///
 /// Bottom floating banner that slides up with optional countdown timer.
 class NeonBottomFloatingBanner extends StatefulComponent {
@@ -118,15 +118,10 @@ class _NeonBottomFloatingBannerState extends State<NeonBottomFloatingBanner> {
           'gap': '1.5rem',
           'padding': '1.25rem 2rem',
           'max-width': '90vw',
-          // Neon: glass effect
-          'background-color': 'rgba(10, 10, 10, 0.95)',
-          'backdrop-filter': 'blur(12px)',
-          '-webkit-backdrop-filter': 'blur(12px)',
-          'border': '1px solid var(--neon-accent)',
+          'background-color': 'var(--card)',
+          'border': '1px solid var(--border)',
           'border-radius': 'var(--radius-lg)',
-          // Neon: accent glow
-          'box-shadow':
-              '0 0 40px color-mix(in srgb, var(--neon-accent) 25%, transparent), 0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+          'box-shadow': '0 8px 24px rgba(0, 0, 0, 0.15)',
         },
       ),
       [
@@ -171,8 +166,8 @@ class _NeonBottomFloatingBannerState extends State<NeonBottomFloatingBanner> {
                 'flex-direction': 'column',
                 'align-items': 'center',
                 'padding': '0.75rem 1rem',
-                'background': 'color-mix(in srgb, var(--neon-accent) 10%, transparent)',
-                'border': '1px solid color-mix(in srgb, var(--neon-accent) 20%, transparent)',
+                'background': 'var(--muted)',
+                'border': '1px solid var(--border)',
                 'border-radius': 'var(--radius)',
               },
             ),
@@ -182,8 +177,6 @@ class _NeonBottomFloatingBannerState extends State<NeonBottomFloatingBanner> {
                   raw: {
                     'font-size': 'var(--font-size-xs)',
                     'color': 'var(--muted-foreground)',
-                    'text-transform': 'uppercase',
-                    'letter-spacing': '0',
                   },
                 ),
                 [Component.text('Ends in')],
@@ -195,7 +188,7 @@ class _NeonBottomFloatingBannerState extends State<NeonBottomFloatingBanner> {
                         'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                     'font-size': 'var(--font-size-lg)',
                     'font-weight': 'var(--font-weight-bold)',
-                    'color': 'var(--neon-accent)',
+                    'color': 'var(--foreground)',
                   },
                 ),
                 [Component.text(_formatCountdown(_remainingTime!))],
@@ -209,15 +202,14 @@ class _NeonBottomFloatingBannerState extends State<NeonBottomFloatingBanner> {
             styles: const dom.Styles(
               raw: {
                 'padding': '0.5rem 1rem',
-                'background': 'color-mix(in srgb, var(--neon-accent) 15%, transparent)',
-                'border': '1px dashed var(--neon-accent)',
+                'background': 'var(--muted)',
+                'border': '1px dashed var(--border)',
                 'border-radius': 'var(--radius-sm)',
                 'font-family':
                     'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                 'font-size': 'var(--font-size-sm)',
                 'font-weight': 'var(--font-weight-semibold)',
-                'color': 'var(--neon-accent)',
-                'letter-spacing': '0',
+                'color': 'var(--foreground)',
               },
             ),
             [Component.text(component.props.promoCode!)],
@@ -230,16 +222,15 @@ class _NeonBottomFloatingBannerState extends State<NeonBottomFloatingBanner> {
             styles: const dom.Styles(
               raw: {
                 'padding': '0.75rem 1.5rem',
-                'background': 'var(--neon-accent)',
+                'background': 'var(--primary)',
                 'border': 'none',
                 'border-radius': 'var(--radius)',
-                'color': '#ffffff',
+                'color': 'var(--primary-foreground)',
                 'font-size': 'var(--font-size-sm)',
                 'font-weight': 'var(--font-weight-semibold)',
                 'text-decoration': 'none',
                 'cursor': 'pointer',
                 'transition': 'all var(--transition)',
-                'box-shadow': '0 14px 15px color-mix(in srgb, var(--neon-accent) 40%, transparent)',
               },
             ),
             events: component.props.onCtaClick != null

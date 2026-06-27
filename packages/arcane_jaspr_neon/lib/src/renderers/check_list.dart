@@ -4,7 +4,7 @@ import 'package:jaspr/dom.dart' as dom;
 import 'package:arcane_jaspr/core/props/check_list_props.dart';
 import 'package:arcane_jaspr/core/rendering/base/check_list_render_base.dart';
 
-/// Neon CheckItem renderer.
+/// Neon CheckItem renderer (neutralized skeleton).
 class NeonCheckItem extends CheckItemRenderBase {
   const NeonCheckItem(super.props, {super.key});
 
@@ -12,10 +12,10 @@ class NeonCheckItem extends CheckItemRenderBase {
   String get themePrefix => 'neon';
 
   @override
-  String get defaultIconColor => 'var(--neon-accent)';
+  String get defaultIconColor => 'currentColor';
 }
 
-/// Neon CheckList renderer.
+/// Neon CheckList renderer (neutralized skeleton).
 class NeonCheckList extends CheckListRenderBase {
   const NeonCheckList(super.props, {super.key});
 
@@ -26,10 +26,7 @@ class NeonCheckList extends CheckListRenderBase {
   Component buildCheckItem(CheckItemProps itemProps) => NeonCheckItem(itemProps);
 }
 
-/// Neon FeatureRow renderer.
-///
-/// Displays a feature with check/x indicator for included/excluded states.
-/// Supports circular icon containers, strikethrough, and tooltips.
+/// Neon FeatureRow renderer (neutralized skeleton).
 class NeonFeatureRow extends FeatureRowRenderBase {
   const NeonFeatureRow(super.props, {super.key});
 
@@ -37,7 +34,7 @@ class NeonFeatureRow extends FeatureRowRenderBase {
   String get themePrefix => 'neon';
 
   @override
-  String get defaultIncludedColor => 'var(--neon-accent)';
+  String get defaultIncludedColor => 'currentColor';
 
   @override
   Component buildCircularIcon(
@@ -55,9 +52,6 @@ class NeonFeatureRow extends FeatureRowRenderBase {
         'height': iconSize,
         'border-radius': '50%',
         'flex-shrink': '0',
-        'background-color': props.included
-            ? 'color-mix(in srgb, var(--neon-accent) 18%, transparent)'
-            : 'color-mix(in srgb, var(--foreground) 8%, transparent)',
         'color': iconColor,
       },
     ),

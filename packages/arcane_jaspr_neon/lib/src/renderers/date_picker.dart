@@ -5,7 +5,7 @@ import 'package:arcane_jaspr/core/props/date_picker_props.dart';
 import 'package:arcane_jaspr/core/rendering/base/date_picker_render_base.dart';
 import 'calendar.dart';
 
-/// Neon date picker renderer with restrained panel styling.
+/// Neon date picker renderer.
 class NeonDatePicker extends DatePickerRenderBase {
   const NeonDatePicker(super.props, {super.key});
 
@@ -29,22 +29,10 @@ class NeonDatePicker extends DatePickerRenderBase {
   };
 
   @override
-  Map<String, String> get rootStyles => const <String, String>{
-    'position': 'relative',
-    'display': 'flex',
-    'flex-direction': 'column',
-    'gap': 'var(--space-2)',
-  };
+  Map<String, String> get rootStyles => const <String, String>{};
 
   @override
-  Map<String, String> get labelStyles => const <String, String>{
-    'font-family': 'var(--font-heading)',
-    'font-size': '0.75rem',
-    'font-weight': '600',
-    'letter-spacing': '0.08em',
-    'text-transform': 'uppercase',
-    'color': 'var(--muted-foreground)',
-  };
+  Map<String, String> get labelStyles => const <String, String>{};
 
   @override
   String get triggerClasses => 'neon-date-picker-trigger';
@@ -59,41 +47,13 @@ class NeonDatePicker extends DatePickerRenderBase {
     required String fontSize,
     required bool hasError,
     required bool hasValue,
-  }) => <String, String>{
-    'display': 'flex',
-    'align-items': 'center',
-    'gap': '0.75rem',
-    'width': '100%',
-    'height': height,
-    'padding': '0 1rem',
-    'background':
-        'linear-gradient(135deg, color-mix(in srgb, var(--neon-accent) 5%, transparent), color-mix(in srgb, var(--card) 86%, transparent))',
-    'border': hasError
-        ? '1px solid var(--destructive)'
-        : '1px solid var(--neon-control-border)',
-    'clip-path': 'var(--neon-control-clip)',
-    'font-size': fontSize,
-    'color': hasValue ? 'var(--foreground)' : 'var(--muted-foreground)',
-    'cursor': props.disabled ? 'not-allowed' : 'pointer',
-    'transition': 'border-color 0.18s ease, box-shadow 0.18s ease',
-    'box-shadow': 'var(--neon-inset)',
-    if (props.disabled) 'opacity': '0.5',
-  };
+  }) => const <String, String>{};
 
   @override
-  Map<String, String> get iconStyles => const <String, String>{
-    'display': 'flex',
-    'color': 'var(--muted-foreground)',
-  };
+  Map<String, String> get iconStyles => const <String, String>{};
 
   @override
-  Map<String, String> get displayStyles => const <String, String>{
-    'flex': '1',
-    'overflow': 'hidden',
-    'text-overflow': 'ellipsis',
-    'white-space': 'nowrap',
-    'text-align': 'left',
-  };
+  Map<String, String> get displayStyles => const <String, String>{};
 
   @override
   String get clearClasses => 'neon-date-picker-clear';
@@ -104,23 +64,13 @@ class NeonDatePicker extends DatePickerRenderBase {
   };
 
   @override
-  Map<String, String> get clearStyles => const <String, String>{
-    'display': 'flex',
-    'color': 'var(--muted-foreground)',
-    'cursor': 'pointer',
-  };
+  Map<String, String> get clearStyles => const <String, String>{};
 
   @override
   String get dropdownClasses => 'neon-date-picker-dropdown neon-date-picker';
 
   @override
-  Map<String, String> get dropdownStyles => const <String, String>{
-    'position': 'absolute',
-    'top': '100%',
-    'left': '0',
-    'margin-top': '0.5rem',
-    'z-index': '50',
-  };
+  Map<String, String> get dropdownStyles => const <String, String>{};
 
   @override
   Component buildCalendar(CalendarProps calendarProps) =>

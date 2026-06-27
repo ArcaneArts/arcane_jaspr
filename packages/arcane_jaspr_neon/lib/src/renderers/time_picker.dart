@@ -4,7 +4,7 @@ import 'package:jaspr/dom.dart' as dom;
 import 'package:arcane_jaspr/core/props/time_picker_props.dart';
 import 'package:arcane_jaspr/core/rendering/base/time_picker_render_base.dart';
 
-/// Neon Time Picker renderer.
+/// Neon Time Picker renderer (neutralized skeleton).
 class NeonTimePicker extends TimePickerRenderBase {
   const NeonTimePicker(super.props, {super.key});
 
@@ -36,22 +36,10 @@ class NeonTimePicker extends TimePickerRenderBase {
   };
 
   @override
-  Map<String, String> get rootStyles => const <String, String>{
-    'position': 'relative',
-    'display': 'flex',
-    'flex-direction': 'column',
-    'gap': 'var(--space-2)',
-  };
+  Map<String, String> get rootStyles => const <String, String>{};
 
   @override
-  Map<String, String> get labelStyles => const <String, String>{
-    'font-family': 'var(--font-heading)',
-    'font-size': '0.75rem',
-    'font-weight': '600',
-    'letter-spacing': '0.08em',
-    'text-transform': 'uppercase',
-    'color': 'var(--muted-foreground)',
-  };
+  Map<String, String> get labelStyles => const <String, String>{};
 
   @override
   String get triggerClasses =>
@@ -72,137 +60,48 @@ class NeonTimePicker extends TimePickerRenderBase {
     required String fontSize,
     required bool hasError,
     required bool hasValue,
-  }) => <String, String>{
-    'display': 'flex',
-    'align-items': 'center',
-    'gap': '0.75rem',
-    'width': '100%',
-    'height': height,
-    'padding': '0 1rem',
-    'background':
-        'linear-gradient(135deg, color-mix(in srgb, var(--neon-accent) 5%, transparent), color-mix(in srgb, var(--card) 86%, transparent))',
-    'border':
-        '1px solid ${hasError ? 'var(--destructive)' : 'var(--neon-control-border)'}',
-    'clip-path': 'var(--neon-control-clip)',
-    'font-size': fontSize,
-    'color': hasValue ? 'var(--foreground)' : 'var(--muted-foreground)',
-    'cursor': props.disabled ? 'not-allowed' : 'pointer',
-    'transition': 'border-color 0.18s ease, box-shadow 0.18s ease',
-    'box-shadow': props.isOpen ? 'var(--neon-glow-md)' : 'var(--neon-inset)',
-    'text-align': 'left',
-    if (props.disabled) 'opacity': '0.5',
-  };
+  }) => const <String, String>{};
 
   @override
-  Map<String, String> get iconStyles => <String, String>{
-    'color': props.isOpen ? 'var(--neon-accent)' : 'var(--muted-foreground)',
-    'display': 'flex',
-  };
+  Map<String, String> get iconStyles => const <String, String>{};
 
   @override
   String get clearClasses => 'neon-time-picker-clear';
 
   @override
-  Map<String, String> get clearStyles => const <String, String>{
-    'color': 'var(--muted-foreground)',
-    'cursor': 'pointer',
-    'transition': 'color var(--arcane-transition)',
-  };
+  Map<String, String> get clearStyles => const <String, String>{};
 
   @override
   String get dropdownClasses => 'neon-time-picker-dropdown neon-time-picker';
 
   @override
-  Map<String, String> get dropdownStyles => const <String, String>{
-    'position': 'absolute',
-    'top': '100%',
-    'left': '0',
-    'margin-top': '0.5rem',
-    'z-index': '50',
-    'padding': '1.25rem',
-    'min-width': '300px',
-  };
+  Map<String, String> get dropdownStyles => const <String, String>{};
 
   @override
-  Map<String, String> get columnsRowStyles => const <String, String>{
-    'display': 'flex',
-    'gap': '1.25rem',
-  };
+  Map<String, String> get columnsRowStyles => const <String, String>{};
 
   @override
-  Map<String, String> get columnStyles => const <String, String>{
-    'display': 'flex',
-    'flex-direction': 'column',
-    'gap': 'var(--space-2)',
-  };
+  Map<String, String> get columnStyles => const <String, String>{};
 
   @override
-  Map<String, String> get columnLabelStyles => const <String, String>{
-    'font-family': 'var(--font-heading)',
-    'font-size': '0.6875rem',
-    'font-weight': '600',
-    'letter-spacing': '0.12em',
-    'color': 'var(--muted-foreground)',
-    'text-transform': 'uppercase',
-    'margin-bottom': '0.5rem',
-  };
+  Map<String, String> get columnLabelStyles => const <String, String>{};
 
   @override
-  Map<String, String> get columnScrollStyles => const <String, String>{
-    'max-height': '220px',
-    'overflow-y': 'auto',
-    'display': 'flex',
-    'flex-direction': 'column',
-    'gap': '4px',
-  };
+  Map<String, String> get columnScrollStyles => const <String, String>{};
 
   @override
   String get optionClass => 'neon-time-picker-option';
 
   @override
   Map<String, String> optionButtonStyles({required bool selected}) =>
-      <String, String>{
-        'padding': '0.375rem 0.875rem',
-        'border': selected
-            ? '1px solid var(--neon-accent)'
-            : '1px solid transparent',
-        'clip-path': 'var(--neon-clip-xs)',
-        'background': selected ? 'var(--neon-accent)' : 'transparent',
-        'color': selected ? 'var(--neon-on-accent)' : 'var(--foreground)',
-        'cursor': 'pointer',
-        'font-size': 'var(--font-size-sm)',
-        'font-variant-numeric': 'tabular-nums',
-        'text-align': 'center',
-        'min-width': '52px',
-        'transition': 'background 0.15s ease, color 0.15s ease',
-      };
+      const <String, String>{};
 
   @override
   Map<String, String> amPmButtonStyles({required bool selected}) =>
-      <String, String>{
-        'padding': '0.5rem 1rem',
-        'border': selected
-            ? '1px solid var(--neon-accent)'
-            : '1px solid transparent',
-        'clip-path': 'var(--neon-clip-xs)',
-        'background': selected ? 'var(--neon-accent)' : 'transparent',
-        'color': selected ? 'var(--neon-on-accent)' : 'var(--foreground)',
-        'cursor': 'pointer',
-        'font-size': 'var(--font-size-sm)',
-        'font-weight': '600',
-        'letter-spacing': '0.04em',
-        'transition': 'background 0.15s ease, color 0.15s ease',
-      };
+      const <String, String>{};
 
   @override
-  Map<String, String> get actionsRowStyles => const <String, String>{
-    'display': 'flex',
-    'justify-content': 'flex-end',
-    'gap': '0.75rem',
-    'margin-top': '1.25rem',
-    'padding-top': '1.25rem',
-    'border-top': '1px solid var(--neon-panel-border)',
-  };
+  Map<String, String> get actionsRowStyles => const <String, String>{};
 
   @override
   Component buildActionButton({
@@ -213,22 +112,6 @@ class NeonTimePicker extends TimePickerRenderBase {
     return dom.button(
       type: dom.ButtonType.button,
       classes: 'neon-button',
-      attributes: <String, String>{'data-variant': primary ? 'primary' : 'ghost'},
-      styles: dom.Styles(
-        raw: primary
-            ? const <String, String>{
-                'padding': '0.5rem 1rem',
-                'cursor': 'pointer',
-                'font-size': 'var(--font-size-sm)',
-              }
-            : const <String, String>{
-                'padding': '0.5rem 1rem',
-                'background': 'transparent',
-                'color': 'var(--foreground)',
-                'cursor': 'pointer',
-                'font-size': 'var(--font-size-sm)',
-              },
-      ),
       events: <String, EventCallback>{'click': (_) => onClick?.call()},
       <Component>[Component.text(label)],
     );

@@ -1,12 +1,16 @@
-import 'package:arcane_jaspr/theme/index.dart';
 import 'package:arcane_jaspr/stylesheets/stylesheet.dart';
+import 'package:arcane_jaspr/theme/index.dart';
 
-import 'neon_css.dart';
-import 'neon_fonts.dart';
-import 'neon_layout_renderers.dart';
 import 'neon_theme.dart';
 import 'renderers/neon_renderers.dart';
 
+/// Neon theme — skeleton placeholder pending a full rewrite.
+///
+/// All neon-specific styling (palette, fonts, component CSS, and layout
+/// overrides) has been stripped to a neutral baseline. Components render plainly
+/// through the shared base renderers (see [NeonRenderers]); the base
+/// [ArcaneStylesheet] supplies the default fonts, radius, layout renderers, and
+/// empty component CSS. This is intentionally a blank canvas to rebuild on.
 class NeonStylesheet extends ArcaneStylesheet {
   final NeonTheme theme;
 
@@ -22,57 +26,29 @@ class NeonStylesheet extends ArcaneStylesheet {
   ComponentRenderers get renderers => const NeonRenderers();
 
   @override
-  LayoutRenderers get layouts => const NeonLayoutRenderers();
+  ThemeSeed get lightSeed => const ThemeSeed(
+        primary: 0xFF52525b,
+        background: 0xFFFFFFFF,
+        secondary: 0xFFF4F4F5,
+        accent: 0xFFF4F4F5,
+        border: 0xFFE4E4E7,
+        destructive: 0xFFB4233C,
+        success: 0xFF087F5B,
+        warning: 0xFF9A5B00,
+        info: 0xFF075985,
+      );
 
   @override
-  ThemeSeed get lightSeed => ThemeSeed(
-    primary: theme.color,
-    background: theme.lightSurface,
-    secondary: theme.lightSecondary,
-    accent: theme.lightAccent,
-    border: theme.lightBorder,
-    destructive: 0xFFb4233c,
-    success: 0xFF087f5b,
-    warning: 0xFF9a5b00,
-    info: 0xFF075985,
-    accentGlow: false,
-  );
-
-  @override
-  ThemeSeed get darkSeed => ThemeSeed(
-    primary: theme.color,
-    background: 0xFF12151C,
-    secondary: 0xFF191D26,
-    accent: 0xFF1B222C,
-    border: 0xFF3E3E42,
-    destructive: 0xFF661B1C,
-    success: 0xFF1F8A65,
-    warning: 0xFFB86B16,
-    info: 0xFF007ACC,
-    isDark: true,
-    accentGlow: true,
-    glowColor: theme.color,
-  );
-
-  @override
-  FontConfig get fonts => const FontConfig(
-    sans:
-        "'Akzidenz-GroteskPro', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
-    heading:
-        "'ITCAvantGardeStd', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
-    mono:
-        "'Hack', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
-  );
-
-  @override
-  RadiusConfig get radius => const RadiusConfig.compact();
-
-  @override
-  String get fontFaces => NeonFonts.fontFaces;
-
-  @override
-  String get bodyClass => 'neon-${theme.name}';
-
-  @override
-  String get componentCss => NeonCss.componentCss(theme);
+  ThemeSeed get darkSeed => const ThemeSeed(
+        primary: 0xFFA1A1AA,
+        background: 0xFF0A0A0A,
+        secondary: 0xFF171717,
+        accent: 0xFF171717,
+        border: 0xFF262626,
+        destructive: 0xFF661B1C,
+        success: 0xFF1F8A65,
+        warning: 0xFFB86B16,
+        info: 0xFF007ACC,
+        isDark: true,
+      );
 }
