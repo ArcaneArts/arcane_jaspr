@@ -23,7 +23,7 @@ class NeonCss {
     final String accentCool = _hex(theme.accentCool);
 
     return '''
-#arcane-root[class*="neon-"] {
+#arcane-root.arcane-theme-neon {
   --neon-accent: var(--primary);
   --neon-accent-rgb: var(--primary-rgb);
   --neon-accent-hot: $accentHot;
@@ -85,8 +85,8 @@ class NeonCss {
   isolation: isolate;
 }
 
-html.dark #arcane-root[class*="neon-"],
-#arcane-root.dark[class*="neon-"] {
+html.dark #arcane-root.arcane-theme-neon,
+#arcane-root.dark.arcane-theme-neon {
   --background: #12151C;
   --foreground: #F2F0EA;
   --card: #191D26;
@@ -119,43 +119,43 @@ html.dark #arcane-root[class*="neon-"],
   --neon-on-accent: #101216;
 }
 
-html:has(#arcane-root[class*="neon-"]),
-html:has(#arcane-root[class*="neon-"]) body,
-#arcane-root[class*="neon-"],
-#arcane-root[class*="neon-"] * {
+html:has(#arcane-root.arcane-theme-neon),
+html:has(#arcane-root.arcane-theme-neon) body,
+#arcane-root.arcane-theme-neon,
+#arcane-root.arcane-theme-neon * {
   scrollbar-width: thin;
   scrollbar-color: color-mix(in srgb, var(--neon-accent-cool) 52%, transparent) transparent;
 }
 
-html:has(#arcane-root[class*="neon-"])::-webkit-scrollbar,
-html:has(#arcane-root[class*="neon-"]) body::-webkit-scrollbar,
-#arcane-root[class*="neon-"] *::-webkit-scrollbar {
+html:has(#arcane-root.arcane-theme-neon)::-webkit-scrollbar,
+html:has(#arcane-root.arcane-theme-neon) body::-webkit-scrollbar,
+#arcane-root.arcane-theme-neon *::-webkit-scrollbar {
   width: 0.5rem;
   height: 0.5rem;
 }
 
-html:has(#arcane-root[class*="neon-"])::-webkit-scrollbar-track,
-html:has(#arcane-root[class*="neon-"]) body::-webkit-scrollbar-track,
-#arcane-root[class*="neon-"] *::-webkit-scrollbar-track {
+html:has(#arcane-root.arcane-theme-neon)::-webkit-scrollbar-track,
+html:has(#arcane-root.arcane-theme-neon) body::-webkit-scrollbar-track,
+#arcane-root.arcane-theme-neon *::-webkit-scrollbar-track {
   background: transparent;
 }
 
-html:has(#arcane-root[class*="neon-"])::-webkit-scrollbar-thumb,
-html:has(#arcane-root[class*="neon-"]) body::-webkit-scrollbar-thumb,
-#arcane-root[class*="neon-"] *::-webkit-scrollbar-thumb {
+html:has(#arcane-root.arcane-theme-neon)::-webkit-scrollbar-thumb,
+html:has(#arcane-root.arcane-theme-neon) body::-webkit-scrollbar-thumb,
+#arcane-root.arcane-theme-neon *::-webkit-scrollbar-thumb {
   background: color-mix(in srgb, var(--neon-accent-cool) 44%, var(--border));
   border: 2px solid transparent;
   border-radius: 999px;
   background-clip: padding-box;
 }
 
-html:has(#arcane-root[class*="neon-"])::-webkit-scrollbar-thumb:hover,
-html:has(#arcane-root[class*="neon-"]) body::-webkit-scrollbar-thumb:hover,
-#arcane-root[class*="neon-"] *::-webkit-scrollbar-thumb:hover {
+html:has(#arcane-root.arcane-theme-neon)::-webkit-scrollbar-thumb:hover,
+html:has(#arcane-root.arcane-theme-neon) body::-webkit-scrollbar-thumb:hover,
+#arcane-root.arcane-theme-neon *::-webkit-scrollbar-thumb:hover {
   background: color-mix(in srgb, var(--neon-accent-cool) 68%, var(--foreground));
 }
 
-html.dark #arcane-root[class*="neon-"]::before {
+html.dark #arcane-root.arcane-theme-neon::before {
   content: '';
   position: fixed;
   inset: 0;
@@ -172,7 +172,7 @@ html.dark #arcane-root[class*="neon-"]::before {
   transform: translateZ(0);
 }
 
-html.dark #arcane-root[class*="neon-"]::after {
+html.dark #arcane-root.arcane-theme-neon::after {
   content: '';
   position: fixed;
   inset: 0;
@@ -184,57 +184,57 @@ html.dark #arcane-root[class*="neon-"]::after {
   mix-blend-mode: overlay;
 }
 
-#arcane-root[class*="neon-"] ::selection {
+#arcane-root.arcane-theme-neon ::selection {
   background: color-mix(in srgb, var(--neon-accent) 38%, transparent);
   color: var(--foreground);
 }
 
-#arcane-root[class*="neon-"] :focus-visible {
+#arcane-root.arcane-theme-neon :focus-visible {
   outline: 2px solid var(--neon-accent);
   outline-offset: 2px;
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--neon-accent) 20%, transparent), var(--neon-glow-md);
 }
 
-#arcane-root[class*="neon-"] a {
+#arcane-root.arcane-theme-neon a {
   color: var(--neon-accent);
   text-underline-offset: 2px;
   transition: color 0.15s ease, text-shadow 0.15s ease;
 }
 
-#arcane-root[class*="neon-"] a:hover {
+#arcane-root.arcane-theme-neon a:hover {
   color: var(--neon-accent-cool);
   text-shadow: 0 0 12px color-mix(in srgb, var(--neon-accent-cool) 32%, transparent);
 }
 
-#arcane-root[class*="neon-"] .arcane-scaffold-sidebar,
-#arcane-root[class*="neon-"] .arcane-scaffold-main,
-#arcane-root[class*="neon-"] .arcane-scaffold-secondary,
-#arcane-root[class*="neon-"] .neon-card,
-#arcane-root[class*="neon-"] .neon-command-dialog,
-#arcane-root[class*="neon-"] .neon-accordion,
-#arcane-root[class*="neon-"] .neon-calendar,
-#arcane-root[class*="neon-"] .neon-chart,
-#arcane-root[class*="neon-"] .neon-data-table-container,
-#arcane-root[class*="neon-"] .neon-static-table-container,
-#arcane-root[class*="neon-"] .neon-sidebar,
-#arcane-root[class*="neon-"] .neon-empty-state-card,
-#arcane-root[class*="neon-"] .neon-resizable,
-#arcane-root[class*="neon-"] .neon-scroll-area,
-#arcane-root[class*="neon-"] .neon-form-section,
-#arcane-root[class*="neon-"] .neon-input-group,
-#arcane-root[class*="neon-"] .neon-disclosure,
-#arcane-root[class*="neon-"] .neon-field-wrapper,
-#arcane-root[class*="neon-"] .neon-otp-input,
-#arcane-root[class*="neon-"] .neon-radio-group,
-#arcane-root[class*="neon-"] .neon-tabs,
-#arcane-root[class*="neon-"] .neon-toggle-group,
-#arcane-root[class*="neon-"] .neon-slot-counter,
-#arcane-root[class*="neon-"] .neon-slot-counter-card,
-#arcane-root[class*="neon-"] .neon-kv-table,
-#arcane-root[class*="neon-"] .neon-button-panel,
-#arcane-root[class*="neon-"] .neon-toolbar,
-#arcane-root[class*="neon-"] .neon-button-group,
-#arcane-root[class*="neon-"] .neon-panel {
+#arcane-root.arcane-theme-neon .arcane-scaffold-sidebar,
+#arcane-root.arcane-theme-neon .arcane-scaffold-main,
+#arcane-root.arcane-theme-neon .arcane-scaffold-secondary,
+#arcane-root.arcane-theme-neon .neon-card,
+#arcane-root.arcane-theme-neon .neon-command-dialog,
+#arcane-root.arcane-theme-neon .neon-accordion,
+#arcane-root.arcane-theme-neon .neon-calendar,
+#arcane-root.arcane-theme-neon .neon-chart,
+#arcane-root.arcane-theme-neon .neon-data-table-container,
+#arcane-root.arcane-theme-neon .neon-static-table-container,
+#arcane-root.arcane-theme-neon .neon-sidebar,
+#arcane-root.arcane-theme-neon .neon-empty-state-card,
+#arcane-root.arcane-theme-neon .neon-resizable,
+#arcane-root.arcane-theme-neon .neon-scroll-area,
+#arcane-root.arcane-theme-neon .neon-form-section,
+#arcane-root.arcane-theme-neon .neon-input-group,
+#arcane-root.arcane-theme-neon .neon-disclosure,
+#arcane-root.arcane-theme-neon .neon-field-wrapper,
+#arcane-root.arcane-theme-neon .neon-otp-input,
+#arcane-root.arcane-theme-neon .neon-radio-group,
+#arcane-root.arcane-theme-neon .neon-tabs,
+#arcane-root.arcane-theme-neon .neon-toggle-group,
+#arcane-root.arcane-theme-neon .neon-slot-counter,
+#arcane-root.arcane-theme-neon .neon-slot-counter-card,
+#arcane-root.arcane-theme-neon .neon-kv-table,
+#arcane-root.arcane-theme-neon .neon-button-panel,
+#arcane-root.arcane-theme-neon .neon-toolbar,
+#arcane-root.arcane-theme-neon .neon-button-group,
+#arcane-root.arcane-theme-neon .neon-panel {
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -248,30 +248,30 @@ html.dark #arcane-root[class*="neon-"]::after {
   transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
 }
 
-#arcane-root[class*="neon-"] .neon-card.clickable {
+#arcane-root.arcane-theme-neon .neon-card.clickable {
   cursor: pointer;
 }
 
-#arcane-root[class*="neon-"] .neon-card.clickable:hover {
+#arcane-root.arcane-theme-neon .neon-card.clickable:hover {
   border-color: var(--neon-panel-border-hot) !important;
   transform: translateY(-2px);
   box-shadow: var(--neon-shadow-md), var(--neon-glow-md), var(--neon-inset-strong);
 }
 
-#arcane-root[class*="neon-"] .neon-dropdown-menu,
-#arcane-root[class*="neon-"] .neon-dropdown-submenu,
-#arcane-root[class*="neon-"] .neon-context-menu,
-#arcane-root[class*="neon-"] .neon-menubar-content,
-#arcane-root[class*="neon-"] .neon-select-content,
-#arcane-root[class*="neon-"] .neon-date-picker,
-#arcane-root[class*="neon-"] .neon-time-picker,
-#arcane-root[class*="neon-"] .neon-popover,
-#arcane-root[class*="neon-"] .neon-tooltip,
-#arcane-root[class*="neon-"] .neon-toast,
-#arcane-root[class*="neon-"] .neon-tabs-list,
-#arcane-root[class*="neon-"] .neon-command,
-#arcane-root[class*="neon-"] .neon-data-table,
-#arcane-root[class*="neon-"] .neon-static-table {
+#arcane-root.arcane-theme-neon .neon-dropdown-menu,
+#arcane-root.arcane-theme-neon .neon-dropdown-submenu,
+#arcane-root.arcane-theme-neon .neon-context-menu,
+#arcane-root.arcane-theme-neon .neon-menubar-content,
+#arcane-root.arcane-theme-neon .neon-select-content,
+#arcane-root.arcane-theme-neon .neon-date-picker,
+#arcane-root.arcane-theme-neon .neon-time-picker,
+#arcane-root.arcane-theme-neon .neon-popover,
+#arcane-root.arcane-theme-neon .neon-tooltip,
+#arcane-root.arcane-theme-neon .neon-toast,
+#arcane-root.arcane-theme-neon .neon-tabs-list,
+#arcane-root.arcane-theme-neon .neon-command,
+#arcane-root.arcane-theme-neon .neon-data-table,
+#arcane-root.arcane-theme-neon .neon-static-table {
   position: relative;
   overflow: hidden;
   border-radius: var(--neon-radius-panel) !important;
@@ -283,79 +283,79 @@ html.dark #arcane-root[class*="neon-"]::after {
   -webkit-backdrop-filter: blur(18px) saturate(1.18);
 }
 
-#arcane-root[class*="neon-"] .neon-tooltip {
+#arcane-root.arcane-theme-neon .neon-tooltip {
   background: color-mix(in srgb, var(--neon-surface-2) 92%, transparent) !important;
   border-color: color-mix(in srgb, var(--neon-accent) 18%, var(--border)) !important;
 }
 
-#arcane-root[class*="neon-"] .neon-button,
-#arcane-root[class*="neon-"] .neon-text-input,
-#arcane-root[class*="neon-"] .neon-text-input-container,
-#arcane-root[class*="neon-"] .neon-select-trigger,
-#arcane-root[class*="neon-"] .neon-date-picker-trigger,
-#arcane-root[class*="neon-"] .neon-otp-digit,
-#arcane-root[class*="neon-"] .neon-calendar-nav-btn,
-#arcane-root[class*="neon-"] .neon-calendar-today-btn,
-#arcane-root[class*="neon-"] .neon-calendar-day,
-#arcane-root[class*="neon-"] .neon-pagination-button,
-#arcane-root[class*="neon-"] .neon-menubar-trigger,
-#arcane-root[class*="neon-"] .neon-toggle-button,
-#arcane-root[class*="neon-"] .neon-radio-card,
-#arcane-root[class*="neon-"] .neon-radio-button,
-#arcane-root[class*="neon-"] .neon-radio-chip,
-#arcane-root[class*="neon-"] .neon-toggle-group-item,
-#arcane-root[class*="neon-"] .neon-tabs-trigger,
-#arcane-root[class*="neon-"] .neon-tab-bar-item {
+#arcane-root.arcane-theme-neon .neon-button,
+#arcane-root.arcane-theme-neon .neon-text-input,
+#arcane-root.arcane-theme-neon .neon-text-input-container,
+#arcane-root.arcane-theme-neon .neon-select-trigger,
+#arcane-root.arcane-theme-neon .neon-date-picker-trigger,
+#arcane-root.arcane-theme-neon .neon-otp-digit,
+#arcane-root.arcane-theme-neon .neon-calendar-nav-btn,
+#arcane-root.arcane-theme-neon .neon-calendar-today-btn,
+#arcane-root.arcane-theme-neon .neon-calendar-day,
+#arcane-root.arcane-theme-neon .neon-pagination-button,
+#arcane-root.arcane-theme-neon .neon-menubar-trigger,
+#arcane-root.arcane-theme-neon .neon-toggle-button,
+#arcane-root.arcane-theme-neon .neon-radio-card,
+#arcane-root.arcane-theme-neon .neon-radio-button,
+#arcane-root.arcane-theme-neon .neon-radio-chip,
+#arcane-root.arcane-theme-neon .neon-toggle-group-item,
+#arcane-root.arcane-theme-neon .neon-tabs-trigger,
+#arcane-root.arcane-theme-neon .neon-tab-bar-item {
   border-radius: var(--neon-radius-control) !important;
   clip-path: var(--neon-control-clip);
   transition: color 0.16s ease, background 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
 }
 
-#arcane-root[class*="neon-"] .neon-select-trigger,
-#arcane-root[class*="neon-"] .neon-date-picker-trigger,
-#arcane-root[class*="neon-"] .neon-text-input,
-#arcane-root[class*="neon-"] .neon-text-input-container,
-#arcane-root[class*="neon-"] .neon-otp-digit,
-#arcane-root[class*="neon-"] .neon-calendar-nav-btn,
-#arcane-root[class*="neon-"] .neon-calendar-today-btn,
-#arcane-root[class*="neon-"] .neon-pagination-button,
-#arcane-root[class*="neon-"] .neon-menubar-trigger,
-#arcane-root[class*="neon-"] .neon-toggle-button,
-#arcane-root[class*="neon-"] .neon-radio-card,
-#arcane-root[class*="neon-"] .neon-radio-button,
-#arcane-root[class*="neon-"] .neon-radio-chip,
-#arcane-root[class*="neon-"] .neon-toggle-group-item,
-#arcane-root[class*="neon-"] .neon-tabs-trigger,
-#arcane-root[class*="neon-"] .neon-tab-bar-item {
+#arcane-root.arcane-theme-neon .neon-select-trigger,
+#arcane-root.arcane-theme-neon .neon-date-picker-trigger,
+#arcane-root.arcane-theme-neon .neon-text-input,
+#arcane-root.arcane-theme-neon .neon-text-input-container,
+#arcane-root.arcane-theme-neon .neon-otp-digit,
+#arcane-root.arcane-theme-neon .neon-calendar-nav-btn,
+#arcane-root.arcane-theme-neon .neon-calendar-today-btn,
+#arcane-root.arcane-theme-neon .neon-pagination-button,
+#arcane-root.arcane-theme-neon .neon-menubar-trigger,
+#arcane-root.arcane-theme-neon .neon-toggle-button,
+#arcane-root.arcane-theme-neon .neon-radio-card,
+#arcane-root.arcane-theme-neon .neon-radio-button,
+#arcane-root.arcane-theme-neon .neon-radio-chip,
+#arcane-root.arcane-theme-neon .neon-toggle-group-item,
+#arcane-root.arcane-theme-neon .neon-tabs-trigger,
+#arcane-root.arcane-theme-neon .neon-tab-bar-item {
   background: var(--neon-control-tint), var(--neon-control-surface) !important;
   border: 1px solid var(--neon-control-border) !important;
   color: var(--foreground);
   box-shadow: var(--neon-inset);
 }
 
-#arcane-root[class*="neon-"] .neon-select-trigger:hover,
-#arcane-root[class*="neon-"] .neon-date-picker-trigger:hover,
-#arcane-root[class*="neon-"] .neon-text-input:hover,
-#arcane-root[class*="neon-"] .neon-text-input-container:hover,
-#arcane-root[class*="neon-"] .neon-otp-digit:hover,
-#arcane-root[class*="neon-"] .neon-calendar-nav-btn:hover,
-#arcane-root[class*="neon-"] .neon-calendar-today-btn:hover,
-#arcane-root[class*="neon-"] .neon-calendar-day:hover,
-#arcane-root[class*="neon-"] .neon-pagination-button:hover,
-#arcane-root[class*="neon-"] .neon-menubar-trigger:hover,
-#arcane-root[class*="neon-"] .neon-toggle-button:hover,
-#arcane-root[class*="neon-"] .neon-radio-card:hover,
-#arcane-root[class*="neon-"] .neon-radio-button:hover,
-#arcane-root[class*="neon-"] .neon-radio-chip:hover,
-#arcane-root[class*="neon-"] .neon-toggle-group-item:hover,
-#arcane-root[class*="neon-"] .neon-tabs-trigger:hover,
-#arcane-root[class*="neon-"] .neon-tab-bar-item:hover {
+#arcane-root.arcane-theme-neon .neon-select-trigger:hover,
+#arcane-root.arcane-theme-neon .neon-date-picker-trigger:hover,
+#arcane-root.arcane-theme-neon .neon-text-input:hover,
+#arcane-root.arcane-theme-neon .neon-text-input-container:hover,
+#arcane-root.arcane-theme-neon .neon-otp-digit:hover,
+#arcane-root.arcane-theme-neon .neon-calendar-nav-btn:hover,
+#arcane-root.arcane-theme-neon .neon-calendar-today-btn:hover,
+#arcane-root.arcane-theme-neon .neon-calendar-day:hover,
+#arcane-root.arcane-theme-neon .neon-pagination-button:hover,
+#arcane-root.arcane-theme-neon .neon-menubar-trigger:hover,
+#arcane-root.arcane-theme-neon .neon-toggle-button:hover,
+#arcane-root.arcane-theme-neon .neon-radio-card:hover,
+#arcane-root.arcane-theme-neon .neon-radio-button:hover,
+#arcane-root.arcane-theme-neon .neon-radio-chip:hover,
+#arcane-root.arcane-theme-neon .neon-toggle-group-item:hover,
+#arcane-root.arcane-theme-neon .neon-tabs-trigger:hover,
+#arcane-root.arcane-theme-neon .neon-tab-bar-item:hover {
   border-color: var(--neon-panel-border-hot) !important;
   color: var(--neon-accent-cool);
   box-shadow: var(--neon-inset-strong), var(--neon-glow-sm);
 }
 
-#arcane-root[class*="neon-"] .neon-breadcrumbs {
+#arcane-root.arcane-theme-neon .neon-breadcrumbs {
   width: fit-content;
   max-width: 100%;
   gap: 0.28rem !important;
@@ -373,9 +373,9 @@ html.dark #arcane-root[class*="neon-"]::after {
   -webkit-backdrop-filter: blur(12px) saturate(1.08);
 }
 
-#arcane-root[class*="neon-"] .neon-breadcrumb-link,
-#arcane-root[class*="neon-"] .neon-breadcrumb-button,
-#arcane-root[class*="neon-"] .neon-breadcrumb-current {
+#arcane-root.arcane-theme-neon .neon-breadcrumb-link,
+#arcane-root.arcane-theme-neon .neon-breadcrumb-button,
+#arcane-root.arcane-theme-neon .neon-breadcrumb-current {
   position: relative;
   min-height: 1.35rem;
   padding: 0 0.34rem 0 0.78rem !important;
@@ -390,9 +390,9 @@ html.dark #arcane-root[class*="neon-"]::after {
   line-height: 1;
 }
 
-#arcane-root[class*="neon-"] .neon-breadcrumb-link::before,
-#arcane-root[class*="neon-"] .neon-breadcrumb-button::before,
-#arcane-root[class*="neon-"] .neon-breadcrumb-current::before {
+#arcane-root.arcane-theme-neon .neon-breadcrumb-link::before,
+#arcane-root.arcane-theme-neon .neon-breadcrumb-button::before,
+#arcane-root.arcane-theme-neon .neon-breadcrumb-current::before {
   content: '';
   position: absolute;
   left: 0.28rem;
@@ -405,27 +405,27 @@ html.dark #arcane-root[class*="neon-"]::after {
   box-shadow: 0 0 8px color-mix(in srgb, var(--neon-accent-cool) 10%, transparent);
 }
 
-#arcane-root[class*="neon-"] .neon-breadcrumb-link:hover,
-#arcane-root[class*="neon-"] .neon-breadcrumb-button:hover {
+#arcane-root.arcane-theme-neon .neon-breadcrumb-link:hover,
+#arcane-root.arcane-theme-neon .neon-breadcrumb-button:hover {
   color: var(--neon-accent-cool) !important;
   background: color-mix(in srgb, var(--neon-accent-cool) 8%, transparent) !important;
 }
 
-#arcane-root[class*="neon-"] .neon-breadcrumb-link:hover::before,
-#arcane-root[class*="neon-"] .neon-breadcrumb-button:hover::before,
-#arcane-root[class*="neon-"] .neon-breadcrumb-current::before {
+#arcane-root.arcane-theme-neon .neon-breadcrumb-link:hover::before,
+#arcane-root.arcane-theme-neon .neon-breadcrumb-button:hover::before,
+#arcane-root.arcane-theme-neon .neon-breadcrumb-current::before {
   border-color: var(--neon-accent-cool);
   background: color-mix(in srgb, var(--neon-accent-cool) 34%, var(--background));
   box-shadow: 0 0 10px color-mix(in srgb, var(--neon-accent-cool) 22%, transparent);
 }
 
-#arcane-root[class*="neon-"] .neon-breadcrumb-current {
+#arcane-root.arcane-theme-neon .neon-breadcrumb-current {
   color: var(--foreground) !important;
   background:
     linear-gradient(90deg, color-mix(in srgb, var(--neon-accent-cool) 12%, transparent), color-mix(in srgb, var(--neon-accent-hot) 6%, transparent)) !important;
 }
 
-#arcane-root[class*="neon-"] .neon-breadcrumb-separator {
+#arcane-root.arcane-theme-neon .neon-breadcrumb-separator {
   position: relative;
   width: 1.25rem;
   min-width: 1.25rem;
@@ -435,7 +435,7 @@ html.dark #arcane-root[class*="neon-"]::after {
   opacity: 1 !important;
 }
 
-#arcane-root[class*="neon-"] .neon-breadcrumb-separator::before {
+#arcane-root.arcane-theme-neon .neon-breadcrumb-separator::before {
   content: '';
   position: absolute;
   left: 0.14rem;
@@ -446,7 +446,7 @@ html.dark #arcane-root[class*="neon-"]::after {
   transform: translateY(-50%);
 }
 
-#arcane-root[class*="neon-"] .neon-breadcrumb-separator::after {
+#arcane-root.arcane-theme-neon .neon-breadcrumb-separator::after {
   content: '';
   position: absolute;
   right: 0.14rem;
@@ -458,8 +458,8 @@ html.dark #arcane-root[class*="neon-"]::after {
   transform: translateY(-50%) rotate(45deg);
 }
 
-html.light #arcane-root[class*="neon-"] .neon-breadcrumbs,
-#arcane-root.light[class*="neon-"] .neon-breadcrumbs {
+html.light #arcane-root.arcane-theme-neon .neon-breadcrumbs,
+#arcane-root.light.arcane-theme-neon .neon-breadcrumbs {
   border-color: rgba(36, 78, 209, 0.14);
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.76), rgba(243, 246, 251, 0.68)),
@@ -467,40 +467,40 @@ html.light #arcane-root[class*="neon-"] .neon-breadcrumbs,
   box-shadow: 0 8px 20px rgba(36, 78, 209, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
-html.light #arcane-root[class*="neon-"] .neon-breadcrumb-link,
-html.light #arcane-root[class*="neon-"] .neon-breadcrumb-button,
-html.light #arcane-root[class*="neon-"] .neon-breadcrumb-current,
-#arcane-root.light[class*="neon-"] .neon-breadcrumb-link,
-#arcane-root.light[class*="neon-"] .neon-breadcrumb-button,
-#arcane-root.light[class*="neon-"] .neon-breadcrumb-current {
+html.light #arcane-root.arcane-theme-neon .neon-breadcrumb-link,
+html.light #arcane-root.arcane-theme-neon .neon-breadcrumb-button,
+html.light #arcane-root.arcane-theme-neon .neon-breadcrumb-current,
+#arcane-root.light.arcane-theme-neon .neon-breadcrumb-link,
+#arcane-root.light.arcane-theme-neon .neon-breadcrumb-button,
+#arcane-root.light.arcane-theme-neon .neon-breadcrumb-current {
   color: #52638d !important;
 }
 
-html.light #arcane-root[class*="neon-"] .neon-breadcrumb-current,
-#arcane-root.light[class*="neon-"] .neon-breadcrumb-current {
+html.light #arcane-root.arcane-theme-neon .neon-breadcrumb-current,
+#arcane-root.light.arcane-theme-neon .neon-breadcrumb-current {
   color: #101a3a !important;
   background: linear-gradient(90deg, rgba(132, 165, 242, 0.2), rgba(255, 102, 0, 0.06)) !important;
 }
 
-#arcane-root[class*="neon-"] .neon-text-input:focus,
-#arcane-root[class*="neon-"] .neon-text-input-container:focus-within,
-#arcane-root[class*="neon-"] .neon-otp-digit:focus {
+#arcane-root.arcane-theme-neon .neon-text-input:focus,
+#arcane-root.arcane-theme-neon .neon-text-input-container:focus-within,
+#arcane-root.arcane-theme-neon .neon-otp-digit:focus {
   border-color: var(--neon-accent) !important;
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--neon-accent) 32%, transparent), var(--neon-glow-md);
 }
 
-#arcane-root[class*="neon-"] .neon-tabs-trigger[data-state="active"],
-#arcane-root[class*="neon-"] .neon-tab-bar-item.active,
-#arcane-root[class*="neon-"] .neon-toggle-button.active,
-#arcane-root[class*="neon-"] .neon-toggle-group-item.selected,
-#arcane-root[class*="neon-"] .neon-radio-card.selected,
-#arcane-root[class*="neon-"] .neon-radio-button.selected,
-#arcane-root[class*="neon-"] .neon-radio-chip.selected,
-#arcane-root[class*="neon-"] .neon-pagination-button.active,
-#arcane-root[class*="neon-"] .neon-calendar-day.selected,
-#arcane-root[class*="neon-"] .neon-calendar-day[aria-selected="true"],
-#arcane-root[class*="neon-"] .neon-select-trigger.open,
-#arcane-root[class*="neon-"] .neon-select-trigger[data-state="open"] {
+#arcane-root.arcane-theme-neon .neon-tabs-trigger[data-state="active"],
+#arcane-root.arcane-theme-neon .neon-tab-bar-item.active,
+#arcane-root.arcane-theme-neon .neon-toggle-button.active,
+#arcane-root.arcane-theme-neon .neon-toggle-group-item.selected,
+#arcane-root.arcane-theme-neon .neon-radio-card.selected,
+#arcane-root.arcane-theme-neon .neon-radio-button.selected,
+#arcane-root.arcane-theme-neon .neon-radio-chip.selected,
+#arcane-root.arcane-theme-neon .neon-pagination-button.active,
+#arcane-root.arcane-theme-neon .neon-calendar-day.selected,
+#arcane-root.arcane-theme-neon .neon-calendar-day[aria-selected="true"],
+#arcane-root.arcane-theme-neon .neon-select-trigger.open,
+#arcane-root.arcane-theme-neon .neon-select-trigger[data-state="open"] {
   background:
     linear-gradient(135deg, color-mix(in srgb, var(--neon-accent) 22%, transparent), color-mix(in srgb, var(--neon-accent-cool) 12%, transparent)),
     color-mix(in srgb, var(--card) 80%, transparent) !important;
@@ -509,14 +509,14 @@ html.light #arcane-root[class*="neon-"] .neon-breadcrumb-current,
   box-shadow: var(--neon-inset-strong), var(--neon-glow-md);
 }
 
-#arcane-root[class*="neon-"] .neon-button {
+#arcane-root.arcane-theme-neon .neon-button {
   isolation: isolate;
   overflow: hidden;
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
 
-#arcane-root[class*="neon-"] .neon-button::before {
+#arcane-root.arcane-theme-neon .neon-button::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -528,22 +528,22 @@ html.light #arcane-root[class*="neon-"] .neon-breadcrumb-current,
   z-index: 1;
 }
 
-#arcane-root[class*="neon-"] .neon-button:hover::before {
+#arcane-root.arcane-theme-neon .neon-button:hover::before {
   opacity: 0.6;
   transform: translateX(120%);
 }
 
-#arcane-root[class*="neon-"] .neon-button:hover {
+#arcane-root.arcane-theme-neon .neon-button:hover {
   transform: translateY(-1px);
   filter: brightness(1.06);
 }
 
-#arcane-root[class*="neon-"] .neon-button:active {
+#arcane-root.arcane-theme-neon .neon-button:active {
   transform: translateY(0);
   filter: brightness(0.96);
 }
 
-#arcane-root[class*="neon-"] .neon-alert {
+#arcane-root.arcane-theme-neon .neon-alert {
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -554,17 +554,17 @@ html.light #arcane-root[class*="neon-"] .neon-breadcrumb-current,
   box-shadow: var(--neon-shadow-sm), var(--neon-inset);
 }
 
-#arcane-root[class*="neon-"] .neon-alert-title,
-#arcane-root[class*="neon-"] .neon-card h1,
-#arcane-root[class*="neon-"] .neon-card h2,
-#arcane-root[class*="neon-"] .neon-card h3 {
+#arcane-root.arcane-theme-neon .neon-alert-title,
+#arcane-root.arcane-theme-neon .neon-card h1,
+#arcane-root.arcane-theme-neon .neon-card h2,
+#arcane-root.arcane-theme-neon .neon-card h3 {
   letter-spacing: 0.06em;
 }
 
-#arcane-root[class*="neon-"] .neon-alert-icon,
-#arcane-root[class*="neon-"] .neon-empty-state-icon,
-#arcane-root[class*="neon-"] .neon-check-item-icon,
-#arcane-root[class*="neon-"] .neon-feature-row-icon {
+#arcane-root.arcane-theme-neon .neon-alert-icon,
+#arcane-root.arcane-theme-neon .neon-empty-state-icon,
+#arcane-root.arcane-theme-neon .neon-check-item-icon,
+#arcane-root.arcane-theme-neon .neon-feature-row-icon {
   border: 1px solid var(--neon-panel-border-hot);
   border-radius: var(--neon-radius-control);
   clip-path: var(--neon-clip-xs);
@@ -572,9 +572,9 @@ html.light #arcane-root[class*="neon-"] .neon-breadcrumb-current,
   box-shadow: var(--neon-glow-sm);
 }
 
-#arcane-root[class*="neon-"] .neon-badge,
-#arcane-root[class*="neon-"] .neon-status-badge,
-#arcane-root[class*="neon-"] .neon-kbd {
+#arcane-root.arcane-theme-neon .neon-badge,
+#arcane-root.arcane-theme-neon .neon-status-badge,
+#arcane-root.arcane-theme-neon .neon-kbd {
   border-radius: var(--neon-radius-control) !important;
   clip-path: var(--neon-clip-xs);
   background: var(--neon-panel-tint), color-mix(in srgb, var(--card) 84%, transparent) !important;
@@ -582,22 +582,22 @@ html.light #arcane-root[class*="neon-"] .neon-breadcrumb-current,
   box-shadow: var(--neon-inset);
 }
 
-#arcane-root[class*="neon-"] .neon-status-label {
+#arcane-root.arcane-theme-neon .neon-status-label {
   letter-spacing: 0.08em;
 }
 
-#arcane-root[class*="neon-"] .neon-data-table,
-#arcane-root[class*="neon-"] .neon-static-table,
-#arcane-root[class*="neon-"] .neon-kv-table {
+#arcane-root.arcane-theme-neon .neon-data-table,
+#arcane-root.arcane-theme-neon .neon-static-table,
+#arcane-root.arcane-theme-neon .neon-kv-table {
   border-collapse: separate !important;
   border-spacing: 0;
   overflow: hidden;
   font-variant-numeric: tabular-nums;
 }
 
-#arcane-root[class*="neon-"] .neon-data-table th,
-#arcane-root[class*="neon-"] .neon-static-table th,
-#arcane-root[class*="neon-"] .neon-kv-table-key {
+#arcane-root.arcane-theme-neon .neon-data-table th,
+#arcane-root.arcane-theme-neon .neon-static-table th,
+#arcane-root.arcane-theme-neon .neon-kv-table-key {
   background: color-mix(in srgb, var(--neon-accent) 8%, var(--card)) !important;
   color: var(--neon-accent) !important;
   text-transform: uppercase;
@@ -607,70 +607,70 @@ html.light #arcane-root[class*="neon-"] .neon-breadcrumb-current,
   border-color: color-mix(in srgb, var(--neon-accent) 18%, var(--border)) !important;
 }
 
-#arcane-root[class*="neon-"] .neon-data-table td,
-#arcane-root[class*="neon-"] .neon-static-table td,
-#arcane-root[class*="neon-"] .neon-kv-table-value {
+#arcane-root.arcane-theme-neon .neon-data-table td,
+#arcane-root.arcane-theme-neon .neon-static-table td,
+#arcane-root.arcane-theme-neon .neon-kv-table-value {
   border-color: color-mix(in srgb, var(--neon-accent) 8%, var(--border)) !important;
 }
 
-#arcane-root[class*="neon-"] .neon-data-table-row:hover,
-#arcane-root[class*="neon-"] .neon-static-table tbody tr:hover,
-#arcane-root[class*="neon-"] .neon-kv-table-row:hover {
+#arcane-root.arcane-theme-neon .neon-data-table-row:hover,
+#arcane-root.arcane-theme-neon .neon-static-table tbody tr:hover,
+#arcane-root.arcane-theme-neon .neon-kv-table-row:hover {
   background: color-mix(in srgb, var(--neon-accent) 6%, transparent) !important;
 }
 
-#arcane-root[class*="neon-"] .neon-progress-track,
-#arcane-root[class*="neon-"] .neon-slider-track {
+#arcane-root.arcane-theme-neon .neon-progress-track,
+#arcane-root.arcane-theme-neon .neon-slider-track {
   border-radius: var(--neon-radius-control);
   clip-path: var(--neon-clip-xs);
   border: 1px solid color-mix(in srgb, var(--neon-accent) 14%, var(--border));
   background: color-mix(in srgb, var(--foreground) 8%, transparent) !important;
 }
 
-#arcane-root[class*="neon-"] .neon-progress-indicator,
-#arcane-root[class*="neon-"] .neon-slider-range {
+#arcane-root.arcane-theme-neon .neon-progress-indicator,
+#arcane-root.arcane-theme-neon .neon-slider-range {
   background: linear-gradient(90deg, var(--neon-accent), var(--neon-accent-cool)) !important;
   box-shadow: 0 0 14px color-mix(in srgb, var(--neon-accent) 36%, transparent);
 }
 
-#arcane-root[class*="neon-"] .neon-slider-thumb,
-#arcane-root[class*="neon-"] .neon-radio-circle,
-#arcane-root[class*="neon-"] .neon-status-indicator {
+#arcane-root.arcane-theme-neon .neon-slider-thumb,
+#arcane-root.arcane-theme-neon .neon-radio-circle,
+#arcane-root.arcane-theme-neon .neon-status-indicator {
   box-shadow:
     0 0 0 1px color-mix(in srgb, var(--neon-accent) 38%, transparent),
     0 0 12px color-mix(in srgb, var(--neon-accent) 24%, transparent) !important;
 }
 
-#arcane-root[class*="neon-"] .neon-sidebar-item,
-#arcane-root[class*="neon-"] .neon-dropdown-item,
-#arcane-root[class*="neon-"] .neon-context-menu-item,
-#arcane-root[class*="neon-"] .neon-menubar-item,
-#arcane-root[class*="neon-"] .neon-select-option,
-#arcane-root[class*="neon-"] .neon-select-item,
-#arcane-root[class*="neon-"] .neon-command-item {
+#arcane-root.arcane-theme-neon .neon-sidebar-item,
+#arcane-root.arcane-theme-neon .neon-dropdown-item,
+#arcane-root.arcane-theme-neon .neon-context-menu-item,
+#arcane-root.arcane-theme-neon .neon-menubar-item,
+#arcane-root.arcane-theme-neon .neon-select-option,
+#arcane-root.arcane-theme-neon .neon-select-item,
+#arcane-root.arcane-theme-neon .neon-command-item {
   border-radius: var(--neon-radius-control);
   clip-path: var(--neon-clip-xs);
   border: 1px solid transparent;
   transition: background 0.14s ease, border-color 0.14s ease, color 0.14s ease, box-shadow 0.14s ease;
 }
 
-#arcane-root[class*="neon-"] .neon-sidebar-item:hover,
-#arcane-root[class*="neon-"] .neon-dropdown-item:hover,
-#arcane-root[class*="neon-"] .neon-context-menu-item:hover,
-#arcane-root[class*="neon-"] .neon-menubar-item:hover,
-#arcane-root[class*="neon-"] .neon-select-option:hover,
-#arcane-root[class*="neon-"] .neon-select-item:hover,
-#arcane-root[class*="neon-"] .neon-command-item:hover {
+#arcane-root.arcane-theme-neon .neon-sidebar-item:hover,
+#arcane-root.arcane-theme-neon .neon-dropdown-item:hover,
+#arcane-root.arcane-theme-neon .neon-context-menu-item:hover,
+#arcane-root.arcane-theme-neon .neon-menubar-item:hover,
+#arcane-root.arcane-theme-neon .neon-select-option:hover,
+#arcane-root.arcane-theme-neon .neon-select-item:hover,
+#arcane-root.arcane-theme-neon .neon-command-item:hover {
   border-color: color-mix(in srgb, var(--neon-accent) 32%, transparent);
   background: color-mix(in srgb, var(--neon-accent) 10%, transparent) !important;
   color: var(--foreground);
 }
 
-#arcane-root[class*="neon-"] .neon-sidebar-item.selected,
-#arcane-root[class*="neon-"] .neon-sidebar-item.active,
-#arcane-root[class*="neon-"] .neon-command-item.selected,
-#arcane-root[class*="neon-"] .neon-select-option.selected,
-#arcane-root[class*="neon-"] .neon-select-item.selected {
+#arcane-root.arcane-theme-neon .neon-sidebar-item.selected,
+#arcane-root.arcane-theme-neon .neon-sidebar-item.active,
+#arcane-root.arcane-theme-neon .neon-command-item.selected,
+#arcane-root.arcane-theme-neon .neon-select-option.selected,
+#arcane-root.arcane-theme-neon .neon-select-item.selected {
   border-color: var(--neon-panel-border-hot);
   background:
     linear-gradient(90deg, color-mix(in srgb, var(--neon-accent) 14%, transparent), color-mix(in srgb, var(--neon-accent-cool) 8%, transparent)) !important;
@@ -678,16 +678,16 @@ html.light #arcane-root[class*="neon-"] .neon-breadcrumb-current,
   box-shadow: inset 2px 0 0 var(--neon-accent), var(--neon-glow-sm);
 }
 
-#arcane-root[class*="neon-"] .neon-separator,
-#arcane-root[class*="neon-"] .neon-dropdown-divider,
-#arcane-root[class*="neon-"] .neon-context-menu-separator,
-#arcane-root[class*="neon-"] .neon-menubar-separator,
-#arcane-root[class*="neon-"] .neon-sidebar-separator {
+#arcane-root.arcane-theme-neon .neon-separator,
+#arcane-root.arcane-theme-neon .neon-dropdown-divider,
+#arcane-root.arcane-theme-neon .neon-context-menu-separator,
+#arcane-root.arcane-theme-neon .neon-menubar-separator,
+#arcane-root.arcane-theme-neon .neon-sidebar-separator {
   background: linear-gradient(90deg, transparent, var(--neon-panel-border-hot), transparent) !important;
   height: 1px !important;
 }
 
-#arcane-root[class*="neon-"] .neon-separator-with-label span {
+#arcane-root.arcane-theme-neon .neon-separator-with-label span {
   border-radius: var(--neon-radius-control);
   clip-path: var(--neon-clip-xs);
   border: 1px solid var(--neon-control-border);
@@ -698,8 +698,8 @@ html.light #arcane-root[class*="neon-"] .neon-breadcrumb-current,
   font-size: 0.75rem;
 }
 
-#arcane-root[class*="neon-"] .neon-skeleton,
-#arcane-root[class*="neon-"] .neon-skeleton-card {
+#arcane-root.arcane-theme-neon .neon-skeleton,
+#arcane-root.arcane-theme-neon .neon-skeleton-card {
   border-radius: var(--neon-radius-control);
   clip-path: var(--neon-clip-xs);
   background:
@@ -708,7 +708,7 @@ html.light #arcane-root[class*="neon-"] .neon-breadcrumb-current,
   background-size: 240% 100%, auto !important;
 }
 
-html.light #arcane-root[class*="neon-"] {
+html.light #arcane-root.arcane-theme-neon {
   --neon-surface-0: var(--background);
   --neon-grid-line: color-mix(in srgb, var(--neon-accent) 8%, transparent);
   --neon-panel-surface: color-mix(in srgb, #ffffff 92%, var(--neon-accent));
@@ -728,7 +728,7 @@ html.light #arcane-root[class*="neon-"] {
   --neon-inset-strong: inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 
-html.light #arcane-root[class*="neon-"]::before {
+html.light #arcane-root.arcane-theme-neon::before {
   content: '';
   position: fixed;
   inset: 0;
@@ -742,7 +742,7 @@ html.light #arcane-root[class*="neon-"]::before {
   background-attachment: fixed;
 }
 
-html.light #arcane-root[class*="neon-"]::after {
+html.light #arcane-root.arcane-theme-neon::after {
   display: none;
 }
 
@@ -897,49 +897,49 @@ html.light #arcane-root[class*="neon-"]::after {
 .prose .hljs-variable { color: var(--neon-accent-hot); }
 .prose .hljs-class, .prose .hljs-built_in { color: var(--neon-accent); }
 
-#arcane-root[class*="neon-"] h1,
-#arcane-root[class*="neon-"] h2,
-#arcane-root[class*="neon-"] h3,
-#arcane-root[class*="neon-"] h4,
-#arcane-root[class*="neon-"] h5,
-#arcane-root[class*="neon-"] h6,
-#arcane-root[class*="neon-"] .arcane-heading,
-#arcane-root[class*="neon-"] .arcane-headline,
-#arcane-root[class*="neon-"] .arcane-subheadline,
-#arcane-root[class*="neon-"] .arcane-title {
+#arcane-root.arcane-theme-neon h1,
+#arcane-root.arcane-theme-neon h2,
+#arcane-root.arcane-theme-neon h3,
+#arcane-root.arcane-theme-neon h4,
+#arcane-root.arcane-theme-neon h5,
+#arcane-root.arcane-theme-neon h6,
+#arcane-root.arcane-theme-neon .arcane-heading,
+#arcane-root.arcane-theme-neon .arcane-headline,
+#arcane-root.arcane-theme-neon .arcane-subheadline,
+#arcane-root.arcane-theme-neon .arcane-title {
   font-family: var(--font-heading);
   letter-spacing: 0.03em;
 }
 
-#arcane-root[class*="neon-"] .neon-button,
-#arcane-root[class*="neon-"] .neon-tabs-trigger,
-#arcane-root[class*="neon-"] .neon-tab-bar-item,
-#arcane-root[class*="neon-"] .neon-toggle-group-item {
+#arcane-root.arcane-theme-neon .neon-button,
+#arcane-root.arcane-theme-neon .neon-tabs-trigger,
+#arcane-root.arcane-theme-neon .neon-tab-bar-item,
+#arcane-root.arcane-theme-neon .neon-toggle-group-item {
   font-family: var(--font-heading);
 }
 
-#arcane-root[class*="neon-"] .neon-glow {
+#arcane-root.arcane-theme-neon .neon-glow {
   box-shadow: var(--neon-glow-sm);
 }
 
-#arcane-root[class*="neon-"] .neon-glow-strong {
+#arcane-root.arcane-theme-neon .neon-glow-strong {
   box-shadow: var(--neon-glow-lg);
 }
 
 ${theme == NeonTheme.rainbow ? rainbowCss : ''}
 
-#arcane-root[class*="neon-"] .arcane-tree-lines {
+#arcane-root.arcane-theme-neon .arcane-tree-lines {
   position: relative;
   --tree-indent: 1rem;
   --tree-line-color: var(--border);
 }
 
-#arcane-root[class*="neon-"] .arcane-tree-lines > * {
+#arcane-root.arcane-theme-neon .arcane-tree-lines > * {
   position: relative;
   padding-left: var(--tree-indent);
 }
 
-#arcane-root[class*="neon-"] .arcane-tree-lines > *::before {
+#arcane-root.arcane-theme-neon .arcane-tree-lines > *::before {
   content: '';
   position: absolute;
   left: 0;
@@ -949,7 +949,7 @@ ${theme == NeonTheme.rainbow ? rainbowCss : ''}
   background: var(--tree-line-color);
 }
 
-#arcane-root[class*="neon-"] .arcane-tree-lines > *::after {
+#arcane-root.arcane-theme-neon .arcane-tree-lines > *::after {
   content: '';
   position: absolute;
   left: 0;
@@ -959,27 +959,27 @@ ${theme == NeonTheme.rainbow ? rainbowCss : ''}
   background: var(--tree-line-color);
 }
 
-#arcane-root[class*="neon-"] .arcane-tree-lines > *:last-child::after {
+#arcane-root.arcane-theme-neon .arcane-tree-lines > *:last-child::after {
   bottom: 50%;
 }
 
-#arcane-root[class*="neon-"] .arcane-tree-lines > *:first-child::after {
+#arcane-root.arcane-theme-neon .arcane-tree-lines > *:first-child::after {
   top: 50%;
 }
 
-#arcane-root[class*="neon-"] .arcane-tree-lines > *:only-child::after {
+#arcane-root.arcane-theme-neon .arcane-tree-lines > *:only-child::after {
   display: none;
 }
 
-#arcane-root[class*="neon-"] .arcane-tree-lines .arcane-tree-lines {
+#arcane-root.arcane-theme-neon .arcane-tree-lines .arcane-tree-lines {
   --tree-line-color: color-mix(in srgb, var(--border) 70%, transparent);
 }
 
-#arcane-root[class*="neon-"] .arcane-tree-lines .arcane-tree-lines .arcane-tree-lines {
+#arcane-root.arcane-theme-neon .arcane-tree-lines .arcane-tree-lines .arcane-tree-lines {
   --tree-line-color: color-mix(in srgb, var(--border) 50%, transparent);
 }
 
-#arcane-root[class*="neon-"] .arcane-tree-lines .arcane-tree-lines .arcane-tree-lines .arcane-tree-lines {
+#arcane-root.arcane-theme-neon .arcane-tree-lines .arcane-tree-lines .arcane-tree-lines .arcane-tree-lines {
   --tree-line-color: color-mix(in srgb, var(--border) 35%, transparent);
 }
 
@@ -1060,9 +1060,9 @@ $arcaneMapCss
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #arcane-root[class*="neon-"] *,
-  #arcane-root[class*="neon-"] *::before,
-  #arcane-root[class*="neon-"] *::after {
+  #arcane-root.arcane-theme-neon *,
+  #arcane-root.arcane-theme-neon *::before,
+  #arcane-root.arcane-theme-neon *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
@@ -1070,7 +1070,7 @@ $arcaneMapCss
   }
 }
 
-#arcane-root[class*="neon-"] .arcane-demo-panel {
+#arcane-root.arcane-theme-neon .arcane-demo-panel {
   padding: 1.25rem !important;
   clip-path: var(--neon-panel-clip);
   border: 1px solid var(--neon-panel-border) !important;
@@ -1083,13 +1083,13 @@ $arcaneMapCss
   box-shadow: var(--neon-shadow-sm), var(--neon-inset) !important;
 }
 
-#arcane-root[class*="neon-"] .arcane-demo-kicker,
-#arcane-root[class*="neon-"] .arcane-demo-code-label {
+#arcane-root.arcane-theme-neon .arcane-demo-kicker,
+#arcane-root.arcane-theme-neon .arcane-demo-code-label {
   color: var(--neon-accent-cool) !important;
   text-shadow: 0 0 14px color-mix(in srgb, var(--neon-accent-cool) 24%, transparent);
 }
 
-#arcane-root[class*="neon-"] .arcane-demo-component-chip {
+#arcane-root.arcane-theme-neon .arcane-demo-component-chip {
   border: 1px solid color-mix(in srgb, var(--neon-accent) 32%, transparent) !important;
   border-radius: 0.375rem !important;
   background: color-mix(in srgb, var(--neon-accent) 9%, transparent) !important;
@@ -1097,11 +1097,11 @@ $arcaneMapCss
   box-shadow: var(--neon-inset) !important;
 }
 
-#arcane-root[class*="neon-"] .arcane-demo-section-title {
+#arcane-root.arcane-theme-neon .arcane-demo-section-title {
   color: var(--foreground) !important;
 }
 
-#arcane-root[class*="neon-"] .arcane-demo-preview-scope {
+#arcane-root.arcane-theme-neon .arcane-demo-preview-scope {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -1121,13 +1121,13 @@ $arcaneMapCss
     0 0 30px color-mix(in srgb, var(--primary) 10%, transparent);
 }
 
-#arcane-root[class*="neon-"] .arcane-demo-preview-scope > .arcane-box {
+#arcane-root.arcane-theme-neon .arcane-demo-preview-scope > .arcane-box {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
 }
 
-#arcane-root[class*="neon-"] .arcane-demo-preview-scope::before {
+#arcane-root.arcane-theme-neon .arcane-demo-preview-scope::before {
   content: '';
   display: block;
   position: absolute;
@@ -1142,7 +1142,7 @@ $arcaneMapCss
   z-index: 1;
 }
 
-#arcane-root[class*="neon-"] .arcane-demo-preview-scope::after {
+#arcane-root.arcane-theme-neon .arcane-demo-preview-scope::after {
   content: '';
   display: block;
   position: absolute;
@@ -1153,11 +1153,11 @@ $arcaneMapCss
   z-index: 1;
 }
 
-#arcane-root[class*="neon-"] .arcane-demo-preview-scope .neon-dialog-overlay,
-#arcane-root[class*="neon-"] .arcane-demo-preview-scope .neon-command-overlay,
-#arcane-root[class*="neon-"] .arcane-demo-preview-scope .neon-sheet-overlay,
-#arcane-root[class*="neon-"] .arcane-demo-preview-scope .neon-drawer-overlay,
-#arcane-root[class*="neon-"] .arcane-demo-preview-scope .neon-dropdown-backdrop {
+#arcane-root.arcane-theme-neon .arcane-demo-preview-scope .neon-dialog-overlay,
+#arcane-root.arcane-theme-neon .arcane-demo-preview-scope .neon-command-overlay,
+#arcane-root.arcane-theme-neon .arcane-demo-preview-scope .neon-sheet-overlay,
+#arcane-root.arcane-theme-neon .arcane-demo-preview-scope .neon-drawer-overlay,
+#arcane-root.arcane-theme-neon .arcane-demo-preview-scope .neon-dropdown-backdrop {
   position: absolute !important;
   inset: 0 !important;
   z-index: 25 !important;
@@ -1165,32 +1165,32 @@ $arcaneMapCss
   overflow: hidden;
 }
 
-#arcane-root[class*="neon-"] .arcane-demo-preview-scope .neon-dialog-overlay {
+#arcane-root.arcane-theme-neon .arcane-demo-preview-scope .neon-dialog-overlay {
   padding: 1rem !important;
 }
 
-#arcane-root[class*="neon-"] .arcane-demo-preview-scope .neon-command-overlay {
+#arcane-root.arcane-theme-neon .arcane-demo-preview-scope .neon-command-overlay {
   padding: 1rem !important;
   padding-top: 1rem !important;
 }
 
-#arcane-root[class*="neon-"] .arcane-demo-preview-scope .neon-sheet,
-#arcane-root[class*="neon-"] .arcane-demo-preview-scope .neon-drawer {
+#arcane-root.arcane-theme-neon .arcane-demo-preview-scope .neon-sheet,
+#arcane-root.arcane-theme-neon .arcane-demo-preview-scope .neon-drawer {
   position: absolute !important;
   max-width: 100% !important;
   max-height: 100% !important;
 }
 
-#arcane-root[class*="neon-"] .arcane-demo-preview-scope .neon-command-dialog {
+#arcane-root.arcane-theme-neon .arcane-demo-preview-scope .neon-command-dialog {
   max-width: min(640px, calc(100% - 2rem)) !important;
   max-height: calc(100% - 2rem) !important;
 }
 
-#arcane-root[class*="neon-"] .arcane-demo-preview-scope .neon-context-menu {
+#arcane-root.arcane-theme-neon .arcane-demo-preview-scope .neon-context-menu {
   position: absolute !important;
 }
 
-#arcane-root[class*="neon-"] .arcane-demo-code {
+#arcane-root.arcane-theme-neon .arcane-demo-code {
   clip-path: var(--neon-panel-clip);
   border-color: var(--neon-panel-border) !important;
   background:
@@ -1202,7 +1202,7 @@ $arcaneMapCss
     0 14px 34px color-mix(in srgb, var(--primary) 10%, transparent);
 }
 
-#arcane-root[class*="neon-"] .arcane-demo-missing {
+#arcane-root.arcane-theme-neon .arcane-demo-missing {
   clip-path: var(--neon-panel-clip);
   border: 1px solid color-mix(in srgb, var(--neon-orange) 46%, var(--neon-panel-border)) !important;
   border-radius: var(--neon-radius-panel) !important;
@@ -1215,7 +1215,7 @@ $arcaneMapCss
     0 0 24px color-mix(in srgb, var(--neon-orange) 12%, transparent) !important;
 }
 
-#arcane-root[class*="neon-"] .arcane-demo-missing-icon {
+#arcane-root.arcane-theme-neon .arcane-demo-missing-icon {
   border: 1px solid color-mix(in srgb, var(--neon-orange) 72%, transparent) !important;
   border-radius: 0.25rem !important;
   background: color-mix(in srgb, var(--neon-orange) 18%, transparent) !important;
@@ -1223,10 +1223,10 @@ $arcaneMapCss
   box-shadow: 0 0 16px color-mix(in srgb, var(--neon-orange) 18%, transparent) !important;
 }
 
-#arcane-root[class*="neon-"] .arcane-demo-missing-body {
+#arcane-root.arcane-theme-neon .arcane-demo-missing-body {
   color: var(--muted-foreground) !important;
 }
-#arcane-root[class*="neon-"] {
+#arcane-root.arcane-theme-neon {
   --kb-neon-shell-gap: 0.55rem;
   --kb-neon-sidebar-width: 14.25rem;
   --kb-neon-article-width: 66rem;
@@ -1255,8 +1255,8 @@ $arcaneMapCss
   --kb-neon-shadow-soft: 0 0 22px color-mix(in srgb, var(--neon-accent) 10%, transparent);
 }
 
-html.dark #arcane-root[class*="neon-"],
-#arcane-root.dark[class*="neon-"] {
+html.dark #arcane-root.arcane-theme-neon,
+#arcane-root.dark.arcane-theme-neon {
   --background: #12151C;
   --foreground: #F2F0EA;
   --card: #191D26;
@@ -1294,8 +1294,8 @@ html.dark #arcane-root[class*="neon-"],
   --kb-neon-shadow-soft: 0 0 18px color-mix(in srgb, var(--neon-accent) 10%, transparent);
 }
 
-html.light #arcane-root[class*="neon-"],
-#arcane-root.light[class*="neon-"] {
+html.light #arcane-root.arcane-theme-neon,
+#arcane-root.light.arcane-theme-neon {
   --background: #f3f6fb;
   --foreground: #101a3a;
   --card: #fbfdff;
@@ -1333,7 +1333,7 @@ html.light #arcane-root[class*="neon-"],
   --kb-neon-shadow-soft: 0 10px 24px color-mix(in srgb, var(--neon-accent) 10%, transparent);
 }
 
-#arcane-root[class*="neon-"] .kb-page-shell {
+#arcane-root.arcane-theme-neon .kb-page-shell {
   background:
     linear-gradient(115deg, transparent 0 58%, color-mix(in srgb, var(--kb-neon-punk-cold) 10%, transparent) 58% 58.45%, transparent 58.45% 100%),
     repeating-linear-gradient(90deg, color-mix(in srgb, var(--kb-neon-punk-cold) 5%, transparent) 0 1px, transparent 1px 4.8rem),
@@ -1344,7 +1344,7 @@ html.light #arcane-root[class*="neon-"],
     transparent;
 }
 
-html.dark #arcane-root[class*="neon-"]::before {
+html.dark #arcane-root.arcane-theme-neon::before {
   background-image:
     radial-gradient(circle at 18% 8%, rgba(0, 122, 204, 0.08), transparent 30rem),
     radial-gradient(circle at 82% 2%, rgba(27, 34, 44, 0.72), transparent 32rem),
@@ -1354,15 +1354,15 @@ html.dark #arcane-root[class*="neon-"]::before {
   background-size: auto, auto, auto, 96px 96px, 96px 96px !important;
 }
 
-html.dark #arcane-root[class*="neon-"]::after {
+html.dark #arcane-root.arcane-theme-neon::after {
   opacity: 0.045 !important;
   background:
     linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px) !important;
   background-size: 100% 6px !important;
 }
 
-html.light #arcane-root[class*="neon-"] .kb-page-shell,
-#arcane-root.light[class*="neon-"] .kb-page-shell {
+html.light #arcane-root.arcane-theme-neon .kb-page-shell,
+#arcane-root.light.arcane-theme-neon .kb-page-shell {
   background:
     linear-gradient(115deg, transparent 0 58%, rgba(36, 78, 209, 0.1) 58% 58.45%, transparent 58.45% 100%),
     repeating-linear-gradient(90deg, rgba(36, 78, 209, 0.045) 0 1px, transparent 1px 4.8rem),
@@ -1372,16 +1372,16 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
     linear-gradient(135deg, #f3f6fb 0%, #eef3fd 46%, #fbfdff 100%);
 }
 
-#arcane-root[class*="neon-"] .kb-scaffold {
+#arcane-root.arcane-theme-neon .kb-scaffold {
   min-height: 100vh !important;
   padding: 0 !important;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-mobile-dock {
+#arcane-root.arcane-theme-neon .neon-kb-mobile-dock {
   display: none;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-stage {
+#arcane-root.arcane-theme-neon .neon-kb-stage {
   display: grid !important;
   grid-template-columns: minmax(12.5rem, var(--kb-neon-sidebar-width)) minmax(0, calc(var(--kb-neon-article-width) + var(--kb-neon-route-width) + 1.7rem)) !important;
   align-items: start !important;
@@ -1393,7 +1393,7 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   padding: clamp(0.9rem, 1.6vw, 1.55rem) clamp(0.75rem, 1.8vw, 1.6rem) 4.5rem !important;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-nav-rail {
+#arcane-root.arcane-theme-neon .neon-kb-nav-rail {
   position: sticky;
   top: clamp(0.65rem, 1.4vw, 1.05rem);
   z-index: 12;
@@ -1401,7 +1401,7 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   align-self: start;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-nav-rail .kb-sidebar {
+#arcane-root.arcane-theme-neon .neon-kb-nav-rail .kb-sidebar {
   position: relative !important;
   top: auto !important;
   width: 100% !important;
@@ -1410,7 +1410,7 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   overflow: visible !important;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-nav-rail .kb-sidebar-panel {
+#arcane-root.arcane-theme-neon .neon-kb-nav-rail .kb-sidebar-panel {
   position: relative !important;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
@@ -1431,7 +1431,7 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
     0 0 24px color-mix(in srgb, var(--kb-neon-node) 7%, transparent) !important;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-nav-rail .kb-sidebar-panel::before {
+#arcane-root.arcane-theme-neon .neon-kb-nav-rail .kb-sidebar-panel::before {
   content: '';
   position: absolute;
   top: 4.1rem;
@@ -1443,7 +1443,7 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   pointer-events: none;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-nav-rail .kb-sidebar-panel::after {
+#arcane-root.arcane-theme-neon .neon-kb-nav-rail .kb-sidebar-panel::after {
   content: '';
   position: absolute;
   top: 0.55rem;
@@ -1455,7 +1455,7 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   pointer-events: none;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-nav-head {
+#arcane-root.arcane-theme-neon .neon-kb-nav-head {
   position: relative;
   z-index: 1;
   padding: 0.72rem 0.7rem 0.64rem;
@@ -1463,7 +1463,7 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   background: linear-gradient(90deg, color-mix(in srgb, var(--kb-neon-node) 12%, transparent), transparent 76%);
 }
 
-#arcane-root[class*="neon-"] .neon-kb-nav-brand {
+#arcane-root.arcane-theme-neon .neon-kb-nav-brand {
   display: grid;
   grid-template-columns: 2.1rem minmax(0, 1fr);
   align-items: center;
@@ -1472,7 +1472,7 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   text-decoration: none;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-brand-glyph {
+#arcane-root.arcane-theme-neon .neon-kb-brand-glyph {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1491,13 +1491,13 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
     0 0 16px color-mix(in srgb, var(--kb-neon-node) 18%, transparent);
 }
 
-#arcane-root[class*="neon-"] .neon-kb-brand-stack {
+#arcane-root.arcane-theme-neon .neon-kb-brand-stack {
   display: grid;
   min-width: 0;
   gap: 0.18rem;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-brand-name {
+#arcane-root.arcane-theme-neon .neon-kb-brand-name {
   min-width: 0;
   overflow: hidden;
   color: var(--kb-neon-ink);
@@ -1511,7 +1511,7 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   white-space: nowrap;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-brand-code {
+#arcane-root.arcane-theme-neon .neon-kb-brand-code {
   color: color-mix(in srgb, var(--kb-neon-node) 74%, var(--kb-neon-muted));
   font-family: var(--font-mono);
   font-size: 0.58rem;
@@ -1522,16 +1522,16 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   white-space: nowrap;
 }
 
-#arcane-root[class*="neon-"] .sidebar-brand,
-#arcane-root[class*="neon-"] .sidebar-brand-subtitle {
+#arcane-root.arcane-theme-neon .sidebar-brand,
+#arcane-root.arcane-theme-neon .sidebar-brand-subtitle {
   display: none !important;
 }
 
-#arcane-root[class*="neon-"] .sidebar-header {
+#arcane-root.arcane-theme-neon .sidebar-header {
   display: none !important;
 }
 
-#arcane-root[class*="neon-"] .sidebar-nav {
+#arcane-root.arcane-theme-neon .sidebar-nav {
   position: relative;
   z-index: 1;
   display: grid;
@@ -1541,7 +1541,7 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   padding: 0.62rem 0.52rem 0.82rem !important;
 }
 
-#arcane-root[class*="neon-"] .sidebar-section-header {
+#arcane-root.arcane-theme-neon .sidebar-section-header {
   color: color-mix(in srgb, var(--foreground) 74%, var(--kb-neon-node));
   font-family: var(--font-mono);
   font-size: 0.64rem;
@@ -1550,33 +1550,33 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   text-transform: uppercase;
 }
 
-#arcane-root[class*="neon-"] .sidebar-tree {
+#arcane-root.arcane-theme-neon .sidebar-tree {
   margin-left: 0 !important;
   padding-left: 0.48rem !important;
   gap: 0.1rem !important;
 }
 
-#arcane-root[class*="neon-"] .sidebar-tree .sidebar-tree {
+#arcane-root.arcane-theme-neon .sidebar-tree .sidebar-tree {
   padding-left: 0.42rem !important;
 }
 
-#arcane-root[class*="neon-"] .sidebar-tree > .sidebar-tree-item,
-#arcane-root[class*="neon-"] .sidebar-tree > .sidebar-section {
+#arcane-root.arcane-theme-neon .sidebar-tree > .sidebar-tree-item,
+#arcane-root.arcane-theme-neon .sidebar-tree > .sidebar-section {
   position: relative;
   margin: 0.14rem 0 !important;
 }
 
-#arcane-root[class*="neon-"] .sidebar-tree > .sidebar-tree-item::before,
-#arcane-root[class*="neon-"] .sidebar-tree > .sidebar-tree-item::after,
-#arcane-root[class*="neon-"] .sidebar-tree > .sidebar-section::before,
-#arcane-root[class*="neon-"] .sidebar-tree > .sidebar-section::after,
-#arcane-root[class*="neon-"] .sidebar-tree .sidebar-details[open] > .sidebar-tree::before {
+#arcane-root.arcane-theme-neon .sidebar-tree > .sidebar-tree-item::before,
+#arcane-root.arcane-theme-neon .sidebar-tree > .sidebar-tree-item::after,
+#arcane-root.arcane-theme-neon .sidebar-tree > .sidebar-section::before,
+#arcane-root.arcane-theme-neon .sidebar-tree > .sidebar-section::after,
+#arcane-root.arcane-theme-neon .sidebar-tree .sidebar-details[open] > .sidebar-tree::before {
   content: none !important;
   display: none !important;
 }
 
-#arcane-root[class*="neon-"] .sidebar-link,
-#arcane-root[class*="neon-"] .sidebar-summary {
+#arcane-root.arcane-theme-neon .sidebar-link,
+#arcane-root.arcane-theme-neon .sidebar-summary {
   position: relative;
   min-height: 1.95rem;
   margin: 0 !important;
@@ -1591,15 +1591,15 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
 }
 
-#arcane-root[class*="neon-"] .sidebar-summary {
+#arcane-root.arcane-theme-neon .sidebar-summary {
   color: color-mix(in srgb, var(--kb-neon-ink) 82%, var(--kb-neon-node));
   font-size: 0.72rem;
   font-weight: 760;
   text-transform: uppercase;
 }
 
-#arcane-root[class*="neon-"] .sidebar-tree .sidebar-link::before,
-#arcane-root[class*="neon-"] .sidebar-tree .sidebar-summary::before {
+#arcane-root.arcane-theme-neon .sidebar-tree .sidebar-link::before,
+#arcane-root.arcane-theme-neon .sidebar-tree .sidebar-summary::before {
   content: '';
   position: absolute;
   left: 0.32rem;
@@ -1611,9 +1611,9 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   transform: translateY(-50%) rotate(45deg);
 }
 
-#arcane-root[class*="neon-"] .sidebar-link:hover,
-#arcane-root[class*="neon-"] .sidebar-summary:hover,
-#arcane-root[class*="neon-"] .sidebar-link.active {
+#arcane-root.arcane-theme-neon .sidebar-link:hover,
+#arcane-root.arcane-theme-neon .sidebar-summary:hover,
+#arcane-root.arcane-theme-neon .sidebar-link.active {
   border-color: color-mix(in srgb, var(--kb-neon-node) 34%, transparent) !important;
   background:
     linear-gradient(90deg, color-mix(in srgb, var(--kb-neon-node) 14%, transparent), color-mix(in srgb, var(--kb-neon-panel-faint) 64%, transparent)) !important;
@@ -1623,22 +1623,22 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
     0 0 18px color-mix(in srgb, var(--kb-neon-node) 10%, transparent);
 }
 
-#arcane-root[class*="neon-"] .sidebar-link:hover::before,
-#arcane-root[class*="neon-"] .sidebar-summary:hover::before,
-#arcane-root[class*="neon-"] .sidebar-link.active::before {
+#arcane-root.arcane-theme-neon .sidebar-link:hover::before,
+#arcane-root.arcane-theme-neon .sidebar-summary:hover::before,
+#arcane-root.arcane-theme-neon .sidebar-link.active::before {
   border-color: var(--kb-neon-node);
   background: var(--kb-neon-node);
   box-shadow: 0 0 12px color-mix(in srgb, var(--kb-neon-node) 30%, transparent);
 }
 
-#arcane-root[class*="neon-"] .neon-kb-main-frame {
+#arcane-root.arcane-theme-neon .neon-kb-main-frame {
   min-width: 0 !important;
   width: 100% !important;
   padding: 0 !important;
   margin: 0 !important;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-content-area {
+#arcane-root.arcane-theme-neon .neon-kb-content-area {
   position: relative;
   display: grid !important;
   grid-template-columns: minmax(0, var(--kb-neon-article-width)) minmax(10.5rem, var(--kb-neon-route-width)) !important;
@@ -1651,7 +1651,7 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   padding: 0 0 4.8rem !important;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-command-layer {
+#arcane-root.arcane-theme-neon .neon-kb-command-layer {
   grid-column: 1;
   grid-row: 1;
   position: sticky;
@@ -1665,7 +1665,7 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   pointer-events: none;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-command-drawer {
+#arcane-root.arcane-theme-neon .neon-kb-command-drawer {
   position: relative;
   z-index: 1;
   display: grid !important;
@@ -1682,39 +1682,39 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   -webkit-backdrop-filter: none;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-command-drawer::before {
+#arcane-root.arcane-theme-neon .neon-kb-command-drawer::before {
   display: none;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-command-drawer::after {
+#arcane-root.arcane-theme-neon .neon-kb-command-drawer::after {
   display: none;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-floating-search {
+#arcane-root.arcane-theme-neon .neon-kb-floating-search {
   grid-column: 2;
   justify-self: stretch;
   min-width: 0;
   pointer-events: auto;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-floating-controls {
+#arcane-root.arcane-theme-neon .neon-kb-floating-controls {
   display: flex;
   align-items: center;
   min-width: 0;
   pointer-events: auto;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-floating-controls-left {
+#arcane-root.arcane-theme-neon .neon-kb-floating-controls-left {
   grid-column: 1;
   justify-self: end;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-floating-controls-right {
+#arcane-root.arcane-theme-neon .neon-kb-floating-controls-right {
   grid-column: 3;
   justify-self: start;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-command-drawer .kb-search {
+#arcane-root.arcane-theme-neon .neon-kb-command-drawer .kb-search {
   display: block;
   width: 100%;
   min-width: 0;
@@ -1735,7 +1735,7 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   -webkit-backdrop-filter: blur(18px) saturate(1.08);
 }
 
-#arcane-root[class*="neon-"] .kb-search-input {
+#arcane-root.arcane-theme-neon .kb-search-input {
   width: 100%;
   height: 100%;
   border: 0 !important;
@@ -1749,22 +1749,22 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   box-shadow: none !important;
 }
 
-#arcane-root[class*="neon-"] .kb-search-input-wrap {
+#arcane-root.arcane-theme-neon .kb-search-input-wrap {
   height: 100%;
 }
 
-#arcane-root[class*="neon-"] .kb-search-icon {
+#arcane-root.arcane-theme-neon .kb-search-icon {
   color: color-mix(in srgb, var(--kb-neon-node) 78%, var(--foreground));
 }
 
-#arcane-root[class*="neon-"] .neon-kb-command-controls {
+#arcane-root.arcane-theme-neon .neon-kb-command-controls {
   display: flex;
   align-items: stretch;
   gap: 0.52rem;
   min-width: 0;
 }
 
-#arcane-root[class*="neon-"] .kb-style-switcher {
+#arcane-root.arcane-theme-neon .kb-style-switcher {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -1788,18 +1788,18 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   -webkit-backdrop-filter: blur(18px) saturate(1.08);
 }
 
-#arcane-root[class*="neon-"] .neon-kb-command-controls .kb-style-switcher {
+#arcane-root.arcane-theme-neon .neon-kb-command-controls .kb-style-switcher {
   flex: 1 1 auto;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-floating-controls .kb-style-switcher {
+#arcane-root.arcane-theme-neon .neon-kb-floating-controls .kb-style-switcher {
   background:
     linear-gradient(90deg, color-mix(in srgb, var(--kb-neon-punk-hot) 10%, transparent), transparent 72%),
     color-mix(in srgb, var(--kb-neon-panel-strong) 76%, var(--background));
 }
 
-#arcane-root[class*="neon-"] .kb-stylesheet-select,
-#arcane-root[class*="neon-"] .kb-palette-select {
+#arcane-root.arcane-theme-neon .kb-stylesheet-select,
+#arcane-root.arcane-theme-neon .kb-palette-select {
   height: 2.04rem;
   min-width: 6.15rem;
   outline: 0;
@@ -1828,19 +1828,19 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   letter-spacing: 0;
 }
 
-#arcane-root[class*="neon-"] .kb-palette-select {
+#arcane-root.arcane-theme-neon .kb-palette-select {
   min-width: 5.25rem;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-command-actions {
+#arcane-root.arcane-theme-neon .neon-kb-command-actions {
   display: flex;
   align-items: stretch;
   gap: 0.4rem;
 }
 
-#arcane-root[class*="neon-"] .kb-topbar-github,
-#arcane-root[class*="neon-"] .kb-theme-toggle,
-#arcane-root[class*="neon-"] .kb-hamburger {
+#arcane-root.arcane-theme-neon .kb-topbar-github,
+#arcane-root.arcane-theme-neon .kb-theme-toggle,
+#arcane-root.arcane-theme-neon .kb-hamburger {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1862,24 +1862,24 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   -webkit-backdrop-filter: blur(18px) saturate(1.08);
 }
 
-#arcane-root[class*="neon-"] .kb-theme-toggle:hover,
-#arcane-root[class*="neon-"] .kb-topbar-github:hover,
-#arcane-root[class*="neon-"] .kb-hamburger:hover,
-#arcane-root[class*="neon-"] .kb-stylesheet-select:hover,
-#arcane-root[class*="neon-"] .kb-palette-select:hover {
+#arcane-root.arcane-theme-neon .kb-theme-toggle:hover,
+#arcane-root.arcane-theme-neon .kb-topbar-github:hover,
+#arcane-root.arcane-theme-neon .kb-hamburger:hover,
+#arcane-root.arcane-theme-neon .kb-stylesheet-select:hover,
+#arcane-root.arcane-theme-neon .kb-palette-select:hover {
   border-color: color-mix(in srgb, var(--kb-neon-node) 42%, transparent) !important;
   background: color-mix(in srgb, var(--kb-neon-node) 12%, var(--background)) !important;
   color: var(--kb-neon-node-alt);
 }
 
-#arcane-root[class*="neon-"] .neon-kb-article-lane {
+#arcane-root.arcane-theme-neon .neon-kb-article-lane {
   grid-column: 1;
   grid-row: 2;
   min-width: 0;
   width: 100%;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-content-stack {
+#arcane-root.arcane-theme-neon .neon-kb-content-stack {
   display: grid;
   align-items: start;
   min-width: 0;
@@ -1887,7 +1887,7 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   gap: 1rem;
 }
 
-#arcane-root[class*="neon-"] .kb-article-panel {
+#arcane-root.arcane-theme-neon .kb-article-panel {
   position: relative;
   min-width: 0 !important;
   width: 100% !important;
@@ -1902,18 +1902,18 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   -webkit-backdrop-filter: none !important;
 }
 
-#arcane-root[class*="neon-"] .kb-article-panel::before {
+#arcane-root.arcane-theme-neon .kb-article-panel::before {
   content: none !important;
   display: none !important;
 }
 
-#arcane-root[class*="neon-"] .kb-page-title {
+#arcane-root.arcane-theme-neon .kb-page-title {
   position: relative;
   display: inline-block;
   text-shadow: none;
 }
 
-#arcane-root[class*="neon-"] .kb-page-title::after {
+#arcane-root.arcane-theme-neon .kb-page-title::after {
   content: '';
   position: absolute;
   left: 0;
@@ -1925,56 +1925,56 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   opacity: 0.88;
 }
 
-#arcane-root[class*="neon-"] .kb-page-metadata,
-#arcane-root[class*="neon-"] .kb-tags-footer,
-#arcane-root[class*="neon-"] .kb-page-nav {
+#arcane-root.arcane-theme-neon .kb-page-metadata,
+#arcane-root.arcane-theme-neon .kb-tags-footer,
+#arcane-root.arcane-theme-neon .kb-page-nav {
   border-color: color-mix(in srgb, var(--kb-neon-node) 16%, var(--border));
 }
 
-#arcane-root[class*="neon-"] .prose {
+#arcane-root.arcane-theme-neon .prose {
   max-width: none;
 }
 
-#arcane-root[class*="neon-"] .prose h1,
-#arcane-root[class*="neon-"] .prose h2,
-#arcane-root[class*="neon-"] .prose h3 {
+#arcane-root.arcane-theme-neon .prose h1,
+#arcane-root.arcane-theme-neon .prose h2,
+#arcane-root.arcane-theme-neon .prose h3 {
   letter-spacing: 0;
   scroll-margin-top: calc(var(--kb-neon-dock-height) + 1.5rem);
   text-transform: uppercase;
 }
 
-#arcane-root[class*="neon-"] .prose pre,
-#arcane-root[class*="neon-"] .kb-code-group,
-#arcane-root[class*="neon-"] .kb-panel,
-#arcane-root[class*="neon-"] .kb-frame,
-#arcane-root[class*="neon-"] .kb-card,
-#arcane-root[class*="neon-"] .kb-tile,
-#arcane-root[class*="neon-"] .kb-step,
-#arcane-root[class*="neon-"] .kb-banner {
+#arcane-root.arcane-theme-neon .prose pre,
+#arcane-root.arcane-theme-neon .kb-code-group,
+#arcane-root.arcane-theme-neon .kb-panel,
+#arcane-root.arcane-theme-neon .kb-frame,
+#arcane-root.arcane-theme-neon .kb-card,
+#arcane-root.arcane-theme-neon .kb-tile,
+#arcane-root.arcane-theme-neon .kb-step,
+#arcane-root.arcane-theme-neon .kb-banner {
   clip-path: var(--kb-neon-clip-md);
   border-radius: 0.375rem;
   border-color: var(--kb-neon-line);
   box-shadow: var(--kb-neon-shadow-soft);
 }
 
-#arcane-root[class*="neon-"] .kb-callout {
+#arcane-root.arcane-theme-neon .kb-callout {
   clip-path: var(--kb-neon-clip-md);
   border-radius: 0.375rem;
 }
 
-#arcane-root[class*="neon-"] .markdown-alert {
+#arcane-root.arcane-theme-neon .markdown-alert {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   border-radius: 0.125rem;
 }
 
-#arcane-root[class*="neon-"] .kb-page-nav {
+#arcane-root.arcane-theme-neon .kb-page-nav {
   position: relative;
   gap: 0.8rem !important;
   padding-top: 1.15rem !important;
   border-top: 0 !important;
 }
 
-#arcane-root[class*="neon-"] .kb-page-nav::before {
+#arcane-root.arcane-theme-neon .kb-page-nav::before {
   content: '';
   position: absolute;
   top: 0;
@@ -1985,7 +1985,7 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   box-shadow: 0 0 16px color-mix(in srgb, var(--kb-neon-node) 12%, transparent);
 }
 
-#arcane-root[class*="neon-"] .kb-page-nav-link {
+#arcane-root.arcane-theme-neon .kb-page-nav-link {
   position: relative;
   flex: 0 1 calc(50% - 0.5rem) !important;
   max-width: 25rem;
@@ -2003,7 +2003,7 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
     0 0 24px color-mix(in srgb, var(--kb-neon-node) 7%, transparent);
 }
 
-#arcane-root[class*="neon-"] .kb-page-nav-link::before {
+#arcane-root.arcane-theme-neon .kb-page-nav-link::before {
   content: '';
   position: absolute;
   top: 0.75rem;
@@ -2013,15 +2013,15 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   box-shadow: 0 0 16px color-mix(in srgb, var(--kb-neon-node) 22%, transparent);
 }
 
-#arcane-root[class*="neon-"] .kb-page-nav-prev::before {
+#arcane-root.arcane-theme-neon .kb-page-nav-prev::before {
   left: 0.95rem;
 }
 
-#arcane-root[class*="neon-"] .kb-page-nav-next::before {
+#arcane-root.arcane-theme-neon .kb-page-nav-next::before {
   right: 0.95rem;
 }
 
-#arcane-root[class*="neon-"] .kb-page-nav-link:hover {
+#arcane-root.arcane-theme-neon .kb-page-nav-link:hover {
   border-color: color-mix(in srgb, var(--kb-neon-node) 46%, var(--border));
   background:
     radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--kb-neon-node) 22%, transparent), transparent 12rem),
@@ -2032,7 +2032,7 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
     0 0 28px color-mix(in srgb, var(--kb-neon-node) 12%, transparent);
 }
 
-#arcane-root[class*="neon-"] .neon-kb-route-index {
+#arcane-root.arcane-theme-neon .neon-kb-route-index {
   grid-column: 2;
   grid-row: 2;
   position: sticky;
@@ -2045,7 +2045,7 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   padding-bottom: 1rem;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-route-index .kb-toc-panel {
+#arcane-root.arcane-theme-neon .neon-kb-route-index .kb-toc-panel {
   position: static !important;
   top: auto !important;
   width: 100% !important;
@@ -2061,7 +2061,7 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   -webkit-backdrop-filter: none !important;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-route-index .toc {
+#arcane-root.arcane-theme-neon .neon-kb-route-index .toc {
   position: relative;
   padding: 0.18rem 0 0.24rem 0.78rem;
   clip-path: none;
@@ -2072,7 +2072,7 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   box-shadow: none;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-route-index .toc::before {
+#arcane-root.arcane-theme-neon .neon-kb-route-index .toc::before {
   content: '';
   position: absolute;
   top: 0;
@@ -2083,7 +2083,7 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   opacity: 0.72;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-route-index .toc-title {
+#arcane-root.arcane-theme-neon .neon-kb-route-index .toc-title {
   margin: 0 0 0.8rem;
   padding: 0 0 0.55rem;
   border-bottom: 1px solid color-mix(in srgb, var(--kb-neon-node) 18%, transparent);
@@ -2095,18 +2095,18 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   text-transform: uppercase;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-route-index .toc-content > ul,
-#arcane-root[class*="neon-"] .neon-kb-route-index .toc-content ul ul {
+#arcane-root.arcane-theme-neon .neon-kb-route-index .toc-content > ul,
+#arcane-root.arcane-theme-neon .neon-kb-route-index .toc-content ul ul {
   padding-left: 0;
   margin-left: 0;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-route-index .toc-content li::before,
-#arcane-root[class*="neon-"] .neon-kb-route-index .toc-content li::after {
+#arcane-root.arcane-theme-neon .neon-kb-route-index .toc-content li::before,
+#arcane-root.arcane-theme-neon .neon-kb-route-index .toc-content li::after {
   display: none !important;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-route-index .toc-content a {
+#arcane-root.arcane-theme-neon .neon-kb-route-index .toc-content a {
   position: relative;
   margin: 0.1rem 0;
   padding: 0.36rem 0.34rem 0.36rem 0.85rem !important;
@@ -2117,12 +2117,12 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   line-height: 1.25;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-route-index .toc-content ul ul a {
+#arcane-root.arcane-theme-neon .neon-kb-route-index .toc-content ul ul a {
   margin-left: 0.48rem;
   font-size: 0.74rem;
 }
 
-#arcane-root[class*="neon-"] .neon-kb-route-index .toc-content a::before {
+#arcane-root.arcane-theme-neon .neon-kb-route-index .toc-content a::before {
   content: '';
   position: absolute;
   left: 0.12rem;
@@ -2134,30 +2134,30 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   transform: translateY(-50%);
 }
 
-#arcane-root[class*="neon-"] .neon-kb-route-index .toc-content a:hover,
-#arcane-root[class*="neon-"] .neon-kb-route-index .toc-content a.toc-active {
+#arcane-root.arcane-theme-neon .neon-kb-route-index .toc-content a:hover,
+#arcane-root.arcane-theme-neon .neon-kb-route-index .toc-content a.toc-active {
   color: var(--kb-neon-node-alt);
   background: linear-gradient(90deg, color-mix(in srgb, var(--kb-neon-node) 10%, transparent), transparent);
 }
 
-#arcane-root[class*="neon-"] .neon-kb-route-index .toc-content a.toc-active::before {
+#arcane-root.arcane-theme-neon .neon-kb-route-index .toc-content a.toc-active::before {
   background: var(--kb-neon-node);
   border-color: var(--kb-neon-node);
   box-shadow: 0 0 12px color-mix(in srgb, var(--kb-neon-node) 30%, transparent);
 }
 
-html.light #arcane-root[class*="neon-"] .neon-kb-nav-rail .kb-sidebar-panel,
-#arcane-root.light[class*="neon-"] .neon-kb-nav-rail .kb-sidebar-panel,
-html.light #arcane-root[class*="neon-"] .neon-kb-command-drawer .kb-search,
-html.light #arcane-root[class*="neon-"] .kb-style-switcher,
-html.light #arcane-root[class*="neon-"] .kb-theme-toggle,
-html.light #arcane-root[class*="neon-"] .kb-topbar-github,
-html.light #arcane-root[class*="neon-"] .kb-hamburger,
-#arcane-root.light[class*="neon-"] .neon-kb-command-drawer .kb-search,
-#arcane-root.light[class*="neon-"] .kb-style-switcher,
-#arcane-root.light[class*="neon-"] .kb-theme-toggle,
-#arcane-root.light[class*="neon-"] .kb-topbar-github,
-#arcane-root.light[class*="neon-"] .kb-hamburger {
+html.light #arcane-root.arcane-theme-neon .neon-kb-nav-rail .kb-sidebar-panel,
+#arcane-root.light.arcane-theme-neon .neon-kb-nav-rail .kb-sidebar-panel,
+html.light #arcane-root.arcane-theme-neon .neon-kb-command-drawer .kb-search,
+html.light #arcane-root.arcane-theme-neon .kb-style-switcher,
+html.light #arcane-root.arcane-theme-neon .kb-theme-toggle,
+html.light #arcane-root.arcane-theme-neon .kb-topbar-github,
+html.light #arcane-root.arcane-theme-neon .kb-hamburger,
+#arcane-root.light.arcane-theme-neon .neon-kb-command-drawer .kb-search,
+#arcane-root.light.arcane-theme-neon .kb-style-switcher,
+#arcane-root.light.arcane-theme-neon .kb-theme-toggle,
+#arcane-root.light.arcane-theme-neon .kb-topbar-github,
+#arcane-root.light.arcane-theme-neon .kb-hamburger {
   border-color: rgba(36, 78, 209, 0.34) !important;
   background:
     linear-gradient(135deg, rgba(36, 78, 209, 0.11), transparent 58%),
@@ -2170,10 +2170,10 @@ html.light #arcane-root[class*="neon-"] .kb-hamburger,
     0 0 18px rgba(36, 78, 209, 0.08) !important;
 }
 
-html.light #arcane-root[class*="neon-"] .kb-stylesheet-select,
-html.light #arcane-root[class*="neon-"] .kb-palette-select,
-#arcane-root.light[class*="neon-"] .kb-stylesheet-select,
-#arcane-root.light[class*="neon-"] .kb-palette-select {
+html.light #arcane-root.arcane-theme-neon .kb-stylesheet-select,
+html.light #arcane-root.arcane-theme-neon .kb-palette-select,
+#arcane-root.light.arcane-theme-neon .kb-stylesheet-select,
+#arcane-root.light.arcane-theme-neon .kb-palette-select {
   border-color: rgba(36, 78, 209, 0.18) !important;
   background:
     linear-gradient(90deg, rgba(36, 78, 209, 0.1), transparent 62%),
@@ -2190,91 +2190,91 @@ html.light #arcane-root[class*="neon-"] .kb-palette-select,
   color: #101a3a;
 }
 
-html.light #arcane-root[class*="neon-"] .kb-search-input,
-#arcane-root.light[class*="neon-"] .kb-search-input {
+html.light #arcane-root.arcane-theme-neon .kb-search-input,
+#arcane-root.light.arcane-theme-neon .kb-search-input {
   color: #111827;
 }
 
-html.light #arcane-root[class*="neon-"] .sidebar-link,
-#arcane-root.light[class*="neon-"] .sidebar-link,
-html.light #arcane-root[class*="neon-"] .neon-kb-route-index .toc-content a,
-#arcane-root.light[class*="neon-"] .neon-kb-route-index .toc-content a {
+html.light #arcane-root.arcane-theme-neon .sidebar-link,
+#arcane-root.light.arcane-theme-neon .sidebar-link,
+html.light #arcane-root.arcane-theme-neon .neon-kb-route-index .toc-content a,
+#arcane-root.light.arcane-theme-neon .neon-kb-route-index .toc-content a {
   color: rgba(16, 26, 58, 0.72);
 }
 
-html.light #arcane-root[class*="neon-"] .sidebar-summary,
-#arcane-root.light[class*="neon-"] .sidebar-summary,
-html.light #arcane-root[class*="neon-"] .neon-kb-route-index .toc-title,
-#arcane-root.light[class*="neon-"] .neon-kb-route-index .toc-title {
+html.light #arcane-root.arcane-theme-neon .sidebar-summary,
+#arcane-root.light.arcane-theme-neon .sidebar-summary,
+html.light #arcane-root.arcane-theme-neon .neon-kb-route-index .toc-title,
+#arcane-root.light.arcane-theme-neon .neon-kb-route-index .toc-title {
   color: #101a3a;
 }
 
-html.light #arcane-root[class*="neon-"] .sidebar-link:hover,
-html.light #arcane-root[class*="neon-"] .sidebar-summary:hover,
-html.light #arcane-root[class*="neon-"] .sidebar-link.active,
-#arcane-root.light[class*="neon-"] .sidebar-link:hover,
-#arcane-root.light[class*="neon-"] .sidebar-summary:hover,
-#arcane-root.light[class*="neon-"] .sidebar-link.active,
-html.light #arcane-root[class*="neon-"] .neon-kb-route-index .toc-content a:hover,
-html.light #arcane-root[class*="neon-"] .neon-kb-route-index .toc-content a.toc-active,
-#arcane-root.light[class*="neon-"] .neon-kb-route-index .toc-content a:hover,
-#arcane-root.light[class*="neon-"] .neon-kb-route-index .toc-content a.toc-active {
+html.light #arcane-root.arcane-theme-neon .sidebar-link:hover,
+html.light #arcane-root.arcane-theme-neon .sidebar-summary:hover,
+html.light #arcane-root.arcane-theme-neon .sidebar-link.active,
+#arcane-root.light.arcane-theme-neon .sidebar-link:hover,
+#arcane-root.light.arcane-theme-neon .sidebar-summary:hover,
+#arcane-root.light.arcane-theme-neon .sidebar-link.active,
+html.light #arcane-root.arcane-theme-neon .neon-kb-route-index .toc-content a:hover,
+html.light #arcane-root.arcane-theme-neon .neon-kb-route-index .toc-content a.toc-active,
+#arcane-root.light.arcane-theme-neon .neon-kb-route-index .toc-content a:hover,
+#arcane-root.light.arcane-theme-neon .neon-kb-route-index .toc-content a.toc-active {
   color: #173a9f;
   background: linear-gradient(90deg, rgba(132, 165, 242, 0.22), rgba(255, 255, 255, 0.64)) !important;
 }
 
-html.light #arcane-root[class*="neon-"] .prose a,
-#arcane-root.light[class*="neon-"] .prose a {
+html.light #arcane-root.arcane-theme-neon .prose a,
+#arcane-root.light.arcane-theme-neon .prose a {
   color: #244ed1;
 }
 
-html.light #arcane-root[class*="neon-"] .prose h1,
-html.light #arcane-root[class*="neon-"] .prose h2,
-html.light #arcane-root[class*="neon-"] .prose h3,
-#arcane-root.light[class*="neon-"] .prose h1,
-#arcane-root.light[class*="neon-"] .prose h2,
-#arcane-root.light[class*="neon-"] .prose h3 {
+html.light #arcane-root.arcane-theme-neon .prose h1,
+html.light #arcane-root.arcane-theme-neon .prose h2,
+html.light #arcane-root.arcane-theme-neon .prose h3,
+#arcane-root.light.arcane-theme-neon .prose h1,
+#arcane-root.light.arcane-theme-neon .prose h2,
+#arcane-root.light.arcane-theme-neon .prose h3 {
   color: #101a3a;
   text-shadow: none;
 }
 
-html.light #arcane-root[class*="neon-"] .prose code:not(pre code),
-html.light #arcane-root[class*="neon-"] .kb-kbd,
-html.light #arcane-root[class*="neon-"] .kb-tag,
-#arcane-root.light[class*="neon-"] .prose code:not(pre code),
-#arcane-root.light[class*="neon-"] .kb-kbd,
-#arcane-root.light[class*="neon-"] .kb-tag {
+html.light #arcane-root.arcane-theme-neon .prose code:not(pre code),
+html.light #arcane-root.arcane-theme-neon .kb-kbd,
+html.light #arcane-root.arcane-theme-neon .kb-tag,
+#arcane-root.light.arcane-theme-neon .prose code:not(pre code),
+#arcane-root.light.arcane-theme-neon .kb-kbd,
+#arcane-root.light.arcane-theme-neon .kb-tag {
   background: rgba(231, 238, 252, 0.86);
   border-color: rgba(36, 78, 209, 0.16);
   color: #173a9f;
 }
 
 @media (max-width: 1250px) {
-  #arcane-root[class*="neon-"] .neon-kb-content-area {
+  #arcane-root.arcane-theme-neon .neon-kb-content-area {
     grid-template-columns: minmax(0, 1fr) !important;
   }
 
-  #arcane-root[class*="neon-"] .neon-kb-command-layer,
-  #arcane-root[class*="neon-"] .neon-kb-article-lane {
+  #arcane-root.arcane-theme-neon .neon-kb-command-layer,
+  #arcane-root.arcane-theme-neon .neon-kb-article-lane {
     grid-column: 1;
   }
 
-  #arcane-root[class*="neon-"] .neon-kb-route-index {
+  #arcane-root.arcane-theme-neon .neon-kb-route-index {
     display: none !important;
   }
 }
 
 @media (max-width: 980px) {
-  #arcane-root[class*="neon-"] .neon-kb-stage {
+  #arcane-root.arcane-theme-neon .neon-kb-stage {
     grid-template-columns: minmax(0, 1fr) !important;
     padding: 0.75rem !important;
   }
 
-  #arcane-root[class*="neon-"] .neon-kb-nav-rail {
+  #arcane-root.arcane-theme-neon .neon-kb-nav-rail {
     position: static;
   }
 
-  #arcane-root[class*="neon-"] .neon-kb-nav-rail .kb-sidebar {
+  #arcane-root.arcane-theme-neon .neon-kb-nav-rail .kb-sidebar {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
@@ -2285,16 +2285,16 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
     transition: transform 0.18s ease;
   }
 
-  #arcane-root[class*="neon-"] .neon-kb-nav-rail .kb-sidebar.open {
+  #arcane-root.arcane-theme-neon .neon-kb-nav-rail .kb-sidebar.open {
     transform: translateX(0);
   }
 
-  #arcane-root[class*="neon-"] .neon-kb-nav-rail .kb-sidebar-panel {
+  #arcane-root.arcane-theme-neon .neon-kb-nav-rail .kb-sidebar-panel {
     max-height: 100vh !important;
     min-height: 100vh !important;
   }
 
-  #arcane-root[class*="neon-"] .neon-kb-mobile-dock {
+  #arcane-root.arcane-theme-neon .neon-kb-mobile-dock {
     position: sticky;
     top: 0;
     z-index: 50;
@@ -2310,78 +2310,78 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
     box-shadow: 0 10px 24px color-mix(in srgb, #000000 26%, transparent);
   }
 
-  #arcane-root[class*="neon-"] .neon-kb-mobile-dock .kb-topbar-brand {
+  #arcane-root.arcane-theme-neon .neon-kb-mobile-dock .kb-topbar-brand {
     flex: 1 1 auto;
     min-width: 0;
   }
 
-  #arcane-root[class*="neon-"] .neon-kb-mobile-actions {
+  #arcane-root.arcane-theme-neon .neon-kb-mobile-actions {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
   }
 
-  #arcane-root[class*="neon-"] .kb-topbar-brand {
+  #arcane-root.arcane-theme-neon .kb-topbar-brand {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     min-width: 0;
   }
 
-  #arcane-root[class*="neon-"] .kb-topbar-brand-label {
+  #arcane-root.arcane-theme-neon .kb-topbar-brand-label {
     display: none;
   }
 }
 
 @media (max-width: 760px) {
-  #arcane-root[class*="neon-"] .neon-kb-content-area {
+  #arcane-root.arcane-theme-neon .neon-kb-content-area {
     grid-template-rows: 5.9rem auto !important;
   }
 
-  #arcane-root[class*="neon-"] .neon-kb-command-layer {
+  #arcane-root.arcane-theme-neon .neon-kb-command-layer {
     height: 5.9rem;
     top: 0.5rem;
   }
 
-  #arcane-root[class*="neon-"] .neon-kb-command-drawer {
+  #arcane-root.arcane-theme-neon .neon-kb-command-drawer {
     grid-template-columns: minmax(0, 1fr) auto;
     width: min(100%, calc(100vw - 1.5rem));
   }
 
-  #arcane-root[class*="neon-"] .neon-kb-floating-search {
+  #arcane-root.arcane-theme-neon .neon-kb-floating-search {
     grid-column: 1 / -1;
     grid-row: 1;
   }
 
-  #arcane-root[class*="neon-"] .neon-kb-floating-controls-left {
+  #arcane-root.arcane-theme-neon .neon-kb-floating-controls-left {
     grid-column: 1;
     grid-row: 2;
     justify-self: start;
   }
 
-  #arcane-root[class*="neon-"] .neon-kb-floating-controls-right {
+  #arcane-root.arcane-theme-neon .neon-kb-floating-controls-right {
     grid-column: 2;
     grid-row: 2;
     justify-self: end;
   }
 
-  #arcane-root[class*="neon-"] .neon-kb-command-actions {
+  #arcane-root.arcane-theme-neon .neon-kb-command-actions {
     display: flex;
   }
 
-  #arcane-root[class*="neon-"] .kb-style-switcher {
+  #arcane-root.arcane-theme-neon .kb-style-switcher {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     height: auto;
   }
 
-  #arcane-root[class*="neon-"] .kb-stylesheet-select,
-  #arcane-root[class*="neon-"] .kb-palette-select {
+  #arcane-root.arcane-theme-neon .kb-stylesheet-select,
+  #arcane-root.arcane-theme-neon .kb-palette-select {
     width: 100%;
   }
 }
 
-[class*="neon-"] .toc-content a,
+.arcane-theme-neon .toc-content a,
 .neon .toc-content a {
   margin: 0.125rem 0;
   padding: 0.5rem 0.75rem 0.5rem 0.625rem !important;
@@ -2389,7 +2389,7 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   line-height: 1.3;
 }
 
-#arcane-root[class*="neon-"] .kb-callout {
+#arcane-root.arcane-theme-neon .kb-callout {
   border-color: color-mix(in srgb, var(--kb-callout-accent) 34%, var(--border));
   background:
     linear-gradient(90deg, color-mix(in srgb, var(--kb-callout-accent) 6%, transparent) 1px, transparent 1px),
@@ -2405,60 +2405,60 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   -webkit-backdrop-filter: blur(14px);
 }
 
-#arcane-root[class*="neon-"] .kb-callout::before {
+#arcane-root.arcane-theme-neon .kb-callout::before {
   box-shadow:
     0 0 16px color-mix(in srgb, var(--kb-callout-accent) 30%, transparent),
     inset 0 0 14px color-mix(in srgb, var(--kb-callout-accent) 14%, transparent);
 }
 
-#arcane-root[class*="neon-"] .markdown-alert {
+#arcane-root.arcane-theme-neon .markdown-alert {
   background: color-mix(in srgb, var(--kb-alert-accent) 6%, transparent);
   box-shadow: 0 0 18px color-mix(in srgb, var(--kb-alert-accent) 8%, transparent);
 }
 
-#arcane-root[class*="neon-"] .kb-landing-content-area {
+#arcane-root.arcane-theme-neon .kb-landing-content-area {
   padding: clamp(1.5rem, 2.5vw, 2.75rem);
 }
 
-#arcane-root[class*="neon-"] .kb-landing-page {
+#arcane-root.arcane-theme-neon .kb-landing-page {
   display: grid;
   gap: clamp(1.25rem, 2vw, 2rem);
   max-width: none !important;
 }
 
-#arcane-root[class*="neon-"] .kb-landing-prose {
+#arcane-root.arcane-theme-neon .kb-landing-prose {
   display: grid;
   gap: clamp(1.65rem, 2.8vw, 2.75rem);
 }
 
-#arcane-root[class*="neon-"] .kb-landing-prose > * + * {
+#arcane-root.arcane-theme-neon .kb-landing-prose > * + * {
   margin-top: 0;
 }
 
-#arcane-root[class*="neon-"] .kb-landing-grid {
+#arcane-root.arcane-theme-neon .kb-landing-grid {
   gap: clamp(1.45rem, 2.6vw, 2.2rem);
   margin-top: 1.35rem;
   margin-bottom: 1.65rem;
 }
 
-#arcane-root[class*="neon-"] .kb-landing-band {
+#arcane-root.arcane-theme-neon .kb-landing-band {
   gap: clamp(1.6rem, 2.8vw, 2.35rem);
   margin-top: 1.35rem;
   padding: clamp(1.65rem, 2.4vw, 2.4rem);
 }
 
-#arcane-root[class*="neon-"] .kb-landing-hero,
-#arcane-root[class*="neon-"] .kb-landing-card,
-#arcane-root[class*="neon-"] .kb-landing-band,
-#arcane-root[class*="neon-"] .kb-landing-terminal,
-#arcane-root[class*="neon-"] .kb-landing-list-item {
+#arcane-root.arcane-theme-neon .kb-landing-hero,
+#arcane-root.arcane-theme-neon .kb-landing-card,
+#arcane-root.arcane-theme-neon .kb-landing-band,
+#arcane-root.arcane-theme-neon .kb-landing-terminal,
+#arcane-root.arcane-theme-neon .kb-landing-list-item {
   clip-path: var(--kb-neon-clip-md);
   border-radius: 0.375rem;
   border-color: var(--kb-neon-line);
   box-shadow: var(--kb-neon-shadow-panel);
 }
 
-#arcane-root[class*="neon-"] .kb-landing-hero {
+#arcane-root.arcane-theme-neon .kb-landing-hero {
   min-height: 30rem;
   padding: clamp(2.25rem, 4vw, 4rem);
   background:
@@ -2468,28 +2468,28 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   background-size: auto, 2.25rem 2.25rem, 2.25rem 2.25rem;
 }
 
-#arcane-root[class*="neon-"] .kb-landing-card {
+#arcane-root.arcane-theme-neon .kb-landing-card {
   gap: 1rem;
   padding: clamp(1.35rem, 1.75vw, 1.85rem);
 }
 
-#arcane-root[class*="neon-"] .kb-landing-terminal-body {
+#arcane-root.arcane-theme-neon .kb-landing-terminal-body {
   gap: 1rem;
 }
 
-#arcane-root[class*="neon-"] .kb-landing-list {
+#arcane-root.arcane-theme-neon .kb-landing-list {
   gap: 1.1rem;
 }
 
-#arcane-root[class*="neon-"] .kb-landing-kicker,
-#arcane-root[class*="neon-"] .kb-landing-actions a,
-#arcane-root[class*="neon-"] .kb-landing-terminal-row,
-#arcane-root[class*="neon-"] .kb-landing-list-index {
+#arcane-root.arcane-theme-neon .kb-landing-kicker,
+#arcane-root.arcane-theme-neon .kb-landing-actions a,
+#arcane-root.arcane-theme-neon .kb-landing-terminal-row,
+#arcane-root.arcane-theme-neon .kb-landing-list-index {
   clip-path: var(--kb-neon-clip-sm);
   border-radius: 0.25rem;
 }
 
-#arcane-root[class*="neon-"] .kb-landing-kicker {
+#arcane-root.arcane-theme-neon .kb-landing-kicker {
   border-color: var(--kb-neon-line);
   background: var(--kb-neon-node-soft);
   color: var(--kb-neon-node-alt);
@@ -2497,12 +2497,12 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   text-shadow: 0 0 14px color-mix(in srgb, var(--kb-neon-node) 30%, transparent);
 }
 
-#arcane-root[class*="neon-"] .kb-landing-hero h1 {
+#arcane-root.arcane-theme-neon .kb-landing-hero h1 {
   color: var(--kb-neon-ink);
   text-shadow: 0 0 22px color-mix(in srgb, var(--kb-neon-node) 18%, transparent);
 }
 
-#arcane-root[class*="neon-"] .kb-landing-primary {
+#arcane-root.arcane-theme-neon .kb-landing-primary {
   border-color: var(--kb-neon-line);
   background:
     linear-gradient(90deg, var(--kb-neon-node), color-mix(in srgb, var(--kb-neon-node-alt) 64%, var(--kb-neon-node)));
@@ -2510,21 +2510,21 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   box-shadow: 0 0 24px color-mix(in srgb, var(--kb-neon-node) 24%, transparent);
 }
 
-#arcane-root[class*="neon-"] .kb-landing-secondary,
-#arcane-root[class*="neon-"] .kb-landing-card,
-#arcane-root[class*="neon-"] .kb-landing-band,
-#arcane-root[class*="neon-"] .kb-landing-terminal {
+#arcane-root.arcane-theme-neon .kb-landing-secondary,
+#arcane-root.arcane-theme-neon .kb-landing-card,
+#arcane-root.arcane-theme-neon .kb-landing-band,
+#arcane-root.arcane-theme-neon .kb-landing-terminal {
   background:
     linear-gradient(135deg, color-mix(in srgb, var(--kb-neon-panel-strong) 90%, transparent), color-mix(in srgb, var(--kb-neon-panel) 84%, transparent));
 }
 
-#arcane-root[class*="neon-"] .kb-landing-card h2,
-#arcane-root[class*="neon-"] .kb-landing-band h2,
-#arcane-root[class*="neon-"] .kb-landing-card a {
+#arcane-root.arcane-theme-neon .kb-landing-card h2,
+#arcane-root.arcane-theme-neon .kb-landing-band h2,
+#arcane-root.arcane-theme-neon .kb-landing-card a {
   color: var(--kb-neon-node-alt);
 }
 
-#arcane-root[class*="neon-"] .kb-landing-list-index {
+#arcane-root.arcane-theme-neon .kb-landing-list-index {
   border: 1px solid color-mix(in srgb, var(--kb-neon-node) 72%, var(--kb-neon-line));
   background:
     linear-gradient(135deg, var(--kb-neon-node), color-mix(in srgb, var(--kb-neon-node) 58%, var(--kb-neon-panel-strong)));
@@ -2541,7 +2541,7 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
    Disciplined gaming-console aesthetic
    ============================================ */
 
-[class*="neon-"] .sidebar-header,
+.arcane-theme-neon .sidebar-header,
 .neon .sidebar-header {
   padding: 0;
   gap: 0;
@@ -2555,7 +2555,7 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   -webkit-backdrop-filter: blur(12px) saturate(1.08);
 }
 
-[class*="neon-"] .sidebar-brand,
+.arcane-theme-neon .sidebar-brand,
 .neon .sidebar-brand {
   padding: 1rem 1rem 0.875rem;
   background:
@@ -2563,7 +2563,7 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   border-bottom: 1px solid var(--neon-panel-border);
 }
 
-[class*="neon-"] .sidebar-brand-title,
+.arcane-theme-neon .sidebar-brand-title,
 .neon .sidebar-brand-title {
   font-family: var(--font-heading);
   font-size: 1.0625rem;
@@ -2575,7 +2575,7 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   background-clip: text;
 }
 
-[class*="neon-"] .sidebar-brand-subtitle,
+.arcane-theme-neon .sidebar-brand-subtitle,
 .neon .sidebar-brand-subtitle {
   font-family: var(--font-mono);
   letter-spacing: 0.16em;
@@ -2586,7 +2586,7 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   margin-top: 0.3125rem;
 }
 
-[class*="neon-"] .sidebar-tabs,
+.arcane-theme-neon .sidebar-tabs,
 .neon .sidebar-tabs {
   flex-direction: column;
   padding: 0.375rem 0;
@@ -2596,7 +2596,7 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   border-bottom: 1px solid var(--neon-panel-border);
 }
 
-[class*="neon-"] .sidebar-tab,
+.arcane-theme-neon .sidebar-tab,
 .neon .sidebar-tab {
   font-family: var(--font-heading);
   letter-spacing: 0.08em;
@@ -2609,14 +2609,14 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
 }
 
-[class*="neon-"] .sidebar-tab:hover,
+.arcane-theme-neon .sidebar-tab:hover,
 .neon .sidebar-tab:hover {
   background: color-mix(in srgb, var(--neon-accent) 8%, transparent);
   border-left-color: color-mix(in srgb, var(--neon-accent-cool) 50%, transparent);
   color: var(--neon-accent-cool);
 }
 
-[class*="neon-"] .sidebar-tab.active,
+.arcane-theme-neon .sidebar-tab.active,
 .neon .sidebar-tab.active {
   background: color-mix(in srgb, var(--neon-accent) 12%, transparent);
   color: var(--foreground);
@@ -2624,19 +2624,19 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--neon-accent) 12%, transparent);
 }
 
-[class*="neon-"] .sidebar-controls,
+.arcane-theme-neon .sidebar-controls,
 .neon .sidebar-controls {
   padding: 0.625rem 0.75rem;
   background: color-mix(in srgb, var(--neon-accent) 3%, transparent);
   border-bottom: 1px solid var(--neon-panel-border);
 }
 
-#arcane-root[class*="neon-"] .neon-kb-command-dock,
-#arcane-root[class*="neon-"] .neon-kb-command-center {
+#arcane-root.arcane-theme-neon .neon-kb-command-dock,
+#arcane-root.arcane-theme-neon .neon-kb-command-center {
   display: none !important;
 }
 
-[class*="neon-"] .sidebar-search input,
+.arcane-theme-neon .sidebar-search input,
 .neon .sidebar-search input {
   font-family: var(--font-sans);
   font-size: 0.75rem;
@@ -2645,27 +2645,27 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   border-radius: var(--neon-radius-control, 0.375rem);
 }
 
-[class*="neon-"] .sidebar-search input:focus,
+.arcane-theme-neon .sidebar-search input:focus,
 .neon .sidebar-search input:focus {
   border-color: var(--neon-accent);
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--neon-accent) 24%, transparent),
     0 0 12px color-mix(in srgb, var(--neon-accent) 18%, transparent);
 }
 
-[class*="neon-"] .sidebar-theme-toggle,
+.arcane-theme-neon .sidebar-theme-toggle,
 .neon .sidebar-theme-toggle {
   border: 1px solid var(--neon-control-border);
   background: color-mix(in srgb, var(--neon-accent) 4%, var(--muted));
   border-radius: var(--neon-radius-control, 0.375rem);
 }
 
-[class*="neon-"] .sidebar-theme-toggle:hover,
+.arcane-theme-neon .sidebar-theme-toggle:hover,
 .neon .sidebar-theme-toggle:hover {
   color: var(--neon-accent-cool);
   border-color: var(--neon-panel-border-hot);
 }
 
-[class*="neon-"] .sidebar-section-header,
+.arcane-theme-neon .sidebar-section-header,
 .neon .sidebar-section-header {
   font-family: var(--font-heading);
   text-transform: uppercase;
@@ -2678,7 +2678,7 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   opacity: 0.86;
 }
 
-[class*="neon-"] .sidebar-summary,
+.arcane-theme-neon .sidebar-summary,
 .neon .sidebar-summary {
   font-family: var(--font-heading);
   letter-spacing: 0.04em;
@@ -2689,14 +2689,14 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
 }
 
-[class*="neon-"] .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-link:hover)) > .sidebar-details > .sidebar-summary,
+.arcane-theme-neon .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-link:hover)) > .sidebar-details > .sidebar-summary,
 .neon .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-link:hover)) > .sidebar-details > .sidebar-summary {
   color: var(--neon-accent-cool);
   background: color-mix(in srgb, var(--neon-accent) 10%, transparent);
   border-color: var(--neon-panel-border-hot);
 }
 
-[class*="neon-"] .sidebar-details[open] > .sidebar-summary,
+.arcane-theme-neon .sidebar-details[open] > .sidebar-summary,
 .neon .sidebar-details[open] > .sidebar-summary {
   color: var(--kb-neon-node-alt);
   background: color-mix(in srgb, var(--kb-neon-node) 16%, transparent);
@@ -2706,14 +2706,14 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
     0 0 18px color-mix(in srgb, var(--kb-neon-node) 14%, transparent);
 }
 
-[class*="neon-"] .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-link:hover)) > .sidebar-details[open] > .sidebar-summary,
+.arcane-theme-neon .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-link:hover)) > .sidebar-details[open] > .sidebar-summary,
 .neon .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-link:hover)) > .sidebar-details[open] > .sidebar-summary {
   color: var(--kb-neon-node-alt);
   background: color-mix(in srgb, var(--kb-neon-node) 20%, transparent);
   border-color: color-mix(in srgb, var(--kb-neon-node) 58%, transparent);
 }
 
-[class*="neon-"] .sidebar-details[open] > .sidebar-tree::before,
+.arcane-theme-neon .sidebar-details[open] > .sidebar-tree::before,
 .neon .sidebar-details[open] > .sidebar-tree::before {
   content: '';
   display: block;
@@ -2723,18 +2723,18 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   margin: 0.375rem 0 0.625rem 0;
 }
 
-[class*="neon-"] .sidebar-chevron::before,
+.arcane-theme-neon .sidebar-chevron::before,
 .neon .sidebar-chevron::before {
   border-color: var(--neon-accent);
   opacity: 0.78;
 }
 
-[class*="neon-"] .sidebar-details[open] .sidebar-chevron::before,
+.arcane-theme-neon .sidebar-details[open] .sidebar-chevron::before,
 .neon .sidebar-details[open] .sidebar-chevron::before {
   opacity: 1;
 }
 
-[class*="neon-"] .sidebar-tree .sidebar-tree-item::before,
+.arcane-theme-neon .sidebar-tree .sidebar-tree-item::before,
 .neon .sidebar-tree .sidebar-tree-item::before {
   background: color-mix(in srgb, var(--neon-accent) 50%, transparent);
   opacity: 1;
@@ -2744,7 +2744,7 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   left: -1rem;
 }
 
-[class*="neon-"] .sidebar-tree .sidebar-tree-item:not(:last-child)::after,
+.arcane-theme-neon .sidebar-tree .sidebar-tree-item:not(:last-child)::after,
 .neon .sidebar-tree .sidebar-tree-item:not(:last-child)::after {
   background: color-mix(in srgb, var(--neon-accent) 40%, transparent);
   width: 1px !important;
@@ -2753,7 +2753,7 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   bottom: calc(-0.25rem - 1px);
 }
 
-[class*="neon-"] .sidebar-tree .sidebar-tree-item:last-child::after,
+.arcane-theme-neon .sidebar-tree .sidebar-tree-item:last-child::after,
 .neon .sidebar-tree .sidebar-tree-item:last-child::after {
   background: color-mix(in srgb, var(--neon-accent) 40%, transparent);
   width: 1px !important;
@@ -2762,7 +2762,7 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   height: calc(50% + 0.25rem + 1px);
 }
 
-[class*="neon-"] .sidebar-tree .sidebar-section::before,
+.arcane-theme-neon .sidebar-tree .sidebar-section::before,
 .neon .sidebar-tree .sidebar-section::before {
   content: '';
   position: absolute;
@@ -2774,7 +2774,7 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   left: calc(-1rem - 1px);
 }
 
-[class*="neon-"] .sidebar-tree .sidebar-section:not(:last-child)::after,
+.arcane-theme-neon .sidebar-tree .sidebar-section:not(:last-child)::after,
 .neon .sidebar-tree .sidebar-section:not(:last-child)::after {
   content: '';
   position: absolute;
@@ -2785,7 +2785,7 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   bottom: calc(-0.25rem - 1px);
 }
 
-[class*="neon-"] .sidebar-tree .sidebar-section:last-child::after,
+.arcane-theme-neon .sidebar-tree .sidebar-section:last-child::after,
 .neon .sidebar-tree .sidebar-section:last-child::after {
   content: '';
   position: absolute;
@@ -2796,7 +2796,7 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   height: calc(50% + 0.25rem + 1px);
 }
 
-[class*="neon-"] .sidebar-tree .sidebar-section,
+.arcane-theme-neon .sidebar-tree .sidebar-section,
 .neon .sidebar-tree .sidebar-section {
   position: relative;
   margin: 0.25rem 0;
@@ -2807,42 +2807,42 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   transition: background 0.15s ease, border-color 0.15s ease;
 }
 
-[class*="neon-"] .sidebar-tree .sidebar-section:has(.sidebar-details[open]),
+.arcane-theme-neon .sidebar-tree .sidebar-section:has(.sidebar-details[open]),
 .neon .sidebar-tree .sidebar-section:has(.sidebar-details[open]) {
   padding-bottom: 0.375rem;
 }
 
-[class*="neon-"] .sidebar-tree-nav > .sidebar-tree > .sidebar-section > .sidebar-details > .sidebar-tree,
+.arcane-theme-neon .sidebar-tree-nav > .sidebar-tree > .sidebar-section > .sidebar-details > .sidebar-tree,
 .neon .sidebar-tree-nav > .sidebar-tree > .sidebar-section > .sidebar-details > .sidebar-tree {
   padding-left: 0.875rem;
 }
 
-[class*="neon-"] .sidebar-tree-nav > .sidebar-tree > .sidebar-section > .sidebar-details > .sidebar-tree > .sidebar-tree-item:not(:last-child)::before,
-[class*="neon-"] .sidebar-tree-nav > .sidebar-tree > .sidebar-section > .sidebar-details > .sidebar-tree > .sidebar-section:not(:last-child)::before,
+.arcane-theme-neon .sidebar-tree-nav > .sidebar-tree > .sidebar-section > .sidebar-details > .sidebar-tree > .sidebar-tree-item:not(:last-child)::before,
+.arcane-theme-neon .sidebar-tree-nav > .sidebar-tree > .sidebar-section > .sidebar-details > .sidebar-tree > .sidebar-section:not(:last-child)::before,
 .neon .sidebar-tree-nav > .sidebar-tree > .sidebar-section > .sidebar-details > .sidebar-tree > .sidebar-tree-item:not(:last-child)::before,
 .neon .sidebar-tree-nav > .sidebar-tree > .sidebar-section > .sidebar-details > .sidebar-tree > .sidebar-section:not(:last-child)::before {
   display: none;
 }
 
-[class*="neon-"] .sidebar-tree .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-link:hover)),
+.arcane-theme-neon .sidebar-tree .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-link:hover)),
 .neon .sidebar-tree .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-link:hover)) {
   background: color-mix(in srgb, var(--neon-accent) 5%, transparent);
 }
 
-[class*="neon-"] .sidebar-tree .sidebar-tree .sidebar-section,
+.arcane-theme-neon .sidebar-tree .sidebar-tree .sidebar-section,
 .neon .sidebar-tree .sidebar-tree .sidebar-section {
   background: transparent;
   border-color: transparent;
 }
 
-[class*="neon-"] .sidebar-tree .sidebar-tree .sidebar-tree .sidebar-section,
+.arcane-theme-neon .sidebar-tree .sidebar-tree .sidebar-tree .sidebar-section,
 .neon .sidebar-tree .sidebar-tree .sidebar-tree .sidebar-section {
   background: transparent;
   border-color: transparent;
 }
 
-[class*="neon-"] .sidebar-tree .sidebar-details .sidebar-summary,
-[class*="neon-"] .sidebar-tree-items .sidebar-details .sidebar-summary,
+.arcane-theme-neon .sidebar-tree .sidebar-details .sidebar-summary,
+.arcane-theme-neon .sidebar-tree-items .sidebar-details .sidebar-summary,
 .neon .sidebar-tree .sidebar-details .sidebar-summary,
 .neon .sidebar-tree-items .sidebar-details .sidebar-summary {
   font-family: var(--font-sans);
@@ -2860,15 +2860,15 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   gap: 0.5rem;
 }
 
-[class*="neon-"] .sidebar-tree .sidebar-details .sidebar-summary:hover,
-[class*="neon-"] .sidebar-tree-items .sidebar-details .sidebar-summary:hover,
+.arcane-theme-neon .sidebar-tree .sidebar-details .sidebar-summary:hover,
+.arcane-theme-neon .sidebar-tree-items .sidebar-details .sidebar-summary:hover,
 .neon .sidebar-tree .sidebar-details .sidebar-summary:hover,
 .neon .sidebar-tree-items .sidebar-details .sidebar-summary:hover {
   color: var(--neon-accent-cool);
 }
 
-[class*="neon-"] .sidebar-tree .sidebar-details[open] > .sidebar-summary,
-[class*="neon-"] .sidebar-tree-items .sidebar-details[open] > .sidebar-summary,
+.arcane-theme-neon .sidebar-tree .sidebar-details[open] > .sidebar-summary,
+.arcane-theme-neon .sidebar-tree-items .sidebar-details[open] > .sidebar-summary,
 .neon .sidebar-tree .sidebar-details[open] > .sidebar-summary,
 .neon .sidebar-tree-items .sidebar-details[open] > .sidebar-summary {
   color: var(--kb-neon-node-alt);
@@ -2877,27 +2877,27 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--kb-neon-node) 54%, transparent) !important;
 }
 
-[class*="neon-"] .sidebar-tree .sidebar-tree,
+.arcane-theme-neon .sidebar-tree .sidebar-tree,
 .neon .sidebar-tree .sidebar-tree {
   padding-left: 1.5rem;
   margin-left: 0;
 }
 
-[class*="neon-"] .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-tree-item::before,
-[class*="neon-"] .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-tree-item::after,
+.arcane-theme-neon .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-tree-item::before,
+.arcane-theme-neon .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-tree-item::after,
 .neon .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-tree-item::before,
 .neon .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-tree-item::after {
   display: none;
 }
 
-[class*="neon-"] .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-section::before,
-[class*="neon-"] .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-section::after,
+.arcane-theme-neon .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-section::before,
+.arcane-theme-neon .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-section::after,
 .neon .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-section::before,
 .neon .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-section::after {
   display: none;
 }
 
-[class*="neon-"] .sidebar-tree .sidebar-link,
+.arcane-theme-neon .sidebar-tree .sidebar-link,
 .neon .sidebar-tree .sidebar-link {
   font-size: 0.8125rem;
   padding: 0.5rem 0.75rem 0.5rem 1.25rem !important;
@@ -2905,7 +2905,7 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   border-left: none !important;
 }
 
-[class*="neon-"] .sidebar-link,
+.arcane-theme-neon .sidebar-link,
 .neon .sidebar-link {
   font-family: var(--font-sans);
   padding: 0.5rem 0.75rem;
@@ -2915,14 +2915,14 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
 }
 
-[class*="neon-"] .sidebar-link:hover,
+.arcane-theme-neon .sidebar-link:hover,
 .neon .sidebar-link:hover {
   color: var(--neon-accent-cool);
   background: color-mix(in srgb, var(--neon-accent) 7%, transparent);
   border-left-color: color-mix(in srgb, var(--neon-accent-cool) 45%, transparent);
 }
 
-[class*="neon-"] .sidebar-link.active,
+.arcane-theme-neon .sidebar-link.active,
 .neon .sidebar-link.active {
   color: var(--kb-neon-node-alt);
   font-weight: 600;
@@ -2931,8 +2931,8 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   box-shadow: inset 2px 0 0 var(--kb-neon-node);
 }
 /* Neon styling for ArcaneSidebar tree lines */
-[class*="neon-"] .arcane-sidebar-submenu-content > .arcane-sidebar-item::before,
-[class*="neon-"] .arcane-sidebar-group-items > .arcane-sidebar-item::before,
+.arcane-theme-neon .arcane-sidebar-submenu-content > .arcane-sidebar-item::before,
+.arcane-theme-neon .arcane-sidebar-group-items > .arcane-sidebar-item::before,
 .neon .arcane-sidebar-submenu-content > .arcane-sidebar-item::before,
 .neon .arcane-sidebar-group-items > .arcane-sidebar-item::before {
   background: var(--primary);
@@ -2940,8 +2940,8 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   height: 2px;
 }
 
-[class*="neon-"] .arcane-sidebar-submenu-content > .arcane-sidebar-item:not(:last-child)::after,
-[class*="neon-"] .arcane-sidebar-group-items > .arcane-sidebar-item:not(:last-child)::after,
+.arcane-theme-neon .arcane-sidebar-submenu-content > .arcane-sidebar-item:not(:last-child)::after,
+.arcane-theme-neon .arcane-sidebar-group-items > .arcane-sidebar-item:not(:last-child)::after,
 .neon .arcane-sidebar-submenu-content > .arcane-sidebar-item:not(:last-child)::after,
 .neon .arcane-sidebar-group-items > .arcane-sidebar-item:not(:last-child)::after {
   background: var(--primary);
@@ -2949,8 +2949,8 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   box-shadow: none;
 }
 
-[class*="neon-"] .arcane-sidebar-submenu-content > .arcane-sidebar-item:last-child::after,
-[class*="neon-"] .arcane-sidebar-group-items > .arcane-sidebar-item:last-child::after,
+.arcane-theme-neon .arcane-sidebar-submenu-content > .arcane-sidebar-item:last-child::after,
+.arcane-theme-neon .arcane-sidebar-group-items > .arcane-sidebar-item:last-child::after,
 .neon .arcane-sidebar-submenu-content > .arcane-sidebar-item:last-child::after,
 .neon .arcane-sidebar-group-items > .arcane-sidebar-item:last-child::after {
   background: var(--primary);
@@ -2959,21 +2959,21 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
 }
 
 /* Neon link styling for ArcaneSidebar items */
-[class*="neon-"] .arcane-sidebar-item,
+.arcane-theme-neon .arcane-sidebar-item,
 .neon .arcane-sidebar-item {
   border-left: 3px solid transparent;
   border-radius: 0 var(--radius-md) var(--radius-md) 0 !important;
   transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-[class*="neon-"] .arcane-sidebar-item:hover,
+.arcane-theme-neon .arcane-sidebar-item:hover,
 .neon .arcane-sidebar-item:hover {
   color: var(--primary) !important;
   background: color-mix(in srgb, var(--primary) 10%, transparent) !important;
   border-left-color: color-mix(in srgb, var(--primary) 50%, transparent);
 }
 
-[class*="neon-"] .arcane-sidebar-item.selected,
+.arcane-theme-neon .arcane-sidebar-item.selected,
 .neon .arcane-sidebar-item.selected {
   color: var(--primary) !important;
   font-weight: 600;
@@ -2985,14 +2985,14 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
    TABLE OF CONTENTS - Neon Gaming Style
    Cyberpunk with glowing tree lines
    ============================================ */
-[class*="neon-"] .toc,
+.arcane-theme-neon .toc,
 .neon .toc {
   background: color-mix(in srgb, var(--card) 82%, transparent);
   border-color: color-mix(in srgb, var(--primary) 20%, var(--border));
   box-shadow: 0 0 20px color-mix(in srgb, var(--primary) 5%, transparent);
 }
 
-[class*="neon-"] .toc-title,
+.arcane-theme-neon .toc-title,
 .neon .toc-title {
   font-family: var(--font-mono);
   color: var(--primary);
@@ -3000,10 +3000,10 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   letter-spacing: 0;
 }
 
-[class*="neon-"] .toc-content > ul > li::before,
-[class*="neon-"] .toc-content > ul > li::after,
-[class*="neon-"] .toc-content ul ul li::before,
-[class*="neon-"] .toc-content ul ul li::after,
+.arcane-theme-neon .toc-content > ul > li::before,
+.arcane-theme-neon .toc-content > ul > li::after,
+.arcane-theme-neon .toc-content ul ul li::before,
+.arcane-theme-neon .toc-content ul ul li::after,
 .neon .toc-content > ul > li::before,
 .neon .toc-content > ul > li::after,
 .neon .toc-content ul ul li::before,
@@ -3012,7 +3012,7 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   box-shadow: none;
 }
 
-[class*="neon-"] .toc-content a,
+.arcane-theme-neon .toc-content a,
 .neon .toc-content a {
   font-size: 0.8125rem;
   line-height: 1.3;
@@ -3023,14 +3023,14 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-[class*="neon-"] .toc-content a:hover,
+.arcane-theme-neon .toc-content a:hover,
 .neon .toc-content a:hover {
   color: var(--primary);
   background: color-mix(in srgb, var(--primary) 8%, transparent);
   border-color: color-mix(in srgb, var(--primary) 18%, transparent);
 }
 
-[class*="neon-"] .toc-content a.toc-active,
+.arcane-theme-neon .toc-content a.toc-active,
 .neon .toc-content a.toc-active {
   color: var(--primary);
   font-weight: 600;
@@ -3039,19 +3039,19 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   box-shadow: 0 0 8px color-mix(in srgb, var(--primary) 6%, transparent);
 }
 
-#arcane-root[class*="neon-"] .sidebar-tree .sidebar-tree-item::after,
-#arcane-root[class*="neon-"] .sidebar-tree .sidebar-section::after,
-#arcane-root[class*="neon-"] .sidebar-details[open] > .sidebar-tree::before {
+#arcane-root.arcane-theme-neon .sidebar-tree .sidebar-tree-item::after,
+#arcane-root.arcane-theme-neon .sidebar-tree .sidebar-section::after,
+#arcane-root.arcane-theme-neon .sidebar-details[open] > .sidebar-tree::before {
   content: none !important;
   display: none !important;
 }
 
-#arcane-root[class*="neon-"] .sidebar-tree-nav > .sidebar-tree > .sidebar-section > .sidebar-details > .sidebar-tree,
-#arcane-root[class*="neon-"] .sidebar-tree .sidebar-tree {
+#arcane-root.arcane-theme-neon .sidebar-tree-nav > .sidebar-tree > .sidebar-section > .sidebar-details > .sidebar-tree,
+#arcane-root.arcane-theme-neon .sidebar-tree .sidebar-tree {
   padding-left: 0.42rem !important;
 }
 
-#arcane-root[class*="neon-"] .sidebar-tree .sidebar-tree .sidebar-tree {
+#arcane-root.arcane-theme-neon .sidebar-tree .sidebar-tree .sidebar-tree {
   padding-left: 0.24rem !important;
 }
 
@@ -3059,8 +3059,8 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
    ARCANE MAP - Neon Style
    ============================================ */
 
-[class*="neon-"] .arcane-world-map,
-[class*="neon-"] .arcane-usa-map,
+.arcane-theme-neon .arcane-world-map,
+.arcane-theme-neon .arcane-usa-map,
 .neon .arcane-world-map,
 .neon .arcane-usa-map {
   background: color-mix(in srgb, var(--card) 92%, transparent);
@@ -3068,51 +3068,51 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.34);
 }
 
-[class*="neon-"] .arcane-world-map path[data-region]:hover,
-[class*="neon-"] .arcane-usa-map path[data-region]:hover,
+.arcane-theme-neon .arcane-world-map path[data-region]:hover,
+.arcane-theme-neon .arcane-usa-map path[data-region]:hover,
 .neon .arcane-world-map path[data-region]:hover,
 .neon .arcane-usa-map path[data-region]:hover {
   fill: var(--primary) !important;
   opacity: 0.72;
 }
 
-[class*="neon-"] .arcane-world-map path[data-region][data-active="true"],
-[class*="neon-"] .arcane-usa-map path[data-region][data-active="true"],
+.arcane-theme-neon .arcane-world-map path[data-region][data-active="true"],
+.arcane-theme-neon .arcane-usa-map path[data-region][data-active="true"],
 .neon .arcane-world-map path[data-region][data-active="true"],
 .neon .arcane-usa-map path[data-region][data-active="true"] {
   fill: var(--primary) !important;
   opacity: 0.9;
 }
 
-[class*="neon-"] .arcane-world-map circle[data-location],
-[class*="neon-"] .arcane-usa-map circle[data-location],
+.arcane-theme-neon .arcane-world-map circle[data-location],
+.arcane-theme-neon .arcane-usa-map circle[data-location],
 .neon .arcane-world-map circle[data-location],
 .neon .arcane-usa-map circle[data-location] {
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
 }
 
-[class*="neon-"] .arcane-world-map circle[data-location]:hover,
-[class*="neon-"] .arcane-usa-map circle[data-location]:hover,
+.arcane-theme-neon .arcane-world-map circle[data-location]:hover,
+.arcane-theme-neon .arcane-usa-map circle[data-location]:hover,
 .neon .arcane-world-map circle[data-location]:hover,
 .neon .arcane-usa-map circle[data-location]:hover {
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
 }
 
-[class*="neon-"] .arcane-map-debug-tooltip > div,
+.arcane-theme-neon .arcane-map-debug-tooltip > div,
 .neon .arcane-map-debug-tooltip > div {
   background: color-mix(in srgb, var(--card) 96%, transparent);
   border-color: var(--neon-panel-border, var(--border));
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.42);
 }
 
-[class*="neon-"] .arcane-map-debug-tooltip .debug-lat,
-[class*="neon-"] .arcane-map-debug-tooltip .debug-lng,
+.arcane-theme-neon .arcane-map-debug-tooltip .debug-lat,
+.arcane-theme-neon .arcane-map-debug-tooltip .debug-lng,
 .neon .arcane-map-debug-tooltip .debug-lat,
 .neon .arcane-map-debug-tooltip .debug-lng {
   color: var(--primary);
 }
 
-[class*="neon-"] .arcane-map-debug-tooltip .debug-hint,
+.arcane-theme-neon .arcane-map-debug-tooltip .debug-hint,
 .neon .arcane-map-debug-tooltip .debug-hint {
   color: var(--primary);
 }

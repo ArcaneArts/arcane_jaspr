@@ -1,6 +1,6 @@
 name: arcane_jaspr
 description: "A Jaspr web framework port of the Arcane UI component library. Build beautiful web applications with Dart using familiar Arcane patterns."
-version: 3.2.0
+version: 3.3.0
 homepage: https://arcanearts.github.io/arcane_jaspr/
 documentation: https://arcanearts.github.io/arcane_jaspr/
 repository: https://github.com/ArcaneArts/arcane_jaspr
@@ -9,17 +9,17 @@ environment:
   sdk: '>=3.10.0 <4.0.0'
 
 dependencies:
-  jaspr: '>=0.22.1 <1.0.0'
-  meta: ^1.18.1
+  jaspr: '>=0.23.1 <1.0.0'
+  meta: ^1.18.3
   fast_log: ^1.0.7
   web: ^1.1.1
   http: ^1.6.0
 
 dev_dependencies:
-  jaspr_test:  '>=0.22.1 <1.0.0'
+  jaspr_test: '>=0.23.1 <1.0.0'
   lints: ^6.1.0
-  build_runner: ^2.11.1
-  jaspr_builder: '>=0.22.1 <1.0.0'
+  build_runner: ^2.15.0
+  jaspr_builder: '>=0.23.1 <1.0.0'
   arcane_jaspr_shadcn:
     path: packages/arcane_jaspr_shadcn
   arcane_jaspr_neon:

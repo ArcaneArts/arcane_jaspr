@@ -45,11 +45,11 @@ class ArcaneApp extends StatefulWidget {
 class _ArcaneAppState extends State<ArcaneApp> {
   @override
   Widget build(BuildContext context) {
-    bool isDark = component.brightness == Brightness.dark;
-    ArcaneStylesheet stylesheet = component.stylesheet;
+    final bool isDark = component.brightness == Brightness.dark;
+    final ArcaneStylesheet stylesheet = component.stylesheet;
 
     // Build head elements data for injection
-    List<HeadElementData> headElements = [];
+    final List<HeadElementData> headElements = [];
 
     if (component.title != null && component.title!.isNotEmpty) {
       headElements.add(HeadElementData.title(component.title!));
@@ -77,7 +77,7 @@ class _ArcaneAppState extends State<ArcaneApp> {
       headElements.add(HeadElementData.link(url));
     }
 
-    String baseCss = stylesheet.baseCss;
+    final String baseCss = stylesheet.baseCss;
     if (baseCss.isNotEmpty) {
       headElements.add(HeadElementData.style(baseCss));
     }
@@ -87,15 +87,18 @@ class _ArcaneAppState extends State<ArcaneApp> {
     }
 
     // Build CSS classes: brightness + any stylesheet-specific classes
-    String brightnessClass = isDark ? 'dark' : 'light';
-    String? stylesheetClass = stylesheet.bodyClass;
-    String rootClasses = stylesheetClass != null && stylesheetClass.isNotEmpty
-        ? '$brightnessClass $stylesheetClass'
-        : brightnessClass;
+    final String brightnessClass = isDark ? 'dark' : 'light';
+    final String? stylesheetClass = stylesheet.bodyClass;
+    final String rootClasses = [
+      brightnessClass,
+      stylesheet.themeClass,
+      stylesheetClass,
+    ].where((String? c) => c != null && c.isNotEmpty).join(' ');
 
-    Widget rootDiv = dom.div(
+    final Widget rootDiv = dom.div(
       id: 'arcane-root',
       classes: rootClasses,
+      attributes: stylesheet.rootAttributes,
       styles: const dom.Styles(
         raw: {
           'min-height': '100vh',
