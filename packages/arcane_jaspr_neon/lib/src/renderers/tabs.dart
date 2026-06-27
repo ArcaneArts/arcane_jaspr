@@ -1,187 +1,49 @@
-import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' as dom;
+import 'package:arcane_jaspr/core/rendering/base/tabs_render_base.dart';
 
-import 'package:arcane_jaspr/core/props/tabs_props.dart';
-
-class NeonTabs extends StatelessComponent {
-  final TabsProps props;
-
-  const NeonTabs(this.props, {super.key});
+class NeonTabs extends TabsRenderBase {
+  const NeonTabs(super.props, {super.key});
 
   @override
-  Component build(BuildContext context) {
-    return dom.div(
-      classes: 'neon-tabs',
-      styles: const dom.Styles(
-        raw: <String, String>{
-          'display': 'flex',
-          'flex-direction': 'column',
-          'gap': '1.25rem',
-          'width': '100%',
-        },
-      ),
-      <Component>[
-        _buildTabList(),
-        if (props.selectedIndex >= 0 && props.selectedIndex < props.tabs.length)
-          dom.div(
-            classes: 'neon-tabs-content',
-            styles: const dom.Styles(
-              raw: <String, String>{'width': '100%'},
-            ),
-            <Component>[props.tabs[props.selectedIndex].content],
-          ),
-      ],
-    );
-  }
+  String get classPrefix => 'neon';
 
-  Component _buildTabList() {
-    return dom.div(
-      classes: 'neon-tabs-list',
-      attributes: const <String, String>{'role': 'tablist'},
-      styles: dom.Styles(
-        raw: <String, String>{
-          'display': props.fill ? 'flex' : 'inline-flex',
-          'align-items': 'stretch',
-          'gap': '0.25rem',
-          'padding': '0.25rem',
-          if (props.fill) 'width': '100%',
-          'align-self': props.fill ? 'stretch' : 'flex-start',
-        },
-      ),
-      <Component>[
-        for (int i = 0; i < props.tabs.length; i++)
-          _buildTab(props.tabs[i], i),
-      ],
-    );
-  }
+  @override
+  String get tabFontWeight => '600';
 
-  Component _buildTab(TabItemProps tab, int index) {
-    bool isSelected = index == props.selectedIndex;
-    bool isDisabled = tab.disabled;
+  @override
+  String get tabLetterSpacing => '0.06em';
 
-    return dom.button(
-      classes:
-          'neon-tabs-trigger ${isSelected ? 'active' : ''} ${isDisabled ? 'disabled' : ''}',
-      attributes: <String, String>{
-        'type': 'button',
-        'role': 'tab',
-        'aria-selected': isSelected.toString(),
-        'data-state': isSelected ? 'active' : 'inactive',
-        'data-disabled': '$isDisabled',
-        if (isDisabled) 'disabled': 'true',
-      },
-      styles: dom.Styles(
-        raw: <String, String>{
-          'position': 'relative',
-          'display': 'inline-flex',
-          'align-items': 'center',
-          'justify-content': 'center',
-          'gap': '0.5rem',
-          'padding': '0.625rem 1.125rem',
-          'font-size': 'var(--font-size-sm)',
-          'font-weight': '600',
-          'letter-spacing': '0.06em',
-          'text-transform': 'uppercase',
-          'cursor': isDisabled ? 'not-allowed' : 'pointer',
-          'opacity': isDisabled ? '0.45' : '1',
-          'white-space': 'nowrap',
-          'outline': 'none',
-          if (props.fill) 'flex': '1',
-        },
-      ),
-      events: isDisabled || props.onChanged == null
-          ? null
-          : <String, EventCallback>{
-              'click': (dynamic _) => props.onChanged!(index),
-            },
-      <Component>[
-        if (tab.icon != null) tab.icon!,
-        Component.text(tab.label),
-        if (tab.badge != null)
-          dom.span(
-            classes: 'neon-tabs-badge',
-            styles: const dom.Styles(
-              raw: <String, String>{
-                'background':
-                    'linear-gradient(135deg, var(--neon-accent), var(--neon-accent-cool))',
-                'color': '#03110f',
-                'font-size': '0.625rem',
-                'font-weight': '700',
-                'letter-spacing': '0.04em',
-                'padding': '0.125rem 0.5rem',
-                'border-radius': '9999px',
-                'margin-left': '0.375rem',
-              },
-            ),
-            <Component>[Component.text(tab.badge!)],
-          ),
-      ],
-    );
-  }
+  @override
+  String get tabTextTransform => 'uppercase';
+
+  @override
+  String get tabDisabledOpacity => '0.45';
+
+  @override
+  Map<String, String> get badgeStyles => const <String, String>{
+    'background':
+        'linear-gradient(135deg, var(--neon-accent), var(--neon-accent-cool))',
+    'color': '#03110f',
+    'font-size': '0.625rem',
+    'font-weight': '700',
+    'letter-spacing': '0.04em',
+    'padding': '0.125rem 0.5rem',
+    'border-radius': '9999px',
+    'margin-left': '0.375rem',
+  };
 }
 
-class NeonTabBar extends StatelessComponent {
-  final TabBarProps props;
-
-  const NeonTabBar(this.props, {super.key});
+class NeonTabBar extends TabBarRenderBase {
+  const NeonTabBar(super.props, {super.key});
 
   @override
-  Component build(BuildContext context) {
-    return dom.div(
-      classes: 'neon-tab-bar',
-      attributes: const <String, String>{'role': 'tablist'},
-      styles: dom.Styles(
-        raw: <String, String>{
-          'display': props.fill ? 'flex' : 'inline-flex',
-          'align-items': 'stretch',
-          'gap': '0.25rem',
-          'padding': '0.25rem',
-          if (props.fill) 'width': '100%',
-        },
-      ),
-      <Component>[
-        for (int i = 0; i < props.tabs.length; i++)
-          _buildTab(props.tabs[i], i),
-      ],
-    );
-  }
+  String get classPrefix => 'neon';
 
-  Component _buildTab(TabBarItemProps tab, int index) {
-    bool isSelected = index == props.selectedIndex;
+  @override
+  String get tabFontWeight => '600';
 
-    return dom.button(
-      classes: 'neon-tab-bar-item ${isSelected ? 'active' : ''}',
-      attributes: <String, String>{
-        'type': 'button',
-        'role': 'tab',
-        'aria-selected': isSelected.toString(),
-        'data-state': isSelected ? 'active' : 'inactive',
-      },
-      styles: dom.Styles(
-        raw: <String, String>{
-          'position': 'relative',
-          'display': 'inline-flex',
-          'align-items': 'center',
-          'justify-content': 'center',
-          'gap': '0.5rem',
-          'padding': '0.625rem 1.125rem',
-          'font-size': 'var(--font-size-sm)',
-          'font-weight': '600',
-          'letter-spacing': '0.06em',
-          'text-transform': 'uppercase',
-          'cursor': 'pointer',
-          'white-space': 'nowrap',
-          'outline': 'none',
-          if (props.fill) 'flex': '1',
-        },
-      ),
-      events: <String, EventCallback>{
-        'click': (dynamic _) => props.onChanged(index),
-      },
-      <Component>[
-        if (tab.icon != null) tab.icon!,
-        Component.text(tab.label),
-      ],
-    );
-  }
+  @override
+  String get tabLetterSpacing => '0.06em';
+
+  @override
+  String get tabTextTransform => 'uppercase';
 }

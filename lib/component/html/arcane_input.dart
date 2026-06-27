@@ -72,7 +72,7 @@ class ArcaneRawInput extends StatelessComponent {
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       events: events,
       attributes: {
-        if (placeholder != null) 'placeholder': placeholder!,
+        'placeholder': ?placeholder,
         if (readOnly) 'readonly': '',
         if (required) 'required': '',
         if (autofocus) 'autofocus': '',

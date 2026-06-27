@@ -239,7 +239,7 @@ class ShadcnMenubar extends StatelessComponent {
         // Checkbox indicator
         if (item.checked)
           dom.span(
-            styles: dom.Styles(
+            styles: const dom.Styles(
               raw: {
                 'position': 'absolute',
                 'left': '8px',
@@ -304,7 +304,7 @@ class ShadcnMenubar extends StatelessComponent {
         // Radio indicator
         if (item.selected)
           dom.span(
-            styles: dom.Styles(
+            styles: const dom.Styles(
               raw: {
                 'position': 'absolute',
                 'left': '8px',
@@ -355,7 +355,7 @@ class ShadcnMenubar extends StatelessComponent {
           Component.text(item.label),
         ]),
         dom.span(
-          styles: dom.Styles(raw: {'color': 'var(--muted-foreground)'}),
+          styles: const dom.Styles(raw: {'color': 'var(--muted-foreground)'}),
           [ArcaneIcon.chevronRight(size: IconSize.sm)],
         ),
         // Submenu

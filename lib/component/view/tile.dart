@@ -39,19 +39,19 @@ class Tile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       gap: 12,
       children: <Widget>[
-        if (leading != null) leading!,
+        ?leading,
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             gap: 4,
             children: <Widget>[
               title ?? (titleText != null ? Text.label(titleText!) : const SizedBox.shrink()),
-              if (subtitle != null) subtitle!,
+              ?subtitle,
               if (subtitle == null && subtitleText != null) Text.bodySmall(subtitleText!),
             ],
           ),
         ),
-        if (trailing != null) trailing!,
+        ?trailing,
       ],
     ),
   );

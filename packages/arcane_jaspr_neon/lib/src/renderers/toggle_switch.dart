@@ -1,49 +1,18 @@
 import 'package:jaspr/dom.dart' as dom;
 import 'package:jaspr/jaspr.dart';
 
-import 'package:arcane_jaspr/core/interaction/interaction.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/toggle_switch_props.dart';
+import 'package:arcane_jaspr/core/rendering/base/toggle_switch_render_base.dart';
 
-class NeonToggleSwitch extends StatelessComponent {
-  final ToggleSwitchProps props;
-
-  const NeonToggleSwitch(this.props, {super.key});
+class NeonToggleSwitch extends ToggleSwitchRenderBase {
+  const NeonToggleSwitch(super.props, {super.key});
 
   @override
-  Component build(BuildContext context) {
-    final bool inExternalGroup =
-        props.group != null && props.group!.isNotEmpty && props.itemValue != null;
-    final String groupId = inExternalGroup ? props.group! : props.id;
-    final String optionValue = inExternalGroup ? props.itemValue! : 'on';
-    final String groupMode = inExternalGroup ? 'multi' : 'single';
-    final String currentGroupValue = props.value ? optionValue : '';
-
-    final Map<String, String> rootAttrs = inExternalGroup
-        ? const <String, String>{}
-        : groupAttrs(
-            groupId: groupId,
-            mode: groupMode,
-            value: currentGroupValue,
-            disabled: props.disabled,
-            changeAction: props.onChangeAction != null
-                ? encodeArcaneAction(props.onChangeAction!)
-                : null,
-          );
-
-    final Map<String, String> itemAttrs = mergeAttrs(<Map<String, String>>[
-      groupItemAttrs(
-        groupId: groupId,
-        value: optionValue,
-        selected: props.value,
-        disabled: props.disabled,
-      ),
-      if (!props.disabled)
-        interactionAttrs(
-          ArcaneInteraction.toggleValue(groupId, optionValue),
-        ),
-    ]);
-
+  Component buildSwitch(
+    ToggleSwitchProps props,
+    Map<String, String> itemAttrs,
+  ) {
     (double, double, double, double, double) sizing = switch (props.size) {
       ComponentSize.sm => (46.0, 22.0, 14.0, 3.0, 0.25),
       ComponentSize.md => (54.0, 26.0, 18.0, 3.0, 0.3125),
@@ -87,7 +56,7 @@ class NeonToggleSwitch extends StatelessComponent {
         ? '0 0 0 1px color-mix(in srgb, $tone 18%, transparent), 0 0 18px color-mix(in srgb, $tone 28%, transparent), inset 0 1px 0 color-mix(in srgb, #ffffff 14%, transparent)'
         : 'inset 0 1px 0 rgba(255, 255, 255, 0.05), inset 0 -1px 0 rgba(0, 0, 0, 0.18)';
 
-    Component switchWidget = dom.button(
+    return dom.button(
       classes:
           'neon-toggle-switch ${props.value ? 'active' : ''} ${props.disabled ? 'disabled' : ''}',
       attributes: mergeAttrs(<Map<String, String>>[
@@ -104,7 +73,7 @@ class NeonToggleSwitch extends StatelessComponent {
         itemAttrs,
       ]),
       styles: dom.Styles(
-        raw: {
+        raw: <String, String>{
           'position': 'relative',
           'display': 'inline-flex',
           'align-items': 'center',
@@ -125,12 +94,12 @@ class NeonToggleSwitch extends StatelessComponent {
       ),
       events: props.disabled || props.onChanged == null
           ? null
-          : {'click': (_) => props.onChanged!(!props.value)},
-      [
+          : <String, EventCallback>{'click': (_) => props.onChanged!(!props.value)},
+      <Component>[
         dom.span(
           classes: 'neon-toggle-thumb',
           styles: dom.Styles(
-            raw: {
+            raw: <String, String>{
               'display': 'block',
               'width': '${thumbSize}px',
               'height': '${thumbSize}px',
@@ -147,36 +116,37 @@ class NeonToggleSwitch extends StatelessComponent {
               'pointer-events': 'none',
             },
           ),
-          [],
+          <Component>[],
         ),
       ],
     );
+  }
 
-    if (props.label == null) return switchWidget;
+  @override
+  String get labelClasses => 'neon-toggle-label';
 
-    Component labelWidget = dom.span(
-      classes: 'neon-toggle-label',
-      styles: dom.Styles(
-        raw: {
-          'font-family': 'var(--font-heading)',
-          'font-size': '0.6875rem',
-          'font-weight': '600',
-          'text-transform': 'uppercase',
-          'letter-spacing': '0.08em',
-          'color': props.disabled
-              ? 'var(--muted-foreground)'
-              : 'var(--foreground)',
-          'user-select': 'none',
-        },
-      ),
-      [Component.text(props.label!)],
-    );
+  @override
+  Map<String, String> labelStyles(ToggleSwitchProps props) => <String, String>{
+    'font-family': 'var(--font-heading)',
+    'font-size': '0.6875rem',
+    'font-weight': '600',
+    'text-transform': 'uppercase',
+    'letter-spacing': '0.08em',
+    'color': props.disabled ? 'var(--muted-foreground)' : 'var(--foreground)',
+    'user-select': 'none',
+  };
 
+  @override
+  Component buildWrapper(
+    ToggleSwitchProps props,
+    Map<String, String> rootAttrs,
+    List<Component> children,
+  ) {
     return dom.label(
       classes: 'neon-toggle-wrapper',
       attributes: rootAttrs,
       styles: dom.Styles(
-        raw: {
+        raw: <String, String>{
           'display': 'inline-flex',
           'align-items': 'center',
           'gap': '0.75rem',
@@ -185,15 +155,13 @@ class NeonToggleSwitch extends StatelessComponent {
       ),
       events: props.disabled || props.onChanged == null
           ? null
-          : {
+          : <String, EventCallback>{
               'click': (e) {
                 if ((e.target as dynamic)?.tagName == 'BUTTON') return;
                 props.onChanged!(!props.value);
               },
             },
-      props.labelLeft
-          ? [labelWidget, switchWidget]
-          : [switchWidget, labelWidget],
+      children,
     );
   }
 }

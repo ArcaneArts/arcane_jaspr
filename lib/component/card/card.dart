@@ -314,7 +314,7 @@ class ArcaneImageCard extends StatelessWidget {
                   }),
                   [Component.text(subtitle!)],
                 ),
-              if (overlay != null) overlay!,
+              ?overlay,
             ],
           ),
       ],

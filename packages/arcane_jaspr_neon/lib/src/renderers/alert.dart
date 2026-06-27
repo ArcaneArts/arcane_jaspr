@@ -1,7 +1,7 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/props/alert_props.dart';
+import 'package:arcane_jaspr/core/rendering/base/alert_render_base.dart';
 
 /// Neon Alert renderer.
 ///
@@ -9,19 +9,8 @@ import 'package:arcane_jaspr/core/props/alert_props.dart';
 /// - Elevated borders with accent effects
 /// - layered-style gradients
 /// - Restrained color variants
-class NeonAlert extends StatelessComponent {
-  final AlertProps props;
-
-  const NeonAlert(this.props, {super.key});
-
-  String get _defaultIcon => switch (props.color) {
-    ColorVariant.info => '\u2139', // i
-    ColorVariant.success => '\u2713', // checkmark
-    ColorVariant.warning => '\u26A0', // warning
-    ColorVariant.destructive => '\u2715', // x
-    ColorVariant.primary => '\u2139', // i
-    ColorVariant.secondary => '\u2139', // i
-  };
+class NeonAlert extends AlertRenderBase {
+  const NeonAlert(super.props, {super.key});
 
   (String primary, String background, String border, String shadow)
   get _colors => switch (props.color) {
@@ -64,14 +53,42 @@ class NeonAlert extends StatelessComponent {
   };
 
   @override
-  Component build(BuildContext context) {
-    (String, String, String, String) colors = _colors;
-    String primary = colors.$1;
-    String bgColor = colors.$2;
-    String borderColor = colors.$3;
-    String shadow = colors.$4;
+  Component get defaultIcon => Component.text(switch (props.color) {
+    ColorVariant.info => 'ℹ', // i
+    ColorVariant.success => '✓', // checkmark
+    ColorVariant.warning => '⚠', // warning
+    ColorVariant.destructive => '✕', // x
+    ColorVariant.primary => 'ℹ', // i
+    ColorVariant.secondary => 'ℹ', // i
+  });
 
-    Map<String, String> containerStyles = switch (props.style) {
+  @override
+  String get rootClass => 'neon-alert ';
+
+  @override
+  Map<String, String> get rootAttributes => <String, String>{
+    'role': 'alert',
+    'data-variant': props.color.name,
+    'data-style': props.style.name,
+  };
+
+  @override
+  Map<String, String> get rootLayoutStyles => const <String, String>{
+    'gap': '12px',
+    'padding': '16px',
+    'overflow': 'hidden',
+    'clip-path': 'var(--neon-panel-clip)',
+    'isolation': 'isolate',
+  };
+
+  @override
+  Map<String, String> get containerStyles {
+    final String primary = _colors.$1;
+    final String bgColor = _colors.$2;
+    final String borderColor = _colors.$3;
+    final String shadow = _colors.$4;
+
+    return switch (props.style) {
       AlertStyle.solid => <String, String>{
         'background':
             'linear-gradient(135deg, color-mix(in srgb, $primary 82%, #0d1110), $primary 68%, color-mix(in srgb, var(--neon-accent-cool) 44%, $primary))',
@@ -105,126 +122,92 @@ class NeonAlert extends StatelessComponent {
         'box-shadow': shadow,
       },
     };
-
-    bool isSolid = props.style == AlertStyle.solid;
-
-    return dom.div(
-      classes: 'neon-alert ',
-      attributes: {
-        'role': 'alert',
-        'data-variant': props.color.name,
-        'data-style': props.style.name,
-      },
-      styles: dom.Styles(
-        raw: {
-          'position': 'relative',
-          'width': '100%',
-          'display': 'flex',
-          'align-items': 'flex-start',
-          'gap': '12px',
-          'padding': '16px',
-          'overflow': 'hidden',
-          'clip-path': 'var(--neon-panel-clip)',
-          'isolation': 'isolate',
-          ...containerStyles,
-        },
-      ),
-      [
-        if (props.showIcon)
-          dom.div(
-            classes: 'neon-alert-icon',
-            styles: dom.Styles(
-              raw: {
-                'flex-shrink': '0',
-                'width': '16px',
-                'height': '16px',
-                'display': 'flex',
-                'align-items': 'center',
-                'justify-content': 'center',
-                'color': isSolid ? '#ffffff' : primary,
-                'font-size': 'var(--font-size-base)',
-                'margin-top': '1px',
-                'filter': 'drop-shadow(0 0 8px $primary)',
-              },
-            ),
-            [props.icon ?? Component.text(_defaultIcon)],
-          ),
-
-        dom.div(
-          classes: 'neon-alert-content',
-          styles: const dom.Styles(raw: {'flex': '1', 'min-width': '0'}),
-          [
-            if (props.title != null)
-              dom.div(
-                classes: 'neon-alert-title',
-                styles: dom.Styles(
-                  raw: {
-                    'font-family': 'var(--font-heading)',
-                    'font-weight': 'var(--font-weight-semibold)',
-                    'line-height': '1.1',
-                    'letter-spacing': '0.08em',
-                    'text-transform': 'uppercase',
-                    'color': isSolid ? '#ffffff' : 'var(--foreground)',
-                    if (props.message != null || props.child != null)
-                      'margin-bottom': '4px',
-                  },
-                ),
-                [Component.text(props.title!)],
-              ),
-            if (props.message != null)
-              dom.div(
-                classes: 'neon-alert-description',
-                styles: dom.Styles(
-                  raw: {
-                    'font-size': 'var(--font-size-sm)',
-                    'line-height': '1.625',
-                    'color': isSolid
-                        ? 'rgba(255, 255, 255, 0.9)'
-                        : 'var(--muted-foreground)',
-                  },
-                ),
-                [Component.text(props.message!)],
-              ),
-            if (props.child != null) props.child!,
-            if (props.action != null)
-              dom.div(styles: const dom.Styles(raw: {'margin-top': '12px'}), [
-                props.action!,
-              ]),
-          ],
-        ),
-
-        if (props.dismissible)
-          dom.button(
-            type: dom.ButtonType.button,
-            classes: 'neon-alert-dismiss',
-            attributes: const {'aria-label': 'Dismiss'},
-            styles: dom.Styles(
-              raw: {
-                'position': 'absolute',
-                'right': '8px',
-                'top': '8px',
-                'display': 'inline-flex',
-                'align-items': 'center',
-                'justify-content': 'center',
-                'width': '24px',
-                'height': '24px',
-                'padding': '0',
-                'border': 'none',
-                'background': 'transparent',
-                'color': isSolid
-                    ? 'rgba(255, 255, 255, 0.8)'
-                    : 'var(--muted-foreground)',
-                'cursor': 'pointer',
-                'border-radius': 'var(--arcane-radius-xs)',
-                'opacity': '0.7',
-                'transition': 'opacity var(--arcane-transition)',
-                'font-size': 'var(--font-size-base)',
-              },
-            ),
-            events: {'click': (_) => props.onDismiss?.call()},
-            [const Component.text('\u00D7')], // x
-          ),
-      ],
-    );
   }
+
+  @override
+  String get iconClass => 'neon-alert-icon';
+
+  @override
+  Map<String, String> get iconStyles {
+    final bool isSolid = props.style == AlertStyle.solid;
+    final String primary = _colors.$1;
+    return <String, String>{
+      'flex-shrink': '0',
+      'width': '16px',
+      'height': '16px',
+      'display': 'flex',
+      'align-items': 'center',
+      'justify-content': 'center',
+      'color': isSolid ? '#ffffff' : primary,
+      'font-size': 'var(--font-size-base)',
+      'margin-top': '1px',
+      'filter': 'drop-shadow(0 0 8px $primary)',
+    };
+  }
+
+  @override
+  String get contentClass => 'neon-alert-content';
+
+  @override
+  String get titleClass => 'neon-alert-title';
+
+  @override
+  Map<String, String> get titleStyles {
+    final bool isSolid = props.style == AlertStyle.solid;
+    return <String, String>{
+      'font-family': 'var(--font-heading)',
+      'font-weight': 'var(--font-weight-semibold)',
+      'line-height': '1.1',
+      'letter-spacing': '0.08em',
+      'text-transform': 'uppercase',
+      'color': isSolid ? '#ffffff' : 'var(--foreground)',
+      if (props.message != null || props.child != null) 'margin-bottom': '4px',
+    };
+  }
+
+  @override
+  String get descriptionClass => 'neon-alert-description';
+
+  @override
+  Map<String, String> get descriptionStyles {
+    final bool isSolid = props.style == AlertStyle.solid;
+    return <String, String>{
+      'font-size': 'var(--font-size-sm)',
+      'line-height': '1.625',
+      'color': isSolid ? 'rgba(255, 255, 255, 0.9)' : 'var(--muted-foreground)',
+    };
+  }
+
+  @override
+  String get actionMarginTop => '12px';
+
+  @override
+  String get dismissClass => 'neon-alert-dismiss';
+
+  @override
+  Map<String, String> get dismissStyles {
+    final bool isSolid = props.style == AlertStyle.solid;
+    return <String, String>{
+      'position': 'absolute',
+      'right': '8px',
+      'top': '8px',
+      'display': 'inline-flex',
+      'align-items': 'center',
+      'justify-content': 'center',
+      'width': '24px',
+      'height': '24px',
+      'padding': '0',
+      'border': 'none',
+      'background': 'transparent',
+      'color': isSolid ? 'rgba(255, 255, 255, 0.8)' : 'var(--muted-foreground)',
+      'cursor': 'pointer',
+      'border-radius': 'var(--arcane-radius-xs)',
+      'opacity': '0.7',
+      'transition': 'opacity var(--arcane-transition)',
+      'font-size': 'var(--font-size-base)',
+    };
+  }
+
+  @override
+  Component get dismissChild => const Component.text('×'); // x
 }

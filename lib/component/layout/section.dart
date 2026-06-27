@@ -39,14 +39,14 @@ class Section extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             gap: 4,
             children: <Widget>[
-              if (title != null) title!,
+              ?title,
               if (title == null && titleText != null) Text.heading2(titleText!),
-              if (subtitle != null) subtitle!,
+              ?subtitle,
               if (subtitle == null && subtitleText != null) Text.body(subtitleText!),
             ],
           ),
         ),
-        if (trailing != null) trailing!,
+        ?trailing,
       ],
     );
 

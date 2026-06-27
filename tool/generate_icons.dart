@@ -232,7 +232,7 @@ String kebabToCamel(String kebab) {
   final StringBuffer buffer = StringBuffer();
 
   for (int i = 0; i < parts.length; i++) {
-    String part = parts[i];
+    final String part = parts[i];
     if (part.isEmpty) continue;
 
     // Check for special abbreviations (AZ/ZA)

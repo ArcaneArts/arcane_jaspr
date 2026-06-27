@@ -72,7 +72,7 @@ class DocumentHelper {
 
     for (final HeadElementData element in elements) {
       if (element.tag == 'link') {
-        web.HTMLLinkElement link =
+        final web.HTMLLinkElement link =
             web.document.createElement('link') as web.HTMLLinkElement;
         if (element.attributes != null) {
           for (MapEntry<String, String> attr in element.attributes!.entries) {
@@ -81,7 +81,7 @@ class DocumentHelper {
         }
         head.appendChild(link);
       } else if (element.tag == 'meta') {
-        web.HTMLMetaElement meta =
+        final web.HTMLMetaElement meta =
             web.document.createElement('meta') as web.HTMLMetaElement;
         if (element.attributes != null) {
           for (MapEntry<String, String> attr in element.attributes!.entries) {
@@ -90,12 +90,12 @@ class DocumentHelper {
         }
         head.appendChild(meta);
       } else if (element.tag == 'style' && element.textContent != null) {
-        web.HTMLStyleElement style =
+        final web.HTMLStyleElement style =
             web.document.createElement('style') as web.HTMLStyleElement;
         style.textContent = element.textContent!;
         head.appendChild(style);
       } else if (element.tag == 'title' && element.textContent != null) {
-        web.HTMLTitleElement title =
+        final web.HTMLTitleElement title =
             web.document.createElement('title') as web.HTMLTitleElement;
         title.textContent = element.textContent!;
         head.appendChild(title);

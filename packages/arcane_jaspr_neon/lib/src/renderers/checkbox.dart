@@ -1,18 +1,54 @@
 import 'package:jaspr/dom.dart' as dom;
 import 'package:jaspr/jaspr.dart';
 
-import 'package:arcane_jaspr/core/interaction/interaction.dart';
-import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/checkbox_props.dart';
+import 'package:arcane_jaspr/core/rendering/base/checkbox_render_base.dart';
 
 /// Neon checkbox renderer with restrained dark styling.
-class NeonCheckbox extends StatelessComponent {
-  final CheckboxProps props;
-
-  const NeonCheckbox(this.props, {super.key});
+class NeonCheckbox extends CheckboxRenderBase {
+  const NeonCheckbox(super.props, {super.key});
 
   @override
-  Component build(BuildContext context) {
+  String wrapperClasses(CheckboxProps props) =>
+      'neon-checkbox-wrapper ${props.disabled ? 'disabled' : ''}';
+
+  @override
+  Map<String, String> extraWrapperAttrs(CheckboxProps props) => <String, String>{
+    'data-variant': props.color.name,
+    'data-size': props.size.name,
+  };
+
+  @override
+  Map<String, String> wrapperStyles(CheckboxProps props) => <String, String>{
+    'display': 'flex',
+    'align-items': 'flex-start',
+    'gap': '0.875rem',
+    'cursor': props.disabled ? 'not-allowed' : 'pointer',
+    'opacity': props.disabled ? '0.5' : '1',
+    'pointer-events': props.disabled ? 'none' : 'auto',
+  };
+
+  @override
+  Map<String, String> labelTextStyles(CheckboxProps props) => <String, String>{
+    'display': 'block',
+    'font-size': 'var(--font-size-sm)',
+    'font-weight': 'var(--font-weight-medium)',
+    'color': 'var(--foreground)',
+    'line-height': '1.4',
+  };
+
+  @override
+  Map<String, String> descriptionTextStyles(CheckboxProps props) =>
+      <String, String>{
+    'display': 'block',
+    'font-size': 'var(--font-size-sm)',
+    'color': 'var(--muted-foreground)',
+    'line-height': '1.4',
+    'margin-top': '0.25rem',
+  };
+
+  @override
+  Component buildBox(CheckboxProps props, Map<String, String> itemAttrs) {
     final String boxSize = switch (props.size) {
       ComponentSize.sm => '18px',
       ComponentSize.md => '22px',
@@ -31,141 +67,48 @@ class NeonCheckbox extends StatelessComponent {
       ColorVariant.info => ('var(--info)', '#ffffff'),
     };
 
-    final bool inExternalGroup =
-        props.group != null && props.group!.isNotEmpty && props.value != null;
-    final String groupId = inExternalGroup ? props.group! : props.id;
-    final String itemValue = inExternalGroup ? props.value! : 'on';
-    final String currentGroupValue = props.checked ? itemValue : '';
-
-    final Map<String, String> rootAttrs = inExternalGroup
-        ? const <String, String>{}
-        : groupAttrs(
-            groupId: groupId,
-            mode: 'multi',
-            value: currentGroupValue,
-            disabled: props.disabled,
-          );
-
-    final Map<String, String> itemAttrs = mergeAttrs(<Map<String, String>>[
-      groupItemAttrs(
-        groupId: groupId,
-        value: itemValue,
-        selected: props.checked,
-        disabled: props.disabled,
-      ),
-      <String, String>{
-        'role': 'checkbox',
-        'aria-checked': '${props.checked}',
-        'tabindex': props.disabled ? '-1' : '0',
-        'data-state': props.checked ? 'checked' : 'unchecked',
-        'data-disabled': '${props.disabled}',
-      },
-      if (!props.disabled)
-        interactionAttrs(
-          ArcaneInteraction.toggleValue(groupId, itemValue),
-        ),
-    ]);
-
-    final Map<String, String> wrapperAttrs = mergeAttrs(<Map<String, String>>[
-      rootAttrs,
-      <String, String>{
-        'data-state': props.checked ? 'checked' : 'unchecked',
-        'data-disabled': '${props.disabled}',
-        'data-variant': props.color.name,
-        'data-size': props.size.name,
-      },
-    ]);
-
     return dom.div(
-      classes: 'neon-checkbox-wrapper ${props.disabled ? 'disabled' : ''}',
-      attributes: wrapperAttrs,
+      classes: 'neon-checkbox-box',
+      attributes: itemAttrs,
       styles: dom.Styles(
-        raw: {
+        raw: <String, String>{
+          'width': boxSize,
+          'height': boxSize,
+          'border-radius': 'calc(var(--radius-sm) - 1px)',
+          'background': props.checked
+              ? 'linear-gradient(180deg, color-mix(in srgb, $tone 82%, #0d1110), $tone)'
+              : 'var(--neon-surface-1)',
+          'border': props.checked
+              ? '1px solid color-mix(in srgb, $tone 42%, var(--border))'
+              : '1px solid var(--border)',
           'display': 'flex',
-          'align-items': 'flex-start',
-          'gap': '0.875rem',
-          'cursor': props.disabled ? 'not-allowed' : 'pointer',
-          'opacity': props.disabled ? '0.5' : '1',
-          'pointer-events': props.disabled ? 'none' : 'auto',
+          'align-items': 'center',
+          'justify-content': 'center',
+          'flex-shrink': '0',
+          'transition':
+              'background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease',
+          'box-shadow': props.checked
+              ? '0 10px 20px rgba(0, 0, 0, 0.28)'
+              : 'none',
         },
       ),
-      events: props.disabled || props.onChanged == null
-          ? null
-          : <String, EventCallback>{'click': (_) => props.onChanged!(!props.checked)},
-      [
-        dom.div(
-          classes: 'neon-checkbox-box',
-          attributes: itemAttrs,
-          styles: dom.Styles(
-            raw: {
-              'width': boxSize,
-              'height': boxSize,
-              'border-radius': 'calc(var(--radius-sm) - 1px)',
-              'background': props.checked
-                  ? 'linear-gradient(180deg, color-mix(in srgb, $tone 82%, #0d1110), $tone)'
-                  : 'var(--neon-surface-1)',
-              'border': props.checked
-                  ? '1px solid color-mix(in srgb, $tone 42%, var(--border))'
-                  : '1px solid var(--border)',
-              'display': 'flex',
-              'align-items': 'center',
-              'justify-content': 'center',
-              'flex-shrink': '0',
-              'transition':
-                  'background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease',
-              'box-shadow': props.checked
-                  ? '0 10px 20px rgba(0, 0, 0, 0.28)'
-                  : 'none',
-            },
+      <Component>[
+        if (props.checked)
+          dom.span(
+            styles: dom.Styles(
+              raw: <String, String>{
+                'color': checkColor,
+                'font-size': switch (props.size) {
+                  ComponentSize.sm => '11px',
+                  ComponentSize.md => '13px',
+                  ComponentSize.lg => '15px',
+                },
+                'font-weight': '700',
+                'line-height': '1',
+              },
+            ),
+            <Component>[const Component.text('✓')],
           ),
-          [
-            if (props.checked)
-              dom.span(
-                styles: dom.Styles(
-                  raw: {
-                    'color': checkColor,
-                    'font-size': switch (props.size) {
-                      ComponentSize.sm => '11px',
-                      ComponentSize.md => '13px',
-                      ComponentSize.lg => '15px',
-                    },
-                    'font-weight': '700',
-                    'line-height': '1',
-                  },
-                ),
-                [const Component.text('\u2713')],
-              ),
-          ],
-        ),
-        if (props.label != null || props.description != null)
-          dom.div(styles: const dom.Styles(raw: {'flex': '1'}), [
-            if (props.label != null)
-              dom.span(
-                styles: const dom.Styles(
-                  raw: {
-                    'display': 'block',
-                    'font-size': 'var(--font-size-sm)',
-                    'font-weight': 'var(--font-weight-medium)',
-                    'color': 'var(--foreground)',
-                    'line-height': '1.4',
-                  },
-                ),
-                [Component.text(props.label!)],
-              ),
-            if (props.description != null)
-              dom.span(
-                styles: const dom.Styles(
-                  raw: {
-                    'display': 'block',
-                    'font-size': 'var(--font-size-sm)',
-                    'color': 'var(--muted-foreground)',
-                    'line-height': '1.4',
-                    'margin-top': '0.25rem',
-                  },
-                ),
-                [Component.text(props.description!)],
-              ),
-          ]),
       ],
     );
   }

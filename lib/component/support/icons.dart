@@ -22,13 +22,13 @@ class Icon extends StatelessWidget {
   @override
   Widget build(BuildContext context) => dom.span(
     styles: dom.Styles(raw: <String, String>{
-      if (color != null) 'color': color!,
+      'color': ?color,
       'display': 'inline-flex',
       'align-items': 'center',
       'justify-content': 'center',
     }),
     attributes: <String, String>{
-      if (label != null) 'aria-label': label!,
+      'aria-label': ?label,
       if (label != null) 'role': 'img',
     },
     <Widget>[icon(size: size)],

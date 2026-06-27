@@ -1,0 +1,19 @@
+
+    <div class="neon-select  " style="position: relative; width: 100%" data-disabled="false" data-size="md">
+      <button class="neon-select-trigger" style="display: flex; align-items: center; justify-content: space-between; width: 100%; height: 48px; padding: 0.75rem 1.25rem; background: linear-gradient(135deg, color-mix(in srgb, var(--neon-accent) 5%, transparent), color-mix(in srgb, var(--card) 86%, transparent)); border: 1px solid var(--neon-control-border); clip-path: var(--neon-control-clip); font-size: 0.875rem; color: var(--muted-foreground); cursor: pointer; outline: none; box-shadow: none; transition: border-color 0.18s ease, box-shadow 0.18s ease" type="button" aria-haspopup="listbox" aria-controls="combobox-1" aria-expanded="false" data-disabled="false" data-variant="single" data-size="md" data-arcane-anchor-id="combobox-1-trigger" data-arcane-action="surface.toggle popover combobox-1">
+        <span style="flex: 1; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">Select...</span>
+        <span style="display: flex; align-items: center; color: var(--muted-foreground)"><i style="font-family: 'lucide', sans-serif; font-style: normal; font-weight: normal; font-size: 16.0px; line-height: 1; display: inline-block; width: 16.0px; height: 16.0px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale"></i></span>
+      </button>
+      <div class="neon-select-dropdown neon-select-content" style="z-index: 50; min-width: 100%; max-height: 320px; overflow-y: auto; background: color-mix(in srgb, var(--card) 92%, transparent); border: 1px solid var(--neon-panel-border); clip-path: var(--neon-clip-sm); box-shadow: var(--neon-glow-md)" role="listbox" data-arcane-surface="popover" data-arcane-id="combobox-1" data-arcane-state="closed" data-arcane-focus-trap="false" data-arcane-anchor="combobox-1-trigger" data-arcane-anchor-placement="bottom" data-arcane-anchor-offset="8" data-arcane-anchor-align="start" hidden data-arcane-group="combobox-1-group" data-arcane-group-mode="single" data-arcane-command="combobox-1">
+        <div class="neon-select-search" style="padding: 0.625rem; border-bottom: 1px solid var(--neon-panel-border)">
+          <input style="width: 100%; padding: 0.5rem 0.75rem; background: color-mix(in srgb, var(--card) 70%, transparent); border: 1px solid var(--neon-control-border); clip-path: var(--neon-clip-xs); font-size: var(--font-size-sm); color: var(--foreground); outline: none; transition: border-color 0.18s ease" placeholder="Search..." autocomplete="off" data-arcane-command-input="combobox-1" data-arcane-autofocus="true" type="text"/>
+        </div>
+        <div class="neon-select-options" style="padding: 0.5rem">
+          <div class="neon-select-empty" style="padding: 1.5rem; text-align: center; color: var(--muted-foreground)" data-arcane-command-empty hidden>No results found</div>
+          <button class="neon-select-option  " style="display: flex; align-items: center; gap: 0.75rem; width: 100%; padding: 0.625rem 0.875rem; background: transparent; border: none; clip-path: var(--neon-clip-xs); font-size: var(--font-size-sm); color: var(--foreground); text-align: left; cursor: pointer; transition: background 0.15s ease, color 0.15s ease" type="button" data-arcane-command-item data-arcane-command-group-id="combobox-1-default" data-label="A" data-keywords="A" data-arcane-group="combobox-1-group" data-arcane-value="a" data-arcane-state="unselected" data-arcane-action="value.set combobox-1-group a;surface.close popover combobox-1">
+            <div style="flex: 1; min-width: 0"><div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">A</div></div>
+          </button>
+        </div>
+      </div>
+    </div>
+  

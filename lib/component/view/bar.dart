@@ -59,11 +59,11 @@ class Bar extends StatelessWidget {
       crossAxisAlignment: centerTitle ? CrossAxisAlignment.center : CrossAxisAlignment.start,
       gap: 4,
       children: <Widget>[
-        if (header != null) header!,
+        ?header,
         if (header == null && headerText != null) Text.label(headerText!),
-        if (title != null) title!,
+        ?title,
         if (title == null && titleText != null) Text.heading3(titleText!),
-        if (subtitle != null) subtitle!,
+        ?subtitle,
         if (subtitle == null && subtitleText != null) Text.bodySmall(subtitleText!),
       ],
     );
@@ -72,7 +72,7 @@ class Bar extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       gap: 8,
       children: <Widget>[
-        if (barHeader != null) barHeader!,
+        ?barHeader,
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -83,7 +83,7 @@ class Bar extends StatelessWidget {
             ...trailing,
           ],
         ),
-        if (barFooter != null) barFooter!,
+        ?barFooter,
       ],
     );
 

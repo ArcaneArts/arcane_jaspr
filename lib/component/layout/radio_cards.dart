@@ -2,7 +2,6 @@ import 'package:arcane_jaspr/component/card/card.dart';
 import 'package:arcane_jaspr/component/layout/carpet.dart';
 import 'package:arcane_jaspr/component/layout/flow.dart';
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/dom.dart' as dom;
 import 'package:arcane_jaspr/component/typography/text.dart';
 import 'package:arcane_jaspr/util/arcane.dart';
 import 'package:arcane_jaspr/core/props/card_props.dart';

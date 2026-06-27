@@ -2,7 +2,6 @@ import 'package:arcane_jaspr/component/layout/flow.dart';
 import 'package:arcane_jaspr/component/layout/gutter.dart';
 import 'package:arcane_jaspr/component/screen/abstract_screen.dart';
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:arcane_jaspr/component/typography/text.dart';
 import 'package:arcane_jaspr/util/arcane.dart';
 
 class FillScreen extends AbstractStatelessScreen {
@@ -29,16 +28,16 @@ class FillScreen extends AbstractStatelessScreen {
 
     final Widget main = Stack(
       children: <Widget>[
-        if (background != null) background!,
+        ?background,
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            if (header != null) header!,
+            ?header,
             Expanded(child: body),
-            if (footer != null) footer!,
+            ?footer,
           ],
         ),
-        if (foreground != null) foreground!,
+        ?foreground,
         if (fab != null)
           Positioned(
             right: '16px',

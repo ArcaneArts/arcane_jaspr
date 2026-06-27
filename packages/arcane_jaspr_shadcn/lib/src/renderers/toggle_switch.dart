@@ -1,53 +1,22 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
-import 'package:arcane_jaspr/core/interaction/interaction.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/toggle_switch_props.dart';
+import 'package:arcane_jaspr/core/rendering/base/toggle_switch_render_base.dart';
 
 /// ShadCN Toggle Switch renderer.
 ///
 /// Outputs the exact HTML structure and CSS from ui.shadcn.com.
 /// Reference: https://ui.shadcn.com/docs/components/switch
-class ShadcnToggleSwitch extends StatelessComponent {
-  final ToggleSwitchProps props;
-
-  const ShadcnToggleSwitch(this.props, {super.key});
+class ShadcnToggleSwitch extends ToggleSwitchRenderBase {
+  const ShadcnToggleSwitch(super.props, {super.key});
 
   @override
-  Component build(BuildContext context) {
-    final bool inExternalGroup =
-        props.group != null && props.group!.isNotEmpty && props.itemValue != null;
-    final String groupId = inExternalGroup ? props.group! : props.id;
-    final String optionValue = inExternalGroup ? props.itemValue! : 'on';
-    final String groupMode = inExternalGroup ? 'multi' : 'single';
-    final String currentGroupValue = props.value ? optionValue : '';
-
-    final Map<String, String> rootAttrs = inExternalGroup
-        ? const <String, String>{}
-        : groupAttrs(
-            groupId: groupId,
-            mode: groupMode,
-            value: currentGroupValue,
-            disabled: props.disabled,
-            changeAction: props.onChangeAction != null
-                ? encodeArcaneAction(props.onChangeAction!)
-                : null,
-          );
-
-    final Map<String, String> itemAttrs = mergeAttrs(<Map<String, String>>[
-      groupItemAttrs(
-        groupId: groupId,
-        value: optionValue,
-        selected: props.value,
-        disabled: props.disabled,
-      ),
-      if (!props.disabled)
-        interactionAttrs(
-          ArcaneInteraction.toggleValue(groupId, optionValue),
-        ),
-    ]);
-
+  Component buildSwitch(
+    ToggleSwitchProps props,
+    Map<String, String> itemAttrs,
+  ) {
     // ShadCN size-specific dimensions
     // Default: w-11 h-6 (44px x 24px), thumb h-5 w-5 (20px)
     final (
@@ -81,7 +50,7 @@ class ShadcnToggleSwitch extends StatelessComponent {
       ColorVariant.info => ('var(--info, #3b82f6)', 'var(--muted)'),
     };
 
-    final Component switchWidget = dom.button(
+    return dom.button(
       classes:
           'arcane-toggle-switch ${props.value ? 'active' : ''} ${props.disabled ? 'disabled' : ''}',
       attributes: mergeAttrs(<Map<String, String>>[
@@ -160,31 +129,28 @@ class ShadcnToggleSwitch extends StatelessComponent {
         ),
       ],
     );
+  }
 
-    // If no label, return just the switch
-    if (props.label == null) {
-      return switchWidget;
-    }
+  @override
+  String get labelClasses => 'arcane-toggle-label';
 
-    // With label - ShadCN styling
-    final Component labelWidget = dom.span(
-      classes: 'arcane-toggle-label',
-      styles: dom.Styles(
-        raw: <String, String>{
-          // ShadCN: text-sm font-medium leading-none
-          // peer-disabled:cursor-not-allowed peer-disabled:opacity-70
-          'font-size': 'var(--font-size-sm)', // 14px
-          'font-weight': 'var(--font-weight-medium)',
-          'color': props.disabled
-              ? 'var(--muted-foreground)'
-              : 'var(--foreground)',
-          'user-select': 'none',
-          'line-height': '1',
-        },
-      ),
-      <Component>[Component.text(props.label!)],
-    );
+  @override
+  Map<String, String> labelStyles(ToggleSwitchProps props) => <String, String>{
+    // ShadCN: text-sm font-medium leading-none
+    // peer-disabled:cursor-not-allowed peer-disabled:opacity-70
+    'font-size': 'var(--font-size-sm)', // 14px
+    'font-weight': 'var(--font-weight-medium)',
+    'color': props.disabled ? 'var(--muted-foreground)' : 'var(--foreground)',
+    'user-select': 'none',
+    'line-height': '1',
+  };
 
+  @override
+  Component buildWrapper(
+    ToggleSwitchProps props,
+    Map<String, String> rootAttrs,
+    List<Component> children,
+  ) {
     return dom.label(
       classes: 'arcane-toggle-wrapper',
       attributes: mergeAttrs(<Map<String, String>>[
@@ -202,9 +168,7 @@ class ShadcnToggleSwitch extends StatelessComponent {
           'cursor': props.disabled ? 'not-allowed' : 'pointer',
         },
       ),
-      props.labelLeft
-          ? <Component>[labelWidget, switchWidget]
-          : <Component>[switchWidget, labelWidget],
+      children,
     );
   }
 }

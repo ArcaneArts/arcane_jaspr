@@ -17,12 +17,12 @@ class ArcaneStylesheetCss {
     required RadiusConfig radius,
     required String componentCss,
   }) {
-    String? cached = _cache[cacheKey];
+    final String? cached = _cache[cacheKey];
     if (cached != null) return cached;
 
-    ThemePalette lightPalette = PaletteGenerator.generate(lightSeed);
-    ThemePalette darkPalette = PaletteGenerator.generate(darkSeed);
-    String generated =
+    final ThemePalette lightPalette = PaletteGenerator.generate(lightSeed);
+    final ThemePalette darkPalette = PaletteGenerator.generate(darkSeed);
+    final String generated =
         '''
 $fontFaces
 

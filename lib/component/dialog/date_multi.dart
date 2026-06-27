@@ -1,4 +1,3 @@
-import 'package:arcane_jaspr/component/dialog/date.dart';
 import 'package:arcane_jaspr/component/dialog/dialog.dart';
 import 'package:arcane_jaspr/component/input/button.dart';
 import 'package:arcane_jaspr/component/input/date_picker.dart';

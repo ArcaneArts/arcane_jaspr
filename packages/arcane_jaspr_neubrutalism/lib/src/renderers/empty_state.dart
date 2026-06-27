@@ -2,6 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/props/empty_state_props.dart';
+import 'package:arcane_jaspr/core/rendering/base/empty_state_render_base.dart';
 
 /// Neubrutalism Empty State renderer.
 ///
@@ -9,148 +10,140 @@ import 'package:arcane_jaspr/core/props/empty_state_props.dart';
 /// - Larger spacing
 /// - Card variant with subtle border
 /// - Accent-colored icon
-class NeubrutalismEmptyState extends StatelessComponent {
-  final EmptyStateProps props;
+class NeubrutalismEmptyState extends EmptyStateRenderBase {
+  const NeubrutalismEmptyState(super.props, {super.key});
 
-  const NeubrutalismEmptyState(this.props, {super.key});
+  // Neubrutalism sizes
+  (String iconSize, String titleSize, String descSize, String gap)
+  get _sizeStyles => switch (props.size) {
+    EmptyStateSizeVariant.sm => ('48px', '1rem', '0.8125rem', '0.75rem'),
+    EmptyStateSizeVariant.md => (
+      '64px',
+      '1.25rem',
+      '0.875rem',
+      '1rem',
+    ), // Neubrutalism: larger
+    EmptyStateSizeVariant.lg => ('80px', '1.5rem', '1rem', '1.25rem'),
+  };
 
   @override
-  Component build(BuildContext context) {
-    // Neubrutalism sizes
-    final (
-      String iconSize,
-      String titleSize,
-      String descSize,
-      String gap,
-    ) = switch (props.size) {
-      EmptyStateSizeVariant.sm => ('48px', '1rem', '0.8125rem', '0.75rem'),
-      EmptyStateSizeVariant.md => (
-        '64px',
-        '1.25rem',
-        '0.875rem',
-        '1rem',
-      ), // Neubrutalism: larger
-      EmptyStateSizeVariant.lg => ('80px', '1.5rem', '1rem', '1.25rem'),
-    };
+  String get contentClass => 'neubrutalism-empty-state-content';
 
-    final Component content = dom.div(
-      classes: 'neubrutalism-empty-state-content',
-      styles: dom.Styles(
-        raw: {
-          'display': 'flex',
-          'flex-direction': props.style == EmptyStateStyleVariant.compact
-              ? 'row'
-              : 'column',
-          'align-items': 'center',
-          'text-align': props.style == EmptyStateStyleVariant.compact
-              ? 'left'
-              : 'center',
-          'gap': gap,
-          if (props.style == EmptyStateStyleVariant.compact)
-            'text-align': 'left',
-        },
-      ),
-      [
-        if (props.icon != null)
-          dom.div(
-            classes: 'neubrutalism-empty-state-icon',
+  @override
+  Map<String, String> get contentStyles {
+    final (_, _, _, gap) = _sizeStyles;
+    return <String, String>{
+      'display': 'flex',
+      'flex-direction': props.style == EmptyStateStyleVariant.compact
+          ? 'row'
+          : 'column',
+      'align-items': 'center',
+      'text-align': props.style == EmptyStateStyleVariant.compact
+          ? 'left'
+          : 'center',
+      'gap': gap,
+      if (props.style == EmptyStateStyleVariant.compact) 'text-align': 'left',
+    };
+  }
+
+  @override
+  String get iconClass => 'neubrutalism-empty-state-icon';
+
+  @override
+  Map<String, String> get iconStyles {
+    final (iconSize, _, _, _) = _sizeStyles;
+    return <String, String>{
+      'display': 'flex',
+      'align-items': 'center',
+      'justify-content': 'center',
+      'width': iconSize,
+      'height': iconSize,
+      'padding': '0.5rem',
+      'box-sizing': 'border-box',
+      'background': 'var(--nb-paper-soft, var(--card))',
+      'border': 'var(--nb-border-thick, 3px) solid var(--nb-line, #000)',
+      'border-radius': '0',
+      'box-shadow':
+          'var(--nb-shadow-sm, 3px 3px 0 0 var(--nb-shadow-color, #000))',
+      'color': 'var(--nb-accent, var(--primary))',
+      'flex-shrink': '0',
+      'filter': 'none',
+    };
+  }
+
+  @override
+  String get actionsClass => 'neubrutalism-empty-state-actions';
+
+  @override
+  Map<String, String> get actionsStyles => <String, String>{
+    'display': 'flex',
+    'gap': '0.75rem', // Neubrutalism: more gap
+    'margin-top': props.style == EmptyStateStyleVariant.compact
+        ? '0'
+        : '0.75rem',
+    if (props.style == EmptyStateStyleVariant.compact) 'margin-left': 'auto',
+  };
+
+  @override
+  List<Component> buildBody() {
+    final (_, titleSize, descSize, _) = _sizeStyles;
+    return <Component>[
+      // Text content
+      dom.div(
+        classes: 'neubrutalism-empty-state-text',
+        styles: const dom.Styles(
+          raw: <String, String>{
+            'display': 'flex',
+            'flex-direction': 'column',
+            'gap': 'var(--space-2)',
+          },
+        ),
+        [
+          // Title
+          dom.h3(
+            classes: 'neubrutalism-empty-state-title',
             styles: dom.Styles(
-              raw: {
-                'display': 'flex',
-                'align-items': 'center',
-                'justify-content': 'center',
-                'width': iconSize,
-                'height': iconSize,
-                'padding': '0.5rem',
-                'box-sizing': 'border-box',
-                'background': 'var(--nb-paper-soft, var(--card))',
-                'border': 'var(--nb-border-thick, 3px) solid var(--nb-line, #000)',
-                'border-radius': '0',
-                'box-shadow':
-                    'var(--nb-shadow-sm, 3px 3px 0 0 var(--nb-shadow-color, #000))',
-                'color': 'var(--nb-accent, var(--primary))',
-                'flex-shrink': '0',
-                'filter': 'none',
+              raw: <String, String>{
+                'font-family': 'var(--font-heading)',
+                'font-size': titleSize,
+                'font-weight': '900',
+                'letter-spacing': '-0.01em',
+                'color': 'var(--foreground)',
+                'margin': '0',
               },
             ),
-            [props.icon!],
+            [Component.text(props.title)],
           ),
 
-        // Text content
-        dom.div(
-          classes: 'neubrutalism-empty-state-text',
-          styles: const dom.Styles(
-            raw: {
-              'display': 'flex',
-              'flex-direction': 'column',
-              'gap': 'var(--space-2)',
-            },
-          ),
-          [
-            // Title
-            dom.h3(
-              classes: 'neubrutalism-empty-state-title',
+          // Description
+          if (props.description != null)
+            dom.p(
+              classes: 'neubrutalism-empty-state-description',
               styles: dom.Styles(
-                raw: {
-                  'font-family': 'var(--font-heading)',
-                  'font-size': titleSize,
-                  'font-weight': '900',
-                  'letter-spacing': '-0.01em',
-                  'color': 'var(--foreground)',
+                raw: <String, String>{
+                  'font-size': descSize,
+                  'font-weight': '600',
+                  'color': 'var(--muted-foreground)',
                   'margin': '0',
+                  'max-width': '420px',
+                  'line-height': '1.5',
                 },
               ),
-              [Component.text(props.title)],
+              [Component.text(props.description!)],
             ),
+        ],
+      ),
+    ];
+  }
 
-            // Description
-            if (props.description != null)
-              dom.p(
-                classes: 'neubrutalism-empty-state-description',
-                styles: dom.Styles(
-                  raw: {
-                    'font-size': descSize,
-                    'font-weight': '600',
-                    'color': 'var(--muted-foreground)',
-                    'margin': '0',
-                    'max-width': '420px',
-                    'line-height': '1.5',
-                  },
-                ),
-                [Component.text(props.description!)],
-              ),
-          ],
-        ),
-
-        // Actions
-        if (props.action != null || props.secondaryAction != null)
-          dom.div(
-            classes: 'neubrutalism-empty-state-actions',
-            styles: dom.Styles(
-              raw: {
-                'display': 'flex',
-                'gap': '0.75rem', // Neubrutalism: more gap
-                'margin-top': props.style == EmptyStateStyleVariant.compact
-                    ? '0'
-                    : '0.75rem',
-                if (props.style == EmptyStateStyleVariant.compact)
-                  'margin-left': 'auto',
-              },
-            ),
-            [
-              if (props.action != null) props.action!,
-              if (props.secondaryAction != null) props.secondaryAction!,
-            ],
-          ),
-      ],
-    );
-
+  @override
+  Component buildRoot(Component content) {
     // Wrap in card if variant is card
     if (props.style == EmptyStateStyleVariant.card) {
       return dom.div(
         classes: 'neubrutalism-empty-state neubrutalism-empty-state-card',
         styles: const dom.Styles(
-          raw: {
+          raw: <String, String>{
             'padding': '2.5rem',
             'background': 'var(--nb-paper, var(--card))',
             'border': 'var(--nb-border-thick, 3px) solid var(--nb-line, #000)',
@@ -166,7 +159,7 @@ class NeubrutalismEmptyState extends StatelessComponent {
     return dom.div(
       classes: 'neubrutalism-empty-state',
       styles: dom.Styles(
-        raw: {
+        raw: <String, String>{
           'padding': props.style == EmptyStateStyleVariant.compact
               ? '1rem'
               : '2rem', // Neubrutalism: more padding

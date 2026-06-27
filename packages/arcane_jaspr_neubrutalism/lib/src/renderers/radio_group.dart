@@ -1,168 +1,126 @@
 import 'package:jaspr/dom.dart' as dom;
 import 'package:jaspr/jaspr.dart';
 
-import 'package:arcane_jaspr/core/interaction/interaction.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/radio_group_props.dart';
+import 'package:arcane_jaspr/core/rendering/base/radio_group_render_base.dart';
 
 /// Neubrutalism radio group renderer with restrained dark styling.
-class NeubrutalismRadioGroup<T> extends StatelessComponent {
-  final RadioGroupProps<T> props;
-
-  const NeubrutalismRadioGroup(this.props, {super.key});
+class NeubrutalismRadioGroup<T> extends RadioGroupRenderBase<T> {
+  const NeubrutalismRadioGroup(super.props, {super.key});
 
   @override
-  Component build(BuildContext context) {
-    final String groupId = props.id ?? props.name ?? 'nb-radio-${identityHashCode(this)}';
-    final String? currentGroupValue = props.value?.toString();
-    final Map<String, String> rootAttrs = groupAttrs(
-      groupId: groupId,
-      mode: 'single',
-      value: currentGroupValue ?? '',
-      required: props.required,
-      disabled: props.disabled,
-      changeAction: props.onChangeAction != null
-          ? encodeArcaneAction(props.onChangeAction!)
-          : null,
-    );
+  String get groupIdPrefix => 'nb-radio-';
 
-    final Map<String, String> layoutStyles = switch (props.layout) {
-      RadioGroupLayout.vertical => {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'gap': props.gap,
-      },
-      RadioGroupLayout.horizontal => {
-        'display': 'flex',
-        'flex-wrap': 'wrap',
-        'gap': props.gap,
-      },
-      RadioGroupLayout.grid => {
-        'display': 'grid',
-        'grid-template-columns': 'repeat(${props.gridColumns}, minmax(0, 1fr))',
-        'gap': props.gap,
-      },
-    };
+  @override
+  String get rootClasses =>
+      'neubrutalism-radio-group ${props.disabled ? 'disabled' : ''}';
 
-    return dom.div(
-      classes: 'neubrutalism-radio-group ${props.disabled ? 'disabled' : ''}',
-      attributes: mergeAttrs(<Map<String, String>>[
-        <String, String>{
-          'data-disabled': '${props.disabled}',
-          'data-layout': props.layout.name,
-          'data-variant': props.variant.name,
-        },
-        rootAttrs,
-      ]),
-      styles: dom.Styles(
-        raw: {'width': '100%', 'opacity': props.disabled ? '0.55' : '1'},
-      ),
-      [
-        if (props.label != null)
-          dom.div(
-            classes: 'neubrutalism-radio-group-label',
-            styles: const dom.Styles(
-              raw: {
-                'font-family': 'var(--font-heading)',
-                'font-size': 'var(--font-size-xs)',
-                'font-weight': 'var(--font-weight-semibold)',
-                'letter-spacing': '0.08em',
-                'text-transform': 'uppercase',
-                'color': 'var(--muted-foreground)',
-                'margin-bottom': '0.65rem',
-              },
-            ),
-            [
-              Component.text(props.label!),
-              if (props.required)
-                const dom.span(
-                  styles: dom.Styles(
-                    raw: {
-                      'color': 'var(--destructive)',
-                      'margin-left': '0.35rem',
-                    },
-                  ),
-                  [Component.text('*')],
-                ),
-            ],
+  @override
+  Map<String, String> rootDataAttrs(String groupName) => <String, String>{
+    'data-disabled': '${props.disabled}',
+    'data-layout': props.layout.name,
+    'data-variant': props.variant.name,
+  };
+
+  @override
+  Map<String, String> get rootStyles => <String, String>{
+    'width': '100%',
+    'opacity': props.disabled ? '0.55' : '1',
+  };
+
+  @override
+  Component buildLabel(String groupName) => dom.div(
+    classes: 'neubrutalism-radio-group-label',
+    styles: const dom.Styles(
+      raw: {
+        'font-family': 'var(--font-heading)',
+        'font-size': 'var(--font-size-xs)',
+        'font-weight': 'var(--font-weight-semibold)',
+        'letter-spacing': '0.08em',
+        'text-transform': 'uppercase',
+        'color': 'var(--muted-foreground)',
+        'margin-bottom': '0.65rem',
+      },
+    ),
+    [
+      Component.text(props.label!),
+      if (props.required)
+        const dom.span(
+          styles: dom.Styles(
+            raw: {
+              'color': 'var(--destructive)',
+              'margin-left': '0.35rem',
+            },
           ),
+          [Component.text('*')],
+        ),
+    ],
+  );
+
+  @override
+  String get optionsClasses => 'neubrutalism-radio-group-options';
+
+  @override
+  Map<String, String> get optionsStyles => switch (props.layout) {
+    RadioGroupLayout.vertical => {
+      'display': 'flex',
+      'flex-direction': 'column',
+      'gap': props.gap,
+    },
+    RadioGroupLayout.horizontal => {
+      'display': 'flex',
+      'flex-wrap': 'wrap',
+      'gap': props.gap,
+    },
+    RadioGroupLayout.grid => {
+      'display': 'grid',
+      'grid-template-columns': 'repeat(${props.gridColumns}, minmax(0, 1fr))',
+      'gap': props.gap,
+    },
+  };
+
+  @override
+  List<Component> buildMessage() {
+    if (props.error != null) {
+      return <Component>[
         dom.div(
-          classes: 'neubrutalism-radio-group-options',
-          styles: dom.Styles(raw: layoutStyles),
-          [
-            for (final RadioOptionProps<T> option in props.options)
-              _buildOption(option, groupId),
-          ],
-        ),
-        if (props.error != null)
-          dom.div(
-            classes: 'neubrutalism-radio-group-error',
-            styles: const dom.Styles(
-              raw: {
-                'font-size': 'var(--font-size-sm)',
-                'color': 'var(--destructive)',
-                'margin-top': '0.6rem',
-              },
-            ),
-            [Component.text(props.error!)],
-          )
-        else if (props.helperText != null)
-          dom.div(
-            classes: 'neubrutalism-radio-group-helper',
-            styles: const dom.Styles(
-              raw: {
-                'font-size': 'var(--font-size-sm)',
-                'color': 'var(--muted-foreground)',
-                'margin-top': '0.6rem',
-              },
-            ),
-            [Component.text(props.helperText!)],
+          classes: 'neubrutalism-radio-group-error',
+          styles: const dom.Styles(
+            raw: {
+              'font-size': 'var(--font-size-sm)',
+              'color': 'var(--destructive)',
+              'margin-top': '0.6rem',
+            },
           ),
-      ],
-    );
-  }
-
-  Component _buildOption(RadioOptionProps<T> option, String groupId) {
-    final bool isSelected = props.value == option.value;
-    final bool isDisabled = props.disabled || option.disabled;
-    final String itemValue = option.value.toString();
-    final Map<String, String> itemAttrs = mergeAttrs(<Map<String, String>>[
-      groupItemAttrs(
-        groupId: groupId,
-        value: itemValue,
-        selected: isSelected,
-        disabled: isDisabled,
-      ),
-      if (!isDisabled)
-        interactionAttrs(
-          ArcaneInteraction.selectValue(groupId, itemValue),
+          [Component.text(props.error!)],
         ),
-    ]);
-
-    return switch (props.variant) {
-      RadioGroupVariant.standard => _standardOption(
-        option,
-        isSelected,
-        isDisabled,
-        itemAttrs,
-      ),
-      RadioGroupVariant.cards =>
-          _cardOption(option, isSelected, isDisabled, itemAttrs),
-      RadioGroupVariant.buttons => _buttonOption(
-        option,
-        isSelected,
-        isDisabled,
-        itemAttrs,
-      ),
-      RadioGroupVariant.chips =>
-          _chipOption(option, isSelected, isDisabled, itemAttrs),
-    };
+      ];
+    } else if (props.helperText != null) {
+      return <Component>[
+        dom.div(
+          classes: 'neubrutalism-radio-group-helper',
+          styles: const dom.Styles(
+            raw: {
+              'font-size': 'var(--font-size-sm)',
+              'color': 'var(--muted-foreground)',
+              'margin-top': '0.6rem',
+            },
+          ),
+          [Component.text(props.helperText!)],
+        ),
+      ];
+    }
+    return const <Component>[];
   }
 
-  Component _standardOption(
+  @override
+  Component buildStandardRadio(
     RadioOptionProps<T> option,
+    String groupName,
     bool isSelected,
     bool isDisabled,
+    bool hasError,
     Map<String, String> itemAttrs,
   ) {
     return dom.label(
@@ -231,10 +189,13 @@ class NeubrutalismRadioGroup<T> extends StatelessComponent {
     );
   }
 
-  Component _cardOption(
+  @override
+  Component buildCardRadio(
     RadioOptionProps<T> option,
+    String groupName,
     bool isSelected,
     bool isDisabled,
+    bool hasError,
     Map<String, String> itemAttrs,
   ) {
     return dom.div(
@@ -276,10 +237,13 @@ class NeubrutalismRadioGroup<T> extends StatelessComponent {
     );
   }
 
-  Component _buttonOption(
+  @override
+  Component buildButtonRadio(
     RadioOptionProps<T> option,
+    String groupName,
     bool isSelected,
     bool isDisabled,
+    bool hasError,
     Map<String, String> itemAttrs,
   ) {
     return dom.button(
@@ -327,10 +291,13 @@ class NeubrutalismRadioGroup<T> extends StatelessComponent {
     );
   }
 
-  Component _chipOption(
+  @override
+  Component buildChipRadio(
     RadioOptionProps<T> option,
+    String groupName,
     bool isSelected,
     bool isDisabled,
+    bool hasError,
     Map<String, String> itemAttrs,
   ) {
     return dom.button(

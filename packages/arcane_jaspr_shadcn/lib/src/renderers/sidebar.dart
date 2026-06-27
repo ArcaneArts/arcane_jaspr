@@ -3,6 +3,7 @@ import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/component/view/icon.dart';
 import 'package:arcane_jaspr/core/props/sidebar_props.dart';
+import 'package:arcane_jaspr/core/rendering/base/sidebar_render_base.dart';
 
 /// ShadCN-style sidebar component
 /// Reference: https://ui.shadcn.com/docs/components/sidebar
@@ -141,35 +142,9 @@ class ShadcnSidebar extends StatelessComponent {
 }
 
 /// ShadCN-style sidebar item using codex structure
-/// Renders as: <div class="sidebar-tree-item"><a class="sidebar-link">...</a></div>
-class ShadcnSidebarItem extends StatelessComponent {
-  final SidebarItemProps props;
-
-  const ShadcnSidebarItem(this.props, {super.key});
-
-  @override
-  Component build(BuildContext context) {
-    final linkClasses = 'sidebar-link${props.selected ? ' active' : ''}';
-
-    // Use anchor if href is provided
-    if (props.href != null) {
-      return dom.div(classes: 'sidebar-tree-item', [
-        dom.a(href: props.href!, classes: linkClasses, [
-          Component.text(props.label),
-        ]),
-      ]);
-    }
-
-    // Otherwise use button (for actions without navigation)
-    return dom.div(classes: 'sidebar-tree-item', [
-      dom.button(
-        classes: linkClasses,
-        attributes: {'type': 'button'},
-        events: props.onTap != null ? {'click': (_) => props.onTap!()} : null,
-        [Component.text(props.label)],
-      ),
-    ]);
-  }
+/// Renders as: `<div class="sidebar-tree-item"><a class="sidebar-link">...</a></div>`
+class ShadcnSidebarItem extends SidebarItemRenderBase {
+  const ShadcnSidebarItem(super.props, {super.key});
 }
 
 /// ShadCN-style sidebar group
@@ -233,53 +208,15 @@ class ShadcnSidebarGroup extends StatelessComponent {
 }
 
 /// ShadCN-style sidebar submenu using native details/summary
-/// Renders as: <div class="sidebar-section"><details class="sidebar-details">...</details></div>
-class ShadcnSidebarSubMenu extends StatelessComponent {
-  final SidebarSubMenuProps props;
-
-  const ShadcnSidebarSubMenu(this.props, {super.key});
-
-  @override
-  Component build(BuildContext context) {
-    return dom.div(classes: 'sidebar-section', [
-      Component.element(
-        tag: 'details',
-        classes: 'sidebar-details',
-        attributes: props.defaultOpen ? {'open': ''} : {},
-        children: [
-          Component.element(
-            tag: 'summary',
-            classes: 'sidebar-summary',
-            children: [
-              if (props.icon != null) props.icon!,
-              dom.span([Component.text(props.label)]),
-              const dom.span(classes: 'sidebar-chevron', []),
-            ],
-          ),
-          dom.div(classes: 'sidebar-tree', props.children),
-        ],
-      ),
-    ]);
-  }
+/// Renders as: `<div class="sidebar-section"><details class="sidebar-details">...</details></div>`
+class ShadcnSidebarSubMenu extends SidebarSubMenuRenderBase {
+  const ShadcnSidebarSubMenu(super.props, {super.key});
 }
 
 /// ShadCN-style sidebar section (fixed, non-collapsible)
-/// Renders as: <div class="sidebar-section"><div class="sidebar-section-header">...</div><div class="sidebar-tree">...</div></div>
-class ShadcnSidebarSection extends StatelessComponent {
-  final SidebarSectionProps props;
-
-  const ShadcnSidebarSection(this.props, {super.key});
-
-  @override
-  Component build(BuildContext context) {
-    return dom.div(classes: 'sidebar-section', [
-      dom.div(classes: 'sidebar-section-header', [
-        if (props.icon != null) props.icon!,
-        dom.span([Component.text(props.label)]),
-      ]),
-      dom.div(classes: 'sidebar-tree', props.children),
-    ]);
-  }
+/// Renders as: `<div class="sidebar-section"><div class="sidebar-section-header">...</div><div class="sidebar-tree">...</div></div>`
+class ShadcnSidebarSection extends SidebarSectionRenderBase {
+  const ShadcnSidebarSection(super.props, {super.key});
 }
 
 /// Content only visible when sidebar is expanded
@@ -321,21 +258,16 @@ class ShadcnSidebarCollapsed extends StatelessComponent {
 }
 
 /// Sidebar separator
-class ShadcnSidebarSeparator extends StatelessComponent {
+class ShadcnSidebarSeparator extends SidebarSeparatorRenderBase {
   const ShadcnSidebarSeparator({super.key});
 
   @override
-  Component build(BuildContext context) {
-    return const dom.div(
-      classes: 'arcane-sidebar-separator',
-      styles: dom.Styles(
-        raw: {
-          'height': '1px',
-          'background-color': 'var(--border)',
-          'margin': '8px 0',
-        },
-      ),
-      [],
-    );
-  }
+  String get cssClass => 'arcane-sidebar-separator';
+
+  @override
+  Map<String, String> get separatorStyles => const <String, String>{
+    'height': '1px',
+    'background-color': 'var(--border)',
+    'margin': '8px 0',
+  };
 }

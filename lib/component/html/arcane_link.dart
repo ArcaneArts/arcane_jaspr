@@ -81,8 +81,8 @@ class ArcaneLink extends StatelessComponent {
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       events: events,
       attributes: {
-        if (target != null) 'target': target!,
-        if (rel != null) 'rel': rel!,
+        'target': ?target,
+        'rel': ?rel,
       },
       [child],
     );
@@ -114,8 +114,8 @@ class _ArcaneLinkChildren extends ArcaneLink {
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       events: events,
       attributes: {
-        if (target != null) 'target': target!,
-        if (rel != null) 'rel': rel!,
+        'target': ?target,
+        'rel': ?rel,
       },
       _children,
     );

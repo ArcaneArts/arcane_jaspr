@@ -109,19 +109,19 @@ const List<_BannedToken> _publicApiBannedTokens = <_BannedToken>[
 ];
 
 void main(List<String> args) {
-  Directory packageRootDirectory = Directory.current;
-  File pubspecFile = File('${packageRootDirectory.path}/pubspec.yaml');
+  final Directory packageRootDirectory = Directory.current;
+  final File pubspecFile = File('${packageRootDirectory.path}/pubspec.yaml');
 
   if (!pubspecFile.existsSync()) {
     stderr.writeln('Run this script from the arcane_jaspr package root.');
     exit(1);
   }
 
-  File mainSurfaceFile = File(
+  final File mainSurfaceFile = File(
     '${packageRootDirectory.path}/lib/arcane_jaspr.dart',
   );
-  List<String> exportPaths = _readExportPaths(mainSurfaceFile);
-  List<String> failures = <String>[];
+  final List<String> exportPaths = _readExportPaths(mainSurfaceFile);
+  final List<String> failures = <String>[];
 
   _checkRequiredExports(exportPaths, failures);
   _checkPublicApi(packageRootDirectory, exportPaths, failures);
@@ -139,7 +139,7 @@ void main(List<String> args) {
 }
 
 void _checkRequiredExports(List<String> exportPaths, List<String> failures) {
-  Set<String> exportSet = Set<String>.from(exportPaths);
+  final Set<String> exportSet = Set<String>.from(exportPaths);
 
   for (String requiredExport in _requiredMainExports) {
     if (!exportSet.contains(requiredExport)) {
@@ -163,17 +163,17 @@ void _checkPublicApi(
       continue;
     }
 
-    File sourceFile = File('${packageRootDirectory.path}/lib/$exportPath');
+    final File sourceFile = File('${packageRootDirectory.path}/lib/$exportPath');
     if (!sourceFile.existsSync()) {
       failures.add('Missing exported file: ${sourceFile.path}');
       continue;
     }
 
-    String content = sourceFile.readAsStringSync();
-    String sanitizedContent = _stripImportsAndComments(content);
+    final String content = sourceFile.readAsStringSync();
+    final String sanitizedContent = _stripImportsAndComments(content);
 
     for (_BannedToken bannedToken in _publicApiBannedTokens) {
-      RegExp pattern = RegExp(bannedToken.pattern, multiLine: true);
+      final RegExp pattern = RegExp(bannedToken.pattern, multiLine: true);
       if (pattern.hasMatch(sanitizedContent)) {
         failures.add('${sourceFile.path}: ${bannedToken.label}');
       }
@@ -185,7 +185,7 @@ void _checkDocsAndExamples(
   Directory packageRootDirectory,
   List<String> failures,
 ) {
-  List<File> filesToScan = <File>[
+  final List<File> filesToScan = <File>[
     File('${packageRootDirectory.path}/README.md'),
     File('${packageRootDirectory.path}/arcane_jaspr_neon/README.md'),
     File(
@@ -232,14 +232,14 @@ void _checkDocsAndExamples(
       continue;
     }
 
-    String content = file.readAsStringSync();
-    List<_BannedToken> bannedTokens =
+    final String content = file.readAsStringSync();
+    final List<_BannedToken> bannedTokens =
         file.path.endsWith('/content/docs/components-catalog.md')
         ? _catalogBannedTokens
         : _docBannedTokens;
 
     for (_BannedToken bannedToken in bannedTokens) {
-      RegExp pattern = RegExp(bannedToken.pattern, multiLine: true);
+      final RegExp pattern = RegExp(bannedToken.pattern, multiLine: true);
       if (pattern.hasMatch(content)) {
         failures.add('${file.path}: ${bannedToken.label}');
       }
@@ -248,12 +248,12 @@ void _checkDocsAndExamples(
 }
 
 List<String> _readExportPaths(File sourceFile) {
-  String content = sourceFile.readAsStringSync();
-  RegExp exportPattern = RegExp(r"export '([^']+)'");
-  List<String> exportPaths = <String>[];
+  final String content = sourceFile.readAsStringSync();
+  final RegExp exportPattern = RegExp(r"export '([^']+)'");
+  final List<String> exportPaths = <String>[];
 
   for (RegExpMatch match in exportPattern.allMatches(content)) {
-    String? exportPath = match.group(1);
+    final String? exportPath = match.group(1);
     if (exportPath != null) {
       exportPaths.add(exportPath);
     }
@@ -267,8 +267,8 @@ List<File> _collectFiles(Directory directory, String extension) {
     return <File>[];
   }
 
-  List<FileSystemEntity> entities = directory.listSync(recursive: true);
-  List<File> files = <File>[];
+  final List<FileSystemEntity> entities = directory.listSync(recursive: true);
+  final List<File> files = <File>[];
 
   for (FileSystemEntity entity in entities) {
     if (entity is! File) {
@@ -295,11 +295,11 @@ List<File> _collectFiles(Directory directory, String extension) {
 }
 
 String _stripImportsAndComments(String content) {
-  List<String> lines = content.split('\n');
-  List<String> keptLines = <String>[];
+  final List<String> lines = content.split('\n');
+  final List<String> keptLines = <String>[];
 
   for (String line in lines) {
-    String trimmed = line.trimLeft();
+    final String trimmed = line.trimLeft();
 
     if (trimmed.startsWith('import ')) {
       continue;

@@ -309,7 +309,7 @@ abstract class ArcaneCommonStyles {
 
   static Map<String, String> section({String? background}) => {
     'padding': '${ArcaneSpacing.sectionY} ${ArcaneSpacing.lg}',
-    if (background != null) 'background': background,
+    'background': ?background,
   };
 
   static Map<String, String> get sectionHeader => {

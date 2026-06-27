@@ -2,146 +2,69 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/props/button_props.dart';
-import 'package:arcane_jaspr/core/props/confirm_dialog_props.dart';
 import 'package:arcane_jaspr/core/props/dialog_props.dart';
+import 'package:arcane_jaspr/core/rendering/base/confirm_dialog_render_base.dart';
 import 'button.dart';
 import 'dialog.dart';
 
 /// ShadCN Confirm Dialog renderer.
-class ShadcnConfirmDialog extends StatelessComponent {
-  final ConfirmDialogProps props;
-
-  const ShadcnConfirmDialog(this.props, {super.key});
+class ShadcnConfirmDialog extends ConfirmDialogRenderBase {
+  const ShadcnConfirmDialog(super.props, {super.key});
 
   @override
-  Component build(BuildContext context) {
-    return ShadcnDialog(
-      DialogProps(
-        title: props.title,
-        onClose: props.onCancel,
-        maxWidth: 400,
-        content: [
-          dom.div(
-            classes: 'arcane-confirm-dialog-content',
-            styles: const dom.Styles(
-              raw: {
-                'display': 'flex',
-                'flex-direction': 'column',
-                'align-items': 'center',
-                'text-align': 'center',
-                'gap': 'var(--space-4)',
-              },
-            ),
-            [
-              if (props.icon != null)
-                dom.div(
-                  styles: dom.Styles(
-                    raw: {
-                      'font-size': '3rem',
-                      'color': props.destructive
-                          ? 'var(--destructive)'
-                          : 'var(--accent)',
-                    },
-                  ),
-                  [props.icon!],
-                ),
-              dom.div(
-                styles: const dom.Styles(
-                  raw: {
-                    'color': 'var(--foreground)',
-                    'font-size': 'var(--font-size-sm)',
-                    'line-height': '1.625',
-                  },
-                ),
-                [Component.text(props.message)],
-              ),
-            ],
-          ),
-        ],
-        actions: [
-          ShadcnButton(
-            ButtonProps(
-              label: props.cancelText,
-              variant: ButtonVariant.outline,
-              onPressed: props.onCancel,
-            ),
-          ),
-          props.destructive
-              ? ShadcnButton(
-                  ButtonProps(
-                    label: props.confirmText,
-                    variant: ButtonVariant.destructive,
-                    onPressed: props.onConfirm,
-                  ),
-                )
-              : ShadcnButton(
-                  ButtonProps(
-                    label: props.confirmText,
-                    variant: ButtonVariant.primary,
-                    onPressed: props.onConfirm,
-                  ),
-                ),
-        ],
-      ),
-    );
-  }
+  Component buildDialog(DialogProps props) => ShadcnDialog(props);
+
+  @override
+  Component buildButton(ButtonProps props) => ShadcnButton(props);
+
+  @override
+  double get maxWidth => 400;
+
+  @override
+  String get contentClass => 'arcane-confirm-dialog-content';
+
+  @override
+  String get contentGap => 'var(--space-4)';
+
+  @override
+  String get messageFontSize => 'var(--font-size-sm)';
+
+  @override
+  Component buildIcon(Component icon, bool destructive) => dom.div(
+    styles: dom.Styles(
+      raw: {
+        'font-size': '3rem',
+        'color': destructive ? 'var(--destructive)' : 'var(--accent)',
+      },
+    ),
+    [icon],
+  );
 }
 
 /// ShadCN Alert Dialog renderer.
-class ShadcnAlertDialog extends StatelessComponent {
-  final AlertDialogProps props;
-
-  const ShadcnAlertDialog(this.props, {super.key});
+class ShadcnAlertDialog extends AlertDialogRenderBase {
+  const ShadcnAlertDialog(super.props, {super.key});
 
   @override
-  Component build(BuildContext context) {
-    return ShadcnDialog(
-      DialogProps(
-        title: props.title,
-        onClose: props.onDismiss,
-        maxWidth: 400,
-        content: [
-          dom.div(
-            styles: const dom.Styles(
-              raw: {
-                'display': 'flex',
-                'flex-direction': 'column',
-                'align-items': 'center',
-                'text-align': 'center',
-                'gap': 'var(--space-4)',
-              },
-            ),
-            [
-              if (props.icon != null)
-                dom.div(
-                  styles: const dom.Styles(
-                    raw: {'font-size': '3rem', 'color': 'var(--accent)'},
-                  ),
-                  [props.icon!],
-                ),
-              dom.div(
-                styles: const dom.Styles(
-                  raw: {
-                    'color': 'var(--foreground)',
-                    'font-size': 'var(--font-size-sm)',
-                    'line-height': '1.625',
-                  },
-                ),
-                [Component.text(props.message)],
-              ),
-            ],
-          ),
-        ],
-        actions: [
-          ShadcnButton(
-            ButtonProps(
-              label: props.buttonText,
-              variant: ButtonVariant.primary,
-              onPressed: props.onDismiss,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  Component buildDialog(DialogProps props) => ShadcnDialog(props);
+
+  @override
+  Component buildButton(ButtonProps props) => ShadcnButton(props);
+
+  @override
+  double get maxWidth => 400;
+
+  @override
+  String get contentGap => 'var(--space-4)';
+
+  @override
+  String get messageFontSize => 'var(--font-size-sm)';
+
+  @override
+  Component buildIcon(Component icon) => dom.div(
+    styles: const dom.Styles(
+      raw: {'font-size': '3rem', 'color': 'var(--accent)'},
+    ),
+    [icon],
+  );
 }

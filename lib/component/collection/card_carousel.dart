@@ -45,7 +45,7 @@ class CardCarousel extends StatelessWidget {
       styles: Styles(raw: {
         'position': 'relative',
         'width': '100%',
-        if (height != null) 'height': height!,
+        'height': ?height,
       }),
       [
         div(
@@ -58,7 +58,7 @@ class CardCarousel extends StatelessWidget {
             'scroll-behavior': 'smooth',
             'scrollbar-width': 'none',
             '-ms-overflow-style': 'none',
-            if (padding != null) 'padding': padding!,
+            'padding': ?padding,
           }),
           children,
         ),

@@ -53,7 +53,15 @@ class _ArcaneFieldState<T> extends State<ArcaneField<T>> {
   void initState() {
     super.initState();
     _value = component.provider.defaultValue;
-    _loadValue();
+    // Only resolve the async value on the client. During SSR the await
+    // continuation in _loadValue would call setState() after the synchronous
+    // build phase, tripping jaspr's "setState during build" assertion. On the
+    // server _loading stays true so the loading placeholder renders, which
+    // matches the client's first build for clean hydration; the client then
+    // runs _loadValue() to populate the real value.
+    if (kIsWeb) {
+      _loadValue();
+    }
   }
 
   Future<void> _loadValue() async {

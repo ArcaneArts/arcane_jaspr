@@ -190,10 +190,10 @@ class ArcaneCatImage extends StatelessComponent {
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       events: events,
       attributes: {
-        if (width != null) 'width': width!,
-        if (height != null) 'height': height!,
-        if (loading != null) 'loading': loading!,
-        if (decoding != null) 'decoding': decoding!,
+        'width': ?width,
+        'height': ?height,
+        'loading': ?loading,
+        'decoding': ?decoding,
       },
     );
   }

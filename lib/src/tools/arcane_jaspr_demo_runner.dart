@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:isolate';
 
 Future<void> runArcaneJasprDemo(List<String> args) async {
-  ArcaneJasprDemoRunner runner = ArcaneJasprDemoRunner(args: args);
+  final ArcaneJasprDemoRunner runner = ArcaneJasprDemoRunner(args: args);
   exitCode = await runner.run();
 }
 
@@ -17,8 +17,8 @@ class ArcaneJasprDemoRunner {
   const ArcaneJasprDemoRunner({required this.args});
 
   Future<int> run() async {
-    Directory packageRootDirectory = await _packageRootDirectory();
-    Directory demoDirectory = Directory(
+    final Directory packageRootDirectory = await _packageRootDirectory();
+    final Directory demoDirectory = Directory(
       '${packageRootDirectory.path}/arcane_jaspr_docs/arcane_jaspr_docs_web',
     );
 
@@ -38,7 +38,7 @@ class ArcaneJasprDemoRunner {
       return 0;
     }
 
-    List<String> jasprArgs = _jasprArgs;
+    final List<String> jasprArgs = _jasprArgs;
     if (_isServe(jasprArgs)) {
       await _DemoProcessCleaner(
         workingDirectory: demoDirectory,
@@ -47,14 +47,14 @@ class ArcaneJasprDemoRunner {
       ).clean();
     }
 
-    List<String> command = <String>[
+    final List<String> command = <String>[
       'pub',
       'global',
       'run',
       'jaspr_cli:jaspr',
       ...jasprArgs,
     ];
-    Process process = await Process.start(
+    final Process process = await Process.start(
       Platform.resolvedExecutable,
       command,
       workingDirectory: demoDirectory.path,
@@ -84,12 +84,12 @@ class ArcaneJasprDemoRunner {
   }
 
   Future<Directory> _packageRootDirectory() async {
-    Uri? packageConfigUri = await Isolate.packageConfig;
+    final Uri? packageConfigUri = await Isolate.packageConfig;
     if (packageConfigUri == null) {
       return Directory.current.absolute;
     }
-    File packageConfigFile = File.fromUri(packageConfigUri);
-    Directory packageRootDirectory = packageConfigFile.parent.parent;
+    final File packageConfigFile = File.fromUri(packageConfigUri);
+    final Directory packageRootDirectory = packageConfigFile.parent.parent;
     if (_hasPackagePubspec(packageRootDirectory)) {
       return packageRootDirectory;
     }
@@ -105,11 +105,11 @@ class ArcaneJasprDemoRunner {
   }
 
   bool _hasPackagePubspec(Directory directory) {
-    File pubspecFile = File('${directory.path}/pubspec.yaml');
+    final File pubspecFile = File('${directory.path}/pubspec.yaml');
     if (!pubspecFile.existsSync()) {
       return false;
     }
-    String content = pubspecFile.readAsStringSync();
+    final String content = pubspecFile.readAsStringSync();
     return RegExp(
       r'^name:\s*arcane_jaspr\s*$',
       multiLine: true,
@@ -117,7 +117,7 @@ class ArcaneJasprDemoRunner {
   }
 
   List<int> _portsFor(List<String> jasprArgs) {
-    List<int> ports = <int>[port, webPort, proxyPort];
+    final List<int> ports = <int>[port, webPort, proxyPort];
     if (!jasprArgs.contains('--release')) {
       ports.add(vmServicePort);
     }
@@ -130,7 +130,7 @@ class ArcaneJasprDemoRunner {
       jasprArgs.isEmpty || jasprArgs.first == 'serve';
 
   List<String> _withServePorts(List<String> jasprArgs) {
-    List<String> nextArgs = <String>[...jasprArgs];
+    final List<String> nextArgs = <String>[...jasprArgs];
     if (!_hasOption(nextArgs, '--port')) {
       nextArgs.addAll(<String>['--port', '$port']);
     }
@@ -174,35 +174,35 @@ class _DemoProcessCleaner {
   });
 
   Future<void> clean() async {
-    Map<int, _ProcessInfo> processes = await _listProcesses();
-    Set<int> protectedPids = _protectedPids(processes);
-    Set<int> targetPids = await _targetPids(processes, protectedPids);
-    Set<int> expandedPids = _withDescendants(processes, targetPids);
+    final Map<int, _ProcessInfo> processes = await _listProcesses();
+    final Set<int> protectedPids = _protectedPids(processes);
+    final Set<int> targetPids = await _targetPids(processes, protectedPids);
+    final Set<int> expandedPids = _withDescendants(processes, targetPids);
     expandedPids.removeAll(protectedPids);
     await _killPids(processes, expandedPids);
     await Future<void>.delayed(const Duration(milliseconds: 250));
   }
 
   Future<Map<int, _ProcessInfo>> _listProcesses() async {
-    ProcessResult result = await Process.run('ps', <String>[
+    final ProcessResult result = await Process.run('ps', <String>[
       '-axo',
       'pid=,ppid=,command=',
     ]);
-    Map<int, _ProcessInfo> processes = <int, _ProcessInfo>{};
+    final Map<int, _ProcessInfo> processes = <int, _ProcessInfo>{};
     if (result.exitCode != 0) {
       return processes;
     }
 
-    List<String> lines = result.stdout.toString().split('\n');
-    RegExp rowPattern = RegExp(r'^\s*(\d+)\s+(\d+)\s+(.*)$');
+    final List<String> lines = result.stdout.toString().split('\n');
+    final RegExp rowPattern = RegExp(r'^\s*(\d+)\s+(\d+)\s+(.*)$');
     for (String line in lines) {
-      RegExpMatch? match = rowPattern.firstMatch(line);
+      final RegExpMatch? match = rowPattern.firstMatch(line);
       if (match == null) {
         continue;
       }
-      int? processId = int.tryParse(match.group(1) ?? '');
-      int? parentProcessId = int.tryParse(match.group(2) ?? '');
-      String command = match.group(3) ?? '';
+      final int? processId = int.tryParse(match.group(1) ?? '');
+      final int? parentProcessId = int.tryParse(match.group(2) ?? '');
+      final String command = match.group(3) ?? '';
       if (processId == null || parentProcessId == null) {
         continue;
       }
@@ -216,10 +216,10 @@ class _DemoProcessCleaner {
   }
 
   Set<int> _protectedPids(Map<int, _ProcessInfo> processes) {
-    Set<int> values = <int>{pid};
+    final Set<int> values = <int>{pid};
     int cursor = pid;
     while (processes.containsKey(cursor)) {
-      _ProcessInfo process = processes[cursor]!;
+      final _ProcessInfo process = processes[cursor]!;
       if (process.parentPid <= 1 || values.contains(process.parentPid)) {
         break;
       }
@@ -233,7 +233,7 @@ class _DemoProcessCleaner {
     Map<int, _ProcessInfo> processes,
     Set<int> protectedPids,
   ) async {
-    Set<int> values = <int>{};
+    final Set<int> values = <int>{};
     for (int port in ports) {
       values.addAll(await _pidsListeningOn(port));
     }
@@ -251,18 +251,18 @@ class _DemoProcessCleaner {
   }
 
   Future<Set<int>> _pidsListeningOn(int port) async {
-    ProcessResult result = await Process.run('lsof', <String>[
+    final ProcessResult result = await Process.run('lsof', <String>[
       '-tiTCP:$port',
       '-sTCP:LISTEN',
     ]);
-    Set<int> values = <int>{};
+    final Set<int> values = <int>{};
     if (result.exitCode != 0) {
       return values;
     }
 
-    List<String> pidValues = _splitPids(result.stdout.toString());
+    final List<String> pidValues = _splitPids(result.stdout.toString());
     for (String pidValue in pidValues) {
-      int? processId = int.tryParse(pidValue);
+      final int? processId = int.tryParse(pidValue);
       if (processId != null) {
         values.add(processId);
       }
@@ -305,7 +305,7 @@ class _DemoProcessCleaner {
     Map<int, _ProcessInfo> processes,
     Set<int> targetPids,
   ) {
-    Set<int> values = <int>{...targetPids};
+    final Set<int> values = <int>{...targetPids};
     bool changed = true;
     while (changed) {
       changed = false;
@@ -328,7 +328,7 @@ class _DemoProcessCleaner {
       return;
     }
 
-    List<int> orderedPids = processIds.toList()
+    final List<int> orderedPids = processIds.toList()
       ..sort(
         (int a, int b) => _depth(processes, b).compareTo(_depth(processes, a)),
       );
@@ -337,7 +337,7 @@ class _DemoProcessCleaner {
       Process.killPid(processId, ProcessSignal.sigterm);
     }
     await Future<void>.delayed(const Duration(milliseconds: 350));
-    Map<int, _ProcessInfo> refreshedProcesses = await _listProcesses();
+    final Map<int, _ProcessInfo> refreshedProcesses = await _listProcesses();
     for (int processId in orderedPids) {
       if (refreshedProcesses.containsKey(processId)) {
         Process.killPid(processId, ProcessSignal.sigkill);
@@ -348,7 +348,7 @@ class _DemoProcessCleaner {
   int _depth(Map<int, _ProcessInfo> processes, int processId) {
     int value = 0;
     int cursor = processId;
-    Set<int> visited = <int>{};
+    final Set<int> visited = <int>{};
     while (processes.containsKey(cursor) && !visited.contains(cursor)) {
       visited.add(cursor);
       cursor = processes[cursor]!.parentPid;

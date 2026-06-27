@@ -1,8 +1,6 @@
-import 'package:arcane_jaspr/component/layout/flow.dart';
 import 'package:arcane_jaspr/component/support/icons.dart';
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/dom.dart' as dom;
-import 'package:arcane_jaspr/util/arcane.dart';
 
 class FancyIcon extends StatelessWidget {
   final Widget? child;
@@ -33,7 +31,7 @@ class FancyIcon extends StatelessWidget {
       'padding': '${padding}px',
       'border-radius': round ? '9999px' : '0.75rem',
       'background': backgroundColor ?? 'color-mix(in srgb, var(--primary) 12%, transparent)',
-      if (color != null) 'color': color!,
+      'color': ?color,
     }),
     <Widget>[child ?? Icon(icon!, size: size)],
   );

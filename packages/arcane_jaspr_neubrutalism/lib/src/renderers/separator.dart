@@ -1,7 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
-import 'package:arcane_jaspr/core/props/separator_props.dart';
+import 'package:arcane_jaspr/core/rendering/base/separator_render_base.dart';
 
 /// Neubrutalism Separator renderer.
 ///
@@ -11,163 +11,76 @@ import 'package:arcane_jaspr/core/props/separator_props.dart';
 /// - Optional label/icon with accent styling
 /// - Dashed line support
 /// - Variant-based thickness
-class NeubrutalismSeparator extends StatelessComponent {
-  final SeparatorProps props;
-
-  const NeubrutalismSeparator(this.props, {super.key});
+class NeubrutalismSeparator extends SeparatorRenderBase {
+  const NeubrutalismSeparator(super.props, {super.key});
 
   @override
-  Component build(BuildContext context) {
-    final isHorizontal = props.orientation == SeparatorOrientation.horizontal;
+  String get resolveMargin =>
+      props.margin != null ? '${props.margin}px' : '1rem';
 
-    // Neubrutalism variant colors and thickness
-    final (variantColor, thickness) = switch (props.variant) {
-      SeparatorVariant.standard => ('var(--border)', '1px'),
-      SeparatorVariant.subtle => ('var(--muted)', '1px'),
-      SeparatorVariant.bold => ('var(--border)', '2px'),
-    };
+  @override
+  String get verticalClasses =>
+      'neubrutalism-separator neubrutalism-separator-vertical';
 
-    // Use custom color if provided
-    final effectiveColor = props.color ?? variantColor;
+  @override
+  String get labeledClasses =>
+      'neubrutalism-separator neubrutalism-separator-with-label';
 
-    // Neubrutalism: larger default margin
-    final margin = props.margin != null ? '${props.margin}px' : '1rem';
+  @override
+  Map<String, String> get verticalStretchStyles => const <String, String>{
+    'height': '100%',
+    'min-height': '20px',
+  };
 
-    // Handle labeled/icon horizontal separator
-    if ((props.label != null || props.icon != null) && isHorizontal) {
-      return _buildLabeledSeparator(thickness, effectiveColor, margin);
-    }
+  @override
+  Map<String, String> get dashedExtraStyles => const <String, String>{
+    'background-color': 'transparent',
+  };
 
-    // Vertical separator
-    if (!isHorizontal) {
-      return _buildVerticalSeparator(thickness, effectiveColor, margin);
-    }
+  @override
+  Map<String, String> labeledContainerStyles(String margin) => <String, String>{
+    'display': 'flex',
+    'align-items': 'center',
+    'width': '100%',
+    'margin': '$margin 0',
+    'gap': 'var(--arcane-space-4)',
+  };
 
-    // Simple horizontal separator
+  @override
+  Map<String, String> get labelSpanStyles => const <String, String>{
+    'font-family': 'var(--font-heading)',
+    'font-size': 'var(--arcane-font-size-xs)',
+    'font-weight': 'var(--arcane-font-weight-medium)',
+    'text-transform': 'uppercase',
+    'letter-spacing': '0.08em',
+    'color': 'var(--muted-foreground)',
+    'flex-shrink': '0',
+  };
+
+  @override
+  Map<String, String> get iconSpanStyles => const <String, String>{
+    'color': 'var(--muted-foreground)',
+    'flex-shrink': '0',
+  };
+
+  @override
+  Component buildSimpleHorizontal(
+    String thickness,
+    String color,
+    String margin,
+  ) {
     return dom.div(
       classes: 'neubrutalism-separator',
-      attributes: {
-        'role': props.decorative ? 'none' : 'separator',
-        if (!props.decorative) 'aria-orientation': 'horizontal',
-      },
+      attributes: horizontalAttrs(),
       styles: dom.Styles(
-        raw: {
+        raw: <String, String>{
           'width': '100%',
           'height': thickness,
           'margin': '$margin 0',
-          ..._getBackgroundStyle(effectiveColor),
+          ...backgroundStyle(color),
         },
       ),
-      [],
+      const <Component>[],
     );
-  }
-
-  Component _buildLabeledSeparator(
-    String thickness,
-    String color,
-    String margin,
-  ) {
-    return dom.div(
-      classes: 'neubrutalism-separator neubrutalism-separator-with-label',
-      attributes: {'role': props.decorative ? 'none' : 'separator'},
-      styles: dom.Styles(
-        raw: {
-          'display': 'flex',
-          'align-items': 'center',
-          'width': '100%',
-          'margin': '$margin 0',
-          'gap': 'var(--arcane-space-4)',
-        },
-      ),
-      [
-        // Left line
-        dom.div(
-          styles: dom.Styles(
-            raw: {
-              'flex': '1',
-              'height': thickness,
-              ..._getBackgroundStyle(color),
-            },
-          ),
-          [],
-        ),
-
-        if (props.label != null)
-          dom.span(
-            styles: const dom.Styles(
-              raw: {
-                'font-family': 'var(--font-heading)',
-                'font-size': 'var(--arcane-font-size-xs)',
-                'font-weight': 'var(--arcane-font-weight-medium)',
-                'text-transform': 'uppercase',
-                'letter-spacing': '0.08em',
-                'color': 'var(--muted-foreground)',
-                'flex-shrink': '0',
-              },
-            ),
-            [Component.text(props.label!)],
-          )
-        else if (props.icon != null)
-          dom.span(
-            styles: const dom.Styles(
-              raw: {'color': 'var(--muted-foreground)', 'flex-shrink': '0'},
-            ),
-            [props.icon!],
-          ),
-
-        // Right line
-        dom.div(
-          styles: dom.Styles(
-            raw: {
-              'flex': '1',
-              'height': thickness,
-              ..._getBackgroundStyle(color),
-            },
-          ),
-          [],
-        ),
-      ],
-    );
-  }
-
-  Component _buildVerticalSeparator(
-    String thickness,
-    String color,
-    String margin,
-  ) {
-    return dom.div(
-      classes: 'neubrutalism-separator neubrutalism-separator-vertical',
-      attributes: {
-        'role': props.decorative ? 'none' : 'separator',
-        if (!props.decorative) 'aria-orientation': 'vertical',
-      },
-      styles: dom.Styles(
-        raw: {
-          'width': thickness,
-          'margin': '0 $margin',
-          ..._getBackgroundStyle(color),
-          if (props.height != null)
-            'height': '${props.height}px'
-          else ...{
-            'height': '100%',
-            'min-height': '20px',
-          },
-        },
-      ),
-      [],
-    );
-  }
-
-  Map<String, String> _getBackgroundStyle(String color) {
-    if (props.dashed) {
-      final isVertical = props.orientation == SeparatorOrientation.vertical;
-      return {
-        'background': isVertical
-            ? 'repeating-linear-gradient(to bottom, $color 0, $color 4px, transparent 4px, transparent 8px)'
-            : 'repeating-linear-gradient(to right, $color 0, $color 4px, transparent 4px, transparent 8px)',
-        'background-color': 'transparent',
-      };
-    }
-    return {'background-color': color};
   }
 }

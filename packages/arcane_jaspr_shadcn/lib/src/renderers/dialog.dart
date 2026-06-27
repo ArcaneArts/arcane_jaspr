@@ -276,7 +276,7 @@ class ShadcnSheet extends StatelessComponent {
           'right': props.maxWidth != null ? 'auto' : '0',
           'bottom': '0',
           if (props.maxWidth != null) 'transform': 'translateX(-50%)',
-          if (sizeVal != null) 'height': sizeVal,
+          'height': ?sizeVal,
           'max-height': '90vh',
           'width': props.maxWidth ?? '100%',
           'animation': 'arcane-slide-up var(--transition-slower)',
@@ -287,7 +287,7 @@ class ShadcnSheet extends StatelessComponent {
           'left': '0',
           'right': '0',
           'top': '0',
-          if (sizeVal != null) 'height': sizeVal,
+          'height': ?sizeVal,
           'max-height': '90vh',
           'animation': 'arcane-slide-down var(--transition-slower)',
         });

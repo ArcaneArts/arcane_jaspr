@@ -1,4 +1,3 @@
-import 'package:arcane_jaspr/core/props/time_picker_props.dart';
 import 'package:arcane_jaspr/core/theme_provider.dart';
 import 'package:arcane_jaspr/flutter.dart';
 
@@ -151,7 +150,7 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
 
   @override
   Widget build(BuildContext context) {
-    String resolvedId =
+    final String resolvedId =
         component.id ?? 'timepicker-${identityHashCode(component)}';
     return context.renderers.timePicker(
       TimePickerProps(

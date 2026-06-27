@@ -1,5 +1,4 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart' as dom;
 
 import 'map_data.dart';
@@ -80,7 +79,7 @@ class ArcaneMap extends StatelessWidget {
         'justify-content': 'center',
         'align-items': 'center',
         'width': '100%',
-        if (height != null) 'height': height!,
+        'height': ?height,
         'max-height': '80vh',
         'overflow': 'visible',
       }),

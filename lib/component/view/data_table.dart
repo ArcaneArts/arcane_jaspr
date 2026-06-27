@@ -92,7 +92,7 @@ class _DataTableState<T> extends State<DataTable<T>> {
 
   @override
   Widget build(BuildContext context) {
-    List<DataColumnProps<T>> columnProps = component.columns
+    final List<DataColumnProps<T>> columnProps = component.columns
         .map(
           (DataColumn<T> column) => DataColumnProps<T>(
             header: column.header,

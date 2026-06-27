@@ -1,9 +1,9 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
-import 'package:arcane_jaspr/core/interaction/interaction.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/radio_group_props.dart';
+import 'package:arcane_jaspr/core/rendering/base/radio_group_render_base.dart';
 
 /// ShadCN Radio Group renderer.
 ///
@@ -15,179 +15,106 @@ import 'package:arcane_jaspr/core/props/radio_group_props.dart';
 /// - Selected: inner dot h-2.5 w-2.5 (10px), bg-primary
 /// - Focus: ring-2 ring-ring ring-offset-2
 /// - Disabled: opacity-50, cursor-not-allowed
-class ShadcnRadioGroup<T> extends StatelessComponent {
-  final RadioGroupProps<T> props;
-
-  const ShadcnRadioGroup(this.props, {super.key});
+class ShadcnRadioGroup<T> extends RadioGroupRenderBase<T> {
+  const ShadcnRadioGroup(super.props, {super.key});
 
   @override
-  Component build(BuildContext context) {
-    final bool hasError = props.error != null;
-    final String groupName = props.name ?? 'radio_${identityHashCode(this)}';
-    final String groupId = props.id ?? props.name ?? groupName;
-    final String? currentGroupValue = props.value?.toString();
+  String get groupIdPrefix => 'radio_';
 
-    final Map<String, String> rootAttrs = groupAttrs(
-      groupId: groupId,
-      mode: 'single',
-      value: currentGroupValue ?? '',
-      required: props.required,
-      disabled: props.disabled,
-      changeAction: props.onChangeAction != null
-          ? encodeArcaneAction(props.onChangeAction!)
-          : null,
-    );
+  @override
+  String get rootClasses => 'arcane-radio-group';
 
-    return dom.div(
-      classes: 'arcane-radio-group',
-      attributes: mergeAttrs(<Map<String, String>>[
-        <String, String>{
-          'role': 'radiogroup',
-          if (props.label != null) 'aria-labelledby': '${groupName}_label',
-          'data-disabled': '${props.disabled}',
-        },
-        rootAttrs,
-      ]),
+  @override
+  Map<String, String> rootDataAttrs(String groupName) => <String, String>{
+    'role': 'radiogroup',
+    if (props.label != null) 'aria-labelledby': '${groupName}_label',
+    'data-disabled': '${props.disabled}',
+  };
+
+  @override
+  Map<String, String> get rootStyles => <String, String>{
+    'display': 'flex',
+    'flex-direction': 'column',
+    'gap': 'var(--space-2)', // ShadCN: space-y-2
+  };
+
+  @override
+  Component buildLabel(String groupName) {
+    // Label - ShadCN: text-sm font-medium
+    return Component.element(
+      tag: 'label',
+      id: '${groupName}_label',
       styles: const dom.Styles(
         raw: {
-          'display': 'flex',
-          'flex-direction': 'column',
-          'gap': 'var(--space-2)', // ShadCN: space-y-2
+          // ShadCN: text-sm font-medium
+          'font-size': 'var(--font-size-sm)',
+          'font-weight': 'var(--font-weight-medium)',
+          'color': 'var(--foreground)',
         },
       ),
-      [
-        // Label - ShadCN: text-sm font-medium
-        if (props.label != null)
-          Component.element(
-            tag: 'label',
-            id: '${groupName}_label',
-            styles: const dom.Styles(
-              raw: {
-                // ShadCN: text-sm font-medium
-                'font-size': 'var(--font-size-sm)',
-                'font-weight': 'var(--font-weight-medium)',
-                'color': 'var(--foreground)',
-              },
-            ),
-            children: [
-              Component.text(props.label!),
-              if (props.required)
-                const dom.span(
-                  styles: dom.Styles(raw: {'color': 'var(--destructive)'}),
-                  [Component.text(' *')],
-                ),
-            ],
-          ),
-
-        // Options container
-        dom.div(
-          classes: 'arcane-radio-group-options',
-          styles: dom.Styles(
-            raw: {
-              'display': props.layout == RadioGroupLayout.grid
-                  ? 'grid'
-                  : 'flex',
-              'flex-direction': props.layout == RadioGroupLayout.horizontal
-                  ? 'row'
-                  : 'column',
-              'flex-wrap': props.layout == RadioGroupLayout.horizontal
-                  ? 'wrap'
-                  : 'nowrap',
-              'gap': props.gap,
-              if (props.layout == RadioGroupLayout.grid)
-                'grid-template-columns': 'repeat(${props.gridColumns}, 1fr)',
-            },
-          ),
-          [
-            for (final option in props.options)
-              _buildOption(option, groupName, groupId, hasError),
-          ],
-        ),
-
-        // Error or helper text - ShadCN: text-sm text-muted-foreground
-        if (props.error != null)
-          dom.span(
-            styles: const dom.Styles(
-              raw: {
-                // ShadCN: text-sm text-destructive
-                'font-size': 'var(--font-size-sm)',
-                'color': 'var(--destructive)',
-              },
-            ),
-            [Component.text(props.error!)],
-          )
-        else if (props.helperText != null)
-          dom.span(
-            styles: const dom.Styles(
-              raw: {
-                // ShadCN: text-sm text-muted-foreground
-                'font-size': 'var(--font-size-sm)',
-                'color': 'var(--muted-foreground)',
-              },
-            ),
-            [Component.text(props.helperText!)],
+      children: [
+        Component.text(props.label!),
+        if (props.required)
+          const dom.span(
+            styles: dom.Styles(raw: {'color': 'var(--destructive)'}),
+            [Component.text(' *')],
           ),
       ],
     );
   }
 
-  Component _buildOption(
-    RadioOptionProps<T> option,
-    String groupName,
-    String groupId,
-    bool hasError,
-  ) {
-    final bool isSelected = props.value == option.value;
-    final bool isDisabled = props.disabled || option.disabled;
-    final String itemValue = option.value.toString();
-    final Map<String, String> itemAttrs = mergeAttrs(<Map<String, String>>[
-      groupItemAttrs(
-        groupId: groupId,
-        value: itemValue,
-        selected: isSelected,
-        disabled: isDisabled,
-      ),
-      if (!isDisabled)
-        interactionAttrs(
-          ArcaneInteraction.selectValue(groupId, itemValue),
-        ),
-    ]);
+  @override
+  String get optionsClasses => 'arcane-radio-group-options';
 
-    return switch (props.variant) {
-      RadioGroupVariant.standard => _buildStandardRadio(
-        option,
-        groupName,
-        isSelected,
-        isDisabled,
-        hasError,
-        itemAttrs,
-      ),
-      RadioGroupVariant.cards => _buildCardRadio(
-        option,
-        groupName,
-        isSelected,
-        isDisabled,
-        hasError,
-        itemAttrs,
-      ),
-      RadioGroupVariant.buttons => _buildButtonRadio(
-        option,
-        groupName,
-        isSelected,
-        isDisabled,
-        itemAttrs,
-      ),
-      RadioGroupVariant.chips => _buildChipRadio(
-        option,
-        groupName,
-        isSelected,
-        isDisabled,
-        itemAttrs,
-      ),
-    };
+  @override
+  Map<String, String> get optionsStyles => <String, String>{
+    'display': props.layout == RadioGroupLayout.grid ? 'grid' : 'flex',
+    'flex-direction': props.layout == RadioGroupLayout.horizontal
+        ? 'row'
+        : 'column',
+    'flex-wrap': props.layout == RadioGroupLayout.horizontal
+        ? 'wrap'
+        : 'nowrap',
+    'gap': props.gap,
+    if (props.layout == RadioGroupLayout.grid)
+      'grid-template-columns': 'repeat(${props.gridColumns}, 1fr)',
+  };
+
+  @override
+  List<Component> buildMessage() {
+    // Error or helper text - ShadCN: text-sm text-muted-foreground
+    if (props.error != null) {
+      return <Component>[
+        dom.span(
+          styles: const dom.Styles(
+            raw: {
+              // ShadCN: text-sm text-destructive
+              'font-size': 'var(--font-size-sm)',
+              'color': 'var(--destructive)',
+            },
+          ),
+          [Component.text(props.error!)],
+        ),
+      ];
+    } else if (props.helperText != null) {
+      return <Component>[
+        dom.span(
+          styles: const dom.Styles(
+            raw: {
+              // ShadCN: text-sm text-muted-foreground
+              'font-size': 'var(--font-size-sm)',
+              'color': 'var(--muted-foreground)',
+            },
+          ),
+          [Component.text(props.helperText!)],
+        ),
+      ];
+    }
+    return const <Component>[];
   }
 
-  Component _buildStandardRadio(
+  @override
+  Component buildStandardRadio(
     RadioOptionProps<T> option,
     String groupName,
     bool isSelected,
@@ -340,7 +267,8 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
     );
   }
 
-  Component _buildCardRadio(
+  @override
+  Component buildCardRadio(
     RadioOptionProps<T> option,
     String groupName,
     bool isSelected,
@@ -470,11 +398,13 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
     );
   }
 
-  Component _buildButtonRadio(
+  @override
+  Component buildButtonRadio(
     RadioOptionProps<T> option,
     String groupName,
     bool isSelected,
     bool isDisabled,
+    bool hasError,
     Map<String, String> itemAttrs,
   ) {
     return Component.element(
@@ -541,11 +471,13 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
     );
   }
 
-  Component _buildChipRadio(
+  @override
+  Component buildChipRadio(
     RadioOptionProps<T> option,
     String groupName,
     bool isSelected,
     bool isDisabled,
+    bool hasError,
     Map<String, String> itemAttrs,
   ) {
     return Component.element(
