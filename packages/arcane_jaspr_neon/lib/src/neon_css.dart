@@ -374,27 +374,39 @@ class NeonCss {
   border-color: var(--primary);
   box-shadow: var(--neon-glow-sm);
 }
-#arcane-root.arcane-theme-neon .neon-toggle-wrapper {
+#arcane-root.arcane-theme-neon .neon-toggle-switch {
+  position: relative;
   display: inline-flex;
   align-items: center;
+  flex-shrink: 0;
   width: 2.5rem;
   height: 1.4rem;
+  border: none;
   border-radius: var(--radius-full);
   background: var(--border);
   padding: 2px;
+  cursor: pointer;
   transition: background var(--transition);
 }
-#arcane-root.arcane-theme-neon .neon-toggle-wrapper[data-state="on"],
-#arcane-root.arcane-theme-neon .neon-toggle-wrapper.active {
+#arcane-root.arcane-theme-neon .neon-toggle-switch[data-state="checked"],
+#arcane-root.arcane-theme-neon .neon-toggle-switch.active {
   background: var(--primary);
   box-shadow: var(--neon-glow-sm);
+}
+#arcane-root.arcane-theme-neon .neon-toggle-switch[data-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 #arcane-root.arcane-theme-neon .neon-toggle-thumb {
   width: 1rem;
   height: 1rem;
   border-radius: 50%;
-  background: var(--background);
+  background: #ffffff;
   transition: transform var(--transition);
+}
+#arcane-root.arcane-theme-neon .neon-toggle-switch[data-state="checked"] .neon-toggle-thumb,
+#arcane-root.arcane-theme-neon .neon-toggle-switch.active .neon-toggle-thumb {
+  transform: translateX(1.1rem);
 }
 #arcane-root.arcane-theme-neon .neon-radio-button {
   width: 1.1rem;
@@ -859,6 +871,9 @@ class NeonCss {
   padding-left: 0.75rem;
   margin-left: 0.25rem;
   gap: 0.25rem;
+  /* Space the first child away from the parent summary at every nesting level
+     (deeper subfolders otherwise rendered flush against their header). */
+  margin-top: 0.25rem;
 }
 
 #arcane-root.arcane-theme-neon .kb-topbar-github,
