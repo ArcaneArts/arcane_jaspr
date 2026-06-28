@@ -18,6 +18,7 @@
 import 'dart:io';
 
 import 'package:arcane_jaspr/arcane_jaspr.dart';
+import 'package:arcane_jaspr_neon/arcane_jaspr_neon.dart';
 import 'package:arcane_jaspr_neubrutalism/arcane_jaspr_neubrutalism.dart';
 import 'package:arcane_jaspr_shadcn/arcane_jaspr_shadcn.dart';
 import 'package:jaspr_test/server_test.dart';
@@ -28,10 +29,10 @@ import 'component_cases.dart';
 /// that holds the golden snapshots.
 const String _goldenDir = 'test/render/goldens';
 
-/// The active stylesheets, each at its default theme. (neon is being rewritten
-/// and is temporarily excluded from golden coverage.)
+/// The active stylesheets, each at its default theme.
 const List<(String, ArcaneStylesheet)> _themes = <(String, ArcaneStylesheet)>[
   ('shadcn', ShadcnStylesheet()),
+  ('neon', NeonStylesheet()),
   ('neubrutalism', NeubrutalismStylesheet()),
 ];
 

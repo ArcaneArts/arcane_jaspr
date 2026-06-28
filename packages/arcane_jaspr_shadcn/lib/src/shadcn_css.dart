@@ -308,6 +308,7 @@ html:has(#arcane-root.arcane-theme-shadcn) body::-webkit-scrollbar-thumb:hover,
 #arcane-root.arcane-theme-shadcn .sidebar-tree {
   padding-left: 0.75rem;
   margin-left: 0.25rem;
+  gap: 0.25rem;
 }
 
 #arcane-root.arcane-theme-shadcn .kb-topbar-github,

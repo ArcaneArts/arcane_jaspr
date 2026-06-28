@@ -123,6 +123,8 @@ class _ArcaneAppState extends State<ArcaneApp> {
         DocumentHelper.html(attributes: {'class': brightnessClass}),
         // Inject styles into the actual document <head>
         DocumentHelper.head(elements: headElements),
+        if (component.head != null && component.head!.isNotEmpty)
+          jaspr.Document.head(children: component.head!),
         rootDiv,
       ]),
     );

@@ -9,15 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- `ArcaneApp.head` is now actually rendered. The `head: List<Widget>?` parameter was declared but never injected into the document; `ArcaneApp` now emits the supplied widgets through jaspr's cross-platform `Document.head`, so app-level `<link>`/`<script>`/`<meta>` widgets reach `<head>` during both SSR and client hydration. No change when `head` is null/empty.
 - Server-side rendering crash in the form-field widgets (`ArcaneStringField`, `ArcaneBoolField`, `ArcaneColorField`, `ArcaneDateField`, `ArcaneTimeField`, `ArcaneEnumField`). `ArcaneField` now guards its asynchronous value load to the client (`kIsWeb`), so SSR renders the loading placeholder instead of throwing a build-phase `setState` assertion. Client behavior is unchanged.
 - shadcn knowledge-base sidebar: pinned directly below the sticky top bar (was offset ~56px too low, leaving a gap above the nav) and made independently scrollable (`max-height` + `overflow-y: auto`) instead of requiring the whole page to scroll.
 - shadcn top bar: restored `position: sticky` (it was `static`, so it scrolled off-screen) with a solid background and bottom hairline, so it stays pinned while scrolling.
 - shadcn docs content layout: the content area now centers (capped at `--container-2xl` with auto margins instead of stretching edge-to-edge), and the right-hand table-of-contents column is only reserved when a TOC is actually present — TOC-less pages (e.g. component docs) now center the article instead of leaving an empty reserved column.
+- shadcn docs sidebar: nested nav items (sub-folder contents) now have vertical spacing — `.sidebar-tree` was missing a `gap`, so deeply nested items packed together; added `gap: 0.25rem` so they match the top-level spacing.
+- Neon docs sidebar: pinned directly below the sticky top bar (was offset by a doubled top, leaving a gap above the nav) and given its own scroll rail (`max-height` + `overflow-y: auto`) instead of scrolling with the page. The shadcn layout port had keyed this on the `.shadcn-kb-sidebar` class; the rule now targets `.neon-kb-sidebar` so it actually matches the Neon DOM.
 
 ### Changed
 
 - Internal: deduplicated the `arcane_jaspr_shadcn`, `arcane_jaspr_neon`, and `arcane_jaspr_neubrutalism` renderer implementations into shared base classes under `lib/core/rendering/base/`. Public renderer class names and rendered HTML output are unchanged (verified byte-identical across all three themes via golden snapshots). Removed the per-package `control_styles.dart`.
-- `arcane_jaspr_neon` reduced to a neutral skeleton pending a full rewrite: stripped its component CSS, fonts, and layout overrides, and reduced all neon renderers to plain output (no gradients, glows, or clip-paths). `NeonStylesheet`, `NeonTheme`, and `NeonRenderers` are kept as the scaffold; neon is temporarily excluded from the golden snapshot tests.
+- `arcane_jaspr_neon` rebuilt as a dark-first "gamer" theme (replaces the prior neutralized skeleton). Distilled from the QualityNode aesthetic: the default `NeonTheme.green` is an emerald-to-cyan palette, with seven other neon variants. The palette is fully seeded from `NeonTheme` via `lightSeed`/`darkSeed` (like the shadcn and neubrutalism themes); the dark seed enables `accentGlow`, so shadows carry a neon glow. New `NeonCss` supplies a restrained, glow-and-gradient component layer (Oxanium display font, gradient accent bars on cards, uppercase tracked badges, accent focus rings) — every rule scoped to `#arcane-root.arcane-theme-neon`, so the shadcn and neubrutalism themes are unaffected. `NeonCss` also styles the documentation knowledge-base chrome (top bar, sidebar, content grid, TOC) so the Neon docs render correctly (the bespoke Neon docs layout was retired in `arcane_lexicon`; Neon now uses the standard chrome). Neon is back in the golden snapshot tests.
 
 ## [3.3.0] - 2026-05-7
 
