@@ -1,5 +1,3 @@
-import 'package:jaspr/dom.dart' as dom;
-
 import 'package:arcane_jaspr/core/rendering/base/calendar_render_base.dart';
 
 /// Neon calendar renderer (neutralized skeleton).
@@ -19,5 +17,5 @@ class NeonCalendar extends CalendarRenderBase {
   String get dayButtonClasses => 'neon-calendar-day';
 
   @override
-  dom.Styles get styles => const dom.Styles(raw: <String, String>{});
+  Map<String, String> get styles => const <String, String>{};
 }

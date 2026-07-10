@@ -78,6 +78,8 @@ class NeubrutalismSeparator extends SeparatorRenderBase {
           'height': thickness,
           'margin': '$margin 0',
           ...backgroundStyle(color),
+          ...?props.decoration?.universalStyles(),
+          ...?props.styles?.toMap(),
         },
       ),
       const <Component>[],

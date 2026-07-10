@@ -1,6 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/command_props.dart'
     show CommandItemProps, CommandGroupProps;
@@ -20,6 +22,12 @@ class ArcaneCommand extends StatefulWidget {
   final bool focusTrap;
   final bool restoreFocus;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneCommand({
     required this.groups,
     this.id,
@@ -33,6 +41,8 @@ class ArcaneCommand extends StatefulWidget {
     this.scrimCloses = true,
     this.focusTrap = true,
     this.restoreFocus = true,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -120,6 +130,8 @@ class _ArcaneCommandState extends State<ArcaneCommand> {
       scrimCloses: component.scrimCloses,
       focusTrap: component.focusTrap,
       restoreFocus: component.restoreFocus,
+      styles: component.styles,
+      decoration: component.decoration,
     ));
   }
 }

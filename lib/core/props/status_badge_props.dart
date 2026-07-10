@@ -1,5 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 import '../shared/shared.dart';
 import 'status_indicator_props.dart' show StatusType;
 
@@ -131,6 +133,13 @@ class StatusBadgeProps {
   /// Override label text color.
   final String? labelColor;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const StatusBadgeProps({
     required this.label,
     this.size = ComponentSize.md,
@@ -147,6 +156,8 @@ class StatusBadgeProps {
     this.background,
     this.borderColor,
     this.labelColor,
+    this.styles,
+    this.decoration,
   });
 
   /// Whether this is a card overlay badge (positioned absolutely).

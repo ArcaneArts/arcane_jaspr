@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/props/alert_props.dart';
 
 /// Shared structural base for themed alert renderers.
@@ -74,6 +75,11 @@ abstract class AlertRenderBase extends StatelessComponent {
   /// The glyph/icon rendered inside the dismiss button.
   Component get dismissChild;
 
+  /// Per-instance decoration overrides. Default: none. Themes translate an
+  /// ArcaneDecoration into their own CSS; unimplemented fields are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   @override
   Component build(BuildContext context) {
     return dom.div(
@@ -87,6 +93,9 @@ abstract class AlertRenderBase extends StatelessComponent {
           'align-items': 'flex-start',
           ...rootLayoutStyles,
           ...containerStyles,
+          ...?props.decoration?.universalStyles(),
+          ...decorationStyles(props.decoration),
+          ...?props.styles?.toMap(),
         },
       ),
       <Component>[

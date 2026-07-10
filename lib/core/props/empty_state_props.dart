@@ -1,5 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
+
 enum EmptyStateStyleVariant {
   centered,
   compact,
@@ -22,6 +25,13 @@ class EmptyStateProps {
   final EmptyStateStyleVariant style;
   final EmptyStateSizeVariant size;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const EmptyStateProps({
     required this.title,
     this.icon,
@@ -30,6 +40,8 @@ class EmptyStateProps {
     this.secondaryAction,
     this.style = EmptyStateStyleVariant.centered,
     this.size = EmptyStateSizeVariant.md,
+    this.styles,
+    this.decoration,
   });
 
   EmptyStateProps copyWith({
@@ -40,6 +52,8 @@ class EmptyStateProps {
     Widget? secondaryAction,
     EmptyStateStyleVariant? style,
     EmptyStateSizeVariant? size,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     return EmptyStateProps(
       icon: icon ?? this.icon,
@@ -49,6 +63,8 @@ class EmptyStateProps {
       secondaryAction: secondaryAction ?? this.secondaryAction,
       style: style ?? this.style,
       size: size ?? this.size,
+      styles: styles ?? this.styles,
+      decoration: decoration ?? this.decoration,
     );
   }
 }

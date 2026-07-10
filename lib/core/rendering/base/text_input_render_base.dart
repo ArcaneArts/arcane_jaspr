@@ -1,6 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
+import 'package:arcane_jaspr/core/dom_value.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/text_input_props.dart';
 
@@ -63,6 +65,12 @@ abstract class TextInputRenderBase extends StatelessComponent {
   /// Styles for the trailing suffix span.
   Map<String, String> suffixStyles();
 
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   @override
   Component build(BuildContext context) {
     final bool hasError = props.error != null;
@@ -110,14 +118,19 @@ abstract class TextInputRenderBase extends StatelessComponent {
         ...?props.attributes,
       },
       styles: dom.Styles(
-        raw: inputStyles(
-          hasError: hasError,
-          isDisabled: props.disabled,
-          height: height,
-          paddingX: paddingX,
-          paddingY: paddingY,
-          fontSize: fontSize,
-        ),
+        raw: <String, String>{
+          ...inputStyles(
+            hasError: hasError,
+            isDisabled: props.disabled,
+            height: height,
+            paddingX: paddingX,
+            paddingY: paddingY,
+            fontSize: fontSize,
+          ),
+          ...?props.decoration?.universalStyles(),
+          ...decorationStyles(props.decoration),
+          ...?props.styles?.toMap(),
+        },
       ),
       events: _inputEvents(),
     );
@@ -181,7 +194,14 @@ abstract class TextInputRenderBase extends StatelessComponent {
               'data-disabled': '${props.disabled}',
               'data-error': '$hasError',
             },
-            styles: dom.Styles(raw: containerStyles(hasError)),
+            styles: dom.Styles(
+              raw: <String, String>{
+                ...containerStyles(hasError),
+                ...?props.decoration?.universalStyles(),
+                ...decorationStyles(props.decoration),
+                ...?props.styles?.toMap(),
+              },
+            ),
             <Component>[
               if (props.prefix != null)
                 dom.span(
@@ -259,23 +279,14 @@ abstract class TextInputRenderBase extends StatelessComponent {
     return <String, EventCallback>{
       if (props.onChanged != null)
         'input': (event) {
-          final dynamic target = event.target;
-          final String? valueStr = target?.value;
-          if (valueStr != null) {
-            props.onChanged!(valueStr);
-          }
+          props.onChanged!(domInputValue(event.target));
         },
       if (props.onFocus != null) 'focus': (event) => props.onFocus!(),
       if (props.onBlur != null) 'blur': (event) => props.onBlur!(),
       if (props.onSubmit != null)
         'keydown': (event) {
-          final dynamic evt = event;
-          if (evt?.key == 'Enter') {
-            final dynamic target = event.target;
-            final String? valueStr = target?.value;
-            if (valueStr != null) {
-              props.onSubmit!(valueStr);
-            }
+          if (domEventKey(event) == 'Enter') {
+            props.onSubmit!(domInputValue(event.target));
           }
         },
     };

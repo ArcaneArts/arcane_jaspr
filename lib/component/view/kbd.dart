@@ -1,6 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/kbd_props.dart' show KbdStyle, ComponentSize;
 
@@ -12,10 +14,19 @@ class ArcaneKbd extends StatelessWidget {
   final KbdStyle style;
   final ComponentSize size;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const ArcaneKbd(
     this.keyText, {
     this.style = KbdStyle.raised,
     this.size = ComponentSize.md,
+    this.styles,
+    this.decoration,
     super.key,
   })  : keys = null,
         separator = '+';
@@ -25,6 +36,8 @@ class ArcaneKbd extends StatelessWidget {
     this.separator = '+',
     this.style = KbdStyle.raised,
     this.size = ComponentSize.md,
+    this.styles,
+    this.decoration,
     super.key,
   }) : keyText = null;
 
@@ -32,6 +45,8 @@ class ArcaneKbd extends StatelessWidget {
     String shortcut, {
     KbdStyle style = KbdStyle.raised,
     ComponentSize size = ComponentSize.md,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     final parts = shortcut.split('+').map((s) => s.trim()).toList();
     return ArcaneKbd.combo(
@@ -39,6 +54,8 @@ class ArcaneKbd extends StatelessWidget {
       separator: '+',
       style: style,
       size: size,
+      styles: styles,
+      decoration: decoration,
     );
   }
 
@@ -50,6 +67,8 @@ class ArcaneKbd extends StatelessWidget {
       separator: separator,
       style: style,
       size: size,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

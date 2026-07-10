@@ -2,6 +2,8 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/component/view/icon.dart';
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
+import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/button_props.dart';
 
@@ -36,16 +38,29 @@ abstract class ButtonRenderBase extends StatelessComponent {
   /// Size-specific dimension styles.
   Map<String, String> sizeStyles(ButtonSize size);
 
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   @override
   Component build(BuildContext context) {
     final bool isDisabled = props.disabled || props.loading;
 
-    final Map<String, String> allStyles = <String, String>{
-      ...baseStyles(isDisabled),
-      ...variantStyles(props.variant),
-      ...sizeStyles(props.size),
-      if (props.fullWidth) 'width': '100%',
-    };
+    final Map<String, String> allStyles = layerStyles(
+      <String, String>{
+        ...baseStyles(isDisabled),
+        ...variantStyles(props.variant),
+        ...sizeStyles(props.size),
+        if (props.fullWidth) 'width': '100%',
+      },
+      <Map<String, String>?>[
+        props.decoration?.universalStyles(),
+        decorationStyles(props.decoration),
+        props.styles?.toMap(),
+      ],
+    );
 
     final List<Component> children = <Component>[];
 
@@ -101,7 +116,7 @@ abstract class ButtonRenderBase extends StatelessComponent {
           ...actionAttrs,
         },
         styles: dom.Styles(
-          raw: <String, String>{...allStyles, 'text-decoration': 'none'},
+          raw: <String, String>{'text-decoration': 'none', ...allStyles},
         ),
         events: <String, EventCallback>{
           if (props.onPressed != null)
@@ -120,8 +135,8 @@ abstract class ButtonRenderBase extends StatelessComponent {
       classes: cssClass,
       attributes: <String, String>{
         if (isDisabled) 'disabled': 'true',
-        'type': 'button',
         ...baseAttributes,
+        'type': props.type.value,
         ...actionAttrs,
       },
       styles: dom.Styles(raw: allStyles),

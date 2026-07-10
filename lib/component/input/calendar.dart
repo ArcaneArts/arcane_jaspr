@@ -1,6 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/calendar_props.dart'
     show CalendarModeVariant, DateRangeValue, CalendarProps;
@@ -39,6 +41,12 @@ class ArcaneCalendar extends StatefulWidget {
   final DateRange? selectedRange;
   final void Function(DateRange)? onRangeSelect;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneCalendar({
     this.id,
     this.selected,
@@ -54,6 +62,8 @@ class ArcaneCalendar extends StatefulWidget {
     this.mode = CalendarMode.single,
     this.selectedRange,
     this.onRangeSelect,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -150,6 +160,8 @@ class _ArcaneCalendarState extends State<ArcaneCalendar> {
       onNextMonth: _nextMonth,
       onGoToToday: _goToToday,
       onSelectDate: _selectDate,
+      styles: component.styles,
+      decoration: component.decoration,
     ));
   }
 }

@@ -105,7 +105,7 @@ class _NeonPromoModalState extends State<NeonPromoModal> {
         // Modal content
         dom.div(
           classes: 'neon-promo-modal',
-          styles: const dom.Styles(
+          styles: dom.Styles(
             raw: {
               'position': 'relative',
               'max-width': '480px',
@@ -116,6 +116,8 @@ class _NeonPromoModalState extends State<NeonPromoModal> {
               'box-shadow': '0 8px 24px rgba(0, 0, 0, 0.15)',
               'padding': '2.5rem',
               'text-align': 'center',
+              ...?component.props.decoration?.universalStyles(),
+              ...?component.props.styles?.toMap(),
             },
           ),
           events: {'click': (e) => e.stopPropagation()},

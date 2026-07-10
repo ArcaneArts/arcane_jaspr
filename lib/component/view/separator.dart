@@ -1,6 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
 import '../../core/theme_provider.dart';
+import '../../core/decoration/arcane_decoration.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/separator_props.dart'
     show SeparatorOrientation, SeparatorVariant, SeparatorProps;
@@ -25,6 +27,13 @@ class ArcaneSeparator extends StatelessWidget {
   final double? margin;
   final double? height;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const ArcaneSeparator({
     this.orientation = SeparatorOrientation.horizontal,
     this.variant = SeparatorVariant.standard,
@@ -35,6 +44,8 @@ class ArcaneSeparator extends StatelessWidget {
     this.decorative = true,
     this.margin,
     this.height,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -46,6 +57,8 @@ class ArcaneSeparator extends StatelessWidget {
     this.decorative = true,
     this.margin,
     this.height,
+    this.styles,
+    this.decoration,
     super.key,
   })  : orientation = SeparatorOrientation.vertical,
         label = null,
@@ -58,6 +71,8 @@ class ArcaneSeparator extends StatelessWidget {
     this.color,
     this.dashed = false,
     this.margin,
+    this.styles,
+    this.decoration,
     super.key,
   })  : orientation = SeparatorOrientation.horizontal,
         icon = null,
@@ -71,6 +86,8 @@ class ArcaneSeparator extends StatelessWidget {
     this.color,
     this.dashed = false,
     this.margin,
+    this.styles,
+    this.decoration,
     super.key,
   })  : orientation = SeparatorOrientation.horizontal,
         label = null,
@@ -86,6 +103,8 @@ class ArcaneSeparator extends StatelessWidget {
     this.color,
     this.margin,
     this.height,
+    this.styles,
+    this.decoration,
     super.key,
   })  : dashed = true,
         decorative = true;
@@ -99,6 +118,8 @@ class ArcaneSeparator extends StatelessWidget {
     this.dashed = false,
     this.margin,
     this.height,
+    this.styles,
+    this.decoration,
     super.key,
   })  : variant = SeparatorVariant.subtle,
         decorative = true;
@@ -112,6 +133,8 @@ class ArcaneSeparator extends StatelessWidget {
     this.dashed = false,
     this.margin,
     this.height,
+    this.styles,
+    this.decoration,
     super.key,
   })  : variant = SeparatorVariant.bold,
         decorative = true;
@@ -128,6 +151,8 @@ class ArcaneSeparator extends StatelessWidget {
       decorative: decorative,
       margin: margin,
       height: height,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

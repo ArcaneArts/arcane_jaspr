@@ -1,6 +1,7 @@
 import 'package:jaspr/dom.dart' as dom;
 import 'package:jaspr/jaspr.dart';
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/props/sidebar_props.dart';
 
 /// Shared structural bases for themed sidebar renderers.
@@ -176,6 +177,12 @@ abstract class SidebarRenderBase extends StatelessComponent {
   /// CSS class applied to the collapse toggle button.
   String get collapseButtonClass;
 
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   @override
   Component build(BuildContext context) {
     final double width = props.isCollapsed ? props.collapsedWidth : props.width;
@@ -195,6 +202,9 @@ abstract class SidebarRenderBase extends StatelessComponent {
           'overflow': 'hidden',
           'transition': 'width 0.2s ease, min-width 0.2s ease',
           'flex-shrink': '0',
+          ...?props.decoration?.universalStyles(),
+          ...decorationStyles(props.decoration),
+          ...?props.styles?.toMap(),
         },
       ),
       <Component>[

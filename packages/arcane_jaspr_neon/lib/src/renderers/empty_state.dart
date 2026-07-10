@@ -39,8 +39,10 @@ class NeonEmptyState extends EmptyStateRenderBase {
   ];
 
   @override
-  Component buildRoot(Component content) => dom.div(
-    classes: 'neon-empty-state',
-    <Component>[content],
-  );
+  Component buildRoot(Component content, Map<String, String> extraStyles) =>
+      dom.div(
+        classes: 'neon-empty-state',
+        styles: dom.Styles(raw: <String, String>{...extraStyles}),
+        <Component>[content],
+      );
 }

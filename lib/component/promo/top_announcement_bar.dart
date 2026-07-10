@@ -1,7 +1,9 @@
 import 'package:jaspr/dom.dart' as dom;
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 /// A thin sticky announcement bar at the top of the page.
 ///
@@ -15,6 +17,12 @@ class ArcaneTopAnnouncementBar extends StatefulWidget {
   final void Function()? onDismiss;
   final bool showCopyButton;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneTopAnnouncementBar({
     required this.message,
     this.promoCode,
@@ -23,6 +31,8 @@ class ArcaneTopAnnouncementBar extends StatefulWidget {
     this.onCtaClick,
     this.onDismiss,
     this.showCopyButton = true,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -51,6 +61,8 @@ class _ArcaneTopAnnouncementBarState extends State<ArcaneTopAnnouncementBar> {
       onCtaClick: component.onCtaClick,
       onDismiss: _handleDismiss,
       showCopyButton: component.showCopyButton,
+      styles: component.styles,
+      decoration: component.decoration,
     ));
   }
 }

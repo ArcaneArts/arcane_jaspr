@@ -1,6 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/otp_input_props.dart'
     show OtpInputSizeVariant, OtpInputProps;
@@ -26,6 +28,13 @@ class ArcaneOtpInput extends StatefulWidget {
   final String? separator;
   final int? separatorPosition;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const ArcaneOtpInput({
     this.length = 6,
     this.onComplete,
@@ -38,6 +47,8 @@ class ArcaneOtpInput extends StatefulWidget {
     this.label,
     this.separator,
     this.separatorPosition,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -52,6 +63,8 @@ class ArcaneOtpInput extends StatefulWidget {
     this.label,
     this.separator,
     this.separatorPosition,
+    this.styles,
+    this.decoration,
     super.key,
   }) : length = 4;
 
@@ -66,6 +79,8 @@ class ArcaneOtpInput extends StatefulWidget {
     this.label,
     this.separator,
     this.separatorPosition,
+    this.styles,
+    this.decoration,
     super.key,
   }) : length = 6;
 
@@ -149,6 +164,8 @@ class _ArcaneOtpInputState extends State<ArcaneOtpInput> {
       separator: component.separator,
       separatorPosition: component.separatorPosition,
       onInput: _handleInput,
+      styles: component.styles,
+      decoration: component.decoration,
     ));
   }
 }

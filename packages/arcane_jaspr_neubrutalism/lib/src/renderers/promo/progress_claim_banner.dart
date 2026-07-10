@@ -85,7 +85,7 @@ class _NeubrutalismProgressClaimBannerState extends State<NeubrutalismProgressCl
 
     return dom.div(
       classes: 'neubrutalism-progress-claim-banner',
-      styles: const dom.Styles(
+      styles: dom.Styles(
         raw: {
           'position': 'fixed',
           'bottom': '1.5rem',
@@ -101,6 +101,8 @@ class _NeubrutalismProgressClaimBannerState extends State<NeubrutalismProgressCl
           // Neubrutalism: accent glow
           'box-shadow': 'var(--nb-shadow-md, 5px 5px 0 0 var(--nb-shadow-color, #000))',
           'padding': '1.25rem 1.5rem',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [

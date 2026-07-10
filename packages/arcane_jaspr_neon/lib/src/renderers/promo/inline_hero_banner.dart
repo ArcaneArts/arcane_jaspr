@@ -79,7 +79,13 @@ class _NeonInlineHeroBannerState extends State<NeonInlineHeroBanner> {
 
     return dom.div(
       classes: 'neon-inline-hero-banner ${component.props.style.name}',
-      styles: dom.Styles(raw: variantStyles),
+      styles: dom.Styles(
+        raw: {
+          ...variantStyles,
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
+        },
+      ),
       [
         // Icon
         if (component.props.icon != null)

@@ -1,6 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
 import '../../util/arcane.dart';
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 
 /// Button panel component properties.
 class ButtonPanelProps {
@@ -27,12 +29,21 @@ class ToolbarProps {
   final double gap;
   final EdgeInsets? padding;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const ToolbarProps({
     required this.children,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.gap = 8,
     this.padding,
+    this.styles,
+    this.decoration,
   });
 }
 

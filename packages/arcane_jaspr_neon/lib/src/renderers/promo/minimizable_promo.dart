@@ -65,7 +65,7 @@ class _NeonMinimizablePromoState extends State<NeonMinimizablePromo> {
       // Minimized tab
       return dom.button(
         classes: 'neon-minimizable-promo-tab',
-        styles: const dom.Styles(
+        styles: dom.Styles(
           raw: {
             'position': 'fixed',
             'top': '50%',
@@ -83,6 +83,8 @@ class _NeonMinimizablePromoState extends State<NeonMinimizablePromo> {
             'font-size': 'var(--font-size-sm)',
             'font-weight': 'var(--font-weight-bold)',
             'cursor': 'pointer',
+            ...?component.props.decoration?.universalStyles(),
+            ...?component.props.styles?.toMap(),
           },
         ),
         events: {'click': (_) => _toggleExpanded()},
@@ -93,7 +95,7 @@ class _NeonMinimizablePromoState extends State<NeonMinimizablePromo> {
     // Expanded panel
     return dom.div(
       classes: 'neon-minimizable-promo-panel',
-      styles: const dom.Styles(
+      styles: dom.Styles(
         raw: {
           'position': 'fixed',
           'top': '50%',
@@ -108,6 +110,8 @@ class _NeonMinimizablePromoState extends State<NeonMinimizablePromo> {
           'border-radius': 'var(--radius-xl) 0 0 var(--radius-xl)',
           'box-shadow': '0 8px 24px rgba(0, 0, 0, 0.15)',
           'padding': '1.5rem',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [

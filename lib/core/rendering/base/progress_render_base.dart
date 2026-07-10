@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/props/progress_props.dart';
 
 /// Shared structural base for themed linear progress-bar renderers.
@@ -49,6 +50,12 @@ abstract class ProgressRenderBase extends StatelessComponent {
   /// Inline styles for the value readout element.
   Map<String, String> get valueStyles;
 
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   @override
   Component build(BuildContext context) {
     final double clampedValue = props.value.clamp(0.0, 1.0);
@@ -60,7 +67,14 @@ abstract class ProgressRenderBase extends StatelessComponent {
       <Component>[
         dom.div(
           classes: trackClass,
-          styles: dom.Styles(raw: trackStyles(props)),
+          styles: dom.Styles(
+            raw: <String, String>{
+              ...trackStyles(props),
+              ...?props.decoration?.universalStyles(),
+              ...decorationStyles(props.decoration),
+              ...?props.styles?.toMap(),
+            },
+          ),
           <Component>[
             dom.div(
               classes: indicatorClasses(props.indeterminate),
@@ -117,6 +131,12 @@ abstract class CircularProgressRenderBase extends StatelessComponent {
   /// Inline styles for the label span.
   Map<String, String> get labelStyles;
 
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   @override
   Component build(BuildContext context) {
     final double clampedValue = props.value.clamp(0.0, 1.0);
@@ -134,7 +154,14 @@ abstract class CircularProgressRenderBase extends StatelessComponent {
       <Component>[
         // Ring using a conic gradient masked into a stroke.
         dom.div(
-          styles: dom.Styles(raw: ringStyles(props)),
+          styles: dom.Styles(
+            raw: <String, String>{
+              ...ringStyles(props),
+              ...?props.decoration?.universalStyles(),
+              ...decorationStyles(props.decoration),
+              ...?props.styles?.toMap(),
+            },
+          ),
           const <Component>[],
         ),
         // Center content.
@@ -186,11 +213,24 @@ abstract class LoadingSpinnerRenderBase extends StatelessComponent {
   /// Inline styles for the spinner element (theme resolves size/color).
   Map<String, String> spinnerStyles(LoadingSpinnerProps props);
 
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   @override
   Component build(BuildContext context) {
     return dom.span(
       classes: rootClass,
-      styles: dom.Styles(raw: spinnerStyles(props)),
+      styles: dom.Styles(
+        raw: <String, String>{
+          ...spinnerStyles(props),
+          ...?props.decoration?.universalStyles(),
+          ...decorationStyles(props.decoration),
+          ...?props.styles?.toMap(),
+        },
+      ),
       const <Component>[],
     );
   }

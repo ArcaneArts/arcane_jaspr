@@ -1,5 +1,8 @@
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/props/button_props.dart';
 import 'package:arcane_jaspr/core/rendering/base/button_render_base.dart';
+
+import 'decoration_styles.dart';
 
 /// ShadCN Button renderer.
 ///
@@ -7,6 +10,10 @@ import 'package:arcane_jaspr/core/rendering/base/button_render_base.dart';
 /// Reference: https://ui.shadcn.com/docs/components/button
 class ShadcnButton extends ButtonRenderBase {
   const ShadcnButton(super.props, {super.key});
+
+  @override
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      shadcnDecorationStyles(decoration);
 
   @override
   String get cssClass => 'arcane-button';

@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/interaction/interaction.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/radio_group_props.dart';
@@ -39,6 +40,12 @@ abstract class RadioGroupRenderBase<T> extends StatelessComponent {
 
   /// Inline styles for the root group element.
   Map<String, String> get rootStyles;
+
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
 
   /// Builds the group label node (some themes use a `<label>`, others a `<div>`).
   /// Only called when [RadioGroupProps.label] is non-null. [groupName] is used
@@ -178,7 +185,14 @@ abstract class RadioGroupRenderBase<T> extends StatelessComponent {
         rootDataAttrs(groupName),
         rootAttrs,
       ]),
-      styles: dom.Styles(raw: rootStyles),
+      styles: dom.Styles(
+        raw: <String, String>{
+          ...rootStyles,
+          ...?props.decoration?.universalStyles(),
+          ...decorationStyles(props.decoration),
+          ...?props.styles?.toMap(),
+        },
+      ),
       <Component>[
         if (props.label != null) buildLabel(groupName),
         dom.div(

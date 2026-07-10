@@ -2,6 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/component/view/icon.dart';
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/interaction/interaction.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/dropdown_menu_props.dart';
@@ -74,6 +75,12 @@ abstract class DropdownMenuRenderBase extends StatelessComponent {
   /// Inline styles for the root menu surface (width-dependent).
   Map<String, String> menuStyles(DropdownMenuProps props);
 
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   /// Inline styles for a submenu surface.
   Map<String, String> get submenuMenuStyles;
 
@@ -141,7 +148,12 @@ abstract class DropdownMenuRenderBase extends StatelessComponent {
         dom.div(
           classes: menuClass,
           attributes: menuAttrs,
-          styles: dom.Styles(raw: menuStyles(props)),
+          styles: dom.Styles(raw: <String, String>{
+            ...menuStyles(props),
+            ...?props.decoration?.universalStyles(),
+            ...decorationStyles(props.decoration),
+            ...?props.styles?.toMap(),
+          }),
           <Component>[
             for (final ArcaneMenuItem item in props.items)
               buildMenuItem(item, surfaceId),

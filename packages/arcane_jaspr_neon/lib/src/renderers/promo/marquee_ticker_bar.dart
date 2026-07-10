@@ -58,6 +58,8 @@ class _NeonMarqueeTickerBarState extends State<NeonMarqueeTickerBar> {
           'border-top': component.props.showAtBottom
               ? '1px solid var(--border)'
               : 'none',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [

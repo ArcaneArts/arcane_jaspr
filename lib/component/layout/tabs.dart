@@ -1,6 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 /// A tab component for switching between views.
 class ArcaneTabs extends StatefulWidget {
@@ -9,11 +11,20 @@ class ArcaneTabs extends StatefulWidget {
   final void Function(int index)? onChanged;
   final bool fill;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const ArcaneTabs({
     required this.tabs,
     this.initialIndex = 0,
     this.onChanged,
     this.fill = false,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -56,6 +67,8 @@ class _ArcaneTabsState extends State<ArcaneTabs> {
       selectedIndex: _selectedIndex,
       onChanged: _selectTab,
       fill: component.fill,
+      styles: component.styles,
+      decoration: component.decoration,
     ));
   }
 }
@@ -84,11 +97,20 @@ class ArcaneTabBar extends StatelessWidget {
   final void Function(int index) onChanged;
   final bool fill;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const ArcaneTabBar({
     required this.tabs,
     required this.selectedIndex,
     required this.onChanged,
     this.fill = false,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -106,6 +128,8 @@ class ArcaneTabBar extends StatelessWidget {
       selectedIndex: selectedIndex,
       onChanged: onChanged,
       fill: fill,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

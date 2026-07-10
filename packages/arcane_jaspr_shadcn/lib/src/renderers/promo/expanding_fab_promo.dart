@@ -58,7 +58,7 @@ class _ShadcnExpandingFabPromoState extends State<ShadcnExpandingFabPromo> {
         if (_isExpanded)
           dom.div(
             classes: 'arcane-fab-promo-panel',
-            styles: const dom.Styles(
+            styles: dom.Styles(
               raw: {
                 'position': 'relative',
                 'display': 'flex',
@@ -72,6 +72,8 @@ class _ShadcnExpandingFabPromoState extends State<ShadcnExpandingFabPromo> {
                 'max-width': '320px',
                 'width': '320px',
                 'animation': 'arcane-scale-in 0.2s ease-out',
+                ...?component.props.decoration?.universalStyles(),
+                ...?component.props.styles?.toMap(),
               },
             ),
             [
@@ -229,6 +231,8 @@ class _ShadcnExpandingFabPromoState extends State<ShadcnExpandingFabPromo> {
               'cursor': 'pointer',
               'transition': 'transform 0.2s ease-out',
               'transform': _isExpanded ? 'rotate(45deg)' : 'rotate(0deg)',
+              ...?component.props.decoration?.universalStyles(),
+              ...?component.props.styles?.toMap(),
             },
           ),
           events: {'click': (_) => _toggleExpand()},

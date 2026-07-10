@@ -1,6 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 /// Accordion item data model.
 class ArcaneAccordionItem {
@@ -40,12 +42,20 @@ class ArcaneAccordion extends StatelessWidget {
   /// Default accent color for items without a specific accentColor.
   final String? defaultAccentColor;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneAccordion({
     required this.items,
     this.allowMultiple = false,
     this.bordered = false,
     this.variant = AccordionVariant.standard,
     this.defaultAccentColor,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -55,6 +65,8 @@ class ArcaneAccordion extends StatelessWidget {
     this.allowMultiple = true,
     this.bordered = false,
     this.defaultAccentColor,
+    this.styles,
+    this.decoration,
     super.key,
   }) : variant = AccordionVariant.faq;
 
@@ -85,6 +97,8 @@ class ArcaneAccordion extends StatelessWidget {
       bordered: bordered,
       variant: variant,
       defaultAccentColor: defaultAccentColor,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

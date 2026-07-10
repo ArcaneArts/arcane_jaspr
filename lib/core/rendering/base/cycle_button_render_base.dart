@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/props/cycle_button_props.dart';
 import 'package:arcane_jaspr/core/interaction/interaction.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
@@ -37,6 +38,12 @@ abstract class CycleButtonRenderBase<T> extends StatelessComponent {
 
   /// Color of the trailing rotate indicator glyph.
   String get indicatorColor;
+
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
 
   @override
   Component build(BuildContext context) {
@@ -92,6 +99,9 @@ abstract class CycleButtonRenderBase<T> extends StatelessComponent {
           'transition':
               'background 200ms ease, border-color 200ms ease, color 200ms ease, transform 200ms ease',
           ...variantStyles(props.variant),
+          ...?props.decoration?.universalStyles(),
+          ...decorationStyles(props.decoration),
+          ...?props.styles?.toMap(),
         },
       ),
       events: props.disabled || props.onChanged == null
@@ -143,6 +153,12 @@ abstract class ToggleButtonRenderBase extends StatelessComponent {
   /// Full inline style map for the toggle; receives the shared [sizeStyles].
   Map<String, String> toggleStyles(Map<String, String> sizeStyles);
 
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   @override
   Component build(BuildContext context) {
     final String groupId =
@@ -173,7 +189,14 @@ abstract class ToggleButtonRenderBase extends StatelessComponent {
       classes:
           '$classPrefix-toggle-button ${props.value ? 'active' : ''} ${props.disabled ? 'disabled' : ''}',
       attributes: attrs,
-      styles: dom.Styles(raw: toggleStyles(sizeStyles)),
+      styles: dom.Styles(
+        raw: <String, String>{
+          ...toggleStyles(sizeStyles),
+          ...?props.decoration?.universalStyles(),
+          ...decorationStyles(props.decoration),
+          ...?props.styles?.toMap(),
+        },
+      ),
       events: props.disabled || props.onChanged == null
           ? null
           : <String, EventCallback>{

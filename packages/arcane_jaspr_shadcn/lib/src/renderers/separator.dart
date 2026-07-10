@@ -62,6 +62,8 @@ class ShadcnSeparator extends SeparatorRenderBase {
           'border': 'none',
           'height': thickness,
           ...backgroundStyle(color),
+          ...?props.decoration?.universalStyles(),
+          ...?props.styles?.toMap(),
         },
       ),
     );

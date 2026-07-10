@@ -81,7 +81,12 @@ class _ShadcnInlineHeroBannerState extends State<ShadcnInlineHeroBanner> {
       classes:
           'arcane-inline-hero-banner arcane-inline-hero-banner-${component.props.style.name}',
       styles: dom.Styles(
-        raw: {'font-size': 'var(--font-size-sm)', ..._getStyleVariantStyles()},
+        raw: {
+          'font-size': 'var(--font-size-sm)',
+          ..._getStyleVariantStyles(),
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
+        },
       ),
       [
         // Icon

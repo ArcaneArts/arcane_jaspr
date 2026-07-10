@@ -284,6 +284,8 @@ class ShadcnPagination extends StatelessComponent {
           'pointer-events': disabled ? 'none' : 'auto',
           'opacity': disabled ? '0.5' : '1',
           ...buttonStyles,
+          ...?props.decoration?.universalStyles(),
+          ...?props.styles?.toMap(),
         },
       ),
       events: disabled

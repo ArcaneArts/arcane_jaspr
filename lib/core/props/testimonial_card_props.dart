@@ -1,5 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
+
 /// Testimonial card component properties.
 class TestimonialCardProps {
   final String quote;
@@ -20,6 +23,12 @@ class TestimonialCardProps {
   /// If null and rating is provided, color is derived from rating.
   final String? accentColor;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const TestimonialCardProps({
     required this.quote,
     required this.authorName,
@@ -31,6 +40,8 @@ class TestimonialCardProps {
     this.showRatingBadge = false,
     this.showAccentBorder = false,
     this.accentColor,
+    this.styles,
+    this.decoration,
   });
 
   /// Returns the accent color based on rating (5=green, 4=cyan, 3=yellow, 2=orange, 1=red).

@@ -132,6 +132,8 @@ class ShadcnCycleButton<T> extends StatelessComponent {
           'opacity': props.disabled ? '0.5' : '1',
           'transition': 'all var(--transition)',
           'white-space': 'nowrap',
+          ...?props.decoration?.universalStyles(),
+          ...?props.styles?.toMap(),
         },
       ),
       events: props.onChanged == null
@@ -235,6 +237,8 @@ class ShadcnToggleButton extends StatelessComponent {
           'cursor': props.disabled ? 'not-allowed' : 'pointer',
           'opacity': props.disabled ? '0.5' : '1',
           'transition': 'all var(--transition)',
+          ...?props.decoration?.universalStyles(),
+          ...?props.styles?.toMap(),
         },
       ),
       events: props.onChanged == null

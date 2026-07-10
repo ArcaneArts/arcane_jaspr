@@ -1,5 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
+
 enum CardVariant {
   elevated,
   flat,
@@ -20,6 +23,13 @@ class CardProps {
   final bool fillWidth;
   final void Function()? onTap;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const CardProps({
     this.child,
     this.children,
@@ -29,6 +39,8 @@ class CardProps {
     this.backgroundColor,
     this.fillWidth = false,
     this.onTap,
+    this.styles,
+    this.decoration,
   }) : assert(child != null || children != null,
             'Either child or children must be provided');
 
@@ -41,6 +53,8 @@ class CardProps {
     String? backgroundColor,
     bool? fillWidth,
     void Function()? onTap,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     return CardProps(
       child: child ?? this.child,
@@ -51,6 +65,8 @@ class CardProps {
       backgroundColor: backgroundColor ?? this.backgroundColor,
       fillWidth: fillWidth ?? this.fillWidth,
       onTap: onTap ?? this.onTap,
+      styles: styles ?? this.styles,
+      decoration: decoration ?? this.decoration,
     );
   }
 }

@@ -1,7 +1,9 @@
 import 'package:jaspr/dom.dart' as dom;
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 /// Full-screen modal popup for high-priority promotions.
 ///
@@ -20,6 +22,12 @@ class ArcanePromoModal extends StatefulWidget {
   final Duration? countdownDuration;
   final Widget? heroImage;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcanePromoModal({
     required this.title,
     required this.subtitle,
@@ -33,6 +41,8 @@ class ArcanePromoModal extends StatefulWidget {
     this.delayMs = 1000,
     this.countdownDuration,
     this.heroImage,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -83,6 +93,8 @@ class _ArcanePromoModalState extends State<ArcanePromoModal> {
       delayMs: component.delayMs,
       countdownDuration: component.countdownDuration,
       heroImage: component.heroImage,
+      styles: component.styles,
+      decoration: component.decoration,
     ));
   }
 }

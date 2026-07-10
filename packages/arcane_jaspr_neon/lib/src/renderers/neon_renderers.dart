@@ -13,6 +13,11 @@ import 'button.dart';
 import 'button_panel.dart';
 import 'calendar.dart';
 import 'card.dart';
+import 'cta_card.dart';
+import 'feature_card.dart';
+import 'pricing_card.dart';
+import 'stat_card.dart';
+import 'testimonial_card.dart';
 import 'chart.dart';
 import 'check_list.dart';
 import 'checkbox.dart';
@@ -82,6 +87,35 @@ class NeonRenderers extends ComponentRenderers {
 
   @override
   Component card(CardProps props) => NeonCard(props);
+
+  @override
+  Component statCard(StatCardProps props) => NeonStatCard(props);
+
+  @override
+  Component statCardRow(StatCardRowProps props) => NeonStatCardRow(props);
+
+  @override
+  Component featureCard(FeatureCardProps props) => NeonFeatureCard(props);
+
+  @override
+  Component iconCard(IconCardProps props) => NeonIconCard(props);
+
+  @override
+  Component ctaCard(CTACardProps props) => NeonCtaCard(props);
+
+  @override
+  Component testimonialCard(TestimonialCardProps props) =>
+      NeonTestimonialCard(props);
+
+  @override
+  Component ratingStarsSimple(RatingStarsSimpleProps props) =>
+      NeonRatingStarsSimple(props);
+
+  @override
+  Component pricingCard(PricingCardProps props) => NeonPricingCard(props);
+
+  @override
+  Component pricingGrid(PricingGridProps props) => NeonPricingGrid(props);
 
   @override
   Component chart(ChartProps props) => NeonChart(props);

@@ -103,6 +103,8 @@ class _ShadcnProgressClaimBannerState extends State<ShadcnProgressClaimBanner> {
           'transition': 'transform 400ms cubic-bezier(0.4, 0, 0.2, 1)',
           'max-width': '380px',
           'width': 'calc(100vw - 48px)',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [

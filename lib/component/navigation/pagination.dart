@@ -1,6 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/pagination_props.dart'
     show PaginationStyleVariant, PaginationSizeVariant;
@@ -32,6 +34,12 @@ class ArcanePagination extends StatelessWidget {
   final String previousText;
   final String nextText;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcanePagination({
     required this.currentPage,
     required this.totalPages,
@@ -44,6 +52,8 @@ class ArcanePagination extends StatelessWidget {
     this.showPageCount = false,
     this.previousText = '\u{2190}',
     this.nextText = '\u{2192}',
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -54,6 +64,8 @@ class ArcanePagination extends StatelessWidget {
     this.size = PaginationSize.md,
     this.previousText = '\u{2190} Previous',
     this.nextText = 'Next \u{2192}',
+    this.styles,
+    this.decoration,
     super.key,
   })  : style = PaginationStyle.simple,
         siblingCount = 0,
@@ -126,6 +138,8 @@ class ArcanePagination extends StatelessWidget {
       previousText: previousText,
       nextText: nextText,
       pageNumbers: _getPageNumbers(),
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

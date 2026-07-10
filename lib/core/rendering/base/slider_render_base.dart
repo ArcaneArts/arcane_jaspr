@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/interaction/interaction.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/slider_props.dart';
@@ -93,6 +94,12 @@ abstract class SliderRenderBase extends StatelessComponent {
           );
   }
 
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   @override
   Component build(BuildContext context) {
     final String sliderId = props.id ?? 'slider-${identityHashCode(props)}';
@@ -134,6 +141,9 @@ abstract class SliderRenderBase extends StatelessComponent {
           'width': '100%',
           'opacity': props.disabled ? '0.5' : '1',
           'pointer-events': props.disabled ? 'none' : 'auto',
+          ...?props.decoration?.universalStyles(),
+          ...decorationStyles(props.decoration),
+          ...?props.styles?.toMap(),
         },
       ),
       <Component>[

@@ -1,5 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
+
 enum DisclosureVariant {
   default_,
   minimal,
@@ -17,6 +20,12 @@ class DisclosureProps {
   final bool showTreeLines;
   final String? classes;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const DisclosureProps({
     required this.summary,
     required this.child,
@@ -25,6 +34,8 @@ class DisclosureProps {
     this.showChevron = true,
     this.showTreeLines = false,
     this.classes,
+    this.styles,
+    this.decoration,
   });
 }
 

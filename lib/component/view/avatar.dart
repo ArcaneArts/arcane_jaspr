@@ -3,6 +3,8 @@ import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, St
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
 import '../../core/theme_provider.dart';
+import '../../core/decoration/arcane_decoration.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/avatar_props.dart' show AvatarSize, AvatarShape;
 
@@ -17,6 +19,12 @@ class ArcaneAvatar extends StatelessWidget {
   final String? statusColor;
   final void Function()? onTap;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneAvatar({
     this.imageUrl,
     this.initials,
@@ -26,6 +34,8 @@ class ArcaneAvatar extends StatelessWidget {
     this.showStatus = false,
     this.statusColor,
     this.onTap,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -37,6 +47,8 @@ class ArcaneAvatar extends StatelessWidget {
     this.showStatus = false,
     this.statusColor,
     this.onTap,
+    this.styles,
+    this.decoration,
     super.key,
   }) : shape = AvatarShape.circle;
 
@@ -48,6 +60,8 @@ class ArcaneAvatar extends StatelessWidget {
     this.showStatus = false,
     this.statusColor,
     this.onTap,
+    this.styles,
+    this.decoration,
     super.key,
   }) : shape = AvatarShape.rounded;
 
@@ -59,6 +73,8 @@ class ArcaneAvatar extends StatelessWidget {
     this.showStatus = false,
     this.statusColor,
     this.onTap,
+    this.styles,
+    this.decoration,
     super.key,
   }) : shape = AvatarShape.square;
 
@@ -73,6 +89,8 @@ class ArcaneAvatar extends StatelessWidget {
       showStatus: showStatus,
       statusColor: statusColor,
       onTap: onTap,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

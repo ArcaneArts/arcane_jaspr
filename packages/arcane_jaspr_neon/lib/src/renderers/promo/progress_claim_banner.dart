@@ -85,7 +85,7 @@ class _NeonProgressClaimBannerState extends State<NeonProgressClaimBanner> {
 
     return dom.div(
       classes: 'neon-progress-claim-banner',
-      styles: const dom.Styles(
+      styles: dom.Styles(
         raw: {
           'position': 'fixed',
           'bottom': '1.5rem',
@@ -99,6 +99,8 @@ class _NeonProgressClaimBannerState extends State<NeonProgressClaimBanner> {
           'border-radius': 'var(--radius-lg)',
           'box-shadow': '0 8px 24px rgba(0, 0, 0, 0.15)',
           'padding': '1.25rem 1.5rem',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [

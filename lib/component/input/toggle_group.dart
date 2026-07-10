@@ -1,8 +1,10 @@
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/interaction/interaction.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/toggle_group_props.dart'
     show
@@ -45,6 +47,12 @@ class ArcaneToggleGroup extends StatelessWidget {
   final ToggleGroupSize size;
   final bool disabled;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneToggleGroup({
     this.id,
     required this.items,
@@ -54,6 +62,8 @@ class ArcaneToggleGroup extends StatelessWidget {
     this.variant = ToggleGroupVariant.defaultVariant,
     this.size = ToggleGroupSize.md,
     this.disabled = false,
+    this.styles,
+    this.decoration,
     super.key,
   })  : type = ToggleGroupType.single,
         values = null,
@@ -68,6 +78,8 @@ class ArcaneToggleGroup extends StatelessWidget {
     this.variant = ToggleGroupVariant.defaultVariant,
     this.size = ToggleGroupSize.md,
     this.disabled = false,
+    this.styles,
+    this.decoration,
     super.key,
   })  : type = ToggleGroupType.multiple,
         value = null,
@@ -110,6 +122,8 @@ class ArcaneToggleGroup extends StatelessWidget {
       onChanged: onChanged,
       onMultiChanged: onMultiChanged,
       onChangeAction: onChangeAction,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

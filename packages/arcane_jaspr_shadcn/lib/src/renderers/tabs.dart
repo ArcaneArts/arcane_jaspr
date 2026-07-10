@@ -46,6 +46,8 @@ class ShadcnTabs extends StatelessComponent {
               // ShadCN: text-muted-foreground
               'color': 'var(--muted-foreground)',
               if (props.fill) 'width': '100%',
+              ...?props.decoration?.universalStyles(),
+              ...?props.styles?.toMap(),
             },
           ),
           [

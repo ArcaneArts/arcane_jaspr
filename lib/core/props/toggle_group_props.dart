@@ -1,5 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 import '../interaction/interaction.dart';
 
 enum ToggleGroupVariantStyle {
@@ -45,6 +47,12 @@ class ToggleGroupProps {
   final void Function(Set<String>)? onMultiChanged;
   final ArcaneInteraction? onChangeAction;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ToggleGroupProps({
     this.id,
     required this.items,
@@ -57,6 +65,8 @@ class ToggleGroupProps {
     this.onChanged,
     this.onMultiChanged,
     this.onChangeAction,
+    this.styles,
+    this.decoration,
   });
 }
 

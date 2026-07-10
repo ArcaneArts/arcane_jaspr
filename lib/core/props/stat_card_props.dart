@@ -1,5 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
+
 /// Stat card component properties.
 class StatCardProps {
   final String label;
@@ -10,6 +13,12 @@ class StatCardProps {
   final String? description;
   final String? iconBackground;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const StatCardProps({
     required this.label,
     required this.value,
@@ -18,6 +27,8 @@ class StatCardProps {
     this.trendPositive = true,
     this.description,
     this.iconBackground,
+    this.styles,
+    this.decoration,
   });
 }
 

@@ -157,12 +157,14 @@ class _NeonSlotCounterState extends State<NeonSlotCounter> {
 
     return dom.div(
       classes: 'neon-slot-counter',
-      styles: const dom.Styles(
+      styles: dom.Styles(
         raw: {
           'display': 'inline-flex',
           'flex-direction': 'column',
           'align-items': 'center',
           'gap': 'var(--space-2)',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [
@@ -282,6 +284,8 @@ class NeonSlotCounterCard extends StatelessComponent {
             'border-radius': props.borderRadius,
           },
           if (props.showBorder) 'border': '1px solid var(--border)',
+          ...?props.decoration?.universalStyles(),
+          ...?props.styles?.toMap(),
         },
       ),
       [NeonSlotCounter(props.counter)],

@@ -1,12 +1,15 @@
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/jaspr.dart' as jaspr;
 import 'package:jaspr/dom.dart' as dom;
+import '../../core/dom_value.dart';
 
 export '../../core/props/text_input_props.dart'
     show ComponentSize, TextInputVariant, TextInputType;
 
 import '../../core/interaction/interaction.dart';
 import '../../core/theme_provider.dart';
+import '../../core/decoration/arcane_decoration.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 /// A styled text input component.
 class TextInput extends StatelessWidget {
@@ -35,6 +38,13 @@ class TextInput extends StatelessWidget {
   final Map<String, String>? attributes;
   final bool fullWidth;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const TextInput({
     this.placeholder,
     this.type = TextInputType.text,
@@ -61,6 +71,8 @@ class TextInput extends StatelessWidget {
     this.fieldName,
     this.attributes,
     this.fullWidth = false,
+    this.styles,
+    this.decoration,
     super.key,
   }) : _onChange = onChange ?? onInput;
 
@@ -91,6 +103,8 @@ class TextInput extends StatelessWidget {
       formId: formId,
       fieldName: fieldName,
       attributes: attributes,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }
@@ -124,6 +138,12 @@ class TextArea extends StatelessWidget {
   final void Function(String)? _onChange;
   final bool fullWidth;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const TextArea({
     this.placeholder,
     this.rows = 4,
@@ -144,6 +164,8 @@ class TextArea extends StatelessWidget {
     void Function(String)? onChange,
     void Function(String)? onInput,
     this.fullWidth = true,
+    this.styles,
+    this.decoration,
     super.key,
   }) : _onChange = onChange ?? onInput;
 
@@ -189,12 +211,13 @@ class TextArea extends StatelessWidget {
         'max-height': ?maxHeight,
         if (disabled) 'opacity': '0.5',
         if (disabled) 'cursor': 'not-allowed',
+        ...?decoration?.universalStyles(),
+        ...?styles?.toMap(),
       }),
       events: {
         if (_onChange != null)
           'input': (e) {
-            final target = e.target as dynamic;
-            _onChange(target.value as String);
+            _onChange(domInputValue(e.target));
           },
       },
       children: value != null ? [jaspr.Component.text(value!)] : [],
@@ -273,6 +296,13 @@ class ArcaneSelect extends StatelessWidget {
   final void Function(String)? _onChange;
   final bool fullWidth;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const ArcaneSelect({
     required this.options,
     this.value,
@@ -288,6 +318,8 @@ class ArcaneSelect extends StatelessWidget {
     void Function(String)? onInput,
     void Function(String)? onSelect,
     this.fullWidth = false,
+    this.styles,
+    this.decoration,
     super.key,
   }) : _onChange = onChange ?? onInput ?? onSelect;
 
@@ -340,12 +372,13 @@ class ArcaneSelect extends StatelessWidget {
         if (fullWidth) 'width': '100%',
         if (disabled) 'opacity': '0.5',
         if (disabled) 'cursor': 'not-allowed',
+        ...?decoration?.universalStyles(),
+        ...?styles?.toMap(),
       }),
       events: {
         if (_onChange != null)
           'change': (e) {
-            final target = e.target as dynamic;
-            _onChange(target.value as String);
+            _onChange(domInputValue(e.target));
           },
       },
       children: [

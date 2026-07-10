@@ -42,7 +42,7 @@ class _NeonExpandingFabPromoState extends State<NeonExpandingFabPromo> {
       // Collapsed FAB state
       return dom.button(
         classes: 'neon-expanding-fab-promo collapsed',
-        styles: const dom.Styles(
+        styles: dom.Styles(
           raw: {
             'position': 'fixed',
             'bottom': '2rem',
@@ -60,6 +60,8 @@ class _NeonExpandingFabPromoState extends State<NeonExpandingFabPromo> {
             'cursor': 'pointer',
             'box-shadow': '0 4px 12px rgba(0, 0, 0, 0.15)',
             'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+            ...?component.props.decoration?.universalStyles(),
+            ...?component.props.styles?.toMap(),
           },
         ),
         events: {'click': (_) => _toggle()},
@@ -75,7 +77,7 @@ class _NeonExpandingFabPromoState extends State<NeonExpandingFabPromo> {
     // Expanded panel state
     return dom.div(
       classes: 'neon-expanding-fab-promo expanded',
-      styles: const dom.Styles(
+      styles: dom.Styles(
         raw: {
           'position': 'fixed',
           'bottom': '2rem',
@@ -88,6 +90,8 @@ class _NeonExpandingFabPromoState extends State<NeonExpandingFabPromo> {
           'border-radius': 'var(--radius-xl)',
           'box-shadow': '0 8px 24px rgba(0, 0, 0, 0.15)',
           'padding': '1.5rem',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [

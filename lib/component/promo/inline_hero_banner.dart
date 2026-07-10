@@ -1,7 +1,9 @@
 import 'package:jaspr/dom.dart' as dom;
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 /// An inline promotional banner that integrates with the hero section.
 ///
@@ -17,6 +19,13 @@ class ArcaneInlineHeroBanner extends StatefulWidget {
   final bool dismissible;
   final Widget? icon;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const ArcaneInlineHeroBanner({
     required this.message,
     this.promoCode,
@@ -27,6 +36,8 @@ class ArcaneInlineHeroBanner extends StatefulWidget {
     this.style = PromoInlineHeroBannerStyle.pill,
     this.dismissible = true,
     this.icon,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -56,6 +67,8 @@ class _ArcaneInlineHeroBannerState extends State<ArcaneInlineHeroBanner> {
       style: component.style,
       dismissible: component.dismissible,
       icon: component.icon,
+      styles: component.styles,
+      decoration: component.decoration,
     ));
   }
 }

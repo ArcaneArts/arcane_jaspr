@@ -137,12 +137,12 @@ class NeubrutalismEmptyState extends EmptyStateRenderBase {
   }
 
   @override
-  Component buildRoot(Component content) {
+  Component buildRoot(Component content, Map<String, String> extraStyles) {
     // Wrap in card if variant is card
     if (props.style == EmptyStateStyleVariant.card) {
       return dom.div(
         classes: 'neubrutalism-empty-state neubrutalism-empty-state-card',
-        styles: const dom.Styles(
+        styles: dom.Styles(
           raw: <String, String>{
             'padding': '2.5rem',
             'background': 'var(--nb-paper, var(--card))',
@@ -150,6 +150,7 @@ class NeubrutalismEmptyState extends EmptyStateRenderBase {
             'border-radius': '0',
             'box-shadow':
                 'var(--nb-shadow-md, 5px 5px 0 0 var(--nb-shadow-color, #000))',
+            ...extraStyles,
           },
         ),
         [content],
@@ -163,6 +164,7 @@ class NeubrutalismEmptyState extends EmptyStateRenderBase {
           'padding': props.style == EmptyStateStyleVariant.compact
               ? '1rem'
               : '2rem', // Neubrutalism: more padding
+          ...extraStyles,
         },
       ),
       [content],

@@ -93,7 +93,13 @@ class _NeubrutalismInlineHeroBannerState
 
     return dom.div(
       classes: 'neubrutalism-inline-hero-banner ${component.props.style.name}',
-      styles: dom.Styles(raw: variantStyles),
+      styles: dom.Styles(
+        raw: {
+          ...variantStyles,
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
+        },
+      ),
       <Component>[
         if (component.props.icon != null)
           dom.div(

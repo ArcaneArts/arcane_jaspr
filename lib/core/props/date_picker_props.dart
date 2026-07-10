@@ -1,5 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 import 'calendar_props.dart';
 
 enum DatePickerSizeVariant {
@@ -30,6 +32,13 @@ class DatePickerProps {
   final void Function()? onClear;
   final CalendarProps? calendarProps;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const DatePickerProps({
     this.id,
     this.value,
@@ -50,6 +59,8 @@ class DatePickerProps {
     this.onRangeSelect,
     this.onClear,
     this.calendarProps,
+    this.styles,
+    this.decoration,
   });
 }
 

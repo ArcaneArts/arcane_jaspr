@@ -2,6 +2,8 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/component/view/icon.dart';
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
+import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
 import 'package:arcane_jaspr/core/props/status_badge_props.dart';
 
 /// Shared structural base for themed status-badge renderers.
@@ -101,6 +103,12 @@ abstract class StatusBadgeRenderBase extends StatelessComponent {
     ComponentSize.lg => '1rem',
   };
 
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   // ===========================================================================
   // Shared structure
   // ===========================================================================
@@ -167,6 +175,13 @@ abstract class StatusBadgeRenderBase extends StatelessComponent {
       ...promoContainerStyles(props),
     };
     _applyPosition(containerStyles, position);
+    // Layer the permeability overrides LAST so they win over the position keys
+    // written imperatively above.
+    layerStyles(containerStyles, <Map<String, String>?>[
+      props.decoration?.universalStyles(),
+      decorationStyles(props.decoration),
+      props.styles?.toMap(),
+    ]);
 
     final String effectiveLabelColor = promoLabelColor(props);
 
@@ -198,6 +213,13 @@ abstract class StatusBadgeRenderBase extends StatelessComponent {
     };
     _applyPosition(styles, position);
     applyCardColors(props, styles);
+    // Layer the permeability overrides LAST so decoration/styles win over the
+    // theme's position + card-color keys written imperatively above.
+    layerStyles(styles, <Map<String, String>?>[
+      props.decoration?.universalStyles(),
+      decorationStyles(props.decoration),
+      props.styles?.toMap(),
+    ]);
 
     // Determine icon to show
     final Component? iconToShow =
@@ -221,7 +243,14 @@ abstract class StatusBadgeRenderBase extends StatelessComponent {
     return dom.div(
       classes: '$classPrefix-status-badge $classPrefix-status-${props.status.name}',
       attributes: statusBadgeAttributes(props),
-      styles: dom.Styles(raw: statusContainerStyles(props)),
+      styles: dom.Styles(
+        raw: <String, String>{
+          ...statusContainerStyles(props),
+          ...?props.decoration?.universalStyles(),
+          ...decorationStyles(props.decoration),
+          ...?props.styles?.toMap(),
+        },
+      ),
       <Component>[
         // Indicator (dot or custom icon)
         if (props.icon != null)

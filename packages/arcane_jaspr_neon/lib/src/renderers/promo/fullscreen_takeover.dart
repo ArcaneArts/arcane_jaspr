@@ -89,7 +89,7 @@ class _NeonFullscreenTakeoverState extends State<NeonFullscreenTakeover> {
 
     return dom.div(
       classes: 'neon-fullscreen-takeover',
-      styles: const dom.Styles(
+      styles: dom.Styles(
         raw: {
           'position': 'fixed',
           'inset': '0',
@@ -100,6 +100,8 @@ class _NeonFullscreenTakeoverState extends State<NeonFullscreenTakeover> {
           'justify-content': 'center',
           'padding': '2rem',
           'background': 'var(--background)',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [

@@ -94,6 +94,8 @@ class _ShadcnSlidingSidebarBannerState
           'max-width': '320px',
           'width': '320px',
           ..._getPositionStyles(),
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [

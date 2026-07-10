@@ -49,6 +49,8 @@ class NeonToolbar extends StatelessComponent {
           'padding': padding,
           'border': '1px solid var(--border)',
           'background': 'var(--background)',
+          ...?props.decoration?.universalStyles(),
+          ...?props.styles?.toMap(),
         },
       ),
       props.children,

@@ -160,6 +160,8 @@ class ShadcnDrawer extends StatelessComponent {
               'transition': 'transform var(--transition-slower)',
               'border-radius': _borderRadius,
               ..._positionStyles,
+              ...?props.decoration?.universalStyles(),
+              ...?props.styles?.toMap(),
             },
           ),
           [

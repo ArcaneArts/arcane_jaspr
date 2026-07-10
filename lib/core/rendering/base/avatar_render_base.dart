@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/props/avatar_props.dart';
 
 /// Shared structural base for themed avatar renderers.
@@ -39,11 +40,21 @@ abstract class AvatarRenderBase extends StatelessComponent {
   /// structurally per theme, so it is produced here rather than value-mapped.
   Component buildBody(AvatarProps props);
 
+  /// Per-instance decoration overrides. Default: none. Themes translate an
+  /// ArcaneDecoration into their own CSS; unimplemented fields are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   @override
   Component build(BuildContext context) {
     return dom.div(
       classes: rootClass,
-      styles: dom.Styles(raw: rootStyles(props)),
+      styles: dom.Styles(raw: <String, String>{
+        ...rootStyles(props),
+        ...?props.decoration?.universalStyles(),
+        ...decorationStyles(props.decoration),
+        ...?props.styles?.toMap(),
+      }),
       events: props.onTap == null
           ? null
           : <String, EventCallback>{'click': (_) => props.onTap!()},

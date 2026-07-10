@@ -87,6 +87,9 @@ class ShadcnToggleSwitch extends ToggleSwitchRenderBase {
               'background-color var(--transition), border-color var(--transition)',
           'outline': 'none',
           'box-sizing': 'border-box',
+          ...?props.decoration?.universalStyles(),
+          ...decorationStyles(props.decoration),
+          ...?props.styles?.toMap(),
         },
       ),
       events: <String, EventCallback>{

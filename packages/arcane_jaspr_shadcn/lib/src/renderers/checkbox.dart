@@ -105,6 +105,9 @@ class ShadcnCheckbox extends CheckboxRenderBase {
           // ShadCN: transition-colors
           'transition':
               'color var(--transition), background-color var(--transition), border-color var(--transition)',
+          ...?props.decoration?.universalStyles(),
+          ...decorationStyles(props.decoration),
+          ...?props.styles?.toMap(),
         },
       ),
       <Component>[

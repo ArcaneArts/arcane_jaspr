@@ -173,6 +173,8 @@ class ShadcnSelect<T> extends StatelessComponent {
                   : 'pointer',
               'opacity': props.disabled ? '0.5' : '1',
               'transition': 'border-color var(--transition)',
+              ...?props.decoration?.universalStyles(),
+              ...?props.styles?.toMap(),
             },
           ),
           events: props.onToggle != null

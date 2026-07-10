@@ -48,7 +48,7 @@ class _NeonTopAnnouncementBarState extends State<NeonTopAnnouncementBar> {
 
     return dom.div(
       classes: 'neon-top-announcement-bar',
-      styles: const dom.Styles(
+      styles: dom.Styles(
         raw: {
           'position': 'sticky',
           'top': '0',
@@ -62,6 +62,8 @@ class _NeonTopAnnouncementBarState extends State<NeonTopAnnouncementBar> {
           'padding': '0.5rem 1.5rem',
           'background-color': 'var(--card)',
           'border-bottom': '1px solid var(--border)',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [

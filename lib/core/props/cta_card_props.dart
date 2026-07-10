@@ -1,5 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
+
 /// CTA (Call-to-Action) card component properties.
 ///
 /// A card with a dashed border, centered content, and a call-to-action button.
@@ -32,6 +35,12 @@ class CTACardProps {
   /// Whether to show hover effects.
   final bool showHoverEffects;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const CTACardProps({
     this.icon,
     required this.title,
@@ -42,6 +51,8 @@ class CTACardProps {
     this.height = '420px',
     this.animationDelayMs,
     this.showHoverEffects = true,
+    this.styles,
+    this.decoration,
   });
 }
 

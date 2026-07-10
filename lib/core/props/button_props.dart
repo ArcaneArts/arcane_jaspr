@@ -1,5 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 import '../interaction/interaction.dart';
 
 enum ButtonVariant {
@@ -34,6 +36,16 @@ enum ButtonSize {
   static const ButtonSize iconLarge = iconLg;
 }
 
+enum ButtonType {
+  button('button'),
+  submit('submit'),
+  reset('reset');
+
+  final String value;
+
+  const ButtonType(this.value);
+}
+
 class ButtonProps {
   final String? label;
   final Widget? child;
@@ -49,7 +61,15 @@ class ButtonProps {
   final String? id;
   final Map<String, String>? attributes;
   final String? href;
+  final ButtonType type;
   final bool showArrow;
+
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
 
   const ButtonProps({
     this.label,
@@ -66,7 +86,10 @@ class ButtonProps {
     this.id,
     this.attributes,
     this.href,
+    this.type = ButtonType.button,
     this.showArrow = false,
+    this.styles,
+    this.decoration,
   });
 
   ButtonProps copyWith({
@@ -84,7 +107,10 @@ class ButtonProps {
     String? id,
     Map<String, String>? attributes,
     String? href,
+    ButtonType? type,
     bool? showArrow,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     return ButtonProps(
       label: label ?? this.label,
@@ -101,7 +127,10 @@ class ButtonProps {
       id: id ?? this.id,
       attributes: attributes ?? this.attributes,
       href: href ?? this.href,
+      type: type ?? this.type,
       showArrow: showArrow ?? this.showArrow,
+      styles: styles ?? this.styles,
+      decoration: decoration ?? this.decoration,
     );
   }
 }

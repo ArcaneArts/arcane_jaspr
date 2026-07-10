@@ -106,7 +106,7 @@ class _NeonBottomFloatingBannerState extends State<NeonBottomFloatingBanner> {
 
     return dom.div(
       classes: 'neon-bottom-floating-banner',
-      styles: const dom.Styles(
+      styles: dom.Styles(
         raw: {
           'position': 'fixed',
           'bottom': '1.5rem',
@@ -122,6 +122,8 @@ class _NeonBottomFloatingBannerState extends State<NeonBottomFloatingBanner> {
           'border': '1px solid var(--border)',
           'border-radius': 'var(--radius-lg)',
           'box-shadow': '0 8px 24px rgba(0, 0, 0, 0.15)',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [

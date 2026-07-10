@@ -477,3 +477,14 @@ enum PlaceContent {
         PlaceContent.spaceEvenly => 'space-evenly',
       };
 }
+
+/// `box-sizing` presets.
+enum BoxSizing {
+  contentBox,
+  borderBox;
+
+  String get css => switch (this) {
+        BoxSizing.contentBox => 'content-box',
+        BoxSizing.borderBox => 'border-box',
+      };
+}

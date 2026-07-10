@@ -56,7 +56,7 @@ class _ShadcnTopAnnouncementBarState extends State<ShadcnTopAnnouncementBar> {
 
     return dom.div(
       classes: 'arcane-top-announcement-bar',
-      styles: const dom.Styles(
+      styles: dom.Styles(
         raw: {
           'position': 'sticky',
           'top': '0',
@@ -73,6 +73,8 @@ class _ShadcnTopAnnouncementBarState extends State<ShadcnTopAnnouncementBar> {
           'font-size': 'var(--font-size-sm)',
           'font-weight': 'var(--font-weight-medium)',
           'border-bottom': '1px solid rgba(255, 255, 255, 0.1)',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [

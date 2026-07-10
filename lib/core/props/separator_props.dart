@@ -1,5 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
+
 /// Separator visual style variants.
 enum SeparatorVariant {
   /// Standard 1px border color
@@ -49,6 +52,13 @@ class SeparatorProps {
   /// Height of vertical separator in pixels (null = stretch to fill).
   final double? height;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const SeparatorProps({
     this.orientation = SeparatorOrientation.horizontal,
     this.variant = SeparatorVariant.standard,
@@ -59,6 +69,8 @@ class SeparatorProps {
     this.decorative = true,
     this.margin,
     this.height,
+    this.styles,
+    this.decoration,
   });
 
   SeparatorProps copyWith({
@@ -71,6 +83,8 @@ class SeparatorProps {
     bool? decorative,
     double? margin,
     double? height,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     return SeparatorProps(
       orientation: orientation ?? this.orientation,
@@ -82,6 +96,8 @@ class SeparatorProps {
       decorative: decorative ?? this.decorative,
       margin: margin ?? this.margin,
       height: height ?? this.height,
+      styles: styles ?? this.styles,
+      decoration: decoration ?? this.decoration,
     );
   }
 }

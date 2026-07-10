@@ -1,5 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
+
 /// Sidebar item component properties.
 class SidebarItemProps {
   final String label;
@@ -89,6 +92,13 @@ class SidebarProps {
   final bool rightSide;
   final void Function()? onToggleCollapse;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const SidebarProps({
     required this.children,
     this.header,
@@ -100,6 +110,8 @@ class SidebarProps {
     this.showCollapseToggle = true,
     this.rightSide = false,
     this.onToggleCollapse,
+    this.styles,
+    this.decoration,
   });
 }
 

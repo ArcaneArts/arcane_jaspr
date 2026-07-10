@@ -2,6 +2,8 @@ import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import '../../core/theme_provider.dart';
+import '../../core/decoration/arcane_decoration.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 /// Skeleton loading placeholder component.
 class ArcaneSkeleton extends StatelessWidget {
@@ -11,18 +13,29 @@ class ArcaneSkeleton extends StatelessWidget {
   final String? borderRadius;
   final bool animate;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const ArcaneSkeleton({
     this.shape = SkeletonShape.rectangle,
     this.width,
     this.height,
     this.borderRadius,
     this.animate = true,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
   const ArcaneSkeleton.circle({
     this.height,
     this.animate = true,
+    this.styles,
+    this.decoration,
     super.key,
   })  : shape = SkeletonShape.circle,
         width = null,
@@ -31,6 +44,8 @@ class ArcaneSkeleton extends StatelessWidget {
   const ArcaneSkeleton.line({
     this.width,
     this.animate = true,
+    this.styles,
+    this.decoration,
     super.key,
   })  : shape = SkeletonShape.text,
         height = null,
@@ -44,6 +59,8 @@ class ArcaneSkeleton extends StatelessWidget {
       height: height,
       borderRadius: borderRadius,
       animate: animate,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

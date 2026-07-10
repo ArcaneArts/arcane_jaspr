@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/props/separator_props.dart';
 
 /// Shared structural base for themed separator renderers.
@@ -47,6 +48,12 @@ abstract class SeparatorRenderBase extends StatelessComponent {
   /// Extra style entries merged into the dashed background style after the
   /// gradient declaration. Defaults to none.
   Map<String, String> get dashedExtraStyles => const <String, String>{};
+
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
 
   /// Builds the simple (unlabeled) horizontal separator. This branch diverges
   /// structurally between themes (e.g. `<hr>` versus `<div>`, differing style
@@ -120,6 +127,9 @@ abstract class SeparatorRenderBase extends StatelessComponent {
             'height': '${props.height}px'
           else
             ...verticalStretchStyles,
+          ...?props.decoration?.universalStyles(),
+          ...decorationStyles(props.decoration),
+          ...?props.styles?.toMap(),
         },
       ),
       const <Component>[],
@@ -132,7 +142,14 @@ abstract class SeparatorRenderBase extends StatelessComponent {
       attributes: <String, String>{
         'role': props.decorative ? 'none' : 'separator',
       },
-      styles: dom.Styles(raw: labeledContainerStyles(margin)),
+      styles: dom.Styles(
+        raw: <String, String>{
+          ...labeledContainerStyles(margin),
+          ...?props.decoration?.universalStyles(),
+          ...decorationStyles(props.decoration),
+          ...?props.styles?.toMap(),
+        },
+      ),
       <Component>[
         // Left line.
         dom.div(

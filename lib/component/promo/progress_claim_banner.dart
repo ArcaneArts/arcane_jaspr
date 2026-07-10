@@ -1,7 +1,9 @@
 import 'package:jaspr/dom.dart' as dom;
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 /// A banner showing how many people have claimed an offer.
 ///
@@ -19,6 +21,13 @@ class ArcaneProgressClaimBanner extends StatefulWidget {
   final int delayMs;
   final bool simulateProgress;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const ArcaneProgressClaimBanner({
     required this.title,
     required this.message,
@@ -31,6 +40,8 @@ class ArcaneProgressClaimBanner extends StatefulWidget {
     this.onDismiss,
     this.delayMs = 2000,
     this.simulateProgress = true,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -81,6 +92,8 @@ class _ArcaneProgressClaimBannerState extends State<ArcaneProgressClaimBanner> {
       onDismiss: _handleDismiss,
       delayMs: component.delayMs,
       simulateProgress: component.simulateProgress,
+      styles: component.styles,
+      decoration: component.decoration,
     ));
   }
 }

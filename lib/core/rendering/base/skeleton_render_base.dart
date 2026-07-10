@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/props/skeleton_props.dart';
 
 /// Shared structural base for themed skeleton renderers.
@@ -35,6 +36,12 @@ abstract class SkeletonRenderBase extends StatelessComponent {
   /// in the emitted style map.
   Map<String, String> surfaceStyles(SkeletonProps props);
 
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   @override
   Component build(BuildContext context) {
     final (
@@ -58,6 +65,9 @@ abstract class SkeletonRenderBase extends StatelessComponent {
           'border-radius': ?borderRadius,
           if (useChamfer) 'clip-path': defaultClip,
           ...surfaceStyles(props),
+          ...?props.decoration?.universalStyles(),
+          ...decorationStyles(props.decoration),
+          ...?props.styles?.toMap(),
         },
       ),
       const <Component>[],

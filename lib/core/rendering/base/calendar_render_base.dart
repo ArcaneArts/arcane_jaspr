@@ -1,6 +1,7 @@
 import 'package:jaspr/dom.dart' as dom;
 import 'package:jaspr/jaspr.dart';
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/props/calendar_props.dart';
 import 'package:arcane_jaspr/core/rendering/calendar_markup.dart';
 
@@ -32,17 +33,30 @@ abstract class CalendarRenderBase extends StatelessComponent {
   String get dayButtonClasses;
 
   /// Inline styles for the calendar root element.
-  dom.Styles get styles;
+  Map<String, String> get styles;
+
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
 
   @override
   Component build(BuildContext context) {
+    final Map<String, String> merged = <String, String>{
+      ...styles,
+      ...?props.decoration?.universalStyles(),
+      ...decorationStyles(props.decoration),
+      ...?props.styles?.toMap(),
+    };
+
     return buildCalendarMarkup(
       props,
       classes: classes,
       navButtonClasses: navButtonClasses,
       todayButtonClasses: todayButtonClasses,
       dayButtonClasses: dayButtonClasses,
-      styles: styles,
+      styles: dom.Styles(raw: merged),
     );
   }
 }

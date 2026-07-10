@@ -1,6 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/slot_counter_props.dart';
 
@@ -28,6 +30,12 @@ class ArcaneSlotCounter extends StatelessWidget {
   final int? minDigits;
   final void Function(int value)? onValueChange;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneSlotCounter({
     this.minValue = 0,
     this.maxValue = 9999,
@@ -50,6 +58,8 @@ class ArcaneSlotCounter extends StatelessWidget {
     this.monospace = true,
     this.minDigits,
     this.onValueChange,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -60,6 +70,8 @@ class ArcaneSlotCounter extends StatelessWidget {
     SlotCounterSize valueSize = SlotCounterSize.lg,
     SlotCounterColor valueColor = SlotCounterColor.accent,
     bool autoStart = true,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
     Key? key,
   }) {
     return ArcaneSlotCounter(
@@ -73,6 +85,8 @@ class ArcaneSlotCounter extends StatelessWidget {
       randomPauseSeconds: 5,
       spinDurationMs: 1200,
       autoStart: autoStart,
+      styles: styles,
+      decoration: decoration,
       key: key,
     );
   }
@@ -83,6 +97,8 @@ class ArcaneSlotCounter extends StatelessWidget {
     String? label,
     SlotCounterSize valueSize = SlotCounterSize.xl,
     SlotCounterColor valueColor = SlotCounterColor.accent,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
     Key? key,
   }) {
     return ArcaneSlotCounter(
@@ -92,6 +108,8 @@ class ArcaneSlotCounter extends StatelessWidget {
       label: label,
       valueSize: valueSize,
       valueColor: valueColor,
+      styles: styles,
+      decoration: decoration,
       key: key,
     );
   }
@@ -103,6 +121,8 @@ class ArcaneSlotCounter extends StatelessWidget {
     String? label,
     SlotCounterSize valueSize = SlotCounterSize.xl,
     SlotCounterColor valueColor = SlotCounterColor.accent,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
     Key? key,
   }) {
     return ArcaneSlotCounter(
@@ -112,6 +132,8 @@ class ArcaneSlotCounter extends StatelessWidget {
       label: label,
       valueSize: valueSize,
       valueColor: valueColor,
+      styles: styles,
+      decoration: decoration,
       key: key,
     );
   }
@@ -140,6 +162,8 @@ class ArcaneSlotCounter extends StatelessWidget {
       monospace: monospace,
       minDigits: minDigits,
       onValueChange: onValueChange,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }
@@ -178,12 +202,20 @@ class ArcaneSlotCounterCard extends StatelessWidget {
   final bool showBorder;
   final bool showBackground;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneSlotCounterCard({
     required this.counter,
     this.padding = '1rem',
     this.borderRadius = '0.375rem',
     this.showBorder = false,
     this.showBackground = false,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -195,6 +227,8 @@ class ArcaneSlotCounterCard extends StatelessWidget {
       borderRadius: borderRadius,
       showBorder: showBorder,
       showBackground: showBackground,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

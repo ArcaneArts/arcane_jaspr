@@ -2,6 +2,7 @@ import 'package:jaspr/dom.dart' as dom;
 import 'package:jaspr/jaspr.dart';
 
 import 'package:arcane_jaspr/component/view/icon.dart';
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/interaction/interaction.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/calendar_props.dart';
@@ -55,6 +56,12 @@ abstract class DatePickerRenderBase extends StatelessComponent {
     required bool hasError,
     required bool hasValue,
   });
+
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
 
   /// Inline styles for the leading calendar icon span.
   Map<String, String> get iconStyles;
@@ -139,12 +146,17 @@ abstract class DatePickerRenderBase extends StatelessComponent {
               'click': (_) => props.onToggle?.call(),
           },
           styles: dom.Styles(
-            raw: triggerStyles(
-              height: height,
-              fontSize: fontSize,
-              hasError: hasError,
-              hasValue: hasValue,
-            ),
+            raw: <String, String>{
+              ...triggerStyles(
+                height: height,
+                fontSize: fontSize,
+                hasError: hasError,
+                hasValue: hasValue,
+              ),
+              ...?props.decoration?.universalStyles(),
+              ...decorationStyles(props.decoration),
+              ...?props.styles?.toMap(),
+            },
           ),
           <Component>[
             dom.span(

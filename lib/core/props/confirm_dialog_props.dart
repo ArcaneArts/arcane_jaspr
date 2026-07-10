@@ -1,5 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
+
 /// Confirm dialog component properties.
 class ConfirmDialogProps {
   final String title;
@@ -11,6 +14,13 @@ class ConfirmDialogProps {
   final bool destructive;
   final Widget? icon;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const ConfirmDialogProps({
     required this.title,
     required this.message,
@@ -20,6 +30,8 @@ class ConfirmDialogProps {
     this.onCancel,
     this.destructive = false,
     this.icon,
+    this.styles,
+    this.decoration,
   });
 }
 
@@ -31,12 +43,21 @@ class AlertDialogProps {
   final void Function()? onDismiss;
   final Widget? icon;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const AlertDialogProps({
     required this.title,
     required this.message,
     this.buttonText = 'OK',
     this.onDismiss,
     this.icon,
+    this.styles,
+    this.decoration,
   });
 }
 

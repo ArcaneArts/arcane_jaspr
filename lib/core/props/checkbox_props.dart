@@ -1,6 +1,9 @@
 import 'package:jaspr/jaspr.dart';
 import '../shared/shared.dart';
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
+
 export '../shared/shared.dart' show ComponentSize, ColorVariant;
 
 /// Checkbox component properties.
@@ -16,6 +19,13 @@ class CheckboxProps {
   final String? group;
   final String? value;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const CheckboxProps({
     required this.id,
     required this.checked,
@@ -27,6 +37,8 @@ class CheckboxProps {
     this.onChanged,
     this.group,
     this.value,
+    this.styles,
+    this.decoration,
   });
 
   CheckboxProps copyWith({
@@ -40,6 +52,8 @@ class CheckboxProps {
     void Function(bool)? onChanged,
     String? group,
     String? value,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     return CheckboxProps(
       id: id ?? this.id,
@@ -52,6 +66,8 @@ class CheckboxProps {
       onChanged: onChanged ?? this.onChanged,
       group: group ?? this.group,
       value: value ?? this.value,
+      styles: styles ?? this.styles,
+      decoration: decoration ?? this.decoration,
     );
   }
 }

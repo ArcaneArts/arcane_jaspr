@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/props/kbd_props.dart';
 
 /// Shared structural base for themed keyboard-shortcut (`kbd`) renderers.
@@ -29,6 +30,12 @@ abstract class KbdRenderBase extends StatelessComponent {
   /// Resolved inline styles for each `<kbd>` element (size + style variant).
   Map<String, String> get styleMap;
 
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   @override
   Component build(BuildContext context) {
     if (props.keys != null && props.keys!.isNotEmpty) {
@@ -45,7 +52,14 @@ abstract class KbdRenderBase extends StatelessComponent {
             Component.element(
               tag: 'kbd',
               classes: kbdClasses,
-              styles: dom.Styles(raw: styleMap),
+              styles: dom.Styles(
+                raw: <String, String>{
+                  ...styleMap,
+                  ...?props.decoration?.universalStyles(),
+                  ...decorationStyles(props.decoration),
+                  ...?props.styles?.toMap(),
+                },
+              ),
               children: <Component>[Component.text(props.keys![i])],
             ),
             if (i < props.keys!.length - 1)
@@ -66,7 +80,14 @@ abstract class KbdRenderBase extends StatelessComponent {
     return Component.element(
       tag: 'kbd',
       classes: kbdClasses,
-      styles: dom.Styles(raw: styleMap),
+      styles: dom.Styles(
+        raw: <String, String>{
+          ...styleMap,
+          ...?props.decoration?.universalStyles(),
+          ...decorationStyles(props.decoration),
+          ...?props.styles?.toMap(),
+        },
+      ),
       children: <Component>[Component.text(props.keyText ?? '')],
     );
   }

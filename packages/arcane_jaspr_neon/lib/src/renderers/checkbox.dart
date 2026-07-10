@@ -35,12 +35,15 @@ class NeonCheckbox extends CheckboxRenderBase {
       dom.div(
         classes: 'neon-checkbox-box',
         attributes: itemAttrs,
-        styles: const dom.Styles(
+        styles: dom.Styles(
           raw: <String, String>{
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'center',
             'flex-shrink': '0',
+            ...?props.decoration?.universalStyles(),
+            ...decorationStyles(props.decoration),
+            ...?props.styles?.toMap(),
           },
         ),
         <Component>[if (props.checked) const Component.text('x')],

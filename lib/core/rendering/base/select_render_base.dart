@@ -2,6 +2,8 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/component/view/icon.dart';
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
+import 'package:arcane_jaspr/core/dom_value.dart';
 import 'package:arcane_jaspr/core/interaction/interaction.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/select_props.dart';
@@ -69,6 +71,13 @@ abstract class SelectRenderBase<T> extends StatelessComponent {
 
   /// Color of an option's leading icon for the given selection state.
   String optionIconColor(bool isSelected);
+
+  /// Per-instance decoration overrides for the trigger. Default: none. A
+  /// theme overrides this to translate an [ArcaneDecoration] (elevation
+  /// intent, theme-specific fields) into its own CSS. Fields a theme does
+  /// not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
 
   String _serializeValue(T? value) {
     if (value == null) return '';
@@ -205,13 +214,18 @@ abstract class SelectRenderBase<T> extends StatelessComponent {
             ...interactionAttrs(toggleAction),
           },
           styles: dom.Styles(
-            raw: triggerStyles(
-              height,
-              padding,
-              fontSize,
-              triggerColor,
-              borderColor,
-            ),
+            raw: <String, String>{
+              ...triggerStyles(
+                height,
+                padding,
+                fontSize,
+                triggerColor,
+                borderColor,
+              ),
+              ...?props.decoration?.universalStyles(),
+              ...decorationStyles(props.decoration),
+              ...?props.styles?.toMap(),
+            },
           ),
           events: props.disabled || props.onToggle == null
               ? null
@@ -269,7 +283,7 @@ abstract class SelectRenderBase<T> extends StatelessComponent {
                     ? null
                     : <String, void Function(dynamic)>{
                         'click': (dynamic e) {
-                          (e as dynamic).stopPropagation();
+                          domStopPropagation(e);
                           props.onClear!();
                         },
                       },
@@ -341,9 +355,7 @@ abstract class SelectRenderBase<T> extends StatelessComponent {
                         ? null
                         : <String, void Function(dynamic)>{
                             'input': (dynamic e) {
-                              final dynamic target = (e as dynamic).target;
-                              final String? value = target?.value;
-                              if (value != null) props.onSearchChange!(value);
+                              props.onSearchChange!(domEventValue(e));
                             },
                           },
                   ),

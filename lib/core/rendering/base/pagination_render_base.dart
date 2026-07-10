@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/props/pagination_props.dart';
 
 /// Shared structural base for the Neon-family pagination renderers.
@@ -28,6 +29,12 @@ abstract class PaginationRenderBase extends StatelessComponent {
   /// over [PaginationProps.style] lives in the concrete renderer because the
   /// values are entirely theme-specific.
   Map<String, String> buttonStyleVariant(bool isActive);
+
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
 
   @override
   Component build(BuildContext context) {
@@ -143,6 +150,9 @@ abstract class PaginationRenderBase extends StatelessComponent {
               'background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease',
           'opacity': disabled ? '0.45' : '1',
           ...styleVariant,
+          ...?props.decoration?.universalStyles(),
+          ...decorationStyles(props.decoration),
+          ...?props.styles?.toMap(),
         },
       ),
       events: disabled || props.onPageChange == null

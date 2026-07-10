@@ -1,6 +1,9 @@
 import 'package:arcane_jaspr/core/theme_provider.dart';
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../core/decoration/arcane_decoration.dart';
+import '../../util/style_types/arcane_style_data.dart';
+
 export 'package:arcane_jaspr/core/props/time_picker_props.dart';
 
 /// A time picker input with dropdown selection.
@@ -18,6 +21,12 @@ class ArcaneTimePicker extends StatefulWidget {
   final bool showSeconds;
   final ComponentSize size;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneTimePicker({
     this.id,
     this.value,
@@ -31,6 +40,8 @@ class ArcaneTimePicker extends StatefulWidget {
     this.clearable = true,
     this.showSeconds = false,
     this.size = ComponentSize.md,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -176,6 +187,8 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
         onTogglePeriod: _togglePeriod,
         onCancel: _cancel,
         onConfirm: _confirm,
+        styles: component.styles,
+        decoration: component.decoration,
       ),
     );
   }

@@ -1,7 +1,9 @@
 import 'package:jaspr/dom.dart' as dom;
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 /// A scrolling marquee-style announcement bar.
 ///
@@ -15,6 +17,12 @@ class ArcaneMarqueeTickerBar extends StatefulWidget {
   final void Function()? onDismiss;
   final bool showAtBottom;
 
+  /// Optional custom styles for the component.
+  final ArcaneStyleData? styles;
+
+  /// Optional decoration for the component.
+  final ArcaneDecoration? decoration;
+
   const ArcaneMarqueeTickerBar({
     required this.messages,
     this.promoCode,
@@ -23,6 +31,8 @@ class ArcaneMarqueeTickerBar extends StatefulWidget {
     this.onCtaClick,
     this.onDismiss,
     this.showAtBottom = false,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -50,6 +60,8 @@ class _ArcaneMarqueeTickerBarState extends State<ArcaneMarqueeTickerBar> {
       onCtaClick: component.onCtaClick,
       onDismiss: _handleDismiss,
       showAtBottom: component.showAtBottom,
+      styles: component.styles,
+      decoration: component.decoration,
     ));
   }
 }

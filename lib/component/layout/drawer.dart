@@ -1,6 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/drawer_props.dart' show DrawerPosition, DrawerSize;
 
@@ -23,6 +25,12 @@ class ArcaneDrawer extends StatelessWidget {
   final bool focusTrap;
   final bool restoreFocus;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneDrawer({
     this.id,
     required this.isOpen,
@@ -40,6 +48,8 @@ class ArcaneDrawer extends StatelessWidget {
     this.escapeCloses = true,
     this.focusTrap = true,
     this.restoreFocus = true,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -59,6 +69,8 @@ class ArcaneDrawer extends StatelessWidget {
     this.escapeCloses = true,
     this.focusTrap = true,
     this.restoreFocus = true,
+    this.styles,
+    this.decoration,
     super.key,
   }) : position = DrawerPosition.right;
 
@@ -78,6 +90,8 @@ class ArcaneDrawer extends StatelessWidget {
     this.escapeCloses = true,
     this.focusTrap = true,
     this.restoreFocus = true,
+    this.styles,
+    this.decoration,
     super.key,
   }) : position = DrawerPosition.left;
 
@@ -97,6 +111,8 @@ class ArcaneDrawer extends StatelessWidget {
     this.escapeCloses = true,
     this.focusTrap = true,
     this.restoreFocus = true,
+    this.styles,
+    this.decoration,
     super.key,
   }) : position = DrawerPosition.bottom;
 
@@ -119,6 +135,8 @@ class ArcaneDrawer extends StatelessWidget {
       escapeCloses: escapeCloses,
       focusTrap: focusTrap,
       restoreFocus: restoreFocus,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

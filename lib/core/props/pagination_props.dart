@@ -1,5 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
+
 enum PaginationStyleVariant {
   outline,
   filled,
@@ -28,6 +31,13 @@ class PaginationProps {
   final String nextText;
   final List<int?> pageNumbers;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const PaginationProps({
     required this.currentPage,
     required this.totalPages,
@@ -41,6 +51,8 @@ class PaginationProps {
     this.previousText = '<-',
     this.nextText = '->',
     this.pageNumbers = const [],
+    this.styles,
+    this.decoration,
   });
 }
 

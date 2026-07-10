@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/props/breadcrumbs_props.dart';
 
 /// Shared structural base for the Neon-family breadcrumb renderers.
@@ -31,6 +32,11 @@ abstract class BreadcrumbsRenderBase extends StatelessComponent {
   /// Builds the separator span for the resolved [separator] glyph.
   Component separatorSpan(String separator);
 
+  /// Per-instance decoration overrides. Default: none. Themes translate an
+  /// ArcaneDecoration into their own CSS; unimplemented fields are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   @override
   Component build(BuildContext context) {
     final (String fontSize, String gap) = switch (props.size) {
@@ -48,6 +54,9 @@ abstract class BreadcrumbsRenderBase extends StatelessComponent {
           'align-items': 'center',
           'gap': gap,
           'font-size': fontSize,
+          ...?props.decoration?.universalStyles(),
+          ...decorationStyles(props.decoration),
+          ...?props.styles?.toMap(),
         },
       ),
       <Component>[

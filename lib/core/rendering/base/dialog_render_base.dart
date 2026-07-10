@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/dialog_props.dart';
 
@@ -35,6 +36,12 @@ abstract class DialogRenderBase extends StatelessComponent {
   /// Generates the fallback surface id when [DialogProps.id] is null. Each theme
   /// keeps its own static counter so the generated id sequence is preserved.
   String generateAutoId();
+
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
 
   @override
   Component build(BuildContext context) {
@@ -82,6 +89,9 @@ abstract class DialogRenderBase extends StatelessComponent {
               'width': '100%',
               'padding': '2rem',
               'color': 'var(--foreground)',
+              ...?props.decoration?.universalStyles(),
+              ...decorationStyles(props.decoration),
+              ...?props.styles?.toMap(),
             },
           ),
           events: <String, EventCallback>{
@@ -183,6 +193,12 @@ abstract class SheetRenderBase extends StatelessComponent {
   /// keeps its own static counter so the generated id sequence is preserved.
   String generateAutoId();
 
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   bool get _isHorizontal =>
       props.position == SheetPosition.left ||
       props.position == SheetPosition.right;
@@ -277,6 +293,9 @@ abstract class SheetRenderBase extends StatelessComponent {
               ...positionStyles,
               'display': 'flex',
               'flex-direction': 'column',
+              ...?props.decoration?.universalStyles(),
+              ...decorationStyles(props.decoration),
+              ...?props.styles?.toMap(),
             },
           ),
           events: <String, EventCallback>{

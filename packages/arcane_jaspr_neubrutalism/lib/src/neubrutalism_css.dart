@@ -527,7 +527,7 @@ html.dark #arcane-root.arcane-theme-neubrutalism .kb-search-input {
 #arcane-root.arcane-theme-neubrutalism .arcane-scaffold-sidebar,
 #arcane-root.arcane-theme-neubrutalism .arcane-scaffold-secondary,
 #arcane-root.arcane-theme-neubrutalism .arcane-scaffold-footer,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-card,
+#arcane-root.arcane-theme-neubrutalism .neubrutalism-card:not([data-arcane-decorated]),
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-command-dialog,
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-accordion,
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-calendar,

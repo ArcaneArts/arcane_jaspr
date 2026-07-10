@@ -48,6 +48,11 @@ import 'props/slot_counter_props.dart';
 import 'props/spec_row_props.dart';
 import 'props/skeleton_props.dart';
 import 'props/static_table_props.dart';
+import 'props/cta_card_props.dart';
+import 'props/feature_card_props.dart';
+import 'props/pricing_card_props.dart';
+import 'props/stat_card_props.dart';
+import 'props/testimonial_card_props.dart';
 import 'props/status_badge_props.dart';
 import 'props/tabs_props.dart';
 import 'props/text_input_props.dart';
@@ -108,6 +113,11 @@ export 'props/slot_counter_props.dart';
 export 'props/spec_row_props.dart';
 export 'props/skeleton_props.dart';
 export 'props/static_table_props.dart';
+export 'props/cta_card_props.dart';
+export 'props/feature_card_props.dart';
+export 'props/pricing_card_props.dart';
+export 'props/stat_card_props.dart';
+export 'props/testimonial_card_props.dart';
 export 'props/status_badge_props.dart';
 export 'props/tabs_props.dart';
 export 'props/text_input_props.dart';
@@ -168,6 +178,11 @@ abstract class ComponentRenderers
         SpecRowRendererContract,
         SkeletonRendererContract,
         StaticTableRendererContract,
+        CTACardRendererContract,
+        FeatureCardRendererContract,
+        PricingCardRendererContract,
+        StatCardRendererContract,
+        TestimonialCardRendererContract,
         StatusBadgeRendererContract,
         TabsRendererContract,
         TextInputRendererContract,

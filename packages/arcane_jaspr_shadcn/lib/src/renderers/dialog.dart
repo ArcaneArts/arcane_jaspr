@@ -75,6 +75,8 @@ class ShadcnDialog extends StatelessComponent {
               'flex-direction': 'column',
               'overflow': 'hidden',
               'animation': 'arcane-scale-in var(--transition-slow)',
+              ...?props.decoration?.universalStyles(),
+              ...?props.styles?.toMap(),
             },
           ),
           events: <String, EventCallback>{
@@ -293,6 +295,11 @@ class ShadcnSheet extends StatelessComponent {
         });
         break;
     }
+
+    sheetStyles.addAll(<String, String>{
+      ...?props.decoration?.universalStyles(),
+      ...?props.styles?.toMap(),
+    });
 
     final Map<String, String> surfAttrs = surfaceAttrs(
       surface: 'sheet',

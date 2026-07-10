@@ -35,6 +35,8 @@ class ShadcnSidebar extends StatelessComponent {
           'transition': 'width var(--transition-slow)',
           'flex-shrink': '0',
           'overflow': 'hidden',
+          ...?props.decoration?.universalStyles(),
+          ...?props.styles?.toMap(),
         },
       ),
       [

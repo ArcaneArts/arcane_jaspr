@@ -13,6 +13,11 @@ import 'button.dart';
 import 'button_panel.dart';
 import 'calendar.dart';
 import 'card.dart';
+import 'cta_card.dart';
+import 'feature_card.dart';
+import 'pricing_card.dart';
+import 'stat_card.dart';
+import 'testimonial_card.dart';
 import 'chart.dart';
 import 'check_list.dart';
 import 'checkbox.dart';
@@ -82,6 +87,38 @@ class NeubrutalismRenderers extends ComponentRenderers {
 
   @override
   Component card(CardProps props) => NeubrutalismCard(props);
+
+  @override
+  Component statCard(StatCardProps props) => NeubrutalismStatCard(props);
+
+  @override
+  Component statCardRow(StatCardRowProps props) => NeubrutalismStatCardRow(props);
+
+  @override
+  Component featureCard(FeatureCardProps props) =>
+      NeubrutalismFeatureCard(props);
+
+  @override
+  Component iconCard(IconCardProps props) => NeubrutalismIconCard(props);
+
+  @override
+  Component ctaCard(CTACardProps props) => NeubrutalismCtaCard(props);
+
+  @override
+  Component testimonialCard(TestimonialCardProps props) =>
+      NeubrutalismTestimonialCard(props);
+
+  @override
+  Component ratingStarsSimple(RatingStarsSimpleProps props) =>
+      NeubrutalismRatingStarsSimple(props);
+
+  @override
+  Component pricingCard(PricingCardProps props) =>
+      NeubrutalismPricingCard(props);
+
+  @override
+  Component pricingGrid(PricingGridProps props) =>
+      NeubrutalismPricingGrid(props);
 
   @override
   Component chart(ChartProps props) => NeubrutalismChart(props);

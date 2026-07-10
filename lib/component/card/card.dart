@@ -2,8 +2,10 @@ import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart' as dom;
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
 import '../../util/arcane.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 /// Card component with consistent styling and multiple variants.
 class Card extends StatelessWidget {
@@ -16,6 +18,12 @@ class Card extends StatelessWidget {
   final String? backgroundColor;
   final bool fillWidth;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const Card({
     Widget? child,
     List<Widget>? children,
@@ -26,6 +34,8 @@ class Card extends StatelessWidget {
     void Function()? onClick,
     this.backgroundColor,
     this.fillWidth = false,
+    this.styles,
+    this.decoration,
     super.key,
   })  : _child = child,
         _children = children,
@@ -42,6 +52,8 @@ class Card extends StatelessWidget {
     void Function()? onClick,
     this.backgroundColor,
     this.fillWidth = false,
+    this.styles,
+    this.decoration,
     super.key,
   })  : _child = child,
         _children = children,
@@ -59,6 +71,8 @@ class Card extends StatelessWidget {
     void Function()? onClick,
     this.backgroundColor,
     this.fillWidth = false,
+    this.styles,
+    this.decoration,
     super.key,
   })  : _child = child,
         _children = children,
@@ -76,6 +90,8 @@ class Card extends StatelessWidget {
     void Function()? onClick,
     this.backgroundColor,
     this.fillWidth = false,
+    this.styles,
+    this.decoration,
     super.key,
   })  : _child = child,
         _children = children,
@@ -93,6 +109,8 @@ class Card extends StatelessWidget {
     void Function()? onClick,
     this.backgroundColor,
     this.fillWidth = false,
+    this.styles,
+    this.decoration,
     super.key,
   })  : _child = child,
         _children = children,
@@ -110,6 +128,8 @@ class Card extends StatelessWidget {
     void Function()? onClick,
     this.backgroundColor,
     this.fillWidth = false,
+    this.styles,
+    this.decoration,
     super.key,
   })  : _child = child,
         _children = children,
@@ -127,6 +147,8 @@ class Card extends StatelessWidget {
     void Function()? onClick,
     this.backgroundColor,
     this.fillWidth = false,
+    this.styles,
+    this.decoration,
     super.key,
   })  : _child = child,
         _children = children,
@@ -146,6 +168,8 @@ class Card extends StatelessWidget {
       backgroundColor: backgroundColor,
       fillWidth: fillWidth,
       onTap: _onTap,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

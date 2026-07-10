@@ -51,6 +51,8 @@ abstract class ConfirmDialogRenderBase extends StatelessComponent {
         title: props.title,
         onClose: props.onCancel,
         maxWidth: maxWidth,
+        styles: props.styles,
+        decoration: props.decoration,
         content: <Component>[
           dom.div(
             classes: contentClass,
@@ -143,6 +145,8 @@ abstract class AlertDialogRenderBase extends StatelessComponent {
         title: props.title,
         onClose: props.onDismiss,
         maxWidth: maxWidth,
+        styles: props.styles,
+        decoration: props.decoration,
         content: <Component>[
           dom.div(
             styles: dom.Styles(

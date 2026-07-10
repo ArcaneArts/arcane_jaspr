@@ -1,6 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 import '../interaction/interaction.dart';
 import '../shared/shared.dart';
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 
 export '../shared/shared.dart' show ComponentSize;
 
@@ -48,6 +50,13 @@ class TextInputProps {
   final String? fieldName;
   final Map<String, String>? attributes;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const TextInputProps({
     this.placeholder,
     this.type = TextInputType.text,
@@ -74,6 +83,8 @@ class TextInputProps {
     this.formId,
     this.fieldName,
     this.attributes,
+    this.styles,
+    this.decoration,
   });
 
   TextInputProps copyWith({
@@ -102,6 +113,8 @@ class TextInputProps {
     String? formId,
     String? fieldName,
     Map<String, String>? attributes,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     return TextInputProps(
       placeholder: placeholder ?? this.placeholder,
@@ -129,6 +142,8 @@ class TextInputProps {
       formId: formId ?? this.formId,
       fieldName: fieldName ?? this.fieldName,
       attributes: attributes ?? this.attributes,
+      styles: styles ?? this.styles,
+      decoration: decoration ?? this.decoration,
     );
   }
 }

@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/floating_props.dart'
     show FloatingTrigger, FloatingPosition, FloatingProps;
@@ -35,6 +37,12 @@ class ArcaneHoverCard extends StatefulWidget {
   final bool closeOnOutsideClick;
   final bool closeOnEscape;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneHoverCard({
     this.id,
     required this.trigger,
@@ -51,6 +59,8 @@ class ArcaneHoverCard extends StatefulWidget {
     this.maxWidth,
     this.closeOnOutsideClick = true,
     this.closeOnEscape = true,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -63,6 +73,8 @@ class ArcaneHoverCard extends StatefulWidget {
     required String this.textContent,
     this.position = FloatingPosition.top,
     this.maxWidth = 250,
+    this.styles,
+    this.decoration,
     super.key,
   })  : trigger = child,
         content = null,
@@ -83,6 +95,8 @@ class ArcaneHoverCard extends StatefulWidget {
     required Widget this.content,
     this.position = FloatingPosition.top,
     this.maxWidth,
+    this.styles,
+    this.decoration,
     super.key,
   })  : trigger = child,
         textContent = null,
@@ -111,6 +125,8 @@ class ArcaneHoverCard extends StatefulWidget {
     this.offset = 8,
     this.closeOnOutsideClick = true,
     this.closeOnEscape = true,
+    this.styles,
+    this.decoration,
     super.key,
   })  : textContent = null,
         triggerType = FloatingTrigger.click,
@@ -133,6 +149,8 @@ class ArcaneHoverCard extends StatefulWidget {
     this.closeDelay = 300,
     this.isOpen,
     this.onOpenChange,
+    this.styles,
+    this.decoration,
     super.key,
   })  : textContent = null,
         triggerType = FloatingTrigger.hover,
@@ -234,6 +252,8 @@ class _ArcaneHoverCardState extends State<ArcaneHoverCard> {
       maxWidth: component.maxWidth ?? (isTextTooltip ? 250 : null),
       closeOnOutsideClick: component.closeOnOutsideClick,
       closeOnEscape: component.closeOnEscape,
+      styles: component.styles,
+      decoration: component.decoration,
     ));
   }
 }

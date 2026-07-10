@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/interaction/interaction.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/toggle_group_props.dart';
@@ -33,6 +34,11 @@ abstract class ToggleGroupRenderBase extends StatelessComponent {
 
   /// Inline styles for the container element.
   Map<String, String> get containerStyles;
+
+  /// Per-instance decoration overrides. Default: none. Themes translate an
+  /// ArcaneDecoration into their own CSS; unimplemented fields are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
 
   /// Extra container attributes merged after `role="group"` (e.g.
   /// `data-disabled`/`data-variant`/`data-size`); return an empty map for none.
@@ -71,7 +77,12 @@ abstract class ToggleGroupRenderBase extends StatelessComponent {
     return dom.div(
       classes: cssClass,
       attributes: rootAttrs,
-      styles: dom.Styles(raw: containerStyles),
+      styles: dom.Styles(raw: <String, String>{
+        ...containerStyles,
+        ...?props.decoration?.universalStyles(),
+        ...decorationStyles(props.decoration),
+        ...?props.styles?.toMap(),
+      }),
       <Component>[
         for (final ToggleGroupItemProps item in props.items)
           buildItem(groupId, item),

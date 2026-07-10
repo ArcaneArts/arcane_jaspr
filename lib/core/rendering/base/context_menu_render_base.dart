@@ -2,6 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/component/view/icon.dart';
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/interaction/interaction.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/context_menu_props.dart';
@@ -33,6 +34,12 @@ abstract class ContextMenuRenderBase extends StatelessComponent {
 
   /// Raw style map for the menu surface container.
   Map<String, String> get menuStyles;
+
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
 
   /// Raw style map for a separator item.
   Map<String, String> get separatorStyles;
@@ -91,7 +98,12 @@ abstract class ContextMenuRenderBase extends StatelessComponent {
         dom.div(
           classes: '$themePrefix-context-menu$popoverSuffix',
           attributes: menuAttrs,
-          styles: dom.Styles(raw: menuStyles),
+          styles: dom.Styles(raw: <String, String>{
+            ...menuStyles,
+            ...?props.decoration?.universalStyles(),
+            ...decorationStyles(props.decoration),
+            ...?props.styles?.toMap(),
+          }),
           [for (final item in props.items) _buildMenuItem(item, surfaceId)],
         ),
       ],

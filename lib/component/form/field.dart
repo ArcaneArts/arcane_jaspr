@@ -1,3 +1,4 @@
+import '../../core/dom_value.dart';
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
@@ -251,7 +252,7 @@ class _StringFieldBuilder extends StatelessWidget {
           'input': (event) {
             final dynamic target = event.target;
             if (target != null) {
-              onChanged((target as dynamic).value ?? '');
+              onChanged(domInputValue(target));
             }
           },
         },
@@ -280,7 +281,7 @@ class _StringFieldBuilder extends StatelessWidget {
         'input': (event) {
           final dynamic target = event.target;
           if (target != null) {
-            onChanged((target as dynamic).value ?? '');
+            onChanged(domInputValue(target));
           }
         },
       },
@@ -324,7 +325,7 @@ class _BoolFieldBuilder extends StatelessWidget {
             'change': (event) {
               final dynamic target = event.target;
               if (target != null) {
-                onChanged((target as dynamic).checked ?? false);
+                onChanged(domCheckedValue(target));
               }
             },
           },
@@ -374,7 +375,7 @@ class _SelectFieldBuilder<T> extends StatelessWidget {
         'change': (event) {
           final dynamic target = event.target;
           if (target != null) {
-            final int selectedIndex = (target as dynamic).selectedIndex as int? ?? 0;
+            final int selectedIndex = domSelectedIndex(target);
             if (selectedIndex >= 0 && selectedIndex < options.length) {
               onChanged(options[selectedIndex]);
             }

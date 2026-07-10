@@ -1,6 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 import 'icon.dart';
 
 export '../../core/props/empty_state_props.dart'
@@ -19,6 +21,12 @@ class ArcaneEmptyState extends StatelessWidget {
   final EmptyStateStyle style;
   final EmptyStateSize size;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneEmptyState({
     required this.title,
     this.icon,
@@ -27,6 +35,8 @@ class ArcaneEmptyState extends StatelessWidget {
     this.secondaryAction,
     this.style = EmptyStateStyle.centered,
     this.size = EmptyStateSize.md,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -37,6 +47,8 @@ class ArcaneEmptyState extends StatelessWidget {
     this.secondaryAction,
     this.style = EmptyStateStyle.centered,
     this.size = EmptyStateSize.md,
+    this.styles,
+    this.decoration,
     super.key,
   }) : icon = ArcaneIcon.search(size: IconSize.lg);
 
@@ -47,6 +59,8 @@ class ArcaneEmptyState extends StatelessWidget {
     this.secondaryAction,
     this.style = EmptyStateStyle.centered,
     this.size = EmptyStateSize.md,
+    this.styles,
+    this.decoration,
     super.key,
   }) : icon = ArcaneIcon.database(size: IconSize.lg);
 
@@ -57,6 +71,8 @@ class ArcaneEmptyState extends StatelessWidget {
     this.secondaryAction,
     this.style = EmptyStateStyle.centered,
     this.size = EmptyStateSize.md,
+    this.styles,
+    this.decoration,
     super.key,
   }) : icon = ArcaneIcon.triangleAlert(size: IconSize.lg);
 
@@ -67,6 +83,8 @@ class ArcaneEmptyState extends StatelessWidget {
     this.secondaryAction,
     this.style = EmptyStateStyle.centered,
     this.size = EmptyStateSize.md,
+    this.styles,
+    this.decoration,
     super.key,
   }) : icon = ArcaneIcon.wifiOff(size: IconSize.lg);
 
@@ -92,6 +110,8 @@ class ArcaneEmptyState extends StatelessWidget {
       secondaryAction: secondaryAction,
       style: _propsStyle,
       size: _propsSize,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

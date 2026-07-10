@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/interaction/interaction.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/toggle_switch_props.dart';
@@ -27,6 +28,12 @@ abstract class ToggleSwitchRenderBase extends StatelessComponent {
   /// Builds the visual switch (track + thumb). [itemAttrs] are the resolved
   /// group-item/interaction attributes that must be placed on the control.
   Component buildSwitch(ToggleSwitchProps props, Map<String, String> itemAttrs);
+
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
 
   /// Class applied to the label text span.
   String get labelClasses;

@@ -109,7 +109,7 @@ class _ShadcnPromoModalState extends State<ShadcnPromoModal> {
       [
         dom.div(
           classes: 'arcane-promo-modal',
-          styles: const dom.Styles(
+          styles: dom.Styles(
             raw: {
               'position': 'relative',
               'display': 'flex',
@@ -122,6 +122,8 @@ class _ShadcnPromoModalState extends State<ShadcnPromoModal> {
               'box-shadow': '0 10px 40px rgba(0, 0, 0, 0.3)',
               'max-width': '448px',
               'width': '100%',
+              ...?component.props.decoration?.universalStyles(),
+              ...?component.props.styles?.toMap(),
             },
           ),
           events: {'click': (event) => event.stopPropagation()},

@@ -72,6 +72,8 @@ class _NeonSlidingSidebarBannerState extends State<NeonSlidingSidebarBanner> {
           'border-radius': 'var(--radius-xl)',
           'box-shadow': '0 8px 24px rgba(0, 0, 0, 0.15)',
           'padding': '1.5rem',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [

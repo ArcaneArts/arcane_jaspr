@@ -81,6 +81,8 @@ class _NeonCornerPromoToastState extends State<NeonCornerPromoToast> {
           'border-radius': 'var(--radius-lg)',
           'box-shadow': '0 8px 24px rgba(0, 0, 0, 0.15)',
           'padding': '1.25rem',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [

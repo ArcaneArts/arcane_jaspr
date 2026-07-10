@@ -1,5 +1,8 @@
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/props/card_props.dart';
 import 'package:arcane_jaspr/core/rendering/base/card_render_base.dart';
+
+import 'decoration_styles.dart';
 
 /// ShadCN Card renderer.
 ///
@@ -9,6 +12,10 @@ class ShadcnCard extends CardRenderBase {
 
   @override
   String get cssClass => 'arcane-card';
+
+  @override
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      shadcnDecorationStyles(decoration);
 
   // ShadCN Card: rounded-lg border bg-card text-card-foreground shadow-sm
   @override

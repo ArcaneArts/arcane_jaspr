@@ -65,7 +65,7 @@ class _NeubrutalismMinimizablePromoState extends State<NeubrutalismMinimizablePr
       // Minimized tab
       return dom.button(
         classes: 'neubrutalism-minimizable-promo-tab',
-        styles: const dom.Styles(
+        styles: dom.Styles(
           raw: {
             'position': 'fixed',
             'top': '50%',
@@ -87,6 +87,8 @@ class _NeubrutalismMinimizablePromoState extends State<NeubrutalismMinimizablePr
             'cursor': 'pointer',
             // Neubrutalism: accent glow
             'box-shadow': 'var(--nb-shadow-md, 5px 5px 0 0 var(--nb-shadow-color, #000))',
+            ...?component.props.decoration?.universalStyles(),
+            ...?component.props.styles?.toMap(),
           },
         ),
         events: {'click': (_) => _toggleExpanded()},
@@ -97,7 +99,7 @@ class _NeubrutalismMinimizablePromoState extends State<NeubrutalismMinimizablePr
     // Expanded panel
     return dom.div(
       classes: 'neubrutalism-minimizable-promo-panel',
-      styles: const dom.Styles(
+      styles: dom.Styles(
         raw: {
           'position': 'fixed',
           'top': '50%',
@@ -114,6 +116,8 @@ class _NeubrutalismMinimizablePromoState extends State<NeubrutalismMinimizablePr
           // Neubrutalism: accent glow
           'box-shadow': 'var(--nb-shadow-md, 5px 5px 0 0 var(--nb-shadow-color, #000))',
           'padding': '1.5rem',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [

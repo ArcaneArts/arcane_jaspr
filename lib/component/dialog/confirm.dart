@@ -1,6 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/confirm_dialog_props.dart';
 
@@ -14,6 +16,8 @@ class ArcaneConfirmDialog extends StatelessWidget {
   final void Function()? onCancel;
   final bool destructive;
   final Widget? icon;
+  final ArcaneStyleData? styles;
+  final ArcaneDecoration? decoration;
 
   const ArcaneConfirmDialog({
     required this.title,
@@ -24,6 +28,8 @@ class ArcaneConfirmDialog extends StatelessWidget {
     this.onCancel,
     this.destructive = false,
     this.icon,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -38,6 +44,8 @@ class ArcaneConfirmDialog extends StatelessWidget {
       onCancel: onCancel,
       destructive: destructive,
       icon: icon,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }
@@ -49,6 +57,8 @@ class ArcaneAlertDialog extends StatelessWidget {
   final String buttonText;
   final void Function()? onDismiss;
   final Widget? icon;
+  final ArcaneStyleData? styles;
+  final ArcaneDecoration? decoration;
 
   const ArcaneAlertDialog({
     required this.title,
@@ -56,6 +66,8 @@ class ArcaneAlertDialog extends StatelessWidget {
     this.buttonText = 'OK',
     this.onDismiss,
     this.icon,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -67,6 +79,8 @@ class ArcaneAlertDialog extends StatelessWidget {
       buttonText: buttonText,
       onDismiss: onDismiss,
       icon: icon,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

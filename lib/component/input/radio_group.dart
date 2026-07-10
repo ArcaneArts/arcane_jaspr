@@ -5,6 +5,8 @@ export '../../core/props/radio_group_props.dart'
 
 import '../../core/interaction/interaction.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
+import '../../core/decoration/arcane_decoration.dart';
 
 /// Radio button option model.
 class RadioOption<T> {
@@ -43,6 +45,13 @@ class ArcaneRadioGroup<T> extends StatelessWidget {
   final String gap;
   final int gridColumns;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const ArcaneRadioGroup({
     required this.options,
     this.id,
@@ -59,6 +68,8 @@ class ArcaneRadioGroup<T> extends StatelessWidget {
     this.required = false,
     this.gap = '0.5rem',
     this.gridColumns = 2,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -91,6 +102,8 @@ class ArcaneRadioGroup<T> extends StatelessWidget {
       required: required,
       gap: gap,
       gridColumns: gridColumns,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

@@ -1,7 +1,9 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/interaction/interaction.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/select_props.dart'
     show ComponentSize, SelectProps, SelectOptionProps;
@@ -25,6 +27,13 @@ class ArcaneCombobox<T> extends StatefulWidget {
   final String? group;
   final ArcaneInteraction? onChangedAction;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const ArcaneCombobox({
     required this.options,
     this.value,
@@ -42,6 +51,8 @@ class ArcaneCombobox<T> extends StatefulWidget {
     this.id,
     this.group,
     this.onChangedAction,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -137,6 +148,8 @@ class _ArcaneComboboxState<T> extends State<ArcaneCombobox<T>> {
       id: component.id,
       group: component.group,
       onSelectAction: component.onChangedAction,
+      styles: component.styles,
+      decoration: component.decoration,
     ));
   }
 }

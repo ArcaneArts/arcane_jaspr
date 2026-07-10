@@ -5,7 +5,9 @@ import 'package:jaspr/dom.dart' as dom;
 export '../../core/props/toggle_switch_props.dart'
     show ComponentSize, ColorVariant;
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 /// A toggle switch component.
 class ArcaneToggleSwitch extends StatelessWidget {
@@ -20,6 +22,13 @@ class ArcaneToggleSwitch extends StatelessWidget {
   final String? group;
   final String? itemValue;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const ArcaneToggleSwitch({
     this.id,
     required this.value,
@@ -32,6 +41,8 @@ class ArcaneToggleSwitch extends StatelessWidget {
     this.labelLeft = false,
     this.group,
     this.itemValue,
+    this.styles,
+    this.decoration,
     super.key,
   }) : onChanged = onChanged ?? onToggle;
 
@@ -46,6 +57,8 @@ class ArcaneToggleSwitch extends StatelessWidget {
     this.labelLeft = false,
     this.group,
     this.itemValue,
+    this.styles,
+    this.decoration,
     super.key,
   })  : onChanged = onChanged ?? onToggle,
         color = ColorVariant.primary;
@@ -61,6 +74,8 @@ class ArcaneToggleSwitch extends StatelessWidget {
     this.labelLeft = false,
     this.group,
     this.itemValue,
+    this.styles,
+    this.decoration,
     super.key,
   })  : onChanged = onChanged ?? onToggle,
         color = ColorVariant.success;
@@ -76,6 +91,8 @@ class ArcaneToggleSwitch extends StatelessWidget {
     this.labelLeft = false,
     this.group,
     this.itemValue,
+    this.styles,
+    this.decoration,
     super.key,
   })  : onChanged = onChanged ?? onToggle,
         color = ColorVariant.warning;
@@ -91,6 +108,8 @@ class ArcaneToggleSwitch extends StatelessWidget {
     this.labelLeft = false,
     this.group,
     this.itemValue,
+    this.styles,
+    this.decoration,
     super.key,
   })  : onChanged = onChanged ?? onToggle,
         color = ColorVariant.destructive;
@@ -115,6 +134,8 @@ class ArcaneToggleSwitch extends StatelessWidget {
       labelLeft: labelLeft,
       group: group,
       itemValue: itemValue,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

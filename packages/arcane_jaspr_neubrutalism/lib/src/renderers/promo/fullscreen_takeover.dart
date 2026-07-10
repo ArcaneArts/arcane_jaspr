@@ -89,7 +89,7 @@ class _NeubrutalismFullscreenTakeoverState extends State<NeubrutalismFullscreenT
 
     return dom.div(
       classes: 'neubrutalism-fullscreen-takeover',
-      styles: const dom.Styles(
+      styles: dom.Styles(
         raw: {
           'position': 'fixed',
           'inset': '0',
@@ -101,6 +101,8 @@ class _NeubrutalismFullscreenTakeoverState extends State<NeubrutalismFullscreenT
           'padding': '2rem',
           // Neubrutalism: dramatic dark background with gradient
           'background': 'var(--nb-paper, var(--card))',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [

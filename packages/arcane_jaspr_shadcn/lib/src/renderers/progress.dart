@@ -61,6 +61,8 @@ class ShadcnProgress extends StatelessComponent {
           'overflow': 'hidden',
           'border-radius': 'var(--radius-full)', // rounded-full
           'background-color': trackColor,
+          ...?props.decoration?.universalStyles(),
+          ...?props.styles?.toMap(),
         },
       ),
       [
@@ -171,6 +173,8 @@ class ShadcnLoadingSpinner extends StatelessComponent {
           'border-top-color': spinnerColor,
           'border-radius': 'var(--radius-full)',
           'animation': 'arcane-spin 0.75s linear infinite',
+          ...?props.decoration?.universalStyles(),
+          ...?props.styles?.toMap(),
         },
       ),
       [],

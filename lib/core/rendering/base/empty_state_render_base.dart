@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/props/empty_state_props.dart';
 
 /// Shared structural base for themed empty-state renderers.
@@ -16,9 +17,10 @@ import 'package:arcane_jaspr/core/props/empty_state_props.dart';
 ///  * [buildBody] — the title/description section. ShadCN renders flat `div`s
 ///    as direct siblings, while Neon/Neubrutalism nest an `h3`/`p` pair inside
 ///    a text-wrapper element, so the node structure differs per theme.
-///  * [buildRoot] — the final wrapping. ShadCN returns the bare content for the
-///    non-card style, while Neon/Neubrutalism always wrap it in an outer
-///    element, so the node structure differs per theme.
+///  * [buildRoot] — the final wrapping. ShadCN wraps the non-card style in a
+///    bare, class-less `div` (only to host `extraStyles`), while
+///    Neon/Neubrutalism always wrap it in a classed outer element, so the
+///    node structure differs per theme.
 ///
 /// This base lives in core and depends only on core props; it must never depend
 /// on a theme package.
@@ -51,9 +53,17 @@ abstract class EmptyStateRenderBase extends StatelessComponent {
   /// others wrap them in a single container.
   List<Component> buildBody();
 
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   /// Wraps the assembled [content] container in the theme's outer element,
-  /// applying the card-vs-default decision per theme.
-  Component buildRoot(Component content);
+  /// applying the card-vs-default decision per theme. [extraStyles] is the
+  /// merged decoration/style override that must be spread into the theme's
+  /// visible root element.
+  Component buildRoot(Component content, Map<String, String> extraStyles);
 
   @override
   Component build(BuildContext context) {
@@ -82,6 +92,12 @@ abstract class EmptyStateRenderBase extends StatelessComponent {
       contentChildren,
     );
 
-    return buildRoot(content);
+    final Map<String, String> extraStyles = <String, String>{
+      ...?props.decoration?.universalStyles(),
+      ...decorationStyles(props.decoration),
+      ...?props.styles?.toMap(),
+    };
+
+    return buildRoot(content, extraStyles);
   }
 }

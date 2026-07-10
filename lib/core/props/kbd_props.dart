@@ -1,5 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 import '../shared/shared.dart';
 
 export '../shared/shared.dart' show ComponentSize;
@@ -18,12 +20,21 @@ class KbdProps {
   final KbdStyle style;
   final ComponentSize size;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const KbdProps({
     this.keyText,
     this.keys,
     this.separator = '+',
     this.style = KbdStyle.raised,
     this.size = ComponentSize.md,
+    this.styles,
+    this.decoration,
   }) : assert(keyText != null || keys != null,
             'Either keyText or keys must be provided');
 
@@ -31,6 +42,8 @@ class KbdProps {
     String key, {
     this.style = KbdStyle.raised,
     this.size = ComponentSize.md,
+    this.styles,
+    this.decoration,
   })  : keyText = key,
         keys = null,
         separator = '+';
@@ -40,6 +53,8 @@ class KbdProps {
     this.separator = '+',
     this.style = KbdStyle.raised,
     this.size = ComponentSize.md,
+    this.styles,
+    this.decoration,
   }) : keyText = null;
 }
 

@@ -2,6 +2,7 @@ import 'package:jaspr/dom.dart' as dom;
 import 'package:jaspr/jaspr.dart';
 
 import 'package:arcane_jaspr/component/view/icon.dart';
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/props/time_picker_props.dart';
 
 /// Shared structural base for themed time picker renderers.
@@ -32,6 +33,11 @@ abstract class TimePickerRenderBase extends StatelessComponent {
 
   /// Inline styles for the wrapper element.
   Map<String, String> get rootStyles;
+
+  /// Per-instance decoration overrides. Default: none. Themes translate an
+  /// ArcaneDecoration into their own CSS; unimplemented fields are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
 
   /// Inline styles for the label span.
   Map<String, String> get labelStyles;
@@ -108,7 +114,12 @@ abstract class TimePickerRenderBase extends StatelessComponent {
     return dom.div(
       classes: rootClasses(hasError),
       attributes: rootAttributes,
-      styles: dom.Styles(raw: rootStyles),
+      styles: dom.Styles(raw: <String, String>{
+        ...rootStyles,
+        ...?props.decoration?.universalStyles(),
+        ...decorationStyles(props.decoration),
+        ...?props.styles?.toMap(),
+      }),
       <Component>[
         if (props.label != null)
           dom.span(

@@ -1,5 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
+
 enum CalendarModeVariant {
   single,
   range,
@@ -35,6 +38,13 @@ class CalendarProps {
   final void Function()? onGoToToday;
   final void Function(DateTime date)? onSelectDate;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const CalendarProps({
     this.id,
     this.selected,
@@ -52,6 +62,8 @@ class CalendarProps {
     this.onNextMonth,
     this.onGoToToday,
     this.onSelectDate,
+    this.styles,
+    this.decoration,
   });
 }
 

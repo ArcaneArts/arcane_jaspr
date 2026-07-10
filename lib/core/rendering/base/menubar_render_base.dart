@@ -2,6 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/component/view/icon.dart';
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/props/menubar_props.dart';
 
 /// Shared structural base for the Neon-family menubar renderers.
@@ -49,12 +50,24 @@ abstract class MenubarRenderBase extends StatelessComponent {
   /// `color` of the checkbox check / radio dot indicator.
   String get indicatorColor;
 
+  /// Per-instance decoration overrides. Default: none. Themes translate an
+  /// ArcaneDecoration into their own CSS; unimplemented fields are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   @override
   Component build(BuildContext context) {
     return dom.div(
       classes: '$themePrefix-menubar',
       attributes: const <String, String>{'role': 'menubar'},
-      styles: dom.Styles(raw: rootStyles),
+      styles: dom.Styles(
+        raw: <String, String>{
+          ...rootStyles,
+          ...?props.decoration?.universalStyles(),
+          ...decorationStyles(props.decoration),
+          ...?props.styles?.toMap(),
+        },
+      ),
       <Component>[
         for (int i = 0; i < props.menus.length; i++)
           _buildMenu(props.menus[i], i),

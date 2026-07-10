@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/drawer_props.dart';
 
@@ -47,6 +48,15 @@ abstract class DrawerRenderBase extends StatelessComponent {
   /// Generates the fallback surface id when [DrawerProps.id] is null. Each theme
   /// keeps its own static counter so the generated id sequence is preserved.
   String generateAutoId();
+
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  ///
+  /// Distinct from [panelDecorationStyles], which supplies the theme's own
+  /// intrinsic panel surface styles.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
 
   @override
   Component build(BuildContext context) {
@@ -141,6 +151,9 @@ abstract class DrawerRenderBase extends StatelessComponent {
               'display': 'flex',
               'flex-direction': 'column',
               ...panelDecorationStyles,
+              ...?props.decoration?.universalStyles(),
+              ...decorationStyles(props.decoration),
+              ...?props.styles?.toMap(),
             },
           ),
           events: <String, EventCallback>{

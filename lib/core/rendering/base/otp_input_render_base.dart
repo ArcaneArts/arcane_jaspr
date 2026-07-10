@@ -1,6 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
+import 'package:arcane_jaspr/core/dom_value.dart';
 import 'package:arcane_jaspr/core/props/otp_input_props.dart';
 
 /// Shared structural base for themed OTP input renderers.
@@ -68,6 +70,12 @@ abstract class OtpInputRenderBase extends StatelessComponent {
     String fontSize,
   );
 
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   /// Whether the digit slot at [i] currently holds a value.
   bool isFilled(int i, List<String> digits) =>
       digits.length > i && digits[i].isNotEmpty;
@@ -122,13 +130,17 @@ abstract class OtpInputRenderBase extends StatelessComponent {
                     : dom.InputType.text,
                 attributes: digitAttributes(i, hasError, digits),
                 styles: dom.Styles(
-                  raw: digitStyles(i, hasError, digits, size, fontSize),
+                  raw: <String, String>{
+                    ...digitStyles(i, hasError, digits, size, fontSize),
+                    ...?props.decoration?.universalStyles(),
+                    ...decorationStyles(props.decoration),
+                    ...?props.styles?.toMap(),
+                  },
                 ),
                 events: props.onInput != null
                     ? <String, EventCallback>{
                         'input': (e) {
-                          final dynamic target = e.target;
-                          props.onInput!(i, target.value as String);
+                          props.onInput!(i, domInputValue(e.target));
                         },
                       }
                     : null,

@@ -1,11 +1,18 @@
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/props/card_props.dart';
 import 'package:arcane_jaspr/core/rendering/base/card_render_base.dart';
+
+import 'decoration_styles.dart';
 
 class NeubrutalismCard extends CardRenderBase {
   const NeubrutalismCard(super.props, {super.key});
 
   @override
   String get cssClass => 'neubrutalism-card';
+
+  @override
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      neubrutalismDecorationStyles(decoration);
 
   @override
   Map<String, String> baseStyles(CardProps props) => <String, String>{

@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/props/toast_props.dart';
 
 /// Shared structural base for the neon/neubrutalism toast renderers.
@@ -49,6 +50,11 @@ abstract class ToastRenderBase extends StatelessComponent {
   /// Builds the loading spinner (loading variant only).
   Component buildLoadingSpinner();
 
+  /// Per-instance decoration overrides. Default: none. Themes translate an
+  /// ArcaneDecoration into their own CSS; unimplemented fields are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   String _accent(ToastVariant variant) => switch (variant) {
     ToastVariant.info => 'var(--info)',
     ToastVariant.success => 'var(--success)',
@@ -70,6 +76,9 @@ abstract class ToastRenderBase extends StatelessComponent {
           ...rootBaseStyles(accentVar),
           if (props.isExiting) 'opacity': '0',
           if (props.isExiting) 'transform': 'translateX(100%)',
+          ...?props.decoration?.universalStyles(),
+          ...decorationStyles(props.decoration),
+          ...?props.styles?.toMap(),
         },
       ),
       events: <String, EventCallback>{

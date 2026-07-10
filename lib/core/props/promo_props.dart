@@ -1,5 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
+
 // ============================================================================
 // ENUMS
 // ============================================================================
@@ -56,6 +59,12 @@ class TopAnnouncementBarProps {
   /// Whether to show the copy button for the promo code.
   final bool showCopyButton;
 
+  /// Optional custom styles for the component.
+  final ArcaneStyleData? styles;
+
+  /// Optional decoration for the component.
+  final ArcaneDecoration? decoration;
+
   const TopAnnouncementBarProps({
     required this.message,
     this.promoCode,
@@ -64,6 +73,8 @@ class TopAnnouncementBarProps {
     this.onCtaClick,
     this.onDismiss,
     this.showCopyButton = true,
+    this.styles,
+    this.decoration,
   });
 }
 
@@ -106,6 +117,12 @@ class BottomFloatingBannerProps {
   /// Delay in milliseconds before showing the banner.
   final int delayMs;
 
+  /// Optional custom styles for the component.
+  final ArcaneStyleData? styles;
+
+  /// Optional decoration for the component.
+  final ArcaneDecoration? decoration;
+
   const BottomFloatingBannerProps({
     required this.title,
     required this.message,
@@ -117,6 +134,8 @@ class BottomFloatingBannerProps {
     this.countdownDuration,
     this.expiresAt,
     this.delayMs = 2000,
+    this.styles,
+    this.decoration,
   });
 }
 
@@ -159,6 +178,12 @@ class CornerPromoToastProps {
   /// Optional icon to display.
   final Widget? icon;
 
+  /// Optional custom styles for the component.
+  final ArcaneStyleData? styles;
+
+  /// Optional decoration for the component.
+  final ArcaneDecoration? decoration;
+
   const CornerPromoToastProps({
     required this.title,
     required this.message,
@@ -170,6 +195,8 @@ class CornerPromoToastProps {
     this.position = PromoCornerPosition.bottomRight,
     this.delayMs = 3000,
     this.icon,
+    this.styles,
+    this.decoration,
   });
 }
 
@@ -218,6 +245,12 @@ class PromoModalProps {
   /// Optional hero image component.
   final Widget? heroImage;
 
+  /// Optional custom styles for the component.
+  final ArcaneStyleData? styles;
+
+  /// Optional decoration for the component.
+  final ArcaneDecoration? decoration;
+
   const PromoModalProps({
     required this.title,
     required this.subtitle,
@@ -231,6 +264,8 @@ class PromoModalProps {
     this.delayMs = 1000,
     this.countdownDuration,
     this.heroImage,
+    this.styles,
+    this.decoration,
   });
 }
 
@@ -270,6 +305,12 @@ class InlineHeroBannerProps {
   /// Optional icon to display.
   final Widget? icon;
 
+  /// Optional custom styles for the component.
+  final ArcaneStyleData? styles;
+
+  /// Optional decoration for the component.
+  final ArcaneDecoration? decoration;
+
   const InlineHeroBannerProps({
     required this.message,
     this.promoCode,
@@ -280,6 +321,8 @@ class InlineHeroBannerProps {
     this.style = PromoInlineHeroBannerStyle.pill,
     this.dismissible = true,
     this.icon,
+    this.styles,
+    this.decoration,
   });
 }
 
@@ -328,6 +371,12 @@ class SlidingSidebarBannerProps {
   /// Optional list of features to display.
   final List<String>? features;
 
+  /// Optional custom styles for the component.
+  final ArcaneStyleData? styles;
+
+  /// Optional decoration for the component.
+  final ArcaneDecoration? decoration;
+
   const SlidingSidebarBannerProps({
     required this.title,
     required this.message,
@@ -341,6 +390,8 @@ class SlidingSidebarBannerProps {
     this.position = PromoSidebarPosition.right,
     this.delayMs = 3000,
     this.features,
+    this.styles,
+    this.decoration,
   });
 }
 
@@ -374,6 +425,12 @@ class MarqueeTickerBarProps {
   /// Whether to show at bottom instead of top.
   final bool showAtBottom;
 
+  /// Optional custom styles for the component.
+  final ArcaneStyleData? styles;
+
+  /// Optional decoration for the component.
+  final ArcaneDecoration? decoration;
+
   const MarqueeTickerBarProps({
     required this.messages,
     this.promoCode,
@@ -382,6 +439,8 @@ class MarqueeTickerBarProps {
     this.onCtaClick,
     this.onDismiss,
     this.showAtBottom = false,
+    this.styles,
+    this.decoration,
   });
 }
 
@@ -421,6 +480,12 @@ class ExpandingFabPromoProps {
   /// Optional icon to display on the FAB.
   final Widget? icon;
 
+  /// Optional custom styles for the component.
+  final ArcaneStyleData? styles;
+
+  /// Optional decoration for the component.
+  final ArcaneDecoration? decoration;
+
   const ExpandingFabPromoProps({
     required this.title,
     required this.message,
@@ -431,6 +496,8 @@ class ExpandingFabPromoProps {
     this.onCtaClick,
     this.onDismiss,
     this.icon,
+    this.styles,
+    this.decoration,
   });
 }
 
@@ -476,6 +543,12 @@ class ProgressClaimBannerProps {
   /// Whether to simulate progress increasing over time.
   final bool simulateProgress;
 
+  /// Optional custom styles for the component.
+  final ArcaneStyleData? styles;
+
+  /// Optional decoration for the component.
+  final ArcaneDecoration? decoration;
+
   const ProgressClaimBannerProps({
     required this.title,
     required this.message,
@@ -488,6 +561,8 @@ class ProgressClaimBannerProps {
     this.onDismiss,
     this.delayMs = 2000,
     this.simulateProgress = true,
+    this.styles,
+    this.decoration,
   });
 }
 
@@ -530,6 +605,12 @@ class MinimizablePromoProps {
   /// Delay in milliseconds before showing.
   final int delayMs;
 
+  /// Optional custom styles for the component.
+  final ArcaneStyleData? styles;
+
+  /// Optional decoration for the component.
+  final ArcaneDecoration? decoration;
+
   const MinimizablePromoProps({
     required this.title,
     required this.message,
@@ -541,6 +622,8 @@ class MinimizablePromoProps {
     this.onDismiss,
     this.tabLabel = 'DEAL',
     this.delayMs = 2000,
+    this.styles,
+    this.decoration,
   });
 }
 
@@ -589,6 +672,12 @@ class FullscreenTakeoverProps {
   /// Countdown duration for urgency.
   final Duration? countdownDuration;
 
+  /// Optional custom styles for the component.
+  final ArcaneStyleData? styles;
+
+  /// Optional decoration for the component.
+  final ArcaneDecoration? decoration;
+
   const FullscreenTakeoverProps({
     required this.headline,
     required this.subheadline,
@@ -602,6 +691,8 @@ class FullscreenTakeoverProps {
     this.onDismiss,
     this.delayMs = 2000,
     this.countdownDuration,
+    this.styles,
+    this.decoration,
   });
 }
 

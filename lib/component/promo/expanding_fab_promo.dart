@@ -1,7 +1,9 @@
 import 'package:jaspr/dom.dart' as dom;
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 /// A floating action button that expands to reveal a promo.
 ///
@@ -17,6 +19,13 @@ class ArcaneExpandingFabPromo extends StatefulWidget {
   final void Function()? onDismiss;
   final Widget? icon;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const ArcaneExpandingFabPromo({
     required this.title,
     required this.message,
@@ -27,6 +36,8 @@ class ArcaneExpandingFabPromo extends StatefulWidget {
     this.onCtaClick,
     this.onDismiss,
     this.icon,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -57,6 +68,8 @@ class _ArcaneExpandingFabPromoState extends State<ArcaneExpandingFabPromo> {
       onCtaClick: component.onCtaClick,
       onDismiss: _handleDismiss,
       icon: component.icon,
+      styles: component.styles,
+      decoration: component.decoration,
     ));
   }
 }

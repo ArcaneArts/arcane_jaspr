@@ -1,5 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
+
 enum SlotCounterSize { xs, sm, md, lg, xl }
 
 enum SlotCounterColor { primary, accent, muted, success, warning, destructive }
@@ -28,6 +31,12 @@ class SlotCounterProps {
   final int? minDigits;
   final void Function(int value)? onValueChange;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const SlotCounterProps({
     this.minValue = 0,
     this.maxValue = 9999,
@@ -50,6 +59,8 @@ class SlotCounterProps {
     this.monospace = true,
     this.minDigits,
     this.onValueChange,
+    this.styles,
+    this.decoration,
   });
 
   factory SlotCounterProps.latency({
@@ -133,12 +144,20 @@ class SlotCounterCardProps {
   final bool showBorder;
   final bool showBackground;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const SlotCounterCardProps({
     required this.counter,
     this.padding = '1rem',
     this.borderRadius = '0.375rem',
     this.showBorder = false,
     this.showBackground = false,
+    this.styles,
+    this.decoration,
   });
 }
 

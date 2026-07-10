@@ -1,7 +1,9 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
 import '../../util/arcane.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/button_panel_props.dart';
 
@@ -42,12 +44,20 @@ class ArcaneToolbar extends StatelessWidget {
   final double gap;
   final EdgeInsets? padding;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneToolbar({
     required this.children,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.gap = 8,
     this.padding,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -59,6 +69,8 @@ class ArcaneToolbar extends StatelessWidget {
       crossAxisAlignment: crossAxisAlignment,
       gap: gap,
       padding: padding,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

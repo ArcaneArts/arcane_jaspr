@@ -1,6 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/disclosure_props.dart'
     show DisclosureVariant, DisclosureItemProps;
@@ -15,6 +17,12 @@ class ArcaneDisclosure extends StatelessWidget {
   final bool showTreeLines;
   final String? classes;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneDisclosure({
     required this.summary,
     required this.child,
@@ -23,6 +31,8 @@ class ArcaneDisclosure extends StatelessWidget {
     this.showChevron = true,
     this.showTreeLines = true,
     this.classes,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -33,6 +43,8 @@ class ArcaneDisclosure extends StatelessWidget {
     this.showChevron = true,
     this.showTreeLines = true,
     this.classes,
+    this.styles,
+    this.decoration,
     super.key,
   }) : variant = DisclosureVariant.minimal;
 
@@ -43,6 +55,8 @@ class ArcaneDisclosure extends StatelessWidget {
     this.showChevron = true,
     this.showTreeLines = true,
     this.classes,
+    this.styles,
+    this.decoration,
     super.key,
   }) : variant = DisclosureVariant.bordered;
 
@@ -53,6 +67,8 @@ class ArcaneDisclosure extends StatelessWidget {
     this.showChevron = true,
     this.showTreeLines = true,
     this.classes,
+    this.styles,
+    this.decoration,
     super.key,
   }) : variant = DisclosureVariant.filled;
 
@@ -66,6 +82,8 @@ class ArcaneDisclosure extends StatelessWidget {
       showChevron: showChevron,
       showTreeLines: showTreeLines,
       classes: classes,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

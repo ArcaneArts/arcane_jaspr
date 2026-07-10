@@ -2,6 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/component/view/icon.dart';
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/props/accordion_props.dart';
 
 /// Shared structural base for the neon/neubrutalism accordion renderers.
@@ -42,16 +43,24 @@ abstract class AccordionRenderBase extends StatelessComponent {
   /// `border-top` value for the content block.
   String get contentBorderTop;
 
+  /// Per-instance decoration overrides. Default: none. Themes translate an
+  /// ArcaneDecoration into their own CSS; unimplemented fields are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   @override
   Component build(BuildContext context) {
     return dom.div(
       classes: '$classPrefix-accordion faq-container',
-      styles: const dom.Styles(
+      styles: dom.Styles(
         raw: <String, String>{
           'display': 'flex',
           'flex-direction': 'column',
           'gap': '0.75rem',
           'width': '100%',
+          ...?props.decoration?.universalStyles(),
+          ...decorationStyles(props.decoration),
+          ...?props.styles?.toMap(),
         },
       ),
       <Component>[

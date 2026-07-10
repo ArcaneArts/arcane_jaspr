@@ -2,10 +2,13 @@ import 'dart:async';
 
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 import 'toast_manager.dart';
 
-export '../../core/props/toast_props.dart' show ToastVariant, ToastPosition, ToastAction;
+export '../../core/props/toast_props.dart'
+    show ToastVariant, ToastPosition, ToastAction;
 export 'toast_manager.dart';
 
 /// Toast notification component with auto-dismiss and global API support.
@@ -22,6 +25,12 @@ class ArcaneToast extends StatefulWidget {
   final void Function()? onClose;
   final String? id;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneToast({
     required this.message,
     this.title,
@@ -34,6 +43,8 @@ class ArcaneToast extends StatefulWidget {
     this.icon,
     this.onClose,
     this.id,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -85,14 +96,11 @@ class _ArcaneToastState extends State<ArcaneToast> {
   void _scheduleDismissTimer() {
     _dismissTimer?.cancel();
     if (component.duration > 0 && !_isHovered) {
-      _dismissTimer = Timer(
-        Duration(milliseconds: component.duration),
-        () {
-          if (mounted && !_isHovered) {
-            _startExitAnimation();
-          }
-        },
-      );
+      _dismissTimer = Timer(Duration(milliseconds: component.duration), () {
+        if (mounted && !_isHovered) {
+          _startExitAnimation();
+        }
+      });
     }
   }
 
@@ -100,14 +108,11 @@ class _ArcaneToastState extends State<ArcaneToast> {
     if (_isExiting) return;
     setState(() => _isExiting = true);
 
-    _exitTimer = Timer(
-      const Duration(milliseconds: 200),
-      () {
-        if (mounted) {
-          component.onClose?.call();
-        }
-      },
-    );
+    _exitTimer = Timer(const Duration(milliseconds: 200), () {
+      if (mounted) {
+        component.onClose?.call();
+      }
+    });
   }
 
   void _onMouseEnter() {
@@ -127,23 +132,27 @@ class _ArcaneToastState extends State<ArcaneToast> {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.toast(ToastProps(
-      message: component.message,
-      title: component.title,
-      description: component.description,
-      variant: component.variant,
-      position: component.position,
-      duration: component.duration,
-      dismissible: component.dismissible,
-      action: component.action,
-      icon: component.icon,
-      id: component.id,
-      isExiting: _isExiting,
-      isHovered: _isHovered,
-      onMouseEnter: _onMouseEnter,
-      onMouseLeave: _onMouseLeave,
-      onDismiss: _onDismissClick,
-    ));
+    return context.renderers.toast(
+      ToastProps(
+        message: component.message,
+        title: component.title,
+        description: component.description,
+        variant: component.variant,
+        position: component.position,
+        duration: component.duration,
+        dismissible: component.dismissible,
+        action: component.action,
+        icon: component.icon,
+        id: component.id,
+        isExiting: _isExiting,
+        isHovered: _isHovered,
+        onMouseEnter: _onMouseEnter,
+        onMouseLeave: _onMouseLeave,
+        onDismiss: _onDismissClick,
+        styles: component.styles,
+        decoration: component.decoration,
+      ),
+    );
   }
 }
 
@@ -188,26 +197,33 @@ class _ToastContainerState extends State<_ToastContainer> {
   Widget build(BuildContext context) {
     final toasts = ToastManager.instance.toasts.take(component.maxVisible);
 
-    final toastPropsList = toasts.map((data) => ToastProps(
-      message: data.message,
-      title: data.title,
-      description: data.description,
-      variant: data.variant,
-      position: data.position,
-      duration: data.duration,
-      dismissible: data.dismissible,
-      action: data.action,
-      icon: data.icon,
-      id: data.id,
-    )).toList();
+    final toastPropsList = toasts
+        .map(
+          (data) => ToastProps(
+            message: data.message,
+            title: data.title,
+            description: data.description,
+            variant: data.variant,
+            position: data.position,
+            duration: data.duration,
+            dismissible: data.dismissible,
+            action: data.action,
+            icon: data.icon,
+            id: data.id,
+            onDismiss: () => ToastManager.instance.dismiss(data.id),
+          ),
+        )
+        .toList();
 
-    return context.renderers.toastContainer(ToastContainerProps(
-      position: component.position,
-      maxVisible: component.maxVisible,
-      gap: component.gap,
-      offset: component.offset,
-      toasts: toastPropsList,
-    ));
+    return context.renderers.toastContainer(
+      ToastContainerProps(
+        position: component.position,
+        maxVisible: component.maxVisible,
+        gap: component.gap,
+        offset: component.offset,
+        toasts: toastPropsList,
+      ),
+    );
   }
 }
 

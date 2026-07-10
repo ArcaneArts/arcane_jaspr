@@ -51,7 +51,7 @@ class _NeubrutalismTopAnnouncementBarState extends State<NeubrutalismTopAnnounce
 
     return dom.div(
       classes: 'neubrutalism-top-announcement-bar',
-      styles: const dom.Styles(
+      styles: dom.Styles(
         raw: {
           'position': 'sticky',
           'top': '0',
@@ -66,6 +66,8 @@ class _NeubrutalismTopAnnouncementBarState extends State<NeubrutalismTopAnnounce
           'background': 'var(--nb-paper, var(--card))',
           'border-bottom': 'var(--nb-border-thick, 3px) solid var(--nb-line, #000)',
           'box-shadow': 'var(--nb-shadow-md, 5px 5px 0 0 var(--nb-shadow-color, #000))',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [

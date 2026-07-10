@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/props/disclosure_props.dart';
 
 /// Shared structural base for themed disclosure renderers.
@@ -35,6 +36,11 @@ abstract class DisclosureRenderBase extends StatelessComponent {
   /// Per-variant content `padding` and `border-top` values.
   (String padding, String border) contentVariant(DisclosureVariant variant);
 
+  /// Per-instance decoration overrides. Default: none. Themes translate an
+  /// ArcaneDecoration into their own CSS; unimplemented fields are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   @override
   Component build(BuildContext context) {
     final DisclosureVariant variant = props.variant;
@@ -52,7 +58,12 @@ abstract class DisclosureRenderBase extends StatelessComponent {
       tag: 'details',
       classes: allClasses,
       attributes: <String, String>{if (props.open) 'open': ''},
-      styles: dom.Styles(raw: containerStyles(variant)),
+      styles: dom.Styles(raw: <String, String>{
+        ...containerStyles(variant),
+        ...?props.decoration?.universalStyles(),
+        ...decorationStyles(props.decoration),
+        ...?props.styles?.toMap(),
+      }),
       children: <Component>[
         // Summary (clickable header)
         Component.element(

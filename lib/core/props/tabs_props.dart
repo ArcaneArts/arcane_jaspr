@@ -1,5 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
+
 /// Tab item data.
 class TabItemProps {
   final String label;
@@ -35,11 +38,20 @@ class TabsProps {
   final void Function(int index)? onChanged;
   final bool fill;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const TabsProps({
     required this.tabs,
     required this.selectedIndex,
     this.onChanged,
     this.fill = false,
+    this.styles,
+    this.decoration,
   });
 
   TabsProps copyWith({
@@ -47,12 +59,16 @@ class TabsProps {
     int? selectedIndex,
     void Function(int index)? onChanged,
     bool? fill,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     return TabsProps(
       tabs: tabs ?? this.tabs,
       selectedIndex: selectedIndex ?? this.selectedIndex,
       onChanged: onChanged ?? this.onChanged,
       fill: fill ?? this.fill,
+      styles: styles ?? this.styles,
+      decoration: decoration ?? this.decoration,
     );
   }
 }
@@ -64,11 +80,20 @@ class TabBarProps {
   final void Function(int index) onChanged;
   final bool fill;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const TabBarProps({
     required this.tabs,
     required this.selectedIndex,
     required this.onChanged,
     this.fill = false,
+    this.styles,
+    this.decoration,
   });
 
   TabBarProps copyWith({
@@ -76,12 +101,16 @@ class TabBarProps {
     int? selectedIndex,
     void Function(int index)? onChanged,
     bool? fill,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     return TabBarProps(
       tabs: tabs ?? this.tabs,
       selectedIndex: selectedIndex ?? this.selectedIndex,
       onChanged: onChanged ?? this.onChanged,
       fill: fill ?? this.fill,
+      styles: styles ?? this.styles,
+      decoration: decoration ?? this.decoration,
     );
   }
 }

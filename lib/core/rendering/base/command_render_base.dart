@@ -2,6 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/component/view/icon.dart';
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/command_props.dart';
 
@@ -37,6 +38,12 @@ abstract class CommandRenderBase extends StatelessComponent {
 
   /// Inline styles for the dialog panel element.
   Map<String, String> get dialogStyles;
+
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
 
   /// Inline styles for the search-input row.
   Map<String, String> get searchRowStyles;
@@ -109,7 +116,14 @@ abstract class CommandRenderBase extends StatelessComponent {
             'aria-modal': 'true',
             'aria-label': 'Command palette',
           },
-          styles: dom.Styles(raw: dialogStyles),
+          styles: dom.Styles(
+            raw: <String, String>{
+              ...dialogStyles,
+              ...?props.decoration?.universalStyles(),
+              ...decorationStyles(props.decoration),
+              ...?props.styles?.toMap(),
+            },
+          ),
           [
             dom.div(
               styles: dom.Styles(raw: searchRowStyles),

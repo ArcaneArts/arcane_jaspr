@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/floating_props.dart';
 
@@ -51,6 +52,12 @@ abstract class FloatingRenderBase extends StatelessComponent {
     required double? maxWidth,
   });
 
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   /// Class for the floating arrow element.
   String get arrowClass;
 
@@ -93,7 +100,12 @@ abstract class FloatingRenderBase extends StatelessComponent {
           classes: cssTooltipClasses,
           attributes: const <String, String>{'role': 'tooltip'},
           styles: dom.Styles(
-            raw: cssTooltipStyles(_getPositionStyles(props.position)),
+            raw: <String, String>{
+              ...cssTooltipStyles(_getPositionStyles(props.position)),
+              ...?props.decoration?.universalStyles(),
+              ...decorationStyles(props.decoration),
+              ...?props.styles?.toMap(),
+            },
           ),
           <Component>[Component.text(props.textContent ?? '')],
         ),
@@ -188,13 +200,18 @@ abstract class FloatingRenderBase extends StatelessComponent {
         ...surfAttrs,
       },
       styles: dom.Styles(
-        raw: floatingContentStyles(
-          positionProp: positionProp,
-          positionValue: positionValue,
-          alignment: alignment,
-          hasRichContent: hasRichContent,
-          maxWidth: maxWidth,
-        ),
+        raw: <String, String>{
+          ...floatingContentStyles(
+            positionProp: positionProp,
+            positionValue: positionValue,
+            alignment: alignment,
+            hasRichContent: hasRichContent,
+            maxWidth: maxWidth,
+          ),
+          ...?props.decoration?.universalStyles(),
+          ...decorationStyles(props.decoration),
+          ...?props.styles?.toMap(),
+        },
       ),
       <Component>[
         if (props.showArrow) _buildArrow(),

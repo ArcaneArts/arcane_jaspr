@@ -1,7 +1,9 @@
 import 'package:arcane_jaspr/flutter.dart';
 
 import 'text_input.dart';
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 typedef ArcaneNativeSelectOption = ArcaneSelectOption;
 
@@ -19,6 +21,12 @@ class ArcaneNativeSelect extends StatelessWidget {
   final bool fullWidth;
   final void Function(String)? onChange;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneNativeSelect({
     required this.options,
     this.value,
@@ -32,6 +40,8 @@ class ArcaneNativeSelect extends StatelessWidget {
     this.error,
     this.fullWidth = false,
     this.onChange,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -61,6 +71,8 @@ class ArcaneNativeSelect extends StatelessWidget {
         error: error,
         fullWidth: fullWidth,
         onChange: onChange,
+        styles: styles,
+        decoration: decoration,
       ),
     );
   }

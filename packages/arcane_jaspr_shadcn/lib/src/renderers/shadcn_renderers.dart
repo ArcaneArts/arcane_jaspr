@@ -7,6 +7,11 @@ import 'button.dart';
 import 'calendar.dart';
 import 'card.dart';
 import 'chart.dart';
+import 'cta_card.dart';
+import 'feature_card.dart';
+import 'pricing_card.dart';
+import 'stat_card.dart';
+import 'testimonial_card.dart';
 import 'checkbox.dart';
 import 'command.dart';
 import 'context_menu.dart';
@@ -104,6 +109,35 @@ class ShadcnRenderers extends ComponentRenderers {
 
   @override
   Component card(CardProps props) => ShadcnCard(props);
+
+  @override
+  Component statCard(StatCardProps props) => ShadcnStatCard(props);
+
+  @override
+  Component statCardRow(StatCardRowProps props) => ShadcnStatCardRow(props);
+
+  @override
+  Component featureCard(FeatureCardProps props) => ShadcnFeatureCard(props);
+
+  @override
+  Component iconCard(IconCardProps props) => ShadcnIconCard(props);
+
+  @override
+  Component ctaCard(CTACardProps props) => ShadcnCtaCard(props);
+
+  @override
+  Component testimonialCard(TestimonialCardProps props) =>
+      ShadcnTestimonialCard(props);
+
+  @override
+  Component ratingStarsSimple(RatingStarsSimpleProps props) =>
+      ShadcnRatingStarsSimple(props);
+
+  @override
+  Component pricingCard(PricingCardProps props) => ShadcnPricingCard(props);
+
+  @override
+  Component pricingGrid(PricingGridProps props) => ShadcnPricingGrid(props);
 
   @override
   Component chart(ChartProps props) => ShadcnChart(props);

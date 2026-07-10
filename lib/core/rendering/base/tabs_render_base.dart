@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/props/tabs_props.dart';
 
 /// Shared structural base for the neon/neubrutalism tabs renderers.
@@ -40,6 +41,12 @@ abstract class TabsRenderBase extends StatelessComponent {
   /// Inline styles for the trigger badge span.
   Map<String, String> get badgeStyles;
 
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   @override
   Component build(BuildContext context) {
     return dom.div(
@@ -76,6 +83,9 @@ abstract class TabsRenderBase extends StatelessComponent {
           'padding': '0.25rem',
           if (props.fill) 'width': '100%',
           'align-self': props.fill ? 'stretch' : 'flex-start',
+          ...?props.decoration?.universalStyles(),
+          ...decorationStyles(props.decoration),
+          ...?props.styles?.toMap(),
         },
       ),
       <Component>[
@@ -159,6 +169,12 @@ abstract class TabBarRenderBase extends StatelessComponent {
   /// `text-transform` for the item buttons.
   String get tabTextTransform;
 
+  /// Per-instance decoration overrides. Default: none. A theme overrides this
+  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
+  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   @override
   Component build(BuildContext context) {
     return dom.div(
@@ -171,6 +187,9 @@ abstract class TabBarRenderBase extends StatelessComponent {
           'gap': '0.25rem',
           'padding': '0.25rem',
           if (props.fill) 'width': '100%',
+          ...?props.decoration?.universalStyles(),
+          ...decorationStyles(props.decoration),
+          ...?props.styles?.toMap(),
         },
       ),
       <Component>[

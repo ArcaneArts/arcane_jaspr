@@ -1,5 +1,3 @@
-import 'package:jaspr/dom.dart' as dom;
-
 import 'package:arcane_jaspr/core/rendering/base/calendar_render_base.dart';
 
 /// ShadCN-style calendar component
@@ -20,16 +18,14 @@ class ShadcnCalendar extends CalendarRenderBase {
   String get dayButtonClasses => '';
 
   @override
-  dom.Styles get styles => const dom.Styles(
-    raw: <String, String>{
-      'display': 'flex',
-      'flex-direction': 'column',
-      'gap': 'var(--space-2)',
-      'padding': '12px',
-      'background-color': 'var(--card)',
-      'border': '1px solid var(--border)',
-      'border-radius': 'var(--radius-md)',
-      'width': 'min(100%, 20rem)',
-    },
-  );
+  Map<String, String> get styles => const <String, String>{
+    'display': 'flex',
+    'flex-direction': 'column',
+    'gap': 'var(--space-2)',
+    'padding': '12px',
+    'background-color': 'var(--card)',
+    'border': '1px solid var(--border)',
+    'border-radius': 'var(--radius-md)',
+    'width': 'min(100%, 20rem)',
+  };
 }

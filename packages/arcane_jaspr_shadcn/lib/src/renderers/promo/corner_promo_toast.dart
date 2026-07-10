@@ -97,6 +97,8 @@ class _ShadcnCornerPromoToastState extends State<ShadcnCornerPromoToast> {
           'max-width': '356px',
           'width': '100%',
           ..._getPositionStyles(),
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [

@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/props/field_wrapper_props.dart';
 
 /// Shared structural base for themed field-wrapper renderers.
@@ -26,6 +27,11 @@ abstract class FieldWrapperRenderBase extends StatelessComponent {
   /// Inline styles for the root wrapper element.
   Map<String, String> get wrapperStyles;
 
+  /// Per-instance decoration overrides. Default: none. Themes translate an
+  /// ArcaneDecoration into their own CSS; unimplemented fields are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   /// Builds the label row, or returns `null` when no label row is rendered.
   Component? buildLabelRow(FieldWrapperProps props, bool hasError);
 
@@ -48,7 +54,12 @@ abstract class FieldWrapperRenderBase extends StatelessComponent {
 
     return dom.div(
       classes: cssClass,
-      styles: dom.Styles(raw: wrapperStyles),
+      styles: dom.Styles(raw: <String, String>{
+        ...wrapperStyles,
+        ...?props.decoration?.universalStyles(),
+        ...decorationStyles(props.decoration),
+        ...?props.styles?.toMap(),
+      }),
       <Component>[
         ?labelRow,
         ?description,
@@ -115,6 +126,11 @@ abstract class InputGroupRenderBase extends StatelessComponent {
   /// CSS class applied to each wrapped item.
   String get itemClass;
 
+  /// Per-instance decoration overrides. Default: none. Themes translate an
+  /// ArcaneDecoration into their own CSS; unimplemented fields are ignored.
+  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
+      const <String, String>{};
+
   @override
   Component build(BuildContext context) {
     final List<Component> children = <Component>[];
@@ -133,10 +149,13 @@ abstract class InputGroupRenderBase extends StatelessComponent {
     return dom.div(
       classes: groupClass,
       styles: dom.Styles(
-        raw: {
+        raw: <String, String>{
           'display': 'flex',
           'align-items': 'stretch',
           'gap': '${props.gap}px',
+          ...?props.decoration?.universalStyles(),
+          ...decorationStyles(props.decoration),
+          ...?props.styles?.toMap(),
         },
       ),
       children,
