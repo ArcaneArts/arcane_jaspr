@@ -2,6 +2,7 @@ import 'package:arcane_jaspr/flutter.dart';
 
 import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/classes.dart';
 import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/disclosure_props.dart'
@@ -15,7 +16,7 @@ class ArcaneDisclosure extends StatelessWidget {
   final DisclosureVariant variant;
   final bool showChevron;
   final bool showTreeLines;
-  final String? classes;
+  final List<String>? classes;
 
   /// Literal, theme-permeable style override (always applied, wins over theme).
   final ArcaneStyleData? styles;
@@ -81,7 +82,7 @@ class ArcaneDisclosure extends StatelessWidget {
       variant: variant,
       showChevron: showChevron,
       showTreeLines: showTreeLines,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles,
       decoration: decoration,
     ));

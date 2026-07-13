@@ -31,7 +31,6 @@ class NeonToggleSwitch extends ToggleSwitchRenderBase {
       styles: dom.Styles(
         raw: <String, String>{
           ...?props.decoration?.universalStyles(),
-          ...decorationStyles(props.decoration),
           ...?props.styles?.toMap(),
         },
       ),

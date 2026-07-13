@@ -25,13 +25,14 @@ import 'package:jaspr/dom.dart'
         WhiteSpace,
         events;
 
+import '../../util/classes.dart';
 import '../../util/style_types/arcane_style_data.dart';
 
 /// Styled aside element wrapper for supplementary content.
 class ArcaneSideContent extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
 
   const ArcaneSideContent({
@@ -46,7 +47,7 @@ class ArcaneSideContent extends StatelessComponent {
   Component build(BuildContext context) {
     return aside(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       children,
     );

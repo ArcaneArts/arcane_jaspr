@@ -25,13 +25,14 @@ import 'package:jaspr/dom.dart'
         WhiteSpace,
         events;
 
+import '../../util/classes.dart';
 import '../../util/style_types/arcane_style_data.dart';
 
 /// Styled inline span wrapper.
 class ArcaneSpan extends StatelessComponent {
   final Component child;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
   final Map<String, void Function(dynamic)>? events;
 
@@ -47,7 +48,7 @@ class ArcaneSpan extends StatelessComponent {
   const factory ArcaneSpan.children({
     required List<Component> children,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     Map<String, void Function(dynamic)>? events,
     Key? key,
@@ -57,7 +58,7 @@ class ArcaneSpan extends StatelessComponent {
   Component build(BuildContext context) {
     return span(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       events: events,
       [child],
@@ -82,7 +83,7 @@ class _ArcaneSpanChildren extends ArcaneSpan {
   Component build(BuildContext context) {
     return span(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       events: events,
       _children,

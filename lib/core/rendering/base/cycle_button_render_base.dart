@@ -4,6 +4,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
+import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
 import 'package:arcane_jaspr/core/props/cycle_button_props.dart';
 import 'package:arcane_jaspr/core/interaction/interaction.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
@@ -84,25 +85,29 @@ abstract class CycleButtonRenderBase<T> extends StatelessComponent {
       classes: '$classPrefix-cycle-button ${props.disabled ? 'disabled' : ''}',
       attributes: attrs,
       styles: dom.Styles(
-        raw: <String, String>{
-          'display': 'inline-flex',
-          'align-items': 'center',
-          'justify-content': 'center',
-          'gap': '0.6rem',
-          ...sizeStyles,
-          'font-family': 'var(--font-heading)',
-          'font-weight': 'var(--font-weight-semibold)',
-          'letter-spacing': '0.06em',
-          ...clipStyles,
-          'cursor': props.disabled ? 'not-allowed' : 'pointer',
-          'opacity': props.disabled ? '0.5' : '1',
-          'transition':
-              'background 200ms ease, border-color 200ms ease, color 200ms ease, transform 200ms ease',
-          ...variantStyles(props.variant),
-          ...?props.decoration?.universalStyles(),
-          ...decorationStyles(props.decoration),
-          ...?props.styles?.toMap(),
-        },
+        raw: layerStyles(
+          <String, String>{
+            'display': 'inline-flex',
+            'align-items': 'center',
+            'justify-content': 'center',
+            'gap': '0.6rem',
+            ...sizeStyles,
+            'font-family': 'var(--font-heading)',
+            'font-weight': 'var(--font-weight-semibold)',
+            'letter-spacing': '0.06em',
+            ...clipStyles,
+            'cursor': props.disabled ? 'not-allowed' : 'pointer',
+            'opacity': props.disabled ? '0.5' : '1',
+            'transition':
+                'background 200ms ease, border-color 200ms ease, color 200ms ease, transform 200ms ease',
+            ...variantStyles(props.variant),
+          },
+          <Map<String, String>?>[
+            props.decoration?.universalStyles(),
+            decorationStyles(props.decoration),
+            props.styles?.toMap(),
+          ],
+        ),
       ),
       events: props.disabled || props.onChanged == null
           ? null
@@ -190,12 +195,16 @@ abstract class ToggleButtonRenderBase extends StatelessComponent {
           '$classPrefix-toggle-button ${props.value ? 'active' : ''} ${props.disabled ? 'disabled' : ''}',
       attributes: attrs,
       styles: dom.Styles(
-        raw: <String, String>{
-          ...toggleStyles(sizeStyles),
-          ...?props.decoration?.universalStyles(),
-          ...decorationStyles(props.decoration),
-          ...?props.styles?.toMap(),
-        },
+        raw: layerStyles(
+          <String, String>{
+            ...toggleStyles(sizeStyles),
+          },
+          <Map<String, String>?>[
+            props.decoration?.universalStyles(),
+            decorationStyles(props.decoration),
+            props.styles?.toMap(),
+          ],
+        ),
       ),
       events: props.disabled || props.onChanged == null
           ? null

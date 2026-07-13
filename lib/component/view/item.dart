@@ -1,6 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
 
 import '../../core/theme_provider.dart';
+import '../../util/classes.dart';
 import '../../util/style_types/arcane_style_data.dart';
 
 class ArcaneItem extends StatelessWidget {
@@ -8,7 +9,7 @@ class ArcaneItem extends StatelessWidget {
   final String? href;
   final bool external;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
 
   const ArcaneItem({
     required this.child,
@@ -27,7 +28,7 @@ class ArcaneItem extends StatelessWidget {
         href: href,
         external: external,
         styles: styles,
-        classes: classes,
+        classes: classes == null ? null : cx(classes!),
       ),
     );
   }

@@ -1539,10 +1539,10 @@ html.dark #arcane-root.arcane-theme-neubrutalism .prose .hljs-built_in { color: 
   font-weight: 600;
 }
 
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-toast[data-variant="success"] { border-color: var(--success) !important; }
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-toast[data-variant="warning"] { border-color: var(--warning) !important; }
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-toast[data-variant="error"] { border-color: var(--destructive) !important; }
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-toast[data-variant="info"] { border-color: var(--info, #3b82f6) !important; }
+#arcane-root.arcane-theme-neubrutalism .neubrutalism-toast[data-variant="success"]:not([data-arcane-decorated]) { border-color: var(--success) !important; }
+#arcane-root.arcane-theme-neubrutalism .neubrutalism-toast[data-variant="warning"]:not([data-arcane-decorated]) { border-color: var(--warning) !important; }
+#arcane-root.arcane-theme-neubrutalism .neubrutalism-toast[data-variant="error"]:not([data-arcane-decorated]) { border-color: var(--destructive) !important; }
+#arcane-root.arcane-theme-neubrutalism .neubrutalism-toast[data-variant="info"]:not([data-arcane-decorated]) { border-color: var(--info, #3b82f6) !important; }
 
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-promo-bar,
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-top-announcement-bar,

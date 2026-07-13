@@ -88,7 +88,6 @@ class ShadcnToggleSwitch extends ToggleSwitchRenderBase {
           'outline': 'none',
           'box-sizing': 'border-box',
           ...?props.decoration?.universalStyles(),
-          ...decorationStyles(props.decoration),
           ...?props.styles?.toMap(),
         },
       ),

@@ -1,4 +1,5 @@
 import 'package:jaspr/jaspr.dart';
+import 'package:web/web.dart' as web;
 
 import '../shared/shared.dart';
 
@@ -43,10 +44,10 @@ class FileUploadProps {
   final String acceptString;
   final bool multiple;
   final void Function()? onClick;
-  final void Function(dynamic event)? onDragOver;
-  final void Function(dynamic event)? onDragLeave;
-  final void Function(dynamic event)? onDrop;
-  final void Function(dynamic event)? onInputChange;
+  final void Function(web.Event event)? onDragOver;
+  final void Function(web.Event event)? onDragLeave;
+  final void Function(web.Event event)? onDrop;
+  final void Function(web.Event event)? onInputChange;
 
   const FileUploadProps({
     required this.style,

@@ -15,7 +15,7 @@ class ArcaneStylesheetCss {
     required ThemeSeed darkSeed,
     required FontConfig fonts,
     required RadiusConfig radius,
-    required String componentCss,
+    required String Function() componentCss,
   }) {
     final String? cached = _cache[cacheKey];
     if (cached != null) return cached;
@@ -30,7 +30,7 @@ ${CssGenerator.generateBoth(light: lightPalette, dark: darkPalette, fonts: fonts
 
 ${ArcaneBaseCss.shared}
 
-$componentCss
+${componentCss()}
 ''';
     _cache[cacheKey] = generated;
     return generated;

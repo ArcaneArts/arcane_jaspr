@@ -259,6 +259,43 @@ class NeonCss {
   border-color: color-mix(in srgb, var(--primary) 40%, var(--border));
 }
 
+/* ---------- Feature / icon cards ---------- */
+
+#arcane-root.arcane-theme-neon .neon-feature-card,
+#arcane-root.arcane-theme-neon .neon-icon-card {
+  transition: transform var(--transition), box-shadow var(--transition),
+    border-color var(--transition);
+}
+/* Only interactive cards (anchors or clickable buttons) lift on hover, mirroring
+   the interactive .neon-card feel: the border is set inline on these surfaces, so
+   the neon accent glow is delivered through box-shadow. */
+#arcane-root.arcane-theme-neon a.neon-feature-card:hover,
+#arcane-root.arcane-theme-neon .neon-feature-card.clickable:hover,
+#arcane-root.arcane-theme-neon a.neon-icon-card:hover,
+#arcane-root.arcane-theme-neon .neon-icon-card.clickable:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg), var(--neon-glow);
+}
+
+/* ---------- Pricing / testimonial cards ---------- */
+
+/* These surfaces are not themselves interactive (only their CTA is), so unlike
+   feature cards the WHOLE card lifts on hover. The card border is set inline by
+   the render base, so hover accent is carried by box-shadow, not border-color. */
+#arcane-root.arcane-theme-neon .neon-pricing-card,
+#arcane-root.arcane-theme-neon .neon-testimonial-card {
+  transition: transform var(--transition), box-shadow var(--transition),
+    border-color var(--transition);
+}
+#arcane-root.arcane-theme-neon .neon-pricing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg), 0 18px 40px rgba(0, 0, 0, 0.36);
+}
+#arcane-root.arcane-theme-neon .neon-testimonial-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg), 0 14px 28px rgba(0, 0, 0, 0.34);
+}
+
 /* ---------- Dropdown / popover / command items ---------- */
 
 #arcane-root.arcane-theme-neon .neon-dropdown-menu,

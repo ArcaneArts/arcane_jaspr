@@ -42,7 +42,6 @@ class NeonCheckbox extends CheckboxRenderBase {
             'justify-content': 'center',
             'flex-shrink': '0',
             ...?props.decoration?.universalStyles(),
-            ...decorationStyles(props.decoration),
             ...?props.styles?.toMap(),
           },
         ),

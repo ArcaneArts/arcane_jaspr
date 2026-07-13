@@ -2,6 +2,7 @@ import 'package:jaspr/dom.dart' as dom;
 import 'package:jaspr/jaspr.dart';
 
 import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
+import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
 import 'package:arcane_jaspr/core/props/sidebar_props.dart';
 
 /// Shared structural bases for themed sidebar renderers.
@@ -193,19 +194,23 @@ abstract class SidebarRenderBase extends StatelessComponent {
     return dom.aside(
       classes: classes,
       styles: dom.Styles(
-        raw: <String, String>{
-          'display': 'flex',
-          'flex-direction': 'column',
-          'width': '${width}px',
-          'min-width': '${width}px',
-          'height': '100%',
-          'overflow': 'hidden',
-          'transition': 'width 0.2s ease, min-width 0.2s ease',
-          'flex-shrink': '0',
-          ...?props.decoration?.universalStyles(),
-          ...decorationStyles(props.decoration),
-          ...?props.styles?.toMap(),
-        },
+        raw: layerStyles(
+          <String, String>{
+            'display': 'flex',
+            'flex-direction': 'column',
+            'width': '${width}px',
+            'min-width': '${width}px',
+            'height': '100%',
+            'overflow': 'hidden',
+            'transition': 'width 0.2s ease, min-width 0.2s ease',
+            'flex-shrink': '0',
+          },
+          <Map<String, String>?>[
+            props.decoration?.universalStyles(),
+            decorationStyles(props.decoration),
+            props.styles?.toMap(),
+          ],
+        ),
       ),
       <Component>[
         if (props.header != null)

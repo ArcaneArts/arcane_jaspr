@@ -1,0 +1,5606 @@
+import 'package:arcane_jaspr/component/navigation/toc.dart'
+    show arcaneTocTreeLinesCss;
+import 'package:arcane_jaspr/component/view/map/map_style.dart' show arcaneMapCss;
+import 'package:arcane_jaspr/util/content/prose_styles.dart'
+    show arcaneAllDocsStyles;
+
+import 'win95_theme.dart';
+
+/// Component CSS for the Windows 95 theme.
+///
+/// A pixel-faithful recreation of the classic Win95 desktop, built entirely from
+/// the signature layered-inset "3D" bevels: raised control faces (buttons,
+/// panels, tabs), sunken wells (inputs, progress, group boxes), navy→cyan
+/// gradient title bars, segmented progress meters, chunky beveled scrollbars, and
+/// dotted focus rectangles. Everything is sharp-cornered (`border-radius: 0`),
+/// nothing is blurred, and hover states are intentionally absent — Win95 controls
+/// only react on press.
+///
+/// Every rule is scoped to `#arcane-root.arcane-theme-win95` so it can never
+/// affect the shadcn, neon, or neubrutalism themes. The 3D shading is exposed as
+/// `--w95-*` custom properties (composed into `--w95-raised` / `--w95-pressed` /
+/// `--w95-sunken` box-shadow recipes) which the dark "High Contrast Black" block
+/// simply re-points, so every bevel inverts for free.
+class Win95Css {
+  const Win95Css._();
+
+  static String _hex(int argb) {
+    final int r = (argb >> 16) & 0xFF;
+    final int g = (argb >> 8) & 0xFF;
+    final int b = argb & 0xFF;
+    return '#${r.toRadixString(16).padLeft(2, '0')}'
+        '${g.toRadixString(16).padLeft(2, '0')}'
+        '${b.toRadixString(16).padLeft(2, '0')}';
+  }
+
+  static String componentCss(Win95Theme theme) {
+    final String desktop = _hex(theme.desktop);
+    final String titleA = _hex(theme.titleStart);
+    final String titleB = _hex(theme.titleEnd);
+    final String selection = _hex(theme.accent);
+
+    return '''
+/* ============================================================
+   WINDOWS 95 THEME — scoped to .arcane-theme-win95.
+   Faithful 3D bevels, silver faces, navy title bars.
+   ============================================================ */
+
+#arcane-root.arcane-theme-win95 {
+  /* --- Palette overrides (win the cascade via id+class specificity) --- */
+  --background: $desktop;
+  --foreground: #000000;
+  --card: #c0c0c0;
+  --card-foreground: #000000;
+  --card-hover: #c0c0c0;
+  --popover: #c0c0c0;
+  --popover-foreground: #000000;
+  --secondary: #c0c0c0;
+  --secondary-foreground: #000000;
+  --muted: #c0c0c0;
+  --muted-foreground: #404040;
+  --primary: $selection;
+  --primary-foreground: #ffffff;
+  --accent: $titleB;
+  --accent-foreground: #ffffff;
+  --border: #808080;
+  --input: #ffffff;
+  --ring: $selection;
+  --navbar: #c0c0c0;
+  --code-background: #ffffff;
+  --radius: 0;
+
+  /* --- Win95 3D primitives (light / silver) --- */
+  --w95-face: #c0c0c0;
+  --w95-face-text: #000000;
+  --w95-hilite: #ffffff;   /* outer top-left highlight */
+  --w95-light: #dfdfdf;    /* inner top-left */
+  --w95-shadow: #808080;   /* inner bottom-right */
+  --w95-dark: #0a0a0a;     /* outer bottom-right */
+  --w95-field: #ffffff;
+  --w95-field-text: #000000;
+  --w95-desktop: $desktop;
+  --w95-title-a: $titleA;
+  --w95-title-b: $titleB;
+  --w95-title-text: #ffffff;
+  --w95-title-inactive-a: #808080;
+  --w95-title-inactive-b: #b5b5b5;
+  --w95-selection: $selection;
+  --w95-selection-text: #ffffff;
+
+  /* --- Composed bevel recipes --- */
+  --w95-raised:
+    inset -1px -1px 0 var(--w95-dark),
+    inset 1px 1px 0 var(--w95-hilite),
+    inset -2px -2px 0 var(--w95-shadow),
+    inset 2px 2px 0 var(--w95-light);
+  --w95-pressed:
+    inset -1px -1px 0 var(--w95-hilite),
+    inset 1px 1px 0 var(--w95-dark),
+    inset -2px -2px 0 var(--w95-light),
+    inset 2px 2px 0 var(--w95-shadow);
+  --w95-sunken:
+    inset -1px -1px 0 var(--w95-hilite),
+    inset 1px 1px 0 var(--w95-shadow),
+    inset -2px -2px 0 var(--w95-light),
+    inset 2px 2px 0 var(--w95-dark);
+  --w95-raised-thin:
+    inset -1px -1px 0 var(--w95-shadow),
+    inset 1px 1px 0 var(--w95-hilite);
+  --w95-sunken-thin:
+    inset -1px -1px 0 var(--w95-hilite),
+    inset 1px 1px 0 var(--w95-shadow);
+
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* Dark mode — a dimmed "dark silver" Windows 95: dark 3D control faces with
+   real, visible bevels (lighter-grey highlight, near-black shadow), dark input
+   wells, and the active appearance scheme's colours carried through (the
+   desktop is the scheme colour mixed toward black; the title bars + selection
+   keep the scheme's own hues) so the five palettes stay distinct in dark. */
+#arcane-root.arcane-theme-win95.dark {
+  --background: color-mix(in srgb, $desktop 30%, #050505);
+  --foreground: #ffffff;
+  --card: #3a3a3a;
+  --card-foreground: #ffffff;
+  --card-hover: #464646;
+  --popover: #3a3a3a;
+  --popover-foreground: #ffffff;
+  --secondary: #3a3a3a;
+  --secondary-foreground: #ffffff;
+  --muted: #2a2a2a;
+  --muted-foreground: #bcbcbc;
+  --primary: $titleB;
+  --primary-foreground: #ffffff;
+  --border: #202020;
+  --input: #1e1e1e;
+  --ring: $titleB;
+
+  --w95-face: #3a3a3a;
+  --w95-face-text: #ffffff;
+  --w95-hilite: #727272;
+  --w95-light: #565656;
+  --w95-shadow: #1c1c1c;
+  --w95-dark: #000000;
+  --w95-field: #1e1e1e;
+  --w95-field-text: #ffffff;
+  --w95-desktop: color-mix(in srgb, $desktop 30%, #050505);
+  --w95-title-a: $titleA;
+  --w95-title-b: $titleB;
+  --w95-title-text: #ffffff;
+  --w95-title-inactive-a: #2a2a2a;
+  --w95-title-inactive-b: #3a3a3a;
+  --w95-selection: $selection;
+  --w95-selection-text: #ffffff;
+}
+
+#arcane-root.arcane-theme-win95 ::selection {
+  background: var(--w95-selection);
+  color: var(--w95-selection-text);
+}
+
+/* Enable the Win95 ::-webkit-scrollbar styling below: the core base CSS sets the
+   standard `scrollbar-width: thin` + `scrollbar-color`, and modern Chrome IGNORES
+   all ::-webkit-scrollbar pseudo rules when either standard property is set. Reset
+   them to auto within the theme so our chunky beveled scrollbars actually render. */
+#arcane-root.arcane-theme-win95,
+#arcane-root.arcane-theme-win95 * {
+  scrollbar-width: auto !important;
+  scrollbar-color: auto !important;
+}
+
+/* Global sharpening: no rounded corners, no blur, dotted focus rectangles. */
+#arcane-root.arcane-theme-win95 :focus-visible {
+  outline: 1px dotted var(--w95-face-text);
+  outline-offset: -4px;
+}
+
+/* ---------- Buttons ---------- */
+
+#arcane-root.arcane-theme-win95 .win95-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 1.219rem;
+  line-height: 1;
+  white-space: nowrap;
+  border: none;
+  border-radius: 0;
+  background: var(--w95-face);
+  color: var(--w95-face-text);
+  box-shadow: var(--w95-raised);
+  cursor: pointer;
+  text-decoration: none;
+  padding: 0.4rem 0.9rem;
+  min-height: 1.6rem;
+  transition: none;
+}
+
+#arcane-root.arcane-theme-win95 .win95-button[data-size="sm"] {
+  padding: 0.28rem 0.65rem;
+  font-size: 1.125rem;
+  min-height: 1.35rem;
+}
+#arcane-root.arcane-theme-win95 .win95-button[data-size="lg"] {
+  padding: 0.55rem 1.2rem;
+  font-size: 1.35rem;
+}
+#arcane-root.arcane-theme-win95 .win95-button[data-size="iconSm"] {
+  padding: 0.3rem;
+  width: 1.85rem;
+  height: 1.85rem;
+}
+#arcane-root.arcane-theme-win95 .win95-button[data-size="iconMd"] {
+  padding: 0.4rem;
+  width: 2.2rem;
+  height: 2.2rem;
+}
+#arcane-root.arcane-theme-win95 .win95-button[data-size="iconLg"] {
+  padding: 0.55rem;
+  width: 2.7rem;
+  height: 2.7rem;
+}
+
+/* Every button is a silver 3D face — Win95 has no colored buttons. The default
+   (primary) button gets the extra 1px black "default" ring drawn just inside. */
+#arcane-root.arcane-theme-win95 .win95-button[data-variant="primary"] {
+  box-shadow: var(--w95-raised), inset 0 0 0 1px var(--w95-dark);
+}
+#arcane-root.arcane-theme-win95 .win95-button[data-variant="secondary"],
+#arcane-root.arcane-theme-win95 .win95-button[data-variant="accent"],
+#arcane-root.arcane-theme-win95 .win95-button[data-variant="destructive"],
+#arcane-root.arcane-theme-win95 .win95-button[data-variant="success"],
+#arcane-root.arcane-theme-win95 .win95-button[data-variant="warning"],
+#arcane-root.arcane-theme-win95 .win95-button[data-variant="info"] {
+  background: var(--w95-face);
+  color: var(--w95-face-text);
+}
+#arcane-root.arcane-theme-win95 .win95-button[data-variant="outline"] {
+  background: var(--w95-face);
+  color: var(--w95-face-text);
+}
+#arcane-root.arcane-theme-win95 .win95-button[data-variant="ghost"] {
+  background: transparent;
+  color: var(--w95-face-text);
+  box-shadow: none;
+}
+#arcane-root.arcane-theme-win95 .win95-button[data-variant="ghost"]:hover:not([data-disabled="true"]) {
+  box-shadow: var(--w95-raised);
+  background: var(--w95-face);
+}
+#arcane-root.arcane-theme-win95 .win95-button[data-variant="link"] {
+  background: transparent;
+  box-shadow: none;
+  color: var(--w95-selection);
+  padding-left: 0;
+  padding-right: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+#arcane-root.arcane-theme-win95 .win95-button.dark[data-variant="link"],
+#arcane-root.arcane-theme-win95.dark .win95-button[data-variant="link"] {
+  color: #00ff00;
+}
+
+/* Press: swap the bevel and nudge the label down-right, like a real button. */
+#arcane-root.arcane-theme-win95 .win95-button:active:not([data-disabled="true"]):not([data-variant="link"]):not([data-variant="ghost"]) {
+  box-shadow: var(--w95-pressed);
+  padding-top: calc(0.4rem + 1px);
+  padding-left: calc(0.9rem + 1px);
+  padding-bottom: calc(0.4rem - 1px);
+  padding-right: calc(0.9rem - 1px);
+}
+#arcane-root.arcane-theme-win95 .win95-button[data-disabled="true"] {
+  color: var(--w95-shadow);
+  text-shadow: 1px 1px 0 var(--w95-hilite);
+  cursor: not-allowed;
+}
+
+#arcane-root.arcane-theme-win95 .win95-button-group,
+#arcane-root.arcane-theme-win95 .win95-button-panel {
+  display: inline-flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+/* ---------- Surfaces (cards, popovers, menus, dialogs) ---------- */
+
+#arcane-root.arcane-theme-win95 .win95-card,
+#arcane-root.arcane-theme-win95 .win95-popover,
+#arcane-root.arcane-theme-win95 .win95-dropdown-menu,
+#arcane-root.arcane-theme-win95 .win95-select-dropdown,
+#arcane-root.arcane-theme-win95 .win95-command-dialog,
+#arcane-root.arcane-theme-win95 .win95-command-list,
+#arcane-root.arcane-theme-win95 .win95-toast,
+#arcane-root.arcane-theme-win95 .win95-accordion,
+#arcane-root.arcane-theme-win95 .win95-empty-state {
+  background: var(--w95-face);
+  color: var(--w95-face-text);
+  border: none;
+  border-radius: 0;
+  box-shadow: var(--w95-raised);
+}
+
+#arcane-root.arcane-theme-win95 .win95-card {
+  position: relative;
+  padding: 1rem;
+  transition: none;
+}
+#arcane-root.arcane-theme-win95 .win95-card[data-variant="flat"],
+#arcane-root.arcane-theme-win95 .win95-card[data-variant="ghost"] {
+  box-shadow: none;
+}
+#arcane-root.arcane-theme-win95 .win95-card[data-variant="ghost"] {
+  background: transparent;
+}
+#arcane-root.arcane-theme-win95 .win95-card[data-variant="outlined"] {
+  box-shadow: var(--w95-sunken);
+  background: var(--w95-face);
+}
+#arcane-root.arcane-theme-win95 .win95-card[data-variant="glass"] {
+  background: var(--w95-face);
+  box-shadow: var(--w95-raised);
+}
+#arcane-root.arcane-theme-win95 .win95-card[data-variant="interactive"],
+#arcane-root.arcane-theme-win95 .win95-card.clickable {
+  cursor: pointer;
+}
+#arcane-root.arcane-theme-win95 .win95-card[data-variant="interactive"]:active,
+#arcane-root.arcane-theme-win95 .win95-card.clickable:active {
+  box-shadow: var(--w95-pressed);
+}
+
+/* Dropdown / popover / select surfaces sit slightly tighter and float. */
+#arcane-root.arcane-theme-win95 .win95-dropdown-menu,
+#arcane-root.arcane-theme-win95 .win95-popover,
+#arcane-root.arcane-theme-win95 .win95-select-dropdown {
+  padding: 2px;
+  box-shadow: var(--w95-raised), 2px 2px 0 rgba(0, 0, 0, 0.35);
+}
+
+/* ---------- Window chrome: navy title bars (configurable) ---------- */
+
+/* Command palette is always a titled window. Cards become windows only when the
+   stylesheet's chrome is `everything`; `minimal` strips every title bar. */
+#arcane-root.arcane-theme-win95 .win95-command-dialog {
+  padding-top: calc(2px + 22px);
+}
+#arcane-root.arcane-theme-win95:not(.win95-chrome-minimal) .win95-command-dialog::before,
+#arcane-root.arcane-theme-win95.win95-chrome-everything .win95-card::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  height: 18px;
+  background: linear-gradient(90deg, var(--w95-title-a), var(--w95-title-b));
+}
+#arcane-root.arcane-theme-win95:not(.win95-chrome-minimal) .win95-command-dialog::after,
+#arcane-root.arcane-theme-win95.win95-chrome-everything .win95-card::after {
+  content: '_ □ ✕';
+  position: absolute;
+  top: 3px;
+  right: 6px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--w95-title-text);
+  font-family: var(--font-mono);
+  font-size: 16.5px;
+  letter-spacing: 3px;
+  pointer-events: none;
+}
+#arcane-root.arcane-theme-win95.win95-chrome-everything .win95-card {
+  padding-top: calc(1rem + 22px);
+  overflow: hidden;
+}
+
+/* ---------- Feature / icon / pricing / testimonial cards ---------- */
+
+#arcane-root.arcane-theme-win95 .win95-feature-card,
+#arcane-root.arcane-theme-win95 .win95-icon-card,
+#arcane-root.arcane-theme-win95 .win95-pricing-card,
+#arcane-root.arcane-theme-win95 .win95-testimonial-card {
+  background: var(--w95-face);
+  color: var(--w95-face-text);
+  border: none;
+  border-radius: 0;
+  box-shadow: var(--w95-raised);
+  transition: none;
+}
+#arcane-root.arcane-theme-win95 a.win95-feature-card:active,
+#arcane-root.arcane-theme-win95 .win95-feature-card.clickable:active,
+#arcane-root.arcane-theme-win95 a.win95-icon-card:active,
+#arcane-root.arcane-theme-win95 .win95-icon-card.clickable:active {
+  box-shadow: var(--w95-pressed);
+}
+
+/* ---------- Dropdown / command / select items ---------- */
+
+#arcane-root.arcane-theme-win95 .win95-dropdown-item,
+#arcane-root.arcane-theme-win95 .win95-command-item,
+#arcane-root.arcane-theme-win95 .win95-select-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: 0;
+  cursor: pointer;
+  color: var(--w95-face-text);
+  font-size: 1.219rem;
+  transition: none;
+}
+#arcane-root.arcane-theme-win95 .win95-dropdown-item:hover,
+#arcane-root.arcane-theme-win95 .win95-command-item:hover,
+#arcane-root.arcane-theme-win95 .win95-command-item[aria-selected="true"],
+#arcane-root.arcane-theme-win95 .win95-select-option:hover {
+  background: var(--w95-selection);
+  color: var(--w95-selection-text);
+}
+#arcane-root.arcane-theme-win95 .win95-dropdown-label,
+#arcane-root.arcane-theme-win95 .win95-command-group-heading {
+  padding: 0.3rem 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--w95-face-text);
+}
+#arcane-root.arcane-theme-win95 .win95-dropdown-divider {
+  height: 2px;
+  background: transparent;
+  box-shadow: inset 0 1px 0 var(--w95-shadow), inset 0 2px 0 var(--w95-hilite);
+  margin: 0.3rem 0.1rem;
+  border: none;
+}
+
+/* ---------- Inputs (sunken white wells) ---------- */
+
+#arcane-root.arcane-theme-win95 .win95-text-input,
+#arcane-root.arcane-theme-win95 .win95-select-trigger,
+#arcane-root.arcane-theme-win95 .win95-command-input,
+#arcane-root.arcane-theme-win95 .win95-select-search,
+#arcane-root.arcane-theme-win95 .win95-otp-digit {
+  width: 100%;
+  background: var(--w95-field);
+  color: var(--w95-field-text);
+  border: none;
+  border-radius: 0;
+  box-shadow: var(--w95-sunken);
+  padding: 0.3rem 0.4rem;
+  font-family: var(--font-sans);
+  font-size: 1.219rem;
+  transition: none;
+}
+#arcane-root.arcane-theme-win95 .win95-otp-digit {
+  width: 2.4rem;
+  text-align: center;
+  font-weight: 700;
+}
+#arcane-root.arcane-theme-win95 .win95-text-input::placeholder,
+#arcane-root.arcane-theme-win95 .win95-command-input::placeholder {
+  color: var(--w95-shadow);
+}
+#arcane-root.arcane-theme-win95 .win95-text-input:focus,
+#arcane-root.arcane-theme-win95 .win95-select-trigger:focus,
+#arcane-root.arcane-theme-win95 .win95-command-input:focus,
+#arcane-root.arcane-theme-win95 .win95-select-search:focus,
+#arcane-root.arcane-theme-win95 .win95-otp-digit:focus {
+  outline: 1px dotted var(--w95-field-text);
+  outline-offset: -3px;
+  box-shadow: var(--w95-sunken);
+}
+#arcane-root.arcane-theme-win95 .win95-select-trigger {
+  cursor: pointer;
+}
+#arcane-root.arcane-theme-win95 .win95-text-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+#arcane-root.arcane-theme-win95 .win95-text-input-error,
+#arcane-root.arcane-theme-win95 .win95-select-error,
+#arcane-root.arcane-theme-win95 .win95-radio-group-error {
+  color: #c00000;
+  font-size: 1.125rem;
+}
+#arcane-root.arcane-theme-win95.dark .win95-text-input-error,
+#arcane-root.arcane-theme-win95.dark .win95-select-error,
+#arcane-root.arcane-theme-win95.dark .win95-radio-group-error {
+  color: #ff5050;
+}
+#arcane-root.arcane-theme-win95 .win95-text-input-helper,
+#arcane-root.arcane-theme-win95 .win95-select-helper,
+#arcane-root.arcane-theme-win95 .win95-radio-group-helper {
+  color: var(--w95-face-text);
+  font-size: 1.125rem;
+}
+#arcane-root.arcane-theme-win95 .win95-select.error .win95-select-trigger,
+#arcane-root.arcane-theme-win95 .win95-text-input[data-error="true"] {
+  outline: 1px solid #c00000;
+  outline-offset: -3px;
+}
+
+/* ---------- Checkbox / radio / toggle ---------- */
+
+#arcane-root.arcane-theme-win95 .win95-checkbox-box {
+  position: relative;
+  width: 0.95rem;
+  height: 0.95rem;
+  border: none;
+  border-radius: 0;
+  background: var(--w95-field);
+  box-shadow: var(--w95-sunken);
+  transition: none;
+}
+#arcane-root.arcane-theme-win95 .win95-checkbox-box[data-state="checked"],
+#arcane-root.arcane-theme-win95 input:checked + .win95-checkbox-box {
+  background: var(--w95-field);
+  box-shadow: var(--w95-sunken);
+}
+#arcane-root.arcane-theme-win95 .win95-checkbox-box[data-state="checked"]::after,
+#arcane-root.arcane-theme-win95 input:checked + .win95-checkbox-box::after {
+  content: '✔';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.125rem;
+  line-height: 1;
+  color: var(--w95-field-text);
+}
+#arcane-root.arcane-theme-win95 .win95-radio-button {
+  position: relative;
+  width: 0.95rem;
+  height: 0.95rem;
+  border: none;
+  border-radius: 50%;
+  background: var(--w95-field);
+  box-shadow: var(--w95-sunken);
+}
+#arcane-root.arcane-theme-win95 .win95-radio-button[data-state="checked"]::after,
+#arcane-root.arcane-theme-win95 input:checked + .win95-radio-button::after {
+  content: '';
+  position: absolute;
+  inset: 0.28rem;
+  border-radius: 50%;
+  background: var(--w95-field-text);
+}
+#arcane-root.arcane-theme-win95 .win95-radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Win95 had no toggle switch — render it in-idiom: a sunken track with a raised
+   square thumb that slides. */
+#arcane-root.arcane-theme-win95 .win95-toggle-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 2.6rem;
+  height: 1.3rem;
+  border: none;
+  border-radius: 0;
+  background: var(--w95-field);
+  box-shadow: var(--w95-sunken);
+  padding: 2px;
+  cursor: pointer;
+  transition: none;
+}
+#arcane-root.arcane-theme-win95 .win95-toggle-switch[data-state="checked"],
+#arcane-root.arcane-theme-win95 .win95-toggle-switch.active {
+  background: var(--w95-selection);
+}
+#arcane-root.arcane-theme-win95 .win95-toggle-switch[data-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+#arcane-root.arcane-theme-win95 .win95-toggle-thumb {
+  width: 1.15rem;
+  height: 1.05rem;
+  border-radius: 0;
+  background: var(--w95-face);
+  box-shadow: var(--w95-raised);
+  transition: none;
+}
+#arcane-root.arcane-theme-win95 .win95-toggle-switch[data-state="checked"] .win95-toggle-thumb,
+#arcane-root.arcane-theme-win95 .win95-toggle-switch.active .win95-toggle-thumb {
+  transform: translateX(1.15rem);
+}
+
+/* ---------- Tabs (raised notched folders) ---------- */
+
+#arcane-root.arcane-theme-win95 .win95-tabs-list,
+#arcane-root.arcane-theme-win95 .win95-tab-bar {
+  display: inline-flex;
+  gap: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  position: relative;
+  z-index: 1;
+}
+#arcane-root.arcane-theme-win95 .win95-tabs-trigger,
+#arcane-root.arcane-theme-win95 .win95-tab-bar-item {
+  padding: 0.35rem 0.85rem;
+  border: none;
+  border-radius: 0;
+  background: var(--w95-face);
+  color: var(--w95-face-text);
+  box-shadow: var(--w95-raised);
+  font-family: var(--font-sans);
+  font-size: 1.219rem;
+  font-weight: 400;
+  cursor: pointer;
+  margin-right: 2px;
+  transition: none;
+}
+#arcane-root.arcane-theme-win95 .win95-tabs-trigger.active,
+#arcane-root.arcane-theme-win95 .win95-tab-bar-item.active {
+  background: var(--w95-face);
+  color: var(--w95-face-text);
+  padding: 0.45rem 0.95rem 0.35rem;
+  position: relative;
+  z-index: 2;
+}
+#arcane-root.arcane-theme-win95 .win95-tabs-content {
+  padding: 1rem;
+  background: var(--w95-face);
+  box-shadow: var(--w95-raised);
+  margin-top: -1px;
+}
+
+/* ---------- Alerts (message-box panels) ---------- */
+
+#arcane-root.arcane-theme-win95 .win95-alert {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem;
+  border-radius: 0;
+  border: none;
+  box-shadow: var(--w95-raised);
+  background: var(--w95-face);
+  color: var(--w95-face-text);
+}
+#arcane-root.arcane-theme-win95 .win95-alert[data-variant="destructive"] { color: #c00000; }
+#arcane-root.arcane-theme-win95 .win95-alert[data-variant="success"] { color: #008000; }
+#arcane-root.arcane-theme-win95 .win95-alert[data-variant="warning"] { color: #808000; }
+#arcane-root.arcane-theme-win95 .win95-alert[data-variant="info"] { color: var(--w95-selection); }
+#arcane-root.arcane-theme-win95 .win95-alert-title { font-weight: 700; color: var(--w95-face-text); }
+#arcane-root.arcane-theme-win95 .win95-alert-description { color: var(--w95-face-text); }
+#arcane-root.arcane-theme-win95 .win95-alert-dismiss {
+  margin-left: auto;
+  background: var(--w95-face);
+  box-shadow: var(--w95-raised);
+  border: none;
+  border-radius: 0;
+  width: 1.1rem;
+  height: 1.1rem;
+  color: var(--w95-face-text);
+  cursor: pointer;
+}
+#arcane-root.arcane-theme-win95 .win95-alert-dismiss:active { box-shadow: var(--w95-pressed); }
+
+/* ---------- Badges / status (thin raised chips) ---------- */
+
+#arcane-root.arcane-theme-win95 .win95-badge,
+#arcane-root.arcane-theme-win95 .win95-status-badge,
+#arcane-root.arcane-theme-win95 .win95-promo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 0;
+  font-size: 1.125rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  border: none;
+  box-shadow: var(--w95-raised-thin);
+  background: var(--w95-face);
+  color: var(--w95-face-text);
+}
+#arcane-root.arcane-theme-win95 .win95-status-indicator {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 0;
+  background: currentColor;
+  box-shadow: var(--w95-sunken-thin);
+}
+#arcane-root.arcane-theme-win95 .win95-status-label {
+  font-weight: 700;
+}
+
+/* ---------- Progress (segmented sunken meter) ---------- */
+
+#arcane-root.arcane-theme-win95 .win95-progress,
+#arcane-root.arcane-theme-win95 .win95-progress-track {
+  background: var(--w95-field);
+  box-shadow: var(--w95-sunken);
+  border-radius: 0;
+  overflow: hidden;
+  padding: 2px;
+  min-height: 1.1rem;
+}
+#arcane-root.arcane-theme-win95 .win95-progress-indicator,
+#arcane-root.arcane-theme-win95 .win95-progress-value {
+  height: 100%;
+  min-height: 0.7rem;
+  border-radius: 0;
+  box-shadow: none;
+  background-color: var(--w95-selection);
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--w95-selection) 0,
+    var(--w95-selection) 10px,
+    transparent 10px,
+    transparent 12px
+  );
+}
+#arcane-root.arcane-theme-win95 .win95-loading-spinner,
+#arcane-root.arcane-theme-win95 .win95-toast-spinner {
+  color: var(--w95-selection);
+}
+
+/* ---------- Misc components ---------- */
+
+#arcane-root.arcane-theme-win95 .win95-avatar {
+  border-radius: 0;
+  border: none;
+  box-shadow: var(--w95-raised-thin);
+  overflow: hidden;
+  background: var(--w95-face);
+}
+#arcane-root.arcane-theme-win95 .win95-avatar-status {
+  border: 2px solid var(--w95-face);
+  border-radius: 50%;
+}
+/* Etched groove separators. */
+#arcane-root.arcane-theme-win95 .win95-separator {
+  background: transparent;
+  border: none;
+}
+#arcane-root.arcane-theme-win95 .win95-separator:not(.win95-separator-vertical) {
+  height: 2px;
+  width: 100%;
+  box-shadow: inset 0 1px 0 var(--w95-shadow), inset 0 2px 0 var(--w95-hilite);
+}
+#arcane-root.arcane-theme-win95 .win95-separator-vertical {
+  width: 2px;
+  align-self: stretch;
+  box-shadow: inset 1px 0 0 var(--w95-shadow), inset 2px 0 0 var(--w95-hilite);
+}
+#arcane-root.arcane-theme-win95 .win95-kbd {
+  font-family: var(--font-mono);
+  font-size: 1.2em;
+  padding: 0.1rem 0.4rem;
+  border: none;
+  border-radius: 0;
+  box-shadow: var(--w95-raised-thin);
+  background: var(--w95-face);
+  color: var(--w95-face-text);
+}
+#arcane-root.arcane-theme-win95 .win95-breadcrumb-separator {
+  color: var(--w95-face-text);
+}
+#arcane-root.arcane-theme-win95 .win95-empty-state {
+  text-align: center;
+  padding: 2rem;
+}
+#arcane-root.arcane-theme-win95 .win95-empty-state-icon { color: var(--w95-shadow); }
+#arcane-root.arcane-theme-win95 .win95-empty-state-title { font-weight: 700; }
+#arcane-root.arcane-theme-win95 .win95-empty-state-description { color: var(--w95-face-text); }
+#arcane-root.arcane-theme-win95 .win95-toast-title { font-weight: 700; }
+#arcane-root.arcane-theme-win95 .win95-toast-description { color: var(--w95-face-text); }
+
+/* ---------- Chunky beveled scrollbars ---------- */
+
+#arcane-root.arcane-theme-win95 ::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+#arcane-root.arcane-theme-win95 ::-webkit-scrollbar-track {
+  background-color: #c0c0c0;
+  background-image:
+    linear-gradient(45deg, #a8a8a8 25%, transparent 25%, transparent 75%, #a8a8a8 75%),
+    linear-gradient(45deg, #a8a8a8 25%, transparent 25%, transparent 75%, #a8a8a8 75%);
+  background-size: 2px 2px;
+  background-position: 0 0, 1px 1px;
+}
+#arcane-root.arcane-theme-win95 ::-webkit-scrollbar-thumb {
+  background: var(--w95-face);
+  box-shadow: var(--w95-raised);
+  border-radius: 0;
+}
+#arcane-root.arcane-theme-win95 ::-webkit-scrollbar-corner {
+  background: #c0c0c0;
+}
+
+/* ---------- Sidebar + scaffold chrome ---------- */
+
+#arcane-root.arcane-theme-win95 .win95-sidebar {
+  background: var(--w95-face);
+  border: none;
+  box-shadow: inset -1px 0 0 var(--w95-hilite), inset -2px 0 0 var(--w95-shadow);
+}
+#arcane-root.arcane-theme-win95 .win95-sidebar-group-label {
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--w95-face-text);
+}
+#arcane-root.arcane-theme-win95 .win95-sidebar-separator {
+  height: 2px;
+  background: transparent;
+  box-shadow: inset 0 1px 0 var(--w95-shadow), inset 0 2px 0 var(--w95-hilite);
+}
+
+/* ---------- Docs chrome layout (Windows 95 desktop reframe) ---------- */
+/*
+   The documentation site is reframed as a single maximized Windows 95
+   application window sitting on the teal desktop:
+     - #arcane-root paints the teal desktop; .arcane-scaffold is the raised
+       silver window (a thin teal frame shows on the sides + bottom).
+     - .arcane-scaffold-header carries the navy TITLE BAR (::before caption +
+       window icon, ::after "_ [] X" controls). The nested .kb-topbar carries
+       the flat MENU BAR (::before "File Edit View Help") above a raised
+       TOOLBAR strip (.kb-topbar-inner) holding the real search / switchers /
+       toggle / github controls as beveled buttons.
+     - the sidebar cell is a SUNKEN white Explorer TREE-VIEW well; the nav is a
+       black-text tree with dotted guide lines and a navy selection bar.
+     - the main content is a raised silver "document window" (navy caption via
+       .kb-content-area::before) whose article body is a sunken white page.
+     - a fixed bottom TASKBAR is drawn from .arcane-scaffold::after (the raised
+       strip), .arcane-scaffold::before (the Start button + waving-flag glyph)
+       and .arcane-scaffold-body::after (the sunken system-tray clock well).
+
+   LIMITATION / RENDERER NOTE: a *working* Start button (click -> Start menu
+   popup), per-window task buttons, and a LIVE-updating clock cannot be built
+   from CSS pseudo-elements alone -- an element exposes only ::before/::after
+   (two static boxes, no children, no interactivity, no scripted text). The
+   pseudo-element taskbar below is a faithful STATIC look only (the Start button
+   and clock have pointer-events:none and the clock shows a fixed "12:00 PM").
+   For a functional taskbar, have the Win95 KB layout renderer
+   (packages/arcane_jaspr_win95) emit a real child of the scaffold root, e.g.
+   <div class="win95-taskbar"> with a Start <button>, task buttons, and a
+   [data-clock] span updated via setInterval in the client entrypoint.
+
+   Everything is sharp-cornered (border-radius:0), fully opaque (no blur, no
+   translucency, no color-mix backgrounds) and shaded only with hard 1px bevel
+   insets -- no soft/ambient drop shadows, no neon text-glow, no hover tints.
+*/
+
+/* --- Teal desktop backdrop --- */
+#arcane-root.arcane-theme-win95 {
+  background: var(--w95-desktop);
+  min-height: 100vh;
+  scroll-padding-bottom: 44px;
+}
+
+/* --- The maximized application window --- */
+#arcane-root.arcane-theme-win95 .arcane-scaffold {
+  position: relative;
+  min-height: calc(100vh - 30px) !important;
+  margin: 0 2px 30px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 2px !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised);
+  font-size: 16.5px;
+}
+
+/* Taskbar strip (raised top edge, flush to the screen bottom). */
+#arcane-root.arcane-theme-win95 .arcane-scaffold::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 28px;
+  z-index: 9000;
+  background: var(--w95-face);
+  box-shadow: inset 0 1px 0 var(--w95-hilite), inset 0 2px 0 var(--w95-light);
+  pointer-events: none;
+}
+
+/* Start button (STATIC look -- a real <button> must be renderer-injected for a
+   working Start menu; see the header note above). */
+#arcane-root.arcane-theme-win95 .arcane-scaffold::before {
+  content: "Start";
+  position: fixed;
+  left: 4px;
+  bottom: 3px;
+  z-index: 9001;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px 0 24px;
+  font-weight: 700;
+  font-size: 16.5px;
+  line-height: 22px;
+  color: var(--w95-face-text);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cpath fill='%23ff0000' d='M2 3 7 2v5H2z'/%3E%3Cpath fill='%2300a800' d='M8 2 14 3v4H8z'/%3E%3Cpath fill='%230000ff' d='M2 8h5v5l-5-1z'/%3E%3Cpath fill='%23ffff00' d='M8 8h6v4l-6 1z'/%3E%3C/svg%3E") 5px center / 16px 16px no-repeat,
+    var(--w95-face);
+  box-shadow: var(--w95-raised);
+  pointer-events: none;
+}
+
+/* System-tray clock well (STATIC text -- live time needs JS on a
+   renderer-injected node; see the header note above). */
+#arcane-root.arcane-theme-win95 .arcane-scaffold-body::after {
+  content: "12:00 PM";
+  position: fixed;
+  right: 4px;
+  bottom: 3px;
+  z-index: 9001;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 16.5px;
+  line-height: 22px;
+  color: var(--w95-face-text);
+  background: var(--w95-face);
+  box-shadow: var(--w95-sunken-thin);
+  pointer-events: none;
+}
+
+/* --- Title bar (the outer scaffold header becomes the window caption) --- */
+#arcane-root.arcane-theme-win95 .arcane-scaffold-header {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  z-index: auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 0 1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: var(--w95-face) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Navy gradient caption bar + 16x16 window icon. */
+#arcane-root.arcane-theme-win95 .arcane-scaffold-header::before {
+  content: "Arcane Jaspr Documentation";
+  display: block;
+  height: 20px;
+  padding: 0 60px 0 22px;
+  font-weight: 700;
+  font-size: 16.5px;
+  line-height: 20px;
+  color: var(--w95-title-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect x='1' y='2' width='14' height='12' fill='%23ffffff' stroke='%23000000'/%3E%3Crect x='2' y='3' width='12' height='3' fill='%23000080'/%3E%3Crect x='3' y='8' width='10' height='1' fill='%23808080'/%3E%3Crect x='3' y='10' width='10' height='1' fill='%23808080'/%3E%3C/svg%3E") 3px center / 16px 16px no-repeat,
+    linear-gradient(90deg, var(--w95-title-a) 0%, var(--w95-title-b) 100%);
+}
+
+/* Minimize / Maximize / Close glyphs, drawn white on the caption's right. */
+#arcane-root.arcane-theme-win95 .arcane-scaffold-header::after {
+  content: "_ □ ✕";
+  position: absolute;
+  top: 3px;
+  right: 6px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 5px;
+  font-size: 16.5px;
+  line-height: 16px;
+  color: var(--w95-title-text);
+  pointer-events: none;
+}
+
+/* --- Menu bar + toolbar (the inner kb-topbar) --- */
+#arcane-root.arcane-theme-win95 .kb-topbar,
+#arcane-root.arcane-theme-win95 .arcane-scaffold-header .kb-topbar {
+  display: block !important;
+  position: static !important;
+  top: auto !important;
+  z-index: auto;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: var(--w95-face) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Flat menu-bar strip: File / Edit / View / Help (decorative -- individual
+   drop-down menus would need real per-item elements from the renderer). */
+#arcane-root.arcane-theme-win95 .kb-topbar::before {
+  content: "File     Edit     View     Favorites     Help";
+  display: block;
+  height: 20px;
+  padding: 3px 8px 0;
+  font-size: 16.5px;
+  line-height: 16px;
+  color: var(--w95-face-text);
+  white-space: nowrap;
+  background: var(--w95-face);
+}
+
+#arcane-root.arcane-theme-win95 .kb-topbar::after {
+  content: none;
+}
+
+#arcane-root.arcane-theme-win95 .kb-topbar.kb-topbar-bottom {
+  box-shadow: inset 0 1px 0 var(--w95-hilite) !important;
+}
+
+/* Raised toolbar strip holding the live controls. */
+#arcane-root.arcane-theme-win95 .kb-topbar-inner {
+  display: flex !important;
+  align-items: center;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  min-height: 30px;
+  padding: 3px 4px;
+  gap: 3px;
+  background: var(--w95-face);
+  box-shadow: var(--w95-raised-thin);
+}
+
+#arcane-root.arcane-theme-win95 .kb-topbar-left,
+#arcane-root.arcane-theme-win95 .kb-topbar-right {
+  min-width: 0;
+  gap: 3px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+#arcane-root.arcane-theme-win95 .kb-topbar-left {
+  flex: 1 1 auto;
+}
+
+#arcane-root.arcane-theme-win95 .kb-topbar-right {
+  flex: 0 1 auto;
+}
+
+#arcane-root.arcane-theme-win95 .kb-topbar-nav {
+  min-width: 0;
+  margin-left: 2px;
+  padding: 0;
+  gap: 2px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+/* Toolbar brand label (the site name already lives in the title bar). */
+#arcane-root.arcane-theme-win95 .kb-topbar-brand {
+  height: auto;
+  padding: 0 4px;
+  gap: 4px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--w95-face-text);
+  box-shadow: none;
+  font-size: 16.5px;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  text-shadow: none;
+}
+
+#arcane-root.arcane-theme-win95 .kb-topbar-brand-icon {
+  display: none;
+}
+
+#arcane-root.arcane-theme-win95 .kb-topbar-brand-label {
+  color: var(--w95-face-text);
+}
+
+/* Top-bar nav links behave like flat menu entries: navy bar on hover/active,
+   no sliding underline, no neon glow. */
+#arcane-root.arcane-theme-win95 .kb-topbar-link {
+  position: relative;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--w95-face-text);
+  box-shadow: none;
+  font-size: 16.5px;
+  font-weight: 400;
+  line-height: 1;
+  text-decoration: none;
+  text-shadow: none;
+}
+
+#arcane-root.arcane-theme-win95 .kb-topbar-link:hover,
+#arcane-root.arcane-theme-win95 .kb-topbar-link.active {
+  background: var(--w95-selection);
+  color: var(--w95-selection-text);
+  text-shadow: none;
+  box-shadow: none;
+}
+
+#arcane-root.arcane-theme-win95 .kb-topbar-link.active {
+  font-weight: 400;
+}
+
+#arcane-root.arcane-theme-win95 .kb-topbar-link::after,
+#arcane-root.arcane-theme-win95 .kb-topbar-link.active::after {
+  content: none !important;
+  display: none !important;
+}
+
+#arcane-root.arcane-theme-win95 .kb-style-switcher {
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
+  gap: 3px;
+  background: transparent;
+}
+
+/* Toolbar buttons: raised silver faces that press in on :active. */
+#arcane-root.arcane-theme-win95 .kb-topbar-github,
+#arcane-root.arcane-theme-win95 .kb-theme-toggle,
+#arcane-root.arcane-theme-win95 .kb-stylesheet-select,
+#arcane-root.arcane-theme-win95 .kb-palette-select,
+#arcane-root.arcane-theme-win95 .kb-hamburger {
+  height: 22px;
+  min-height: 22px;
+  border: 0;
+  border-radius: 0;
+  background: var(--w95-face);
+  color: var(--w95-face-text);
+  box-shadow: var(--w95-raised);
+  font-size: 16.5px;
+}
+
+#arcane-root.arcane-theme-win95 .kb-topbar-github,
+#arcane-root.arcane-theme-win95 .kb-theme-toggle,
+#arcane-root.arcane-theme-win95 .kb-hamburger {
+  width: 22px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#arcane-root.arcane-theme-win95 .kb-stylesheet-select,
+#arcane-root.arcane-theme-win95 .kb-palette-select {
+  /* A native <select> renders its value in the macOS system font (appearance
+     auto makes the control ignore the theme font, and <select> does not inherit
+     font-family). Strip the native chrome and force the pixel font + a Win95
+     dropdown arrow. background-image is !important so the hover/active background
+     shorthand cannot wipe the arrow. */
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: "Pixelated MS Sans Serif", "MS Sans Serif", "Microsoft Sans Serif", Tahoma, "Segoe UI", sans-serif;
+  font-weight: 400;
+  padding: 0 15px 0 4px;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='7' height='4' viewBox='0 0 7 4'><path fill='%23000000' d='M0 0 L7 0 L3.5 4 Z'/></svg>") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 4px center !important;
+}
+/* Dark-mode dropdown arrow: white on the dark face. */
+#arcane-root.arcane-theme-win95.dark .kb-stylesheet-select,
+#arcane-root.arcane-theme-win95.dark .kb-palette-select {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='7' height='4' viewBox='0 0 7 4'><path fill='%23ffffff' d='M0 0 L7 0 L3.5 4 Z'/></svg>") !important;
+}
+
+#arcane-root.arcane-theme-win95 .kb-topbar-github:active,
+#arcane-root.arcane-theme-win95 .kb-theme-toggle:active,
+#arcane-root.arcane-theme-win95 .kb-stylesheet-select:active,
+#arcane-root.arcane-theme-win95 .kb-palette-select:active,
+#arcane-root.arcane-theme-win95 .kb-hamburger:active {
+  background: var(--w95-face);
+  box-shadow: var(--w95-pressed);
+}
+
+/* Win95 controls react on press, not hover -- neutralize the neon hover tint. */
+#arcane-root.arcane-theme-win95 .kb-topbar-github:hover,
+#arcane-root.arcane-theme-win95 .kb-theme-toggle:hover,
+#arcane-root.arcane-theme-win95 .kb-stylesheet-select:hover,
+#arcane-root.arcane-theme-win95 .kb-palette-select:hover,
+#arcane-root.arcane-theme-win95 .kb-hamburger:hover {
+  background: var(--w95-face);
+  border: 0;
+}
+
+#arcane-root.arcane-theme-win95 .kb-theme-toggle .theme-icon-light,
+#arcane-root.arcane-theme-win95 .kb-theme-toggle .theme-icon-dark {
+  color: var(--w95-face-text);
+}
+
+#arcane-root.arcane-theme-win95 .kb-topbar .kb-hamburger {
+  display: none !important;
+}
+
+@media (max-width: 900px) {
+  #arcane-root.arcane-theme-win95 .kb-topbar .kb-hamburger {
+    display: inline-flex !important;
+  }
+}
+
+/* --- Search box: a sunken white field, no focus glow --- */
+#arcane-root.arcane-theme-win95 .kb-search {
+  background: transparent;
+}
+
+#arcane-root.arcane-theme-win95 .kb-search-input,
+#arcane-root.arcane-theme-win95 .sidebar-search input {
+  height: 22px;
+  padding: 3px 4px;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: var(--w95-field) !important;
+  color: var(--w95-field-text) !important;
+  box-shadow: var(--w95-sunken) !important;
+  font-size: 16.5px;
+}
+
+#arcane-root.arcane-theme-win95 .kb-search-input:focus,
+#arcane-root.arcane-theme-win95 .sidebar-search input:focus {
+  border: 0 !important;
+  outline: none !important;
+  background: var(--w95-field) !important;
+  box-shadow: var(--w95-sunken) !important;
+}
+
+#arcane-root.arcane-theme-win95 .kb-search-input::selection {
+  background: var(--w95-selection);
+  color: var(--w95-selection-text);
+}
+
+#arcane-root.arcane-theme-win95 .kb-search-icon {
+  color: var(--w95-shadow);
+}
+
+/* Autocomplete results: a raised silver panel with a single hard drop offset. */
+#arcane-root.arcane-theme-win95 .search-results {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised), 2px 2px 0 rgba(0, 0, 0, 0.4) !important;
+}
+
+/* --- Body grid + Explorer sidebar well + main client --- */
+#arcane-root.arcane-theme-win95 .arcane-scaffold-body {
+  display: grid !important;
+  grid-template-columns: minmax(13rem, 16rem) minmax(0, 1fr) !important;
+  align-items: stretch !important;
+  gap: 3px !important;
+  padding: 3px 3px 44px !important;
+  background: var(--w95-face) !important;
+  overflow: visible !important;
+}
+
+/* Sidebar cell = sunken white Explorer well (fills the column height). */
+#arcane-root.arcane-theme-win95 .arcane-scaffold-sidebar {
+  border: 0 !important;
+  background: var(--w95-field) !important;
+  box-shadow: var(--w95-sunken) !important;
+  overflow: visible !important;
+}
+
+#arcane-root.arcane-theme-win95 .arcane-scaffold-sidebar.arcane-scaffold-sidebar {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  align-self: stretch !important;
+  width: auto !important;
+  height: auto !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  border: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+/* The empty right rail + the unused outer footer are not part of this window. */
+#arcane-root.arcane-theme-win95 .arcane-scaffold-secondary,
+#arcane-root.arcane-theme-win95 .arcane-scaffold-footer {
+  display: none !important;
+}
+
+#arcane-root.arcane-theme-win95 .arcane-scaffold-main.arcane-scaffold-main {
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 0 !important;
+  align-self: stretch !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  overflow: visible !important;
+}
+
+/* KB structural wrappers stay transparent -- the scaffold layer draws the frame. */
+#arcane-root.arcane-theme-win95 .kb-page-shell,
+#arcane-root.arcane-theme-win95 .kb-scaffold,
+#arcane-root.arcane-theme-win95 .kb-layout-body,
+#arcane-root.arcane-theme-win95 .kb-style-slot {
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Inner sidebar: the scrolling tree rail, pinned below the chrome. */
+#arcane-root.arcane-theme-win95 .kb-sidebar,
+#arcane-root.arcane-theme-win95 .arcane-scaffold-sidebar .kb-sidebar {
+  position: sticky !important;
+  top: 6px !important;
+  width: 100% !important;
+  height: max-content !important;
+  max-height: calc(100vh - 44px) !important;
+  min-height: 0 !important;
+  padding: 4px !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  overflow-y: auto !important;
+  color: var(--w95-face-text);
+  font-size: 16.5px;
+  line-height: 16px;
+}
+
+#arcane-root.arcane-theme-win95 .kb-sidebar-panel {
+  min-height: 0 !important;
+  background: transparent;
+}
+
+/* Optional sidebar header (brand block) as a small raised group. */
+#arcane-root.arcane-theme-win95 .sidebar-header {
+  margin: 0 0 4px !important;
+  padding: 4px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: var(--w95-face) !important;
+  box-shadow: var(--w95-raised-thin) !important;
+}
+
+#arcane-root.arcane-theme-win95 .sidebar-brand-title {
+  color: var(--w95-face-text);
+  font-weight: 700;
+}
+
+#arcane-root.arcane-theme-win95 .sidebar-brand-subtitle {
+  color: var(--w95-shadow);
+}
+
+#arcane-root.arcane-theme-win95 .sidebar-controls {
+  gap: 3px;
+}
+
+#arcane-root.arcane-theme-win95 .sidebar-nav {
+  padding: 2px !important;
+  gap: 1px !important;
+}
+
+#arcane-root.arcane-theme-win95 .sidebar-section {
+  margin-bottom: 2px;
+}
+
+/* Plain bold folder-group labels (no modern uppercase tracking). */
+#arcane-root.arcane-theme-win95 .sidebar-section-header {
+  padding: 2px 4px;
+  color: var(--w95-face-text);
+  font-size: 16.5px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+#arcane-root.arcane-theme-win95 .sidebar-chevron,
+#arcane-root.arcane-theme-win95 .sidebar-chevron-icon,
+#arcane-root.arcane-theme-win95 .sidebar-icon,
+#arcane-root.arcane-theme-win95 .sidebar-icon-svg {
+  color: var(--w95-face-text);
+}
+
+/* Tree rows: black text, sharp, selection-driven (not hover-driven). */
+#arcane-root.arcane-theme-win95 .sidebar-summary,
+#arcane-root.arcane-theme-win95 .sidebar-link {
+  border-radius: 0;
+  color: var(--w95-face-text);
+  outline: 0;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  font-size: 16.5px;
+  line-height: 16px;
+}
+
+#arcane-root.arcane-theme-win95 .sidebar-summary:hover,
+#arcane-root.arcane-theme-win95 .sidebar-details[open] > .sidebar-summary,
+#arcane-root.arcane-theme-win95 .sidebar-link:hover {
+  background: transparent;
+  color: var(--w95-face-text);
+  outline: 0;
+}
+
+#arcane-root.arcane-theme-win95 .sidebar-link.active {
+  background: var(--w95-selection);
+  color: var(--w95-selection-text);
+  outline: 1px dotted var(--w95-hilite);
+  outline-offset: -3px;
+  text-shadow: none;
+  box-shadow: none;
+}
+
+#arcane-root.arcane-theme-win95 .sidebar-link.active .sidebar-icon,
+#arcane-root.arcane-theme-win95 .sidebar-link.active .sidebar-icon-svg {
+  color: var(--w95-selection-text);
+}
+
+/* Explorer connector lines: a dotted vertical trunk (background) plus a short
+   dotted horizontal elbow per row (re-enabling the guides the flat theme hid). */
+#arcane-root.arcane-theme-win95 .sidebar-tree {
+  position: relative;
+  padding-left: 14px !important;
+  margin-left: 6px !important;
+  margin-top: 0 !important;
+  gap: 0 !important;
+  background:
+    repeating-linear-gradient(to bottom, var(--w95-shadow) 0 1px, transparent 1px 2px)
+    left 4px top 0 / 1px 100% no-repeat;
+}
+
+#arcane-root.arcane-theme-win95 .sidebar-tree-item {
+  position: relative;
+}
+
+#arcane-root.arcane-theme-win95 .sidebar-tree-item::before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: -10px;
+  top: 9px;
+  width: 8px;
+  height: 0;
+  border-top: 1px dotted var(--w95-shadow);
+}
+
+#arcane-root.arcane-theme-win95 .sidebar-tree-item::after {
+  content: none;
+}
+
+/* --- Main content: a raised "document window" with a navy caption --- */
+#arcane-root.arcane-theme-win95 .kb-main-area {
+  min-width: 0 !important;
+  width: 100% !important;
+  background: transparent !important;
+  overflow: visible !important;
+}
+
+#arcane-root.arcane-theme-win95 .kb-content-area {
+  position: relative;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  align-items: start !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  gap: 12px !important;
+  padding: 26px 12px 12px !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised) !important;
+}
+
+/* Document-window caption strip. */
+#arcane-root.arcane-theme-win95 .kb-content-area::before {
+  content: "Arcane Jaspr Documentation";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+  z-index: 1;
+  font-size: 16.5px;
+  font-weight: 700;
+  line-height: 18px;
+  color: var(--w95-title-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: linear-gradient(90deg, var(--w95-title-a) 0%, var(--w95-title-b) 100%);
+}
+
+@media (min-width: 1201px) {
+  #arcane-root.arcane-theme-win95 .kb-content-area:has(.kb-toc-panel) {
+    grid-template-columns: minmax(0, 1fr) minmax(12rem, 15rem) !important;
+  }
+}
+
+/* The article body = a sunken white page inside the document window. */
+#arcane-root.arcane-theme-win95 .kb-article-panel {
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: 68rem !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 16px 20px 20px !important;
+  background: var(--w95-field) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-sunken) !important;
+}
+
+#arcane-root.arcane-theme-win95 .kb-landing-page {
+  background: var(--w95-field) !important;
+  color: var(--w95-face-text) !important;
+}
+
+/* Keep all reading text solidly black on the white page. */
+#arcane-root.arcane-theme-win95 .kb-article-panel .prose,
+#arcane-root.arcane-theme-win95 .kb-page-title,
+#arcane-root.arcane-theme-win95 .kb-page-description,
+#arcane-root.arcane-theme-win95 .kb-tags-footer-label {
+  color: var(--w95-face-text) !important;
+}
+
+/* Breadcrumbs styled as an Explorer address strip. */
+#arcane-root.arcane-theme-win95 .kb-breadcrumbs {
+  margin-bottom: 12px;
+  padding: 3px 6px;
+  background: var(--w95-field);
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-sunken-thin);
+}
+
+#arcane-root.arcane-theme-win95 .kb-page-metadata,
+#arcane-root.arcane-theme-win95 .kb-tags-footer {
+  border-color: var(--w95-shadow) !important;
+  color: var(--w95-face-text) !important;
+}
+
+#arcane-root.arcane-theme-win95 .kb-page-metadata-item {
+  /* --w95-shadow is a bevel colour (#808080 light / near-black dark) -> unreadable
+     as text in dark mode. Use the theme-aware muted text token instead. */
+  color: var(--muted-foreground) !important;
+}
+
+/* Pagination cards = raised silver buttons. */
+#arcane-root.arcane-theme-win95 .kb-page-nav {
+  border-top: 1px solid var(--w95-shadow);
+}
+
+#arcane-root.arcane-theme-win95 .kb-page-nav-link {
+  padding: 8px 10px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised) !important;
+}
+
+#arcane-root.arcane-theme-win95 .kb-page-nav-link:active {
+  box-shadow: var(--w95-pressed) !important;
+}
+
+/* --- Table of contents = a sunken "Contents" panel --- */
+#arcane-root.arcane-theme-win95 .kb-toc-panel {
+  position: sticky !important;
+  top: 34px !important;
+  align-self: flex-start !important;
+  width: 100% !important;
+  max-height: calc(100vh - 72px) !important;
+  padding: 8px !important;
+  background: var(--w95-field) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-sunken) !important;
+  overflow: auto !important;
+}
+
+#arcane-root.arcane-theme-win95 .kb-toc-panel .toc {
+  padding: 0;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+#arcane-root.arcane-theme-win95 .kb-toc-panel .toc-title {
+  border-bottom: 1px solid var(--w95-shadow) !important;
+  padding-bottom: 3px;
+  margin-bottom: 6px;
+  color: var(--w95-face-text);
+  font-weight: 700;
+}
+
+#arcane-root.arcane-theme-win95 .toc-content {
+  color: var(--w95-face-text);
+}
+
+#arcane-root.arcane-theme-win95 .toc-content a {
+  border-radius: 0;
+  background: transparent;
+  color: var(--w95-face-text);
+}
+
+#arcane-root.arcane-theme-win95 .toc-content a:hover,
+#arcane-root.arcane-theme-win95 .toc-content a.toc-active {
+  background: var(--w95-selection);
+  color: var(--w95-selection-text);
+}
+
+#arcane-root.arcane-theme-win95 .toc-content > ul > li::before,
+#arcane-root.arcane-theme-win95 .toc-content > ul > li::after,
+#arcane-root.arcane-theme-win95 .toc-content ul ul li::before,
+#arcane-root.arcane-theme-win95 .toc-content ul ul li::after {
+  background: var(--w95-shadow) !important;
+}
+
+/* --- Demo panels = beveled Win95 boxes (raised frame, sunken wells) --- */
+#arcane-root.arcane-theme-win95 .kb-demo-shell {
+  background: transparent;
+}
+
+#arcane-root.arcane-theme-win95 .arcane-demo-panel {
+  padding: 10px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised) !important;
+}
+
+#arcane-root.arcane-theme-win95 .arcane-demo-preview-scope,
+#arcane-root.arcane-theme-win95 .arcane-demo-code {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: var(--w95-field) !important;
+  box-shadow: var(--w95-sunken) !important;
+}
+
+#arcane-root.arcane-theme-win95 .arcane-demo-preview-scope {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+#arcane-root.arcane-theme-win95 .arcane-demo-preview-scope > .arcane-box {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+#arcane-root.arcane-theme-win95 .arcane-demo-kicker,
+#arcane-root.arcane-theme-win95 .arcane-demo-code-label {
+  /* Readable in both modes -- --w95-shadow goes near-black on the dark panel. */
+  color: var(--muted-foreground) !important;
+}
+
+#arcane-root.arcane-theme-win95 .arcane-demo-section-title {
+  color: var(--w95-face-text) !important;
+}
+
+/* Component chip = a small raised tag (no rounded pill). */
+#arcane-root.arcane-theme-win95 .arcane-demo-component-chip {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised-thin) !important;
+}
+
+#arcane-root.arcane-theme-win95 .kb-missing-demo,
+#arcane-root.arcane-theme-win95 .arcane-demo-missing {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised) !important;
+}
+
+#arcane-root.arcane-theme-win95 .kb-missing-demo-icon,
+#arcane-root.arcane-theme-win95 .arcane-demo-missing-icon {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: var(--w95-field) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-sunken-thin) !important;
+}
+
+#arcane-root.arcane-theme-win95 .kb-missing-demo-title,
+#arcane-root.arcane-theme-win95 .arcane-demo-missing-title {
+  color: var(--w95-face-text) !important;
+}
+
+#arcane-root.arcane-theme-win95 .kb-missing-demo-body,
+#arcane-root.arcane-theme-win95 .arcane-demo-missing-body {
+  color: var(--w95-shadow) !important;
+}
+
+/* --- Landing chrome: beveled panels, no gradients / glow --- */
+#arcane-root.arcane-theme-win95 .kb-landing-hero {
+  padding: 16px;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised);
+}
+
+#arcane-root.arcane-theme-win95 .kb-landing-prose {
+  display: grid;
+  gap: 16px;
+}
+
+#arcane-root.arcane-theme-win95 .kb-landing-prose > * + * {
+  margin-top: 0;
+}
+
+#arcane-root.arcane-theme-win95 .kb-landing-grid {
+  gap: 12px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+#arcane-root.arcane-theme-win95 .kb-landing-band {
+  gap: 16px;
+  margin-top: 16px;
+  padding: 16px;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised);
+}
+
+#arcane-root.arcane-theme-win95 .kb-landing-terminal-body,
+#arcane-root.arcane-theme-win95 .kb-landing-list {
+  gap: 12px;
+}
+
+#arcane-root.arcane-theme-win95 .kb-landing-card {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised) !important;
+}
+
+/* Cards are not buttons -- no press/hover state change. */
+#arcane-root.arcane-theme-win95 .kb-landing-card:hover {
+  border: 0 !important;
+  box-shadow: var(--w95-raised) !important;
+}
+
+/* --- Responsive collapse --- */
+@media (max-width: 1200px) {
+  #arcane-root.arcane-theme-win95 .kb-content-area {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  #arcane-root.arcane-theme-win95 .kb-toc-panel {
+    display: none !important;
+  }
+}
+
+@media (max-width: 900px) {
+  #arcane-root.arcane-theme-win95 .arcane-scaffold-body {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  #arcane-root.arcane-theme-win95 .arcane-scaffold-sidebar.arcane-scaffold-sidebar {
+    align-self: start !important;
+  }
+
+  #arcane-root.arcane-theme-win95 .kb-sidebar {
+    position: static !important;
+    top: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  #arcane-root.arcane-theme-win95 .kb-content-area {
+    padding: 26px 8px 8px !important;
+  }
+}
+
+/* ============================================================
+   LAYOUT FIX: the .arcane-scaffold* layer is ABSENT in this docs
+   build, so the original window-frame / body-grid / sidebar-well
+   / taskbar rules (which targeted it) were no-ops, and .kb-sidebar
+   ate the whole flex row. Re-anchor the frame onto the REAL kb-*
+   layer. These rules come last in the sheet, so they win.
+   ============================================================ */
+
+/* The whole docs app = one maximized Win95 window on the teal desktop. */
+#arcane-root.arcane-theme-win95 .kb-scaffold {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  margin: 3px 3px 34px !important;
+  padding: 2px !important;
+  background: var(--w95-face) !important;
+  box-shadow: var(--w95-raised) !important;
+  min-height: calc(100vh - 40px) !important;
+  overflow: visible !important;
+}
+
+/* Body = flex row: a fixed Explorer tree well + a flexible document pane. */
+#arcane-root.arcane-theme-win95 .kb-layout-body {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: stretch !important;
+  gap: 3px !important;
+  padding: 3px !important;
+  background: var(--w95-face) !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+/* Explorer tree = fixed-width SUNKEN white well (was full-width -> broke). */
+#arcane-root.arcane-theme-win95 .kb-sidebar,
+#arcane-root.arcane-theme-win95 .arcane-scaffold-sidebar .kb-sidebar {
+  flex: 0 0 15rem !important;
+  width: 15rem !important;
+  max-width: 15rem !important;
+  min-width: 0 !important;
+  align-self: stretch !important;
+  position: sticky !important;
+  top: 3px !important;
+  height: max-content !important;
+  /* Reserve the fixed 30px taskbar (.kb-page-shell::after) + a 6px gap on top of
+     the ~60px topbar offset, so the Explorer tree AND its internal scrollbar
+     stop above the Start bar instead of being eclipsed by it. */
+  max-height: calc(100vh - 96px) !important;
+  padding: 3px !important;
+  background: var(--w95-field) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-sunken) !important;
+  overflow-y: auto !important;
+  font-size: 16.5px !important;
+  line-height: 16px !important;
+}
+
+/* Document pane fills the remaining width. */
+#arcane-root.arcane-theme-win95 .kb-main-area {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  width: auto !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+#arcane-root.arcane-theme-win95 .kb-content-area {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  min-width: 0 !important;
+  width: auto !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+@media (min-width: 1120px) {
+  #arcane-root.arcane-theme-win95 .kb-content-area:has(.kb-toc-panel) {
+    grid-template-columns: minmax(0, 1fr) 14rem !important;
+    gap: 3px !important;
+  }
+}
+
+/* The article = a raised silver document window with readable black text. */
+#arcane-root.arcane-theme-win95 .kb-article-panel {
+  min-width: 0 !important;
+  width: auto !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 12px 16px !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised) !important;
+}
+#arcane-root.arcane-theme-win95 .kb-article-panel .prose,
+#arcane-root.arcane-theme-win95 .kb-article-panel p,
+#arcane-root.arcane-theme-win95 .kb-article-panel li,
+#arcane-root.arcane-theme-win95 .kb-article-panel td,
+#arcane-root.arcane-theme-win95 .kb-breadcrumbs,
+#arcane-root.arcane-theme-win95 .kb-page-title {
+  color: var(--w95-face-text) !important;
+}
+
+/* TOC = a small raised note pinned to the right. */
+#arcane-root.arcane-theme-win95 .kb-toc-panel {
+  align-self: start !important;
+  padding: 4px !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised-thin) !important;
+  /* Same taskbar reservation as the sidebar: a long TOC scrolls internally and
+     stops above the Start bar rather than sliding under it. */
+  position: sticky !important;
+  top: 3px !important;
+  max-height: calc(100vh - 96px) !important;
+  overflow-y: auto !important;
+}
+
+/* --- Taskbar, re-anchored to elements that actually exist (last wins) --- */
+#arcane-root.arcane-theme-win95 .kb-page-shell::after {
+  content: "" !important;
+  position: fixed !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  height: 30px !important;
+  z-index: 9000 !important;
+  background: var(--w95-face) !important;
+  box-shadow: inset 0 1px 0 var(--w95-hilite), inset 0 2px 0 var(--w95-light) !important;
+}
+#arcane-root.arcane-theme-win95 .kb-page-shell::before {
+  content: "Start" !important;
+  position: fixed !important;
+  left: 3px !important;
+  bottom: 3px !important;
+  z-index: 9001 !important;
+  display: flex !important;
+  align-items: center !important;
+  height: 24px !important;
+  padding: 0 12px !important;
+  font-weight: 700 !important;
+  font-size: 16.5px !important;
+  color: var(--w95-face-text) !important;
+  background: var(--w95-face) !important;
+  box-shadow: var(--w95-raised) !important;
+}
+#arcane-root.arcane-theme-win95 .kb-scaffold::after {
+  content: "12:00 PM" !important;
+  position: fixed !important;
+  right: 4px !important;
+  bottom: 4px !important;
+  z-index: 9001 !important;
+  padding: 2px 8px !important;
+  font-size: 16.5px !important;
+  color: var(--w95-face-text) !important;
+  background: var(--w95-face) !important;
+  box-shadow: var(--w95-sunken-thin) !important;
+}
+
+/* --- Landing "terminal/browser" mock -> Win95 title bar + window buttons.
+   arcane_lexicon renders it with macOS red/yellow/green traffic-light dots;
+   recolor the bar navy and turn the round dots into beveled square Win95
+   window-control buttons bearing the _ [] X glyphs. --- */
+#arcane-root.arcane-theme-win95 .kb-landing-terminal-bar {
+  background: linear-gradient(90deg, var(--w95-title-a), var(--w95-title-b)) !important;
+  border-radius: 0 !important;
+  padding: 3px 4px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+}
+#arcane-root.arcane-theme-win95 .kb-landing-terminal-dot {
+  width: 16px !important;
+  height: 14px !important;
+  border-radius: 0 !important;
+  background: var(--w95-face) !important;
+  box-shadow: var(--w95-raised) !important;
+  color: var(--w95-face-text) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 13.5px !important;
+  line-height: 1 !important;
+}
+#arcane-root.arcane-theme-win95 .kb-landing-terminal-dot:nth-child(1)::after {
+  content: "_";
+}
+#arcane-root.arcane-theme-win95 .kb-landing-terminal-dot:nth-child(2)::after {
+  content: "□";
+}
+#arcane-root.arcane-theme-win95 .kb-landing-terminal-dot:nth-child(3)::after {
+  content: "✕";
+}
+/* Window controls belong on the RIGHT in Windows, not the left. */
+#arcane-root.arcane-theme-win95 .kb-landing-terminal-bar {
+  justify-content: flex-end !important;
+}
+
+/* ============================================================
+   MAJOR COMPONENT PASS: Win95 has no rounded corners. Kill every
+   border-radius in the theme scope (arcane_lexicon content cards,
+   buttons, chips and any unstyled component were rounded soft
+   boxes) and give the lexicon content surfaces proper 3D bevels.
+   Radio buttons are re-asserted round below (the one exception).
+   ============================================================ */
+#arcane-root.arcane-theme-win95 *,
+#arcane-root.arcane-theme-win95 *::before,
+#arcane-root.arcane-theme-win95 *::after {
+  border-radius: 0 !important;
+}
+/* Radio buttons + status dots are the only circular Win95 elements. */
+#arcane-root.arcane-theme-win95 .win95-radio-button,
+#arcane-root.arcane-theme-win95 .win95-radio-button::after,
+#arcane-root.arcane-theme-win95 input:checked + .win95-radio-button::after,
+#arcane-root.arcane-theme-win95 .win95-avatar-status {
+  border-radius: 50% !important;
+}
+
+/* arcane_lexicon card-like containers -> raised silver panels. */
+#arcane-root.arcane-theme-win95 .kb-landing-hero,
+#arcane-root.arcane-theme-win95 .kb-landing-card,
+#arcane-root.arcane-theme-win95 .kb-landing-terminal,
+#arcane-root.arcane-theme-win95 .kb-landing-band,
+#arcane-root.arcane-theme-win95 .kb-landing-list-item,
+#arcane-root.arcane-theme-win95 .kb-landing-recommended,
+#arcane-root.arcane-theme-win95 .kb-callout,
+#arcane-root.arcane-theme-win95 .kb-note,
+#arcane-root.arcane-theme-win95 .kb-related-card,
+#arcane-root.arcane-theme-win95 .kb-related-pages-card {
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  border: 0 !important;
+  box-shadow: var(--w95-raised) !important;
+}
+/* Sunken inner wells (e.g. the terminal rows). */
+#arcane-root.arcane-theme-win95 .kb-landing-terminal-row {
+  background: var(--w95-field) !important;
+  color: var(--w95-field-text) !important;
+  border: 0 !important;
+  box-shadow: var(--w95-sunken-thin) !important;
+}
+/* Lexicon CTA links -> raised Win95 buttons that press in. */
+#arcane-root.arcane-theme-win95 .kb-landing-primary,
+#arcane-root.arcane-theme-win95 .kb-landing-secondary {
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  border: 0 !important;
+  box-shadow: var(--w95-raised) !important;
+  text-decoration: none !important;
+}
+#arcane-root.arcane-theme-win95 .kb-landing-primary:active,
+#arcane-root.arcane-theme-win95 .kb-landing-secondary:active {
+  box-shadow: var(--w95-pressed) !important;
+}
+/* Small kicker / index labels -> thin raised chips. */
+#arcane-root.arcane-theme-win95 .kb-landing-kicker,
+#arcane-root.arcane-theme-win95 .kb-landing-list-index {
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  border: 0 !important;
+  box-shadow: var(--w95-raised-thin) !important;
+}
+
+/* ============================================================
+   POLISH PASSES: icon/search centering, menu-bar word spacing,
+   focus/border cleanup, and an accurate Win95 Explorer tree.
+   ============================================================ */
+/* ===== icons ===== */
+/* ============================================================
+   PASS 1 — Topbar icon-buttons + search icon centering (Win95)
+   ============================================================ */
+
+/* --- All three topbar icon-buttons: 22x22 sharp beveled squares --- */
+#arcane-root.arcane-theme-win95 .kb-topbar-github,
+#arcane-root.arcane-theme-win95 .kb-theme-toggle,
+#arcane-root.arcane-theme-win95 .kb-hamburger {
+  width: 22px !important;
+  min-width: 22px !important;
+  height: 22px !important;
+  min-height: 22px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised) !important;
+  font-size: 16.5px !important;
+}
+
+/* github + theme-toggle are always visible -> force flex box for centering.
+   Hamburger's display stays owned by the base .kb-topbar .kb-hamburger rule
+   (none at desktop, inline-flex under 900px), so we do NOT touch it here. */
+#arcane-root.arcane-theme-win95 .kb-topbar-github,
+#arcane-root.arcane-theme-win95 .kb-theme-toggle {
+  display: inline-flex !important;
+}
+
+/* Press in on :active (raised -> pressed). */
+#arcane-root.arcane-theme-win95 .kb-topbar-github:active,
+#arcane-root.arcane-theme-win95 .kb-theme-toggle:active,
+#arcane-root.arcane-theme-win95 .kb-hamburger:active {
+  background: var(--w95-face) !important;
+  box-shadow: var(--w95-pressed) !important;
+}
+
+/* Win95 reacts on press, not hover: keep the raised face, no tint. */
+#arcane-root.arcane-theme-win95 .kb-topbar-github:hover,
+#arcane-root.arcane-theme-win95 .kb-theme-toggle:hover,
+#arcane-root.arcane-theme-win95 .kb-hamburger:hover {
+  background: var(--w95-face) !important;
+  border: 0 !important;
+  box-shadow: var(--w95-raised) !important;
+}
+
+/* Inner glyph of github + hamburger: 16x16, perfectly centered, no stray margins. */
+#arcane-root.arcane-theme-win95 .kb-topbar-github > i,
+#arcane-root.arcane-theme-win95 .kb-topbar-github > svg,
+#arcane-root.arcane-theme-win95 .kb-topbar-github i,
+#arcane-root.arcane-theme-win95 .kb-topbar-github svg,
+#arcane-root.arcane-theme-win95 .kb-hamburger > i,
+#arcane-root.arcane-theme-win95 .kb-hamburger > svg,
+#arcane-root.arcane-theme-win95 .kb-hamburger i,
+#arcane-root.arcane-theme-win95 .kb-hamburger svg {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 16px !important;
+  height: 16px !important;
+  font-size: 24px !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  color: var(--w95-face-text) !important;
+}
+
+/* --- Theme toggle: make the ACTIVE sun/moon glyph actually render ---
+   Visibility mirrors the base rules: light mode shows .theme-icon-dark,
+   dark mode shows .theme-icon-light. We replicate that mapping but as a
+   centered 16x16 flex box so the glyph is no longer 0x0. */
+#arcane-root.arcane-theme-win95:not(.dark) .kb-theme-toggle .theme-icon-dark,
+#arcane-root.arcane-theme-win95.dark .kb-theme-toggle .theme-icon-light {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 16px !important;
+  height: 16px !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  color: var(--w95-face-text) !important;
+}
+
+/* Keep the inactive glyph hidden (guards against un-hiding it). */
+#arcane-root.arcane-theme-win95:not(.dark) .kb-theme-toggle .theme-icon-light,
+#arcane-root.arcane-theme-win95.dark .kb-theme-toggle .theme-icon-dark {
+  display: none !important;
+}
+
+/* Size the lucide font glyph / svg inside whichever span is visible. */
+#arcane-root.arcane-theme-win95 .kb-theme-toggle .theme-icon-light > i,
+#arcane-root.arcane-theme-win95 .kb-theme-toggle .theme-icon-light > svg,
+#arcane-root.arcane-theme-win95 .kb-theme-toggle .theme-icon-light i,
+#arcane-root.arcane-theme-win95 .kb-theme-toggle .theme-icon-light svg,
+#arcane-root.arcane-theme-win95 .kb-theme-toggle .theme-icon-dark > i,
+#arcane-root.arcane-theme-win95 .kb-theme-toggle .theme-icon-dark > svg,
+#arcane-root.arcane-theme-win95 .kb-theme-toggle .theme-icon-dark i,
+#arcane-root.arcane-theme-win95 .kb-theme-toggle .theme-icon-dark svg {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 16px !important;
+  height: 16px !important;
+  font-size: 24px !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  color: var(--w95-face-text) !important;
+}
+
+/* --- Search box: pull the magnifier off the text --- */
+/* Make the search container the positioning context for the icon. */
+#arcane-root.arcane-theme-win95 .kb-search {
+  position: relative !important;
+}
+
+/* Reserve room on the left so typed/placeholder text clears the icon. */
+#arcane-root.arcane-theme-win95 .kb-search-input {
+  padding: 3px 4px 3px 26px !important;
+}
+
+/* Pin the 16x16 magnifier ~6px from the left edge, vertically centered. */
+#arcane-root.arcane-theme-win95 .kb-search-icon {
+  position: absolute !important;
+  left: 6px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 16px !important;
+  height: 16px !important;
+  font-size: 24px !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  pointer-events: none !important;
+  color: var(--w95-shadow) !important;
+  z-index: 1 !important;
+}
+
+#arcane-root.arcane-theme-win95 .kb-search-icon > svg,
+#arcane-root.arcane-theme-win95 .kb-search-icon svg {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* ===== spacing ===== */
+/* --- Menu bar strip: even, tight word spacing (real Win95 menu bar) --- */
+#arcane-root.arcane-theme-win95 .kb-topbar::before {
+  content: "File Edit View Favorites Help" !important;
+  display: block !important;
+  text-align: left !important;
+  height: 20px !important;
+  padding: 3px 8px 0 !important;
+  font-family: var(--font-sans) !important;
+  font-size: 18px !important;
+  line-height: 16px !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  word-spacing: 10px !important;
+  color: var(--w95-face-text) !important;
+  white-space: nowrap !important;
+  background: var(--w95-face) !important;
+}
+
+/* --- Win95 chrome/label text is never tracked or uppercased --- */
+#arcane-root.arcane-theme-win95 .sidebar-section-header,
+#arcane-root.arcane-theme-win95 .win95-sidebar-group-label,
+#arcane-root.arcane-theme-win95 .win95-dropdown-label,
+#arcane-root.arcane-theme-win95 .win95-command-group-heading,
+#arcane-root.arcane-theme-win95 .win95-status-label,
+#arcane-root.arcane-theme-win95 .arcane-demo-kicker,
+#arcane-root.arcane-theme-win95 .arcane-demo-code-label,
+#arcane-root.arcane-theme-win95 .arcane-demo-section-title,
+#arcane-root.arcane-theme-win95 .kb-landing-kicker,
+#arcane-root.arcane-theme-win95 .kb-landing-list-index,
+#arcane-root.arcane-theme-win95 .kb-toc-title,
+#arcane-root.arcane-theme-win95 .toc-title,
+#arcane-root.arcane-theme-win95 .kicker {
+  letter-spacing: normal !important;
+  text-transform: none !important;
+}
+
+/* ===== outlines ===== */
+/* ===== PASS 3 — dotted focus rectangles + flat borders -> bevels ===== */
+
+/* 1. Single global keyboard-focus indicator: the Win95 focus rect is a 1px
+   DOTTED black rectangle inset into the control. This is appended last with
+   !important so it supersedes the older -4px-offset rule and neutralizes any
+   solid/colored focus ring left on generic elements. Box-shadow is untouched
+   so intentional sunken-on-focus fields keep their bevel (not a glow). */
+#arcane-root.arcane-theme-win95 :focus-visible {
+  outline: 1px dotted var(--w95-face-text) !important;
+  outline-offset: -3px !important;
+}
+
+/* The selected + focused Explorer tree row keeps a WHITE dotted rectangle on
+   its navy selection bar -- black dots would vanish on navy. Re-asserted with
+   !important so the global rule above cannot recolor it to black. */
+#arcane-root.arcane-theme-win95 .sidebar-link.active {
+  outline: 1px dotted var(--w95-hilite) !important;
+  outline-offset: -3px !important;
+}
+
+/* 2. Flat single-line dividers -> etched Win95 grooves (dark pixel over a light
+   pixel), matching the .win95-separator convention already used in this sheet.
+
+   Pagination separator: the line above the raised nav buttons (like the groove
+   above OK/Cancel in a dialog). */
+#arcane-root.arcane-theme-win95 .kb-page-nav {
+  border-top: 0 !important;
+  box-shadow: inset 0 1px 0 var(--w95-shadow), inset 0 2px 0 var(--w95-hilite) !important;
+  padding-top: 12px !important;
+}
+
+/* "Contents" heading underline inside the sunken TOC well. */
+#arcane-root.arcane-theme-win95 .kb-toc-panel .toc-title {
+  border-bottom: 0 !important;
+  box-shadow: inset 0 -1px 0 var(--w95-hilite), inset 0 -2px 0 var(--w95-shadow) !important;
+}
+
+/* ===== tree ===== */
+/* ============================================================
+   PASS 4 — Accurate Windows 95 Explorer tree (sidebar)
+   ============================================================ */
+
+/* Lay group headers out as a simple left-aligned row so the [+]/[-] node
+   box and the label sit together (covers both the docs
+   .sidebar-section-header variant and the native <details> .sidebar-summary
+   variant). */
+#arcane-root.arcane-theme-win95 .sidebar-section-header,
+#arcane-root.arcane-theme-win95 .sidebar-summary {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 0 !important;
+}
+
+/* 1a. Hide the modern chevron / icon SVG on the group headers. Scoped to
+       headers/summaries only so leaf .sidebar-link icons are untouched. */
+#arcane-root.arcane-theme-win95 .sidebar-section-header .sidebar-icon,
+#arcane-root.arcane-theme-win95 .sidebar-section-header .sidebar-icon-svg,
+#arcane-root.arcane-theme-win95 .sidebar-section-header .sidebar-chevron,
+#arcane-root.arcane-theme-win95 .sidebar-section-header > svg,
+#arcane-root.arcane-theme-win95 .sidebar-summary .sidebar-icon,
+#arcane-root.arcane-theme-win95 .sidebar-summary .sidebar-icon-svg,
+#arcane-root.arcane-theme-win95 .sidebar-summary .sidebar-chevron,
+#arcane-root.arcane-theme-win95 .sidebar-summary > svg {
+  display: none !important;
+}
+
+/* Kill the native <summary> disclosure triangle so only our box shows. */
+#arcane-root.arcane-theme-win95 .sidebar-summary {
+  list-style: none !important;
+}
+#arcane-root.arcane-theme-win95 .sidebar-summary::-webkit-details-marker {
+  display: none !important;
+}
+#arcane-root.arcane-theme-win95 .sidebar-summary::marker {
+  content: "" !important;
+}
+
+/* 1b. Classic Win95 tree node box: a small (~11px) WHITE field square with a
+       thin gray border and a black glyph, placed to the LEFT of the label.
+       Default glyph is '-' because groups render expanded by default. */
+#arcane-root.arcane-theme-win95 .sidebar-section-header::before,
+#arcane-root.arcane-theme-win95 .sidebar-summary::before {
+  content: "-" !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  flex: 0 0 auto !important;
+  width: 11px !important;
+  height: 11px !important;
+  margin-right: 5px !important;
+  vertical-align: middle !important;
+  background: var(--w95-field) !important;
+  border: 1px solid var(--w95-shadow) !important;
+  box-shadow: none !important;
+  color: var(--w95-field-text) !important;
+  font-family: "MS Sans Serif", Tahoma, Geneva, sans-serif !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  text-align: center !important;
+}
+
+/* Collapsed groups -> '+'. */
+#arcane-root.arcane-theme-win95 .sidebar-details:not([open]) > .sidebar-summary::before,
+#arcane-root.arcane-theme-win95 .sidebar-section-header[aria-expanded="false"]::before,
+#arcane-root.arcane-theme-win95 .sidebar-section-header.collapsed::before,
+#arcane-root.arcane-theme-win95 .sidebar-section-header.is-collapsed::before,
+#arcane-root.arcane-theme-win95 .sidebar-section-header.is-closed::before,
+#arcane-root.arcane-theme-win95 .sidebar-section.collapsed > .sidebar-section-header::before {
+  content: "+" !important;
+}
+
+/* Expanded groups -> '-' (reinforces the default against any cascade). */
+#arcane-root.arcane-theme-win95 .sidebar-details[open] > .sidebar-summary::before,
+#arcane-root.arcane-theme-win95 .sidebar-section-header[aria-expanded="true"]::before,
+#arcane-root.arcane-theme-win95 .sidebar-section-header.is-open::before,
+#arcane-root.arcane-theme-win95 .sidebar-section-header.open::before,
+#arcane-root.arcane-theme-win95 .sidebar-section-header.expanded::before,
+#arcane-root.arcane-theme-win95 .sidebar-section-header.active::before {
+  content: "-" !important;
+}
+
+/* 2. Win95 dotted tree connectors: a 1px dotted vertical trunk down the left
+      of each group's nested items + a short dotted horizontal elbow to every
+      row. Items are indented ~14px (1px border + 13px padding) to make room. */
+#arcane-root.arcane-theme-win95 .sidebar-tree {
+  position: relative !important;
+  margin-left: 7px !important;
+  margin-top: 0 !important;
+  padding-left: 13px !important;
+  gap: 0 !important;
+  border-left: 1px dotted var(--w95-shadow) !important;
+  background-image: none !important;
+}
+
+#arcane-root.arcane-theme-win95 .sidebar-tree-item {
+  position: relative !important;
+}
+
+#arcane-root.arcane-theme-win95 .sidebar-tree-item::before {
+  content: "" !important;
+  position: absolute !important;
+  left: -13px !important;
+  top: 9px !important;
+  width: 11px !important;
+  height: 0 !important;
+  border-top: 1px dotted var(--w95-shadow) !important;
+  background: none !important;
+}
+
+#arcane-root.arcane-theme-win95 .sidebar-tree-item::after {
+  content: none !important;
+}
+
+/* ============================================================
+   COMPONENT PASS: calendar/pickers, sliders, tables, selects,
+   avatar/media/progress, accordion/tabs, chart/feedback.
+   ============================================================ */
+/* ================= calendar ================= */
+/* ============================================================
+   CALENDAR + DATE / TIME PICKERS — Win95 date-time control.
+   The weekday row and the day grid are laid out as real 7-col
+   grids (the critical fix); the panel is a raised silver control
+   with a sunken white day well and navy selection.
+   ============================================================ */
+
+/* ---------- Calendar panel: raised silver Win95 control ---------- */
+#arcane-root.arcane-theme-win95 .arcane-calendar.arcane-calendar--win95 {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 3px !important;
+  width: max-content !important;
+  max-width: 100% !important;
+  padding: 4px !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-raised) !important;
+  font-family: var(--font-sans) !important;
+}
+
+/* Header: month/year label flanked by prev/next arrow buttons */
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+  padding: 1px 2px !important;
+}
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-label {
+  flex: 1 1 auto !important;
+  text-align: center !important;
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
+  line-height: 1.2 !important;
+  color: var(--w95-face-text) !important;
+  white-space: nowrap !important;
+}
+
+/* Nav (prev/next) + today buttons: small raised silver Win95 buttons */
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-nav-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 1.7rem !important;
+  height: 1.7rem !important;
+  padding: 0 0.3rem !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-raised) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 1.05rem !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  transition: none !important;
+}
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-nav-btn:active:not([disabled]) {
+  box-shadow: var(--w95-pressed) !important;
+  padding-top: 1px !important;
+  padding-left: calc(0.3rem + 1px) !important;
+  padding-bottom: -1px !important;
+  padding-right: calc(0.3rem - 1px) !important;
+}
+
+/* Today row + today button */
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-today-row {
+  display: flex !important;
+  justify-content: center !important;
+  padding: 0 2px !important;
+}
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-today {
+  min-width: 0 !important;
+  height: auto !important;
+  padding: 0.15rem 0.7rem !important;
+  font-size: 0.95rem !important;
+}
+
+/* ---------- Weekday header row: real 7-column grid ---------- */
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-weekdays {
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr) !important;
+  gap: 1px !important;
+  padding: 2px 3px !important;
+  margin: 0 !important;
+}
+/* When week numbers are shown, prepend an auto column for the "#" gutter. */
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-weekdays:has(.arcane-calendar-week-num) {
+  grid-template-columns: auto repeat(7, 1fr) !important;
+}
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-weekday {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 1.9rem !important;
+  min-height: 1.4rem !important;
+  text-align: center !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  color: var(--w95-face-text) !important;
+}
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-weekday.arcane-calendar-week-num {
+  min-width: 0 !important;
+  padding: 0 0.25rem !important;
+  color: var(--w95-shadow) !important;
+}
+
+/* ---------- Day grid: real 7-column grid inside a sunken white well ---------- */
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-grid {
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr) !important;
+  gap: 1px !important;
+  padding: 3px !important;
+  background: var(--w95-field) !important;
+  color: var(--w95-field-text) !important;
+  box-shadow: var(--w95-sunken) !important;
+}
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-grid:has(.arcane-calendar-weeknum) {
+  grid-template-columns: auto repeat(7, 1fr) !important;
+}
+/* Week-number gutter cells inside the grid */
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-weeknum {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 0 !important;
+  padding: 0 0.25rem !important;
+  font-size: 0.85rem !important;
+  color: var(--w95-shadow) !important;
+}
+
+/* Day cells: square-ish, centered, flat white ground */
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-day {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 1.9rem !important;
+  min-height: 1.7rem !important;
+  padding: 0 !important;
+  background: transparent !important;
+  color: var(--w95-field-text) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  font-family: var(--font-sans) !important;
+  font-size: 1.05rem !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  transition: none !important;
+}
+/* Hover: navy highlight, like the Win95 MonthCalendar */
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-day:hover:not([disabled]):not(.arcane-calendar-day-disabled) {
+  background: var(--w95-selection) !important;
+  color: var(--w95-selection-text) !important;
+}
+/* Days outside the current month: greyed */
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-day.arcane-calendar-day-other-month {
+  color: var(--w95-shadow) !important;
+}
+/* Today: dotted focus rectangle around the number */
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-day.arcane-calendar-day-today,
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-day[data-today="true"] {
+  outline: 1px dotted var(--w95-field-text) !important;
+  outline-offset: -2px !important;
+}
+/* Range fill */
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-day.arcane-calendar-day-in-range,
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-day.arcane-calendar-day-pending {
+  background: var(--w95-selection) !important;
+  color: var(--w95-selection-text) !important;
+}
+/* Selected day / range endpoints: solid navy (wins over hover + today) */
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-day.arcane-calendar-day-selected,
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-day.arcane-calendar-day-range-start,
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-day.arcane-calendar-day-range-end,
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-day[data-selected="true"],
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-day[aria-selected="true"],
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-day[data-state="selected"] {
+  background: var(--w95-selection) !important;
+  color: var(--w95-selection-text) !important;
+  outline: 1px dotted var(--w95-selection-text) !important;
+  outline-offset: -2px !important;
+}
+/* Disabled days */
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-day.arcane-calendar-day-disabled,
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-day[disabled],
+#arcane-root.arcane-theme-win95 .arcane-calendar--win95 .arcane-calendar-day[data-disabled="true"] {
+  color: var(--w95-shadow) !important;
+  background: transparent !important;
+  cursor: not-allowed !important;
+}
+
+/* ============================================================
+   DATE PICKER
+   ============================================================ */
+
+/* Wrapper (isolated from the dropdown, which shares .win95-date-picker) */
+#arcane-root.arcane-theme-win95 .win95-date-picker:not(.win95-date-picker-dropdown) {
+  position: relative !important;
+  display: inline-flex !important;
+  flex-direction: column !important;
+  gap: 0.3rem !important;
+  width: max-content !important;
+  min-width: 12rem !important;
+}
+
+/* Trigger: sunken white combobox field with a leading calendar icon */
+#arcane-root.arcane-theme-win95 .win95-date-picker-trigger,
+#arcane-root.arcane-theme-win95 .win95-time-picker-trigger {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  width: 100% !important;
+  min-height: 1.9rem !important;
+  padding: 0.3rem 0.4rem !important;
+  background: var(--w95-field) !important;
+  color: var(--w95-field-text) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-sunken) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 1.05rem !important;
+  line-height: 1.2 !important;
+  text-align: left !important;
+  cursor: pointer !important;
+  transition: none !important;
+}
+#arcane-root.arcane-theme-win95 .win95-date-picker[data-size="sm"] .win95-date-picker-trigger,
+#arcane-root.arcane-theme-win95 .win95-time-picker[data-size="sm"] .win95-time-picker-trigger {
+  min-height: 1.7rem !important;
+  font-size: 0.95rem !important;
+}
+#arcane-root.arcane-theme-win95 .win95-date-picker[data-size="lg"] .win95-date-picker-trigger,
+#arcane-root.arcane-theme-win95 .win95-time-picker[data-size="lg"] .win95-time-picker-trigger {
+  min-height: 2.2rem !important;
+  font-size: 1.1rem !important;
+}
+#arcane-root.arcane-theme-win95 .win95-date-picker-trigger:focus,
+#arcane-root.arcane-theme-win95 .win95-time-picker-trigger:focus {
+  outline: 1px dotted var(--w95-field-text) !important;
+  outline-offset: -3px !important;
+  box-shadow: var(--w95-sunken) !important;
+}
+/* Leading icon */
+#arcane-root.arcane-theme-win95 .win95-date-picker-trigger > span:first-child,
+#arcane-root.arcane-theme-win95 .win95-time-picker-trigger > span:first-child {
+  display: inline-flex !important;
+  align-items: center !important;
+  flex: 0 0 auto !important;
+  color: var(--w95-field-text) !important;
+}
+/* Display text */
+#arcane-root.arcane-theme-win95 .win95-date-picker-trigger [data-arcane-calendar-display] {
+  flex: 1 1 auto !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  text-align: left !important;
+}
+/* Clear ("x") affordance */
+#arcane-root.arcane-theme-win95 .win95-date-picker-clear,
+#arcane-root.arcane-theme-win95 .win95-time-picker-clear {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 0 auto !important;
+  margin-left: auto !important;
+  width: 1.3rem !important;
+  height: 1.3rem !important;
+  color: var(--w95-field-text) !important;
+  cursor: pointer !important;
+}
+#arcane-root.arcane-theme-win95 .win95-date-picker-clear:hover,
+#arcane-root.arcane-theme-win95 .win95-time-picker-clear:hover {
+  background: var(--w95-selection) !important;
+  color: var(--w95-selection-text) !important;
+}
+/* Disabled trigger */
+#arcane-root.arcane-theme-win95 .win95-date-picker.disabled .win95-date-picker-trigger,
+#arcane-root.arcane-theme-win95 .win95-time-picker-trigger.disabled {
+  color: var(--w95-shadow) !important;
+  cursor: not-allowed !important;
+}
+
+/* Dropdown: floating raised silver panel hosting the calendar */
+#arcane-root.arcane-theme-win95 .win95-date-picker-dropdown {
+  /* The core emits no JS positioner for this popup, so the base leaves it at a
+     placeholder position:fixed;top:4px;left:4px (viewport corner, under content).
+     Anchor it to the trigger instead. Fallback: absolute in the relative wrapper
+     (correct location, but clipped by any overflow:hidden ancestor). */
+  position: absolute !important;
+  inset: auto !important;
+  top: 100% !important;
+  left: 0 !important;
+  z-index: 60 !important;
+  margin-top: 2px !important;
+  padding: 3px !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-raised), 2px 2px 0 rgba(0, 0, 0, 0.35) !important;
+}
+/* Preferred: CSS anchor positioning pins the popup below the trigger with
+   position:fixed, so it escapes clipping ancestors (e.g. the docs demo box) and
+   floats on top. Each dropdown binds to its own preceding trigger by DOM order,
+   so multiple pickers on one page stay independent. */
+@supports (anchor-name: --a) {
+  #arcane-root.arcane-theme-win95 .win95-date-picker-trigger {
+    anchor-name: --w95-dp-anchor;
+  }
+  #arcane-root.arcane-theme-win95 .win95-date-picker-dropdown {
+    position: fixed !important;
+    position-anchor: --w95-dp-anchor;
+    top: anchor(bottom) !important;
+    left: anchor(left) !important;
+    right: auto !important;
+    bottom: auto !important;
+    z-index: 9500 !important;
+  }
+}
+/* Calendar nested in the popup: drop its own panel bevel to avoid double 3D */
+#arcane-root.arcane-theme-win95 .win95-date-picker-dropdown .arcane-calendar.arcane-calendar--win95 {
+  box-shadow: none !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+/* ============================================================
+   TIME PICKER
+   ============================================================ */
+
+/* Wrapper (isolated from the dropdown, which shares .win95-time-picker) */
+#arcane-root.arcane-theme-win95 .win95-time-picker:not(.win95-time-picker-dropdown) {
+  position: relative !important;
+  display: inline-flex !important;
+  flex-direction: column !important;
+  gap: 0.3rem !important;
+  width: max-content !important;
+  min-width: 12rem !important;
+}
+
+/* Dropdown: floating raised panel, holds the columns row + actions row */
+#arcane-root.arcane-theme-win95 .win95-time-picker-dropdown {
+  position: absolute !important;
+  z-index: 50 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+  margin-top: 2px !important;
+  padding: 4px !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-raised), 2px 2px 0 rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Columns row */
+#arcane-root.arcane-theme-win95 .win95-time-picker-dropdown > div:first-child {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 4px !important;
+}
+/* Each column */
+#arcane-root.arcane-theme-win95 .win95-time-picker-dropdown > div:first-child > div {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 3px !important;
+}
+/* Column labels (Hour / Minute / Period) */
+#arcane-root.arcane-theme-win95 .win95-time-picker-dropdown > div:first-child > div > span {
+  display: block !important;
+  text-align: center !important;
+  font-weight: 700 !important;
+  font-size: 0.9rem !important;
+  color: var(--w95-face-text) !important;
+}
+/* Scrollable option list wells (Hour / Minute) sit in sunken white fields */
+#arcane-root.arcane-theme-win95 .win95-time-picker-dropdown > div:first-child > div > div {
+  display: flex !important;
+  flex-direction: column !important;
+  min-width: 2.8rem !important;
+  max-height: 8.5rem !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding: 2px !important;
+  background: var(--w95-field) !important;
+  color: var(--w95-field-text) !important;
+  box-shadow: var(--w95-sunken) !important;
+}
+/* Option buttons: flat list rows, navy on hover/selected */
+#arcane-root.arcane-theme-win95 .win95-time-picker-option {
+  display: block !important;
+  width: 100% !important;
+  padding: 0.15rem 0.5rem !important;
+  background: transparent !important;
+  color: var(--w95-field-text) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  font-family: var(--font-sans) !important;
+  font-size: 1rem !important;
+  line-height: 1.3 !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  transition: none !important;
+}
+#arcane-root.arcane-theme-win95 .win95-time-picker-option:hover {
+  background: var(--w95-selection) !important;
+  color: var(--w95-selection-text) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-time-picker-option.selected {
+  background: var(--w95-selection) !important;
+  color: var(--w95-selection-text) !important;
+}
+/* Actions row (Cancel / Confirm) — buttons already styled by .win95-button */
+#arcane-root.arcane-theme-win95 .win95-time-picker-dropdown > div:last-child {
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 4px !important;
+  margin-top: 2px !important;
+}
+
+/* ================= sliders ================= */
+/* ============================================================
+   SLIDER (Win95 trackbar) + RANGE SLIDER
+   DOM: .win95-slider > .win95-slider-track-container
+          > .win95-slider-track > .win95-slider-track-fill
+          + .win95-slider-thumb (x1 value, or x2 lo/hi)
+        plus .win95-slider-value
+   Renderer emits empty style maps, so everything is styled here.
+   The runtime JS sets `fill.style.width/left/right` and
+   `thumb.style.left` as INLINE styles on interaction, so those
+   dynamic properties are intentionally declared WITHOUT !important
+   (a non-important rule loses to inline, letting JS win after
+   interaction while still providing a sane initial position).
+   ============================================================ */
+
+#arcane-root.arcane-theme-win95 .win95-slider {
+  color: var(--w95-face-text) !important;
+}
+
+/* Hit area holds the thumb; base already sets position:relative +
+   flex/align-items:center inline. Reinforce the essentials. */
+#arcane-root.arcane-theme-win95 .win95-slider-track-container {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  min-height: 22px !important;
+  cursor: pointer !important;
+}
+
+/* Thin SUNKEN horizontal groove, vertically centered by the flex
+   container. The navy fill lives inside and is clipped to it. */
+#arcane-root.arcane-theme-win95 .win95-slider-track {
+  position: relative !important;
+  width: 100% !important;
+  height: 6px !important;
+  box-sizing: border-box !important;
+  background: var(--w95-field) !important;
+  box-shadow: var(--w95-sunken-thin) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Navy fill up to the value. Width (single) / left+right+width
+   (range) come from the runtime JS as inline styles — do NOT
+   force them here. left:0 seeds the single-value anchor. */
+#arcane-root.arcane-theme-win95 .win95-slider-track-fill {
+  position: absolute !important;
+  top: 0 !important;
+  height: 100% !important;
+  left: 0;
+  background: var(--w95-selection) !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+/* RAISED silver rectangular grip. `left` (the value position) is
+   set inline by the JS — declared without !important so JS wins;
+   left:0 seeds the pre-interaction position. translate(-50%,-50%)
+   center-tracks the value and vertically centers the grip. */
+#arcane-root.arcane-theme-win95 .win95-slider-thumb {
+  position: absolute !important;
+  top: 50% !important;
+  left: 0;
+  width: 12px !important;
+  height: 20px !important;
+  box-sizing: border-box !important;
+  transform: translate(-50%, -50%) !important;
+  background: var(--w95-face) !important;
+  box-shadow: var(--w95-raised) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  z-index: 2 !important;
+  cursor: grab !important;
+  touch-action: none !important;
+}
+#arcane-root.arcane-theme-win95 .win95-slider-thumb:active {
+  cursor: grabbing !important;
+}
+
+/* Readable numeric label. Kept modest — fonts are already x1.5. */
+#arcane-root.arcane-theme-win95 .win95-slider-value {
+  color: var(--w95-face-text) !important;
+  font-size: 0.8rem !important;
+  line-height: 1.2 !important;
+}
+
+/* ============================================================
+   TOGGLE SWITCH (Win95 idiom: sunken track + raised square thumb)
+   DOM: label.win95-toggle-wrapper
+          > button.win95-toggle-switch(.active/[data-state=checked])
+              > span.win95-toggle-thumb
+          + span.win95-toggle-label
+   ============================================================ */
+
+#arcane-root.arcane-theme-win95 .win95-toggle-wrapper {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  cursor: pointer !important;
+}
+
+/* Sunken well the thumb rides in. */
+#arcane-root.arcane-theme-win95 .win95-toggle-switch {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+  width: 44px !important;
+  height: 22px !important;
+  padding: 3px !important;
+  box-sizing: border-box !important;
+  background: var(--w95-field) !important;
+  box-shadow: var(--w95-sunken) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  cursor: pointer !important;
+  transition: none !important;
+}
+#arcane-root.arcane-theme-win95 .win95-toggle-switch[data-state="checked"],
+#arcane-root.arcane-theme-win95 .win95-toggle-switch.active {
+  background: var(--w95-selection) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-toggle-switch[data-disabled="true"],
+#arcane-root.arcane-theme-win95 .win95-toggle-switch:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+}
+
+/* Raised silver square grip; inner height = 22 - 2*3 = 16px. */
+#arcane-root.arcane-theme-win95 .win95-toggle-thumb {
+  width: 16px !important;
+  height: 16px !important;
+  box-sizing: border-box !important;
+  background: var(--w95-face) !important;
+  box-shadow: var(--w95-raised) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  transition: none !important;
+}
+
+/* Travel = inner width (44 - 2*3 = 38) - thumb (16) = 22px. */
+#arcane-root.arcane-theme-win95 .win95-toggle-switch[data-state="checked"] .win95-toggle-thumb,
+#arcane-root.arcane-theme-win95 .win95-toggle-switch.active .win95-toggle-thumb {
+  transform: translateX(22px) !important;
+}
+
+#arcane-root.arcane-theme-win95 .win95-toggle-label {
+  color: var(--w95-face-text) !important;
+  font-size: 0.8rem !important;
+  line-height: 1.2 !important;
+}
+
+/* ================= tables ================= */
+/* ===== GROUP 3 — TABLES (Win95) ===== */
+
+/* Scroll containers = sunken white wells */
+#arcane-root.arcane-theme-win95 .win95-static-table-container,
+#arcane-root.arcane-theme-win95 .win95-data-table-container,
+#arcane-root.arcane-theme-win95 .win95-kv-table {
+  background: var(--w95-field) !important;
+  color: var(--w95-field-text) !important;
+  box-shadow: var(--w95-sunken) !important;
+  padding: 3px !important;
+  overflow: auto !important;
+  border: 0 !important;
+}
+
+/* The table itself: flush field, thin gridlines drawn by cells */
+#arcane-root.arcane-theme-win95 .win95-static-table,
+#arcane-root.arcane-theme-win95 .win95-data-table {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  background: var(--w95-field) !important;
+  color: var(--w95-field-text) !important;
+  border: 0 !important;
+}
+
+/* Header cells = raised beveled silver buttons */
+#arcane-root.arcane-theme-win95 .win95-static-table th,
+#arcane-root.arcane-theme-win95 .win95-data-table th {
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised-thin) !important;
+  font-weight: 700 !important;
+  padding: 2px 8px !important;
+  text-align: left !important;
+  border: 0 !important;
+  white-space: nowrap !important;
+}
+
+/* Body cells = white field with thin gray gridlines; beat inline color/padding */
+#arcane-root.arcane-theme-win95 .win95-static-table td,
+#arcane-root.arcane-theme-win95 .win95-data-table td {
+  padding: 2px 8px !important;
+  color: var(--w95-field-text) !important;
+  background: var(--w95-field) !important;
+  border-top: 0 !important;
+  border-left: 0 !important;
+  border-right: 1px solid var(--w95-shadow) !important;
+  border-bottom: 1px solid var(--w95-shadow) !important;
+}
+
+/* Selected / hovered rows = navy selection (override the inline td color too) */
+#arcane-root.arcane-theme-win95 .win95-data-table-row.selected td,
+#arcane-root.arcane-theme-win95 .win95-data-table-row.clickable:hover td,
+#arcane-root.arcane-theme-win95 .win95-static-table tbody tr:hover td {
+  background: var(--w95-selection) !important;
+  color: var(--w95-selection-text) !important;
+}
+
+/* Empty-state placeholder = sunken well */
+#arcane-root.arcane-theme-win95 .win95-data-table-empty {
+  background: var(--w95-field) !important;
+  color: var(--w95-field-text) !important;
+  box-shadow: var(--w95-sunken) !important;
+  padding: 24px !important;
+  border: 0 !important;
+}
+
+/* Key-value table = property grid: raised key strip, white value cell */
+#arcane-root.arcane-theme-win95 .win95-kv-table-key {
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised-thin) !important;
+  font-weight: 700 !important;
+  padding: 2px 8px !important;
+  border-right: 0 !important;
+}
+#arcane-root.arcane-theme-win95 .win95-kv-table-value {
+  background: var(--w95-field) !important;
+  color: var(--w95-field-text) !important;
+  padding: 2px 8px !important;
+}
+#arcane-root.arcane-theme-win95 .win95-kv-table-row {
+  border-bottom-color: var(--w95-shadow) !important;
+}
+
+/* Markdown / prose tables = same beveled treatment (table is its own well) */
+#arcane-root.arcane-theme-win95 .prose table {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  width: 100% !important;
+  margin: 12px 0 !important;
+  background: var(--w95-field) !important;
+  color: var(--w95-field-text) !important;
+  box-shadow: var(--w95-sunken) !important;
+  border: 2px solid var(--w95-field) !important;
+}
+#arcane-root.arcane-theme-win95 .prose th {
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised-thin) !important;
+  font-weight: 700 !important;
+  padding: 2px 8px !important;
+  text-align: left !important;
+  border: 0 !important;
+}
+#arcane-root.arcane-theme-win95 .prose td {
+  background: var(--w95-field) !important;
+  color: var(--w95-field-text) !important;
+  padding: 2px 8px !important;
+  border-top: 0 !important;
+  border-left: 0 !important;
+  border-right: 1px solid var(--w95-shadow) !important;
+  border-bottom: 1px solid var(--w95-shadow) !important;
+}
+#arcane-root.arcane-theme-win95 .prose tbody tr:hover td {
+  background: var(--w95-selection) !important;
+  color: var(--w95-selection-text) !important;
+}
+
+/* ================= selects ================= */
+/* ===================================================================
+   GROUP 4 — SELECTS (native + custom) + COMBOBOX
+   =================================================================== */
+
+/* ---------- Native <select class="arcane-select"> ----------
+   Render base sets inline modern styles (1px border, 0.375rem radius,
+   appearance:none, modern gray chevron bg-image). Force a Win95 SUNKEN
+   white field. Keep background-color as a LONGHAND so the inline
+   background-image can be swapped for a Win95 arrow (not wiped). */
+#arcane-root.arcane-theme-win95 .arcane-select {
+  background-color: var(--w95-field) !important;
+  color: var(--w95-field-text) !important;
+  box-shadow: var(--w95-sunken) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  height: 26px !important;
+  padding: 2px 24px 2px 6px !important;
+  font-family: var(--font-sans) !important;
+  font-size: 0.95rem !important;
+  line-height: 1.1 !important;
+  cursor: pointer !important;
+  transition: none !important;
+  /* Win95 raised arrow button (silver bevel box + black down-triangle). */
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='16'%20height='16'%3E%3Crect%20width='16'%20height='16'%20fill='%23c0c0c0'/%3E%3Cpath%20d='M0%200H16V1H1V16H0Z'%20fill='%23ffffff'/%3E%3Cpath%20d='M16%200V16H0V15H15V0Z'%20fill='%23808080'/%3E%3Cpath%20d='M4%206H12L8%2011Z'%20fill='%23000000'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 3px center !important;
+  background-size: 16px 16px !important;
+}
+#arcane-root.arcane-theme-win95 .arcane-select:focus {
+  outline: 1px dotted var(--w95-field-text) !important;
+  outline-offset: -3px !important;
+  box-shadow: var(--w95-sunken) !important;
+}
+#arcane-root.arcane-theme-win95 .arcane-select:disabled {
+  color: var(--w95-shadow) !important;
+  cursor: not-allowed !important;
+}
+#arcane-root.arcane-theme-win95 .arcane-select-wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.3rem !important;
+}
+#arcane-root.arcane-theme-win95 .arcane-select-error {
+  color: #c00000 !important;
+  font-size: 1.125rem !important;
+}
+#arcane-root.arcane-theme-win95.dark .arcane-select-error {
+  color: #ff5050 !important;
+}
+
+/* ---------- Custom select trigger (.win95-select-trigger) ----------
+   Sunken white field (inherited from the input group) laid out as a flex
+   row with a RAISED square arrow button pinned to the right. The chevron
+   is always the trigger's last-child span. */
+#arcane-root.arcane-theme-win95 .win95-select-trigger {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0 !important;
+  padding: 2px 2px 2px 6px !important;
+  min-height: 1.9rem !important;
+  height: auto !important;
+  cursor: pointer !important;
+}
+#arcane-root.arcane-theme-win95 .win95-select-trigger > span:last-child {
+  flex: 0 0 auto !important;
+  align-self: stretch !important;
+  width: 1.15rem !important;
+  min-width: 1.15rem !important;
+  margin-left: 4px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised-thin) !important;
+  border-radius: 0 !important;
+}
+#arcane-root.arcane-theme-win95 .win95-select-trigger > span:last-child svg {
+  display: none !important;
+}
+#arcane-root.arcane-theme-win95 .win95-select-trigger > span:last-child::after {
+  content: '' !important;
+  width: 0 !important;
+  height: 0 !important;
+  border-left: 4px solid transparent !important;
+  border-right: 4px solid transparent !important;
+  border-top: 5px solid var(--w95-face-text) !important;
+}
+
+/* ---------- Custom select dropdown surface ----------
+   Raised silver floating menu, sharp corners. */
+#arcane-root.arcane-theme-win95 .win95-select-dropdown {
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-raised), 2px 2px 0 rgba(0, 0, 0, 0.35) !important;
+  padding: 2px !important;
+}
+
+/* ---------- Custom select options ---------- */
+#arcane-root.arcane-theme-win95 .win95-select-option {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  width: 100% !important;
+  padding: 0.3rem 0.5rem !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--w95-face-text) !important;
+  cursor: pointer !important;
+  text-align: left !important;
+  font-family: var(--font-sans) !important;
+  font-size: 1.219rem !important;
+  transition: none !important;
+}
+#arcane-root.arcane-theme-win95 .win95-select-option:hover,
+#arcane-root.arcane-theme-win95 .win95-select-option.selected,
+#arcane-root.arcane-theme-win95 .win95-select-option[data-arcane-state="selected"],
+#arcane-root.arcane-theme-win95 .win95-select-option[aria-selected="true"] {
+  background: var(--w95-selection) !important;
+  color: var(--w95-selection-text) !important;
+}
+/* Navy selection recolors nested subtitle/description/icon spans (they carry
+   inline muted-foreground colors). */
+#arcane-root.arcane-theme-win95 .win95-select-option:hover *,
+#arcane-root.arcane-theme-win95 .win95-select-option.selected *,
+#arcane-root.arcane-theme-win95 .win95-select-option[data-arcane-state="selected"] *,
+#arcane-root.arcane-theme-win95 .win95-select-option[aria-selected="true"] * {
+  color: var(--w95-selection-text) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-select-option.disabled,
+#arcane-root.arcane-theme-win95 .win95-select-option:disabled {
+  color: var(--w95-shadow) !important;
+  cursor: default !important;
+}
+#arcane-root.arcane-theme-win95 .win95-select-option:disabled:hover {
+  background: transparent !important;
+  color: var(--w95-shadow) !important;
+}
+
+/* ---------- Custom select search box (wrapper div + inner input) ---------- */
+#arcane-root.arcane-theme-win95 .win95-select-search {
+  padding: 2px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+}
+#arcane-root.arcane-theme-win95 .win95-select-search input {
+  width: 100% !important;
+  background: var(--w95-field) !important;
+  color: var(--w95-field-text) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-sunken) !important;
+  padding: 0.3rem 0.4rem !important;
+  font-family: var(--font-sans) !important;
+  font-size: 1.219rem !important;
+  outline: none !important;
+}
+#arcane-root.arcane-theme-win95 .win95-select-search input:focus {
+  outline: 1px dotted var(--w95-field-text) !important;
+  outline-offset: -3px !important;
+}
+
+/* ---------- Legacy combobox (.arcane-combobox-*) ----------
+   ArcaneCombobox actually renders through the select renderer above; these
+   mirror the sunken-field + raised-arrow + navy-menu treatment for the
+   script-driven combobox DOM. */
+#arcane-root.arcane-theme-win95 .arcane-combobox {
+  position: relative !important;
+}
+#arcane-root.arcane-theme-win95 .arcane-combobox-trigger {
+  position: relative !important;
+  width: 100% !important;
+  background: var(--w95-field) !important;
+  color: var(--w95-field-text) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-sunken) !important;
+  padding: 0.3rem 1.7rem 0.3rem 0.5rem !important;
+  min-height: 1.9rem !important;
+  text-align: left !important;
+  font-family: var(--font-sans) !important;
+  font-size: 1.219rem !important;
+  cursor: pointer !important;
+}
+#arcane-root.arcane-theme-win95 .arcane-combobox-trigger::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 50% !important;
+  right: 5px !important;
+  width: 1.15rem !important;
+  height: 1.15rem !important;
+  transform: translateY(-50%) !important;
+  background: var(--w95-face) !important;
+  box-shadow: var(--w95-raised-thin) !important;
+  z-index: 1 !important;
+}
+#arcane-root.arcane-theme-win95 .arcane-combobox-trigger::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 50% !important;
+  right: 10px !important;
+  width: 0 !important;
+  height: 0 !important;
+  transform: translateY(-50%) !important;
+  border-left: 4px solid transparent !important;
+  border-right: 4px solid transparent !important;
+  border-top: 5px solid var(--w95-face-text) !important;
+  z-index: 2 !important;
+}
+#arcane-root.arcane-theme-win95 .arcane-combobox-dropdown {
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-raised), 2px 2px 0 rgba(0, 0, 0, 0.35) !important;
+  padding: 2px !important;
+}
+#arcane-root.arcane-theme-win95 .arcane-combobox-option {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  width: 100% !important;
+  padding: 0.3rem 0.5rem !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--w95-face-text) !important;
+  cursor: pointer !important;
+  text-align: left !important;
+  font-family: var(--font-sans) !important;
+  font-size: 1.219rem !important;
+}
+#arcane-root.arcane-theme-win95 .arcane-combobox-option:hover,
+#arcane-root.arcane-theme-win95 .arcane-combobox-option.selected,
+#arcane-root.arcane-theme-win95 .arcane-combobox-option[aria-selected="true"] {
+  background: var(--w95-selection) !important;
+  color: var(--w95-selection-text) !important;
+}
+#arcane-root.arcane-theme-win95 .arcane-combobox-search {
+  width: 100% !important;
+  background: var(--w95-field) !important;
+  color: var(--w95-field-text) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-sunken) !important;
+  padding: 0.3rem 0.4rem !important;
+  margin-bottom: 2px !important;
+  font-family: var(--font-sans) !important;
+  font-size: 1.219rem !important;
+  outline: none !important;
+}
+
+/* ================= avatar ================= */
+/* ============================================================
+   GROUP 5 - Avatar + Media + Progress Ring + Spinners + Image + Icon
+   ============================================================ */
+
+/* ---------- Avatar: fixed small square with a raised silver bevel ---------- */
+#arcane-root.arcane-theme-win95 .win95-avatar {
+  display: inline-flex !important;
+  flex: 0 0 auto !important;
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  position: relative !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised-thin) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-avatar-inner {
+  width: 100% !important;
+  height: 100% !important;
+}
+/* Photo sits flush inside the raised frame (no inner sunken clash). */
+#arcane-root.arcane-theme-win95 .win95-avatar img,
+#arcane-root.arcane-theme-win95 .win95-avatar-inner img {
+  box-shadow: none !important;
+  background: transparent !important;
+}
+/* Status: small round dot pinned to the corner. */
+#arcane-root.arcane-theme-win95 .win95-avatar-status {
+  position: absolute !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  width: 0.65rem !important;
+  height: 0.65rem !important;
+  box-sizing: border-box !important;
+  background: #008000 !important;
+  border: 2px solid var(--w95-face) !important;
+  box-shadow: none !important;
+  border-radius: 50% !important;
+}
+/* Avatar-group "+N" overflow -> raised silver chip. */
+#arcane-root.arcane-theme-win95 .arcane-avatar-overflow {
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  border: 0 !important;
+  box-shadow: var(--w95-raised-thin) !important;
+  font-size: 0.8rem !important;
+}
+/* Avatar badge -> small beveled chip, keep its status colour. */
+#arcane-root.arcane-theme-win95 .arcane-avatar-badge {
+  border: 0 !important;
+  box-shadow: var(--w95-raised-thin) !important;
+}
+
+/* ---------- Circular progress (ring) -> framed sunken gauge ---------- */
+#arcane-root.arcane-theme-win95 .win95-circular-progress {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  box-sizing: border-box !important;
+  width: 3.5rem !important;
+  height: 3.5rem !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: var(--w95-field) !important;
+  color: var(--w95-field-text) !important;
+  box-shadow: var(--w95-sunken) !important;
+}
+/* The base ring div carries no class -> style the first child as an inner bezel. */
+#arcane-root.arcane-theme-win95 .win95-circular-progress > div:first-child {
+  position: absolute !important;
+  inset: 0.3rem !important;
+  background: transparent !important;
+  box-shadow: var(--w95-raised-thin) !important;
+  pointer-events: none !important;
+}
+/* Centre readout sits above the bezel. */
+#arcane-root.arcane-theme-win95 .win95-circular-progress > div:nth-child(2) {
+  position: relative !important;
+  z-index: 1 !important;
+}
+#arcane-root.arcane-theme-win95 .win95-circular-progress span {
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  color: var(--w95-selection) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-circular-progress > div:nth-child(2) > span:first-child {
+  font-size: 0.9rem !important;
+}
+#arcane-root.arcane-theme-win95 .win95-circular-progress > div:nth-child(2) > span:nth-child(2) {
+  font-size: 0.65rem !important;
+  color: var(--w95-field-text) !important;
+}
+
+/* ---------- Spinners -> small sunken well with a spinning navy block ---------- */
+#arcane-root.arcane-theme-win95 .win95-loading-spinner,
+#arcane-root.arcane-theme-win95 .win95-spinner {
+  display: inline-block !important;
+  box-sizing: border-box !important;
+  width: 1.25rem !important;
+  height: 1.25rem !important;
+  position: relative !important;
+  vertical-align: middle !important;
+  overflow: hidden !important;
+  background: var(--w95-field) !important;
+  color: var(--w95-selection) !important;
+  box-shadow: var(--w95-sunken-thin) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-loading-spinner::after,
+#arcane-root.arcane-theme-win95 .win95-spinner::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 0.55rem !important;
+  height: 0.55rem !important;
+  margin: -0.275rem 0 0 -0.275rem !important;
+  background: var(--w95-selection) !important;
+  box-shadow: var(--w95-raised-thin) !important;
+  animation: win95-media-spin 0.9s steps(8, end) infinite !important;
+}
+
+/* ---------- Images -> sunken Win95 frame; broken images sit in a well ---------- */
+#arcane-root.arcane-theme-win95 img,
+#arcane-root.arcane-theme-win95 .win95-image {
+  box-shadow: var(--w95-sunken-thin) !important;
+}
+/* Image card is the well behind the picture (shows through when the img is broken). */
+#arcane-root.arcane-theme-win95 .arcane-image-card {
+  background: var(--w95-field) !important;
+  color: var(--w95-field-text) !important;
+  box-shadow: var(--w95-sunken-thin) !important;
+}
+
+/* ---------- Icons -> keep centred; inline px sizing (12-48px) still wins ---------- */
+#arcane-root.arcane-theme-win95 svg {
+  vertical-align: middle !important;
+  flex-shrink: 0 !important;
+}
+
+@keyframes win95-media-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ================= accordion ================= */
+/* ============================================================
+   GROUP 6 — Accordion / Disclosure / OTP / Tabs / Breadcrumbs
+   Authentic Win95 3D bevels. All overrides use !important to
+   beat the render-base inline styles.
+   ============================================================ */
+
+/* ---------- Accordion (raised header bars + [+]/[-] box) ---------- */
+
+/* Root is a flat stack, not an outer framed panel — each header carries
+   its own raised bevel. Override the shared surface raised shadow. */
+#arcane-root.arcane-theme-win95 .win95-accordion {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  gap: 3px !important;
+}
+#arcane-root.arcane-theme-win95 .win95-accordion > details {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Header = raised Win95 push-bar that presses in on :active. */
+#arcane-root.arcane-theme-win95 .win95-accordion summary {
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised) !important;
+  padding: 0.4rem 0.6rem !important;
+  gap: 0.6rem !important;
+  list-style: none !important;
+  transition: none !important;
+}
+#arcane-root.arcane-theme-win95 .win95-accordion summary:active {
+  box-shadow: var(--w95-pressed) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-accordion summary::-webkit-details-marker {
+  display: none !important;
+}
+#arcane-root.arcane-theme-win95 .win95-accordion summary::marker {
+  content: '' !important;
+}
+
+/* Title text -> plain Win95 system font. */
+#arcane-root.arcane-theme-win95 .win95-accordion summary > div:first-child {
+  font-family: var(--font-sans) !important;
+  font-weight: 700 !important;
+  font-size: 1.05rem !important;
+  letter-spacing: normal !important;
+  line-height: 1.3 !important;
+  color: var(--w95-face-text) !important;
+}
+
+/* Expand indicator: a small WHITE field box holding a [+] (closed) or
+   [-] (open) glyph — the classic Win95 tree/collapse control. The modern
+   chevron <i>/svg inside is hidden. */
+#arcane-root.arcane-theme-win95 .win95-accordion .faq-chevron {
+  width: 1rem !important;
+  min-width: 1rem !important;
+  height: 1rem !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: var(--w95-field) !important;
+  color: var(--w95-field-text) !important;
+  box-shadow: none !important;
+  border: 1px solid var(--w95-shadow) !important;
+  font-family: var(--font-sans) !important;
+  font-weight: 700 !important;
+  font-size: 0.9rem !important;
+  line-height: 1 !important;
+}
+#arcane-root.arcane-theme-win95 .win95-accordion .faq-chevron > * {
+  display: none !important;
+}
+#arcane-root.arcane-theme-win95 .win95-accordion details:not([open]) .faq-chevron::before {
+  content: '+' !important;
+}
+#arcane-root.arcane-theme-win95 .win95-accordion details[open] .faq-chevron::before {
+  content: '-' !important;
+}
+
+/* Panel body = recessed silver area seated under the header. */
+#arcane-root.arcane-theme-win95 .win95-accordion summary + div {
+  padding: 0.6rem 0.7rem !important;
+  border-top: none !important;
+  background: var(--w95-face) !important;
+  box-shadow: var(--w95-sunken-thin) !important;
+  margin: 0 0.1rem !important;
+}
+#arcane-root.arcane-theme-win95 .win95-accordion summary + div > div {
+  padding-top: 0 !important;
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+  color: var(--w95-face-text) !important;
+}
+
+/* ---------- Disclosure / Expander (twisty triangle, indented body) ---------- */
+
+#arcane-root.arcane-theme-win95 .win95-disclosure {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+#arcane-root.arcane-theme-win95 .win95-disclosure-summary {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  padding: 0.2rem 0.1rem !important;
+  cursor: pointer !important;
+  list-style: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+  font-family: var(--font-sans) !important;
+  font-weight: 700 !important;
+  font-size: 1.05rem !important;
+  color: var(--w95-face-text) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-disclosure-summary::-webkit-details-marker {
+  display: none !important;
+}
+#arcane-root.arcane-theme-win95 .win95-disclosure-summary::marker {
+  content: '' !important;
+}
+#arcane-root.arcane-theme-win95 .win95-disclosure-summary-content {
+  color: var(--w95-face-text) !important;
+}
+
+/* Triangle twisty: sits on the LEFT, points right when closed, down when open. */
+#arcane-root.arcane-theme-win95 .win95-disclosure-chevron {
+  order: -1 !important;
+  flex: 0 0 auto !important;
+  display: inline-block !important;
+  font-size: 0.7rem !important;
+  line-height: 1 !important;
+  color: var(--w95-face-text) !important;
+  transform: rotate(-90deg) !important;
+  transition: none !important;
+}
+#arcane-root.arcane-theme-win95 .win95-disclosure[open] .win95-disclosure-chevron {
+  transform: rotate(0deg) !important;
+}
+
+/* Body indented under the label. */
+#arcane-root.arcane-theme-win95 .win95-disclosure-content {
+  padding: 0.3rem 0 0.4rem 1.3rem !important;
+  border-top: none !important;
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+  color: var(--w95-face-text) !important;
+}
+
+/* ---------- OTP input (row of small sunken white field boxes) ---------- */
+
+#arcane-root.arcane-theme-win95 .win95-otp-input {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.4rem !important;
+}
+#arcane-root.arcane-theme-win95 .win95-otp-input > span:first-child {
+  font-family: var(--font-sans) !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  color: var(--w95-face-text) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-otp-digits {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+}
+#arcane-root.arcane-theme-win95 .win95-otp-digits > span {
+  font-weight: 700 !important;
+  color: var(--w95-face-text) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-otp-digit {
+  width: 1.7rem !important;
+  min-width: 1.7rem !important;
+  height: 2rem !important;
+  padding: 0 !important;
+  text-align: center !important;
+  font-family: var(--font-sans) !important;
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
+  background: var(--w95-field) !important;
+  color: var(--w95-field-text) !important;
+  border: none !important;
+  box-shadow: var(--w95-sunken) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-otp-digit:focus {
+  outline: 1px dotted var(--w95-field-text) !important;
+  outline-offset: -3px !important;
+  box-shadow: var(--w95-sunken) !important;
+}
+
+/* ---------- Tabs (classic folder — active tab connects to panel) ---------- */
+
+/* Kill the base column gap so the active tab can meet the panel. */
+#arcane-root.arcane-theme-win95 .win95-tabs {
+  gap: 0 !important;
+}
+
+#arcane-root.arcane-theme-win95 .win95-tabs-list,
+#arcane-root.arcane-theme-win95 .win95-tab-bar {
+  display: inline-flex !important;
+  align-items: flex-end !important;
+  gap: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* Base tab = raised silver folder tab. */
+#arcane-root.arcane-theme-win95 .win95-tabs-trigger,
+#arcane-root.arcane-theme-win95 .win95-tab-bar-item {
+  position: relative !important;
+  padding: 0.3rem 0.85rem !important;
+  margin: 0 !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 1.05rem !important;
+  font-weight: 400 !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  cursor: pointer !important;
+  transition: none !important;
+}
+
+/* Inactive tabs sit slightly lower and shorter (recessed). */
+#arcane-root.arcane-theme-win95 .win95-tabs-trigger:not(.active) {
+  margin-bottom: 2px !important;
+  padding-top: 0.28rem !important;
+  padding-bottom: 0.28rem !important;
+}
+
+/* Active tab: brought forward, taller, NO bottom bevel so it fuses into
+   the panel below. Top+left raised highlight, right dark edge only. */
+#arcane-root.arcane-theme-win95 .win95-tabs-trigger.active {
+  z-index: 3 !important;
+  margin-bottom: 0 !important;
+  padding: 0.42rem 0.95rem 0.44rem !important;
+  box-shadow:
+    inset 2px 2px 0 var(--w95-light),
+    inset 1px 1px 0 var(--w95-hilite),
+    inset -2px 0 0 var(--w95-shadow),
+    inset -1px 0 0 var(--w95-dark) !important;
+}
+
+/* Content panel rises 2px under the tab row; the active tab overlaps it. */
+#arcane-root.arcane-theme-win95 .win95-tabs-content {
+  padding: 0.85rem !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised) !important;
+  margin-top: -2px !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Content-less tab bar: the selected item reads as pressed-in. */
+#arcane-root.arcane-theme-win95 .win95-tab-bar-item.active {
+  box-shadow: var(--w95-pressed) !important;
+  padding: 0.32rem 0.87rem !important;
+}
+
+/* ---------- Breadcrumbs (plain Win95 text, no pills) ---------- */
+
+#arcane-root.arcane-theme-win95 .win95-breadcrumbs {
+  font-family: var(--font-sans) !important;
+  color: var(--w95-face-text) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-breadcrumb-link,
+#arcane-root.arcane-theme-win95 .win95-breadcrumb-button {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  color: var(--w95-face-text) !important;
+  text-decoration: none !important;
+  font-family: var(--font-sans) !important;
+  cursor: pointer !important;
+}
+#arcane-root.arcane-theme-win95 .win95-breadcrumb-link:focus,
+#arcane-root.arcane-theme-win95 .win95-breadcrumb-button:focus {
+  outline: 1px dotted var(--w95-face-text) !important;
+  outline-offset: 1px !important;
+}
+#arcane-root.arcane-theme-win95 .win95-breadcrumb-current {
+  color: var(--w95-face-text) !important;
+  font-weight: 700 !important;
+}
+#arcane-root.arcane-theme-win95 .win95-breadcrumb-separator {
+  color: var(--w95-shadow) !important;
+  font-family: var(--font-sans) !important;
+  user-select: none !important;
+  padding: 0 0.1rem !important;
+}
+
+/* ================= chart ================= */
+/* ===================================================================
+   GROUP 7 — Chart, Skeleton, Stat cards, Pagination, EmptyState polish
+   =================================================================== */
+
+/* ---------- Chart: framed Win95 plotting well ---------- */
+/* Base emits: .win95-chart > [span title][span desc] then one row per
+   point: div( span.label , div.track( div.fill ) , span.value ). None of
+   the inner nodes carry classes, so they are targeted structurally. */
+#arcane-root.arcane-theme-win95 .win95-chart {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.5rem !important;
+  padding: 0.75rem !important;
+  background: var(--w95-field) !important;
+  color: var(--w95-field-text) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-sunken) !important;
+}
+/* Title / description sit as direct span children -> small black text. */
+#arcane-root.arcane-theme-win95 .win95-chart > span {
+  font-size: 0.9rem !important;
+  line-height: 1.3 !important;
+  color: var(--w95-field-text) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-chart > span:first-child {
+  font-weight: 700 !important;
+}
+/* Each data point row: label | track | value laid out on one baseline. */
+#arcane-root.arcane-theme-win95 .win95-chart > div {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+/* Axis labels + values: small black text, no wrap. */
+#arcane-root.arcane-theme-win95 .win95-chart > div > span {
+  font-size: 0.8rem !important;
+  color: var(--w95-field-text) !important;
+  white-space: nowrap !important;
+}
+#arcane-root.arcane-theme-win95 .win95-chart > div > span:first-child {
+  flex: 0 0 auto !important;
+  min-width: 4.5rem !important;
+}
+#arcane-root.arcane-theme-win95 .win95-chart > div > span:last-child {
+  flex: 0 0 auto !important;
+  min-width: 2rem !important;
+  text-align: right !important;
+  font-weight: 700 !important;
+  font-variant-numeric: tabular-nums !important;
+}
+/* Track: sunken white well the bar sits inside. */
+#arcane-root.arcane-theme-win95 .win95-chart > div > div {
+  flex: 1 1 auto !important;
+  height: 16px !important;
+  padding: 0 !important;
+  background: var(--w95-field) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-sunken-thin) !important;
+  overflow: hidden !important;
+}
+/* Fill bar: navy selection, sharp edges. Width comes from the inline style. */
+#arcane-root.arcane-theme-win95 .win95-chart > div > div > div {
+  height: 100% !important;
+  background: var(--w95-selection) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* ---------- Skeletons: flat grey sunken placeholder blocks ---------- */
+#arcane-root.arcane-theme-win95 .win95-skeleton {
+  background: #a0a0a0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-sunken-thin) !important;
+  /* Win95 placeholders do not shimmer. */
+  animation: none !important;
+}
+
+/* ---------- Stat cards: raised silver panel + sunken readout well ---------- */
+#arcane-root.arcane-theme-win95 .win95-stat-card {
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-raised) !important;
+}
+/* Icon badge -> thin raised chip. */
+#arcane-root.arcane-theme-win95 .win95-stat-card-icon {
+  background: var(--w95-face) !important;
+  color: var(--w95-selection) !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-raised-thin) !important;
+}
+/* Value row (the only non-icon direct div child) -> beveled sunken well
+   that hugs the number, like a Win95 numeric readout. */
+#arcane-root.arcane-theme-win95 .win95-stat-card > div:not(.win95-stat-card-icon) {
+  align-self: flex-start !important;
+  padding: 0.15rem 0.5rem !important;
+  background: var(--w95-field) !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-sunken-thin) !important;
+}
+/* The big number reads as field text; the trend span keeps its up/down colour. */
+#arcane-root.arcane-theme-win95 .win95-stat-card > div:not(.win95-stat-card-icon) > span:first-child {
+  color: var(--w95-field-text) !important;
+}
+
+/* ---------- Pagination: raised numbered buttons, current = pressed ---------- */
+#arcane-root.arcane-theme-win95 .win95-pagination {
+  gap: 2px !important;
+}
+#arcane-root.arcane-theme-win95 .win95-pagination-button {
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-raised) !important;
+  font-weight: 700 !important;
+  transition: none !important;
+}
+#arcane-root.arcane-theme-win95 .win95-pagination-button:active:not(.disabled) {
+  box-shadow: var(--w95-pressed) !important;
+}
+/* Current page stays visually pressed / sunken. */
+#arcane-root.arcane-theme-win95 .win95-pagination-button.active {
+  box-shadow: var(--w95-pressed) !important;
+  color: var(--w95-face-text) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-pagination-button.disabled {
+  opacity: 0.5 !important;
+  color: var(--w95-shadow) !important;
+  box-shadow: var(--w95-raised) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-pagination-ellipsis {
+  color: var(--w95-face-text) !important;
+}
+
+/* ---------- EmptyState: verified raised silver panel; lay out its content ---------- */
+#arcane-root.arcane-theme-win95 .win95-empty-state-content {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+#arcane-root.arcane-theme-win95 .win95-empty-state-actions {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  margin-top: 0.5rem !important;
+}
+
+/* Docs article prose scaled to the +50% default (arcane_lexicon's prose styles
+   are appended after this, so id+class specificity + !important wins). */
+#arcane-root.arcane-theme-win95 .kb-article-panel .prose,
+#arcane-root.arcane-theme-win95 .kb-article-panel .prose p,
+#arcane-root.arcane-theme-win95 .kb-article-panel .prose ul,
+#arcane-root.arcane-theme-win95 .kb-article-panel .prose ol,
+#arcane-root.arcane-theme-win95 .kb-article-panel .prose li,
+#arcane-root.arcane-theme-win95 .kb-article-panel .prose blockquote,
+#arcane-root.arcane-theme-win95 .kb-article-panel .prose td,
+#arcane-root.arcane-theme-win95 .kb-page-description {
+  font-size: 1.5rem !important;
+  line-height: 1.5 !important;
+}
+
+/* ============================================================
+   POLISH 2: Win95 scrollbar w/ arrow buttons, Start-button flag,
+   bounded title bars, menu-bar spacing, cleaner tree + de-treed TOC.
+   ============================================================ */
+/* ========== scrollbar ========== */
+#arcane-root.arcane-theme-win95 ::-webkit-scrollbar {
+  width: 17px !important;
+  height: 17px !important;
+}
+#arcane-root.arcane-theme-win95 ::-webkit-scrollbar-track {
+  background-color: #ffffff !important;
+  background-image:
+    linear-gradient(45deg, #c0c0c0 25%, transparent 25%, transparent 75%, #c0c0c0 75%),
+    linear-gradient(45deg, #c0c0c0 25%, transparent 25%, transparent 75%, #c0c0c0 75%) !important;
+  background-size: 2px 2px !important;
+  background-position: 0 0, 1px 1px !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+#arcane-root.arcane-theme-win95 ::-webkit-scrollbar-thumb {
+  background: var(--w95-face) !important;
+  background-image: none !important;
+  box-shadow: var(--w95-raised) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  min-height: 20px !important;
+  min-width: 20px !important;
+}
+#arcane-root.arcane-theme-win95 ::-webkit-scrollbar-button {
+  display: block !important;
+  width: 17px !important;
+  height: 17px !important;
+  background-color: var(--w95-face) !important;
+  box-shadow: var(--w95-raised) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  background-size: 16px 16px !important;
+}
+#arcane-root.arcane-theme-win95 ::-webkit-scrollbar-button:vertical:decrement {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path fill='%23000000' d='M8 5 L11 10 L5 10 Z'/></svg>") !important;
+}
+#arcane-root.arcane-theme-win95 ::-webkit-scrollbar-button:vertical:increment {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path fill='%23000000' d='M5 6 L11 6 L8 11 Z'/></svg>") !important;
+}
+#arcane-root.arcane-theme-win95 ::-webkit-scrollbar-button:horizontal:decrement {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path fill='%23000000' d='M5 8 L10 5 L10 11 Z'/></svg>") !important;
+}
+#arcane-root.arcane-theme-win95 ::-webkit-scrollbar-button:horizontal:increment {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path fill='%23000000' d='M6 5 L11 8 L6 11 Z'/></svg>") !important;
+}
+#arcane-root.arcane-theme-win95 ::-webkit-scrollbar-button:active {
+  box-shadow: var(--w95-pressed) !important;
+  background-position: calc(50% + 1px) calc(50% + 1px) !important;
+}
+#arcane-root.arcane-theme-win95 ::-webkit-scrollbar-button:vertical:start:increment,
+#arcane-root.arcane-theme-win95 ::-webkit-scrollbar-button:vertical:end:decrement,
+#arcane-root.arcane-theme-win95 ::-webkit-scrollbar-button:horizontal:start:increment,
+#arcane-root.arcane-theme-win95 ::-webkit-scrollbar-button:horizontal:end:decrement {
+  display: none !important;
+}
+#arcane-root.arcane-theme-win95.dark ::-webkit-scrollbar-button:vertical:decrement {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path fill='%23ffffff' d='M8 5 L11 10 L5 10 Z'/></svg>") !important;
+}
+#arcane-root.arcane-theme-win95.dark ::-webkit-scrollbar-button:vertical:increment {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path fill='%23ffffff' d='M5 6 L11 6 L8 11 Z'/></svg>") !important;
+}
+#arcane-root.arcane-theme-win95.dark ::-webkit-scrollbar-button:horizontal:decrement {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path fill='%23ffffff' d='M5 8 L10 5 L10 11 Z'/></svg>") !important;
+}
+#arcane-root.arcane-theme-win95.dark ::-webkit-scrollbar-button:horizontal:increment {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path fill='%23ffffff' d='M6 5 L11 8 L6 11 Z'/></svg>") !important;
+}
+#arcane-root.arcane-theme-win95 ::-webkit-scrollbar-corner {
+  background: var(--w95-face) !important;
+}
+
+/* ========== start ========== */
+#arcane-root.arcane-theme-win95 .kb-page-shell::before {
+  content: "Start" !important;
+  position: fixed !important;
+  left: 3px !important;
+  bottom: 2px !important;
+  z-index: 9001 !important;
+  display: flex !important;
+  align-items: center !important;
+  height: 26px !important;
+  padding: 0 12px 0 28px !important;
+  font-weight: 700 !important;
+  font-size: 16.5px !important;
+  line-height: 1 !important;
+  letter-spacing: 0.2px !important;
+  color: var(--w95-face-text) !important;
+  background-color: var(--w95-face) !important;
+  background-image:
+    linear-gradient(to right, #ff0000 50%, #008000 50%),
+    linear-gradient(to right, #0000ff 50%, #f5c400 50%) !important;
+  background-repeat: no-repeat, no-repeat !important;
+  background-position: 6px 7px, 6px 14px !important;
+  background-size: 15px 6px, 15px 6px !important;
+  box-shadow: var(--w95-raised) !important;
+}
+
+/* ========== titlebars ========== */
+/* ============================================================
+   POLISH 3: bound the navy gradient title bars inside their
+   window frames. The document caption (.kb-content-area::before)
+   spanned the FULL content area -- over the article AND the TOC
+   column, flush to the edges with no frame. Retire it and render
+   the caption on the article WINDOW (.kb-article-panel), inset
+   3px like the theme's other titled windows (.win95-card /
+   .win95-command-dialog) so the raised silver frame shows around
+   it. Also inset the landing terminal's navy bar in its card.
+   ============================================================ */
+
+/* Retire the old full-width caption that bled over the TOC column. */
+#arcane-root.arcane-theme-win95 .kb-content-area::before {
+  content: none !important;
+  display: none !important;
+}
+
+/* The article panel = the document window: anchor + clear its title bar. */
+#arcane-root.arcane-theme-win95 .kb-article-panel {
+  position: relative !important;
+  padding-top: calc(12px + 22px) !important;
+}
+
+/* Navy title bar inset 3px inside the article window's raised silver frame. */
+#arcane-root.arcane-theme-win95 .kb-article-panel::before {
+  content: "Arcane Jaspr Documentation" !important;
+  position: absolute !important;
+  top: 3px !important;
+  left: 3px !important;
+  right: 3px !important;
+  height: 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 56px 0 6px !important;
+  font-size: 16.5px !important;
+  font-weight: 700 !important;
+  line-height: 18px !important;
+  color: var(--w95-title-text) !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  background: linear-gradient(90deg, var(--w95-title-a) 0%, var(--w95-title-b) 100%) !important;
+}
+
+/* [_][]X window controls, white on the RIGHT of the title bar. */
+#arcane-root.arcane-theme-win95 .kb-article-panel::after {
+  content: "_ □ ✕" !important;
+  position: absolute !important;
+  top: 3px !important;
+  right: 6px !important;
+  height: 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  letter-spacing: 3px !important;
+  font-family: var(--font-mono) !important;
+  font-size: 16.5px !important;
+  line-height: 18px !important;
+  color: var(--w95-title-text) !important;
+  pointer-events: none !important;
+}
+
+/* Landing terminal mock: inset the whole client area (navy bar + body) 3px
+   inside the card's raised frame, so the silver frame shows around the bar.
+   The bar keeps its [_][]X dots on the RIGHT (justify-content:flex-end). */
+#arcane-root.arcane-theme-win95 .kb-landing-terminal {
+  padding: 3px !important;
+}
+
+/* ========== menu ========== */
+/* ===== POLISH 4: menu-bar spacing (File Edit View Favorites Help) ===== */
+/* Correct Win95 menu bar: small text, vertically centered, even tight gaps.
+   Overrides the earlier ::before rule + the global x1.5 font scale. */
+#arcane-root.arcane-theme-win95 .kb-topbar::before {
+  content: "File Edit View Favorites Help" !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  box-sizing: border-box !important;
+  height: 22px !important;
+  padding: 2px 6px !important;
+  font-family: var(--font-sans) !important;
+  font-size: 13px !important;
+  line-height: 1 !important;
+  letter-spacing: normal !important;
+  word-spacing: 7px !important;
+  text-transform: none !important;
+  text-align: left !important;
+  color: var(--w95-face-text) !important;
+  white-space: nowrap !important;
+  background: var(--w95-face) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* ========== trees ========== */
+/* ============================================================
+   POLISH 5 — Crisp sidebar tree + clean TOC (no Explorer lines)
+   ============================================================ */
+
+/* ---- A. SIDEBAR TREE — keep the [+]/[-] node boxes, drop the dotted guides ---- */
+
+/* Group-header / summary node box: a small (~10px) flat WHITE field square with
+   a 1px gray border and a solid black +/- glyph perfectly centered, sitting in a
+   consistent left gutter. Overrides the earlier 11px/13.5px box. */
+#arcane-root.arcane-theme-win95 .sidebar-section-header::before,
+#arcane-root.arcane-theme-win95 .sidebar-summary::before {
+  width: 10px !important;
+  height: 10px !important;
+  margin-right: 6px !important;
+  padding: 0 !important;
+  background: var(--w95-field) !important;
+  border: 1px solid var(--w95-shadow) !important;
+  box-shadow: none !important;
+  color: var(--w95-field-text) !important;
+  font-family: "MS Sans Serif", Tahoma, Geneva, sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  text-align: center !important;
+}
+
+/* Tree body: clean indentation only. Remove the dotted vertical trunk (border /
+   background gradient) for a crisp, uncluttered Win95 look. */
+#arcane-root.arcane-theme-win95 .sidebar-tree {
+  position: static !important;
+  margin-left: 0 !important;
+  margin-top: 0 !important;
+  padding-left: 16px !important;
+  gap: 0 !important;
+  border-left: 0 !important;
+  background: none !important;
+  background-image: none !important;
+}
+
+#arcane-root.arcane-theme-win95 .sidebar-tree-item {
+  position: static !important;
+}
+
+/* Remove the dotted horizontal elbows on each row. */
+#arcane-root.arcane-theme-win95 .sidebar-tree-item::before,
+#arcane-root.arcane-theme-win95 .sidebar-tree-item::after {
+  content: none !important;
+  display: none !important;
+  border: 0 !important;
+  background: none !important;
+}
+
+/* Leaf rows: single-line black text, no hover fill (selection-driven, not
+   hover-driven). Selection behaviour itself is re-asserted below. */
+#arcane-root.arcane-theme-win95 .sidebar-tree .sidebar-link {
+  padding: 1px 6px !important;
+  border-radius: 0 !important;
+  color: var(--w95-face-text) !important;
+  font-size: 16.5px !important;
+  line-height: 17px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* Re-assert the navy selection bar on the active leaf so the crisp generic
+   leaf-color rule above cannot recolor it (equal specificity, later source). */
+#arcane-root.arcane-theme-win95 .sidebar-tree .sidebar-link.active,
+#arcane-root.arcane-theme-win95 .sidebar-link.active {
+  background: var(--w95-selection) !important;
+  color: var(--w95-selection-text) !important;
+}
+#arcane-root.arcane-theme-win95 .sidebar-tree .sidebar-link.active .sidebar-icon,
+#arcane-root.arcane-theme-win95 .sidebar-tree .sidebar-link.active .sidebar-icon-svg {
+  color: var(--w95-selection-text) !important;
+}
+
+/* ---- B. TOC ("On this page") — a table of contents is NOT a file tree ---- */
+
+/* Neutralize the Explorer tree connectors injected by arcaneTocTreeLinesCss
+   (and the earlier win95 recolor of them). */
+#arcane-root.arcane-theme-win95 .kb-toc-panel .toc-content > ul > li::before,
+#arcane-root.arcane-theme-win95 .kb-toc-panel .toc-content > ul > li::after,
+#arcane-root.arcane-theme-win95 .kb-toc-panel .toc-content ul ul li::before,
+#arcane-root.arcane-theme-win95 .kb-toc-panel .toc-content ul ul li::after,
+#arcane-root.arcane-theme-win95 .kb-toc-panel .toc-content li::before,
+#arcane-root.arcane-theme-win95 .kb-toc-panel .toc-content li::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  border: 0 !important;
+}
+
+/* Remove any tree trunks / left rails from the TOC containers and rows. */
+#arcane-root.arcane-theme-win95 .kb-toc-panel .toc,
+#arcane-root.arcane-theme-win95 .kb-toc-panel .toc-content,
+#arcane-root.arcane-theme-win95 .kb-toc-panel .toc-content ul,
+#arcane-root.arcane-theme-win95 .kb-toc-panel .toc-list,
+#arcane-root.arcane-theme-win95 .kb-toc-panel li {
+  background-image: none !important;
+  border-left: 0 !important;
+  list-style: none !important;
+}
+
+/* Clean, simple Win95 indentation: flush top level, ~12px per nested level. */
+#arcane-root.arcane-theme-win95 .kb-toc-panel .toc-content > ul {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+#arcane-root.arcane-theme-win95 .kb-toc-panel .toc-content ul ul {
+  padding-left: 12px !important;
+  margin-left: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* "On this page" heading: a small bold label (keeps its etched groove). */
+#arcane-root.arcane-theme-win95 .kb-toc-panel .toc-title {
+  padding: 0 0 3px 0 !important;
+  margin: 0 0 5px 0 !important;
+  color: var(--w95-face-text) !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+}
+
+/* TOC links: small black text on a single line, no hover fill. */
+#arcane-root.arcane-theme-win95 .kb-toc-panel .toc-content a {
+  display: block !important;
+  margin: 0 !important;
+  padding: 1px 6px !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--w95-face-text) !important;
+  font-size: 15px !important;
+  line-height: 17px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+#arcane-root.arcane-theme-win95 .kb-toc-panel .toc-content a:hover {
+  background: transparent !important;
+  color: var(--w95-face-text) !important;
+}
+
+/* Active TOC item: navy Win95 selection bar. */
+#arcane-root.arcane-theme-win95 .kb-toc-panel .toc-content a.toc-active {
+  background: var(--w95-selection) !important;
+  color: var(--w95-selection-text) !important;
+  font-weight: 400 !important;
+}
+
+/* ============================================================
+   OVERLAYS + POLISH: drawer/sheet/dialog/command/menus/tooltip/
+   toast (were invisible) + clock, table hover, window controls.
+   ============================================================ */
+/* ========== drawer ========== */
+/* ============================================================
+   Drawer — slide-out Win95 window (overlay was transparent)
+   ============================================================ */
+
+/* Modal scrim behind the panel. */
+#arcane-root.arcane-theme-win95 .win95-drawer-overlay {
+  background: rgba(0, 0, 0, 0.45) !important;
+}
+
+/* Opaque raised silver panel. data-position is on the overlay, so the
+   panel edge anchoring is handled by the render base; we only supply the
+   surface + bevel + a small window-frame gutter. */
+#arcane-root.arcane-theme-win95 .win95-drawer {
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 3px !important;
+}
+
+/* Directional drop shadow to lift the panel off the scrim. */
+#arcane-root.arcane-theme-win95 .win95-drawer-overlay[data-position="left"] .win95-drawer {
+  box-shadow: var(--w95-raised), 3px 0 10px rgba(0, 0, 0, 0.4) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-drawer-overlay[data-position="right"] .win95-drawer {
+  box-shadow: var(--w95-raised), -3px 0 10px rgba(0, 0, 0, 0.4) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-drawer-overlay[data-position="top"] .win95-drawer {
+  box-shadow: var(--w95-raised), 0 3px 10px rgba(0, 0, 0, 0.4) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-drawer-overlay[data-position="bottom"] .win95-drawer {
+  box-shadow: var(--w95-raised), 0 -3px 10px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Header → navy gradient title bar. */
+#arcane-root.arcane-theme-win95 .win95-drawer-header {
+  background: linear-gradient(90deg, var(--w95-title-a), var(--w95-title-b)) !important;
+  color: var(--w95-title-text) !important;
+  min-height: 20px !important;
+  padding: 2px 3px 2px 6px !important;
+  border-bottom: none !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+}
+/* Force the title slot white + bold (excludes the close button, which is a
+   sibling <button>, not inside the header slot's <div>). */
+#arcane-root.arcane-theme-win95 .win95-drawer-header > div,
+#arcane-root.arcane-theme-win95 .win95-drawer-header > div * {
+  color: var(--w95-title-text) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.02em;
+}
+
+/* Title-bar close button → small raised square holding the ✕ glyph. */
+#arcane-root.arcane-theme-win95 .win95-drawer-close {
+  flex-shrink: 0 !important;
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+}
+#arcane-root.arcane-theme-win95 .win95-drawer-close:active {
+  box-shadow: var(--w95-pressed) !important;
+}
+
+/* Body → silver face, black text. */
+#arcane-root.arcane-theme-win95 .win95-drawer-content {
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+}
+
+/* Footer → silver face with a raised horizontal separator on top. */
+#arcane-root.arcane-theme-win95 .win95-drawer-footer {
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  border-top: none !important;
+  box-shadow: inset 0 1px 0 var(--w95-shadow), inset 0 2px 0 var(--w95-hilite) !important;
+}
+
+/* ============================================================
+   Sheet — bottom / edge Win95 panel (overlay was transparent)
+   ============================================================ */
+
+#arcane-root.arcane-theme-win95 .win95-sheet-overlay {
+  background: rgba(0, 0, 0, 0.45) !important;
+}
+
+#arcane-root.arcane-theme-win95 .win95-sheet {
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 3px !important;
+}
+#arcane-root.arcane-theme-win95 .win95-sheet-overlay[data-position="left"] .win95-sheet {
+  box-shadow: var(--w95-raised), 3px 0 10px rgba(0, 0, 0, 0.4) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-sheet-overlay[data-position="right"] .win95-sheet {
+  box-shadow: var(--w95-raised), -3px 0 10px rgba(0, 0, 0, 0.4) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-sheet-overlay[data-position="top"] .win95-sheet {
+  box-shadow: var(--w95-raised), 0 3px 10px rgba(0, 0, 0, 0.4) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-sheet-overlay[data-position="bottom"] .win95-sheet {
+  box-shadow: var(--w95-raised), 0 -3px 10px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Drag handle → a small raised Win95 grip (square, not a rounded pill). */
+#arcane-root.arcane-theme-win95 .win95-sheet-drag-handle > div {
+  border-radius: 0 !important;
+  width: 44px !important;
+  height: 5px !important;
+  background: var(--w95-face) !important;
+  box-shadow: var(--w95-raised-thin) !important;
+  opacity: 1 !important;
+}
+
+/* Header → navy gradient title bar (title + description forced white). */
+#arcane-root.arcane-theme-win95 .win95-sheet-header {
+  background: linear-gradient(90deg, var(--w95-title-a), var(--w95-title-b)) !important;
+  color: var(--w95-title-text) !important;
+  min-height: 20px !important;
+  padding: 3px 3px 3px 6px !important;
+  border-bottom: none !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+}
+#arcane-root.arcane-theme-win95 .win95-sheet-header > div,
+#arcane-root.arcane-theme-win95 .win95-sheet-header > div * {
+  color: var(--w95-title-text) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-sheet-header h2 {
+  font-weight: 700 !important;
+  margin: 0 !important;
+  letter-spacing: 0.02em;
+}
+
+#arcane-root.arcane-theme-win95 .win95-sheet-close {
+  flex-shrink: 0 !important;
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+}
+#arcane-root.arcane-theme-win95 .win95-sheet-close:active {
+  box-shadow: var(--w95-pressed) !important;
+}
+
+#arcane-root.arcane-theme-win95 .win95-sheet-content {
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-sheet-footer {
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  border-top: none !important;
+  box-shadow: inset 0 1px 0 var(--w95-shadow), inset 0 2px 0 var(--w95-hilite) !important;
+}
+
+/* ========== dialog ========== */
+/* ============================================================
+   PASS 2 — DIALOG + CONFIRM/ALERT DIALOG + COMMAND PALETTE
+   These overlay surfaces rendered with transparent panels and no
+   scrim/positioning (the theme never styled their win95-* classes,
+   and the framework does not position them generically). Make them
+   opaque raised Win95 windows over a semi-transparent scrim.
+   ============================================================ */
+
+/* ---------- Modal overlays / scrims (dialog + command) ---------- */
+
+#arcane-root.arcane-theme-win95 .win95-dialog-overlay,
+#arcane-root.arcane-theme-win95 .win95-command-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 1000 !important;
+  display: flex !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  overflow-y: auto !important;
+  background: rgba(0, 0, 0, 0.45) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-dialog-overlay {
+  align-items: center !important;
+  padding: 1.5rem 1rem !important;
+}
+#arcane-root.arcane-theme-win95 .win95-command-overlay {
+  align-items: flex-start !important;
+  padding: 10vh 1rem 1rem 1rem !important;
+}
+/* Keep the runtime's closed-surface hide winning over the !important
+   display above (higher specificity + later, so [hidden] hides). */
+#arcane-root.arcane-theme-win95 .win95-dialog-overlay[hidden],
+#arcane-root.arcane-theme-win95 .win95-command-overlay[hidden] {
+  display: none !important;
+}
+
+/* ---------- Dialog window (also used by confirm/alert) ---------- */
+
+#arcane-root.arcane-theme-win95 .win95-dialog {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  box-sizing: border-box !important;
+  max-height: calc(100vh - 3rem) !important;
+  padding: 3px !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-raised), 2px 2px 0 rgba(0, 0, 0, 0.35) !important;
+  font-family: var(--font-sans) !important;
+}
+
+/* Navy gradient title bar inset 3px inside the raised silver frame. */
+#arcane-root.arcane-theme-win95 .win95-dialog-title {
+  flex: 0 0 auto !important;
+  display: flex !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+  height: 20px !important;
+  min-height: 20px !important;
+  margin: 0 0 3px 0 !important;
+  padding: 0 46px 0 6px !important;
+  background: linear-gradient(90deg, var(--w95-title-a) 0%, var(--w95-title-b) 100%) !important;
+  color: var(--w95-title-text) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 16.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: normal !important;
+  line-height: 20px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* Raised silver close button on the right of the title bar. */
+#arcane-root.arcane-theme-win95 .win95-dialog-close {
+  position: absolute !important;
+  top: 5px !important;
+  right: 5px !important;
+  width: 22px !important;
+  height: 18px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-raised-thin) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  cursor: default !important;
+  z-index: 2 !important;
+}
+#arcane-root.arcane-theme-win95 .win95-dialog-close:active {
+  box-shadow: var(--w95-sunken-thin) !important;
+  padding: 1px 0 0 1px !important;
+}
+
+/* Body: opaque silver client area, black (theme foreground) text. */
+#arcane-root.arcane-theme-win95 .win95-dialog-content {
+  flex: 1 1 auto !important;
+  overflow-y: auto !important;
+  padding: 12px 14px !important;
+  color: var(--w95-face-text) !important;
+  font-family: var(--font-sans) !important;
+}
+
+/* Footer: OK/Cancel Win95 buttons, right-aligned. The default (primary)
+   button already gets its extra 1px ring from the .win95-button rules. */
+#arcane-root.arcane-theme-win95 .win95-dialog-actions {
+  flex: 0 0 auto !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 6px !important;
+  margin: 0 !important;
+  padding: 8px 14px 12px 14px !important;
+}
+
+/* Confirm / alert dialogs reuse the dialog window; keep their icon and
+   centered message legible on the silver face in both light and dark. */
+#arcane-root.arcane-theme-win95 .win95-confirm-dialog-content,
+#arcane-root.arcane-theme-win95 .win95-confirm-dialog-icon {
+  color: var(--w95-face-text) !important;
+}
+
+/* ---------- Command palette window ---------- */
+
+/* Opaque raised silver window; the navy title bar is drawn by the
+   existing .win95-command-dialog::before / ::after pseudo-elements. */
+#arcane-root.arcane-theme-win95 .win95-command-dialog {
+  width: min(560px, calc(100vw - 2rem)) !important;
+  max-width: 560px !important;
+  max-height: 70vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  box-sizing: border-box !important;
+  padding: 26px 3px 3px 3px !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-raised), 2px 2px 0 rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Search row (icon + input). */
+#arcane-root.arcane-theme-win95 .win95-command-dialog > div:first-child {
+  flex: 0 0 auto !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 4px 6px 6px 6px !important;
+}
+#arcane-root.arcane-theme-win95 .win95-command-dialog > div:first-child > span {
+  flex: 0 0 auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  color: var(--w95-shadow) !important;
+}
+
+/* Sunken white search field. Force background/border past the input's
+   inline background:transparent;border:none (why it looked faint). */
+#arcane-root.arcane-theme-win95 .win95-command-input {
+  flex: 1 1 auto !important;
+  width: auto !important;
+  background: var(--w95-field) !important;
+  color: var(--w95-field-text) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-sunken) !important;
+  padding: 3px 5px !important;
+  font-family: var(--font-sans) !important;
+  font-size: 1.125rem !important;
+}
+#arcane-root.arcane-theme-win95 .win95-command-input::placeholder {
+  color: var(--w95-shadow) !important;
+}
+
+/* Results area = a sunken white listbox well. */
+#arcane-root.arcane-theme-win95 .win95-command-list {
+  flex: 1 1 auto !important;
+  overflow-y: auto !important;
+  margin: 0 6px !important;
+  padding: 2px !important;
+  background: var(--w95-field) !important;
+  color: var(--w95-field-text) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-sunken) !important;
+}
+
+/* Rows highlight navy (selection) on hover / keyboard selection. */
+#arcane-root.arcane-theme-win95 .win95-command-item {
+  color: var(--w95-field-text) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-command-item:hover:not(.disabled),
+#arcane-root.arcane-theme-win95 .win95-command-item[aria-selected="true"],
+#arcane-root.arcane-theme-win95 .win95-command-item[data-arcane-state="active"],
+#arcane-root.arcane-theme-win95 .win95-command-item.selected {
+  background: var(--w95-selection) !important;
+  color: var(--w95-selection-text) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-command-item:hover:not(.disabled) span,
+#arcane-root.arcane-theme-win95 .win95-command-item[aria-selected="true"] span,
+#arcane-root.arcane-theme-win95 .win95-command-item[data-arcane-state="active"] span,
+#arcane-root.arcane-theme-win95 .win95-command-item.selected span {
+  color: var(--w95-selection-text) !important;
+}
+
+/* Small bold group labels. */
+#arcane-root.arcane-theme-win95 .win95-command-group-heading {
+  padding: 4px 6px 2px 6px !important;
+  font-weight: 700 !important;
+  color: var(--w95-field-text) !important;
+}
+
+/* Keyboard-hint footer: etched top divider, laid out inline. */
+#arcane-root.arcane-theme-win95 .win95-command-dialog > div:last-child {
+  flex: 0 0 auto !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  margin: 6px 3px 0 3px !important;
+  padding: 4px 6px !important;
+  box-shadow: inset 0 1px 0 var(--w95-shadow), inset 0 2px 0 var(--w95-hilite) !important;
+  color: var(--w95-face-text) !important;
+  font-size: 0.9rem !important;
+}
+
+/* ========== menus ========== */
+/* ============================================================
+   PASS 3 — Menus + Popover + Tooltip (Win95)
+   Overlay surfaces (context menu, dropdown menu, menubar,
+   popover, tooltip) whose win95-* classes were never styled.
+   Every menu/popover panel carries .win95-popover, so that is
+   the master surface selector; anchored surfaces are positioned
+   (position:fixed) and shown/hidden by the runtime surface JS,
+   so here we only supply the Win95 look.
+   ============================================================ */
+
+/* ---------- Opaque raised silver popup surface ---------- */
+/* Covers: popover, context-menu, dropdown-menu, all submenus,
+   menubar dropdown content + submenu, Floating rich popover. */
+#arcane-root.arcane-theme-win95 .win95-popover,
+#arcane-root.arcane-theme-win95 .win95-context-menu,
+#arcane-root.arcane-theme-win95 .win95-context-menu-submenu,
+#arcane-root.arcane-theme-win95 .win95-dropdown-menu,
+#arcane-root.arcane-theme-win95 .win95-dropdown-submenu,
+#arcane-root.arcane-theme-win95 .win95-menubar-content,
+#arcane-root.arcane-theme-win95 .win95-menubar-submenu,
+#arcane-root.arcane-theme-win95 .win95-floating-content.win95-popover {
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-raised), 2px 2px 0 rgba(0, 0, 0, 0.35) !important;
+  padding: 2px !important;
+  min-width: 160px !important;
+  font-size: 1.219rem !important;
+  z-index: 1000 !important;
+  opacity: 1 !important;
+}
+
+/* ---------- Menu items (context / dropdown / menubar dropdown) ---------- */
+#arcane-root.arcane-theme-win95 .win95-context-menu-item,
+#arcane-root.arcane-theme-win95 .win95-dropdown-item,
+#arcane-root.arcane-theme-win95 .win95-menubar-item {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  width: 100% !important;
+  padding: 2px 22px 2px 8px !important;
+  background: transparent !important;
+  color: var(--w95-face-text) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  font-size: 1.219rem !important;
+  line-height: 1.5 !important;
+  text-align: left !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  outline: none !important;
+  transition: none !important;
+  opacity: 1 !important;
+}
+
+/* Inner label / shortcut / icon spans follow the item's colour
+   (black normally, white on highlight, grey when disabled). */
+#arcane-root.arcane-theme-win95 .win95-context-menu-item span,
+#arcane-root.arcane-theme-win95 .win95-context-menu-item svg,
+#arcane-root.arcane-theme-win95 .win95-dropdown-item span,
+#arcane-root.arcane-theme-win95 .win95-dropdown-item svg,
+#arcane-root.arcane-theme-win95 .win95-menubar-item span,
+#arcane-root.arcane-theme-win95 .win95-menubar-item svg {
+  color: inherit !important;
+}
+
+/* Room for the checkbox/radio indicator gutter. */
+#arcane-root.arcane-theme-win95 .win95-context-menu-item.checkbox,
+#arcane-root.arcane-theme-win95 .win95-context-menu-item.radio,
+#arcane-root.arcane-theme-win95 .win95-dropdown-item.checkbox,
+#arcane-root.arcane-theme-win95 .win95-dropdown-item.radio,
+#arcane-root.arcane-theme-win95 .win95-menubar-item.checkbox,
+#arcane-root.arcane-theme-win95 .win95-menubar-item.radio {
+  padding-left: 24px !important;
+}
+
+/* Highlight: navy bar with white text on hover / keyboard highlight,
+   but never on a disabled item. */
+#arcane-root.arcane-theme-win95 .win95-context-menu-item:hover:not(.disabled):not([data-disabled="true"]),
+#arcane-root.arcane-theme-win95 .win95-context-menu-item[data-highlighted]:not(.disabled):not([data-disabled="true"]),
+#arcane-root.arcane-theme-win95 .win95-context-menu-item[aria-selected="true"]:not(.disabled):not([data-disabled="true"]),
+#arcane-root.arcane-theme-win95 .win95-dropdown-item:hover:not(.disabled):not([data-disabled="true"]),
+#arcane-root.arcane-theme-win95 .win95-dropdown-item[data-highlighted]:not(.disabled):not([data-disabled="true"]),
+#arcane-root.arcane-theme-win95 .win95-dropdown-item[aria-selected="true"]:not(.disabled):not([data-disabled="true"]),
+#arcane-root.arcane-theme-win95 .win95-menubar-item:hover:not(.disabled):not([data-disabled="true"]),
+#arcane-root.arcane-theme-win95 .win95-menubar-item[data-highlighted]:not(.disabled):not([data-disabled="true"]),
+#arcane-root.arcane-theme-win95 .win95-menubar-item[aria-selected="true"]:not(.disabled):not([data-disabled="true"]) {
+  background: var(--w95-selection) !important;
+  color: var(--w95-selection-text) !important;
+}
+
+/* Disabled items: solid Win95 grey, no highlight. */
+#arcane-root.arcane-theme-win95 .win95-context-menu-item.disabled,
+#arcane-root.arcane-theme-win95 .win95-context-menu-item[data-disabled="true"],
+#arcane-root.arcane-theme-win95 .win95-dropdown-item.disabled,
+#arcane-root.arcane-theme-win95 .win95-dropdown-item[data-disabled="true"],
+#arcane-root.arcane-theme-win95 .win95-dropdown-item:disabled,
+#arcane-root.arcane-theme-win95 .win95-menubar-item.disabled,
+#arcane-root.arcane-theme-win95 .win95-menubar-item[aria-disabled="true"] {
+  color: var(--w95-shadow) !important;
+  background: transparent !important;
+  cursor: default !important;
+  opacity: 1 !important;
+  pointer-events: none !important;
+}
+
+/* ---------- Separators: 2px etched groove ---------- */
+#arcane-root.arcane-theme-win95 .win95-context-menu-separator,
+#arcane-root.arcane-theme-win95 .win95-menubar-separator,
+#arcane-root.arcane-theme-win95 .win95-dropdown-divider {
+  height: 2px !important;
+  margin: 3px 2px !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: inset 0 1px 0 var(--w95-shadow), inset 0 2px 0 var(--w95-hilite) !important;
+}
+
+/* ---------- Section labels inside menus ---------- */
+#arcane-root.arcane-theme-win95 .win95-context-menu-label,
+#arcane-root.arcane-theme-win95 .win95-menubar-label {
+  padding: 2px 8px !important;
+  font-size: 1.125rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: var(--w95-shadow) !important;
+  background: transparent !important;
+  user-select: none !important;
+}
+
+/* ---------- Menubar strip ---------- */
+#arcane-root.arcane-theme-win95 .win95-menubar {
+  display: flex !important;
+  align-items: stretch !important;
+  gap: 0 !important;
+  padding: 1px !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-raised-thin) !important;
+  font-size: 1.219rem !important;
+}
+
+#arcane-root.arcane-theme-win95 .win95-menubar-trigger {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 3px 9px !important;
+  background: transparent !important;
+  color: var(--w95-face-text) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  font-family: inherit !important;
+  font-size: 1.219rem !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  transition: none !important;
+}
+
+/* Menubar trigger highlights navy on hover and while its menu is open. */
+#arcane-root.arcane-theme-win95 .win95-menubar-trigger:hover,
+#arcane-root.arcane-theme-win95 .win95-menubar-trigger[aria-expanded="true"],
+#arcane-root.arcane-theme-win95 .win95-menubar-menu.open .win95-menubar-trigger {
+  background: var(--w95-selection) !important;
+  color: var(--w95-selection-text) !important;
+}
+
+/* Menubar dropdown panel: win95 supplies no inline position, so drop
+   it below the trigger. Silver surface comes from .win95-popover above. */
+#arcane-root.arcane-theme-win95 .win95-menubar-content {
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  margin-top: 1px !important;
+  min-width: 180px !important;
+  z-index: 1000 !important;
+}
+
+/* Menubar submenu: base renders it display:none inline — reveal on hover. */
+#arcane-root.arcane-theme-win95 .win95-menubar-submenu {
+  z-index: 1001 !important;
+}
+#arcane-root.arcane-theme-win95 .win95-menubar-item.submenu-trigger:hover > .win95-menubar-submenu {
+  display: block !important;
+}
+
+/* ---------- Tooltip: classic pale-yellow info box ---------- */
+/* .win95-tooltip is on both the CSS tooltip and the stateful text
+   tooltip; the rich popover uses .win95-popover instead, so this
+   never touches popovers. Thin flat black border is the one
+   intentional exception to the bevel rule. */
+#arcane-root.arcane-theme-win95 .win95-tooltip {
+  background: #ffffe1 !important;
+  color: #000000 !important;
+  border: 1px solid #000000 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 2px 5px !important;
+  font-size: 1rem !important;
+  line-height: 1.3 !important;
+  white-space: nowrap !important;
+  z-index: 2000 !important;
+}
+
+/* CSS-only tooltip (win95 renderer returns empty inline styles):
+   position, hide by default, and reveal on trigger hover. */
+#arcane-root.arcane-theme-win95 .win95-floating-trigger {
+  position: relative !important;
+  display: inline-flex !important;
+}
+#arcane-root.arcane-theme-win95 .win95-floating-tooltip {
+  position: absolute !important;
+  bottom: 100% !important;
+  left: 0 !important;
+  margin-bottom: 6px !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: none !important;
+  z-index: 2000 !important;
+}
+#arcane-root.arcane-theme-win95 .win95-floating-trigger:hover .win95-floating-tooltip {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Per-side placement driven by the trigger's data-tooltip-position. */
+#arcane-root.arcane-theme-win95 .win95-floating-trigger[data-tooltip-position="top"] .win95-floating-tooltip,
+#arcane-root.arcane-theme-win95 .win95-floating-trigger[data-tooltip-position="topStart"] .win95-floating-tooltip,
+#arcane-root.arcane-theme-win95 .win95-floating-trigger[data-tooltip-position="topEnd"] .win95-floating-tooltip {
+  top: auto !important;
+  bottom: 100% !important;
+  margin: 0 0 6px 0 !important;
+}
+#arcane-root.arcane-theme-win95 .win95-floating-trigger[data-tooltip-position="bottom"] .win95-floating-tooltip,
+#arcane-root.arcane-theme-win95 .win95-floating-trigger[data-tooltip-position="bottomStart"] .win95-floating-tooltip,
+#arcane-root.arcane-theme-win95 .win95-floating-trigger[data-tooltip-position="bottomEnd"] .win95-floating-tooltip {
+  bottom: auto !important;
+  top: 100% !important;
+  margin: 6px 0 0 0 !important;
+}
+#arcane-root.arcane-theme-win95 .win95-floating-trigger[data-tooltip-position="top"] .win95-floating-tooltip,
+#arcane-root.arcane-theme-win95 .win95-floating-trigger[data-tooltip-position="bottom"] .win95-floating-tooltip {
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-floating-trigger[data-tooltip-position="topEnd"] .win95-floating-tooltip,
+#arcane-root.arcane-theme-win95 .win95-floating-trigger[data-tooltip-position="bottomEnd"] .win95-floating-tooltip {
+  left: auto !important;
+  right: 0 !important;
+}
+#arcane-root.arcane-theme-win95 .win95-floating-trigger[data-tooltip-position="left"] .win95-floating-tooltip {
+  bottom: auto !important;
+  right: 100% !important;
+  left: auto !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  margin: 0 6px 0 0 !important;
+}
+#arcane-root.arcane-theme-win95 .win95-floating-trigger[data-tooltip-position="right"] .win95-floating-tooltip {
+  bottom: auto !important;
+  left: 100% !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  margin: 0 0 0 6px !important;
+}
+
+/* Win95 tooltips/popovers have no arrow. */
+#arcane-root.arcane-theme-win95 .win95-floating-arrow {
+  display: none !important;
+}
+
+/* ========== toast ========== */
+#arcane-root.arcane-theme-win95 .win95-toast {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 8px !important;
+  box-sizing: border-box !important;
+  min-width: 240px !important;
+  max-width: 380px !important;
+  padding: 8px 10px !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-raised) !important;
+  font-family: inherit !important;
+  transition: none !important;
+}
+
+#arcane-root.arcane-theme-win95 .win95-toast-icon {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  width: 20px !important;
+  height: 20px !important;
+  margin-top: 1px !important;
+  font-weight: 700 !important;
+}
+
+#arcane-root.arcane-theme-win95 .win95-toast-content {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
+
+#arcane-root.arcane-theme-win95 .win95-toast-title {
+  font-family: inherit !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.2 !important;
+  color: var(--w95-face-text) !important;
+  margin: 0 0 2px 0 !important;
+}
+
+#arcane-root.arcane-theme-win95 .win95-toast-message {
+  font-family: inherit !important;
+  font-size: 11px !important;
+  line-height: 1.35 !important;
+  color: var(--w95-face-text) !important;
+}
+
+#arcane-root.arcane-theme-win95 .win95-toast-description {
+  font-family: inherit !important;
+  font-size: 11px !important;
+  line-height: 1.35 !important;
+  color: var(--w95-face-text) !important;
+  margin-top: 3px !important;
+}
+
+#arcane-root.arcane-theme-win95 .win95-toast-action {
+  display: inline-block !important;
+  margin-top: 6px !important;
+  padding: 2px 12px !important;
+  font-family: inherit !important;
+  font-size: 11px !important;
+  line-height: 1.4 !important;
+  color: var(--w95-face-text) !important;
+  background: var(--w95-face) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-raised-thin) !important;
+  cursor: pointer !important;
+  transition: none !important;
+}
+#arcane-root.arcane-theme-win95 .win95-toast-action:active {
+  box-shadow: var(--w95-pressed) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-toast-action:focus-visible {
+  outline: 1px dotted var(--w95-face-text) !important;
+  outline-offset: -4px !important;
+}
+
+#arcane-root.arcane-theme-win95 .win95-toast-dismiss {
+  flex-shrink: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 18px !important;
+  height: 18px !important;
+  margin: -1px -2px 0 0 !important;
+  padding: 0 !important;
+  font-family: inherit !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  color: var(--w95-face-text) !important;
+  background: var(--w95-face) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-raised-thin) !important;
+  cursor: pointer !important;
+  transition: none !important;
+}
+#arcane-root.arcane-theme-win95 .win95-toast-dismiss:active {
+  box-shadow: var(--w95-pressed) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-toast-dismiss:focus-visible {
+  outline: 1px dotted var(--w95-face-text) !important;
+  outline-offset: -4px !important;
+}
+
+#arcane-root.arcane-theme-win95 .win95-toast-spinner {
+  display: inline-block !important;
+  width: 14px !important;
+  height: 14px !important;
+  background: var(--w95-field) !important;
+  box-shadow: var(--w95-sunken-thin) !important;
+  border-radius: 0 !important;
+}
+
+#arcane-root.arcane-theme-win95 .win95-toast-container {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+/* ========== small ========== */
+/* ============================================================
+   PASS 5 — THREE POLISH FIXES (appended; last-wins + !important
+   overrides the earlier rules by cascade).
+   ============================================================ */
+
+/* ---------- (a) TASKBAR CLOCK ----------
+   Proper Win95 system-tray clock: a SUNKEN inset box pinned to the
+   right end of the 30px taskbar strip, vertically centered (20px tall
+   with a ~5px gap top and bottom), black 13px text. Static value. */
+#arcane-root.arcane-theme-win95 .kb-scaffold::after {
+  content: "12:00 PM" !important;
+  position: fixed !important;
+  right: 3px !important;
+  bottom: 5px !important;
+  left: auto !important;
+  top: auto !important;
+  z-index: 9001 !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  height: 20px !important;
+  padding: 0 8px !important;
+  font-family: var(--font-sans) !important;
+  font-size: 13px !important;
+  line-height: 1 !important;
+  color: var(--w95-face-text) !important;
+  background: var(--w95-face) !important;
+  box-shadow: var(--w95-sunken-thin) !important;
+}
+
+/* ---------- (b) TABLE ROW HOVER ----------
+   Only interactive (clickable) body data rows highlight on hover;
+   selection is a persistent state. Non-interactive static tables must
+   NOT show a hover highlight, and header cells must never invert. */
+
+/* Neutralize the broken static-table hover: static rows are read-only,
+   so keep them on the white field (gridlines untouched). */
+#arcane-root.arcane-theme-win95 .win95-static-table tbody tr:hover td {
+  background: var(--w95-field) !important;
+  color: var(--w95-field-text) !important;
+}
+
+/* Header cells stay raised silver even when the header row is hovered. */
+#arcane-root.arcane-theme-win95 .win95-static-table tr:hover th,
+#arcane-root.arcane-theme-win95 .win95-data-table tr:hover th {
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  box-shadow: var(--w95-raised-thin) !important;
+}
+
+/* Only clickable data rows (and the selected state) invert to navy. */
+#arcane-root.arcane-theme-win95 .win95-data-table-row.selected td,
+#arcane-root.arcane-theme-win95 .win95-data-table-row.clickable:hover td {
+  background: var(--w95-selection) !important;
+  color: var(--w95-selection-text) !important;
+}
+
+/* ---------- (c) WINDOW-CONTROL GLYPHS ----------
+   Replace the floating underscore with a thick minimize bar (▬), keep
+   the hollow-square maximize (□) and the close X (✕). For the single
+   ::after title-bar controls, drop the three glyphs onto a subtle
+   raised silver strip (black on silver) so they read as buttons. */
+#arcane-root.arcane-theme-win95:not(.win95-chrome-minimal) .win95-command-dialog::after,
+#arcane-root.arcane-theme-win95.win95-chrome-everything .win95-card::after,
+#arcane-root.arcane-theme-win95 .arcane-scaffold-header::after,
+#arcane-root.arcane-theme-win95 .kb-article-panel::after {
+  content: "▬ □ ✕" !important;
+  top: 5px !important;
+  height: 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 4px !important;
+  gap: 0 !important;
+  letter-spacing: 4px !important;
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  line-height: 1 !important;
+  color: var(--w95-face-text) !important;
+  background: var(--w95-face) !important;
+  box-shadow: var(--w95-raised-thin) !important;
+}
+
+/* Landing terminal-mock: its three dots are already silver raised
+   squares, so only fix the minimize glyph and sit the bar low. */
+#arcane-root.arcane-theme-win95 .kb-landing-terminal-dot:nth-child(1)::after {
+  content: "▬" !important;
+  line-height: 1 !important;
+  transform: translateY(2px) !important;
+}
+#arcane-root.arcane-theme-win95 .kb-landing-terminal-dot:nth-child(2)::after {
+  content: "□" !important;
+}
+#arcane-root.arcane-theme-win95 .kb-landing-terminal-dot:nth-child(3)::after {
+  content: "✕" !important;
+}
+
+/* ============================================================
+   PAGE-LEVEL (document) SCROLLBAR. The document scroll lives on
+   <html>, OUTSIDE #arcane-root, so the scoped scrollbar rules
+   above cannot reach it and the --w95-* vars don't inherit up.
+   Re-declare with literal colours, self-scoped via :has() so it
+   only styles the page scrollbar when a Win95 root is present.
+   ============================================================ */
+html:has(#arcane-root.arcane-theme-win95) {
+  scrollbar-width: auto !important;
+  scrollbar-color: auto !important;
+}
+html:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar {
+  width: 17px;
+  height: 17px;
+}
+/* Squared corners, like the in-app scrollbars (the global border-radius:0 rule
+   is scoped to #arcane-root and never reaches these <html> scrollbar pseudos). */
+html:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-track,
+html:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-thumb,
+html:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-button,
+html:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-corner {
+  border-radius: 0 !important;
+}
+html:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-track {
+  background-color: #ffffff;
+  background-image:
+    linear-gradient(45deg, #c0c0c0 25%, transparent 25%, transparent 75%, #c0c0c0 75%),
+    linear-gradient(45deg, #c0c0c0 25%, transparent 25%, transparent 75%, #c0c0c0 75%);
+  background-size: 2px 2px;
+  background-position: 0 0, 1px 1px;
+}
+html:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  box-shadow: inset -1px -1px 0 #0a0a0a, inset 1px 1px 0 #ffffff, inset -2px -2px 0 #808080, inset 2px 2px 0 #dfdfdf;
+  min-height: 20px;
+  min-width: 20px;
+}
+html:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-button {
+  display: block;
+  width: 17px;
+  height: 17px;
+  background-color: #c0c0c0;
+  box-shadow: inset -1px -1px 0 #0a0a0a, inset 1px 1px 0 #ffffff, inset -2px -2px 0 #808080, inset 2px 2px 0 #dfdfdf;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 16px 16px;
+}
+html:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-button:vertical:decrement {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path fill='%23000000' d='M8 5 L11 10 L5 10 Z'/></svg>");
+}
+html:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-button:vertical:increment {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path fill='%23000000' d='M5 6 L11 6 L8 11 Z'/></svg>");
+}
+html:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-button:horizontal:decrement {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path fill='%23000000' d='M5 8 L10 5 L10 11 Z'/></svg>");
+}
+html:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-button:horizontal:increment {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path fill='%23000000' d='M6 5 L11 8 L6 11 Z'/></svg>");
+}
+html:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-button:active {
+  box-shadow: inset -1px -1px 0 #ffffff, inset 1px 1px 0 #0a0a0a, inset -2px -2px 0 #dfdfdf, inset 2px 2px 0 #808080;
+}
+html:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-button:vertical:start:increment,
+html:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-button:vertical:end:decrement,
+html:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-button:horizontal:start:increment,
+html:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-button:horizontal:end:decrement {
+  display: none;
+}
+html:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-corner {
+  background: #c0c0c0;
+}
+/* Dark (dark-silver) page scrollbar. */
+html.dark:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-track {
+  background-color: #262626;
+  background-image: none;
+}
+html.dark:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-thumb {
+  background: #3a3a3a;
+  box-shadow: inset -1px -1px 0 #000000, inset 1px 1px 0 #727272, inset -2px -2px 0 #1c1c1c, inset 2px 2px 0 #565656;
+}
+html.dark:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-button {
+  background-color: #3a3a3a;
+  box-shadow: inset -1px -1px 0 #000000, inset 1px 1px 0 #727272, inset -2px -2px 0 #1c1c1c, inset 2px 2px 0 #565656;
+}
+html.dark:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-button:vertical:decrement {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path fill='%23ffffff' d='M8 5 L11 10 L5 10 Z'/></svg>");
+}
+html.dark:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-button:vertical:increment {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path fill='%23ffffff' d='M5 6 L11 6 L8 11 Z'/></svg>");
+}
+html.dark:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-button:horizontal:decrement {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path fill='%23ffffff' d='M5 8 L10 5 L10 11 Z'/></svg>");
+}
+html.dark:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-button:horizontal:increment {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path fill='%23ffffff' d='M6 5 L11 8 L6 11 Z'/></svg>");
+}
+html.dark:has(#arcane-root.arcane-theme-win95)::-webkit-scrollbar-corner {
+  background: #3a3a3a;
+}
+
+/* ================= Component refinement pass (audit fixes) ================= */
+/* ===== refine:buttons ===== */
+/* Form action buttons: the form renderer sets INLINE background:var(--primary)
+   (navy) / var(--background) (teal desktop) plus a flat grey border, which beat
+   the .win95-button class rules — Win95 buttons are ALWAYS a silver 3D face,
+   never a colored fill. Neutralize the inline color/border/transition; the 3D
+   bevel (submit = data-variant=primary → raised + extra dark ring; cancel =
+   outline → plain raised) and the :active press already come from the
+   .win95-button cascade these buttons carry. */
+#arcane-root.arcane-theme-win95 .win95-form-submit-btn,
+#arcane-root.arcane-theme-win95 .win95-form-cancel-btn {
+  background: var(--w95-face) !important;
+  color: var(--w95-face-text) !important;
+  border: none !important;
+  transition: none !important;
+}
+
+/* Cycle button: the Win95 renderer emits no fill/bevel and there is no CSS for
+   .win95-cycle-button, so it fell through to a bare browser button. Give it the
+   standard silver raised 3D face; the base already supplies inline sizing. */
+#arcane-root.arcane-theme-win95 .win95-cycle-button {
+  background: var(--w95-face);
+  color: var(--w95-face-text);
+  border: none;
+  border-radius: 0;
+  box-shadow: var(--w95-raised);
+}
+#arcane-root.arcane-theme-win95 .win95-cycle-button:active:not(.disabled) {
+  box-shadow: var(--w95-pressed);
+}
+#arcane-root.arcane-theme-win95 .win95-cycle-button.disabled {
+  color: var(--w95-shadow);
+  text-shadow: 1px 1px 0 var(--w95-hilite);
+  cursor: not-allowed;
+}
+
+/* Toggle button: the Win95 renderer emits an empty style map (no sizing, no
+   fill, no bevel) and there is no CSS for .win95-toggle-button, so it rendered
+   as a bare browser button. Style it as a full silver raised 3D button; when
+   toggled on it presses in (sunken bevel), like a Win95 toolbar toggle. */
+#arcane-root.arcane-theme-win95 .win95-toggle-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 1.219rem;
+  line-height: 1;
+  white-space: nowrap;
+  padding: 0.4rem 0.9rem;
+  min-height: 1.6rem;
+  background: var(--w95-face);
+  color: var(--w95-face-text);
+  border: none;
+  border-radius: 0;
+  box-shadow: var(--w95-raised);
+  cursor: pointer;
+  transition: none;
+}
+#arcane-root.arcane-theme-win95 .win95-toggle-button.active,
+#arcane-root.arcane-theme-win95 .win95-toggle-button[aria-pressed="true"],
+#arcane-root.arcane-theme-win95 .win95-toggle-button[data-state="on"] {
+  box-shadow: var(--w95-pressed);
+  padding-top: calc(0.4rem + 1px);
+  padding-left: calc(0.9rem + 1px);
+  padding-bottom: calc(0.4rem - 1px);
+  padding-right: calc(0.9rem - 1px);
+}
+#arcane-root.arcane-theme-win95 .win95-toggle-button:active:not(.disabled) {
+  box-shadow: var(--w95-pressed);
+}
+#arcane-root.arcane-theme-win95 .win95-toggle-button.disabled {
+  color: var(--w95-shadow);
+  text-shadow: 1px 1px 0 var(--w95-hilite);
+  cursor: not-allowed;
+}
+
+/* ===== refine:inputs ===== */
+/* Textarea (ArcaneTextArea) + form-field multiline textarea: both render an
+   inline modern 1px-border rounded box. Force a Win95 SUNKEN white well. */
+#arcane-root.arcane-theme-win95 .arcane-textarea,
+#arcane-root.arcane-theme-win95 .arcane-field-textarea {
+  background: var(--w95-field) !important;
+  color: var(--w95-field-text) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: var(--w95-sunken) !important;
+  font-family: var(--font-sans) !important;
+  outline: none !important;
+  transition: none !important;
+}
+#arcane-root.arcane-theme-win95 .arcane-textarea::placeholder,
+#arcane-root.arcane-theme-win95 .arcane-field-textarea::placeholder {
+  color: var(--w95-shadow) !important;
+}
+#arcane-root.arcane-theme-win95 .arcane-textarea:focus,
+#arcane-root.arcane-theme-win95 .arcane-field-textarea:focus {
+  outline: 1px dotted var(--w95-field-text) !important;
+  outline-offset: -3px !important;
+  box-shadow: var(--w95-sunken) !important;
+}
+
+/* Textarea error line: --destructive is undefined in Win95, so the inline
+   color never resolves to red. Match the text-input error treatment. */
+#arcane-root.arcane-theme-win95 .arcane-textarea-error {
+  color: #c00000 !important;
+  font-size: 1.125rem !important;
+}
+#arcane-root.arcane-theme-win95.dark .arcane-textarea-error {
+  color: #ff5050 !important;
+}
+
+/* Field wrapper: renderer emits bare <label>/<p> with no classes and no Win95
+   rules. Stack them and give small helper text + red error (the trailing <p>,
+   which is always the error node, is the last child). */
+#arcane-root.arcane-theme-win95 .win95-field-wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.3rem !important;
+}
+#arcane-root.arcane-theme-win95 .win95-field-wrapper > label {
+  font-family: var(--font-sans) !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  color: var(--w95-face-text) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-field-wrapper > p {
+  margin: 0 !important;
+  font-size: 1.125rem !important;
+  color: var(--muted-foreground) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-field-wrapper > p:last-child {
+  color: #c00000 !important;
+}
+#arcane-root.arcane-theme-win95.dark .win95-field-wrapper > p:last-child {
+  color: #ff5050 !important;
+}
+
+/* ===== refine:toggles ===== */
+/* Checkbox: the renderer emits a literal 'x' text child when checked, while the
+   CSS ::after draws the authentic Win95 check glyph — both render and overlap,
+   showing two marks. Collapse the stray 'x'. The ::after re-declares its own
+   rem font-size, so the check glyph is unaffected. */
+#arcane-root.arcane-theme-win95 .win95-checkbox-box {
+  font-size: 0 !important;
+}
+
+/* Radio: the selected centre dot was targeted at [data-state="checked"] and
+   input:checked, but the rendered .win95-radio-button carries
+   data-arcane-state="selected" and has no <input> sibling, so the dot never
+   appeared. Match the attribute the DOM actually emits. */
+#arcane-root.arcane-theme-win95 .win95-radio-button[data-arcane-state="selected"]::after {
+  content: '';
+  position: absolute;
+  inset: 0.28rem;
+  border-radius: 50% !important;
+  background: var(--w95-field-text);
+}
+
+/* ===== refine:cards ===== */
+#arcane-root.arcane-theme-win95 .win95-status-indicator {
+  border-radius: 50% !important;
+  box-shadow: none !important;
+}
+
+/* ===== refine:tables ===== */
+/* Separator: force the etched groove to win over the neutralized renderer's
+   inline flat fill (background-color: var(--border) #808080) and 1px height.
+   The existing rules (win95_css ~747-760) lack !important, so inline styles
+   defeated the groove and the separator rendered as a flat grey line.
+   Exclude the labeled variant, whose root also matches :not(-vertical). */
+#arcane-root.arcane-theme-win95 .win95-separator:not(.win95-separator-vertical):not(.win95-separator-with-label) {
+  height: 2px !important;
+  background: transparent !important;
+  box-shadow: inset 0 1px 0 var(--w95-shadow), inset 0 2px 0 var(--w95-hilite) !important;
+}
+#arcane-root.arcane-theme-win95 .win95-separator-vertical {
+  width: 2px !important;
+  background: transparent !important;
+  box-shadow: inset 1px 0 0 var(--w95-shadow), inset 2px 0 0 var(--w95-hilite) !important;
+}
+
+/* Progress value readout: it was accidentally grouped with the indicator, so
+   the numeric "%" label rendered as a second navy segmented meter strip. It is
+   a plain text readout (visible in the docs demo via showValue: true). */
+#arcane-root.arcane-theme-win95 .win95-progress-value {
+  height: auto !important;
+  min-height: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  color: var(--w95-face-text) !important;
+  font-size: 0.75rem !important;
+  line-height: 1.2 !important;
+  text-align: right !important;
+  padding: 1px 2px 0 !important;
+}
+
+/* ===== refine:radio-standard (authored + verified) ===== */
+/* Standard radio (default display mode) renders as dom.label(.win95-radio-option)
+   containing ONLY the text label — no circle element. The theme had no ::before,
+   so standard radios showed as bare text with no radio button at all. Draw the
+   Win95 round sunken well as ::before (a flex item, sits left of the label) and
+   the selected centre dot as ::after. border-radius needs !important to beat the
+   blanket *,::before,::after{border-radius:0!important} reset (win95_css ~1974). */
+#arcane-root.arcane-theme-win95 .win95-radio-option {
+  position: relative;
+}
+#arcane-root.arcane-theme-win95 .win95-radio-option::before {
+  content: '';
+  flex: 0 0 auto;
+  width: 0.95rem;
+  height: 0.95rem;
+  border-radius: 50% !important;
+  background: var(--w95-field);
+  box-shadow: var(--w95-sunken);
+}
+#arcane-root.arcane-theme-win95 .win95-radio-option[data-arcane-state="selected"]::after {
+  content: '';
+  position: absolute;
+  left: 0.275rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50% !important;
+  background: var(--w95-field-text);
+}
+
+/* ---------- Shared docs / prose / TOC / map (variable-driven) ---------- */
+
+$arcaneAllDocsStyles
+
+$arcaneMapCss
+
+$arcaneTocTreeLinesCss
+''';
+  }
+}

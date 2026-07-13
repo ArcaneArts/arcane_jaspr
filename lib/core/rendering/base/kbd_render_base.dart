@@ -2,6 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
+import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
 import 'package:arcane_jaspr/core/props/kbd_props.dart';
 
 /// Shared structural base for themed keyboard-shortcut (`kbd`) renderers.
@@ -81,12 +82,16 @@ abstract class KbdRenderBase extends StatelessComponent {
       tag: 'kbd',
       classes: kbdClasses,
       styles: dom.Styles(
-        raw: <String, String>{
-          ...styleMap,
-          ...?props.decoration?.universalStyles(),
-          ...decorationStyles(props.decoration),
-          ...?props.styles?.toMap(),
-        },
+        raw: layerStyles(
+          <String, String>{
+            ...styleMap,
+          },
+          <Map<String, String>?>[
+            props.decoration?.universalStyles(),
+            decorationStyles(props.decoration),
+            props.styles?.toMap(),
+          ],
+        ),
       ),
       children: <Component>[Component.text(props.keyText ?? '')],
     );

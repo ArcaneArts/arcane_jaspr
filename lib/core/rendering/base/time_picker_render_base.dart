@@ -3,6 +3,7 @@ import 'package:jaspr/jaspr.dart';
 
 import 'package:arcane_jaspr/component/view/icon.dart';
 import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
+import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
 import 'package:arcane_jaspr/core/props/time_picker_props.dart';
 
 /// Shared structural base for themed time picker renderers.
@@ -114,12 +115,18 @@ abstract class TimePickerRenderBase extends StatelessComponent {
     return dom.div(
       classes: rootClasses(hasError),
       attributes: rootAttributes,
-      styles: dom.Styles(raw: <String, String>{
-        ...rootStyles,
-        ...?props.decoration?.universalStyles(),
-        ...decorationStyles(props.decoration),
-        ...?props.styles?.toMap(),
-      }),
+      styles: dom.Styles(
+        raw: layerStyles(
+          <String, String>{
+            ...rootStyles,
+          },
+          <Map<String, String>?>[
+            props.decoration?.universalStyles(),
+            decorationStyles(props.decoration),
+            props.styles?.toMap(),
+          ],
+        ),
+      ),
       <Component>[
         if (props.label != null)
           dom.span(

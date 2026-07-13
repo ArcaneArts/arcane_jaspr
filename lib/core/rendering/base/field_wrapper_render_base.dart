@@ -2,6 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
+import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
 import 'package:arcane_jaspr/core/props/field_wrapper_props.dart';
 
 /// Shared structural base for themed field-wrapper renderers.
@@ -54,12 +55,18 @@ abstract class FieldWrapperRenderBase extends StatelessComponent {
 
     return dom.div(
       classes: cssClass,
-      styles: dom.Styles(raw: <String, String>{
-        ...wrapperStyles,
-        ...?props.decoration?.universalStyles(),
-        ...decorationStyles(props.decoration),
-        ...?props.styles?.toMap(),
-      }),
+      styles: dom.Styles(
+        raw: layerStyles(
+          <String, String>{
+            ...wrapperStyles,
+          },
+          <Map<String, String>?>[
+            props.decoration?.universalStyles(),
+            decorationStyles(props.decoration),
+            props.styles?.toMap(),
+          ],
+        ),
+      ),
       <Component>[
         ?labelRow,
         ?description,
@@ -149,14 +156,18 @@ abstract class InputGroupRenderBase extends StatelessComponent {
     return dom.div(
       classes: groupClass,
       styles: dom.Styles(
-        raw: <String, String>{
-          'display': 'flex',
-          'align-items': 'stretch',
-          'gap': '${props.gap}px',
-          ...?props.decoration?.universalStyles(),
-          ...decorationStyles(props.decoration),
-          ...?props.styles?.toMap(),
-        },
+        raw: layerStyles(
+          <String, String>{
+            'display': 'flex',
+            'align-items': 'stretch',
+            'gap': '${props.gap}px',
+          },
+          <Map<String, String>?>[
+            props.decoration?.universalStyles(),
+            decorationStyles(props.decoration),
+            props.styles?.toMap(),
+          ],
+        ),
       ),
       children,
     );

@@ -2,6 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
+import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
 import 'package:arcane_jaspr/core/props/progress_props.dart';
 
 /// Shared structural base for themed linear progress-bar renderers.
@@ -224,12 +225,16 @@ abstract class LoadingSpinnerRenderBase extends StatelessComponent {
     return dom.span(
       classes: rootClass,
       styles: dom.Styles(
-        raw: <String, String>{
-          ...spinnerStyles(props),
-          ...?props.decoration?.universalStyles(),
-          ...decorationStyles(props.decoration),
-          ...?props.styles?.toMap(),
-        },
+        raw: layerStyles(
+          <String, String>{
+            ...spinnerStyles(props),
+          },
+          <Map<String, String>?>[
+            props.decoration?.universalStyles(),
+            decorationStyles(props.decoration),
+            props.styles?.toMap(),
+          ],
+        ),
       ),
       const <Component>[],
     );

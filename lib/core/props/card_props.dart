@@ -1,5 +1,6 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../util/arcane.dart';
 import '../../util/style_types/arcane_style_data.dart';
 import '../decoration/arcane_decoration.dart';
 
@@ -17,8 +18,8 @@ class CardProps {
   final Widget? child;
   final List<Widget>? children;
   final CardVariant variant;
-  final String? padding;
-  final String? borderRadius;
+  final EdgeInsets? padding;
+  final BorderRadius? borderRadius;
   final String? backgroundColor;
   final bool fillWidth;
   final void Function()? onTap;
@@ -41,15 +42,15 @@ class CardProps {
     this.onTap,
     this.styles,
     this.decoration,
-  }) : assert(child != null || children != null,
+  })  : assert(child != null || children != null,
             'Either child or children must be provided');
 
   CardProps copyWith({
     Widget? child,
     List<Widget>? children,
     CardVariant? variant,
-    String? padding,
-    String? borderRadius,
+    EdgeInsets? padding,
+    BorderRadius? borderRadius,
     String? backgroundColor,
     bool? fillWidth,
     void Function()? onTap,

@@ -26,6 +26,7 @@ import 'package:jaspr/dom.dart'
         Radius,
         events;
 
+import '../../util/classes.dart';
 import '../../util/style_types/index.dart';
 
 enum CodeBlockStyle { raw, code, minimal, inline, terminal }
@@ -35,7 +36,7 @@ class ArcaneCodeBlock extends StatelessComponent {
   final List<Component> children;
   final CodeBlockStyle style;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
   final Map<String, String>? attributes;
 
@@ -52,7 +53,7 @@ class ArcaneCodeBlock extends StatelessComponent {
   const factory ArcaneCodeBlock.code({
     required List<Component> children,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     Key? key,
   }) = _ArcaneCodeBlockCode;
@@ -60,7 +61,7 @@ class ArcaneCodeBlock extends StatelessComponent {
   const factory ArcaneCodeBlock.terminal({
     required List<Component> children,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     Key? key,
   }) = _ArcaneCodeBlockTerminal;
@@ -126,7 +127,7 @@ class ArcaneCodeBlock extends StatelessComponent {
 
     return pre(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: mergedStyles.toStyles(),
       attributes: attributes,
       children,

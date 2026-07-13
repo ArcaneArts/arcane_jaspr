@@ -93,7 +93,7 @@ class ArcaneToc extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ArcaneDiv(
-      classes: classPrefix,
+      classes: [classPrefix],
       styles: const ArcaneStyleData(
         padding: PaddingPreset.md,
         borderRadius: Radius.lg,
@@ -103,7 +103,7 @@ class ArcaneToc extends StatelessWidget {
       children: [
         // Title
         ArcaneDiv(
-          classes: '$classPrefix-title',
+          classes: ['$classPrefix-title'],
           styles: const ArcaneStyleData(
             fontSize: FontSize.xs,
             fontWeight: FontWeight.bold,
@@ -119,8 +119,10 @@ class ArcaneToc extends StatelessWidget {
 
         // Content
         ArcaneDiv(
-          classes:
-              '$classPrefix-content${showTreeLines ? ' sidebar-tree-nav' : ''}',
+          classes: [
+            '$classPrefix-content',
+            if (showTreeLines) 'sidebar-tree-nav',
+          ],
           children: [
             if (customContent != null)
               customContent!
@@ -136,7 +138,7 @@ class ArcaneToc extends StatelessWidget {
     if (items.isEmpty) return const ArcaneDiv(children: []);
 
     return ArcaneDiv(
-      classes: showTreeLines ? 'sidebar-tree-items' : '$classPrefix-list',
+      classes: [showTreeLines ? 'sidebar-tree-items' : '$classPrefix-list'],
       styles: ArcaneStyleData(
         display: Display.flex,
         flexDirection: FlexDirection.column,
@@ -153,13 +155,13 @@ class ArcaneToc extends StatelessWidget {
     final bool hasChildren = entry.children.isNotEmpty;
 
     return ArcaneDiv(
-      classes: showTreeLines
-          ? 'sidebar-tree-item sidebar-tree-leaf'
-          : '$classPrefix-item',
+      classes: [
+        showTreeLines ? 'sidebar-tree-item sidebar-tree-leaf' : '$classPrefix-item'
+      ],
       children: [
         ArcaneLink(
           href: '#${entry.id}',
-          classes: '$classPrefix-link',
+          classes: ['$classPrefix-link'],
           styles: const ArcaneStyleData(
             display: Display.block,
             padding: PaddingPreset.sm,

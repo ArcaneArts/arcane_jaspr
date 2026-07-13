@@ -7,7 +7,7 @@ class TreeNodeData {
   final Widget? icon;
   final List<TreeNodeData> children;
   final bool disabled;
-  final dynamic data;
+  final Object? data;
 
   const TreeNodeData({
     required this.id,

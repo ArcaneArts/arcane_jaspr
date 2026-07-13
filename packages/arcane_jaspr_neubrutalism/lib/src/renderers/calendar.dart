@@ -18,7 +18,7 @@ class NeubrutalismCalendar extends CalendarRenderBase {
   String get dayButtonClasses => 'neubrutalism-calendar-day';
 
   @override
-  Map<String, String> get styles => const <String, String>{
+  Map<String, String> get rootStyles => const <String, String>{
     'display': 'flex',
     'flex-direction': 'column',
     'gap': '0.5rem',

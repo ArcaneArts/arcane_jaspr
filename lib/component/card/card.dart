@@ -12,8 +12,8 @@ class Card extends StatelessWidget {
   final Widget? _child;
   final List<Widget>? _children;
   final CardVariant variant;
-  final String? padding;
-  final String? borderRadius;
+  final EdgeInsets? padding;
+  final BorderRadius? borderRadius;
   final void Function()? _onTap;
   final String? backgroundColor;
   final bool fillWidth;

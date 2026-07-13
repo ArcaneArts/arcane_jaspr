@@ -3,6 +3,7 @@ import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/component/view/icon.dart';
 import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
+import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
 import 'package:arcane_jaspr/core/props/menubar_props.dart';
 
 /// Shared structural base for the Neon-family menubar renderers.
@@ -61,12 +62,16 @@ abstract class MenubarRenderBase extends StatelessComponent {
       classes: '$themePrefix-menubar',
       attributes: const <String, String>{'role': 'menubar'},
       styles: dom.Styles(
-        raw: <String, String>{
-          ...rootStyles,
-          ...?props.decoration?.universalStyles(),
-          ...decorationStyles(props.decoration),
-          ...?props.styles?.toMap(),
-        },
+        raw: layerStyles(
+          <String, String>{
+            ...rootStyles,
+          },
+          <Map<String, String>?>[
+            props.decoration?.universalStyles(),
+            decorationStyles(props.decoration),
+            props.styles?.toMap(),
+          ],
+        ),
       ),
       <Component>[
         for (int i = 0; i < props.menus.length; i++)

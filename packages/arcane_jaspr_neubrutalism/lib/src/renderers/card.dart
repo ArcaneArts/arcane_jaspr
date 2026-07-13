@@ -16,10 +16,10 @@ class NeubrutalismCard extends CardRenderBase {
 
   @override
   Map<String, String> baseStyles(CardProps props) => <String, String>{
-    'border-radius': props.borderRadius ?? 'var(--nb-radius-soft, 4px)',
+    'border-radius': props.borderRadius?.css ?? 'var(--nb-radius-soft, 4px)',
     'color': 'var(--card-foreground)',
     if (props.padding != null)
-      'padding': props.padding!
+      'padding': props.padding!.padding
     else
       'padding': '1.5rem',
     if (props.fillWidth) 'width': '100%',

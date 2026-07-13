@@ -25,13 +25,14 @@ import 'package:jaspr/dom.dart'
         WhiteSpace,
         events;
 
+import '../../util/classes.dart';
 import '../../util/style_types/arcane_style_data.dart';
 
 /// Raw button element wrapper.
 class ArcaneRawButton extends StatelessComponent {
   final Component child;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
   final String? type;
   final bool disabled;
@@ -53,7 +54,7 @@ class ArcaneRawButton extends StatelessComponent {
   const factory ArcaneRawButton.children({
     required List<Component> children,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     String? type,
     bool disabled,
@@ -66,7 +67,7 @@ class ArcaneRawButton extends StatelessComponent {
   Component build(BuildContext context) {
     return button(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       type: type != null ? ButtonType.values.firstWhere((t) => t.name == type, orElse: () => ButtonType.button) : null,
       disabled: disabled,
       styles: styles?.toStyles() ?? const Styles(raw: {}),
@@ -99,7 +100,7 @@ class _ArcaneRawButtonChildren extends ArcaneRawButton {
   Component build(BuildContext context) {
     return button(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       type: type != null ? ButtonType.values.firstWhere((t) => t.name == type, orElse: () => ButtonType.button) : null,
       disabled: disabled,
       styles: styles?.toStyles() ?? const Styles(raw: {}),

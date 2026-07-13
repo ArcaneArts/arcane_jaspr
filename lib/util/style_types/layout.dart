@@ -488,3 +488,19 @@ enum BoxSizing {
         BoxSizing.borderBox => 'border-box',
       };
 }
+
+/// `background-clip` presets. `text` clips the background to the foreground
+/// text (gradient text); `ArcaneStyleData` emits it with the `-webkit-` prefix.
+enum BackgroundClip {
+  borderBox,
+  paddingBox,
+  contentBox,
+  text;
+
+  String get css => switch (this) {
+        BackgroundClip.borderBox => 'border-box',
+        BackgroundClip.paddingBox => 'padding-box',
+        BackgroundClip.contentBox => 'content-box',
+        BackgroundClip.text => 'text',
+      };
+}

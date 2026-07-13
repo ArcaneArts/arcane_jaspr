@@ -25,6 +25,7 @@ import 'package:jaspr/dom.dart'
         WhiteSpace,
         events;
 
+import '../../util/classes.dart';
 import '../../util/style_types/arcane_style_data.dart';
 
 /// A random cat image from cataas.com.
@@ -56,7 +57,7 @@ class ArcaneCatImage extends StatelessComponent {
   final ArcaneStyleData? styles;
 
   /// CSS classes to apply.
-  final String? classes;
+  final List<String>? classes;
 
   /// Element ID.
   final String? id;
@@ -186,7 +187,7 @@ class ArcaneCatImage extends StatelessComponent {
       src: _src,
       alt: text ?? 'Random cat',
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       events: events,
       attributes: {

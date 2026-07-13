@@ -2,6 +2,7 @@ import 'package:arcane_jaspr/arcane_jaspr.dart';
 import 'package:arcane_jaspr_neon/arcane_jaspr_neon.dart';
 import 'package:arcane_jaspr_neubrutalism/arcane_jaspr_neubrutalism.dart';
 import 'package:arcane_jaspr_shadcn/arcane_jaspr_shadcn.dart';
+import 'package:arcane_jaspr_win95/arcane_jaspr_win95.dart';
 import 'package:arcane_neon_web/components/demo_registry.dart';
 import 'package:arcane_neon_web/components/interactive_demo_events_stub.dart'
     if (dart.library.js_interop) 'package:arcane_neon_web/components/interactive_demo_events_web.dart';
@@ -46,6 +47,14 @@ const Map<String, ArcaneStylesheet> clientNeubrutalismStylesheets =
       'lime': NeubrutalismStylesheet(theme: NeubrutalismTheme.lime),
       'red': NeubrutalismStylesheet(theme: NeubrutalismTheme.red),
       'greyscale': NeubrutalismStylesheet(theme: NeubrutalismTheme.greyscale),
+    };
+const Map<String, ArcaneStylesheet> clientWin95Stylesheets =
+    <String, ArcaneStylesheet>{
+      'standard': Win95Stylesheet(theme: Win95Theme.standard),
+      'rainyDay': Win95Stylesheet(theme: Win95Theme.rainyDay),
+      'eggplant': Win95Stylesheet(theme: Win95Theme.eggplant),
+      'desert': Win95Stylesheet(theme: Win95Theme.desert),
+      'rose': Win95Stylesheet(theme: Win95Theme.rose),
     };
 const ArcaneStylesheet selectedClientStylesheet = ShadcnStylesheet(
   theme: ShadcnTheme.midnight,
@@ -106,6 +115,7 @@ class _InteractiveDemoState extends State<InteractiveDemo> {
       shadcnStylesheets: clientShadcnStylesheets,
       neonStylesheets: clientNeonStylesheets,
       neubrutalismStylesheets: clientNeubrutalismStylesheets,
+      win95Stylesheets: clientWin95Stylesheets,
       fallbackStylesheet: selectedClientStylesheet,
     );
     Brightness brightness = resolveDemoBrightness(

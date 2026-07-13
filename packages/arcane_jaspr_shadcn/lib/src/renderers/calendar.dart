@@ -18,7 +18,7 @@ class ShadcnCalendar extends CalendarRenderBase {
   String get dayButtonClasses => '';
 
   @override
-  Map<String, String> get styles => const <String, String>{
+  Map<String, String> get rootStyles => const <String, String>{
     'display': 'flex',
     'flex-direction': 'column',
     'gap': 'var(--space-2)',

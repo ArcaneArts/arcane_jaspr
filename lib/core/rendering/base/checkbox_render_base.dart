@@ -1,7 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
-import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/interaction/interaction.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/checkbox_props.dart';
@@ -35,14 +34,6 @@ abstract class CheckboxRenderBase extends StatelessComponent {
   /// Builds the visual checkbox box (and its checkmark). [itemAttrs] are the
   /// resolved group-item/interaction attributes that must be placed on the box.
   Component buildBox(CheckboxProps props, Map<String, String> itemAttrs);
-
-  /// Per-instance decoration overrides for the box. Default: none. A theme
-  /// overrides this to translate an [ArcaneDecoration] (elevation intent,
-  /// theme-specific fields) into its own CSS. Fields a theme does not
-  /// implement are ignored. Applied in each theme's `buildBox`, not here —
-  /// the base's root element is the clickable wrapper, not the box.
-  Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
-      const <String, String>{};
 
   /// Inline styles for the label text span.
   Map<String, String> labelTextStyles(CheckboxProps props);

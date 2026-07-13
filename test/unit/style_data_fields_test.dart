@@ -49,7 +49,7 @@ void main() {
 
   test('backgroundClip emits standard + -webkit- pair', () {
     final Map<String, String> css =
-        const ArcaneStyleData(backgroundClip: 'text').toMap();
+        const ArcaneStyleData(backgroundClip: BackgroundClip.text).toMap();
     expect(css['background-clip'], 'text');
     expect(css['-webkit-background-clip'], 'text');
   });
@@ -64,7 +64,7 @@ void main() {
   test('merge and copyWith preserve the new fields', () {
     const base = ArcaneStyleData(paddingTop: '4px', boxSizing: BoxSizing.borderBox);
     final merged =
-        const ArcaneStyleData().merge(base).copyWith(backgroundClip: 'text');
+        const ArcaneStyleData().merge(base).copyWith(backgroundClip: BackgroundClip.text);
     final Map<String, String> css = merged.toMap();
     expect(css['padding-top'], '4px');
     expect(css['box-sizing'], 'border-box');

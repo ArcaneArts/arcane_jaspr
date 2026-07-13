@@ -2,6 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
+import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
 import 'package:arcane_jaspr/core/props/alert_props.dart';
 
 /// Shared structural base for themed alert renderers.
@@ -86,17 +87,21 @@ abstract class AlertRenderBase extends StatelessComponent {
       classes: rootClass,
       attributes: rootAttributes,
       styles: dom.Styles(
-        raw: <String, String>{
-          'position': 'relative',
-          'width': '100%',
-          'display': 'flex',
-          'align-items': 'flex-start',
-          ...rootLayoutStyles,
-          ...containerStyles,
-          ...?props.decoration?.universalStyles(),
-          ...decorationStyles(props.decoration),
-          ...?props.styles?.toMap(),
-        },
+        raw: layerStyles(
+          <String, String>{
+            'position': 'relative',
+            'width': '100%',
+            'display': 'flex',
+            'align-items': 'flex-start',
+            ...rootLayoutStyles,
+            ...containerStyles,
+          },
+          <Map<String, String>?>[
+            props.decoration?.universalStyles(),
+            decorationStyles(props.decoration),
+            props.styles?.toMap(),
+          ],
+        ),
       ),
       <Component>[
         // Icon

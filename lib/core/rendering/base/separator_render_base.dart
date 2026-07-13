@@ -2,6 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
+import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
 import 'package:arcane_jaspr/core/props/separator_props.dart';
 
 /// Shared structural base for themed separator renderers.
@@ -119,18 +120,22 @@ abstract class SeparatorRenderBase extends StatelessComponent {
         if (!props.decorative) 'aria-orientation': 'vertical',
       },
       styles: dom.Styles(
-        raw: <String, String>{
-          'width': thickness,
-          'margin': '0 $margin',
-          ...backgroundStyle(color),
-          if (props.height != null)
-            'height': '${props.height}px'
-          else
-            ...verticalStretchStyles,
-          ...?props.decoration?.universalStyles(),
-          ...decorationStyles(props.decoration),
-          ...?props.styles?.toMap(),
-        },
+        raw: layerStyles(
+          <String, String>{
+            'width': thickness,
+            'margin': '0 $margin',
+            ...backgroundStyle(color),
+            if (props.height != null)
+              'height': '${props.height}px'
+            else
+              ...verticalStretchStyles,
+          },
+          <Map<String, String>?>[
+            props.decoration?.universalStyles(),
+            decorationStyles(props.decoration),
+            props.styles?.toMap(),
+          ],
+        ),
       ),
       const <Component>[],
     );
@@ -143,12 +148,16 @@ abstract class SeparatorRenderBase extends StatelessComponent {
         'role': props.decorative ? 'none' : 'separator',
       },
       styles: dom.Styles(
-        raw: <String, String>{
-          ...labeledContainerStyles(margin),
-          ...?props.decoration?.universalStyles(),
-          ...decorationStyles(props.decoration),
-          ...?props.styles?.toMap(),
-        },
+        raw: layerStyles(
+          <String, String>{
+            ...labeledContainerStyles(margin),
+          },
+          <Map<String, String>?>[
+            props.decoration?.universalStyles(),
+            decorationStyles(props.decoration),
+            props.styles?.toMap(),
+          ],
+        ),
       ),
       <Component>[
         // Left line.

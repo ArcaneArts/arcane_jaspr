@@ -20,10 +20,10 @@ class ShadcnCard extends CardRenderBase {
   // ShadCN Card: rounded-lg border bg-card text-card-foreground shadow-sm
   @override
   Map<String, String> baseStyles(CardProps props) => <String, String>{
-    'border-radius': props.borderRadius ?? '0.5rem', // rounded-lg
+    'border-radius': props.borderRadius?.css ?? '0.5rem', // rounded-lg
     'color': 'var(--card-foreground)',
     if (props.padding != null)
-      'padding': props.padding!
+      'padding': props.padding!.padding
     else
       'padding': '1.5rem', // p-6
     if (props.fillWidth) 'width': '100%',

@@ -2,6 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
+import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
 import 'package:arcane_jaspr/core/props/disclosure_props.dart';
 
 /// Shared structural base for themed disclosure renderers.
@@ -58,12 +59,18 @@ abstract class DisclosureRenderBase extends StatelessComponent {
       tag: 'details',
       classes: allClasses,
       attributes: <String, String>{if (props.open) 'open': ''},
-      styles: dom.Styles(raw: <String, String>{
-        ...containerStyles(variant),
-        ...?props.decoration?.universalStyles(),
-        ...decorationStyles(props.decoration),
-        ...?props.styles?.toMap(),
-      }),
+      styles: dom.Styles(
+        raw: layerStyles(
+          <String, String>{
+            ...containerStyles(variant),
+          },
+          <Map<String, String>?>[
+            props.decoration?.universalStyles(),
+            decorationStyles(props.decoration),
+            props.styles?.toMap(),
+          ],
+        ),
+      ),
       children: <Component>[
         // Summary (clickable header)
         Component.element(

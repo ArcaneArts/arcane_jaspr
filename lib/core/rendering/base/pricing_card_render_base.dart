@@ -49,6 +49,12 @@ abstract class PricingCardRenderBase extends StatelessComponent {
     final String titleSize =
         props.variant == PricingCardVariant.hero ? '1.5rem' : '1.15rem';
 
+    // A highlighted card gets a subtle accent wash layered over its card
+    // surface so it visually pops. Non-highlighted cards emit no
+    // `background-image` and are therefore byte-identical to before.
+    final String accentWash =
+        'linear-gradient(160deg, color-mix(in srgb, $accentColor 8%, transparent), transparent 55%)';
+
     final Map<String, String> rootStyles = layerStyles(
       <String, String>{
         'position': 'relative',
@@ -57,6 +63,7 @@ abstract class PricingCardRenderBase extends StatelessComponent {
         'gap': '1rem',
         'padding': padding,
         'background-color': 'var(--card)',
+        if (highlighted) 'background-image': accentWash,
         'color': 'var(--card-foreground)',
         'border': useAccentBorder
             ? '2px solid $accentColor'
@@ -88,14 +95,13 @@ abstract class PricingCardRenderBase extends StatelessComponent {
             styles: dom.Styles(
               raw: <String, String>{
                 'position': 'absolute',
-                'top': '1rem',
-                'right': '1rem',
+                'top': padding,
+                'right': padding,
                 'display': 'inline-flex',
                 'align-items': 'center',
                 'padding': '0.25rem 0.6rem',
                 'font-size': '0.7rem',
                 'font-weight': '600',
-                'text-transform': 'uppercase',
                 'letter-spacing': '0.03em',
                 'border-radius': '999px',
                 'background-color': accent ?? _badgeBackground(props.badgeVariant),
@@ -188,6 +194,25 @@ abstract class PricingCardRenderBase extends StatelessComponent {
             ),
             <Component>[Component.text(subtitle)],
           ),
+        if (specs != null && specs.isNotEmpty)
+          dom.div(
+            classes: '$cssClass-specs',
+            styles: const dom.Styles(
+              raw: <String, String>{
+                'display': 'flex',
+                'flex-direction': 'column',
+                'border': '1px solid var(--border)',
+                'border-radius': 'var(--radius, 0.5rem)',
+                'padding': '0.15rem 0.85rem',
+                'background-color':
+                    'color-mix(in srgb, var(--foreground) 3%, transparent)',
+              },
+            ),
+            <Component>[
+              for (int i = 0; i < specs.length; i++)
+                _specRow(specs[i], accentColor, isLast: i == specs.length - 1),
+            ],
+          ),
         if (features.isNotEmpty || excluded.isNotEmpty)
           dom.ul(
             classes: '$cssClass-features',
@@ -208,25 +233,13 @@ abstract class PricingCardRenderBase extends StatelessComponent {
                 _featureItem(feature, included: false),
             ],
           ),
-        if (specs != null && specs.isNotEmpty)
-          dom.div(
-            classes: '$cssClass-specs',
-            styles: const dom.Styles(
-              raw: <String, String>{
-                'display': 'flex',
-                'flex-direction': 'column',
-                'gap': '0.15rem',
-              },
-            ),
-            <Component>[
-              for (final SpecEntry spec in specs) _specRow(spec, accentColor),
-            ],
-          ),
         _ctaButton(
           cssClass: cssClass,
           label: props.effectiveCtaText,
           buttonLink: props.buttonLink,
           onClick: props.onButtonClick ?? props.onCtaPressed,
+          highlighted: highlighted,
+          accentColor: accentColor,
         ),
       ],
     );
@@ -268,16 +281,16 @@ Component _featureItem(String text, {required bool included}) {
 
 /// A single spec row: a muted label on the left and a value on the right,
 /// tinted [accentColor] when [SpecEntry.highlight] is set.
-Component _specRow(SpecEntry spec, String accentColor) {
+Component _specRow(SpecEntry spec, String accentColor, {bool isLast = false}) {
   return dom.div(
-    styles: const dom.Styles(
+    styles: dom.Styles(
       raw: <String, String>{
         'display': 'flex',
         'justify-content': 'space-between',
         'gap': '0.75rem',
         'font-size': '0.85rem',
-        'padding': '0.35rem 0',
-        'border-bottom': '1px solid var(--border)',
+        'padding': '0.4rem 0',
+        if (!isLast) 'border-bottom': '1px solid var(--border)',
       },
     ),
     <Component>[
@@ -301,12 +314,20 @@ Component _specRow(SpecEntry spec, String accentColor) {
 }
 
 /// The call-to-action surface: an anchor when [buttonLink] is set, otherwise a
-/// button that invokes [onClick]. Styled as a filled primary button.
+/// button that invokes [onClick].
+///
+/// When [highlighted] the control is SOLID — a filled [accentColor] surface
+/// (identical to the historical primary button when [accentColor] defaults to
+/// `var(--primary)`). When not highlighted it is a NEUTRAL outline — a
+/// transparent surface with a `--foreground` label and `--border` edge, so a
+/// highlighted card's solid CTA visibly outranks its neighbours in the row.
 Component _ctaButton({
   required String cssClass,
   required String label,
   required String? buttonLink,
   required void Function()? onClick,
+  required bool highlighted,
+  required String accentColor,
 }) {
   final Map<String, String> base = <String, String>{
     'display': 'inline-flex',
@@ -319,10 +340,10 @@ Component _ctaButton({
     'box-sizing': 'border-box',
     'font-size': '0.9rem',
     'font-weight': '600',
-    'border': 'none',
+    'border': highlighted ? 'none' : '1px solid var(--border)',
     'border-radius': 'var(--radius, 0.5rem)',
-    'background-color': 'var(--primary)',
-    'color': 'var(--primary-foreground)',
+    'background-color': highlighted ? accentColor : 'transparent',
+    'color': highlighted ? 'var(--primary-foreground)' : 'var(--foreground)',
     'text-decoration': 'none',
     'text-align': 'center',
     'cursor': 'pointer',

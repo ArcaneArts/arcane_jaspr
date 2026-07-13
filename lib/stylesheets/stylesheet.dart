@@ -46,7 +46,7 @@ abstract class ArcaneStylesheet {
     darkSeed: darkSeed,
     fonts: fonts,
     radius: radius,
-    componentCss: componentCss,
+    componentCss: () => componentCss,
   );
 
   Object get cacheKey => this;

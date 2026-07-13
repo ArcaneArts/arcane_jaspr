@@ -37,6 +37,15 @@ class CtaCard extends StatelessWidget {
   /// Whether to show hover effects.
   final bool showHoverEffects;
 
+  /// Accent color (CSS color string) for the icon chip and CTA button.
+  /// Defaults to the theme's `var(--primary)` when null.
+  final String? accentColor;
+
+  /// Whether the CTA links to an external destination. When true, the anchor
+  /// opens in a new tab with `rel="noopener noreferrer"` and shows a trailing
+  /// external-link glyph.
+  final bool isExternal;
+
   /// Literal, theme-permeable style override (always applied, wins over theme).
   final ArcaneStyleData? styles;
 
@@ -53,6 +62,8 @@ class CtaCard extends StatelessWidget {
     this.height = '420px',
     this.animationDelayMs,
     this.showHoverEffects = true,
+    this.accentColor,
+    this.isExternal = false,
     this.styles,
     this.decoration,
     super.key,
@@ -70,6 +81,8 @@ class CtaCard extends StatelessWidget {
           height: height,
           animationDelayMs: animationDelayMs,
           showHoverEffects: showHoverEffects,
+          accentColor: accentColor,
+          isExternal: isExternal,
           styles: styles,
           decoration: decoration,
         ),

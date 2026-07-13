@@ -25,6 +25,7 @@ import 'package:jaspr/dom.dart'
         WhiteSpace,
         events;
 
+import '../../util/classes.dart';
 import '../../util/style_types/arcane_style_data.dart';
 
 /// Styled anchor link wrapper.
@@ -32,7 +33,7 @@ class ArcaneLink extends StatelessComponent {
   final String href;
   final Component child;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
   final String? target;
   final String? rel;
@@ -54,7 +55,7 @@ class ArcaneLink extends StatelessComponent {
     required String href,
     required List<Component> children,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     String? target,
     String? rel,
@@ -66,7 +67,7 @@ class ArcaneLink extends StatelessComponent {
     required String href,
     required Component child,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     Map<String, void Function(dynamic)>? events,
     Key? key,
@@ -77,7 +78,7 @@ class ArcaneLink extends StatelessComponent {
     return a(
       href: href,
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       events: events,
       attributes: {
@@ -110,7 +111,7 @@ class _ArcaneLinkChildren extends ArcaneLink {
     return a(
       href: href,
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       events: events,
       attributes: {

@@ -25,13 +25,14 @@ import 'package:jaspr/dom.dart'
         WhiteSpace,
         events;
 
+import '../../util/classes.dart';
 import '../../util/style_types/arcane_style_data.dart';
 
 /// Styled main element wrapper.
 class ArcaneMain extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
 
   const ArcaneMain({
@@ -46,7 +47,7 @@ class ArcaneMain extends StatelessComponent {
   Component build(BuildContext context) {
     return main_(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       children,
     );
@@ -57,7 +58,7 @@ class ArcaneMain extends StatelessComponent {
 class ArcaneHeader extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
 
   const ArcaneHeader({
@@ -72,7 +73,7 @@ class ArcaneHeader extends StatelessComponent {
   Component build(BuildContext context) {
     return header(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       children,
     );
@@ -83,7 +84,7 @@ class ArcaneHeader extends StatelessComponent {
 class ArcaneFooter extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
 
   const ArcaneFooter({
@@ -98,7 +99,7 @@ class ArcaneFooter extends StatelessComponent {
   Component build(BuildContext context) {
     return footer(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       children,
     );

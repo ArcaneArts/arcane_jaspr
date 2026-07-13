@@ -145,7 +145,7 @@ class ArcaneStyleData {
   final String? borderBottomCustom;
   final String? borderLeftCustom;
   final BoxSizing? boxSizing;
-  final String? backgroundClip;
+  final BackgroundClip? backgroundClip;
   final String? backdropFilterCustom;
 
   /// Raw CSS properties escape hatch
@@ -435,8 +435,8 @@ class ArcaneStyleData {
     if (borderLeftCustom != null) css['border-left'] = borderLeftCustom!;
     if (boxSizing != null) css['box-sizing'] = boxSizing!.css;
     if (backgroundClip != null) {
-      css['background-clip'] = backgroundClip!;
-      css['-webkit-background-clip'] = backgroundClip!;
+      css['background-clip'] = backgroundClip!.css;
+      css['-webkit-background-clip'] = backgroundClip!.css;
     }
     if (backdropFilterCustom != null) {
       css['backdrop-filter'] = backdropFilterCustom!;
@@ -601,8 +601,8 @@ class ArcaneStyleData {
     if (borderLeftCustom != null) css['border-left'] = borderLeftCustom!;
     if (boxSizing != null) css['box-sizing'] = boxSizing!.css;
     if (backgroundClip != null) {
-      css['background-clip'] = backgroundClip!;
-      css['-webkit-background-clip'] = backgroundClip!;
+      css['background-clip'] = backgroundClip!.css;
+      css['-webkit-background-clip'] = backgroundClip!.css;
     }
     if (backdropFilterCustom != null) {
       css['backdrop-filter'] = backdropFilterCustom!;
@@ -876,7 +876,7 @@ class ArcaneStyleData {
     String? borderBottomCustom,
     String? borderLeftCustom,
     BoxSizing? boxSizing,
-    String? backgroundClip,
+    BackgroundClip? backgroundClip,
     String? backdropFilterCustom,
     Map<String, String>? raw,
   }) {

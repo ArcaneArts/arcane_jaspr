@@ -25,6 +25,7 @@ import 'package:jaspr/dom.dart'
         WhiteSpace,
         events;
 
+import '../../util/classes.dart';
 import '../../util/style_types/arcane_style_data.dart';
 
 /// Styled image wrapper.
@@ -32,7 +33,7 @@ class ArcaneImage extends StatelessComponent {
   final String src;
   final String alt;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
   final String? width;
   final String? height;
@@ -73,7 +74,7 @@ class ArcaneImage extends StatelessComponent {
       src: src,
       alt: alt,
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       events: events,
       attributes: {

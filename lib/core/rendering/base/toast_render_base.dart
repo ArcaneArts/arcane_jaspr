@@ -2,6 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
+import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
 import 'package:arcane_jaspr/core/props/toast_props.dart';
 
 /// Shared structural base for the neon/neubrutalism toast renderers.
@@ -70,16 +71,26 @@ abstract class ToastRenderBase extends StatelessComponent {
     return dom.div(
       classes:
           '$classPrefix-toast ${props.variant.name} ${props.isExiting ? 'exiting' : ''}',
-      attributes: rootAttributes,
+      attributes: <String, String>{
+        ...rootAttributes,
+        // Decorated toasts opt out of neubrutalism's variant-border !important
+        // reset so their inline decoration/styles border actually renders.
+        if (props.decoration != null || props.styles != null)
+          'data-arcane-decorated': '',
+      },
       styles: dom.Styles(
-        raw: <String, String>{
-          ...rootBaseStyles(accentVar),
-          if (props.isExiting) 'opacity': '0',
-          if (props.isExiting) 'transform': 'translateX(100%)',
-          ...?props.decoration?.universalStyles(),
-          ...decorationStyles(props.decoration),
-          ...?props.styles?.toMap(),
-        },
+        raw: layerStyles(
+          <String, String>{
+            ...rootBaseStyles(accentVar),
+            if (props.isExiting) 'opacity': '0',
+            if (props.isExiting) 'transform': 'translateX(100%)',
+          },
+          <Map<String, String>?>[
+            props.decoration?.universalStyles(),
+            decorationStyles(props.decoration),
+            props.styles?.toMap(),
+          ],
+        ),
       ),
       events: <String, EventCallback>{
         if (props.onMouseEnter != null)

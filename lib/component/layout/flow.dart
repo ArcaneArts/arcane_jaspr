@@ -258,6 +258,10 @@ class Container extends StatelessWidget {
   final BoxDecoration? decoration;
   final Alignment? alignment;
 
+  /// Semantic HTML tag to render (e.g. `'nav'`, `'section'`, `'header'`).
+  /// Defaults to a `div`.
+  final String? tag;
+
   const Container({
     this.child,
     this.padding,
@@ -267,6 +271,7 @@ class Container extends StatelessWidget {
     this.color,
     this.decoration,
     this.alignment,
+    this.tag,
     super.key,
   });
 
@@ -301,10 +306,22 @@ class Container extends StatelessWidget {
       styles['align-items'] = alignment!.cssAlignItems;
     }
 
-    return div(
+    final List<Widget> children =
+        child != null ? <Widget>[child!] : const <Widget>[];
+    final String elementTag = tag ?? 'div';
+    // Keep the default 'div' path byte-identical to the prior output.
+    if (elementTag == 'div') {
+      return div(
+        classes: 'arcane-container',
+        styles: Styles(raw: styles),
+        children,
+      );
+    }
+    return Widget.element(
+      tag: elementTag,
       classes: 'arcane-container',
       styles: Styles(raw: styles),
-      child != null ? [child!] : [],
+      children: children,
     );
   }
 }

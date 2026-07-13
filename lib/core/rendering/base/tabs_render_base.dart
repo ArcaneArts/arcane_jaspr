@@ -2,6 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
+import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
 import 'package:arcane_jaspr/core/props/tabs_props.dart';
 
 /// Shared structural base for the neon/neubrutalism tabs renderers.
@@ -181,16 +182,20 @@ abstract class TabBarRenderBase extends StatelessComponent {
       classes: '$classPrefix-tab-bar',
       attributes: const <String, String>{'role': 'tablist'},
       styles: dom.Styles(
-        raw: <String, String>{
-          'display': props.fill ? 'flex' : 'inline-flex',
-          'align-items': 'stretch',
-          'gap': '0.25rem',
-          'padding': '0.25rem',
-          if (props.fill) 'width': '100%',
-          ...?props.decoration?.universalStyles(),
-          ...decorationStyles(props.decoration),
-          ...?props.styles?.toMap(),
-        },
+        raw: layerStyles(
+          <String, String>{
+            'display': props.fill ? 'flex' : 'inline-flex',
+            'align-items': 'stretch',
+            'gap': '0.25rem',
+            'padding': '0.25rem',
+            if (props.fill) 'width': '100%',
+          },
+          <Map<String, String>?>[
+            props.decoration?.universalStyles(),
+            decorationStyles(props.decoration),
+            props.styles?.toMap(),
+          ],
+        ),
       ),
       <Component>[
         for (int i = 0; i < props.tabs.length; i++)

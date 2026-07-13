@@ -31,6 +31,8 @@ abstract class CtaCardRenderBase extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
+    final String accent = props.accentColor ?? 'var(--primary)';
+
     final Map<String, String> rootStyles = layerStyles(
       <String, String>{
         'display': 'flex',
@@ -67,7 +69,7 @@ abstract class CtaCardRenderBase extends StatelessComponent {
         if (props.icon != null)
           dom.div(
             classes: '$cssClass-icon',
-            styles: const dom.Styles(
+            styles: dom.Styles(
               raw: <String, String>{
                 'display': 'inline-flex',
                 'align-items': 'center',
@@ -76,8 +78,8 @@ abstract class CtaCardRenderBase extends StatelessComponent {
                 'height': '3.5rem',
                 'border-radius': '9999px',
                 'background-color':
-                    'color-mix(in srgb, var(--primary) 12%, transparent)',
-                'color': 'var(--primary)',
+                    'color-mix(in srgb, $accent 12%, transparent)',
+                'color': accent,
                 'font-size': '1.5rem',
               },
             ),
@@ -108,14 +110,14 @@ abstract class CtaCardRenderBase extends StatelessComponent {
             ),
             <Component>[Component.text(props.description!)],
           ),
-        _ctaControl(),
+        _ctaControl(accent),
       ],
     );
   }
 
   /// The call-to-action control: an anchor when [CTACardProps.href] is set,
   /// otherwise a button wired to [CTACardProps.onTap].
-  Component _ctaControl() {
+  Component _ctaControl(String accent) {
     final Map<String, String> ctaStyles = <String, String>{
       'display': 'inline-flex',
       'align-items': 'center',
@@ -128,7 +130,7 @@ abstract class CtaCardRenderBase extends StatelessComponent {
       'line-height': '1',
       'border': 'none',
       'border-radius': 'var(--radius, 0.5rem)',
-      'background-color': 'var(--primary)',
+      'background-color': accent,
       'color': 'var(--primary-foreground)',
       'cursor': 'pointer',
       'text-decoration': 'none',
@@ -139,8 +141,18 @@ abstract class CtaCardRenderBase extends StatelessComponent {
       return dom.a(
         classes: '$cssClass-button',
         href: props.href!,
+        attributes: props.isExternal
+            ? const <String, String>{
+                'target': '_blank',
+                'rel': 'noopener noreferrer',
+              }
+            : null,
         styles: dom.Styles(raw: ctaStyles),
-        <Component>[Component.text(props.ctaText)],
+        <Component>[
+          Component.text(props.ctaText),
+          if (props.isExternal)
+            const dom.span(<Component>[Component.text('↗')]),
+        ],
       );
     }
 

@@ -3,6 +3,7 @@ import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/component/view/icon.dart';
 import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
+import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
 import 'package:arcane_jaspr/core/props/accordion_props.dart';
 
 /// Shared structural base for the neon/neubrutalism accordion renderers.
@@ -53,15 +54,19 @@ abstract class AccordionRenderBase extends StatelessComponent {
     return dom.div(
       classes: '$classPrefix-accordion faq-container',
       styles: dom.Styles(
-        raw: <String, String>{
-          'display': 'flex',
-          'flex-direction': 'column',
-          'gap': '0.75rem',
-          'width': '100%',
-          ...?props.decoration?.universalStyles(),
-          ...decorationStyles(props.decoration),
-          ...?props.styles?.toMap(),
-        },
+        raw: layerStyles(
+          <String, String>{
+            'display': 'flex',
+            'flex-direction': 'column',
+            'gap': '0.75rem',
+            'width': '100%',
+          },
+          <Map<String, String>?>[
+            props.decoration?.universalStyles(),
+            decorationStyles(props.decoration),
+            props.styles?.toMap(),
+          ],
+        ),
       ),
       <Component>[
         for (int i = 0; i < props.items.length; i++)

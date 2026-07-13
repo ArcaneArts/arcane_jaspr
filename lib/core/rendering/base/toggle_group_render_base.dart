@@ -2,6 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
+import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
 import 'package:arcane_jaspr/core/interaction/interaction.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/toggle_group_props.dart';
@@ -77,12 +78,18 @@ abstract class ToggleGroupRenderBase extends StatelessComponent {
     return dom.div(
       classes: cssClass,
       attributes: rootAttrs,
-      styles: dom.Styles(raw: <String, String>{
-        ...containerStyles,
-        ...?props.decoration?.universalStyles(),
-        ...decorationStyles(props.decoration),
-        ...?props.styles?.toMap(),
-      }),
+      styles: dom.Styles(
+        raw: layerStyles(
+          <String, String>{
+            ...containerStyles,
+          },
+          <Map<String, String>?>[
+            props.decoration?.universalStyles(),
+            decorationStyles(props.decoration),
+            props.styles?.toMap(),
+          ],
+        ),
+      ),
       <Component>[
         for (final ToggleGroupItemProps item in props.items)
           buildItem(groupId, item),

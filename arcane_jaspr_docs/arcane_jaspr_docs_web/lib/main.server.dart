@@ -5,6 +5,7 @@ import 'package:arcane_lexicon/arcane_lexicon.dart' hide runApp;
 import 'package:arcane_jaspr_neon/arcane_jaspr_neon.dart';
 import 'package:arcane_jaspr_neubrutalism/arcane_jaspr_neubrutalism.dart';
 import 'package:arcane_jaspr_shadcn/arcane_jaspr_shadcn.dart';
+import 'package:arcane_jaspr_win95/arcane_jaspr_win95.dart';
 import 'package:jaspr/server.dart';
 
 import 'components/interactive_demo.dart';
@@ -66,8 +67,58 @@ const ArcaneStylesheet neubrutalismGreyscale = NeubrutalismStylesheet(
   theme: NeubrutalismTheme.greyscale,
 );
 
-const ArcaneStylesheet selectedStylesheet = shadcnStylesheet;
+const ArcaneStylesheet win95Standard = Win95Stylesheet(
+  theme: Win95Theme.standard,
+);
+const ArcaneStylesheet win95RainyDay = Win95Stylesheet(
+  theme: Win95Theme.rainyDay,
+);
+const ArcaneStylesheet win95Eggplant = Win95Stylesheet(
+  theme: Win95Theme.eggplant,
+);
+const ArcaneStylesheet win95Desert = Win95Stylesheet(theme: Win95Theme.desert);
+const ArcaneStylesheet win95Rose = Win95Stylesheet(theme: Win95Theme.rose);
+
+const ArcaneStylesheet selectedStylesheet = win95Standard;
 const List<KBStylesheetOption> stylesheetOptions = <KBStylesheetOption>[
+  KBStylesheetOption(
+    id: 'win95',
+    label: 'Windows 95',
+    stylesheet: win95Standard,
+    knowledgeBaseRenderers: Win95KnowledgeBaseRenderers(),
+    palettes: <KBPaletteOption>[
+      KBPaletteOption(
+        id: 'standard',
+        label: 'Standard',
+        stylesheet: win95Standard,
+        swatch: '#008080',
+      ),
+      KBPaletteOption(
+        id: 'rainyDay',
+        label: 'Rainy Day',
+        stylesheet: win95RainyDay,
+        swatch: '#3a5a78',
+      ),
+      KBPaletteOption(
+        id: 'eggplant',
+        label: 'Eggplant',
+        stylesheet: win95Eggplant,
+        swatch: '#524e66',
+      ),
+      KBPaletteOption(
+        id: 'desert',
+        label: 'Desert',
+        stylesheet: win95Desert,
+        swatch: '#9c8a63',
+      ),
+      KBPaletteOption(
+        id: 'rose',
+        label: 'Rose',
+        stylesheet: win95Rose,
+        swatch: '#7a5a5a',
+      ),
+    ],
+  ),
   KBStylesheetOption(
     id: 'shadcn',
     label: 'Shadcn',
@@ -299,7 +350,7 @@ void main() async {
         ],
         navigationBarEnabled: true,
         navigationBarPosition: KBNavigationBarPosition.top,
-        defaultTheme: KBThemeMode.dark,
+        defaultTheme: KBThemeMode.light,
         showEditLink: true,
         editBranch: 'master',
         sidebarFooter: 'Built with Arcane Lexicon',

@@ -2,6 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
+import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
 import 'package:arcane_jaspr/core/props/breadcrumbs_props.dart';
 
 /// Shared structural base for the Neon-family breadcrumb renderers.
@@ -49,15 +50,19 @@ abstract class BreadcrumbsRenderBase extends StatelessComponent {
       classes: '$themePrefix-breadcrumbs',
       attributes: <String, String>{'aria-label': 'Breadcrumb'},
       styles: dom.Styles(
-        raw: <String, String>{
-          'display': 'flex',
-          'align-items': 'center',
-          'gap': gap,
-          'font-size': fontSize,
-          ...?props.decoration?.universalStyles(),
-          ...decorationStyles(props.decoration),
-          ...?props.styles?.toMap(),
-        },
+        raw: layerStyles(
+          <String, String>{
+            'display': 'flex',
+            'align-items': 'center',
+            'gap': gap,
+            'font-size': fontSize,
+          },
+          <Map<String, String>?>[
+            props.decoration?.universalStyles(),
+            decorationStyles(props.decoration),
+            props.styles?.toMap(),
+          ],
+        ),
       ),
       <Component>[
         for (int i = 0; i < props.items.length; i++) ...<Component>[

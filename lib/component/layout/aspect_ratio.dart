@@ -1,5 +1,6 @@
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../util/classes.dart';
 import '../../core/theme_provider.dart';
 
 export '../../core/props/aspect_ratio_props.dart';
@@ -8,7 +9,7 @@ export '../../core/props/aspect_ratio_props.dart';
 class ArcaneAspectRatio extends StatelessWidget {
   final double ratio;
   final Widget child;
-  final String? classes;
+  final List<String>? classes;
   final Map<String, String>? styles;
 
   const ArcaneAspectRatio({
@@ -66,7 +67,7 @@ class ArcaneAspectRatio extends StatelessWidget {
     return context.renderers.aspectRatio(AspectRatioProps(
       ratio: ratio,
       child: child,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles,
     ));
   }

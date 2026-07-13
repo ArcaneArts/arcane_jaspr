@@ -17,5 +17,5 @@ class NeonCalendar extends CalendarRenderBase {
   String get dayButtonClasses => 'neon-calendar-day';
 
   @override
-  Map<String, String> get styles => const <String, String>{};
+  Map<String, String> get rootStyles => const <String, String>{};
 }

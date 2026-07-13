@@ -32,6 +32,7 @@ ArcaneStylesheet resolveDemoStylesheet(
   required Map<String, ArcaneStylesheet> shadcnStylesheets,
   required Map<String, ArcaneStylesheet> neonStylesheets,
   required Map<String, ArcaneStylesheet> neubrutalismStylesheets,
+  required Map<String, ArcaneStylesheet> win95Stylesheets,
   required ArcaneStylesheet fallbackStylesheet,
 }) {
   web.Element? root = web.document.getElementById('arcane-root');
@@ -62,6 +63,14 @@ ArcaneStylesheet resolveDemoStylesheet(
       fallbackStylesheet,
     );
   }
+  if (storedStylesheetId == 'win95') {
+    return _resolvePaletteStylesheet(
+      'win95',
+      root,
+      win95Stylesheets,
+      fallbackStylesheet,
+    );
+  }
 
   if (root != null) {
     if (root.classList.contains('kb-style-shadcn')) {
@@ -85,6 +94,15 @@ ArcaneStylesheet resolveDemoStylesheet(
         'neubrutalism',
         root,
         neubrutalismStylesheets,
+        fallbackStylesheet,
+      );
+    }
+    if (root.classList.contains('kb-style-win95') ||
+        root.className.split(' ').any((String c) => c.startsWith('win95-'))) {
+      return _resolvePaletteStylesheet(
+        'win95',
+        root,
+        win95Stylesheets,
         fallbackStylesheet,
       );
     }
