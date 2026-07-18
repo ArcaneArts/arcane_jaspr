@@ -14,7 +14,7 @@ class NeubrutalismPagination extends PaginationRenderBase {
   String get themePrefix => 'neubrutalism';
 
   @override
-  Map<String, String> buttonStyleVariant(bool isActive) => switch (props.style) {
+  Map<String, String> buttonStyleVariant(bool isActive) => switch (props.variant) {
     PaginationStyleVariant.outline => <String, String>{
       'background': isActive
           ? 'var(--nb-accent, var(--primary))'

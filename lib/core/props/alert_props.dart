@@ -19,7 +19,7 @@ class AlertProps {
   final String? title;
   final String? message;
   final Widget? child;
-  final AlertStyle style;
+  final AlertStyle variant;
   final Widget? icon;
   final bool showIcon;
   final bool dismissible;
@@ -37,7 +37,7 @@ class AlertProps {
     this.title,
     this.message,
     this.child,
-    this.style = AlertStyle.subtle,
+    this.variant = AlertStyle.subtle,
     this.icon,
     this.showIcon = true,
     this.dismissible = false,
@@ -52,7 +52,7 @@ class AlertProps {
     String? title,
     String? message,
     Widget? child,
-    AlertStyle? style,
+    AlertStyle? variant,
     Widget? icon,
     bool? showIcon,
     bool? dismissible,
@@ -66,7 +66,7 @@ class AlertProps {
       title: title ?? this.title,
       message: message ?? this.message,
       child: child ?? this.child,
-      style: style ?? this.style,
+      variant: variant ?? this.variant,
       icon: icon ?? this.icon,
       showIcon: showIcon ?? this.showIcon,
       dismissible: dismissible ?? this.dismissible,

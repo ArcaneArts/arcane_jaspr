@@ -243,6 +243,19 @@ class NeonCss {
   background: transparent;
   border-color: transparent;
 }
+/* Nested cards are sub-surfaces: a neon card inside another neon card drops its
+   frame, glow, and accent bar so stacked panels do not ring twice. Re-assert a
+   frame on the inner card with decoration:/styles:. */
+#arcane-root.arcane-theme-neon .neon-card .neon-card:not([data-arcane-decorated]) {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+#arcane-root.arcane-theme-neon
+  .neon-card
+  .neon-card:not([data-arcane-decorated])::before {
+  display: none !important;
+}
 #arcane-root.arcane-theme-neon .neon-card[data-variant="glass"] {
   background: color-mix(in srgb, var(--card) 55%, transparent);
   backdrop-filter: blur(10px);

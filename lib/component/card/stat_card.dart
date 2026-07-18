@@ -10,7 +10,7 @@ import '../../util/style_types/arcane_style_data.dart';
 class StatCard extends StatelessWidget {
   final String label;
   final String value;
-  final String? icon;
+  final Widget? icon;
   final String? trend;
   final bool trendPositive;
   final String? description;

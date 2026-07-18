@@ -26,7 +26,7 @@ abstract class PaginationRenderBase extends StatelessComponent {
   String get themePrefix;
 
   /// Per-variant button styles merged onto the shared button styles. The switch
-  /// over [PaginationProps.style] lives in the concrete renderer because the
+  /// over [PaginationProps.variant] lives in the concrete renderer because the
   /// values are entirely theme-specific.
   Map<String, String> buttonStyleVariant(bool isActive);
 

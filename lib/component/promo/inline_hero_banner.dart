@@ -15,7 +15,7 @@ class ArcaneInlineHeroBanner extends StatefulWidget {
   final String? ctaHref;
   final void Function()? onCtaClick;
   final void Function()? onDismiss;
-  final PromoInlineHeroBannerStyle style;
+  final PromoInlineHeroBannerStyle variant;
   final bool dismissible;
   final Widget? icon;
 
@@ -33,7 +33,7 @@ class ArcaneInlineHeroBanner extends StatefulWidget {
     this.ctaHref,
     this.onCtaClick,
     this.onDismiss,
-    this.style = PromoInlineHeroBannerStyle.pill,
+    this.variant = PromoInlineHeroBannerStyle.pill,
     this.dismissible = true,
     this.icon,
     this.styles,
@@ -64,7 +64,7 @@ class _ArcaneInlineHeroBannerState extends State<ArcaneInlineHeroBanner> {
       ctaHref: component.ctaHref,
       onCtaClick: component.onCtaClick,
       onDismiss: component.dismissible ? _handleDismiss : null,
-      style: component.style,
+      variant: component.variant,
       dismissible: component.dismissible,
       icon: component.icon,
       styles: component.styles,

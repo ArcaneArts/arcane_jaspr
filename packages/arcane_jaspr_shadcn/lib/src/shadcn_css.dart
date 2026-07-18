@@ -928,6 +928,15 @@ $neutralOverrides
   margin: 1.5rem 0;
 }
 
+/* Nested cards are sub-surfaces: a card inside another card drops its frame so
+   stacked panels do not border twice. Re-assert a frame on the inner card with
+   decoration:/styles:. */
+#arcane-root.arcane-theme-shadcn .arcane-card .arcane-card:not([data-arcane-decorated]) {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
 /* Code blocks */
 .prose pre {
   background: var(--muted);

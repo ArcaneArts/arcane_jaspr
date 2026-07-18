@@ -6,6 +6,7 @@ import 'package:arcane_jaspr_neon/arcane_jaspr_neon.dart';
 import 'package:arcane_jaspr_neubrutalism/arcane_jaspr_neubrutalism.dart';
 import 'package:arcane_jaspr_shadcn/arcane_jaspr_shadcn.dart';
 import 'package:arcane_jaspr_win95/arcane_jaspr_win95.dart';
+import 'package:arcane_jaspr_kb/arcane_jaspr_kb.dart';
 import 'package:jaspr/server.dart';
 
 import 'components/interactive_demo.dart';

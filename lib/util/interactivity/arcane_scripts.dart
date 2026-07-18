@@ -10,6 +10,7 @@ import 'scripts/dialog/dialog_scripts.dart';
 import 'scripts/view/view_scripts.dart';
 import 'scripts/theme/rainbow_scripts.dart';
 import 'scripts/carousel/carousel_scripts.dart';
+import 'scripts/gallery/gallery_scripts.dart';
 
 class ArcaneScripts {
   ArcaneScripts._();
@@ -93,6 +94,7 @@ class ArcaneScripts {
   ${ViewScripts.code}
   ${RainbowScripts.code}
   ${CarouselScripts.code}
+  ${GalleryScripts.code}
 })();
 ''';
 

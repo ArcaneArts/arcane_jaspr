@@ -37,7 +37,7 @@ class ShadcnKbd extends KbdRenderBase {
       'user-select': 'none',
     };
 
-    return switch (props.style) {
+    return switch (props.variant) {
       KbdStyle.raised => {
         ...baseStyles,
         'background':

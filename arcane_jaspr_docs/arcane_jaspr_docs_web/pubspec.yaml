@@ -20,6 +20,8 @@ dependencies:
     path: ../../packages/arcane_jaspr_neubrutalism
   arcane_jaspr_win95:
     path: ../../packages/arcane_jaspr_win95
+  arcane_jaspr_kb:
+    path: ../../packages/arcane_jaspr_kb
   arcane_lexicon:
     path: ../../../arcane_lexicon
   fast_log: ^1.0.7

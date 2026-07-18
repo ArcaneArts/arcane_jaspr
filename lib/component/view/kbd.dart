@@ -11,7 +11,7 @@ class ArcaneKbd extends StatelessWidget {
   final String? keyText;
   final List<String>? keys;
   final String separator;
-  final KbdStyle style;
+  final KbdStyle variant;
   final ComponentSize size;
 
   /// Literal, theme-permeable style override (always applied, wins over theme).
@@ -23,7 +23,7 @@ class ArcaneKbd extends StatelessWidget {
 
   const ArcaneKbd(
     this.keyText, {
-    this.style = KbdStyle.raised,
+    this.variant = KbdStyle.raised,
     this.size = ComponentSize.md,
     this.styles,
     this.decoration,
@@ -34,7 +34,7 @@ class ArcaneKbd extends StatelessWidget {
   const ArcaneKbd.combo(
     this.keys, {
     this.separator = '+',
-    this.style = KbdStyle.raised,
+    this.variant = KbdStyle.raised,
     this.size = ComponentSize.md,
     this.styles,
     this.decoration,
@@ -43,7 +43,7 @@ class ArcaneKbd extends StatelessWidget {
 
   factory ArcaneKbd.shortcut(
     String shortcut, {
-    KbdStyle style = KbdStyle.raised,
+    KbdStyle variant = KbdStyle.raised,
     ComponentSize size = ComponentSize.md,
     ArcaneStyleData? styles,
     ArcaneDecoration? decoration,
@@ -52,7 +52,7 @@ class ArcaneKbd extends StatelessWidget {
     return ArcaneKbd.combo(
       parts,
       separator: '+',
-      style: style,
+      variant: variant,
       size: size,
       styles: styles,
       decoration: decoration,
@@ -65,7 +65,7 @@ class ArcaneKbd extends StatelessWidget {
       keyText: keyText,
       keys: keys,
       separator: separator,
-      style: style,
+      variant: variant,
       size: size,
       styles: styles,
       decoration: decoration,

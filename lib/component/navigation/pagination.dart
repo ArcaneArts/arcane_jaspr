@@ -25,7 +25,7 @@ class ArcanePagination extends StatelessWidget {
   final int currentPage;
   final int totalPages;
   final void Function(int page)? onPageChange;
-  final PaginationStyle style;
+  final PaginationStyle variant;
   final PaginationSize size;
   final int siblingCount;
   final bool showFirstLast;
@@ -44,7 +44,7 @@ class ArcanePagination extends StatelessWidget {
     required this.currentPage,
     required this.totalPages,
     this.onPageChange,
-    this.style = PaginationStyle.outline,
+    this.variant = PaginationStyle.outline,
     this.size = PaginationSize.md,
     this.siblingCount = 1,
     this.showFirstLast = true,
@@ -67,7 +67,7 @@ class ArcanePagination extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : style = PaginationStyle.simple,
+  })  : variant = PaginationStyle.simple,
         siblingCount = 0,
         showFirstLast = false,
         showPrevNext = true,
@@ -112,7 +112,7 @@ class ArcanePagination extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final styleVariant = switch (style) {
+    final styleVariant = switch (variant) {
       PaginationStyle.outline => PaginationStyleVariant.outline,
       PaginationStyle.filled => PaginationStyleVariant.filled,
       PaginationStyle.ghost => PaginationStyleVariant.ghost,
@@ -129,7 +129,7 @@ class ArcanePagination extends StatelessWidget {
       currentPage: currentPage,
       totalPages: totalPages,
       onPageChange: onPageChange,
-      style: styleVariant,
+      variant: styleVariant,
       size: sizeVariant,
       siblingCount: siblingCount,
       showFirstLast: showFirstLast,

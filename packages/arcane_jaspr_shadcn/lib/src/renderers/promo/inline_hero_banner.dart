@@ -26,7 +26,7 @@ class _ShadcnInlineHeroBannerState extends State<ShadcnInlineHeroBanner> {
   }
 
   Map<String, String> _getStyleVariantStyles() {
-    return switch (component.props.style) {
+    return switch (component.props.variant) {
       PromoInlineHeroBannerStyle.badge => {
         'display': 'inline-flex',
         'align-items': 'center',
@@ -75,11 +75,11 @@ class _ShadcnInlineHeroBannerState extends State<ShadcnInlineHeroBanner> {
     }
 
     final bool isRibbon =
-        component.props.style == PromoInlineHeroBannerStyle.ribbon;
+        component.props.variant == PromoInlineHeroBannerStyle.ribbon;
 
     return dom.div(
       classes:
-          'arcane-inline-hero-banner arcane-inline-hero-banner-${component.props.style.name}',
+          'arcane-inline-hero-banner arcane-inline-hero-banner-${component.props.variant.name}',
       styles: dom.Styles(
         raw: {
           'font-size': 'var(--font-size-sm)',

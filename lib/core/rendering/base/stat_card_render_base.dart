@@ -70,7 +70,7 @@ abstract class StatCardRenderBase extends StatelessComponent {
                 'font-size': '1.1rem',
               },
             ),
-            <Component>[Component.text(props.icon!)],
+            <Component>[props.icon!],
           ),
         dom.span(
           styles: const dom.Styles(

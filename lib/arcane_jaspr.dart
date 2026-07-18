@@ -137,6 +137,7 @@ export 'component/interactive/disclosure.dart';
 
 export 'component/collection/card_carousel.dart';
 export 'component/collection/collection.dart';
+export 'component/collection/gallery.dart';
 export 'component/collection/infinite_carousel.dart';
 export 'component/collection/section.dart';
 

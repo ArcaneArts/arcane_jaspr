@@ -63,7 +63,11 @@ class Win95Stylesheet extends ArcaneStylesheet {
   @override
   ThemeSeed get lightSeed => ThemeSeed(
         primary: theme.accent,
-        background: theme.desktop,
+        // App surfaces are the silver Win95 control face; the teal DESKTOP is
+        // reserved for surfaces that opt in (the gallery), via --w95-desktop.
+        // Using the desktop teal as the whole-app background reads as a flat
+        // "colorbomb" because most app chrome is not itself windowed.
+        background: 0xFFC0C0C0,
         secondary: 0xFFC0C0C0,
         accent: theme.titleEnd,
         border: 0xFF808080,

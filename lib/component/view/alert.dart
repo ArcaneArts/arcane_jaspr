@@ -10,7 +10,7 @@ class ArcaneAlert extends StatelessWidget {
   final String? title;
   final String? message;
   final Widget? child;
-  final AlertStyle style;
+  final AlertStyle variant;
   final Widget? icon;
   final bool showIcon;
   final bool dismissible;
@@ -28,7 +28,7 @@ class ArcaneAlert extends StatelessWidget {
     this.title,
     this.message,
     this.child,
-    this.style = AlertStyle.subtle,
+    this.variant = AlertStyle.subtle,
     this.icon,
     this.showIcon = true,
     this.dismissible = false,
@@ -43,7 +43,7 @@ class ArcaneAlert extends StatelessWidget {
     this.title,
     this.message,
     this.child,
-    this.style = AlertStyle.subtle,
+    this.variant = AlertStyle.subtle,
     this.icon,
     this.showIcon = true,
     this.dismissible = false,
@@ -58,7 +58,7 @@ class ArcaneAlert extends StatelessWidget {
     this.title,
     this.message,
     this.child,
-    this.style = AlertStyle.subtle,
+    this.variant = AlertStyle.subtle,
     this.icon,
     this.showIcon = true,
     this.dismissible = false,
@@ -73,7 +73,7 @@ class ArcaneAlert extends StatelessWidget {
     this.title,
     this.message,
     this.child,
-    this.style = AlertStyle.subtle,
+    this.variant = AlertStyle.subtle,
     this.icon,
     this.showIcon = true,
     this.dismissible = false,
@@ -88,7 +88,7 @@ class ArcaneAlert extends StatelessWidget {
     this.title,
     this.message,
     this.child,
-    this.style = AlertStyle.subtle,
+    this.variant = AlertStyle.subtle,
     this.icon,
     this.showIcon = true,
     this.dismissible = false,
@@ -106,7 +106,7 @@ class ArcaneAlert extends StatelessWidget {
       title: title,
       message: message,
       child: child,
-      style: style,
+      variant: variant,
       icon: icon,
       showIcon: showIcon,
       dismissible: dismissible,

@@ -32,7 +32,7 @@ class NeubrutalismAlert extends AlertRenderBase {
   Map<String, String> get rootAttributes => <String, String>{
     'role': 'alert',
     'data-variant': props.color.name,
-    'data-style': props.style.name,
+    'data-style': props.variant.name,
   };
 
   @override
@@ -44,7 +44,7 @@ class NeubrutalismAlert extends AlertRenderBase {
   @override
   Map<String, String> get containerStyles {
     final String accent = _accentColor;
-    return switch (props.style) {
+    return switch (props.variant) {
       AlertStyle.solid => <String, String>{
         'background-color': accent,
         'color': 'var(--nb-ink, #000)',
@@ -83,7 +83,7 @@ class NeubrutalismAlert extends AlertRenderBase {
 
   @override
   Map<String, String> get iconStyles {
-    final bool isSolid = props.style == AlertStyle.solid;
+    final bool isSolid = props.variant == AlertStyle.solid;
     final String accent = _accentColor;
     return <String, String>{
       'flex-shrink': '0',
@@ -110,7 +110,7 @@ class NeubrutalismAlert extends AlertRenderBase {
 
   @override
   Map<String, String> get titleStyles {
-    final bool isSolid = props.style == AlertStyle.solid;
+    final bool isSolid = props.variant == AlertStyle.solid;
     return <String, String>{
       'font-family': 'var(--font-heading)',
       'font-weight': '900',
@@ -127,7 +127,7 @@ class NeubrutalismAlert extends AlertRenderBase {
 
   @override
   Map<String, String> get descriptionStyles {
-    final bool isSolid = props.style == AlertStyle.solid;
+    final bool isSolid = props.variant == AlertStyle.solid;
     return <String, String>{
       'font-size': 'var(--font-size-sm)',
       'line-height': '1.5',

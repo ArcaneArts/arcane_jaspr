@@ -201,7 +201,7 @@ class ArcaneDropdownItem extends StatefulWidget {
   final Widget icon;
   final String? accentColor;
   final bool isExternal;
-  final ArcaneDropdownItemStyle style;
+  final ArcaneDropdownItemStyle variant;
 
   const ArcaneDropdownItem({
     required this.label,
@@ -210,7 +210,7 @@ class ArcaneDropdownItem extends StatefulWidget {
     this.description,
     this.accentColor,
     this.isExternal = false,
-    this.style = ArcaneDropdownItemStyle.iconBadge,
+    this.variant = ArcaneDropdownItemStyle.iconBadge,
     super.key,
   });
 
@@ -223,7 +223,7 @@ class _ArcaneDropdownItemState extends State<ArcaneDropdownItem> {
 
   @override
   Widget build(BuildContext context) {
-    return switch (component.style) {
+    return switch (component.variant) {
       ArcaneDropdownItemStyle.iconBadge => _buildIconBadgeStyle(),
       ArcaneDropdownItemStyle.simple => _buildSimpleStyle(),
       ArcaneDropdownItemStyle.compact => _buildCompactStyle(),

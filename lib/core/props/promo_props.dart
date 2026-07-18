@@ -297,7 +297,7 @@ class InlineHeroBannerProps {
   final void Function()? onDismiss;
 
   /// Visual style variant.
-  final PromoInlineHeroBannerStyle style;
+  final PromoInlineHeroBannerStyle variant;
 
   /// Whether the banner can be dismissed.
   final bool dismissible;
@@ -318,7 +318,7 @@ class InlineHeroBannerProps {
     this.ctaHref,
     this.onCtaClick,
     this.onDismiss,
-    this.style = PromoInlineHeroBannerStyle.pill,
+    this.variant = PromoInlineHeroBannerStyle.pill,
     this.dismissible = true,
     this.icon,
     this.styles,

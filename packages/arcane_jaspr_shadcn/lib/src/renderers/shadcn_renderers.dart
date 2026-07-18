@@ -10,6 +10,7 @@ import 'chart.dart';
 import 'cta_card.dart';
 import 'feature_card.dart';
 import 'pricing_card.dart';
+import 'gallery.dart';
 import 'stat_card.dart';
 import 'testimonial_card.dart';
 import 'checkbox.dart';
@@ -109,6 +110,9 @@ class ShadcnRenderers extends ComponentRenderers {
 
   @override
   Component card(CardProps props) => ShadcnCard(props);
+
+  @override
+  Component gallery(GalleryProps props) => ShadcnGallery(props);
 
   @override
   Component statCard(StatCardProps props) => ShadcnStatCard(props);

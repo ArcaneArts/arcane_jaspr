@@ -18,7 +18,7 @@ class ArcaneEmptyState extends StatelessWidget {
   final String? description;
   final Widget? action;
   final Widget? secondaryAction;
-  final EmptyStateStyle style;
+  final EmptyStateStyle variant;
   final EmptyStateSize size;
 
   /// Literal, theme-permeable style override (always applied, wins over theme).
@@ -33,7 +33,7 @@ class ArcaneEmptyState extends StatelessWidget {
     this.description,
     this.action,
     this.secondaryAction,
-    this.style = EmptyStateStyle.centered,
+    this.variant = EmptyStateStyle.centered,
     this.size = EmptyStateSize.md,
     this.styles,
     this.decoration,
@@ -45,7 +45,7 @@ class ArcaneEmptyState extends StatelessWidget {
     this.description = 'Try adjusting your search or filter criteria.',
     this.action,
     this.secondaryAction,
-    this.style = EmptyStateStyle.centered,
+    this.variant = EmptyStateStyle.centered,
     this.size = EmptyStateSize.md,
     this.styles,
     this.decoration,
@@ -57,7 +57,7 @@ class ArcaneEmptyState extends StatelessWidget {
     this.description = 'Start by adding your first item.',
     this.action,
     this.secondaryAction,
-    this.style = EmptyStateStyle.centered,
+    this.variant = EmptyStateStyle.centered,
     this.size = EmptyStateSize.md,
     this.styles,
     this.decoration,
@@ -69,7 +69,7 @@ class ArcaneEmptyState extends StatelessWidget {
     this.description = 'An error occurred while loading the content.',
     this.action,
     this.secondaryAction,
-    this.style = EmptyStateStyle.centered,
+    this.variant = EmptyStateStyle.centered,
     this.size = EmptyStateSize.md,
     this.styles,
     this.decoration,
@@ -81,14 +81,14 @@ class ArcaneEmptyState extends StatelessWidget {
     this.description = 'Check your internet connection and try again.',
     this.action,
     this.secondaryAction,
-    this.style = EmptyStateStyle.centered,
+    this.variant = EmptyStateStyle.centered,
     this.size = EmptyStateSize.md,
     this.styles,
     this.decoration,
     super.key,
   }) : icon = ArcaneIcon.wifiOff(size: IconSize.lg);
 
-  EmptyStateStyleVariant get _propsStyle => switch (style) {
+  EmptyStateStyleVariant get _propsStyle => switch (variant) {
         EmptyStateStyle.centered => EmptyStateStyleVariant.centered,
         EmptyStateStyle.compact => EmptyStateStyleVariant.compact,
         EmptyStateStyle.card => EmptyStateStyleVariant.card,
@@ -108,7 +108,7 @@ class ArcaneEmptyState extends StatelessWidget {
       description: description,
       action: action,
       secondaryAction: secondaryAction,
-      style: _propsStyle,
+      variant: _propsStyle,
       size: _propsSize,
       styles: styles,
       decoration: decoration,

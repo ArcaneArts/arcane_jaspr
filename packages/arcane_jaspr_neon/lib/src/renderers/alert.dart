@@ -24,7 +24,7 @@ class NeonAlert extends AlertRenderBase {
   Map<String, String> get rootAttributes => <String, String>{
     'role': 'alert',
     'data-variant': props.color.name,
-    'data-style': props.style.name,
+    'data-style': props.variant.name,
   };
 
   @override

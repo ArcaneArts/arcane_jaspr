@@ -34,7 +34,7 @@ enum CodeBlockStyle { raw, code, minimal, inline, terminal }
 /// Styled preformatted text wrapper with style presets.
 class ArcaneCodeBlock extends StatelessComponent {
   final List<Component> children;
-  final CodeBlockStyle style;
+  final CodeBlockStyle variant;
   final ArcaneStyleData? styles;
   final List<String>? classes;
   final String? id;
@@ -42,7 +42,7 @@ class ArcaneCodeBlock extends StatelessComponent {
 
   const ArcaneCodeBlock({
     required this.children,
-    this.style = CodeBlockStyle.raw,
+    this.variant = CodeBlockStyle.raw,
     this.styles,
     this.classes,
     this.id,
@@ -67,7 +67,7 @@ class ArcaneCodeBlock extends StatelessComponent {
   }) = _ArcaneCodeBlockTerminal;
 
   ArcaneStyleData _getPresetStyles() {
-    return switch (style) {
+    return switch (variant) {
       CodeBlockStyle.raw => const ArcaneStyleData(),
       CodeBlockStyle.code => const ArcaneStyleData(
           margin: MarginPreset.none,
@@ -142,7 +142,7 @@ class _ArcaneCodeBlockCode extends ArcaneCodeBlock {
     super.classes,
     super.id,
     super.key,
-  }) : super(style: CodeBlockStyle.code);
+  }) : super(variant: CodeBlockStyle.code);
 }
 
 class _ArcaneCodeBlockTerminal extends ArcaneCodeBlock {
@@ -152,5 +152,5 @@ class _ArcaneCodeBlockTerminal extends ArcaneCodeBlock {
     super.classes,
     super.id,
     super.key,
-  }) : super(style: CodeBlockStyle.terminal);
+  }) : super(variant: CodeBlockStyle.terminal);
 }

@@ -25,7 +25,7 @@ class _NeubrutalismInlineHeroBannerState
   }
 
   Map<String, String> _getStyleVariantStyles() {
-    return switch (component.props.style) {
+    return switch (component.props.variant) {
       PromoInlineHeroBannerStyle.badge => <String, String>{
         'display': 'inline-flex',
         'align-items': 'center',
@@ -84,15 +84,15 @@ class _NeubrutalismInlineHeroBannerState
 
     final Map<String, String> variantStyles = _getStyleVariantStyles();
     final bool isFilled =
-        component.props.style == PromoInlineHeroBannerStyle.ribbon ||
-            component.props.style == PromoInlineHeroBannerStyle.pill;
+        component.props.variant == PromoInlineHeroBannerStyle.ribbon ||
+            component.props.variant == PromoInlineHeroBannerStyle.pill;
     final String foregroundColor =
         isFilled ? 'var(--nb-on-accent, #000)' : 'var(--foreground)';
     final String accentColor =
         isFilled ? 'var(--nb-on-accent, #000)' : 'var(--nb-accent, var(--primary))';
 
     return dom.div(
-      classes: 'neubrutalism-inline-hero-banner ${component.props.style.name}',
+      classes: 'neubrutalism-inline-hero-banner ${component.props.variant.name}',
       styles: dom.Styles(
         raw: {
           ...variantStyles,

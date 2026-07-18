@@ -17,7 +17,7 @@ class KbdProps {
   final String? keyText;
   final List<String>? keys;
   final String separator;
-  final KbdStyle style;
+  final KbdStyle variant;
   final ComponentSize size;
 
   /// Literal, theme-permeable style override (always applied, wins over theme).
@@ -31,7 +31,7 @@ class KbdProps {
     this.keyText,
     this.keys,
     this.separator = '+',
-    this.style = KbdStyle.raised,
+    this.variant = KbdStyle.raised,
     this.size = ComponentSize.md,
     this.styles,
     this.decoration,
@@ -40,7 +40,7 @@ class KbdProps {
 
   const KbdProps.key(
     String key, {
-    this.style = KbdStyle.raised,
+    this.variant = KbdStyle.raised,
     this.size = ComponentSize.md,
     this.styles,
     this.decoration,
@@ -51,7 +51,7 @@ class KbdProps {
   const KbdProps.combo(
     List<String> this.keys, {
     this.separator = '+',
-    this.style = KbdStyle.raised,
+    this.variant = KbdStyle.raised,
     this.size = ComponentSize.md,
     this.styles,
     this.decoration,

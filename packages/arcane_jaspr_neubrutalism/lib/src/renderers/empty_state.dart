@@ -34,15 +34,15 @@ class NeubrutalismEmptyState extends EmptyStateRenderBase {
     final (_, _, _, gap) = _sizeStyles;
     return <String, String>{
       'display': 'flex',
-      'flex-direction': props.style == EmptyStateStyleVariant.compact
+      'flex-direction': props.variant == EmptyStateStyleVariant.compact
           ? 'row'
           : 'column',
       'align-items': 'center',
-      'text-align': props.style == EmptyStateStyleVariant.compact
+      'text-align': props.variant == EmptyStateStyleVariant.compact
           ? 'left'
           : 'center',
       'gap': gap,
-      if (props.style == EmptyStateStyleVariant.compact) 'text-align': 'left',
+      if (props.variant == EmptyStateStyleVariant.compact) 'text-align': 'left',
     };
   }
 
@@ -78,10 +78,10 @@ class NeubrutalismEmptyState extends EmptyStateRenderBase {
   Map<String, String> get actionsStyles => <String, String>{
     'display': 'flex',
     'gap': '0.75rem', // Neubrutalism: more gap
-    'margin-top': props.style == EmptyStateStyleVariant.compact
+    'margin-top': props.variant == EmptyStateStyleVariant.compact
         ? '0'
         : '0.75rem',
-    if (props.style == EmptyStateStyleVariant.compact) 'margin-left': 'auto',
+    if (props.variant == EmptyStateStyleVariant.compact) 'margin-left': 'auto',
   };
 
   @override
@@ -139,7 +139,7 @@ class NeubrutalismEmptyState extends EmptyStateRenderBase {
   @override
   Component buildRoot(Component content, Map<String, String> extraStyles) {
     // Wrap in card if variant is card
-    if (props.style == EmptyStateStyleVariant.card) {
+    if (props.variant == EmptyStateStyleVariant.card) {
       return dom.div(
         classes: 'neubrutalism-empty-state neubrutalism-empty-state-card',
         styles: dom.Styles(
@@ -161,7 +161,7 @@ class NeubrutalismEmptyState extends EmptyStateRenderBase {
       classes: 'neubrutalism-empty-state',
       styles: dom.Styles(
         raw: <String, String>{
-          'padding': props.style == EmptyStateStyleVariant.compact
+          'padding': props.variant == EmptyStateStyleVariant.compact
               ? '1rem'
               : '2rem', // Neubrutalism: more padding
           ...extraStyles,

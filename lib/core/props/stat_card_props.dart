@@ -7,7 +7,7 @@ import '../decoration/arcane_decoration.dart';
 class StatCardProps {
   final String label;
   final String value;
-  final String? icon;
+  final Widget? icon;
   final String? trend;
   final bool trendPositive;
   final String? description;

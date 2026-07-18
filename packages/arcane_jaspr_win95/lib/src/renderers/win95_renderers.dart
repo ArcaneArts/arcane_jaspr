@@ -16,6 +16,7 @@ import 'card.dart';
 import 'cta_card.dart';
 import 'feature_card.dart';
 import 'pricing_card.dart';
+import 'gallery.dart';
 import 'stat_card.dart';
 import 'testimonial_card.dart';
 import 'chart.dart';
@@ -87,6 +88,9 @@ class Win95Renderers extends ComponentRenderers {
 
   @override
   Component card(CardProps props) => Win95Card(props);
+
+  @override
+  Component gallery(GalleryProps props) => Win95Gallery(props);
 
   @override
   Component statCard(StatCardProps props) => Win95StatCard(props);

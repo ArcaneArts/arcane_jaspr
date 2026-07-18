@@ -104,7 +104,7 @@ class ShadcnEmptyState extends EmptyStateRenderBase {
 
   @override
   Component buildRoot(Component content, Map<String, String> extraStyles) {
-    if (props.style == EmptyStateStyleVariant.card) {
+    if (props.variant == EmptyStateStyleVariant.card) {
       return dom.div(
         classes: 'arcane-empty-state-card',
         styles: dom.Styles(

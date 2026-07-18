@@ -50,6 +50,7 @@ import 'props/skeleton_props.dart';
 import 'props/static_table_props.dart';
 import 'props/cta_card_props.dart';
 import 'props/feature_card_props.dart';
+import 'props/gallery_props.dart';
 import 'props/pricing_card_props.dart';
 import 'props/stat_card_props.dart';
 import 'props/testimonial_card_props.dart';
@@ -115,6 +116,7 @@ export 'props/skeleton_props.dart';
 export 'props/static_table_props.dart';
 export 'props/cta_card_props.dart';
 export 'props/feature_card_props.dart';
+export 'props/gallery_props.dart';
 export 'props/pricing_card_props.dart';
 export 'props/stat_card_props.dart';
 export 'props/testimonial_card_props.dart';
@@ -181,6 +183,7 @@ abstract class ComponentRenderers
         CTACardRendererContract,
         FeatureCardRendererContract,
         PricingCardRendererContract,
+        GalleryRendererContract,
         StatCardRendererContract,
         TestimonialCardRendererContract,
         StatusBadgeRendererContract,

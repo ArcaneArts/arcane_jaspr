@@ -47,7 +47,7 @@ class Win95Css {
 
 #arcane-root.arcane-theme-win95 {
   /* --- Palette overrides (win the cascade via id+class specificity) --- */
-  --background: $desktop;
+  --background: #c0c0c0;
   --foreground: #000000;
   --card: #c0c0c0;
   --card-foreground: #000000;
@@ -58,13 +58,13 @@ class Win95Css {
   --secondary-foreground: #000000;
   --muted: #c0c0c0;
   --muted-foreground: #404040;
-  --primary: $selection;
+  --primary: var(--w95-selection-in, $selection);
   --primary-foreground: #ffffff;
-  --accent: $titleB;
+  --accent: var(--w95-title-b-in, $titleB);
   --accent-foreground: #ffffff;
   --border: #808080;
   --input: #ffffff;
-  --ring: $selection;
+  --ring: var(--w95-selection-in, $selection);
   --navbar: #c0c0c0;
   --code-background: #ffffff;
   --radius: 0;
@@ -78,14 +78,21 @@ class Win95Css {
   --w95-dark: #0a0a0a;     /* outer bottom-right */
   --w95-field: #ffffff;
   --w95-field-text: #000000;
-  --w95-desktop: $desktop;
-  --w95-title-a: $titleA;
-  --w95-title-b: $titleB;
+  /* The desktop backdrop, title-bar gradient and selection accept a runtime
+     override (--w95-*-in) so a host app can re-tint them from an account accent
+     without a rebuild; unset, they fall back to this appearance scheme. The
+     silver control face and bevels above stay fixed across every accent. */
+  --w95-desktop: var(--w95-desktop-in, $desktop);
+  --w95-title-a: var(--w95-title-a-in, $titleA);
+  --w95-title-b: var(--w95-title-b-in, $titleB);
   --w95-title-text: #ffffff;
   --w95-title-inactive-a: #808080;
   --w95-title-inactive-b: #b5b5b5;
-  --w95-selection: $selection;
+  --w95-selection: var(--w95-selection-in, $selection);
   --w95-selection-text: #ffffff;
+  /* Shared navy->cyan caption gradient (one source for every title bar). */
+  --w95-title-bar:
+    linear-gradient(90deg, var(--w95-title-a), var(--w95-title-b));
 
   /* --- Composed bevel recipes --- */
   --w95-raised:
@@ -131,7 +138,7 @@ class Win95Css {
   --secondary-foreground: #ffffff;
   --muted: #2a2a2a;
   --muted-foreground: #bcbcbc;
-  --primary: $titleB;
+  --primary: var(--w95-selection-in, $titleB);
   --primary-foreground: #ffffff;
   --border: #202020;
   --input: #1e1e1e;
@@ -145,13 +152,13 @@ class Win95Css {
   --w95-dark: #000000;
   --w95-field: #1e1e1e;
   --w95-field-text: #ffffff;
-  --w95-desktop: color-mix(in srgb, $desktop 30%, #050505);
-  --w95-title-a: $titleA;
-  --w95-title-b: $titleB;
+  --w95-desktop: var(--w95-desktop-in, color-mix(in srgb, $desktop 30%, #050505));
+  --w95-title-a: var(--w95-title-a-in, $titleA);
+  --w95-title-b: var(--w95-title-b-in, $titleB);
   --w95-title-text: #ffffff;
   --w95-title-inactive-a: #2a2a2a;
   --w95-title-inactive-b: #3a3a3a;
-  --w95-selection: $selection;
+  --w95-selection: var(--w95-selection-in, $selection);
   --w95-selection-text: #ffffff;
 }
 
@@ -333,6 +340,14 @@ class Win95Css {
 #arcane-root.arcane-theme-win95 .win95-card.clickable:active {
   box-shadow: var(--w95-pressed);
 }
+/* Nested cards are sub-surfaces: a win95 card inside another win95 card drops
+   its raised bevel + face so stacked panels do not emboss twice. Re-assert a
+   frame on the inner card with decoration:/styles:. */
+#arcane-root.arcane-theme-win95 .win95-card .win95-card:not([data-arcane-decorated]) {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
 
 /* Dropdown / popover / select surfaces sit slightly tighter and float. */
 #arcane-root.arcane-theme-win95 .win95-dropdown-menu,
@@ -357,7 +372,7 @@ class Win95Css {
   left: 3px;
   right: 3px;
   height: 18px;
-  background: linear-gradient(90deg, var(--w95-title-a), var(--w95-title-b));
+  background: var(--w95-title-bar);
 }
 #arcane-root.arcane-theme-win95:not(.win95-chrome-minimal) .win95-command-dialog::after,
 #arcane-root.arcane-theme-win95.win95-chrome-everything .win95-card::after {
@@ -378,6 +393,111 @@ class Win95Css {
 #arcane-root.arcane-theme-win95.win95-chrome-everything .win95-card {
   padding-top: calc(1rem + 22px);
   overflow: hidden;
+}
+
+/* ---------- Gallery: titled windows on the teal desktop ---------- */
+/*
+   The showcase surface. The gallery paints the classic Win95 teal DESKTOP; each
+   tile is a fully-chromed application WINDOW: a raised silver bevel (the shared
+   --w95-raised recipe), a navy->cyan title bar (the shared --w95-title-bar
+   gradient) carrying the artwork's REAL, accessible title text plus the
+   decorative _ [] X controls, the media as the window's client area, and an
+   optional raised status strip footer. Sharp corners, hard 1px bevels only.
+   The render base emits the media FIRST, so the header is lifted above it with
+   order:-1 rather than duplicating the DOM. */
+
+#arcane-root.arcane-theme-win95 .win95-gallery {
+  background: var(--w95-desktop);
+  padding: 0.75rem;
+}
+
+/* Each tile is a raised silver window frame (reuses the card bevel recipe). */
+#arcane-root.arcane-theme-win95 .win95-gallery-tile {
+  position: relative;
+  gap: 2px;
+  padding: 3px;
+  background: var(--w95-face);
+  color: var(--w95-face-text);
+  box-shadow: var(--w95-raised);
+  border-radius: 0;
+  transition: none;
+}
+
+/* Link tiles press in like a real window control. */
+#arcane-root.arcane-theme-win95 a.win95-gallery-tile:active {
+  box-shadow: var(--w95-pressed);
+}
+
+/* Header = the navy->cyan title bar (reuses the shared --w95-title-bar
+   gradient). order:-1 lifts it above the media the render base emits first. */
+#arcane-root.arcane-theme-win95 .win95-gallery-tile-header {
+  order: -1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1px;
+  min-height: 18px;
+  padding: 2px 48px 2px 6px;
+  background: var(--w95-title-bar);
+  color: var(--w95-title-text);
+}
+
+/* Decorative _ [] X window controls on the title bar's right edge. */
+#arcane-root.arcane-theme-win95 .win95-gallery-tile-header::after {
+  content: '_ □ ✕';
+  position: absolute;
+  top: 3px;
+  right: 5px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--w95-title-text);
+  font-family: var(--font-mono);
+  font-size: 15px;
+  line-height: 16px;
+  letter-spacing: 2px;
+  pointer-events: none;
+}
+
+/* Real, accessible window caption. */
+#arcane-root.arcane-theme-win95 .win95-gallery-tile-title {
+  min-width: 0;
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.15;
+  color: var(--w95-title-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Secondary caption (author / subtitle), dimmed on the caption bar. */
+#arcane-root.arcane-theme-win95 .win95-gallery-tile-meta {
+  min-width: 0;
+  font-size: 1rem;
+  line-height: 1.15;
+  color: rgba(255, 255, 255, 0.78);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Media = the window's client area, flush under the title bar (the base sizes
+   it by aspect ratio and marks it position:relative so overlay badges anchor
+   to it). */
+#arcane-root.arcane-theme-win95 .win95-gallery-tile-media {
+  background: var(--w95-field);
+}
+
+/* Footer = a raised status strip along the window's bottom edge. */
+#arcane-root.arcane-theme-win95 .win95-gallery-tile-footer {
+  padding: 3px 5px;
+  background: var(--w95-face);
+  color: var(--w95-face-text);
+  box-shadow: var(--w95-raised-thin);
+  font-size: 1rem;
 }
 
 /* ---------- Feature / icon / pricing / testimonial cards ---------- */

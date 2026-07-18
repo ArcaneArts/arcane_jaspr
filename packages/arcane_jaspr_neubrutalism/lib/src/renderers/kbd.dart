@@ -39,7 +39,7 @@ class NeubrutalismKbd extends KbdRenderBase {
       'color': 'var(--nb-accent-cool, var(--secondary))',
     };
 
-    return switch (props.style) {
+    return switch (props.variant) {
       KbdStyle.raised => <String, String>{
         ...baseStyles,
         'box-shadow': 'var(--nb-shadow-md, 5px 5px 0 0 var(--nb-shadow-color, #000))',

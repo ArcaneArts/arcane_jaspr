@@ -22,7 +22,7 @@ class EmptyStateProps {
   final String? description;
   final Widget? action;
   final Widget? secondaryAction;
-  final EmptyStateStyleVariant style;
+  final EmptyStateStyleVariant variant;
   final EmptyStateSizeVariant size;
 
   /// Literal, theme-permeable style override (always applied, wins over theme).
@@ -38,7 +38,7 @@ class EmptyStateProps {
     this.description,
     this.action,
     this.secondaryAction,
-    this.style = EmptyStateStyleVariant.centered,
+    this.variant = EmptyStateStyleVariant.centered,
     this.size = EmptyStateSizeVariant.md,
     this.styles,
     this.decoration,
@@ -50,7 +50,7 @@ class EmptyStateProps {
     String? description,
     Widget? action,
     Widget? secondaryAction,
-    EmptyStateStyleVariant? style,
+    EmptyStateStyleVariant? variant,
     EmptyStateSizeVariant? size,
     ArcaneStyleData? styles,
     ArcaneDecoration? decoration,
@@ -61,7 +61,7 @@ class EmptyStateProps {
       description: description ?? this.description,
       action: action ?? this.action,
       secondaryAction: secondaryAction ?? this.secondaryAction,
-      style: style ?? this.style,
+      variant: variant ?? this.variant,
       size: size ?? this.size,
       styles: styles ?? this.styles,
       decoration: decoration ?? this.decoration,

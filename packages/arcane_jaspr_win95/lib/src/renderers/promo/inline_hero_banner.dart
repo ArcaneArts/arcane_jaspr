@@ -26,7 +26,7 @@ class _Win95InlineHeroBannerState extends State<Win95InlineHeroBanner> {
   }
 
   Map<String, String> _getStyleVariantStyles() {
-    return switch (component.props.style) {
+    return switch (component.props.variant) {
       PromoInlineHeroBannerStyle.badge => {
         'display': 'inline-flex',
         'align-items': 'center',
@@ -75,10 +75,10 @@ class _Win95InlineHeroBannerState extends State<Win95InlineHeroBanner> {
 
     final Map<String, String> variantStyles = _getStyleVariantStyles();
     final bool isRibbon =
-        component.props.style == PromoInlineHeroBannerStyle.ribbon;
+        component.props.variant == PromoInlineHeroBannerStyle.ribbon;
 
     return dom.div(
-      classes: 'win95-inline-hero-banner ${component.props.style.name}',
+      classes: 'win95-inline-hero-banner ${component.props.variant.name}',
       styles: dom.Styles(
         raw: {
           ...variantStyles,

@@ -72,7 +72,7 @@ class ShadcnAlert extends AlertRenderBase {
     final String borderColor = _colors.$3;
 
     // ShadCN Alert styles vary by style
-    return switch (props.style) {
+    return switch (props.variant) {
       AlertStyle.subtle => <String, String>{
         'background-color': bgColor,
         'border': '1px solid $borderColor',
@@ -104,7 +104,7 @@ class ShadcnAlert extends AlertRenderBase {
 
   @override
   Map<String, String> get iconStyles {
-    final bool isSolid = props.style == AlertStyle.solid;
+    final bool isSolid = props.variant == AlertStyle.solid;
     final String primary = _colors.$1;
     return <String, String>{
       'flex-shrink': '0',
@@ -126,7 +126,7 @@ class ShadcnAlert extends AlertRenderBase {
 
   @override
   Map<String, String> get titleStyles {
-    final bool isSolid = props.style == AlertStyle.solid;
+    final bool isSolid = props.variant == AlertStyle.solid;
     return <String, String>{
       'font-weight': 'var(--font-weight-medium)',
       'line-height': '1',
@@ -141,7 +141,7 @@ class ShadcnAlert extends AlertRenderBase {
 
   @override
   Map<String, String> get descriptionStyles {
-    final bool isSolid = props.style == AlertStyle.solid;
+    final bool isSolid = props.variant == AlertStyle.solid;
     return <String, String>{
       'font-size': 'var(--font-size-sm)',
       'line-height': '1.625',
@@ -157,7 +157,7 @@ class ShadcnAlert extends AlertRenderBase {
 
   @override
   Map<String, String> get dismissStyles {
-    final bool isSolid = props.style == AlertStyle.solid;
+    final bool isSolid = props.variant == AlertStyle.solid;
     return <String, String>{
       'position': 'absolute',
       'right': '8px',

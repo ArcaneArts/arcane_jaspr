@@ -569,6 +569,16 @@ html.dark #arcane-root.arcane-theme-neubrutalism .kb-search-input {
   transform: translate(-2px, -2px);
   box-shadow: var(--nb-shadow-lg) !important;
 }
+/* Nested cards are sub-surfaces: a neubrutalism card inside another drops its
+   block border + hard shadow so stacked panels do not frame twice. Re-assert a
+   frame on the inner card with decoration:/styles:. */
+#arcane-root.arcane-theme-neubrutalism
+  .neubrutalism-card
+  .neubrutalism-card:not([data-arcane-decorated]) {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
 
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-card.clickable:active {
   transform: var(--nb-translate-press);
