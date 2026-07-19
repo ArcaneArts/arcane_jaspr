@@ -59,9 +59,9 @@ class Win95Css {
   --muted: #c0c0c0;
   --muted-foreground: #404040;
   --primary: var(--w95-selection-in, $selection);
-  --primary-foreground: #ffffff;
+  --primary-foreground: var(--w95-selection-text-in, #ffffff);
   --accent: var(--w95-title-b-in, $titleB);
-  --accent-foreground: #ffffff;
+  --accent-foreground: var(--w95-title-text-in, #ffffff);
   --border: #808080;
   --input: #ffffff;
   --ring: var(--w95-selection-in, $selection);
@@ -81,15 +81,18 @@ class Win95Css {
   /* The desktop backdrop, title-bar gradient and selection accept a runtime
      override (--w95-*-in) so a host app can re-tint them from an account accent
      without a rebuild; unset, they fall back to this appearance scheme. The
-     silver control face and bevels above stay fixed across every accent. */
+     matching text hooks (--w95-title-text-in / --w95-selection-text-in) let the
+     host keep caption and selection text readable on a light accent — the
+     stock white only suits the dark stock schemes. The silver control face and
+     bevels above stay fixed across every accent. */
   --w95-desktop: var(--w95-desktop-in, $desktop);
   --w95-title-a: var(--w95-title-a-in, $titleA);
   --w95-title-b: var(--w95-title-b-in, $titleB);
-  --w95-title-text: #ffffff;
+  --w95-title-text: var(--w95-title-text-in, #ffffff);
   --w95-title-inactive-a: #808080;
   --w95-title-inactive-b: #b5b5b5;
   --w95-selection: var(--w95-selection-in, $selection);
-  --w95-selection-text: #ffffff;
+  --w95-selection-text: var(--w95-selection-text-in, #ffffff);
   /* Shared navy->cyan caption gradient (one source for every title bar). */
   --w95-title-bar:
     linear-gradient(90deg, var(--w95-title-a), var(--w95-title-b));
@@ -139,27 +142,27 @@ class Win95Css {
   --muted: #2a2a2a;
   --muted-foreground: #bcbcbc;
   --primary: var(--w95-selection-in, $titleB);
-  --primary-foreground: #ffffff;
-  --border: #202020;
-  --input: #1e1e1e;
-  --ring: $titleB;
+  --primary-foreground: var(--w95-selection-text-in, #ffffff);
+  --border: #4a4a4a;
+  --input: #242424;
+  --ring: var(--w95-selection-in, $titleB);
 
   --w95-face: #3a3a3a;
   --w95-face-text: #ffffff;
-  --w95-hilite: #727272;
-  --w95-light: #565656;
+  --w95-hilite: #8e8e8e;
+  --w95-light: #646464;
   --w95-shadow: #1c1c1c;
   --w95-dark: #000000;
-  --w95-field: #1e1e1e;
+  --w95-field: #242424;
   --w95-field-text: #ffffff;
   --w95-desktop: var(--w95-desktop-in, color-mix(in srgb, $desktop 30%, #050505));
   --w95-title-a: var(--w95-title-a-in, $titleA);
   --w95-title-b: var(--w95-title-b-in, $titleB);
-  --w95-title-text: #ffffff;
+  --w95-title-text: var(--w95-title-text-in, #ffffff);
   --w95-title-inactive-a: #2a2a2a;
   --w95-title-inactive-b: #3a3a3a;
   --w95-selection: var(--w95-selection-in, $selection);
-  --w95-selection-text: #ffffff;
+  --w95-selection-text: var(--w95-selection-text-in, #ffffff);
 }
 
 #arcane-root.arcane-theme-win95 ::selection {
@@ -239,25 +242,43 @@ class Win95Css {
 }
 #arcane-root.arcane-theme-win95 .win95-button[data-variant="secondary"],
 #arcane-root.arcane-theme-win95 .win95-button[data-variant="accent"],
-#arcane-root.arcane-theme-win95 .win95-button[data-variant="destructive"],
 #arcane-root.arcane-theme-win95 .win95-button[data-variant="success"],
 #arcane-root.arcane-theme-win95 .win95-button[data-variant="warning"],
 #arcane-root.arcane-theme-win95 .win95-button[data-variant="info"] {
   background: var(--w95-face);
   color: var(--w95-face-text);
 }
+/* Destructive keeps the silver 3D face but must still read as dangerous: a
+   maroon bold label plus a 1px maroon ring drawn just inside the bevel (the
+   same device as the primary button's default ring). Dark mode brightens the
+   red so it stays legible on the dark control face. */
+#arcane-root.arcane-theme-win95 .win95-button[data-variant="destructive"] {
+  background: var(--w95-face);
+  color: #a80000;
+  font-weight: 700;
+  box-shadow: var(--w95-raised), inset 0 0 0 1px #a80000;
+}
+#arcane-root.arcane-theme-win95.dark .win95-button[data-variant="destructive"] {
+  color: #ff6b6b;
+  box-shadow: var(--w95-raised), inset 0 0 0 1px #ff6b6b;
+}
 #arcane-root.arcane-theme-win95 .win95-button[data-variant="outline"] {
   background: var(--w95-face);
   color: var(--w95-face-text);
 }
+/* Ghost buttons keep a thin raised face (Office-toolbar style) instead of bare
+   text: with no chrome at all they disappeared entirely on dark surfaces. */
 #arcane-root.arcane-theme-win95 .win95-button[data-variant="ghost"] {
-  background: transparent;
+  background: var(--w95-face);
   color: var(--w95-face-text);
-  box-shadow: none;
+  box-shadow: var(--w95-raised-thin);
 }
 #arcane-root.arcane-theme-win95 .win95-button[data-variant="ghost"]:hover:not([data-disabled="true"]) {
   box-shadow: var(--w95-raised);
   background: var(--w95-face);
+}
+#arcane-root.arcane-theme-win95 .win95-button[data-variant="ghost"]:active:not([data-disabled="true"]) {
+  box-shadow: var(--w95-pressed);
 }
 #arcane-root.arcane-theme-win95 .win95-button[data-variant="link"] {
   background: transparent;
@@ -389,6 +410,8 @@ class Win95Css {
   font-size: 16.5px;
   letter-spacing: 3px;
   pointer-events: none;
+  /* Painted decoration, not controls: dimmed so they never read as clickable. */
+  opacity: 0.62;
 }
 #arcane-root.arcane-theme-win95.win95-chrome-everything .win95-card {
   padding-top: calc(1rem + 22px);
@@ -443,7 +466,8 @@ class Win95Css {
   color: var(--w95-title-text);
 }
 
-/* Decorative _ [] X window controls on the title bar's right edge. */
+/* Decorative _ [] X window controls on the title bar's right edge. Dimmed so
+   they read as painted caption decoration rather than clickable controls. */
 #arcane-root.arcane-theme-win95 .win95-gallery-tile-header::after {
   content: '_ □ ✕';
   position: absolute;
@@ -459,6 +483,7 @@ class Win95Css {
   line-height: 16px;
   letter-spacing: 2px;
   pointer-events: none;
+  opacity: 0.62;
 }
 
 /* Real, accessible window caption. */
@@ -1188,24 +1213,60 @@ class Win95Css {
   background: transparent;
 }
 
-/* Toolbar brand label (the site name already lives in the title bar). */
+/* Toolbar brand -> the Start button: a raised silver face carrying the
+   waving four-pane flag and the bold site name. It presses in on :active
+   (bevel inverts, contents nudge 1px down-right) and, being the brand
+   link, still navigates to the homepage. */
 #arcane-root.arcane-theme-win95 .kb-topbar-brand {
-  height: auto;
-  padding: 0 4px;
-  gap: 4px;
+  height: 22px;
+  padding: 0 8px 0 5px;
+  gap: 5px;
   border: 0;
   border-radius: 0;
-  background: transparent;
+  background: var(--w95-face);
   color: var(--w95-face-text);
-  box-shadow: none;
+  box-shadow: var(--w95-raised);
   font-size: 16.5px;
   font-weight: 700;
   line-height: 1;
   text-decoration: none;
   text-shadow: none;
+  cursor: pointer;
 }
 
-#arcane-root.arcane-theme-win95 .kb-topbar-brand-icon {
+/* Win95 reacts on press, not hover: keep the raised face, no fade. */
+#arcane-root.arcane-theme-win95 .kb-topbar-brand:hover {
+  opacity: 1;
+  background: var(--w95-face);
+  box-shadow: var(--w95-raised);
+}
+
+#arcane-root.arcane-theme-win95 .kb-topbar-brand:active {
+  box-shadow: var(--w95-pressed);
+}
+
+#arcane-root.arcane-theme-win95 .kb-topbar-brand:active::before,
+#arcane-root.arcane-theme-win95 .kb-topbar-brand:active .kb-topbar-brand-label {
+  transform: translate(1px, 1px);
+}
+
+/* The waving flag, drawn as a pseudo so it renders for both the
+   initial-span and logo-img brand variants (both stay hidden below). */
+#arcane-root.arcane-theme-win95 .kb-topbar-brand::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cpath fill='%23ff0000' d='M2 3 7 2v5H2z'/%3E%3Cpath fill='%2300a800' d='M8 2 14 3v4H8z'/%3E%3Cpath fill='%230000ff' d='M2 8h5v5l-5-1z'/%3E%3Cpath fill='%23ffff00' d='M8 8h6v4l-6 1z'/%3E%3C/svg%3E") center / 16px 16px no-repeat;
+}
+
+/* HCB dark: pure-blue sinks into the #3a3a3a face; brighten that pane. */
+#arcane-root.arcane-theme-win95.dark .kb-topbar-brand::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cpath fill='%23ff0000' d='M2 3 7 2v5H2z'/%3E%3Cpath fill='%2300a800' d='M8 2 14 3v4H8z'/%3E%3Cpath fill='%234a6cff' d='M2 8h5v5l-5-1z'/%3E%3Cpath fill='%23ffff00' d='M8 8h6v4l-6 1z'/%3E%3C/svg%3E");
+}
+
+#arcane-root.arcane-theme-win95 .kb-topbar-brand-icon,
+#arcane-root.arcane-theme-win95 .kb-topbar-logo {
   display: none;
 }
 

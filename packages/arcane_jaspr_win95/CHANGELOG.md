@@ -1,5 +1,48 @@
 # Changelog
 
+## x.x.x
+
+### Added
+
+- Runtime text-override hooks `--w95-title-text-in` and
+  `--w95-selection-text-in` (mirroring the `--nb-on-accent-in` contract in
+  `arcane_jaspr_neubrutalism`). The caption text, `::selection` text,
+  `--primary-foreground`, and `--accent-foreground` were fixed `#ffffff`,
+  which is illegible when a host re-tints the title bars/selection with a
+  light accent via `--w95-title-b-in` / `--w95-selection-in`; hosts can now
+  supply a luminance-derived readable foreground alongside the accent.
+  Unset, both fall back to the stock white.
+
+### Fixed
+
+- Dark mode `--ring` now honours the `--w95-selection-in` runtime override
+  hook like the light block already did, so a host-app accent re-tint also
+  recolors dark focus rings.
+
+### Changed
+
+- Destructive buttons are no longer identical to every other silver button:
+  they keep the 3D face but carry a bold maroon label and a 1px maroon ring
+  inside the bevel (brightened red in dark mode) so dangerous actions are
+  visually distinct.
+- Ghost buttons render as thin raised toolbar buttons (face + thin bevel,
+  pressed state on click) instead of bare borderless text, which disappeared
+  entirely on dark surfaces.
+- Dark "dark silver" scheme contrast: bevel highlights brighten
+  (`--w95-hilite` #727272 to #8e8e8e, `--w95-light` #565656 to #646464),
+  input wells lighten from #1e1e1e to #242424, and `--border` lightens from
+  #202020 to #4a4a4a so sunken field borders and 3D chrome stay visible.
+- The decorative `_ [] X` window-control glyphs on gallery tile and card
+  captions are dimmed (62% opacity) so they read as painted decoration
+  rather than clickable controls.
+
+- Docs-chrome toolbar brand is now a Start button: a raised silver face with the
+  waving four-pane flag and the bold site name that presses in on click (bevel
+  inverts, contents nudge 1px down-right) and links to the homepage as before.
+  A configured site logo image is hidden in this theme in favour of the flag.
+  In High Contrast Black dark mode the flag's blue pane brightens so it stays
+  visible on the dark control face.
+
 ## 3.3.0
 
 - Initial Windows 95 renderer package for Arcane Jaspr.

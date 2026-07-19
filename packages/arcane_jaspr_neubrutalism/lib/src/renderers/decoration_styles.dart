@@ -18,7 +18,7 @@ Map<String, String> neubrutalismDecorationStyles(ArcaneDecoration? decoration) {
   return <String, String>{
     if (decoration.elevation != null)
       'box-shadow': _nbElevation(decoration.elevation!, shadowColor),
-    if (shadowColor != null) '--nb-shadow-color': shadowColor,
+    '--nb-shadow-color': ?shadowColor,
   };
 }
 

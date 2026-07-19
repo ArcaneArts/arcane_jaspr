@@ -67,10 +67,13 @@ class NeubrutalismCss {
     int lightBandColor = _mix(theme.color, 0.72, 0xFFFFFFFF);
     String lightBand = _hex(lightBandColor);
     String lightBandForeground = _foregroundFor(lightBandColor);
-    int darkBackgroundColor = _mix(theme.color, 0.18, 0xFF101114);
-    int darkSecondaryColor = _mix(theme.color, 0.08, 0xFF171719);
-    int darkMutedColor = _mix(theme.color, 0.12, 0xFF242428);
-    int darkCardHoverColor = _mix(theme.color, 0.12, 0xFF232326);
+    // Dark mode keeps only a hint of the accent in its surfaces: heavier mixes
+    // washed the whole dark canvas in the accent hue (an olive-brown page under
+    // the yellow theme) and left near-black cards with invisible shadows.
+    int darkBackgroundColor = _mix(theme.color, 0.08, 0xFF101114);
+    int darkSecondaryColor = _mix(theme.color, 0.06, 0xFF1E1E22);
+    int darkMutedColor = _mix(theme.color, 0.08, 0xFF26262A);
+    int darkCardHoverColor = _mix(theme.color, 0.08, 0xFF2E2E32);
     String darkBackground = _hex(darkBackgroundColor);
     String darkSecondary = _hex(darkSecondaryColor);
     String darkMuted = _hex(darkMutedColor);
@@ -93,11 +96,11 @@ class NeubrutalismCss {
   --border: #000000;
   --input: #FFFFFF;
   --ring: #000000;
-  --main: $accentColor;
-  --main-foreground: $accentForeground;
+  --main: var(--nb-accent);
+  --main-foreground: var(--nb-on-accent-in, $accentForeground);
   --nb-ink: #000000;
-  --nb-line: #000000;
-  --nb-shadow-color: #000000;
+  --nb-line: var(--nb-line-in, #000000);
+  --nb-shadow-color: var(--nb-shadow-in, #000000);
   --nb-paper: var(--secondary-background);
   --nb-paper-soft: var(--muted);
   --nb-on-background: $lightSurfaceForeground;
@@ -105,8 +108,8 @@ class NeubrutalismCss {
   --nb-on-card: #000000;
   --nb-on-paper: #000000;
   --nb-on-paper-soft: $lightSecondaryForeground;
-  --nb-on-main: $accentForeground;
-  --nb-on-accent: $accentForeground;
+  --nb-on-main: var(--nb-on-accent-in, $accentForeground);
+  --nb-on-accent: var(--nb-on-accent-in, $accentForeground);
   --nb-on-accent-hot: $accentHotForeground;
   --nb-on-accent-cool: $accentCoolForeground;
   --nb-on-ink: #FFFFFF;
@@ -121,7 +124,12 @@ class NeubrutalismCss {
   --nb-on-landing-band: $lightBandForeground;
   --nb-terminal-bg: #1A1A1A;
   --nb-terminal-foreground: #FFFFFF;
-  --nb-accent: $accentColor;
+  /* The identity colors accept runtime overrides (--nb-*-in) so a host app can
+     re-tint the accent, its readable foreground, the ink line, the hard shadow
+     and the dark canvas from an account palette without a rebuild; unset, they
+     fall back to this theme's stock scheme (same contract as the --w95-*-in
+     hooks in arcane_jaspr_win95). */
+  --nb-accent: var(--nb-accent-in, $accentColor);
   --nb-accent-hot: $accentHot;
   --nb-accent-cool: $accentCool;
   --nb-topbar-height: 70px;
@@ -216,15 +224,15 @@ html.light #arcane-root.arcane-theme-neubrutalism,
   --muted: $lightSecondary;
   --muted-foreground: $lightSecondaryForeground;
   --accent: var(--main);
-  --accent-foreground: $accentForeground;
+  --accent-foreground: var(--nb-on-accent-in, $accentForeground);
   --border: #000000;
   --input: #FFFFFF;
   --ring: #000000;
   --main: var(--nb-accent);
-  --main-foreground: $accentForeground;
+  --main-foreground: var(--nb-on-accent-in, $accentForeground);
   --nb-ink: #000000;
-  --nb-line: #000000;
-  --nb-shadow-color: #000000;
+  --nb-line: var(--nb-line-in, #000000);
+  --nb-shadow-color: var(--nb-shadow-in, #000000);
   --nb-paper: var(--secondary-background);
   --nb-paper-soft: var(--muted);
   --nb-on-background: $lightSurfaceForeground;
@@ -232,8 +240,8 @@ html.light #arcane-root.arcane-theme-neubrutalism,
   --nb-on-card: #000000;
   --nb-on-paper: #000000;
   --nb-on-paper-soft: $lightSecondaryForeground;
-  --nb-on-main: $accentForeground;
-  --nb-on-accent: $accentForeground;
+  --nb-on-main: var(--nb-on-accent-in, $accentForeground);
+  --nb-on-accent: var(--nb-on-accent-in, $accentForeground);
   --nb-on-accent-hot: $accentHotForeground;
   --nb-on-accent-cool: $accentCoolForeground;
   --nb-on-ink: #FFFFFF;
@@ -250,7 +258,7 @@ html.light #arcane-root.arcane-theme-neubrutalism,
 
 html.dark #arcane-root.arcane-theme-neubrutalism,
 #arcane-root.dark.arcane-theme-neubrutalism {
-  --background: $darkBackground;
+  --background: var(--nb-dark-bg-in, $darkBackground);
   --foreground: $darkBackgroundForeground;
   --secondary-background: $darkSecondary;
   --card: var(--secondary-background);
@@ -261,20 +269,20 @@ html.dark #arcane-root.arcane-theme-neubrutalism,
   --muted: $darkMuted;
   --muted-foreground: $darkMutedForeground;
   --accent: var(--main);
-  --accent-foreground: $accentForeground;
-  --border: #54545A;
-  --input: var(--secondary-background);
+  --accent-foreground: var(--nb-on-accent-in, $accentForeground);
+  --border: #686870;
+  --input: var(--muted);
   --ring: var(--main);
   --main: var(--nb-accent);
-  --main-foreground: $accentForeground;
+  --main-foreground: var(--nb-on-accent-in, $accentForeground);
   --nb-dark-inverse-black: #EAEAEF;
-  --nb-dark-inverse-black-soft: rgba(234, 234, 239, 0.48);
+  --nb-dark-inverse-black-soft: rgba(234, 234, 239, 0.82);
   --nb-on-dark-inverse-black: #000000;
   --info: #6FB3FF;
   --destructive: #FF4747;
   --nb-ink: #000000;
-  --nb-line: color-mix(in srgb, var(--nb-dark-inverse-black) 54%, var(--background));
-  --nb-shadow-color: var(--nb-dark-inverse-black-soft);
+  --nb-line: var(--nb-line-in, color-mix(in srgb, var(--nb-dark-inverse-black) 72%, var(--background)));
+  --nb-shadow-color: var(--nb-shadow-in, var(--nb-dark-inverse-black-soft));
   --nb-paper: var(--secondary-background);
   --nb-paper-soft: var(--muted);
   --nb-on-background: $darkBackgroundForeground;
@@ -282,14 +290,14 @@ html.dark #arcane-root.arcane-theme-neubrutalism,
   --nb-on-card: $darkSecondaryForeground;
   --nb-on-paper: $darkSecondaryForeground;
   --nb-on-paper-soft: $darkMutedForeground;
-  --nb-on-main: $accentForeground;
-  --nb-on-accent: $accentForeground;
+  --nb-on-main: var(--nb-on-accent-in, $accentForeground);
+  --nb-on-accent: var(--nb-on-accent-in, $accentForeground);
   --nb-on-accent-hot: $accentHotForeground;
   --nb-on-accent-cool: $accentCoolForeground;
   --nb-on-ink: #FFFFFF;
   --nb-surface-foreground: var(--nb-on-paper);
-  --nb-control-paper: var(--secondary-background);
-  --nb-control-foreground: var(--nb-on-secondary-background);
+  --nb-control-paper: var(--muted);
+  --nb-control-foreground: var(--nb-on-paper-soft);
   --nb-tooltip-foreground: var(--nb-on-ink);
   --nb-selection-bg: var(--muted);
   --nb-selection-line: #686870;
@@ -298,11 +306,11 @@ html.dark #arcane-root.arcane-theme-neubrutalism,
   --nb-on-landing-band: var(--foreground);
   --nb-terminal-bg: var(--nb-dark-inverse-black);
   --nb-terminal-foreground: var(--nb-on-dark-inverse-black);
-  --nb-shadow-xs: 1px 1px 0 0 var(--nb-shadow-color);
-  --nb-shadow-sm: 2px 2px 0 0 var(--nb-shadow-color);
-  --nb-shadow-md: 3px 3px 0 0 var(--nb-shadow-color);
-  --nb-shadow-lg: 4px 4px 0 0 var(--nb-shadow-color);
-  --nb-shadow-xl: 5px 5px 0 0 var(--nb-shadow-color);
+  --nb-shadow-xs: 2px 2px 0 0 var(--nb-shadow-color);
+  --nb-shadow-sm: 3px 3px 0 0 var(--nb-shadow-color);
+  --nb-shadow-md: 4px 4px 0 0 var(--nb-shadow-color);
+  --nb-shadow-lg: 6px 6px 0 0 var(--nb-shadow-color);
+  --nb-shadow-xl: 8px 8px 0 0 var(--nb-shadow-color);
 }
 
 html.dark #arcane-root.arcane-theme-neubrutalism::before,

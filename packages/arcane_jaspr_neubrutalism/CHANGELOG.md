@@ -1,5 +1,30 @@
 # Changelog
 
+## x.x.x
+
+### Added
+
+- Runtime override hooks for the theme's identity colors, mirroring the
+  `--w95-*-in` contract in `arcane_jaspr_win95`: `--nb-accent-in` (accent),
+  `--nb-on-accent-in` (readable foreground on the accent), `--nb-line-in`
+  (ink border), `--nb-shadow-in` (hard-shadow color) and `--nb-dark-bg-in`
+  (dark canvas). Every consumer now reads `var(--nb-*-in, stock)`, so a host
+  app can re-tint the whole system from an account accent at runtime without
+  a rebuild; with the hooks unset the stock look is unchanged.
+
+### Changed
+
+- Dark mode readability overhaul. The dark canvas now mixes only 8% of the
+  accent over a neutral near-black (was 18%, which washed the page in an
+  olive-brown under the yellow theme), cards sit on a slightly lighter
+  neutral base so they separate from the canvas, and inputs/selects render
+  on the lighter muted control paper instead of the near-black card color.
+- Dark hard shadows are visible again: the shadow color's alpha rises from
+  0.48 to 0.82, the ink line mixes 72% (was 54%) of the inverse-black, the
+  dark `--border` lightens from #54545A to #686870, and the dark shadow
+  offsets grow from 1/2/3/4/5px to 2/3/4/6/8px so the signature hard-offset
+  language survives on dark surfaces.
+
 ## 3.3.0
 
 - Align package version and Arcane Jaspr dependency with the 3.3.0 core release.
