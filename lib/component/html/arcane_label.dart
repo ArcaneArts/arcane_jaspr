@@ -25,13 +25,14 @@ import 'package:jaspr/dom.dart'
         WhiteSpace,
         events;
 
+import '../../util/classes.dart';
 import '../../util/style_types/arcane_style_data.dart';
 
 /// Styled label element wrapper.
 class ArcaneLabel extends StatelessComponent {
   final Component child;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
   final String? htmlFor;
 
@@ -47,7 +48,7 @@ class ArcaneLabel extends StatelessComponent {
   const factory ArcaneLabel.children({
     required List<Component> children,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     String? htmlFor,
     Key? key,
@@ -59,7 +60,7 @@ class ArcaneLabel extends StatelessComponent {
       [child],
       id: id,
       htmlFor: htmlFor,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
     );
   }
@@ -84,7 +85,7 @@ class _ArcaneLabelChildren extends ArcaneLabel {
       _children,
       id: id,
       htmlFor: htmlFor,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
     );
   }

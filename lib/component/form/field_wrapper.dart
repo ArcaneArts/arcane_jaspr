@@ -1,7 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/field_wrapper_props.dart';
 
@@ -17,6 +18,12 @@ class ArcaneFieldWrapper extends StatelessWidget {
   final Widget? leading;
   final Widget? trailing;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneFieldWrapper({
     required this.field,
     this.labelText,
@@ -27,6 +34,8 @@ class ArcaneFieldWrapper extends StatelessWidget {
     this.showValidation = true,
     this.leading,
     this.trailing,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -42,6 +51,8 @@ class ArcaneFieldWrapper extends StatelessWidget {
       showValidation: showValidation,
       leading: leading,
       trailing: trailing,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }
@@ -112,9 +123,17 @@ class ArcaneInputGroup extends StatelessWidget {
   final List<Widget> children;
   final double gap;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneInputGroup({
     required this.children,
     this.gap = 8,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -123,6 +142,8 @@ class ArcaneInputGroup extends StatelessWidget {
     return context.renderers.inputGroup(InputGroupProps(
       children: children,
       gap: gap,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

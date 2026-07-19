@@ -1,10 +1,12 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/interaction/interaction.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
-export '../../core/props/button_props.dart' show ButtonVariant, ButtonSize;
+export '../../core/props/button_props.dart'
+    show ButtonVariant, ButtonSize, ButtonType;
 
 /// A styled button component.
 ///
@@ -25,6 +27,10 @@ class Button extends StatelessWidget {
   final Map<String, String>? attributes;
   final String? id;
 
+  /// Native `<button type>` used when this renders as a button.
+  /// Ignored when [href] renders the control as an anchor.
+  final ButtonType type;
+
   /// If provided, renders the button as an anchor tag (`<a>`) instead of `<button>`.
   /// Useful for CTA buttons that navigate to other pages.
   final String? href;
@@ -32,6 +38,12 @@ class Button extends StatelessWidget {
   /// Whether to show an arrow indicator after the label.
   /// Useful for CTA buttons to indicate navigation.
   final bool showArrow;
+
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
 
   const Button({
     this.label,
@@ -47,8 +59,11 @@ class Button extends StatelessWidget {
     this.fullWidth = false,
     this.attributes,
     this.id,
+    this.type = ButtonType.button,
     this.href,
     this.showArrow = false,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -65,8 +80,11 @@ class Button extends StatelessWidget {
     this.fullWidth = false,
     this.attributes,
     this.id,
+    this.type = ButtonType.button,
     this.href,
     this.showArrow = false,
+    this.styles,
+    this.decoration,
     super.key,
   }) : variant = ButtonVariant.primary;
 
@@ -83,8 +101,11 @@ class Button extends StatelessWidget {
     this.fullWidth = false,
     this.attributes,
     this.id,
+    this.type = ButtonType.button,
     this.href,
     this.showArrow = false,
+    this.styles,
+    this.decoration,
     super.key,
   }) : variant = ButtonVariant.secondary;
 
@@ -101,8 +122,11 @@ class Button extends StatelessWidget {
     this.fullWidth = false,
     this.attributes,
     this.id,
+    this.type = ButtonType.button,
     this.href,
     this.showArrow = false,
+    this.styles,
+    this.decoration,
     super.key,
   }) : variant = ButtonVariant.outline;
 
@@ -119,8 +143,11 @@ class Button extends StatelessWidget {
     this.fullWidth = false,
     this.attributes,
     this.id,
+    this.type = ButtonType.button,
     this.href,
     this.showArrow = false,
+    this.styles,
+    this.decoration,
     super.key,
   }) : variant = ButtonVariant.ghost;
 
@@ -137,8 +164,11 @@ class Button extends StatelessWidget {
     this.fullWidth = false,
     this.attributes,
     this.id,
+    this.type = ButtonType.button,
     this.href,
     this.showArrow = false,
+    this.styles,
+    this.decoration,
     super.key,
   }) : variant = ButtonVariant.destructive;
 
@@ -155,8 +185,11 @@ class Button extends StatelessWidget {
     this.fullWidth = false,
     this.attributes,
     this.id,
+    this.type = ButtonType.button,
     this.href,
     this.showArrow = false,
+    this.styles,
+    this.decoration,
     super.key,
   }) : variant = ButtonVariant.warning;
 
@@ -173,8 +206,11 @@ class Button extends StatelessWidget {
     this.fullWidth = false,
     this.attributes,
     this.id,
+    this.type = ButtonType.button,
     this.href,
     this.showArrow = false,
+    this.styles,
+    this.decoration,
     super.key,
   }) : variant = ButtonVariant.success;
 
@@ -191,8 +227,11 @@ class Button extends StatelessWidget {
     this.fullWidth = false,
     this.attributes,
     this.id,
+    this.type = ButtonType.button,
     this.href,
     this.showArrow = false,
+    this.styles,
+    this.decoration,
     super.key,
   }) : variant = ButtonVariant.link;
 
@@ -209,8 +248,11 @@ class Button extends StatelessWidget {
     this.fullWidth = false,
     this.attributes,
     this.id,
+    this.type = ButtonType.button,
     this.href,
     this.showArrow = false,
+    this.styles,
+    this.decoration,
     super.key,
   }) : variant = ButtonVariant.info;
 
@@ -229,29 +271,37 @@ class Button extends StatelessWidget {
     this.fullWidth = false,
     this.attributes,
     this.id,
+    this.type = ButtonType.button,
     this.href,
     this.showArrow = false,
+    this.styles,
+    this.decoration,
     super.key,
   }) : variant = ButtonVariant.accent;
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.button(ButtonProps(
-      label: label,
-      child: child,
-      icon: icon,
-      trailing: trailing,
-      onPressed: onPressed,
-      action: action,
-      variant: variant,
-      size: size,
-      disabled: disabled,
-      loading: loading,
-      fullWidth: fullWidth,
-      id: id,
-      attributes: attributes,
-      href: href,
-      showArrow: showArrow,
-    ));
+    return context.renderers.button(
+      ButtonProps(
+        label: label,
+        child: child,
+        icon: icon,
+        trailing: trailing,
+        onPressed: onPressed,
+        action: action,
+        variant: variant,
+        size: size,
+        disabled: disabled,
+        loading: loading,
+        fullWidth: fullWidth,
+        id: id,
+        attributes: attributes,
+        href: href,
+        type: type,
+        showArrow: showArrow,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }

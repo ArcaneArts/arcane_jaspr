@@ -25,13 +25,14 @@ import 'package:jaspr/dom.dart'
         WhiteSpace,
         events;
 
+import '../../util/classes.dart';
 import '../../util/style_types/arcane_style_data.dart';
 
 /// Styled div wrapper.
 class ArcaneDiv extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
   final Map<String, void Function(dynamic)>? events;
   final Map<String, String>? attributes;
@@ -49,7 +50,7 @@ class ArcaneDiv extends StatelessComponent {
   const factory ArcaneDiv.child({
     required Component child,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     Map<String, void Function(dynamic)>? events,
     Map<String, String>? attributes,
@@ -60,7 +61,7 @@ class ArcaneDiv extends StatelessComponent {
   Component build(BuildContext context) {
     return div(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       events: events,
       attributes: attributes,
@@ -87,7 +88,7 @@ class _ArcaneDivChild extends ArcaneDiv {
   Component build(BuildContext context) {
     return div(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       events: events,
       attributes: attributes,

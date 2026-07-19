@@ -1,8 +1,9 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/interaction/interaction.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/cycle_button_props.dart'
     show CycleButtonSize, CycleButtonVariant, CycleOption;
@@ -19,6 +20,13 @@ class ArcaneCycleButton<T> extends StatelessWidget {
   final String? id;
   final Map<String, String>? attributes;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const ArcaneCycleButton({
     required this.options,
     required this.value,
@@ -29,6 +37,8 @@ class ArcaneCycleButton<T> extends StatelessWidget {
     this.disabled = false,
     this.id,
     this.attributes,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -44,6 +54,8 @@ class ArcaneCycleButton<T> extends StatelessWidget {
       disabled: disabled,
       id: id,
       attributes: attributes,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }
@@ -60,6 +72,13 @@ class ArcaneToggleButton extends StatelessWidget {
   final String? id;
   final Map<String, String>? attributes;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const ArcaneToggleButton({
     required this.value,
     this.onChanged,
@@ -70,6 +89,8 @@ class ArcaneToggleButton extends StatelessWidget {
     this.disabled = false,
     this.id,
     this.attributes,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -85,6 +106,8 @@ class ArcaneToggleButton extends StatelessWidget {
       disabled: disabled,
       id: id,
       attributes: attributes,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

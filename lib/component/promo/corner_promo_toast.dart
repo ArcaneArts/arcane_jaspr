@@ -1,8 +1,9 @@
 import 'package:jaspr/dom.dart' as dom;
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 /// A corner toast-style promo notification that slides in from a corner.
 ///
@@ -19,6 +20,13 @@ class ArcaneCornerPromoToast extends StatefulWidget {
   final int delayMs;
   final Widget? icon;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const ArcaneCornerPromoToast({
     required this.title,
     required this.message,
@@ -30,6 +38,8 @@ class ArcaneCornerPromoToast extends StatefulWidget {
     this.position = PromoCornerPosition.bottomRight,
     this.delayMs = 3000,
     this.icon,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -78,6 +88,8 @@ class _ArcaneCornerPromoToastState extends State<ArcaneCornerPromoToast> {
       position: component.position,
       delayMs: component.delayMs,
       icon: component.icon,
+      styles: component.styles,
+      decoration: component.decoration,
     ));
   }
 }

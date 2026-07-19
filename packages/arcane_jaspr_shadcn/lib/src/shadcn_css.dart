@@ -7,6 +7,655 @@ import 'package:arcane_jaspr/util/content/prose_styles.dart';
 import 'shadcn_theme.dart';
 
 class ShadcnCss {
+  static const String _lexiconCss = '''
+#arcane-root.arcane-theme-shadcn {
+  --shadcn-subtle-line: color-mix(in srgb, var(--border) 52%, transparent);
+  --shadcn-hairline: color-mix(in srgb, var(--border) 38%, transparent);
+  --shadcn-panel-fill: color-mix(in srgb, var(--background) 90%, var(--secondary));
+  --shadcn-panel-highlight: color-mix(in srgb, var(--primary) 9%, var(--background));
+  --shadcn-control-fill: color-mix(in srgb, var(--accent) 52%, var(--background));
+  --shadcn-control-hover: color-mix(in srgb, var(--accent) 74%, var(--background));
+}
+
+html.dark #arcane-root.arcane-theme-shadcn,
+#arcane-root.dark.arcane-theme-shadcn {
+  --shadcn-subtle-line: color-mix(in srgb, var(--border) 64%, transparent);
+  --shadcn-hairline: color-mix(in srgb, var(--border) 46%, transparent);
+  --shadcn-panel-fill: color-mix(in srgb, var(--background) 82%, var(--secondary));
+  --shadcn-panel-highlight: color-mix(in srgb, var(--primary) 14%, var(--background));
+  --shadcn-control-fill: color-mix(in srgb, var(--accent) 72%, var(--background));
+  --shadcn-control-hover: color-mix(in srgb, var(--accent) 84%, var(--primary));
+}
+
+html:has(#arcane-root.arcane-theme-shadcn),
+html:has(#arcane-root.arcane-theme-shadcn) body,
+#arcane-root.arcane-theme-shadcn,
+#arcane-root.arcane-theme-shadcn * {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--border) 72%, transparent) transparent;
+}
+
+html:has(#arcane-root.arcane-theme-shadcn)::-webkit-scrollbar,
+html:has(#arcane-root.arcane-theme-shadcn) body::-webkit-scrollbar,
+#arcane-root.arcane-theme-shadcn *::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+html:has(#arcane-root.arcane-theme-shadcn)::-webkit-scrollbar-track,
+html:has(#arcane-root.arcane-theme-shadcn) body::-webkit-scrollbar-track,
+#arcane-root.arcane-theme-shadcn *::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html:has(#arcane-root.arcane-theme-shadcn)::-webkit-scrollbar-thumb,
+html:has(#arcane-root.arcane-theme-shadcn) body::-webkit-scrollbar-thumb,
+#arcane-root.arcane-theme-shadcn *::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--border) 72%, transparent);
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+
+html:has(#arcane-root.arcane-theme-shadcn)::-webkit-scrollbar-thumb:hover,
+html:has(#arcane-root.arcane-theme-shadcn) body::-webkit-scrollbar-thumb:hover,
+#arcane-root.arcane-theme-shadcn *::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--foreground) 28%, var(--border));
+}
+
+#arcane-root.arcane-theme-shadcn .arcane-scaffold {
+  min-height: 100vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  padding-top: 0 !important;
+  background: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+#arcane-root.arcane-theme-shadcn .arcane-scaffold-header {
+  position: sticky !important;
+  top: 0 !important;
+  left: auto !important;
+  right: auto !important;
+  z-index: 40 !important;
+  height: 3.5rem !important;
+  min-height: 3.5rem !important;
+  padding: 0 !important;
+  border-bottom: 1px solid var(--shadcn-hairline) !important;
+  border-bottom-color: var(--shadcn-hairline) !important;
+  background: color-mix(in srgb, var(--background) 94%, transparent) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(10px) saturate(1.08) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(1.08) !important;
+}
+
+#arcane-root.arcane-theme-shadcn .arcane-scaffold-body {
+  display: grid !important;
+  grid-template-columns: minmax(15rem, 17.5rem) minmax(0, 1fr) !important;
+  align-items: start !important;
+  gap: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+#arcane-root.arcane-theme-shadcn .arcane-scaffold-sidebar,
+#arcane-root.arcane-theme-shadcn .arcane-scaffold-secondary {
+  border-color: var(--shadcn-hairline) !important;
+  background: var(--shadcn-panel-fill) !important;
+  box-shadow: none !important;
+}
+
+#arcane-root.arcane-theme-shadcn .arcane-scaffold-sidebar.arcane-scaffold-sidebar {
+  position: sticky !important;
+  top: 3.5rem !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  align-self: start !important;
+  width: 17.5rem !important;
+  border-right: 1px solid var(--shadcn-hairline) !important;
+  height: max-content !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  padding: 0 !important;
+}
+
+#arcane-root.arcane-theme-shadcn .arcane-scaffold-main.arcane-scaffold-main {
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 0 !important;
+  margin-left: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  overflow: visible !important;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border: 0;
+  border-bottom: 1px solid var(--shadcn-hairline);
+  background: var(--background);
+  box-shadow: none;
+}
+
+#arcane-root.arcane-theme-shadcn .arcane-scaffold-header .kb-topbar {
+  border-bottom: 0 !important;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-topbar-inner {
+  width: 100%;
+  max-width: none;
+  height: 3.5rem;
+  min-height: 3.5rem;
+  padding: 0 1.5rem;
+  gap: 1.25rem;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-topbar-left,
+#arcane-root.arcane-theme-shadcn .kb-topbar-right {
+  min-width: 0;
+  gap: 0.875rem;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-topbar-left {
+  flex: 1 1 auto;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-topbar-right {
+  flex: 0 1 auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-topbar-nav {
+  min-width: 0;
+  margin-left: 0.25rem;
+  padding: 0;
+  gap: 1.25rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-topbar-brand {
+  height: auto;
+  padding: 0;
+  gap: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--foreground);
+  box-shadow: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-topbar-brand-icon {
+  display: none;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-topbar-brand-label {
+  color: var(--foreground);
+}
+
+#arcane-root.arcane-theme-shadcn .kb-style-switcher {
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-topbar-link {
+  position: relative;
+  height: auto;
+  padding: 0.125rem 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--muted-foreground);
+  box-shadow: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-topbar-link:hover,
+#arcane-root.arcane-theme-shadcn .kb-topbar-link.active {
+  background: transparent;
+  color: var(--foreground);
+  box-shadow: none;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-topbar-link.active {
+  font-weight: 600;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-topbar-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.7rem;
+  height: 2px;
+  border-radius: 999px;
+  background: transparent;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-topbar-link.active::after {
+  background: var(--foreground);
+}
+
+#arcane-root.arcane-theme-shadcn .arcane-scaffold-sidebar .kb-sidebar {
+  position: relative !important;
+  top: auto !important;
+  width: 100% !important;
+  height: max-content !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  padding: 0.375rem !important;
+  overflow: visible !important;
+}
+
+#arcane-root.arcane-theme-shadcn .arcane-scaffold-sidebar .kb-sidebar-panel {
+  min-height: 0 !important;
+}
+
+/* Docs knowledge-base sidebar (rendered directly under .kb-scaffold, not the
+   arcane scaffold). Pin it directly below the 3.5rem sticky topbar and let it
+   scroll on its own instead of forcing the whole page to scroll. The inline
+   --kb-sidebar-rail-top (56px) otherwise double-counts the topbar height,
+   leaving a gap above the nav. */
+#arcane-root.arcane-theme-shadcn .shadcn-kb-sidebar {
+  top: 3.5rem;
+  max-height: calc(100vh - 3.5rem);
+  overflow-y: auto;
+}
+
+#arcane-root.arcane-theme-shadcn .sidebar-header {
+  margin: 0 0 0.5rem;
+  padding: 0.625rem;
+  border: 1px solid var(--shadcn-hairline);
+  border-radius: var(--radius-lg);
+  background: var(--shadcn-panel-highlight);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--foreground) 4%, transparent);
+}
+
+#arcane-root.arcane-theme-shadcn .sidebar-nav {
+  padding: 0.375rem 0.125rem 0.625rem !important;
+  gap: 0.375rem !important;
+}
+
+#arcane-root.arcane-theme-shadcn .sidebar-section {
+  margin-bottom: 0.375rem;
+}
+
+#arcane-root.arcane-theme-shadcn .sidebar-section-header {
+  padding: 0.375rem 0.5rem 0.25rem;
+  color: var(--muted-foreground);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+#arcane-root.arcane-theme-shadcn .sidebar-tree {
+  padding-left: 0.75rem;
+  margin-left: 0.25rem;
+  gap: 0.25rem;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-topbar-github,
+#arcane-root.arcane-theme-shadcn .kb-theme-toggle,
+#arcane-root.arcane-theme-shadcn .kb-stylesheet-select,
+#arcane-root.arcane-theme-shadcn .kb-palette-select,
+#arcane-root.arcane-theme-shadcn .kb-hamburger {
+  height: 2.125rem;
+  border: 1px solid var(--shadcn-hairline);
+  background: var(--background);
+  border-radius: var(--radius);
+  box-shadow: none;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-topbar-github,
+#arcane-root.arcane-theme-shadcn .kb-theme-toggle,
+#arcane-root.arcane-theme-shadcn .kb-hamburger {
+  width: 2.125rem;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-topbar .kb-hamburger {
+  display: none !important;
+}
+
+@media (max-width: 900px) {
+  #arcane-root.arcane-theme-shadcn .kb-topbar .kb-hamburger {
+    display: inline-flex !important;
+  }
+}
+
+#arcane-root.arcane-theme-shadcn .kb-topbar-github:hover,
+#arcane-root.arcane-theme-shadcn .kb-theme-toggle:hover,
+#arcane-root.arcane-theme-shadcn .kb-stylesheet-select:hover,
+#arcane-root.arcane-theme-shadcn .kb-palette-select:hover,
+#arcane-root.arcane-theme-shadcn .kb-hamburger:hover {
+  background: var(--shadcn-control-hover);
+  border-color: var(--shadcn-subtle-line);
+}
+
+#arcane-root.arcane-theme-shadcn .kb-search-input,
+#arcane-root.arcane-theme-shadcn .sidebar-search input {
+  height: 2.125rem;
+  border-color: var(--shadcn-hairline);
+  background: var(--background);
+  border-radius: var(--radius);
+}
+
+#arcane-root.arcane-theme-shadcn .kb-search-input:focus,
+#arcane-root.arcane-theme-shadcn .sidebar-search input:focus {
+  border-color: color-mix(in srgb, var(--ring) 42%, transparent);
+  background: var(--background);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--ring) 16%, transparent);
+}
+
+#arcane-root.arcane-theme-shadcn .search-results {
+  border-color: var(--shadcn-subtle-line);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 28px -22px rgba(0, 0, 0, 0.42);
+}
+
+#arcane-root.arcane-theme-shadcn .sidebar-tabs {
+  background: var(--shadcn-control-fill);
+  border-radius: var(--radius);
+}
+
+#arcane-root.arcane-theme-shadcn .sidebar-tab {
+  border-radius: calc(var(--radius) - 2px);
+}
+
+#arcane-root.arcane-theme-shadcn .sidebar-tab.active {
+  box-shadow: none;
+}
+
+#arcane-root.arcane-theme-shadcn .sidebar-summary,
+#arcane-root.arcane-theme-shadcn .sidebar-link {
+  border-radius: calc(var(--radius) - 2px);
+  color: color-mix(in srgb, var(--foreground) 78%, var(--muted-foreground));
+  outline: 1px solid transparent;
+  outline-offset: -1px;
+}
+
+#arcane-root.arcane-theme-shadcn .sidebar-summary:hover,
+#arcane-root.arcane-theme-shadcn .sidebar-details[open] > .sidebar-summary,
+#arcane-root.arcane-theme-shadcn .sidebar-link:hover,
+#arcane-root.arcane-theme-shadcn .sidebar-link.active {
+  background: var(--shadcn-control-hover);
+  color: var(--foreground);
+  outline-color: var(--shadcn-subtle-line);
+}
+
+#arcane-root.arcane-theme-shadcn .sidebar-link.active {
+  box-shadow: none;
+}
+
+#arcane-root.arcane-theme-shadcn .sidebar-tree > .sidebar-section::before,
+#arcane-root.arcane-theme-shadcn .sidebar-tree > .sidebar-section::after,
+#arcane-root.arcane-theme-shadcn .sidebar-tree-item::before,
+#arcane-root.arcane-theme-shadcn .sidebar-tree-item::after,
+#arcane-root.arcane-theme-shadcn .sidebar-tree-item:not(:last-child)::after {
+  content: none !important;
+  display: none !important;
+  background: transparent !important;
+}
+
+#arcane-root.arcane-theme-shadcn .toc-content > ul > li::before,
+#arcane-root.arcane-theme-shadcn .toc-content > ul > li::after,
+#arcane-root.arcane-theme-shadcn .toc-content ul ul li::before,
+#arcane-root.arcane-theme-shadcn .toc-content ul ul li::after {
+  background: var(--shadcn-hairline) !important;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-toc-panel .toc {
+  padding: 0.125rem 0 0;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-toc-panel .toc-title {
+  border-bottom: 0 !important;
+  padding-bottom: 0.125rem;
+  margin-bottom: 0.5rem;
+}
+
+#arcane-root.arcane-theme-shadcn .toc-content a {
+  border-radius: calc(var(--radius) - 2px);
+  background: transparent;
+}
+
+#arcane-root.arcane-theme-shadcn .toc-content a:hover,
+#arcane-root.arcane-theme-shadcn .toc-content a.toc-active {
+  background: var(--shadcn-control-hover);
+}
+
+#arcane-root.arcane-theme-shadcn .kb-main-area {
+  min-width: 0 !important;
+  width: 100% !important;
+  overflow: visible !important;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-content-area {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  align-items: start !important;
+  width: 100% !important;
+  max-width: var(--container-2xl, 90rem) !important;
+  margin: 0 auto !important;
+  gap: clamp(1.75rem, 3vw, 3rem) !important;
+  padding: clamp(1.75rem, 3vw, 3rem) clamp(1.5rem, 4vw, 3.5rem) !important;
+}
+
+/* Reserve the right-hand TOC column only when a table of contents is actually
+   present (prose pages with headings). TOC-less pages (e.g. component docs)
+   render a single centered column instead of leaving an empty 17rem gap. */
+@media (min-width: 1201px) {
+  #arcane-root.arcane-theme-shadcn .kb-content-area:has(.kb-toc-panel) {
+    grid-template-columns: minmax(0, 1fr) minmax(12rem, 17rem) !important;
+  }
+}
+
+#arcane-root.arcane-theme-shadcn .kb-article-panel {
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: 68rem !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-page-metadata,
+#arcane-root.arcane-theme-shadcn .kb-tags-footer,
+#arcane-root.arcane-theme-shadcn .prose h2,
+#arcane-root.arcane-theme-shadcn .prose hr,
+#arcane-root.arcane-theme-shadcn .prose blockquote,
+#arcane-root.arcane-theme-shadcn .prose th,
+#arcane-root.arcane-theme-shadcn .prose td,
+#arcane-root.arcane-theme-shadcn .prose pre {
+  border-color: var(--shadcn-hairline) !important;
+}
+
+#arcane-root.arcane-theme-shadcn .prose th {
+  background: var(--shadcn-control-fill);
+}
+
+#arcane-root.arcane-theme-shadcn .arcane-demo-preview-scope,
+#arcane-root.arcane-theme-shadcn .arcane-demo-code {
+  border-color: var(--shadcn-subtle-line) !important;
+  border-radius: var(--radius-lg);
+  box-shadow: none !important;
+}
+
+#arcane-root.arcane-theme-shadcn .arcane-demo-panel {
+  padding: 1.5rem !important;
+  border: 1px solid var(--shadcn-subtle-line) !important;
+  border-radius: var(--radius-xl) !important;
+  background: color-mix(in srgb, var(--card) 96%, var(--background)) !important;
+  box-shadow: none !important;
+}
+
+#arcane-root.arcane-theme-shadcn .arcane-demo-kicker,
+#arcane-root.arcane-theme-shadcn .arcane-demo-code-label {
+  color: var(--muted-foreground) !important;
+}
+
+#arcane-root.arcane-theme-shadcn .arcane-demo-component-chip {
+  border: 1px solid transparent !important;
+  border-radius: 999px !important;
+  background: var(--shadcn-control-fill) !important;
+  color: var(--muted-foreground) !important;
+  box-shadow: none !important;
+}
+
+#arcane-root.arcane-theme-shadcn .arcane-demo-section-title {
+  color: var(--foreground) !important;
+}
+
+#arcane-root.arcane-theme-shadcn .arcane-demo-preview-scope {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-width: 1px !important;
+  background: color-mix(in srgb, var(--card) 96%, var(--background)) !important;
+}
+
+#arcane-root.arcane-theme-shadcn .arcane-demo-preview-scope > .arcane-box {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+#arcane-root.arcane-theme-shadcn .arcane-demo-missing {
+  border: 1px solid var(--shadcn-subtle-line) !important;
+  border-radius: var(--radius-lg) !important;
+  background: var(--background) !important;
+  color: var(--foreground) !important;
+  box-shadow: none !important;
+}
+
+#arcane-root.arcane-theme-shadcn .arcane-demo-missing-icon {
+  border: 1px solid color-mix(in srgb, var(--warning, #f59e0b) 42%, var(--border)) !important;
+  border-radius: var(--radius-sm) !important;
+  background: color-mix(in srgb, var(--warning, #f59e0b) 16%, var(--background)) !important;
+  color: color-mix(in srgb, var(--warning, #f59e0b) 74%, var(--foreground)) !important;
+}
+
+#arcane-root.arcane-theme-shadcn .arcane-demo-missing-title {
+  color: var(--foreground) !important;
+}
+
+#arcane-root.arcane-theme-shadcn .arcane-demo-missing-body {
+  color: var(--muted-foreground) !important;
+}
+
+@media (max-width: 900px) {
+  #arcane-root.arcane-theme-shadcn .arcane-scaffold-sidebar.arcane-scaffold-sidebar {
+    position: static !important;
+    top: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+  }
+}
+
+
+#arcane-root.arcane-theme-shadcn .kb-topbar::before,
+#arcane-root.arcane-theme-shadcn .kb-topbar::after {
+  content: none !important;
+  display: none !important;
+  box-shadow: none !important;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-toc-panel {
+  position: sticky !important;
+  top: 5rem !important;
+  align-self: flex-start !important;
+  width: 100% !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+@media (max-width: 1200px) {
+  #arcane-root.arcane-theme-shadcn .kb-content-area {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  #arcane-root.arcane-theme-shadcn .kb-toc-panel {
+    display: none !important;
+  }
+}
+
+@media (max-width: 900px) {
+  #arcane-root.arcane-theme-shadcn .arcane-scaffold-body {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  #arcane-root.arcane-theme-shadcn .arcane-scaffold-sidebar.arcane-scaffold-sidebar {
+    position: static !important;
+    width: auto !important;
+  }
+
+  #arcane-root.arcane-theme-shadcn .kb-content-area {
+    padding: 1.25rem !important;
+  }
+}
+
+
+#arcane-root.arcane-theme-shadcn .kb-landing-hero {
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--card) 92%, var(--primary) 8%), color-mix(in srgb, var(--background) 88%, var(--primary) 12%)),
+    linear-gradient(90deg, color-mix(in srgb, var(--primary) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(color-mix(in srgb, var(--border) 54%, transparent) 1px, transparent 1px);
+  background-size: auto, 4rem 4rem, 4rem 4rem;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-landing-prose {
+  display: grid;
+  gap: clamp(1.5rem, 2.4vw, 2.4rem);
+}
+
+#arcane-root.arcane-theme-shadcn .kb-landing-prose > * + * {
+  margin-top: 0;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-landing-grid {
+  gap: clamp(1.25rem, 2vw, 1.8rem);
+  margin-top: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-landing-band {
+  gap: clamp(1.45rem, 2.4vw, 2.2rem);
+  margin-top: 1.25rem;
+  padding: clamp(1.5rem, 2.4vw, 2.25rem);
+}
+
+#arcane-root.arcane-theme-shadcn .kb-landing-terminal-body,
+#arcane-root.arcane-theme-shadcn .kb-landing-list {
+  gap: 1rem;
+}
+
+#arcane-root.arcane-theme-shadcn .kb-landing-card:hover {
+  border-color: color-mix(in srgb, var(--primary) 42%, var(--border));
+  box-shadow: 0 1rem 2.5rem color-mix(in srgb, var(--primary) 10%, transparent);
+}
+
+''';
 
   const ShadcnCss._();
 
@@ -279,6 +928,15 @@ $neutralOverrides
   margin: 1.5rem 0;
 }
 
+/* Nested cards are sub-surfaces: a card inside another card drops its frame so
+   stacked panels do not border twice. Re-assert a frame on the inner card with
+   decoration:/styles:. */
+#arcane-root.arcane-theme-shadcn .arcane-card .arcane-card:not([data-arcane-decorated]) {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
 /* Code blocks */
 .prose pre {
   color: var(--foreground);
@@ -393,6 +1051,7 @@ $arcaneMapCss
 
 $arcaneTocTreeLinesCss
 
+$_lexiconCss
 ''';
   }
 }

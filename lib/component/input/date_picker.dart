@@ -1,7 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 import 'calendar.dart';
 
 export '../../core/props/date_picker_props.dart'
@@ -33,6 +34,12 @@ class ArcaneDatePicker extends StatefulWidget {
   final DateRange? rangeValue;
   final void Function(DateRange?)? onRangeChanged;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneDatePicker({
     this.id,
     this.value,
@@ -50,6 +57,8 @@ class ArcaneDatePicker extends StatefulWidget {
     this.mode = CalendarMode.single,
     this.rangeValue,
     this.onRangeChanged,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -67,6 +76,8 @@ class ArcaneDatePicker extends StatefulWidget {
     this.error,
     this.clearable = true,
     this.size = DatePickerSize.md,
+    this.styles,
+    this.decoration,
     super.key,
   })  : value = null,
         onChanged = null,
@@ -183,6 +194,8 @@ class _ArcaneDatePickerState extends State<ArcaneDatePicker> {
       onSelect: _selectDate,
       onRangeSelect: (range) => _selectRange(DateRange(start: range.start, end: range.end)),
       onClear: _clear,
+      styles: component.styles,
+      decoration: component.decoration,
       calendarProps: CalendarProps(
         id: calendarId,
         selected: component.value,

@@ -1,8 +1,5 @@
-import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' as dom;
-
-import 'package:arcane_jaspr/component/view/icon.dart';
 import 'package:arcane_jaspr/core/props/status_badge_props.dart';
+import 'package:arcane_jaspr/core/rendering/base/status_badge_render_base.dart';
 
 /// ShadCN Status Badge renderer.
 ///
@@ -11,279 +8,20 @@ import 'package:arcane_jaspr/core/props/status_badge_props.dart';
 /// - Status badges: pill-shaped with dot/icon and optional pulse
 /// - Card overlay badges: positioned absolutely with solid backgrounds
 /// - All size variants (sm, md, lg)
-class ShadcnStatusBadge extends StatelessComponent {
-  final StatusBadgeProps props;
-
-  const ShadcnStatusBadge(this.props, {super.key});
+class ShadcnStatusBadge extends StatusBadgeRenderBase {
+  const ShadcnStatusBadge(super.props, {super.key});
 
   @override
-  Component build(BuildContext context) {
-    final BadgePosition? position = props.position;
-    final bool isPositioned = position != null;
+  String get classPrefix => 'shadcn';
 
-    // Popular, recommended, isNew use status badge style (rounded pill with dot)
-    final bool isPromoBadge =
-        props.variant == BadgeVariant.popular ||
-        props.variant == BadgeVariant.recommended ||
-        props.variant == BadgeVariant.isNew;
+  @override
+  Map<String, String>? variantBadgeAttributes(StatusBadgeProps props) => null;
 
-    if (isPromoBadge) {
-      return _buildPromoBadge(position);
-    }
+  @override
+  Map<String, String>? statusBadgeAttributes(StatusBadgeProps props) => null;
 
-    // Solid color badges (no dot, solid background)
-    final bool isSolidBadge =
-        props.variant == BadgeVariant.primary ||
-        props.variant == BadgeVariant.secondary ||
-        props.variant == BadgeVariant.successSolid ||
-        props.variant == BadgeVariant.warningSolid ||
-        props.variant == BadgeVariant.errorSolid ||
-        props.variant == BadgeVariant.infoSolid ||
-        props.variant == BadgeVariant.outline;
-
-    if (isSolidBadge || isPositioned) {
-      return _buildCardBadge(position);
-    }
-
-    // Default: status badge (inline, with dot)
-    return _buildStatusBadge();
-  }
-
-  /// Builds a promo badge (popular/recommended/new) with status badge styling.
-  /// Uses rounded pill with dot indicator and transparent color-mix background.
-  Component _buildPromoBadge(BadgePosition? position) {
-    final bool isPositioned = position != null;
-    final String color = _getPromoColor();
-    final String indicatorSize = _getIndicatorSize();
-    final String padding = _getStatusPadding();
-    final String fontSize = _getStatusFontSize();
-
-    // Use color-mix for transparent background like status badges
-    final String effectiveBackground =
-        props.background ?? 'color-mix(in srgb, $color 15%, transparent)';
-    final String effectiveBorder =
-        props.borderColor ?? 'color-mix(in srgb, $color 35%, transparent)';
-    final String effectiveLabelColor = props.labelColor ?? color;
-
-    final Map<String, String> containerStyles = {
-      'display': 'inline-flex',
-      'align-items': 'center',
-      'gap': 'var(--space-2)',
-      'padding': padding,
-      'background': effectiveBackground,
-      'border': '1px solid $effectiveBorder',
-      'border-radius': '9999px', // Pill shape
-    };
-
-    // Add positioning if needed
-    if (isPositioned) {
-      containerStyles['position'] = 'absolute';
-      if (position.top != null) containerStyles['top'] = position.top!;
-      if (position.right != null) containerStyles['right'] = position.right!;
-      if (position.bottom != null) containerStyles['bottom'] = position.bottom!;
-      if (position.left != null) containerStyles['left'] = position.left!;
-      containerStyles['z-index'] = '1';
-    }
-
-    return dom.div(
-      classes:
-          'shadcn-status-badge shadcn-promo-badge shadcn-badge-${props.variant.name}',
-      styles: dom.Styles(raw: containerStyles),
-      [
-        // Dot indicator (always show for promo badges)
-        dom.span(
-          classes: 'shadcn-status-indicator',
-          styles: dom.Styles(
-            raw: {
-              'width': indicatorSize,
-              'height': indicatorSize,
-              'border-radius': '50%',
-              'background': color,
-              'flex-shrink': '0',
-              'box-shadow': '0 0 8px $color',
-            },
-          ),
-          [],
-        ),
-        // Label
-        dom.span(
-          classes: 'shadcn-status-label',
-          styles: dom.Styles(
-            raw: {
-              'font-size': fontSize,
-              'font-weight': '500',
-              'color': effectiveLabelColor,
-              'white-space': 'nowrap',
-            },
-          ),
-          [Component.text(props.label)],
-        ),
-      ],
-    );
-  }
-
-  /// Builds a card overlay badge (solid background, positioned).
-  Component _buildCardBadge(BadgePosition? position) {
-    final bool isPositioned = position != null;
-    final String padding = _getCardPadding();
-    final String fontSize = _getCardFontSize();
-
-    // Get colors based on variant
-    final (
-      String bgColor,
-      String fgColor,
-      String? glowColor,
-      String? borderStyle,
-    ) = _getCardColors();
-
-    final Map<String, String> styles = {
-      'display': 'inline-flex',
-      'align-items': 'center',
-      'gap': '0.375rem',
-      'border-radius': '9999px',
-      'font-size': fontSize,
-      'font-weight': '600',
-      'line-height': '1',
-      'white-space': 'nowrap',
-      'transition': 'color 150ms, background-color 150ms, border-color 150ms',
-      'padding': padding,
-    };
-
-    // Position styles for absolute positioning
-    if (isPositioned) {
-      styles['position'] = 'absolute';
-      if (position.top != null) styles['top'] = position.top!;
-      if (position.right != null) styles['right'] = position.right!;
-      if (position.bottom != null) styles['bottom'] = position.bottom!;
-      if (position.left != null) styles['left'] = position.left!;
-      styles['z-index'] = '1';
-    }
-
-    // Background and colors
-    if (props.gradient != null) {
-      styles['background'] = props.gradient!;
-      styles['color'] = fgColor;
-      styles['border'] = borderStyle ?? '1px solid transparent';
-      if (glowColor != null) styles['box-shadow'] = glowColor;
-    } else if (props.background != null) {
-      styles['background-color'] = props.background!;
-      styles['color'] = fgColor;
-      styles['border'] = borderStyle ?? '1px solid transparent';
-    } else {
-      styles['background-color'] = bgColor;
-      styles['color'] = fgColor;
-      styles['border'] = borderStyle ?? '1px solid transparent';
-      if (glowColor != null) styles['box-shadow'] = glowColor;
-    }
-
-    // Determine icon to show
-    final Component? iconToShow =
-        props.icon ??
-        (props.showDefaultIcon ? ArcaneIcon.star(size: IconSize.xs) : null);
-
-    return dom.span(
-      classes: 'shadcn-badge shadcn-badge-${props.variant.name}',
-      styles: dom.Styles(raw: styles),
-      [if (iconToShow != null) iconToShow, Component.text(props.label)],
-    );
-  }
-
-  /// Builds a status badge (pill with dot indicator).
-  Component _buildStatusBadge() {
-    final String color = _getStatusColor();
-    final String indicatorSize = _getIndicatorSize();
-    final String padding = _getStatusPadding();
-    final String fontSize = _getStatusFontSize();
-
-    // Use color-mix for consistent appearance
-    final String effectiveBackground =
-        props.background ?? 'color-mix(in srgb, $color 10%, transparent)';
-    final String effectiveBorder =
-        props.borderColor ?? 'color-mix(in srgb, $color 25%, transparent)';
-    final String effectiveLabelColor = props.labelColor ?? color;
-
-    return dom.div(
-      classes: 'shadcn-status-badge shadcn-status-${props.status.name}',
-      styles: dom.Styles(
-        raw: {
-          'display': 'inline-flex',
-          'align-items': 'center',
-          'gap': 'var(--space-2)',
-          'padding': padding,
-          'background': effectiveBackground,
-          'border': '1px solid $effectiveBorder',
-          'border-radius': '9999px', // Pill shape
-        },
-      ),
-      [
-        // Indicator (dot or custom icon)
-        if (props.icon != null)
-          dom.span(
-            classes: 'shadcn-status-indicator shadcn-status-icon',
-            styles: dom.Styles(
-              raw: {
-                'display': 'flex',
-                'align-items': 'center',
-                'justify-content': 'center',
-                'color': color,
-                'font-size': indicatorSize,
-              },
-            ),
-            [props.icon!],
-          )
-        else if (props.effectiveShowDot)
-          dom.span(
-            classes: 'shadcn-status-indicator',
-            styles: dom.Styles(
-              raw: {
-                'width': indicatorSize,
-                'height': indicatorSize,
-                'border-radius': '50%',
-                'background': color,
-                'flex-shrink': '0',
-                if (props.showGlow) 'box-shadow': '0 0 8px $color',
-                if (props.showPulse)
-                  'animation': 'arcane-pulse 2s ease-in-out infinite',
-              },
-            ),
-            [],
-          ),
-        // Label
-        dom.span(
-          classes: 'shadcn-status-label',
-          styles: dom.Styles(
-            raw: {
-              'font-size': fontSize,
-              'font-weight': '500',
-              'color': effectiveLabelColor,
-              'white-space': 'nowrap',
-            },
-          ),
-          [Component.text(props.label)],
-        ),
-      ],
-    );
-  }
-
-  // ===========================================================================
-  // Status Badge Helpers
-  // ===========================================================================
-
-  String _getStatusColor() {
-    if (props.accentColor != null) {
-      return props.accentColor!;
-    }
-    return switch (props.status) {
-      StatusType.success || StatusType.online => 'var(--success)',
-      StatusType.warning || StatusType.away => 'var(--warning)',
-      StatusType.error || StatusType.busy => 'var(--destructive)',
-      StatusType.info => 'var(--info)',
-      StatusType.offline => 'var(--muted-foreground)',
-    };
-  }
-
-  /// Gets the color for promo badges (popular, recommended, isNew).
-  String _getPromoColor() {
+  @override
+  String promoColor(StatusBadgeProps props) {
     if (props.accentColor != null) {
       return props.accentColor!;
     }
@@ -295,36 +33,101 @@ class ShadcnStatusBadge extends StatelessComponent {
     };
   }
 
-  String _getIndicatorSize() {
-    return switch (props.size) {
-      ComponentSize.sm => '6px',
-      ComponentSize.md => '6px',
-      ComponentSize.lg => '8px',
+  @override
+  String indicatorSize(StatusBadgeProps props) => switch (props.size) {
+    ComponentSize.sm => '6px',
+    ComponentSize.md => '6px',
+    ComponentSize.lg => '8px',
+  };
+
+  String _statusPadding(StatusBadgeProps props) => switch (props.size) {
+    ComponentSize.sm => '0.25rem 0.5rem',
+    ComponentSize.md => '0.25rem 0.75rem',
+    ComponentSize.lg => '0.375rem 1rem',
+  };
+
+  @override
+  Map<String, String> promoContainerStyles(StatusBadgeProps props) {
+    final String color = promoColor(props);
+    // Use color-mix for transparent background like status badges
+    final String effectiveBackground =
+        props.background ?? 'color-mix(in srgb, $color 15%, transparent)';
+    final String effectiveBorder =
+        props.borderColor ?? 'color-mix(in srgb, $color 35%, transparent)';
+    return <String, String>{
+      'display': 'inline-flex',
+      'align-items': 'center',
+      'gap': 'var(--space-2)',
+      'padding': _statusPadding(props),
+      'background': effectiveBackground,
+      'border': '1px solid $effectiveBorder',
+      'border-radius': '9999px', // Pill shape
     };
   }
 
-  String _getStatusPadding() {
-    return switch (props.size) {
-      ComponentSize.sm => '0.25rem 0.5rem',
-      ComponentSize.md => '0.25rem 0.75rem',
-      ComponentSize.lg => '0.375rem 1rem',
+  @override
+  Map<String, String> promoIndicatorStyles(StatusBadgeProps props) {
+    final String color = promoColor(props);
+    final String size = indicatorSize(props);
+    return <String, String>{
+      'width': size,
+      'height': size,
+      'border-radius': '50%',
+      'background': color,
+      'flex-shrink': '0',
+      'box-shadow': '0 0 8px $color',
     };
   }
 
-  String _getStatusFontSize() {
-    return switch (props.size) {
-      ComponentSize.sm => '0.75rem',
-      ComponentSize.md => '0.875rem',
-      ComponentSize.lg => '1rem',
-    };
-  }
+  @override
+  Map<String, String> labelStyles(
+    StatusBadgeProps props,
+    String effectiveLabelColor,
+  ) => <String, String>{
+    'font-size': statusFontSize(props),
+    'font-weight': '500',
+    'color': effectiveLabelColor,
+    'white-space': 'nowrap',
+  };
 
-  // ===========================================================================
-  // Card Badge Helpers
-  // ===========================================================================
+  @override
+  String promoLabelColor(StatusBadgeProps props) =>
+      props.labelColor ?? promoColor(props);
 
-  (String bgColor, String fgColor, String? glow, String? border)
-  _getCardColors() {
+  @override
+  String statusLabelColor(StatusBadgeProps props) =>
+      props.labelColor ?? statusColor(props);
+
+  String _cardPadding(StatusBadgeProps props) => switch (props.size) {
+    ComponentSize.sm => '0.125rem 0.5rem',
+    ComponentSize.md => '0.125rem 0.625rem',
+    ComponentSize.lg => '0.25rem 0.75rem',
+  };
+
+  String _cardFontSize(StatusBadgeProps props) => switch (props.size) {
+    ComponentSize.sm => '0.75rem',
+    ComponentSize.md => '0.75rem',
+    ComponentSize.lg => '0.875rem',
+  };
+
+  @override
+  Map<String, String> cardBaseStyles(StatusBadgeProps props) =>
+      <String, String>{
+        'display': 'inline-flex',
+        'align-items': 'center',
+        'gap': '0.375rem',
+        'border-radius': '9999px',
+        'font-size': _cardFontSize(props),
+        'font-weight': '600',
+        'line-height': '1',
+        'white-space': 'nowrap',
+        'transition': 'color 150ms, background-color 150ms, border-color 150ms',
+        'padding': _cardPadding(props),
+      };
+
+  (String bgColor, String fgColor, String? glow, String? border) _cardColors(
+    StatusBadgeProps props,
+  ) {
     return switch (props.variant) {
       BadgeVariant.popular || BadgeVariant.primary => (
         'var(--primary)',
@@ -383,19 +186,66 @@ class ShadcnStatusBadge extends StatelessComponent {
     };
   }
 
-  String _getCardPadding() {
-    return switch (props.size) {
-      ComponentSize.sm => '0.125rem 0.5rem',
-      ComponentSize.md => '0.125rem 0.625rem',
-      ComponentSize.lg => '0.25rem 0.75rem',
+  @override
+  void applyCardColors(StatusBadgeProps props, Map<String, String> styles) {
+    // Get colors based on variant
+    final (
+      String bgColor,
+      String fgColor,
+      String? glowColor,
+      String? borderStyle,
+    ) = _cardColors(props);
+
+    // Background and colors
+    if (props.gradient != null) {
+      styles['background'] = props.gradient!;
+      styles['color'] = fgColor;
+      styles['border'] = borderStyle ?? '1px solid transparent';
+      if (glowColor != null) styles['box-shadow'] = glowColor;
+    } else if (props.background != null) {
+      styles['background-color'] = props.background!;
+      styles['color'] = fgColor;
+      styles['border'] = borderStyle ?? '1px solid transparent';
+    } else {
+      styles['background-color'] = bgColor;
+      styles['color'] = fgColor;
+      styles['border'] = borderStyle ?? '1px solid transparent';
+      if (glowColor != null) styles['box-shadow'] = glowColor;
+    }
+  }
+
+  @override
+  Map<String, String> statusContainerStyles(StatusBadgeProps props) {
+    final String color = statusColor(props);
+    // Use color-mix for consistent appearance
+    final String effectiveBackground =
+        props.background ?? 'color-mix(in srgb, $color 10%, transparent)';
+    final String effectiveBorder =
+        props.borderColor ?? 'color-mix(in srgb, $color 25%, transparent)';
+    return <String, String>{
+      'display': 'inline-flex',
+      'align-items': 'center',
+      'gap': 'var(--space-2)',
+      'padding': _statusPadding(props),
+      'background': effectiveBackground,
+      'border': '1px solid $effectiveBorder',
+      'border-radius': '9999px', // Pill shape
     };
   }
 
-  String _getCardFontSize() {
-    return switch (props.size) {
-      ComponentSize.sm => '0.75rem',
-      ComponentSize.md => '0.75rem',
-      ComponentSize.lg => '0.875rem',
+  @override
+  Map<String, String> statusDotStyles(StatusBadgeProps props) {
+    final String color = statusColor(props);
+    final String size = indicatorSize(props);
+    return <String, String>{
+      'width': size,
+      'height': size,
+      'border-radius': '50%',
+      'background': color,
+      'flex-shrink': '0',
+      if (props.showGlow) 'box-shadow': '0 0 8px $color',
+      if (props.showPulse)
+        'animation': 'arcane-pulse 2s ease-in-out infinite',
     };
   }
 }

@@ -1,6 +1,9 @@
 import 'package:arcane_jaspr/core/shared/shared.dart';
 import 'package:jaspr/jaspr.dart';
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
+
 export 'package:arcane_jaspr/core/shared/shared.dart' show ComponentSize;
 
 /// Represents a time of day with hour and minute.
@@ -72,6 +75,12 @@ class TimePickerProps {
   final void Function()? onCancel;
   final void Function()? onConfirm;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const TimePickerProps({
     required this.value,
     required this.displayText,
@@ -95,6 +104,8 @@ class TimePickerProps {
     this.onTogglePeriod,
     this.onCancel,
     this.onConfirm,
+    this.styles,
+    this.decoration,
   });
 }
 

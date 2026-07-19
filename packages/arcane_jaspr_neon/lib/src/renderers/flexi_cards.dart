@@ -3,7 +3,7 @@ import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/props/flexi_cards_props.dart';
 
-/// Neon FlexiCards renderer with restrained dark styling.
+/// Neon FlexiCards renderer (neutral placeholder skeleton).
 ///
 /// Uses CSS Grid with `grid-template-rows` for smooth height animations.
 class NeonFlexiCards extends StatefulComponent {
@@ -61,7 +61,7 @@ class _NeonFlexiCardsState extends State<NeonFlexiCards> {
             raw: {
               'margin': '-1.5rem -1.5rem 1rem -1.5rem',
               'padding': '0.75rem 1rem',
-              'border-bottom': '1px solid var(--neon-panel-border)',
+              'border-bottom': '1px solid var(--border)',
             },
           ),
           [item.header!],
@@ -77,11 +77,10 @@ class _NeonFlexiCardsState extends State<NeonFlexiCards> {
             'justify-content': 'center',
             'width': '52px',
             'height': '52px',
-            'clip-path': 'var(--neon-clip-sm)',
-            'background':
-                'color-mix(in srgb, var(--neon-accent) 14%, var(--neon-surface-2))',
-            'border': '1px solid var(--neon-panel-border)',
-            'color': 'var(--neon-accent)',
+            'border-radius': 'var(--radius-md)',
+            'background': 'var(--muted)',
+            'border': '1px solid var(--border)',
+            'color': 'var(--foreground)',
             'margin-bottom': '1.125rem',
             'transition': 'all ${duration}ms ease',
           },
@@ -96,7 +95,7 @@ class _NeonFlexiCardsState extends State<NeonFlexiCards> {
           raw: {
             'font-size': 'var(--font-size-lg, 1.125rem)',
             'font-weight': 'var(--font-weight-semibold, 600)',
-            'color': isHovered ? 'var(--neon-accent)' : 'var(--foreground)',
+            'color': 'var(--foreground)',
             'margin': '0 0 0.5rem 0',
             'transition': 'color ${duration}ms ease',
           },
@@ -169,7 +168,7 @@ class _NeonFlexiCardsState extends State<NeonFlexiCards> {
                   styles: dom.Styles(
                     raw: {
                       'padding-top': '1rem',
-                      'border-top': '1px solid var(--neon-panel-border)',
+                      'border-top': '1px solid var(--border)',
                       'opacity': showLongText ? '1' : '0.5',
                       'transition': 'opacity ${duration}ms ease',
                     },
@@ -208,23 +207,15 @@ class _NeonFlexiCardsState extends State<NeonFlexiCards> {
       'display': 'flex',
       'flex-direction': 'column',
       'padding': '1.5rem',
-      'background': isHovered
-          ? 'color-mix(in srgb, var(--neon-surface-2) 88%, var(--neon-accent) 12%)'
-          : 'var(--neon-panel-surface)',
-      'border': isHovered
-          ? '1px solid color-mix(in srgb, var(--neon-accent) 38%, var(--neon-panel-border))'
-          : '1px solid var(--neon-panel-border)',
-      'clip-path': 'var(--neon-panel-clip)',
+      'background': isHovered ? 'var(--muted)' : 'var(--card)',
+      'border': '1px solid var(--border)',
+      'border-radius': 'var(--radius-lg)',
       'transition':
           'flex ${duration}ms cubic-bezier(0.4, 0, 0.2, 1), '
           'width ${duration}ms cubic-bezier(0.4, 0, 0.2, 1), '
           'background ${duration}ms ease, '
-          'border-color ${duration}ms ease, '
-          'box-shadow ${duration}ms ease',
+          'border-color ${duration}ms ease',
       'overflow': 'hidden',
-      if (isHovered)
-        'box-shadow':
-            'var(--neon-shadow-lg), 0 0 22px color-mix(in srgb, var(--neon-accent) 18%, transparent)',
       if (item.onTap != null || item.href != null) 'cursor': 'pointer',
     };
 
@@ -257,7 +248,7 @@ class _NeonFlexiCardsState extends State<NeonFlexiCards> {
   }
 }
 
-/// Neon FlexiCardsSimple renderer.
+/// Neon FlexiCardsSimple renderer (neutral placeholder skeleton).
 class NeonFlexiCardsSimple extends StatelessComponent {
   final FlexiCardsSimpleProps props;
 
@@ -286,9 +277,9 @@ class NeonFlexiCardsSimple extends StatelessComponent {
           'display': 'flex',
           'flex-direction': 'column',
           'padding': '1.5rem',
-          'background-color': 'var(--neon-panel-surface)',
-          'border': '1px solid var(--neon-panel-border)',
-          'clip-path': 'var(--neon-panel-clip)',
+          'background-color': 'var(--card)',
+          'border': '1px solid var(--border)',
+          'border-radius': 'var(--radius-lg)',
           'transition': 'all var(--arcane-transition)',
           if (item.onTap != null || item.href != null) 'cursor': 'pointer',
         },

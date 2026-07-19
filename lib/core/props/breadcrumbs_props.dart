@@ -1,5 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
+
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 
 /// Breadcrumb item data.
 class BreadcrumbItemProps {
@@ -36,6 +38,12 @@ class BreadcrumbsProps {
   final Widget? customSeparator;
   final void Function(BreadcrumbItemProps item, int index)? onItemClick;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const BreadcrumbsProps({
     required this.items,
     this.separator = BreadcrumbSeparatorStyle.chevron,
@@ -43,6 +51,8 @@ class BreadcrumbsProps {
     this.showHomeIcon = false,
     this.customSeparator,
     this.onItemClick,
+    this.styles,
+    this.decoration,
   });
 }
 

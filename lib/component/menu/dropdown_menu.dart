@@ -2,7 +2,9 @@ import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart' as dom;
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/dropdown_menu_props.dart' show DropdownAlignment;
 export '../../core/props/menu_item_props.dart';
@@ -17,6 +19,12 @@ class ArcaneDropdownMenu extends StatelessWidget {
   final bool keepOpenOnAction;
   final bool initiallyOpen;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneDropdownMenu({
     this.id,
     required this.trigger,
@@ -25,6 +33,8 @@ class ArcaneDropdownMenu extends StatelessWidget {
     this.width,
     this.keepOpenOnAction = false,
     this.initiallyOpen = false,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -45,6 +55,8 @@ class ArcaneDropdownMenu extends StatelessWidget {
       width: width,
       keepOpenOnAction: keepOpenOnAction,
       initiallyOpen: initiallyOpen,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

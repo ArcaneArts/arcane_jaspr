@@ -4,7 +4,6 @@ import 'package:arcane_jaspr/component/support/icons.dart';
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:arcane_jaspr/component/typography/text.dart';
 import 'package:arcane_jaspr/util/arcane.dart';
-import 'package:arcane_jaspr/component/view/icon.dart';
 
 class CenterBody extends StatelessWidget {
   final Widget? icon;
@@ -31,10 +30,10 @@ class CenterBody extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       gap: 16,
       children: <Widget>[
-        if (icon != null) icon!,
+        ?icon,
         if (icon == null && iconData != null) Icon(iconData!, size: IconSize.xl2),
         if (message != null) Text.bodyLarge(message!, align: TextAlign.center),
-        if (child != null) child!,
+        ?child,
         if (actionText != null)
           Button.secondary(
             onPressed: onActionPressed,

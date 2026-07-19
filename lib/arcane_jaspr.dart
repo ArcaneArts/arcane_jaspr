@@ -1,6 +1,7 @@
 export 'flutter.dart';
 
 export 'core/theme_provider.dart';
+export 'core/decoration/arcane_decoration.dart';
 export 'core/renderers.dart' hide SheetPosition;
 export 'core/layout_renderers.dart';
 export 'core/props/button_props.dart';
@@ -13,6 +14,7 @@ export 'stylesheets/stylesheet.dart';
 
 export 'util/appearance/colors.dart';
 export 'util/arcane.dart';
+export 'util/classes.dart';
 export 'util/design_tokens.dart';
 export 'util/interactivity/arcane_scripts.dart';
 
@@ -68,6 +70,7 @@ export 'component/view/center_body.dart';
 export 'component/view/empty_state.dart';
 export 'component/view/expander.dart';
 export 'component/view/glass.dart';
+export 'component/view/icon_badge.dart';
 export 'component/view/image.dart';
 export 'component/view/kbd.dart';
 export 'component/view/logo.dart';
@@ -82,6 +85,11 @@ export 'component/view/icon.dart';
 export 'component/view/tile.dart';
 
 export 'component/card/card.dart';
+export 'component/card/cta_card.dart';
+export 'component/card/feature_card.dart';
+export 'component/card/pricing_card.dart';
+export 'component/card/stat_card.dart';
+export 'component/card/testimonial_card.dart';
 
 export 'component/data/chart.dart';
 export 'component/view/data_table.dart';
@@ -129,6 +137,7 @@ export 'component/interactive/disclosure.dart';
 
 export 'component/collection/card_carousel.dart';
 export 'component/collection/collection.dart';
+export 'component/collection/gallery.dart';
 export 'component/collection/infinite_carousel.dart';
 export 'component/collection/section.dart';
 

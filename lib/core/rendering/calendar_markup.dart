@@ -38,8 +38,8 @@ Component buildCalendarMarkup(
   required String dayButtonClasses,
   required dom.Styles styles,
 }) {
-  String calendarId = props.id ?? 'cal-${identityHashCode(props)}';
-  Map<String, String> attrs = mergeAttrs(<Map<String, String>>[
+  final String calendarId = props.id ?? 'cal-${identityHashCode(props)}';
+  final Map<String, String> attrs = mergeAttrs(<Map<String, String>>[
     calendarAttrs(
       calendarId: calendarId,
       year: props.displayMonth.year,
@@ -75,12 +75,12 @@ Component _calendarHeader(
   String calendarId,
   String navButtonClasses,
 ) {
-  String label =
+  final String label =
       '${_calendarMonths[props.displayMonth.month - 1]} ${props.displayMonth.year}';
   return dom.div(
     <Component>[
       dom.button(
-        <Component>[Component.text('‹')],
+        <Component>[const Component.text('‹')],
         classes:
             'arcane-calendar-nav arcane-calendar-nav-btn arcane-calendar-prev $navButtonClasses',
         attributes: mergeAttrs(<Map<String, String>>[
@@ -98,7 +98,7 @@ Component _calendarHeader(
         attributes: const <String, String>{'data-arcane-calendar-label': ''},
       ),
       dom.button(
-        <Component>[Component.text('›')],
+        <Component>[const Component.text('›')],
         classes:
             'arcane-calendar-nav arcane-calendar-nav-btn arcane-calendar-next $navButtonClasses',
         attributes: mergeAttrs(<Map<String, String>>[
@@ -123,7 +123,7 @@ Component _todayButton(
 ) {
   return dom.div(<Component>[
     dom.button(
-      <Component>[Component.text('Today')],
+      <Component>[const Component.text('Today')],
       classes:
           'arcane-calendar-today arcane-calendar-nav-btn $todayButtonClasses',
       attributes: mergeAttrs(<Map<String, String>>[
@@ -139,16 +139,16 @@ Component _todayButton(
 }
 
 Component _weekdayRow(CalendarProps props) {
-  List<Component> children = <Component>[];
+  final List<Component> children = <Component>[];
   if (props.showWeekNumbers) {
     children.add(
-      dom.div(<Component>[
+      const dom.div(<Component>[
         Component.text('#'),
       ], classes: 'arcane-calendar-weekday arcane-calendar-week-num'),
     );
   }
   for (int index = 0; index < 7; index++) {
-    int weekdayIndex = (props.firstDayOfWeek + index) % 7;
+    final int weekdayIndex = (props.firstDayOfWeek + index) % 7;
     children.add(
       dom.div(<Component>[
         Component.text(_calendarWeekdays[weekdayIndex]),
@@ -163,14 +163,14 @@ Component _dayGrid(
   String calendarId,
   String dayButtonClasses,
 ) {
-  List<Component> children = <Component>[];
-  DateTime monthStart = DateTime(
+  final List<Component> children = <Component>[];
+  final DateTime monthStart = DateTime(
     props.displayMonth.year,
     props.displayMonth.month,
     1,
   );
-  int firstDayIndex = monthStart.weekday % 7;
-  int startOffset = (firstDayIndex - props.firstDayOfWeek) % 7;
+  final int firstDayIndex = monthStart.weekday % 7;
+  final int startOffset = (firstDayIndex - props.firstDayOfWeek) % 7;
   DateTime cursor = monthStart.subtract(Duration(days: startOffset));
 
   for (int week = 0; week < 6; week++) {
@@ -182,8 +182,8 @@ Component _dayGrid(
       );
     }
     for (int day = 0; day < 7; day++) {
-      DateTime date = cursor;
-      bool inMonth = date.month == props.displayMonth.month;
+      final DateTime date = cursor;
+      final bool inMonth = date.month == props.displayMonth.month;
       children.add(
         _dayButton(props, calendarId, dayButtonClasses, date, inMonth),
       );
@@ -201,14 +201,14 @@ Component _dayButton(
   DateTime date,
   bool inMonth,
 ) {
-  bool disabled = _isDisabled(props, date);
-  bool selected = _sameDate(props.selected, date);
-  bool today = _sameDate(DateTime.now(), date);
-  bool inRange = _inSelectedRange(props, date);
-  bool rangeStart = _sameDate(props.selectedRange?.start, date);
-  bool rangeEnd = _sameDate(props.selectedRange?.end, date);
-  bool pending = _sameDate(props.rangeStart, date);
-  String value = _dateValue(date);
+  final bool disabled = _isDisabled(props, date);
+  final bool selected = _sameDate(props.selected, date);
+  final bool today = _sameDate(DateTime.now(), date);
+  final bool inRange = _inSelectedRange(props, date);
+  final bool rangeStart = _sameDate(props.selectedRange?.start, date);
+  final bool rangeEnd = _sameDate(props.selectedRange?.end, date);
+  final bool pending = _sameDate(props.rangeStart, date);
+  final String value = _dateValue(date);
 
   return dom.button(
     <Component>[Component.text('${date.day}')],
@@ -254,7 +254,7 @@ String _dayClasses(
   required bool rangeEnd,
   required bool pending,
 }) {
-  List<String> classes = <String>['arcane-calendar-day', dayButtonClasses];
+  final List<String> classes = <String>['arcane-calendar-day', dayButtonClasses];
   if (!inMonth) classes.add('arcane-calendar-day-other-month');
   if (disabled) classes.add('arcane-calendar-day-disabled');
   if (today) classes.add('arcane-calendar-day-today');
@@ -273,25 +273,25 @@ bool _sameDate(DateTime? left, DateTime right) =>
     left.day == right.day;
 
 bool _inSelectedRange(CalendarProps props, DateTime date) {
-  DateRangeValue? range = props.selectedRange;
+  final DateRangeValue? range = props.selectedRange;
   if (range == null) return false;
-  DateTime value = DateTime(date.year, date.month, date.day);
-  DateTime start = DateTime(
+  final DateTime value = DateTime(date.year, date.month, date.day);
+  final DateTime start = DateTime(
     range.start.year,
     range.start.month,
     range.start.day,
   );
-  DateTime end = DateTime(range.end.year, range.end.month, range.end.day);
+  final DateTime end = DateTime(range.end.year, range.end.month, range.end.day);
   return !value.isBefore(start) && !value.isAfter(end);
 }
 
 bool _isDisabled(CalendarProps props, DateTime date) {
   if (props.isDisabled?.call(date) ?? false) return true;
-  DateTime value = DateTime(date.year, date.month, date.day);
-  DateTime? minDate = props.minDate == null
+  final DateTime value = DateTime(date.year, date.month, date.day);
+  final DateTime? minDate = props.minDate == null
       ? null
       : DateTime(props.minDate!.year, props.minDate!.month, props.minDate!.day);
-  DateTime? maxDate = props.maxDate == null
+  final DateTime? maxDate = props.maxDate == null
       ? null
       : DateTime(props.maxDate!.year, props.maxDate!.month, props.maxDate!.day);
   if (minDate != null && value.isBefore(minDate)) return true;
@@ -306,10 +306,10 @@ String _dateValue(DateTime date) => DateTime(
 ).toIso8601String().split('T').first;
 
 int _weekNumber(DateTime date) {
-  int dayIndex = (date.weekday + 6) % 7;
-  DateTime thursday = date.add(Duration(days: 3 - dayIndex));
-  DateTime firstThursday = DateTime(thursday.year, 1, 4);
-  int firstDayIndex = (firstThursday.weekday + 6) % 7;
-  DateTime weekOne = firstThursday.add(Duration(days: 3 - firstDayIndex));
+  final int dayIndex = (date.weekday + 6) % 7;
+  final DateTime thursday = date.add(Duration(days: 3 - dayIndex));
+  final DateTime firstThursday = DateTime(thursday.year, 1, 4);
+  final int firstDayIndex = (firstThursday.weekday + 6) % 7;
+  final DateTime weekOne = firstThursday.add(Duration(days: 3 - firstDayIndex));
   return 1 + thursday.difference(weekOne).inDays ~/ 7;
 }

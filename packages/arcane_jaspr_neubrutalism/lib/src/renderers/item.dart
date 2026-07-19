@@ -14,7 +14,7 @@ class NeubrutalismItem extends StatelessComponent {
     if (props.href == null) {
       return ArcaneDiv(
         styles: props.styles,
-        classes: props.classes,
+        classes: props.classes == null ? null : <String>[props.classes!],
         children: <Component>[props.child],
       );
     }
@@ -23,7 +23,7 @@ class NeubrutalismItem extends StatelessComponent {
       return ArcaneLink.external(
         href: props.href!,
         styles: props.styles,
-        classes: props.classes,
+        classes: props.classes == null ? null : <String>[props.classes!],
         child: props.child,
       );
     }
@@ -31,7 +31,7 @@ class NeubrutalismItem extends StatelessComponent {
     return ArcaneLink(
       href: props.href!,
       styles: props.styles,
-      classes: props.classes,
+      classes: props.classes == null ? null : <String>[props.classes!],
       child: props.child,
     );
   }

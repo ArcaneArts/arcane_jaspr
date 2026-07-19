@@ -2,8 +2,10 @@ import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart' as dom;
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
 import '../../core/props/dialog_props.dart' as props;
+import '../../util/style_types/arcane_style_data.dart';
 import 'sheet_types.dart';
 
 export 'sheet_types.dart';
@@ -31,6 +33,12 @@ class ArcaneSheet extends StatelessWidget {
   final bool focusTrap;
   final bool restoreFocus;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneSheet({
     this.id,
     required this.isOpen,
@@ -50,6 +58,8 @@ class ArcaneSheet extends StatelessWidget {
     this.escapeCloses = true,
     this.focusTrap = true,
     this.restoreFocus = true,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -71,6 +81,8 @@ class ArcaneSheet extends StatelessWidget {
     this.escapeCloses = true,
     this.focusTrap = true,
     this.restoreFocus = true,
+    this.styles,
+    this.decoration,
     super.key,
   }) : position = SheetPosition.bottom;
 
@@ -92,6 +104,8 @@ class ArcaneSheet extends StatelessWidget {
     this.escapeCloses = true,
     this.focusTrap = true,
     this.restoreFocus = true,
+    this.styles,
+    this.decoration,
     super.key,
   }) : position = SheetPosition.top;
 
@@ -113,6 +127,8 @@ class ArcaneSheet extends StatelessWidget {
     this.escapeCloses = true,
     this.focusTrap = true,
     this.restoreFocus = true,
+    this.styles,
+    this.decoration,
     super.key,
   }) : position = SheetPosition.end;
 
@@ -153,6 +169,8 @@ class ArcaneSheet extends StatelessWidget {
       escapeCloses: escapeCloses,
       focusTrap: focusTrap,
       restoreFocus: restoreFocus,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

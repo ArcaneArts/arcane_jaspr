@@ -5,7 +5,7 @@ import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/props/promo_props.dart';
 
-/// Neon Minimizable Promo renderer.
+/// Neon Minimizable Promo renderer (neutral placeholder skeleton).
 ///
 /// A promo drawer that slides in from the right edge.
 /// When minimized, only a slim tab is visible.
@@ -65,7 +65,7 @@ class _NeonMinimizablePromoState extends State<NeonMinimizablePromo> {
       // Minimized tab
       return dom.button(
         classes: 'neon-minimizable-promo-tab',
-        styles: const dom.Styles(
+        styles: dom.Styles(
           raw: {
             'position': 'fixed',
             'top': '50%',
@@ -75,20 +75,16 @@ class _NeonMinimizablePromoState extends State<NeonMinimizablePromo> {
             'padding': '1rem 0.5rem',
             'writing-mode': 'vertical-rl',
             'text-orientation': 'mixed',
-            // Neon: glass effect
-            'background-color': 'rgba(10, 10, 10, 0.95)',
-            'backdrop-filter': 'blur(12px)',
-            '-webkit-backdrop-filter': 'blur(12px)',
-            'border': '1px solid var(--neon-accent)',
+            'background-color': 'var(--card)',
+            'border': '1px solid var(--border)',
             'border-right': 'none',
             'border-radius': 'var(--radius) 0 0 var(--radius)',
-            'color': 'var(--neon-accent)',
+            'color': 'var(--foreground)',
             'font-size': 'var(--font-size-sm)',
             'font-weight': 'var(--font-weight-bold)',
-            'letter-spacing': '0',
             'cursor': 'pointer',
-            // Neon: accent glow
-            'box-shadow': '-4px 0 20px color-mix(in srgb, var(--neon-accent) 20%, transparent)',
+            ...?component.props.decoration?.universalStyles(),
+            ...?component.props.styles?.toMap(),
           },
         ),
         events: {'click': (_) => _toggleExpanded()},
@@ -99,7 +95,7 @@ class _NeonMinimizablePromoState extends State<NeonMinimizablePromo> {
     // Expanded panel
     return dom.div(
       classes: 'neon-minimizable-promo-panel',
-      styles: const dom.Styles(
+      styles: dom.Styles(
         raw: {
           'position': 'fixed',
           'top': '50%',
@@ -108,17 +104,14 @@ class _NeonMinimizablePromoState extends State<NeonMinimizablePromo> {
           'z-index': '100',
           'width': '320px',
           'max-width': '90vw',
-          // Neon: glass effect
-          'background-color': 'rgba(10, 10, 10, 0.95)',
-          'backdrop-filter': 'blur(12px)',
-          '-webkit-backdrop-filter': 'blur(12px)',
-          'border': '1px solid var(--neon-accent)',
+          'background-color': 'var(--card)',
+          'border': '1px solid var(--border)',
           'border-right': 'none',
           'border-radius': 'var(--radius-xl) 0 0 var(--radius-xl)',
-          // Neon: accent glow
-          'box-shadow':
-              '-8px 0 40px color-mix(in srgb, var(--neon-accent) 25%, transparent), 0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+          'box-shadow': '0 8px 24px rgba(0, 0, 0, 0.15)',
           'padding': '1.5rem',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [
@@ -139,12 +132,11 @@ class _NeonMinimizablePromoState extends State<NeonMinimizablePromo> {
                 styles: const dom.Styles(
                   raw: {
                     'padding': '0.5rem 1rem',
-                    'background': 'var(--neon-accent)',
+                    'background': 'var(--primary)',
                     'border-radius': 'var(--radius)',
                     'font-size': 'var(--font-size-lg)',
                     'font-weight': 'var(--font-weight-bold)',
-                    'color': '#ffffff',
-                    'box-shadow': '0 14px 15px color-mix(in srgb, var(--neon-accent) 40%, transparent)',
+                    'color': 'var(--primary-foreground)',
                   },
                 ),
                 [Component.text(component.props.discount!)],
@@ -232,8 +224,8 @@ class _NeonMinimizablePromoState extends State<NeonMinimizablePromo> {
             styles: const dom.Styles(
               raw: {
                 'padding': '0.75rem',
-                'background': 'color-mix(in srgb, var(--neon-accent) 10%, transparent)',
-                'border': '1px dashed color-mix(in srgb, var(--neon-accent) 30%, transparent)',
+                'background': 'var(--muted)',
+                'border': '1px dashed var(--border)',
                 'border-radius': 'var(--radius)',
                 'margin-bottom': '1rem',
                 'text-align': 'center',
@@ -257,8 +249,7 @@ class _NeonMinimizablePromoState extends State<NeonMinimizablePromo> {
                         'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                     'font-size': 'var(--font-size-base)',
                     'font-weight': 'var(--font-weight-bold)',
-                    'color': 'var(--neon-accent)',
-                    'letter-spacing': '0',
+                    'color': 'var(--foreground)',
                   },
                 ),
                 [Component.text(component.props.promoCode!)],
@@ -275,17 +266,16 @@ class _NeonMinimizablePromoState extends State<NeonMinimizablePromo> {
                 'display': 'block',
                 'width': '100%',
                 'padding': '0.875rem',
-                'background': 'var(--neon-accent)',
+                'background': 'var(--primary)',
                 'border': 'none',
                 'border-radius': 'var(--radius)',
-                'color': '#ffffff',
+                'color': 'var(--primary-foreground)',
                 'font-size': 'var(--font-size-sm)',
                 'font-weight': 'var(--font-weight-semibold)',
                 'text-align': 'center',
                 'text-decoration': 'none',
                 'cursor': 'pointer',
                 'transition': 'all var(--transition)',
-                'box-shadow': '0 14px 15px color-mix(in srgb, var(--neon-accent) 40%, transparent)',
               },
             ),
             events: component.props.onCtaClick != null

@@ -55,17 +55,12 @@ class NeonForm extends StatelessComponent {
                   styles: const dom.Styles(
                     raw: {
                       'padding': '0.7rem 1.4rem',
-                      'font-family': 'var(--font-heading)',
                       'font-size': 'var(--font-size-sm)',
                       'font-weight': 'var(--font-weight-semibold)',
-                      'letter-spacing': '0.06em',
-                      'text-transform': 'uppercase',
                       'color': 'var(--foreground)',
-                      'background': 'var(--neon-surface-1)',
-                      'border': '1px solid var(--neon-control-border)',
-                      'clip-path': 'var(--neon-clip-sm)',
+                      'background': 'var(--background)',
+                      'border': '1px solid var(--border)',
                       'cursor': 'pointer',
-                      'box-shadow': 'inset 0 1px 0 var(--neon-inset)',
                       'transition':
                           'background 200ms ease, border-color 200ms ease, color 200ms ease',
                     },
@@ -80,21 +75,13 @@ class NeonForm extends StatelessComponent {
                 styles: const dom.Styles(
                   raw: {
                     'padding': '0.7rem 1.4rem',
-                    'font-family': 'var(--font-heading)',
                     'font-size': 'var(--font-size-sm)',
                     'font-weight': 'var(--font-weight-semibold)',
-                    'letter-spacing': '0.06em',
-                    'text-transform': 'uppercase',
-                    'color': 'var(--neon-on-accent)',
-                    'background':
-                        'linear-gradient(180deg, color-mix(in srgb, var(--neon-accent) 82%, var(--neon-surface-0)), var(--neon-accent))',
-                    'border': '1px solid var(--neon-control-border-strong)',
-                    'clip-path': 'var(--neon-clip-sm)',
+                    'color': 'var(--primary-foreground)',
+                    'background': 'var(--primary)',
+                    'border': '1px solid var(--border)',
                     'cursor': 'pointer',
-                    'box-shadow':
-                        '0 0 22px color-mix(in srgb, var(--neon-accent) 28%, transparent), inset 0 1px 0 var(--neon-inset)',
-                    'transition':
-                        'background 200ms ease, box-shadow 200ms ease, transform 200ms ease',
+                    'transition': 'background 200ms ease',
                   },
                 ),
                 [Component.text(props.submitText ?? 'Submit')],

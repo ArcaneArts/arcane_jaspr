@@ -74,6 +74,8 @@ class _ShadcnMarqueeTickerBarState extends State<ShadcnMarqueeTickerBar> {
               ? '1px solid var(--border)'
               : 'none',
           'overflow': 'hidden',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [

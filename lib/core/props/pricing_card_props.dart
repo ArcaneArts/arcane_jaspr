@@ -1,5 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
+
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 
 /// Visual variant for pricing cards.
 enum PricingCardVariant {
@@ -128,6 +130,12 @@ class PricingCardProps {
   /// Custom icon component for header.
   final Widget? icon;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const PricingCardProps({
     this.tier,
     this.onCtaPressed,
@@ -148,6 +156,8 @@ class PricingCardProps {
     this.highlighted = false,
     this.accentColor,
     this.icon,
+    this.styles,
+    this.decoration,
   });
 
   /// Creates a compact pricing card for grids.
@@ -168,6 +178,8 @@ class PricingCardProps {
     this.highlighted = false,
     this.accentColor,
     this.icon,
+    this.styles,
+    this.decoration,
   })  : tier = null,
         onCtaPressed = null,
         variant = PricingCardVariant.compact;
@@ -190,6 +202,8 @@ class PricingCardProps {
     this.highlighted = false,
     this.accentColor,
     this.icon,
+    this.styles,
+    this.decoration,
   })  : tier = null,
         onCtaPressed = null,
         variant = PricingCardVariant.hero;

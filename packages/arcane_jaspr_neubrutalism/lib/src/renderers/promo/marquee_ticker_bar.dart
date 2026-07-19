@@ -62,6 +62,8 @@ class _NeubrutalismMarqueeTickerBarState extends State<NeubrutalismMarqueeTicker
           'box-shadow': component.props.showAtBottom
               ? '0 -4px 0 0 var(--nb-shadow-color, #000)'
               : '0 4px 0 0 var(--nb-shadow-color, #000)',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [

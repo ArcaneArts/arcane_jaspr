@@ -1,152 +1,117 @@
-import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' as dom;
-
 import 'package:arcane_jaspr/core/props/otp_input_props.dart';
+import 'package:arcane_jaspr/core/rendering/base/otp_input_render_base.dart';
 
 /// Neubrutalism OTP input component.
-class NeubrutalismOtpInput extends StatelessComponent {
-  final OtpInputProps props;
+class NeubrutalismOtpInput extends OtpInputRenderBase {
+  const NeubrutalismOtpInput(super.props, {super.key});
 
-  const NeubrutalismOtpInput(this.props, {super.key});
+  @override
+  String get rootClass => 'neubrutalism-otp-input';
 
-  (String, String) get _sizeStyles => switch (props.size) {
+  @override
+  String get idleState => 'idle';
+
+  @override
+  Map<String, String> get extraRootAttrs => <String, String>{
+    'data-size': props.size.name,
+  };
+
+  @override
+  Map<String, String> get rootStyles => const <String, String>{
+    'display': 'flex',
+    'flex-direction': 'column',
+    'gap': '10px',
+  };
+
+  @override
+  Map<String, String> get labelStyles => const <String, String>{
+    'font-family': 'var(--font-heading)',
+    'font-size': '0.75rem',
+    'font-weight': '600',
+    'letter-spacing': '0.08em',
+    'text-transform': 'uppercase',
+    'color': 'var(--muted-foreground)',
+  };
+
+  @override
+  String get digitsRowClass => 'neubrutalism-otp-digits';
+
+  @override
+  Map<String, String> get digitsRowStyles => const <String, String>{
+    'display': 'flex',
+    'align-items': 'center',
+    'gap': '10px',
+  };
+
+  @override
+  Map<String, String> get separatorStyles => const <String, String>{
+    'color': 'var(--nb-accent, var(--primary))',
+    'font-size': 'var(--font-size-lg)',
+    'font-weight': '700',
+    'margin': '0 4px',
+  };
+
+  @override
+  String get digitClass => 'neubrutalism-otp-digit';
+
+  @override
+  (String, String) sizeStyles(OtpInputSizeVariant size) => switch (size) {
     OtpInputSizeVariant.sm => ('44px', '1rem'),
     OtpInputSizeVariant.md => ('52px', '1.125rem'),
     OtpInputSizeVariant.lg => ('60px', '1.25rem'),
   };
 
   @override
-  Component build(BuildContext context) {
-    final hasError = props.error != null;
-    final (size, fontSize) = _sizeStyles;
-    final sepPos = props.separatorPosition;
-    final digits = props.digits.isEmpty
-        ? List.filled(props.length, '')
-        : props.digits;
+  Map<String, String> digitAttributes(
+    int i,
+    bool hasError,
+    List<String> digits,
+  ) => <String, String>{
+    'maxlength': '1',
+    'inputmode': 'numeric',
+    'pattern': '[0-9]*',
+    'autocomplete': 'one-time-code',
+    'aria-label': 'Digit ${i + 1} of ${props.length}',
+    'data-otp-index': '$i',
+    'data-otp-length': '${props.length}',
+    'data-state': isFilled(i, digits) ? 'filled' : 'empty',
+    'data-disabled': '${props.disabled}',
+    if (props.disabled) 'disabled': 'true',
+    'value': digitValue(i, digits),
+  };
 
-    return dom.div(
-      classes: 'neubrutalism-otp-input',
-      attributes: {
-        'data-state': hasError ? 'error' : 'idle',
-        'data-disabled': '${props.disabled}',
-        'data-size': props.size.name,
-      },
-      styles: const dom.Styles(
-        raw: {'display': 'flex', 'flex-direction': 'column', 'gap': '10px'},
-      ),
-      [
-        if (props.label != null)
-          dom.span(
-            styles: const dom.Styles(
-              raw: {
-                'font-family': 'var(--font-heading)',
-                'font-size': '0.75rem',
-                'font-weight': '600',
-                'letter-spacing': '0.08em',
-                'text-transform': 'uppercase',
-                'color': 'var(--muted-foreground)',
-              },
-            ),
-            [Component.text(props.label!)],
-          ),
-
-        // Digit inputs row
-        dom.div(
-          classes: 'neubrutalism-otp-digits',
-          styles: const dom.Styles(
-            raw: {'display': 'flex', 'align-items': 'center', 'gap': '10px'},
-          ),
-          [
-            for (var i = 0; i < props.length; i++) ...[
-              if (sepPos != null && i == sepPos && props.separator != null)
-                dom.span(
-                  styles: const dom.Styles(
-                    raw: {
-                      'color': 'var(--nb-accent, var(--primary))',
-                      'font-size': 'var(--font-size-lg)',
-                      'font-weight': '700',
-                      'margin': '0 4px',
-                    },
-                  ),
-                  [Component.text(props.separator!)],
-                ),
-
-              dom.input(
-                classes:
-                    'neubrutalism-otp-digit ${hasError ? 'error' : ''} ${digits.length > i && digits[i].isNotEmpty ? 'filled' : ''}',
-                type: props.obscure
-                    ? dom.InputType.password
-                    : dom.InputType.text,
-                attributes: {
-                  'maxlength': '1',
-                  'inputmode': 'numeric',
-                  'pattern': '[0-9]*',
-                  'autocomplete': 'one-time-code',
-                  'aria-label': 'Digit ${i + 1} of ${props.length}',
-                  'data-otp-index': '$i',
-                  'data-otp-length': '${props.length}',
-                  'data-state': digits.length > i && digits[i].isNotEmpty
-                      ? 'filled'
-                      : 'empty',
-                  'data-disabled': '${props.disabled}',
-                  if (props.disabled) 'disabled': 'true',
-                  'value': digits.length > i ? digits[i] : '',
-                },
-                styles: dom.Styles(
-                  raw: {
-                    'width': size,
-                    'height': size,
-                    'font-family': 'var(--font-heading)',
-                    'font-size': fontSize,
-                    'text-align': 'center',
-                    'font-weight': '700',
-                    'font-variant-numeric': 'tabular-nums',
-                    'color': 'var(--nb-ink, var(--foreground))',
-                    'background': digits.length > i && digits[i].isNotEmpty
-                        ? 'var(--nb-accent, var(--primary))'
-                        : 'var(--nb-paper, var(--card))',
-                    'border':
-                        'var(--nb-border-thick, 3px) solid ${hasError ? 'var(--destructive)' : 'var(--nb-line, #000)'}',
-                    'transition':
-                        'transform var(--nb-transition, 120ms ease), box-shadow var(--nb-transition, 120ms ease), background var(--nb-transition, 120ms ease)',
-                    'caret-color': 'var(--nb-line, #000)',
-                    'box-shadow':
-                        digits.length > i && digits[i].isNotEmpty
-                            ? 'var(--nb-shadow-sm, 3px 3px 0 0 var(--nb-shadow-color, #000))'
-                            : 'var(--nb-shadow-md, 5px 5px 0 0 var(--nb-shadow-color, #000))',
-                    'transform': digits.length > i && digits[i].isNotEmpty
-                        ? 'translate(2px, 2px)'
-                        : 'translate(0, 0)',
-                    'outline': 'none',
-                    if (props.disabled) 'opacity': '0.5',
-                    if (props.disabled) 'cursor': 'not-allowed',
-                  },
-                ),
-                events: props.onInput != null
-                    ? {
-                        'input': (e) {
-                          final target = e.target as dynamic;
-                          props.onInput!(i, target.value as String);
-                        },
-                      }
-                    : null,
-              ),
-            ],
-          ],
-        ),
-
-        // Error message
-        if (hasError)
-          dom.span(
-            styles: const dom.Styles(
-              raw: {
-                'font-size': 'var(--font-size-sm)',
-                'color': 'var(--destructive)',
-              },
-            ),
-            [Component.text(props.error!)],
-          ),
-      ],
-    );
-  }
+  @override
+  Map<String, String> digitStyles(
+    int i,
+    bool hasError,
+    List<String> digits,
+    String size,
+    String fontSize,
+  ) => <String, String>{
+    'width': size,
+    'height': size,
+    'font-family': 'var(--font-heading)',
+    'font-size': fontSize,
+    'text-align': 'center',
+    'font-weight': '700',
+    'font-variant-numeric': 'tabular-nums',
+    'color': 'var(--nb-ink, var(--foreground))',
+    'background': isFilled(i, digits)
+        ? 'var(--nb-accent, var(--primary))'
+        : 'var(--nb-paper, var(--card))',
+    'border':
+        'var(--nb-border-thick, 3px) solid ${hasError ? 'var(--destructive)' : 'var(--nb-line, #000)'}',
+    'transition':
+        'transform var(--nb-transition, 120ms ease), box-shadow var(--nb-transition, 120ms ease), background var(--nb-transition, 120ms ease)',
+    'caret-color': 'var(--nb-line, #000)',
+    'box-shadow': isFilled(i, digits)
+        ? 'var(--nb-shadow-sm, 3px 3px 0 0 var(--nb-shadow-color, #000))'
+        : 'var(--nb-shadow-md, 5px 5px 0 0 var(--nb-shadow-color, #000))',
+    'transform': isFilled(i, digits)
+        ? 'translate(2px, 2px)'
+        : 'translate(0, 0)',
+    'outline': 'none',
+    if (props.disabled) 'opacity': '0.5',
+    if (props.disabled) 'cursor': 'not-allowed',
+  };
 }

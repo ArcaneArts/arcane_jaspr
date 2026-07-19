@@ -2,19 +2,27 @@ import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart' as dom;
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
 import '../../util/arcane.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 /// Card component with consistent styling and multiple variants.
 class Card extends StatelessWidget {
   final Widget? _child;
   final List<Widget>? _children;
   final CardVariant variant;
-  final String? padding;
-  final String? borderRadius;
+  final EdgeInsets? padding;
+  final BorderRadius? borderRadius;
   final void Function()? _onTap;
   final String? backgroundColor;
   final bool fillWidth;
+
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
 
   const Card({
     Widget? child,
@@ -23,13 +31,14 @@ class Card extends StatelessWidget {
     this.padding,
     this.borderRadius,
     void Function()? onTap,
-    void Function()? onClick,
     this.backgroundColor,
     this.fillWidth = false,
+    this.styles,
+    this.decoration,
     super.key,
   })  : _child = child,
         _children = children,
-        _onTap = onTap ?? onClick,
+        _onTap = onTap,
         assert(child != null || children != null,
             'Either child or children must be provided');
 
@@ -39,13 +48,14 @@ class Card extends StatelessWidget {
     this.padding,
     this.borderRadius,
     void Function()? onTap,
-    void Function()? onClick,
     this.backgroundColor,
     this.fillWidth = false,
+    this.styles,
+    this.decoration,
     super.key,
   })  : _child = child,
         _children = children,
-        _onTap = onTap ?? onClick,
+        _onTap = onTap,
         variant = CardVariant.elevated,
         assert(child != null || children != null,
             'Either child or children must be provided');
@@ -56,13 +66,14 @@ class Card extends StatelessWidget {
     this.padding,
     this.borderRadius,
     void Function()? onTap,
-    void Function()? onClick,
     this.backgroundColor,
     this.fillWidth = false,
+    this.styles,
+    this.decoration,
     super.key,
   })  : _child = child,
         _children = children,
-        _onTap = onTap ?? onClick,
+        _onTap = onTap,
         variant = CardVariant.flat,
         assert(child != null || children != null,
             'Either child or children must be provided');
@@ -73,13 +84,14 @@ class Card extends StatelessWidget {
     this.padding,
     this.borderRadius,
     void Function()? onTap,
-    void Function()? onClick,
     this.backgroundColor,
     this.fillWidth = false,
+    this.styles,
+    this.decoration,
     super.key,
   })  : _child = child,
         _children = children,
-        _onTap = onTap ?? onClick,
+        _onTap = onTap,
         variant = CardVariant.outlined,
         assert(child != null || children != null,
             'Either child or children must be provided');
@@ -90,13 +102,14 @@ class Card extends StatelessWidget {
     this.padding,
     this.borderRadius,
     void Function()? onTap,
-    void Function()? onClick,
     this.backgroundColor,
     this.fillWidth = false,
+    this.styles,
+    this.decoration,
     super.key,
   })  : _child = child,
         _children = children,
-        _onTap = onTap ?? onClick,
+        _onTap = onTap,
         variant = CardVariant.ghost,
         assert(child != null || children != null,
             'Either child or children must be provided');
@@ -107,13 +120,14 @@ class Card extends StatelessWidget {
     this.padding,
     this.borderRadius,
     void Function()? onTap,
-    void Function()? onClick,
     this.backgroundColor,
     this.fillWidth = false,
+    this.styles,
+    this.decoration,
     super.key,
   })  : _child = child,
         _children = children,
-        _onTap = onTap ?? onClick,
+        _onTap = onTap,
         variant = CardVariant.glass,
         assert(child != null || children != null,
             'Either child or children must be provided');
@@ -124,13 +138,14 @@ class Card extends StatelessWidget {
     this.padding,
     this.borderRadius,
     void Function()? onTap,
-    void Function()? onClick,
     this.backgroundColor,
     this.fillWidth = false,
+    this.styles,
+    this.decoration,
     super.key,
   })  : _child = child,
         _children = children,
-        _onTap = onTap ?? onClick,
+        _onTap = onTap,
         variant = CardVariant.interactive,
         assert(child != null || children != null,
             'Either child or children must be provided');
@@ -146,6 +161,8 @@ class Card extends StatelessWidget {
       backgroundColor: backgroundColor,
       fillWidth: fillWidth,
       onTap: _onTap,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }
@@ -170,9 +187,8 @@ class ArcaneStructuredCard extends StatelessWidget {
     this.border = true,
     this.elevation = 0,
     void Function()? onTap,
-    void Function()? onClick,
     super.key,
-  }) : _onTap = onTap ?? onClick;
+  }) : _onTap = onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -251,10 +267,9 @@ class ArcaneImageCard extends StatelessWidget {
     this.height,
     this.radius,
     void Function()? onTap,
-    void Function()? onClick,
     this.fit = BoxFit.cover,
     super.key,
-  }) : _onTap = onTap ?? onClick;
+  }) : _onTap = onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -314,7 +329,7 @@ class ArcaneImageCard extends StatelessWidget {
                   }),
                   [Component.text(subtitle!)],
                 ),
-              if (overlay != null) overlay!,
+              ?overlay,
             ],
           ),
       ],

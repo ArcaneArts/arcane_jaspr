@@ -1,6 +1,5 @@
 import 'package:arcane_jaspr/component/layout/flow.dart';
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:arcane_jaspr/component/typography/text.dart';
 import 'package:arcane_jaspr/util/arcane.dart';
 
 class Collection extends StatelessWidget {

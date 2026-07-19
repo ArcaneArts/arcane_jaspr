@@ -1,6 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import '../interaction/interaction.dart';
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 
 enum RadioGroupLayout {
   vertical,
@@ -52,6 +53,13 @@ class RadioGroupProps<T> {
   final String gap;
   final int gridColumns;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const RadioGroupProps({
     required this.options,
     this.id,
@@ -68,6 +76,8 @@ class RadioGroupProps<T> {
     this.required = false,
     this.gap = '0.5rem',
     this.gridColumns = 2,
+    this.styles,
+    this.decoration,
   });
 
   RadioGroupProps<T> copyWith({
@@ -86,6 +96,8 @@ class RadioGroupProps<T> {
     bool? required,
     String? gap,
     int? gridColumns,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     return RadioGroupProps<T>(
       id: id ?? this.id,
@@ -103,6 +115,8 @@ class RadioGroupProps<T> {
       required: required ?? this.required,
       gap: gap ?? this.gap,
       gridColumns: gridColumns ?? this.gridColumns,
+      styles: styles ?? this.styles,
+      decoration: decoration ?? this.decoration,
     );
   }
 }

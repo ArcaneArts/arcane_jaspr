@@ -1,7 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/menubar_props.dart';
 
@@ -9,8 +10,16 @@ export '../../core/props/menubar_props.dart';
 class ArcaneMenubar extends StatefulWidget {
   final List<ArcaneMenubarMenu> menus;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneMenubar({
     required this.menus,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -38,6 +47,8 @@ class _ArcaneMenubarState extends State<ArcaneMenubar> {
           .toList(),
       openMenuIndex: _openMenuIndex,
       onMenuChange: _onMenuChange,
+      styles: component.styles,
+      decoration: component.decoration,
     ));
   }
 }

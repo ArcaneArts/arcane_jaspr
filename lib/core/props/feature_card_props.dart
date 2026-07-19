@@ -1,5 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
+
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 
 /// Feature card component properties.
 class FeatureCardProps {
@@ -24,6 +26,12 @@ class FeatureCardProps {
   /// Whether to show CTA button at the bottom.
   final bool showCta;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const FeatureCardProps({
     required this.title,
     required this.description,
@@ -36,6 +44,8 @@ class FeatureCardProps {
     this.ctaText,
     this.isExternal = false,
     this.showCta = false,
+    this.styles,
+    this.decoration,
   });
 
   /// Creates a feature card with accent color styling and CTA button.
@@ -49,6 +59,8 @@ class FeatureCardProps {
     this.onTap,
     this.ctaText,
     this.isExternal = false,
+    this.styles,
+    this.decoration,
   })  : showArrow = false,
         horizontal = false,
         showCta = true;

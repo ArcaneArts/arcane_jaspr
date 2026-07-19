@@ -5,13 +5,13 @@ class MarkdownTableExample extends StatelessWidget {
   const MarkdownTableExample({super.key});
 
   @override
-  Widget build(BuildContext context) => ArcaneApp(
-    stylesheet: const ShadcnStylesheet(theme: ShadcnTheme.midnight),
+  Widget build(BuildContext context) => const ArcaneApp(
+    stylesheet: ShadcnStylesheet(theme: ShadcnTheme.midnight),
     brightness: Brightness.dark,
     home: Screen(
       title: 'Markdown',
       child: Collection(
-        children: const [
+        children: [
           Section(
             titleText: 'Rendered Markdown',
             card: true,

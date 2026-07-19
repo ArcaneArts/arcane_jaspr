@@ -1,5 +1,4 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart'
     hide
         Color,
@@ -199,7 +198,7 @@ class Stack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final baseStyle = const ArcaneStyleData(
+    const baseStyle = ArcaneStyleData(
       position: Position.relative,
     );
 

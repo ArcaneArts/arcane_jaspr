@@ -25,13 +25,14 @@ import 'package:jaspr/dom.dart'
         WhiteSpace,
         events;
 
+import '../../util/classes.dart';
 import '../../util/style_types/arcane_style_data.dart';
 
 /// Styled unordered list wrapper.
 class ArcaneBulletList extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
 
   const ArcaneBulletList({
@@ -46,7 +47,7 @@ class ArcaneBulletList extends StatelessComponent {
   Component build(BuildContext context) {
     return ul(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       children,
     );
@@ -57,7 +58,7 @@ class ArcaneBulletList extends StatelessComponent {
 class ArcaneNumberedList extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
 
   const ArcaneNumberedList({
@@ -72,7 +73,7 @@ class ArcaneNumberedList extends StatelessComponent {
   Component build(BuildContext context) {
     return ol(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       children,
     );
@@ -83,7 +84,7 @@ class ArcaneNumberedList extends StatelessComponent {
 class ArcaneListItem extends StatelessComponent {
   final Component child;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
 
   const ArcaneListItem({
@@ -97,7 +98,7 @@ class ArcaneListItem extends StatelessComponent {
   const factory ArcaneListItem.children({
     required List<Component> children,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     Key? key,
   }) = _ArcaneListItemChildren;
@@ -106,7 +107,7 @@ class ArcaneListItem extends StatelessComponent {
   Component build(BuildContext context) {
     return li(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       [child],
     );
@@ -129,7 +130,7 @@ class _ArcaneListItemChildren extends ArcaneListItem {
   Component build(BuildContext context) {
     return li(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       _children,
     );

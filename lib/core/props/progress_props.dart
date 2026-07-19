@@ -1,6 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 
 import '../shared/shared.dart';
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 
 export '../shared/shared.dart' show ComponentSize;
 
@@ -22,6 +24,13 @@ class ProgressProps {
   final String? trackColor;
   final String? indicatorColor;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const ProgressProps({
     this.value = 0.0,
     this.size = ComponentSize.medium,
@@ -30,6 +39,8 @@ class ProgressProps {
     this.showValue = false,
     this.trackColor,
     this.indicatorColor,
+    this.styles,
+    this.decoration,
   });
 
   ProgressProps copyWith({
@@ -40,6 +51,8 @@ class ProgressProps {
     bool? showValue,
     String? trackColor,
     String? indicatorColor,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     return ProgressProps(
       value: value ?? this.value,
@@ -49,6 +62,8 @@ class ProgressProps {
       showValue: showValue ?? this.showValue,
       trackColor: trackColor ?? this.trackColor,
       indicatorColor: indicatorColor ?? this.indicatorColor,
+      styles: styles ?? this.styles,
+      decoration: decoration ?? this.decoration,
     );
   }
 }
@@ -63,6 +78,13 @@ class CircularProgressProps {
   final String? label;
   final bool showPercentage;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const CircularProgressProps({
     required this.value,
     this.size,
@@ -71,6 +93,8 @@ class CircularProgressProps {
     this.trackColor,
     this.label,
     this.showPercentage = true,
+    this.styles,
+    this.decoration,
   });
 }
 
@@ -79,9 +103,18 @@ class LoadingSpinnerProps {
   final String? size;
   final String? color;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const LoadingSpinnerProps({
     this.size,
     this.color,
+    this.styles,
+    this.decoration,
   });
 }
 

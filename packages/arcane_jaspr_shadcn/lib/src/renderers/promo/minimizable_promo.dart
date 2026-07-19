@@ -83,7 +83,7 @@ class _ShadcnMinimizablePromoState extends State<ShadcnMinimizablePromo> {
             'type': 'button',
             'aria-label': _isExpanded ? 'Minimize promo' : 'Expand promo',
           },
-          styles: const dom.Styles(
+          styles: dom.Styles(
             raw: {
               'display': 'flex',
               'align-items': 'center',
@@ -105,6 +105,8 @@ class _ShadcnMinimizablePromoState extends State<ShadcnMinimizablePromo> {
               'text-transform': 'uppercase',
               'transition': 'background-color var(--transition)',
               'box-shadow': '-2px 0 8px rgba(0, 0, 0, 0.1)',
+              ...?component.props.decoration?.universalStyles(),
+              ...?component.props.styles?.toMap(),
             },
           ),
           events: {'click': (_) => _toggleExpand()},
@@ -114,7 +116,7 @@ class _ShadcnMinimizablePromoState extends State<ShadcnMinimizablePromo> {
         // Expanded panel
         dom.div(
           classes: 'arcane-minimizable-promo-panel',
-          styles: const dom.Styles(
+          styles: dom.Styles(
             raw: {
               'position': 'relative',
               'display': 'flex',
@@ -127,6 +129,8 @@ class _ShadcnMinimizablePromoState extends State<ShadcnMinimizablePromo> {
               'box-shadow': 'var(--shadow-lg)',
               'width': '280px',
               'max-width': 'calc(100vw - 48px)',
+              ...?component.props.decoration?.universalStyles(),
+              ...?component.props.styles?.toMap(),
             },
           ),
           [

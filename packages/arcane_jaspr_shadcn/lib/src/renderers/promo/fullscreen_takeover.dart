@@ -87,7 +87,7 @@ class _ShadcnFullscreenTakeoverState extends State<ShadcnFullscreenTakeover> {
 
     return dom.div(
       classes: 'arcane-fullscreen-takeover',
-      styles: const dom.Styles(
+      styles: dom.Styles(
         raw: {
           'position': 'fixed',
           'inset': '0',
@@ -99,6 +99,8 @@ class _ShadcnFullscreenTakeoverState extends State<ShadcnFullscreenTakeover> {
           'padding': '48px 24px',
           'background-color': 'var(--background)',
           'overflow': 'auto',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [

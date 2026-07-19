@@ -25,13 +25,14 @@ import 'package:jaspr/dom.dart'
         WhiteSpace,
         events;
 
+import '../../util/classes.dart';
 import '../../util/style_types/arcane_style_data.dart';
 
 /// Styled table wrapper.
 class ArcaneTable extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
 
   const ArcaneTable({
@@ -46,7 +47,7 @@ class ArcaneTable extends StatelessComponent {
   Component build(BuildContext context) {
     return table(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       children,
     );
@@ -57,7 +58,7 @@ class ArcaneTable extends StatelessComponent {
 class ArcaneTableHead extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
 
   const ArcaneTableHead({
@@ -72,7 +73,7 @@ class ArcaneTableHead extends StatelessComponent {
   Component build(BuildContext context) {
     return thead(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       children,
     );
@@ -83,7 +84,7 @@ class ArcaneTableHead extends StatelessComponent {
 class ArcaneTableBody extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
 
   const ArcaneTableBody({
@@ -98,7 +99,7 @@ class ArcaneTableBody extends StatelessComponent {
   Component build(BuildContext context) {
     return tbody(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       children,
     );
@@ -109,7 +110,7 @@ class ArcaneTableBody extends StatelessComponent {
 class ArcaneTableRow extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
 
   const ArcaneTableRow({
@@ -124,7 +125,7 @@ class ArcaneTableRow extends StatelessComponent {
   Component build(BuildContext context) {
     return tr(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       children,
     );
@@ -135,7 +136,7 @@ class ArcaneTableRow extends StatelessComponent {
 class ArcaneTableHeader extends StatelessComponent {
   final Component child;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
 
   const ArcaneTableHeader({
@@ -149,7 +150,7 @@ class ArcaneTableHeader extends StatelessComponent {
   const factory ArcaneTableHeader.children({
     required List<Component> children,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     Key? key,
   }) = _ArcaneTableHeaderChildren;
@@ -158,7 +159,7 @@ class ArcaneTableHeader extends StatelessComponent {
   Component build(BuildContext context) {
     return th(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       [child],
     );
@@ -181,7 +182,7 @@ class _ArcaneTableHeaderChildren extends ArcaneTableHeader {
   Component build(BuildContext context) {
     return th(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       _children,
     );
@@ -192,7 +193,7 @@ class _ArcaneTableHeaderChildren extends ArcaneTableHeader {
 class ArcaneTableCell extends StatelessComponent {
   final Component child;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
 
   const ArcaneTableCell({
@@ -206,7 +207,7 @@ class ArcaneTableCell extends StatelessComponent {
   const factory ArcaneTableCell.children({
     required List<Component> children,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     Key? key,
   }) = _ArcaneTableCellChildren;
@@ -215,7 +216,7 @@ class ArcaneTableCell extends StatelessComponent {
   Component build(BuildContext context) {
     return td(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       [child],
     );
@@ -238,7 +239,7 @@ class _ArcaneTableCellChildren extends ArcaneTableCell {
   Component build(BuildContext context) {
     return td(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       _children,
     );

@@ -1,5 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
+
 /// Avatar size with extended range for flexibility.
 enum AvatarSize {
   xs,
@@ -32,6 +35,12 @@ class AvatarProps {
   final String? statusColor;
   final void Function()? onTap;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const AvatarProps({
     this.imageUrl,
     this.initials,
@@ -41,6 +50,8 @@ class AvatarProps {
     this.showStatus = false,
     this.statusColor,
     this.onTap,
+    this.styles,
+    this.decoration,
   });
 
   AvatarProps copyWith({
@@ -52,6 +63,8 @@ class AvatarProps {
     bool? showStatus,
     String? statusColor,
     void Function()? onTap,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     return AvatarProps(
       imageUrl: imageUrl ?? this.imageUrl,
@@ -62,6 +75,8 @@ class AvatarProps {
       showStatus: showStatus ?? this.showStatus,
       statusColor: statusColor ?? this.statusColor,
       onTap: onTap ?? this.onTap,
+      styles: styles ?? this.styles,
+      decoration: decoration ?? this.decoration,
     );
   }
 }

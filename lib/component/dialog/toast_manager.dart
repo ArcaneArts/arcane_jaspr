@@ -1,5 +1,6 @@
+import 'dart:async';
+
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/props/toast_props.dart';
 
@@ -63,7 +64,9 @@ class ToastManager {
 
   final List<ToastData> _toasts = [];
   final List<void Function()> _listeners = [];
+  final Map<String, Timer> _dismissTimers = <String, Timer>{};
   ToastPosition _defaultPosition = ToastPosition.bottomRight;
+  int _nextId = 0;
 
   List<ToastData> get toasts => List.unmodifiable(_toasts);
 
@@ -79,20 +82,38 @@ class ToastManager {
     }
   }
 
-  String _generateId() => 'toast_${DateTime.now().millisecondsSinceEpoch}';
+  String _generateId() =>
+      'toast_${DateTime.now().millisecondsSinceEpoch}_${_nextId++}';
+
+  void _scheduleDismiss(ToastData data) {
+    _dismissTimers.remove(data.id)?.cancel();
+    if (data.duration <= 0) {
+      return;
+    }
+    _dismissTimers[data.id] = Timer(
+      Duration(milliseconds: data.duration),
+      () => dismiss(data.id),
+    );
+  }
 
   String _show(ToastData data) {
     _toasts.insert(0, data);
+    _scheduleDismiss(data);
     _notify();
     return data.id;
   }
 
   void dismiss(String id) {
+    _dismissTimers.remove(id)?.cancel();
     _toasts.removeWhere((t) => t.id == id);
     _notify();
   }
 
   void dismissAll() {
+    for (final Timer timer in _dismissTimers.values) {
+      timer.cancel();
+    }
+    _dismissTimers.clear();
     _toasts.clear();
     _notify();
   }
@@ -101,6 +122,7 @@ class ToastManager {
     final index = _toasts.indexWhere((t) => t.id == id);
     if (index != -1) {
       _toasts[index] = updater(_toasts[index]);
+      _scheduleDismiss(_toasts[index]);
       _notify();
     }
   }
@@ -114,17 +136,19 @@ class ToastManager {
     Widget? icon,
     ToastPosition? position,
   }) {
-    return _show(ToastData(
-      id: _generateId(),
-      message: message,
-      title: title,
-      description: description,
-      variant: ToastVariant.info,
-      duration: duration,
-      action: action,
-      icon: icon,
-      position: position ?? _defaultPosition,
-    ));
+    return _show(
+      ToastData(
+        id: _generateId(),
+        message: message,
+        title: title,
+        description: description,
+        variant: ToastVariant.info,
+        duration: duration,
+        action: action,
+        icon: icon,
+        position: position ?? _defaultPosition,
+      ),
+    );
   }
 
   String success(
@@ -136,17 +160,19 @@ class ToastManager {
     Widget? icon,
     ToastPosition? position,
   }) {
-    return _show(ToastData(
-      id: _generateId(),
-      message: message,
-      title: title,
-      description: description,
-      variant: ToastVariant.success,
-      duration: duration,
-      action: action,
-      icon: icon,
-      position: position ?? _defaultPosition,
-    ));
+    return _show(
+      ToastData(
+        id: _generateId(),
+        message: message,
+        title: title,
+        description: description,
+        variant: ToastVariant.success,
+        duration: duration,
+        action: action,
+        icon: icon,
+        position: position ?? _defaultPosition,
+      ),
+    );
   }
 
   String warning(
@@ -158,17 +184,19 @@ class ToastManager {
     Widget? icon,
     ToastPosition? position,
   }) {
-    return _show(ToastData(
-      id: _generateId(),
-      message: message,
-      title: title,
-      description: description,
-      variant: ToastVariant.warning,
-      duration: duration,
-      action: action,
-      icon: icon,
-      position: position ?? _defaultPosition,
-    ));
+    return _show(
+      ToastData(
+        id: _generateId(),
+        message: message,
+        title: title,
+        description: description,
+        variant: ToastVariant.warning,
+        duration: duration,
+        action: action,
+        icon: icon,
+        position: position ?? _defaultPosition,
+      ),
+    );
   }
 
   String error(
@@ -180,17 +208,19 @@ class ToastManager {
     Widget? icon,
     ToastPosition? position,
   }) {
-    return _show(ToastData(
-      id: _generateId(),
-      message: message,
-      title: title,
-      description: description,
-      variant: ToastVariant.error,
-      duration: duration,
-      action: action,
-      icon: icon,
-      position: position ?? _defaultPosition,
-    ));
+    return _show(
+      ToastData(
+        id: _generateId(),
+        message: message,
+        title: title,
+        description: description,
+        variant: ToastVariant.error,
+        duration: duration,
+        action: action,
+        icon: icon,
+        position: position ?? _defaultPosition,
+      ),
+    );
   }
 
   String loading(
@@ -199,16 +229,18 @@ class ToastManager {
     String? description,
     ToastPosition? position,
   }) {
-    return _show(ToastData(
-      id: _generateId(),
-      message: message,
-      title: title,
-      description: description,
-      variant: ToastVariant.loading,
-      duration: 0,
-      dismissible: false,
-      position: position ?? _defaultPosition,
-    ));
+    return _show(
+      ToastData(
+        id: _generateId(),
+        message: message,
+        title: title,
+        description: description,
+        variant: ToastVariant.loading,
+        duration: 0,
+        dismissible: false,
+        position: position ?? _defaultPosition,
+      ),
+    );
   }
 
   String promise<T>(
@@ -221,25 +253,29 @@ class ToastManager {
   }) {
     final id = this.loading(loading, title: title, position: position);
 
-    future.then((result) {
-      update(
-          id,
-          (t) => t.copyWith(
-                message: success(result),
-                variant: ToastVariant.success,
-                duration: 4000,
-                dismissible: true,
-              ));
-    }).catchError((e) {
-      update(
-          id,
-          (t) => t.copyWith(
-                message: error(e),
-                variant: ToastVariant.error,
-                duration: 6000,
-                dismissible: true,
-              ));
-    });
+    future
+        .then((result) {
+          update(
+            id,
+            (t) => t.copyWith(
+              message: success(result),
+              variant: ToastVariant.success,
+              duration: 4000,
+              dismissible: true,
+            ),
+          );
+        })
+        .catchError((e) {
+          update(
+            id,
+            (t) => t.copyWith(
+              message: error(e),
+              variant: ToastVariant.error,
+              duration: 6000,
+              dismissible: true,
+            ),
+          );
+        });
 
     return id;
   }

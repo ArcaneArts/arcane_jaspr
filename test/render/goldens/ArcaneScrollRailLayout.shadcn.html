@@ -1,0 +1,27 @@
+
+    <div style="display: flex; min-height: 100vh; width: 100%">
+      <div id="main-rail" style="position: sticky; top: 0px; width: 280px; height: calc(100vh - 0px - 0px); max-height: calc(100vh - 0px - 0px); flex-shrink: 0; overflow-y: auto; overflow-x: hidden; background: var(--card); border-right: 1px solid color-mix(in srgb, var(--border) 50%, transparent); scrollbar-width: thin; scrollbar-color: var(--border) transparent">
+        <div style="padding: 1rem; min-height: 100%"><span class="arcane-text">content</span></div>
+        <script>
+                    (function() {
+                      var rail = document.getElementById('main-rail');
+                      if (!rail) return;
+                      var storageKey = 'scroll-rail-main-rail';
+                      var savedPos = sessionStorage.getItem(storageKey);
+                      if (savedPos) {
+                        rail.scrollTop = parseInt(savedPos, 10);
+                      }
+                      var saveTimeout;
+                      rail.addEventListener('scroll', function() {
+                        clearTimeout(saveTimeout);
+                        saveTimeout = setTimeout(function() {
+                          sessionStorage.setItem(storageKey, rail.scrollTop.toString());
+                        }, 100);
+                      });
+                    })();
+                  
+        </script>
+      </div>
+      <div style="flex: 1; min-width: 0; background: var(--card)"><span class="arcane-text">content</span></div>
+    </div>
+  

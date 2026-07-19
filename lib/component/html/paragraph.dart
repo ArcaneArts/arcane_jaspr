@@ -25,13 +25,14 @@ import 'package:jaspr/dom.dart'
         WhiteSpace,
         events;
 
+import '../../util/classes.dart';
 import '../../util/style_types/arcane_style_data.dart';
 
 /// Styled paragraph wrapper.
 class ArcaneParagraph extends StatelessComponent {
   final Component child;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
 
   const ArcaneParagraph({
@@ -45,7 +46,7 @@ class ArcaneParagraph extends StatelessComponent {
   const factory ArcaneParagraph.children({
     required List<Component> children,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     Key? key,
   }) = _ArcaneParagraphChildren;
@@ -54,7 +55,7 @@ class ArcaneParagraph extends StatelessComponent {
   Component build(BuildContext context) {
     return p(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       [child],
     );
@@ -77,7 +78,7 @@ class _ArcaneParagraphChildren extends ArcaneParagraph {
   Component build(BuildContext context) {
     return p(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       _children,
     );

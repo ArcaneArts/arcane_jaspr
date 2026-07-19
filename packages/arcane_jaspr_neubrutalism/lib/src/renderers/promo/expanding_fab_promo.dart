@@ -42,7 +42,7 @@ class _NeubrutalismExpandingFabPromoState extends State<NeubrutalismExpandingFab
       // Collapsed FAB state
       return dom.button(
         classes: 'neubrutalism-expanding-fab-promo collapsed',
-        styles: const dom.Styles(
+        styles: dom.Styles(
           raw: {
             'position': 'fixed',
             'bottom': '2rem',
@@ -61,6 +61,8 @@ class _NeubrutalismExpandingFabPromoState extends State<NeubrutalismExpandingFab
             // Neubrutalism: hard offset shadow
             'box-shadow': 'var(--nb-shadow-md, 5px 5px 0 0 var(--nb-shadow-color, #000))',
             'transition': 'translate 120ms ease, box-shadow 120ms ease',
+            ...?component.props.decoration?.universalStyles(),
+            ...?component.props.styles?.toMap(),
           },
         ),
         events: {'click': (_) => _toggle()},
@@ -75,7 +77,7 @@ class _NeubrutalismExpandingFabPromoState extends State<NeubrutalismExpandingFab
 
     return dom.div(
       classes: 'neubrutalism-expanding-fab-promo expanded',
-      styles: const dom.Styles(
+      styles: dom.Styles(
         raw: {
           'position': 'fixed',
           'bottom': '2rem',
@@ -89,6 +91,8 @@ class _NeubrutalismExpandingFabPromoState extends State<NeubrutalismExpandingFab
           'border-radius': '0',
           'box-shadow': 'var(--nb-shadow-md, 5px 5px 0 0 var(--nb-shadow-color, #000))',
           'padding': '1.5rem',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [

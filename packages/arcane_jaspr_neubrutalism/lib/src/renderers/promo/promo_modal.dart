@@ -106,7 +106,7 @@ class _NeubrutalismPromoModalState extends State<NeubrutalismPromoModal> {
         // Modal content
         dom.div(
           classes: 'neubrutalism-promo-modal',
-          styles: const dom.Styles(
+          styles: dom.Styles(
             raw: {
               'position': 'relative',
               'max-width': '480px',
@@ -119,6 +119,8 @@ class _NeubrutalismPromoModalState extends State<NeubrutalismPromoModal> {
               'box-shadow': 'var(--nb-shadow-md, 5px 5px 0 0 var(--nb-shadow-color, #000))',
               'padding': '2.5rem',
               'text-align': 'center',
+              ...?component.props.decoration?.universalStyles(),
+              ...?component.props.styles?.toMap(),
             },
           ),
           events: {'click': (e) => e.stopPropagation()},

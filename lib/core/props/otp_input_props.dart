@@ -1,5 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
+
 enum OtpInputSizeVariant {
   sm,
   md,
@@ -19,6 +22,13 @@ class OtpInputProps {
   final int? separatorPosition;
   final void Function(int index, String value)? onInput;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const OtpInputProps({
     this.length = 6,
     this.digits = const [],
@@ -30,6 +40,8 @@ class OtpInputProps {
     this.separator,
     this.separatorPosition,
     this.onInput,
+    this.styles,
+    this.decoration,
   });
 }
 

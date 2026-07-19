@@ -1,6 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 import '../interaction/interaction.dart';
 import '../shared/shared.dart';
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 
 export '../shared/shared.dart' show ComponentSize, ColorVariant;
 
@@ -18,6 +20,13 @@ class ToggleSwitchProps {
   final String? group;
   final String? itemValue;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const ToggleSwitchProps({
     required this.id,
     required this.value,
@@ -30,6 +39,8 @@ class ToggleSwitchProps {
     this.labelLeft = false,
     this.group,
     this.itemValue,
+    this.styles,
+    this.decoration,
   });
 
   ToggleSwitchProps copyWith({
@@ -44,6 +55,8 @@ class ToggleSwitchProps {
     bool? labelLeft,
     String? group,
     String? itemValue,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     return ToggleSwitchProps(
       id: id ?? this.id,
@@ -57,6 +70,8 @@ class ToggleSwitchProps {
       labelLeft: labelLeft ?? this.labelLeft,
       group: group ?? this.group,
       itemValue: itemValue ?? this.itemValue,
+      styles: styles ?? this.styles,
+      decoration: decoration ?? this.decoration,
     );
   }
 }

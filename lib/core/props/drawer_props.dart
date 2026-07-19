@@ -1,5 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
+
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 
 enum DrawerPosition {
   left,
@@ -35,6 +37,13 @@ class DrawerProps {
   final bool focusTrap;
   final bool restoreFocus;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const DrawerProps({
     this.id,
     required this.isOpen,
@@ -52,6 +61,8 @@ class DrawerProps {
     this.escapeCloses = true,
     this.focusTrap = true,
     this.restoreFocus = true,
+    this.styles,
+    this.decoration,
   });
 
   DrawerProps copyWith({
@@ -71,6 +82,8 @@ class DrawerProps {
     bool? escapeCloses,
     bool? focusTrap,
     bool? restoreFocus,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     return DrawerProps(
       id: id ?? this.id,
@@ -89,6 +102,8 @@ class DrawerProps {
       escapeCloses: escapeCloses ?? this.escapeCloses,
       focusTrap: focusTrap ?? this.focusTrap,
       restoreFocus: restoreFocus ?? this.restoreFocus,
+      styles: styles ?? this.styles,
+      decoration: decoration ?? this.decoration,
     );
   }
 }

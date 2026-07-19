@@ -83,6 +83,8 @@ class _NeubrutalismCornerPromoToastState extends State<NeubrutalismCornerPromoTo
           // Neubrutalism: accent glow
           'box-shadow': 'var(--nb-shadow-md, 5px 5px 0 0 var(--nb-shadow-color, #000))',
           'padding': '1.25rem',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [

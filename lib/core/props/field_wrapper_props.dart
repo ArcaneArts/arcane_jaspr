@@ -1,5 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
+
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 
 /// Field wrapper component properties.
 class FieldWrapperProps {
@@ -13,6 +15,12 @@ class FieldWrapperProps {
   final Widget? leading;
   final Widget? trailing;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const FieldWrapperProps({
     required this.field,
     this.labelText,
@@ -23,6 +31,8 @@ class FieldWrapperProps {
     this.showValidation = true,
     this.leading,
     this.trailing,
+    this.styles,
+    this.decoration,
   });
 }
 
@@ -67,9 +77,17 @@ class InputGroupProps {
   final List<Widget> children;
   final double gap;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const InputGroupProps({
     required this.children,
     this.gap = 8,
+    this.styles,
+    this.decoration,
   });
 }
 

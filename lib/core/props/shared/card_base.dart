@@ -1,5 +1,4 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Mixin for components with tap/navigation actions.
 mixin CardActionProps {

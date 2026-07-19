@@ -1,49 +1,18 @@
 import 'package:jaspr/dom.dart' as dom;
 import 'package:jaspr/jaspr.dart';
 
-import 'package:arcane_jaspr/core/interaction/interaction.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/toggle_switch_props.dart';
+import 'package:arcane_jaspr/core/rendering/base/toggle_switch_render_base.dart';
 
-class NeubrutalismToggleSwitch extends StatelessComponent {
-  final ToggleSwitchProps props;
-
-  const NeubrutalismToggleSwitch(this.props, {super.key});
+class NeubrutalismToggleSwitch extends ToggleSwitchRenderBase {
+  const NeubrutalismToggleSwitch(super.props, {super.key});
 
   @override
-  Component build(BuildContext context) {
-    final bool inExternalGroup =
-        props.group != null && props.group!.isNotEmpty && props.itemValue != null;
-    final String groupId = inExternalGroup ? props.group! : props.id;
-    final String optionValue = inExternalGroup ? props.itemValue! : 'on';
-    final String groupMode = inExternalGroup ? 'multi' : 'single';
-    final String currentGroupValue = props.value ? optionValue : '';
-
-    final Map<String, String> rootAttrs = inExternalGroup
-        ? const <String, String>{}
-        : groupAttrs(
-            groupId: groupId,
-            mode: groupMode,
-            value: currentGroupValue,
-            disabled: props.disabled,
-            changeAction: props.onChangeAction != null
-                ? encodeArcaneAction(props.onChangeAction!)
-                : null,
-          );
-
-    final Map<String, String> itemAttrs = mergeAttrs(<Map<String, String>>[
-      groupItemAttrs(
-        groupId: groupId,
-        value: optionValue,
-        selected: props.value,
-        disabled: props.disabled,
-      ),
-      if (!props.disabled)
-        interactionAttrs(
-          ArcaneInteraction.toggleValue(groupId, optionValue),
-        ),
-    ]);
-
+  Component buildSwitch(
+    ToggleSwitchProps props,
+    Map<String, String> itemAttrs,
+  ) {
     (double, double, double, double) sizing = switch (props.size) {
       ComponentSize.sm => (44.0, 24.0, 16.0, 4.0),
       ComponentSize.md => (52.0, 28.0, 20.0, 4.0),
@@ -66,7 +35,7 @@ class NeubrutalismToggleSwitch extends StatelessComponent {
     double thumbTranslate =
         props.value ? (width - thumbSize - (inset * 2)) : 0;
 
-    Component switchWidget = dom.button(
+    return dom.button(
       classes:
           'neubrutalism-toggle-switch ${props.value ? 'active' : ''} ${props.disabled ? 'disabled' : ''}',
       attributes: mergeAttrs(<Map<String, String>>[
@@ -101,6 +70,8 @@ class NeubrutalismToggleSwitch extends StatelessComponent {
           'transition':
               'background-color 120ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 120ms cubic-bezier(0.2, 0.8, 0.2, 1)',
           'outline': 'none',
+          ...?props.decoration?.universalStyles(),
+          ...?props.styles?.toMap(),
         },
       ),
       events: props.disabled || props.onChanged == null
@@ -130,25 +101,26 @@ class NeubrutalismToggleSwitch extends StatelessComponent {
         ),
       ],
     );
+  }
 
-    if (props.label == null) return switchWidget;
+  @override
+  String get labelClasses => 'neubrutalism-toggle-label';
 
-    Component labelWidget = dom.span(
-      classes: 'neubrutalism-toggle-label',
-      styles: dom.Styles(
-        raw: <String, String>{
-          'font-family': 'var(--font-sans)',
-          'font-size': '0.875rem',
-          'font-weight': '600',
-          'color': props.disabled
-              ? 'var(--muted-foreground)'
-              : 'var(--foreground)',
-          'user-select': 'none',
-        },
-      ),
-      <Component>[Component.text(props.label!)],
-    );
+  @override
+  Map<String, String> labelStyles(ToggleSwitchProps props) => <String, String>{
+    'font-family': 'var(--font-sans)',
+    'font-size': '0.875rem',
+    'font-weight': '600',
+    'color': props.disabled ? 'var(--muted-foreground)' : 'var(--foreground)',
+    'user-select': 'none',
+  };
 
+  @override
+  Component buildWrapper(
+    ToggleSwitchProps props,
+    Map<String, String> rootAttrs,
+    List<Component> children,
+  ) {
     return dom.label(
       classes: 'neubrutalism-toggle-wrapper',
       attributes: rootAttrs,
@@ -168,9 +140,7 @@ class NeubrutalismToggleSwitch extends StatelessComponent {
                 props.onChanged!(!props.value);
               },
             },
-      props.labelLeft
-          ? <Component>[labelWidget, switchWidget]
-          : <Component>[switchWidget, labelWidget],
+      children,
     );
   }
 }

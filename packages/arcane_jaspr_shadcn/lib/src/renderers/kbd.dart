@@ -1,13 +1,15 @@
-import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' as dom;
-
 import 'package:arcane_jaspr/core/props/kbd_props.dart';
+import 'package:arcane_jaspr/core/rendering/base/kbd_render_base.dart';
 
 /// ShadCN-styled keyboard shortcut display component
-class ShadcnKbd extends StatelessComponent {
-  final KbdProps props;
+class ShadcnKbd extends KbdRenderBase {
+  const ShadcnKbd(super.props, {super.key});
 
-  const ShadcnKbd(this.props, {super.key});
+  @override
+  String? get kbdClasses => null;
+
+  @override
+  String get keysWrapperGap => 'var(--space-1)';
 
   (String padding, String fontSize, String minWidth) get _sizeStyles =>
       switch (props.size) {
@@ -16,7 +18,8 @@ class ShadcnKbd extends StatelessComponent {
         ComponentSize.lg => ('6px 12px', '1rem', '32px'),
       };
 
-  Map<String, String> get _styleMap {
+  @override
+  Map<String, String> get styleMap {
     final (padding, fontSize, minWidth) = _sizeStyles;
 
     final baseStyles = {
@@ -34,7 +37,7 @@ class ShadcnKbd extends StatelessComponent {
       'user-select': 'none',
     };
 
-    return switch (props.style) {
+    return switch (props.variant) {
       KbdStyle.raised => {
         ...baseStyles,
         'background':
@@ -60,45 +63,5 @@ class ShadcnKbd extends StatelessComponent {
         'color': 'var(--muted-foreground)',
       },
     };
-  }
-
-  @override
-  Component build(BuildContext context) {
-    if (props.keys != null && props.keys!.isNotEmpty) {
-      return dom.span(
-        styles: const dom.Styles(
-          raw: {
-            'display': 'inline-flex',
-            'align-items': 'center',
-            'gap': 'var(--space-1)',
-          },
-        ),
-        [
-          for (var i = 0; i < props.keys!.length; i++) ...[
-            Component.element(
-              tag: 'kbd',
-              styles: dom.Styles(raw: _styleMap),
-              children: [Component.text(props.keys![i])],
-            ),
-            if (i < props.keys!.length - 1)
-              dom.span(
-                styles: const dom.Styles(
-                  raw: {
-                    'color': 'var(--muted-foreground)',
-                    'font-size': 'var(--font-size-xs)',
-                  },
-                ),
-                [Component.text(props.separator)],
-              ),
-          ],
-        ],
-      );
-    }
-
-    return Component.element(
-      tag: 'kbd',
-      styles: dom.Styles(raw: _styleMap),
-      children: [Component.text(props.keyText ?? '')],
-    );
   }
 }

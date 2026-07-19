@@ -13,6 +13,8 @@ abstract class ArcaneStylesheet {
 
   String get name;
 
+  String get themeClass => 'arcane-theme-$id';
+
   ComponentRenderers get renderers;
 
   LayoutRenderers get layouts => const DefaultLayoutRenderers();
@@ -33,6 +35,10 @@ abstract class ArcaneStylesheet {
 
   String? get bodyClass => null;
 
+  Map<String, String> get rootAttributes => <String, String>{
+    'data-arcane-theme': id,
+  };
+
   String get baseCss => ArcaneStylesheetCss.resolve(
     cacheKey: cacheKey,
     fontFaces: fontFaces,
@@ -40,7 +46,7 @@ abstract class ArcaneStylesheet {
     darkSeed: darkSeed,
     fonts: fonts,
     radius: radius,
-    componentCss: componentCss,
+    componentCss: () => componentCss,
   );
 
   Object get cacheKey => this;

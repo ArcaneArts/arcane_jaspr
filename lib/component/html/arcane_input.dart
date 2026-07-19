@@ -25,12 +25,13 @@ import 'package:jaspr/dom.dart'
         WhiteSpace,
         events;
 
+import '../../util/classes.dart';
 import '../../util/style_types/arcane_style_data.dart';
 
 /// Raw input element wrapper.
 class ArcaneRawInput extends StatelessComponent {
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
   final String? name;
   final InputType? type;
@@ -68,11 +69,11 @@ class ArcaneRawInput extends StatelessComponent {
       type: type,
       value: value,
       disabled: disabled,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       events: events,
       attributes: {
-        if (placeholder != null) 'placeholder': placeholder!,
+        'placeholder': ?placeholder,
         if (readOnly) 'readonly': '',
         if (required) 'required': '',
         if (autofocus) 'autofocus': '',

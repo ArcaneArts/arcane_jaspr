@@ -1,5 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
+
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 
 enum ToastVariant {
   info,
@@ -49,6 +51,12 @@ class ToastProps {
   final void Function()? onMouseLeave;
   final void Function()? onDismiss;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ToastProps({
     required this.message,
     this.title,
@@ -65,6 +73,8 @@ class ToastProps {
     this.onMouseEnter,
     this.onMouseLeave,
     this.onDismiss,
+    this.styles,
+    this.decoration,
   });
 
   ToastProps copyWith({
@@ -83,6 +93,8 @@ class ToastProps {
     void Function()? onMouseEnter,
     void Function()? onMouseLeave,
     void Function()? onDismiss,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     return ToastProps(
       message: message ?? this.message,
@@ -100,6 +112,8 @@ class ToastProps {
       onMouseEnter: onMouseEnter ?? this.onMouseEnter,
       onMouseLeave: onMouseLeave ?? this.onMouseLeave,
       onDismiss: onDismiss ?? this.onDismiss,
+      styles: styles ?? this.styles,
+      decoration: decoration ?? this.decoration,
     );
   }
 }

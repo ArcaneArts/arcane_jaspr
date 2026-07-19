@@ -74,6 +74,8 @@ class _NeubrutalismSlidingSidebarBannerState extends State<NeubrutalismSlidingSi
           // Neubrutalism: accent glow
           'box-shadow': 'var(--nb-shadow-md, 5px 5px 0 0 var(--nb-shadow-color, #000))',
           'padding': '1.5rem',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [

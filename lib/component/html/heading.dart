@@ -25,6 +25,7 @@ import 'package:jaspr/dom.dart'
         WhiteSpace,
         events;
 
+import '../../util/classes.dart';
 import '../../util/style_types/arcane_style_data.dart';
 
 enum HeadingLevel { h1, h2, h3, h4, h5, h6 }
@@ -36,7 +37,7 @@ class ArcaneHeading extends StatelessComponent {
   final List<Component>? _children;
   final String? text;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
 
   const ArcaneHeading({
@@ -67,7 +68,7 @@ class ArcaneHeading extends StatelessComponent {
     Component? child,
     String? text,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     Key? key,
   }) : this(
@@ -83,7 +84,7 @@ class ArcaneHeading extends StatelessComponent {
   const ArcaneHeading.h1Children({
     required List<Component> children,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     Key? key,
   }) : this._withChildren(
@@ -99,7 +100,7 @@ class ArcaneHeading extends StatelessComponent {
     Component? child,
     String? text,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     Key? key,
   }) : this(
@@ -115,7 +116,7 @@ class ArcaneHeading extends StatelessComponent {
   const ArcaneHeading.h2Children({
     required List<Component> children,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     Key? key,
   }) : this._withChildren(
@@ -131,7 +132,7 @@ class ArcaneHeading extends StatelessComponent {
     Component? child,
     String? text,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     Key? key,
   }) : this(
@@ -147,7 +148,7 @@ class ArcaneHeading extends StatelessComponent {
   const ArcaneHeading.h3Children({
     required List<Component> children,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     Key? key,
   }) : this._withChildren(
@@ -163,7 +164,7 @@ class ArcaneHeading extends StatelessComponent {
     Component? child,
     String? text,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     Key? key,
   }) : this(
@@ -179,7 +180,7 @@ class ArcaneHeading extends StatelessComponent {
   const ArcaneHeading.h4Children({
     required List<Component> children,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     Key? key,
   }) : this._withChildren(
@@ -195,7 +196,7 @@ class ArcaneHeading extends StatelessComponent {
     Component? child,
     String? text,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     Key? key,
   }) : this(
@@ -211,7 +212,7 @@ class ArcaneHeading extends StatelessComponent {
   const ArcaneHeading.h5Children({
     required List<Component> children,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     Key? key,
   }) : this._withChildren(
@@ -227,7 +228,7 @@ class ArcaneHeading extends StatelessComponent {
     Component? child,
     String? text,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     Key? key,
   }) : this(
@@ -243,7 +244,7 @@ class ArcaneHeading extends StatelessComponent {
   const ArcaneHeading.h6Children({
     required List<Component> children,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     Key? key,
   }) : this._withChildren(
@@ -274,17 +275,17 @@ class ArcaneHeading extends StatelessComponent {
 
     switch (level) {
       case HeadingLevel.h1:
-        return h1(id: id, classes: classes, styles: mergedStyles, content);
+        return h1(id: id, classes: classes == null ? null : cx(classes!), styles: mergedStyles, content);
       case HeadingLevel.h2:
-        return h2(id: id, classes: classes, styles: mergedStyles, content);
+        return h2(id: id, classes: classes == null ? null : cx(classes!), styles: mergedStyles, content);
       case HeadingLevel.h3:
-        return h3(id: id, classes: classes, styles: mergedStyles, content);
+        return h3(id: id, classes: classes == null ? null : cx(classes!), styles: mergedStyles, content);
       case HeadingLevel.h4:
-        return h4(id: id, classes: classes, styles: mergedStyles, content);
+        return h4(id: id, classes: classes == null ? null : cx(classes!), styles: mergedStyles, content);
       case HeadingLevel.h5:
-        return h5(id: id, classes: classes, styles: mergedStyles, content);
+        return h5(id: id, classes: classes == null ? null : cx(classes!), styles: mergedStyles, content);
       case HeadingLevel.h6:
-        return h6(id: id, classes: classes, styles: mergedStyles, content);
+        return h6(id: id, classes: classes == null ? null : cx(classes!), styles: mergedStyles, content);
     }
   }
 }

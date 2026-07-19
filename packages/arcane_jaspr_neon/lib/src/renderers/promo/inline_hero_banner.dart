@@ -3,7 +3,7 @@ import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/props/promo_props.dart';
 
-/// Neon Inline Hero Banner renderer.
+/// Neon Inline Hero Banner renderer (neutral placeholder skeleton).
 ///
 /// An inline promotional banner with multiple style variants.
 class NeonInlineHeroBanner extends StatefulComponent {
@@ -26,14 +26,14 @@ class _NeonInlineHeroBannerState extends State<NeonInlineHeroBanner> {
   }
 
   Map<String, String> _getStyleVariantStyles() {
-    return switch (component.props.style) {
+    return switch (component.props.variant) {
       PromoInlineHeroBannerStyle.badge => {
         'display': 'inline-flex',
         'align-items': 'center',
         'gap': '0.75rem',
         'padding': '0.5rem 1rem',
-        'background': 'color-mix(in srgb, var(--neon-accent) 15%, transparent)',
-        'border': '1px solid color-mix(in srgb, var(--neon-accent) 30%, transparent)',
+        'background': 'var(--muted)',
+        'border': '1px solid var(--border)',
         'border-radius': 'var(--arcane-radius-full)',
       },
       PromoInlineHeroBannerStyle.ribbon => {
@@ -41,33 +41,28 @@ class _NeonInlineHeroBannerState extends State<NeonInlineHeroBanner> {
         'align-items': 'center',
         'gap': '1rem',
         'padding': '0.75rem 1.5rem',
-        'background':
-            'linear-gradient(90deg, var(--neon-accent), color-mix(in srgb, var(--neon-accent) 70%, transparent))',
+        'background': 'var(--primary)',
         'border-radius': '0',
-        'color': '#ffffff',
+        'color': 'var(--primary-foreground)',
       },
       PromoInlineHeroBannerStyle.pill => {
         'display': 'inline-flex',
         'align-items': 'center',
         'gap': '0.875rem',
         'padding': '0.875rem 1.5rem',
-        'background': 'rgba(10, 10, 10, 0.9)',
-        'border': '1px solid var(--neon-accent)',
+        'background': 'var(--card)',
+        'border': '1px solid var(--border)',
         'border-radius': 'var(--arcane-radius-full)',
-        'box-shadow': '0 14px 20px color-mix(in srgb, var(--neon-accent) 20%, transparent)',
       },
       PromoInlineHeroBannerStyle.card => {
         'display': 'flex',
         'align-items': 'center',
         'gap': '1rem',
         'padding': '1.25rem 1.75rem',
-        'background': 'rgba(10, 10, 10, 0.95)',
-        'backdrop-filter': 'blur(12px)',
-        '-webkit-backdrop-filter': 'blur(12px)',
-        'border': '1px solid var(--neon-accent)',
+        'background': 'var(--card)',
+        'border': '1px solid var(--border)',
         'border-radius': 'var(--radius-lg)',
-        'box-shadow':
-            '0 0 30px color-mix(in srgb, var(--neon-accent) 20%, transparent), 0 10px 30px -10px rgba(0, 0, 0, 0.4)',
+        'box-shadow': '0 4px 12px rgba(0, 0, 0, 0.15)',
       },
     };
   }
@@ -80,11 +75,17 @@ class _NeonInlineHeroBannerState extends State<NeonInlineHeroBanner> {
 
     final Map<String, String> variantStyles = _getStyleVariantStyles();
     final bool isRibbon =
-        component.props.style == PromoInlineHeroBannerStyle.ribbon;
+        component.props.variant == PromoInlineHeroBannerStyle.ribbon;
 
     return dom.div(
-      classes: 'neon-inline-hero-banner ${component.props.style.name}',
-      styles: dom.Styles(raw: variantStyles),
+      classes: 'neon-inline-hero-banner ${component.props.variant.name}',
+      styles: dom.Styles(
+        raw: {
+          ...variantStyles,
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
+        },
+      ),
       [
         // Icon
         if (component.props.icon != null)
@@ -92,7 +93,9 @@ class _NeonInlineHeroBannerState extends State<NeonInlineHeroBanner> {
             styles: dom.Styles(
               raw: {
                 'flex-shrink': '0',
-                'color': isRibbon ? '#ffffff' : 'var(--neon-accent)',
+                'color': isRibbon
+                    ? 'var(--primary-foreground)'
+                    : 'var(--foreground)',
               },
             ),
             [component.props.icon!],
@@ -104,7 +107,9 @@ class _NeonInlineHeroBannerState extends State<NeonInlineHeroBanner> {
             raw: {
               'font-size': 'var(--font-size-sm)',
               'font-weight': 'var(--font-weight-medium)',
-              'color': isRibbon ? '#ffffff' : 'var(--foreground)',
+              'color': isRibbon
+                  ? 'var(--primary-foreground)'
+                  : 'var(--foreground)',
             },
           ),
           [Component.text(component.props.message)],
@@ -118,13 +123,15 @@ class _NeonInlineHeroBannerState extends State<NeonInlineHeroBanner> {
                 'padding': '0.25rem 0.625rem',
                 'background': isRibbon
                     ? 'rgba(255, 255, 255, 0.2)'
-                    : 'color-mix(in srgb, var(--neon-accent) 15%, transparent)',
+                    : 'var(--muted)',
                 'border-radius': 'var(--radius-sm)',
                 'font-family':
                     'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                 'font-size': 'var(--font-size-sm)',
                 'font-weight': 'var(--font-weight-bold)',
-                'color': isRibbon ? '#ffffff' : 'var(--neon-accent)',
+                'color': isRibbon
+                    ? 'var(--primary-foreground)'
+                    : 'var(--foreground)',
               },
             ),
             [Component.text(component.props.promoCode!)],
@@ -139,12 +146,12 @@ class _NeonInlineHeroBannerState extends State<NeonInlineHeroBanner> {
                 'padding': '0.5rem 1rem',
                 'background': isRibbon
                     ? 'rgba(255, 255, 255, 0.15)'
-                    : 'var(--neon-accent)',
+                    : 'var(--primary)',
                 'border': isRibbon
                     ? '1px solid rgba(255, 255, 255, 0.3)'
                     : 'none',
                 'border-radius': 'var(--radius-sm)',
-                'color': '#ffffff',
+                'color': 'var(--primary-foreground)',
                 'font-size': 'var(--font-size-sm)',
                 'font-weight': 'var(--font-weight-medium)',
                 'text-decoration': 'none',

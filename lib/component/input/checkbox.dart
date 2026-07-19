@@ -4,7 +4,9 @@ import 'package:jaspr/dom.dart' as dom;
 
 export '../../core/props/checkbox_props.dart' show ComponentSize, ColorVariant;
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 /// Checkbox input component.
 class ArcaneCheckbox extends StatelessWidget {
@@ -19,6 +21,12 @@ class ArcaneCheckbox extends StatelessWidget {
   final String? value;
   final void Function(bool)? _onChanged;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneCheckbox({
     this.id,
     required this.checked,
@@ -31,6 +39,8 @@ class ArcaneCheckbox extends StatelessWidget {
     this.value,
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
+    this.styles,
+    this.decoration,
     super.key,
   }) : _onChanged = onChanged ?? onToggle;
 
@@ -45,6 +55,8 @@ class ArcaneCheckbox extends StatelessWidget {
     this.value,
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
+    this.styles,
+    this.decoration,
     super.key,
   })  : _onChanged = onChanged ?? onToggle,
         color = ColorVariant.primary;
@@ -60,6 +72,8 @@ class ArcaneCheckbox extends StatelessWidget {
     this.value,
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
+    this.styles,
+    this.decoration,
     super.key,
   })  : _onChanged = onChanged ?? onToggle,
         color = ColorVariant.success;
@@ -75,6 +89,8 @@ class ArcaneCheckbox extends StatelessWidget {
     this.value,
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
+    this.styles,
+    this.decoration,
     super.key,
   })  : _onChanged = onChanged ?? onToggle,
         color = ColorVariant.warning;
@@ -90,6 +106,8 @@ class ArcaneCheckbox extends StatelessWidget {
     this.value,
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
+    this.styles,
+    this.decoration,
     super.key,
   })  : _onChanged = onChanged ?? onToggle,
         color = ColorVariant.destructive;
@@ -114,6 +132,8 @@ class ArcaneCheckbox extends StatelessWidget {
       onChanged: _onChanged,
       group: group,
       value: value,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

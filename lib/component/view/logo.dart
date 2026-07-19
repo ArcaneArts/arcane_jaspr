@@ -24,7 +24,7 @@ class Logo extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       gap: 12,
       children: <Widget>[
-        if (icon != null) icon!,
+        ?icon,
         Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,

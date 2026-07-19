@@ -1,5 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
+
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 
 /// Accordion item data.
 class AccordionItemProps {
@@ -45,6 +47,12 @@ class AccordionProps {
   /// Default accent color for items without a specific accentColor.
   final String? defaultAccentColor;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const AccordionProps({
     required this.items,
     required this.openItems,
@@ -53,6 +61,8 @@ class AccordionProps {
     this.bordered = false,
     this.variant = AccordionVariant.standard,
     this.defaultAccentColor,
+    this.styles,
+    this.decoration,
   });
 
   AccordionProps copyWith({
@@ -63,6 +73,8 @@ class AccordionProps {
     bool? bordered,
     AccordionVariant? variant,
     String? defaultAccentColor,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     return AccordionProps(
       items: items ?? this.items,
@@ -72,6 +84,8 @@ class AccordionProps {
       bordered: bordered ?? this.bordered,
       variant: variant ?? this.variant,
       defaultAccentColor: defaultAccentColor ?? this.defaultAccentColor,
+      styles: styles ?? this.styles,
+      decoration: decoration ?? this.decoration,
     );
   }
 }

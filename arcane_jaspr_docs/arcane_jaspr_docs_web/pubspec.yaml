@@ -8,8 +8,8 @@ environment:
 
 dependencies:
   web: ^1.1.1
-  jaspr: ^0.23.0
-  jaspr_content: ^0.5.0
+  jaspr: ^0.23.1
+  jaspr_content: ^0.5.2
   arcane_jaspr:
     path: ../../
   arcane_jaspr_shadcn:
@@ -18,19 +18,25 @@ dependencies:
     path: ../../packages/arcane_jaspr_neon
   arcane_jaspr_neubrutalism:
     path: ../../packages/arcane_jaspr_neubrutalism
+  arcane_jaspr_win95:
+    path: ../../packages/arcane_jaspr_win95
+  arcane_jaspr_kb:
+    path: ../../packages/arcane_jaspr_kb
   arcane_lexicon:
     path: ../../../arcane_lexicon
   fast_log: ^1.0.7
 
 dev_dependencies:
-  build_runner: ^2.11.1
-  build_web_compilers: ^4.4.14
-  jaspr_builder: ^0.23.0
+  build_runner: ^2.15.0
+  build_web_compilers: ^4.8.0
+  jaspr_builder: ^0.23.1
   lints: ^6.1.0
 
 dependency_overrides:
   arcane_jaspr:
     path: ../../
+  arcane_lexicon:
+    path: ../../../arcane_lexicon
 
 
 jaspr:

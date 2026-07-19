@@ -26,6 +26,7 @@ import 'package:jaspr/dom.dart'
         Radius,
         events;
 
+import '../../util/classes.dart';
 import '../../util/style_types/index.dart';
 
 enum CodeBlockStyle { raw, code, minimal, inline, terminal }
@@ -33,15 +34,15 @@ enum CodeBlockStyle { raw, code, minimal, inline, terminal }
 /// Styled preformatted text wrapper with style presets.
 class ArcaneCodeBlock extends StatelessComponent {
   final List<Component> children;
-  final CodeBlockStyle style;
+  final CodeBlockStyle variant;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
   final Map<String, String>? attributes;
 
   const ArcaneCodeBlock({
     required this.children,
-    this.style = CodeBlockStyle.raw,
+    this.variant = CodeBlockStyle.raw,
     this.styles,
     this.classes,
     this.id,
@@ -52,7 +53,7 @@ class ArcaneCodeBlock extends StatelessComponent {
   const factory ArcaneCodeBlock.code({
     required List<Component> children,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     Key? key,
   }) = _ArcaneCodeBlockCode;
@@ -60,13 +61,13 @@ class ArcaneCodeBlock extends StatelessComponent {
   const factory ArcaneCodeBlock.terminal({
     required List<Component> children,
     ArcaneStyleData? styles,
-    String? classes,
+    List<String>? classes,
     String? id,
     Key? key,
   }) = _ArcaneCodeBlockTerminal;
 
   ArcaneStyleData _getPresetStyles() {
-    return switch (style) {
+    return switch (variant) {
       CodeBlockStyle.raw => const ArcaneStyleData(),
       CodeBlockStyle.code => const ArcaneStyleData(
           margin: MarginPreset.none,
@@ -126,7 +127,7 @@ class ArcaneCodeBlock extends StatelessComponent {
 
     return pre(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: mergedStyles.toStyles(),
       attributes: attributes,
       children,
@@ -141,7 +142,7 @@ class _ArcaneCodeBlockCode extends ArcaneCodeBlock {
     super.classes,
     super.id,
     super.key,
-  }) : super(style: CodeBlockStyle.code);
+  }) : super(variant: CodeBlockStyle.code);
 }
 
 class _ArcaneCodeBlockTerminal extends ArcaneCodeBlock {
@@ -151,5 +152,5 @@ class _ArcaneCodeBlockTerminal extends ArcaneCodeBlock {
     super.classes,
     super.id,
     super.key,
-  }) : super(style: CodeBlockStyle.terminal);
+  }) : super(variant: CodeBlockStyle.terminal);
 }

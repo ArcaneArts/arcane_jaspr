@@ -1,5 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
+
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 
 enum EmptyStateStyleVariant {
   centered,
@@ -20,8 +22,15 @@ class EmptyStateProps {
   final String? description;
   final Widget? action;
   final Widget? secondaryAction;
-  final EmptyStateStyleVariant style;
+  final EmptyStateStyleVariant variant;
   final EmptyStateSizeVariant size;
+
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
 
   const EmptyStateProps({
     required this.title,
@@ -29,8 +38,10 @@ class EmptyStateProps {
     this.description,
     this.action,
     this.secondaryAction,
-    this.style = EmptyStateStyleVariant.centered,
+    this.variant = EmptyStateStyleVariant.centered,
     this.size = EmptyStateSizeVariant.md,
+    this.styles,
+    this.decoration,
   });
 
   EmptyStateProps copyWith({
@@ -39,8 +50,10 @@ class EmptyStateProps {
     String? description,
     Widget? action,
     Widget? secondaryAction,
-    EmptyStateStyleVariant? style,
+    EmptyStateStyleVariant? variant,
     EmptyStateSizeVariant? size,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     return EmptyStateProps(
       icon: icon ?? this.icon,
@@ -48,8 +61,10 @@ class EmptyStateProps {
       description: description ?? this.description,
       action: action ?? this.action,
       secondaryAction: secondaryAction ?? this.secondaryAction,
-      style: style ?? this.style,
+      variant: variant ?? this.variant,
       size: size ?? this.size,
+      styles: styles ?? this.styles,
+      decoration: decoration ?? this.decoration,
     );
   }
 }

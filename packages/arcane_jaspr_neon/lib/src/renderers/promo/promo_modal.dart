@@ -5,7 +5,7 @@ import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/props/promo_props.dart';
 
-/// Neon Promo Modal renderer.
+/// Neon Promo Modal renderer (neutral placeholder skeleton).
 ///
 /// Full-screen modal popup for high-priority promotions.
 class NeonPromoModal extends StatefulComponent {
@@ -97,10 +97,7 @@ class _NeonPromoModalState extends State<NeonPromoModal> {
           'align-items': 'center',
           'justify-content': 'center',
           'padding': '1.5rem',
-          // Neon: darker backdrop
-          'background-color': 'rgba(0, 0, 0, 0.9)',
-          'backdrop-filter': 'blur(8px)',
-          '-webkit-backdrop-filter': 'blur(8px)',
+          'background-color': 'rgba(0, 0, 0, 0.5)',
         },
       ),
       events: {'click': (_) => _dismiss()},
@@ -108,22 +105,19 @@ class _NeonPromoModalState extends State<NeonPromoModal> {
         // Modal content
         dom.div(
           classes: 'neon-promo-modal',
-          styles: const dom.Styles(
+          styles: dom.Styles(
             raw: {
               'position': 'relative',
               'max-width': '480px',
               'width': '100%',
-              // Neon: glass effect
-              'background-color': 'rgba(10, 10, 10, 0.95)',
-              'backdrop-filter': 'blur(12px)',
-              '-webkit-backdrop-filter': 'blur(12px)',
-              'border': '1px solid var(--neon-accent)',
+              'background-color': 'var(--card)',
+              'border': '1px solid var(--border)',
               'border-radius': 'var(--radius-2xl)',
-              // Neon: intense accent glow
-              'box-shadow':
-                  '0 0 60px color-mix(in srgb, var(--neon-accent) 30%, transparent), 0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+              'box-shadow': '0 8px 24px rgba(0, 0, 0, 0.15)',
               'padding': '2.5rem',
               'text-align': 'center',
+              ...?component.props.decoration?.universalStyles(),
+              ...?component.props.styles?.toMap(),
             },
           ),
           events: {'click': (e) => e.stopPropagation()},
@@ -165,9 +159,7 @@ class _NeonPromoModalState extends State<NeonPromoModal> {
                 raw: {
                   'font-size': 'var(--font-size-sm)',
                   'font-weight': 'var(--font-weight-semibold)',
-                  'color': 'var(--neon-accent)',
-                  'text-transform': 'uppercase',
-                  'letter-spacing': '0',
+                  'color': 'var(--muted-foreground)',
                   'margin-bottom': '0.5rem',
                 },
               ),
@@ -181,14 +173,12 @@ class _NeonPromoModalState extends State<NeonPromoModal> {
                   raw: {
                     'display': 'inline-block',
                     'padding': '0.75rem 1.5rem',
-                    'background':
-                        'linear-gradient(135deg, var(--neon-accent) 0%, color-mix(in srgb, var(--neon-accent) 70%, transparent) 100%)',
+                    'background': 'var(--primary)',
                     'border-radius': 'var(--radius-lg)',
                     'font-size': '2.5rem',
                     'font-weight': 'var(--font-weight-bold)',
-                    'color': '#ffffff',
+                    'color': 'var(--primary-foreground)',
                     'margin-bottom': '1rem',
-                    'box-shadow': '0 14px 30px color-mix(in srgb, var(--neon-accent) 50%, transparent)',
                   },
                 ),
                 [Component.text(component.props.discount!)],
@@ -249,7 +239,7 @@ class _NeonPromoModalState extends State<NeonPromoModal> {
                             'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                         'font-size': 'var(--font-size-sm)',
                         'font-weight': 'var(--font-weight-bold)',
-                        'color': 'var(--neon-accent)',
+                        'color': 'var(--foreground)',
                       },
                     ),
                     [Component.text(_formatCountdown(_remainingTime!))],
@@ -263,8 +253,8 @@ class _NeonPromoModalState extends State<NeonPromoModal> {
                 styles: const dom.Styles(
                   raw: {
                     'padding': '1rem',
-                    'background': 'color-mix(in srgb, var(--neon-accent) 10%, transparent)',
-                    'border': '2px dashed var(--neon-accent)',
+                    'background': 'var(--muted)',
+                    'border': '2px dashed var(--border)',
                     'border-radius': 'var(--radius)',
                     'margin-bottom': '1.5rem',
                   },
@@ -275,8 +265,6 @@ class _NeonPromoModalState extends State<NeonPromoModal> {
                       raw: {
                         'font-size': 'var(--font-size-xs)',
                         'color': 'var(--muted-foreground)',
-                        'text-transform': 'uppercase',
-                        'letter-spacing': '0',
                         'margin-bottom': '0.375rem',
                       },
                     ),
@@ -289,8 +277,7 @@ class _NeonPromoModalState extends State<NeonPromoModal> {
                             'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                         'font-size': 'var(--font-size-xl)',
                         'font-weight': 'var(--font-weight-bold)',
-                        'color': 'var(--neon-accent)',
-                        'letter-spacing': '0',
+                        'color': 'var(--foreground)',
                       },
                     ),
                     [Component.text(component.props.promoCode!)],
@@ -306,16 +293,15 @@ class _NeonPromoModalState extends State<NeonPromoModal> {
                   raw: {
                     'display': 'inline-block',
                     'padding': '1rem 2.5rem',
-                    'background': 'var(--neon-accent)',
+                    'background': 'var(--primary)',
                     'border': 'none',
                     'border-radius': 'var(--radius-lg)',
-                    'color': '#ffffff',
+                    'color': 'var(--primary-foreground)',
                     'font-size': 'var(--font-size-base)',
                     'font-weight': 'var(--font-weight-semibold)',
                     'text-decoration': 'none',
                     'cursor': 'pointer',
                     'transition': 'all var(--transition)',
-                    'box-shadow': '0 14px 25px color-mix(in srgb, var(--neon-accent) 50%, transparent)',
                   },
                 ),
                 events: component.props.onCtaClick != null

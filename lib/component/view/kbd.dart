@@ -1,7 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/kbd_props.dart' show KbdStyle, ComponentSize;
 
@@ -10,13 +11,22 @@ class ArcaneKbd extends StatelessWidget {
   final String? keyText;
   final List<String>? keys;
   final String separator;
-  final KbdStyle style;
+  final KbdStyle variant;
   final ComponentSize size;
+
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
 
   const ArcaneKbd(
     this.keyText, {
-    this.style = KbdStyle.raised,
+    this.variant = KbdStyle.raised,
     this.size = ComponentSize.md,
+    this.styles,
+    this.decoration,
     super.key,
   })  : keys = null,
         separator = '+';
@@ -24,22 +34,28 @@ class ArcaneKbd extends StatelessWidget {
   const ArcaneKbd.combo(
     this.keys, {
     this.separator = '+',
-    this.style = KbdStyle.raised,
+    this.variant = KbdStyle.raised,
     this.size = ComponentSize.md,
+    this.styles,
+    this.decoration,
     super.key,
   }) : keyText = null;
 
   factory ArcaneKbd.shortcut(
     String shortcut, {
-    KbdStyle style = KbdStyle.raised,
+    KbdStyle variant = KbdStyle.raised,
     ComponentSize size = ComponentSize.md,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     final parts = shortcut.split('+').map((s) => s.trim()).toList();
     return ArcaneKbd.combo(
       parts,
       separator: '+',
-      style: style,
+      variant: variant,
       size: size,
+      styles: styles,
+      decoration: decoration,
     );
   }
 
@@ -49,8 +65,10 @@ class ArcaneKbd extends StatelessWidget {
       keyText: keyText,
       keys: keys,
       separator: separator,
-      style: style,
+      variant: variant,
       size: size,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

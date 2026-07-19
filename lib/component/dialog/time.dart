@@ -3,7 +3,6 @@ import 'package:arcane_jaspr/component/input/button.dart';
 import 'package:arcane_jaspr/component/input/time_picker.dart';
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:arcane_jaspr/component/typography/text.dart';
-import 'package:arcane_jaspr/util/arcane.dart';
 
 class DialogTime extends StatefulWidget {
   final String title;

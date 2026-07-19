@@ -1,15 +1,23 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
+
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 
 /// Stat card component properties.
 class StatCardProps {
   final String label;
   final String value;
-  final String? icon;
+  final Widget? icon;
   final String? trend;
   final bool trendPositive;
   final String? description;
   final String? iconBackground;
+
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
 
   const StatCardProps({
     required this.label,
@@ -19,6 +27,8 @@ class StatCardProps {
     this.trendPositive = true,
     this.description,
     this.iconBackground,
+    this.styles,
+    this.decoration,
   });
 }
 

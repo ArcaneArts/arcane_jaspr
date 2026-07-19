@@ -1,8 +1,9 @@
 import 'package:jaspr/dom.dart' as dom;
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 /// An inline promotional banner that integrates with the hero section.
 ///
@@ -14,9 +15,16 @@ class ArcaneInlineHeroBanner extends StatefulWidget {
   final String? ctaHref;
   final void Function()? onCtaClick;
   final void Function()? onDismiss;
-  final PromoInlineHeroBannerStyle style;
+  final PromoInlineHeroBannerStyle variant;
   final bool dismissible;
   final Widget? icon;
+
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
 
   const ArcaneInlineHeroBanner({
     required this.message,
@@ -25,9 +33,11 @@ class ArcaneInlineHeroBanner extends StatefulWidget {
     this.ctaHref,
     this.onCtaClick,
     this.onDismiss,
-    this.style = PromoInlineHeroBannerStyle.pill,
+    this.variant = PromoInlineHeroBannerStyle.pill,
     this.dismissible = true,
     this.icon,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -54,9 +64,11 @@ class _ArcaneInlineHeroBannerState extends State<ArcaneInlineHeroBanner> {
       ctaHref: component.ctaHref,
       onCtaClick: component.onCtaClick,
       onDismiss: component.dismissible ? _handleDismiss : null,
-      style: component.style,
+      variant: component.variant,
       dismissible: component.dismissible,
       icon: component.icon,
+      styles: component.styles,
+      decoration: component.decoration,
     ));
   }
 }

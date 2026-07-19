@@ -1,5 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
+
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 
 /// CTA (Call-to-Action) card component properties.
 ///
@@ -33,6 +35,21 @@ class CTACardProps {
   /// Whether to show hover effects.
   final bool showHoverEffects;
 
+  /// Accent color (CSS color string) for the icon chip and CTA button.
+  /// Defaults to the theme's `var(--primary)` when null.
+  final String? accentColor;
+
+  /// Whether the CTA links to an external destination. When true, the anchor
+  /// opens in a new tab with `rel="noopener noreferrer"` and shows a trailing
+  /// external-link glyph.
+  final bool isExternal;
+
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const CTACardProps({
     this.icon,
     required this.title,
@@ -43,6 +60,10 @@ class CTACardProps {
     this.height = '420px',
     this.animationDelayMs,
     this.showHoverEffects = true,
+    this.accentColor,
+    this.isExternal = false,
+    this.styles,
+    this.decoration,
   });
 }
 

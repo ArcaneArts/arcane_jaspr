@@ -157,12 +157,14 @@ class _NeubrutalismSlotCounterState extends State<NeubrutalismSlotCounter> {
 
     return dom.div(
       classes: 'neubrutalism-slot-counter',
-      styles: const dom.Styles(
+      styles: dom.Styles(
         raw: {
           'display': 'inline-flex',
           'flex-direction': 'column',
           'align-items': 'center',
           'gap': 'var(--space-2)',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [
@@ -286,6 +288,8 @@ class NeubrutalismSlotCounterCard extends StatelessComponent {
           },
           if (props.showBorder)
             'border': 'var(--nb-border-thin, 2px) solid var(--nb-line, #000)',
+          ...?props.decoration?.universalStyles(),
+          ...?props.styles?.toMap(),
         },
       ),
       [NeubrutalismSlotCounter(props.counter)],

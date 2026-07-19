@@ -1,7 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/pagination_props.dart'
     show PaginationStyleVariant, PaginationSizeVariant;
@@ -24,7 +25,7 @@ class ArcanePagination extends StatelessWidget {
   final int currentPage;
   final int totalPages;
   final void Function(int page)? onPageChange;
-  final PaginationStyle style;
+  final PaginationStyle variant;
   final PaginationSize size;
   final int siblingCount;
   final bool showFirstLast;
@@ -33,11 +34,17 @@ class ArcanePagination extends StatelessWidget {
   final String previousText;
   final String nextText;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcanePagination({
     required this.currentPage,
     required this.totalPages,
     this.onPageChange,
-    this.style = PaginationStyle.outline,
+    this.variant = PaginationStyle.outline,
     this.size = PaginationSize.md,
     this.siblingCount = 1,
     this.showFirstLast = true,
@@ -45,6 +52,8 @@ class ArcanePagination extends StatelessWidget {
     this.showPageCount = false,
     this.previousText = '\u{2190}',
     this.nextText = '\u{2192}',
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -55,8 +64,10 @@ class ArcanePagination extends StatelessWidget {
     this.size = PaginationSize.md,
     this.previousText = '\u{2190} Previous',
     this.nextText = 'Next \u{2192}',
+    this.styles,
+    this.decoration,
     super.key,
-  })  : style = PaginationStyle.simple,
+  })  : variant = PaginationStyle.simple,
         siblingCount = 0,
         showFirstLast = false,
         showPrevNext = true,
@@ -101,7 +112,7 @@ class ArcanePagination extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final styleVariant = switch (style) {
+    final styleVariant = switch (variant) {
       PaginationStyle.outline => PaginationStyleVariant.outline,
       PaginationStyle.filled => PaginationStyleVariant.filled,
       PaginationStyle.ghost => PaginationStyleVariant.ghost,
@@ -118,7 +129,7 @@ class ArcanePagination extends StatelessWidget {
       currentPage: currentPage,
       totalPages: totalPages,
       onPageChange: onPageChange,
-      style: styleVariant,
+      variant: styleVariant,
       size: sizeVariant,
       siblingCount: siblingCount,
       showFirstLast: showFirstLast,
@@ -127,6 +138,8 @@ class ArcanePagination extends StatelessWidget {
       previousText: previousText,
       nextText: nextText,
       pageNumbers: _getPageNumbers(),
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

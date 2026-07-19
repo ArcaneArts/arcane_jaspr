@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Verify ${{ matrix.package }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - "."
+          - packages/arcane_jaspr_shadcn
+          - packages/arcane_jaspr_neon
+          - packages/arcane_jaspr_neubrutalism
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+
+      - name: Install dependencies
+        working-directory: ${{ matrix.package }}
+        run: dart pub get
+
+      # Plain `dart analyze` (no --fatal-infos): the packages ship pre-existing
+      # analyzer infos (prefer_const_constructors, use_null_aware_elements, etc.)
+      # that would fail --fatal-infos. This still fails the build on any
+      # error or warning. Mirrors the commands documented in AGENTS.md.
+      - name: Analyze
+        working-directory: ${{ matrix.package }}
+        run: dart analyze
+
+      # Run `dart test` only when real test files exist. Another package may not
+      # have a test/ dir at all; the core test/ dir may contain non-test sources.
+      # If *_test.dart files exist and any test fails, this fails the build.
+      - name: Test
+        working-directory: ${{ matrix.package }}
+        shell: bash
+        run: |
+          if find test -name '*_test.dart' -type f 2>/dev/null | grep -q .; then
+            echo "Found *_test.dart files; running dart test."
+            dart test
+          else
+            echo "No *_test.dart files found; skipping dart test."
+          fi
+
+      - name: Publish dry run
+        working-directory: ${{ matrix.package }}
+        run: dart pub publish --dry-run

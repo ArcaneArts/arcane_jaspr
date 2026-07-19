@@ -2,8 +2,6 @@ import 'package:arcane_jaspr/component/view/bar.dart';
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:arcane_jaspr/component/layout/flow.dart';
 import 'package:arcane_jaspr/component/screen/fill_screen.dart';
-import 'package:arcane_jaspr/component/typography/text.dart';
-import 'package:arcane_jaspr/util/arcane.dart';
 
 class Screen extends StatelessWidget {
   final Widget child;

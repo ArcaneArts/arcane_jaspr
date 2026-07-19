@@ -143,6 +143,34 @@ enum TextColor {
       };
 }
 
+/// Opacity and blend helpers for ANY CSS color string.
+///
+/// Colors cross the [ArcaneStyleData] boundary as raw strings — a hex value
+/// (`#4CAF50`), a theme variable (`var(--primary)`), an `ArcaneColor.*.css`
+/// token, or a runtime accent. The historic `${color}30` hex-alpha suffix hack
+/// silently corrupts any non-hex color (`var(--primary)30` is invalid CSS);
+/// these emit `color-mix()`, which works for every color form.
+extension ArcaneColorOps on String {
+  /// Fades this color toward transparent. [amount] is clamped to `0.0..1.0`.
+  ///
+  /// `'var(--primary)'.opacity(0.3)` → `color-mix(in srgb, var(--primary) 30%, transparent)`.
+  String opacity(double amount) =>
+      'color-mix(in srgb, $this ${_mixPercent(amount)}, transparent)';
+
+  /// Blends [amount] of this color over [base] (alpha stays `1`).
+  ///
+  /// `'#000'.on('var(--card)', 0.1)` → `color-mix(in srgb, #000 10%, var(--card))`.
+  String on(String base, double amount) =>
+      'color-mix(in srgb, $this ${_mixPercent(amount)}, $base)';
+}
+
+String _mixPercent(double amount) {
+  // Keep one decimal of precision so .opacity(0.125) -> 12.5% (not 13%) and
+  // small values don't quantize to 0%. Emit a whole number when it is one.
+  final double pct = (amount.clamp(0.0, 1.0) * 1000).round() / 10;
+  return pct == pct.roundToDouble() ? '${pct.round()}%' : '$pct%';
+}
+
 /// Border color presets
 enum BorderColor {
   standard,

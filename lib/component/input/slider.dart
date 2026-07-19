@@ -1,11 +1,12 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/interaction/interaction.dart';
 
 export '../../core/props/slider_props.dart' show ComponentSize, SliderVariant;
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 /// Slider input component with single value or range mode.
 class ArcaneSlider extends StatelessWidget {
@@ -30,6 +31,12 @@ class ArcaneSlider extends StatelessWidget {
   final void Function(double min, double max)? onRangeChanged;
   final ArcaneInteraction? onChangeAction;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneSlider({
     this.id,
     required this.value,
@@ -47,6 +54,8 @@ class ArcaneSlider extends StatelessWidget {
     this.disabled = false,
     this.onChanged,
     this.onChangeAction,
+    this.styles,
+    this.decoration,
     super.key,
   })  : isRange = false,
         rangeMin = null,
@@ -71,6 +80,8 @@ class ArcaneSlider extends StatelessWidget {
     this.disabled = false,
     this.onRangeChanged,
     this.onChangeAction,
+    this.styles,
+    this.decoration,
     super.key,
   })  : value = 0,
         onChanged = null,
@@ -94,6 +105,8 @@ class ArcaneSlider extends StatelessWidget {
     this.disabled = false,
     this.onChanged,
     this.onChangeAction,
+    this.styles,
+    this.decoration,
     super.key,
   })  : variant = SliderVariant.primary,
         isRange = false,
@@ -117,6 +130,8 @@ class ArcaneSlider extends StatelessWidget {
     this.disabled = false,
     this.onChanged,
     this.onChangeAction,
+    this.styles,
+    this.decoration,
     super.key,
   })  : variant = SliderVariant.success,
         isRange = false,
@@ -140,6 +155,8 @@ class ArcaneSlider extends StatelessWidget {
     this.disabled = false,
     this.onChanged,
     this.onChangeAction,
+    this.styles,
+    this.decoration,
     super.key,
   })  : variant = SliderVariant.warning,
         isRange = false,
@@ -163,6 +180,8 @@ class ArcaneSlider extends StatelessWidget {
     this.disabled = false,
     this.onChanged,
     this.onChangeAction,
+    this.styles,
+    this.decoration,
     super.key,
   })  : variant = SliderVariant.error,
         isRange = false,
@@ -193,6 +212,8 @@ class ArcaneSlider extends StatelessWidget {
       rangeMax: rangeMax,
       onRangeChanged: onRangeChanged,
       onChangeAction: onChangeAction,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

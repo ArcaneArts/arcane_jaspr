@@ -54,10 +54,10 @@ class _MenuSearchDialogExampleState extends State<MenuSearchDialogExample> {
               ),
             ],
           ),
-          Section(
+          const Section(
             titleText: 'Dialogs',
             card: true,
-            children: const [
+            children: [
               DialogText(title: 'Rename project', onConfirm: _noopConfirm),
               DialogDate(title: 'Pick a launch date', onConfirm: _noopDate),
             ],

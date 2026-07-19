@@ -25,13 +25,14 @@ import 'package:jaspr/dom.dart'
         WhiteSpace,
         events;
 
+import '../../util/classes.dart';
 import '../../util/style_types/arcane_style_data.dart';
 
 /// Styled nav element wrapper.
 class ArcaneNav extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
-  final String? classes;
+  final List<String>? classes;
   final String? id;
 
   const ArcaneNav({
@@ -46,7 +47,7 @@ class ArcaneNav extends StatelessComponent {
   Component build(BuildContext context) {
     return nav(
       id: id,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       children,
     );

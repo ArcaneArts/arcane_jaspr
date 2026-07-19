@@ -1,8 +1,9 @@
 import 'package:jaspr/dom.dart' as dom;
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 /// A dramatic full-screen takeover for major promotions.
 ///
@@ -21,6 +22,13 @@ class ArcaneFullscreenTakeover extends StatefulWidget {
   final int delayMs;
   final Duration? countdownDuration;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const ArcaneFullscreenTakeover({
     required this.headline,
     required this.subheadline,
@@ -34,6 +42,8 @@ class ArcaneFullscreenTakeover extends StatefulWidget {
     this.onDismiss,
     this.delayMs = 2000,
     this.countdownDuration,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -85,6 +95,8 @@ class _ArcaneFullscreenTakeoverState extends State<ArcaneFullscreenTakeover> {
       onDismiss: _handleDismiss,
       delayMs: component.delayMs,
       countdownDuration: component.countdownDuration,
+      styles: component.styles,
+      decoration: component.decoration,
     ));
   }
 }

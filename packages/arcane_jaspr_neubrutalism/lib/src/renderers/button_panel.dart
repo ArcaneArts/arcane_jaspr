@@ -51,6 +51,8 @@ class NeubrutalismToolbar extends StatelessComponent {
           'background': 'var(--nb-paper, var(--card))',
           'box-shadow':
               'var(--nb-shadow-sm, 3px 3px 0 0 var(--nb-shadow-color, #000))',
+          ...?props.decoration?.universalStyles(),
+          ...?props.styles?.toMap(),
         },
       ),
       props.children,

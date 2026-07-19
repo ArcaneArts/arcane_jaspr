@@ -1,7 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 class ArcaneDialog extends StatelessWidget {
   final String? id;
@@ -18,6 +19,12 @@ class ArcaneDialog extends StatelessWidget {
   final bool focusTrap;
   final bool restoreFocus;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneDialog({
     this.id,
     this.isOpen = false,
@@ -32,6 +39,8 @@ class ArcaneDialog extends StatelessWidget {
     this.escapeCloses = true,
     this.focusTrap = true,
     this.restoreFocus = true,
+    this.styles,
+    this.decoration,
     super.key,
   })  : _child = child,
         _children = children,
@@ -55,6 +64,8 @@ class ArcaneDialog extends StatelessWidget {
       escapeCloses: escapeCloses,
       focusTrap: focusTrap,
       restoreFocus: restoreFocus,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

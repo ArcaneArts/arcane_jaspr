@@ -235,8 +235,8 @@ class _ShadcnFlexiCardsState extends State<ShadcnFlexiCards> {
     final Map<String, String> cardStyles = {
       // Only use flex if not using locked width
       if (!useLockedWidth) 'flex': '$flexValue',
-      if (cardWidth != null) 'width': cardWidth,
-      if (cardHeight != null) 'height': cardHeight,
+      'width': ?cardWidth,
+      'height': ?cardHeight,
       'min-width': component.props.minCardWidth,
       'display': 'flex',
       'flex-direction': 'column',

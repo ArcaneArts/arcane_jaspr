@@ -1,6 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 import '../interaction/interaction.dart';
 
 enum CycleButtonSize {
@@ -45,6 +46,13 @@ class CycleButtonProps<T> {
   final String? id;
   final Map<String, String>? attributes;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const CycleButtonProps({
     required this.options,
     required this.value,
@@ -55,6 +63,8 @@ class CycleButtonProps<T> {
     this.disabled = false,
     this.id,
     this.attributes,
+    this.styles,
+    this.decoration,
   });
 
   CycleButtonProps<T> copyWith({
@@ -67,6 +77,8 @@ class CycleButtonProps<T> {
     bool? disabled,
     String? id,
     Map<String, String>? attributes,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     return CycleButtonProps<T>(
       options: options ?? this.options,
@@ -78,6 +90,8 @@ class CycleButtonProps<T> {
       disabled: disabled ?? this.disabled,
       id: id ?? this.id,
       attributes: attributes ?? this.attributes,
+      styles: styles ?? this.styles,
+      decoration: decoration ?? this.decoration,
     );
   }
 }
@@ -94,6 +108,13 @@ class ToggleButtonProps {
   final String? id;
   final Map<String, String>? attributes;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const ToggleButtonProps({
     required this.value,
     this.onChanged,
@@ -104,6 +125,8 @@ class ToggleButtonProps {
     this.disabled = false,
     this.id,
     this.attributes,
+    this.styles,
+    this.decoration,
   });
 
   ToggleButtonProps copyWith({
@@ -116,6 +139,8 @@ class ToggleButtonProps {
     bool? disabled,
     String? id,
     Map<String, String>? attributes,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     return ToggleButtonProps(
       value: value ?? this.value,
@@ -127,6 +152,8 @@ class ToggleButtonProps {
       disabled: disabled ?? this.disabled,
       id: id ?? this.id,
       attributes: attributes ?? this.attributes,
+      styles: styles ?? this.styles,
+      decoration: decoration ?? this.decoration,
     );
   }
 }

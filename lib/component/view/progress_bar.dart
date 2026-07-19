@@ -1,7 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/progress_props.dart'
     show ComponentSize, ProgressVariant;
@@ -16,6 +17,12 @@ class ArcaneProgressBar extends StatelessWidget {
   final String? trackColor;
   final String? indicatorColor;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneProgressBar({
     required this.value,
     this.size = ComponentSize.md,
@@ -24,6 +31,8 @@ class ArcaneProgressBar extends StatelessWidget {
     this.showValue = false,
     this.trackColor,
     this.indicatorColor,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -31,6 +40,8 @@ class ArcaneProgressBar extends StatelessWidget {
     required this.value,
     this.size = ComponentSize.md,
     this.showValue = false,
+    this.styles,
+    this.decoration,
     super.key,
   })  : variant = ProgressVariant.primary,
         indeterminate = false,
@@ -41,6 +52,8 @@ class ArcaneProgressBar extends StatelessWidget {
     required this.value,
     this.size = ComponentSize.md,
     this.showValue = false,
+    this.styles,
+    this.decoration,
     super.key,
   })  : variant = ProgressVariant.success,
         indeterminate = false,
@@ -51,6 +64,8 @@ class ArcaneProgressBar extends StatelessWidget {
     required this.value,
     this.size = ComponentSize.md,
     this.showValue = false,
+    this.styles,
+    this.decoration,
     super.key,
   })  : variant = ProgressVariant.warning,
         indeterminate = false,
@@ -61,6 +76,8 @@ class ArcaneProgressBar extends StatelessWidget {
     required this.value,
     this.size = ComponentSize.md,
     this.showValue = false,
+    this.styles,
+    this.decoration,
     super.key,
   })  : variant = ProgressVariant.error,
         indeterminate = false,
@@ -77,6 +94,8 @@ class ArcaneProgressBar extends StatelessWidget {
       showValue: showValue,
       trackColor: trackColor,
       indicatorColor: indicatorColor,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }
@@ -91,6 +110,12 @@ class ArcaneCircularProgress extends StatelessWidget {
   final String? label;
   final bool showPercentage;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneCircularProgress({
     required this.value,
     this.size,
@@ -99,6 +124,8 @@ class ArcaneCircularProgress extends StatelessWidget {
     this.trackColor,
     this.label,
     this.showPercentage = true,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -112,6 +139,8 @@ class ArcaneCircularProgress extends StatelessWidget {
       trackColor: trackColor,
       label: label,
       showPercentage: showPercentage,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }
@@ -121,9 +150,17 @@ class ArcaneLoadingSpinner extends StatelessWidget {
   final String? size;
   final String? color;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneLoadingSpinner({
     this.size,
     this.color,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -132,6 +169,8 @@ class ArcaneLoadingSpinner extends StatelessWidget {
     return context.renderers.loadingSpinner(LoadingSpinnerProps(
       size: size,
       color: color,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

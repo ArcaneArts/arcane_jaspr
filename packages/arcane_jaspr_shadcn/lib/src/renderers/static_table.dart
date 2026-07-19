@@ -1,179 +1,82 @@
-import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' as dom;
-
-import 'package:arcane_jaspr/core/props/static_table_props.dart';
+import 'package:arcane_jaspr/core/rendering/base/static_table_render_base.dart';
 
 /// ShadCN Static Table renderer.
-class ShadcnStaticTable extends StatelessComponent {
-  final StaticTableProps props;
-
-  const ShadcnStaticTable(this.props, {super.key});
+class ShadcnStaticTable extends StaticTableRenderBase {
+  const ShadcnStaticTable(super.props, {super.key});
 
   @override
-  Component build(BuildContext context) {
-    return dom.div(
-      classes: 'arcane-static-table-container',
-      styles: const dom.Styles(
-        raw: {
-          'overflow-x': 'auto',
-          'border': '1px solid var(--border)',
-          'border-radius': 'var(--radius)',
-        },
-      ),
-      [
-        dom.table(
-          classes: 'arcane-static-table',
-          styles: const dom.Styles(
-            raw: {
-              'width': '100%',
-              'border-collapse': 'collapse',
-              'font-size': 'var(--font-size-sm)',
-            },
-          ),
-          [
-            // Header
-            if (props.showHeader)
-              dom.thead(
-                styles: dom.Styles(
-                  raw: {
-                    'background-color': 'var(--muted)',
-                    if (props.stickyHeader) 'position': 'sticky',
-                    if (props.stickyHeader) 'top': '0',
-                    if (props.stickyHeader) 'z-index': '1',
-                  },
-                ),
-                [
-                  dom.tr([
-                    for (var i = 0; i < props.headers.length; i++)
-                      dom.th(
-                        styles: dom.Styles(
-                          raw: {
-                            'padding': '1rem 1.5rem',
-                            'text-align':
-                                (props.alignments != null &&
-                                    i < props.alignments!.length)
-                                ? props.alignments![i].css
-                                : 'left',
-                            'font-weight': 'var(--font-weight-semibold)',
-                            'color': 'var(--foreground)',
-                            'white-space': 'nowrap',
-                          },
-                        ),
-                        [Component.text(props.headers[i])],
-                      ),
-                  ]),
-                ],
-              ),
+  String get classPrefix => 'arcane';
 
-            // Body
-            dom.tbody([
-              for (var rowIndex = 0; rowIndex < props.rows.length; rowIndex++)
-                dom.tr(
-                  styles: dom.Styles(
-                    raw: {
-                      'background-color': props.striped && rowIndex.isOdd
-                          ? 'var(--muted)'
-                          : 'var(--card)',
-                      if (props.showDividers &&
-                          rowIndex < props.rows.length - 1)
-                        'border-bottom': '1px solid var(--border)',
-                    },
-                  ),
-                  [
-                    for (
-                      var colIndex = 0;
-                      colIndex < props.rows[rowIndex].length;
-                      colIndex++
-                    )
-                      dom.td(
-                        styles: dom.Styles(
-                          raw: {
-                            'padding': '1rem 1.5rem',
-                            'text-align':
-                                (props.alignments != null &&
-                                    colIndex < props.alignments!.length)
-                                ? props.alignments![colIndex].css
-                                : 'left',
-                            'color': 'var(--foreground)',
-                          },
-                        ),
-                        [props.rows[rowIndex][colIndex]],
-                      ),
-                  ],
-                ),
-            ]),
-          ],
-        ),
-      ],
-    );
-  }
+  @override
+  Map<String, String> get containerStyles => const <String, String>{
+    'overflow-x': 'auto',
+    'border': '1px solid var(--border)',
+    'border-radius': 'var(--radius)',
+  };
+
+  @override
+  Map<String, String> get tableStyles => const <String, String>{
+    'width': '100%',
+    'border-collapse': 'collapse',
+    'font-size': 'var(--font-size-sm)',
+  };
+
+  @override
+  Map<String, String> theadBaseStyles() => const <String, String>{
+    'background-color': 'var(--muted)',
+  };
+
+  @override
+  Map<String, String> headerCellStyles(String textAlign) => <String, String>{
+    'padding': '1rem 1.5rem',
+    'text-align': textAlign,
+    'font-weight': 'var(--font-weight-semibold)',
+    'color': 'var(--foreground)',
+    'white-space': 'nowrap',
+  };
+
+  @override
+  Map<String, String> rowStyles(int rowIndex) => <String, String>{
+    'background-color': props.striped && rowIndex.isOdd
+        ? 'var(--muted)'
+        : 'var(--card)',
+    if (props.showDividers && rowIndex < props.rows.length - 1)
+      'border-bottom': '1px solid var(--border)',
+  };
 }
 
 /// ShadCN Key-Value Table renderer.
-class ShadcnKeyValueTable extends StatelessComponent {
-  final KeyValueTableProps props;
-
-  const ShadcnKeyValueTable(this.props, {super.key});
+class ShadcnKeyValueTable extends KeyValueTableRenderBase {
+  const ShadcnKeyValueTable(super.props, {super.key});
 
   @override
-  Component build(BuildContext context) {
-    return dom.div(
-      classes: 'arcane-kv-table',
-      styles: const dom.Styles(
-        raw: {
-          'border': '1px solid var(--border)',
-          'border-radius': 'var(--radius)',
-          'overflow': 'hidden',
-        },
-      ),
-      [
-        for (var i = 0; i < props.rows.length; i++)
-          dom.div(
-            classes: 'arcane-kv-table-row',
-            styles: dom.Styles(
-              raw: {
-                'display': 'flex',
-                if (props.showDividers && i < props.rows.length - 1)
-                  'border-bottom': '1px solid var(--border)',
-              },
-            ),
-            [
-              // Key
-              dom.div(
-                classes: 'arcane-kv-table-key',
-                styles: dom.Styles(
-                  raw: {
-                    'padding': '1rem 1.5rem',
-                    'background-color': 'var(--muted)',
-                    'font-weight': 'var(--font-weight-medium)',
-                    'color': 'var(--foreground)',
-                    'font-size': 'var(--font-size-sm)',
-                    if (props.keyWidth != null) 'width': '${props.keyWidth}px',
-                    if (props.keyWidth != null) 'flex-shrink': '0',
-                    if (props.keyWidth == null) 'flex': '0 0 30%',
-                    'border-right': '1px solid var(--border)',
-                  },
-                ),
-                [Component.text(props.rows[i].key)],
-              ),
+  String get classPrefix => 'arcane';
 
-              // Value
-              dom.div(
-                classes: 'arcane-kv-table-value',
-                styles: const dom.Styles(
-                  raw: {
-                    'flex': '1',
-                    'padding': '1rem 1.5rem',
-                    'background-color': 'var(--card)',
-                    'color': 'var(--foreground)',
-                    'font-size': 'var(--font-size-sm)',
-                  },
-                ),
-                [props.rows[i].value],
-              ),
-            ],
-          ),
-      ],
-    );
-  }
+  @override
+  Map<String, String> get containerStyles => const <String, String>{
+    'border': '1px solid var(--border)',
+    'border-radius': 'var(--radius)',
+    'overflow': 'hidden',
+  };
+
+  @override
+  String get dividerBorder => '1px solid var(--border)';
+
+  @override
+  Map<String, String> get keyLeadingStyles => const <String, String>{
+    'padding': '1rem 1.5rem',
+    'background-color': 'var(--muted)',
+    'font-weight': 'var(--font-weight-medium)',
+    'color': 'var(--foreground)',
+    'font-size': 'var(--font-size-sm)',
+  };
+
+  @override
+  Map<String, String> get valueStyles => const <String, String>{
+    'flex': '1',
+    'padding': '1rem 1.5rem',
+    'background-color': 'var(--card)',
+    'color': 'var(--foreground)',
+    'font-size': 'var(--font-size-sm)',
+  };
 }

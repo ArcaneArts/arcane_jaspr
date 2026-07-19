@@ -1,6 +1,6 @@
 name: arcane_jaspr_neon
 description: Neon renderer package for Arcane Jaspr.
-version: 3.1.0
+version: 3.3.0
 homepage: https://arcanearts.github.io/arcane_jaspr/
 documentation: https://arcanearts.github.io/arcane_jaspr/
 repository: https://github.com/ArcaneArts/arcane_jaspr
@@ -9,8 +9,9 @@ environment:
   sdk: '>=3.10.0 <4.0.0'
 
 dependencies:
-  arcane_jaspr: ^3.1.0
-  jaspr: '>=0.22.1 <1.0.0'
+  arcane_jaspr: ^3.3.0
+  jaspr: '>=0.23.1 <1.0.0'
 
 dev_dependencies:
   lints: ^6.1.0
+

@@ -7,10 +7,15 @@ Use familiar Dart widget structure, keep semantic HTML output, and only drop to 
 
 ```yaml
 dependencies:
-  arcane_jaspr: ^3.1.0
-  arcane_jaspr_neon: ^3.1.0
-  arcane_jaspr_shadcn: ^3.1.0
+  arcane_jaspr: ^3.3.0
+  arcane_jaspr_shadcn: ^3.3.0
+  arcane_jaspr_neon: ^3.3.0
+  arcane_jaspr_neubrutalism: ^3.3.0
 ```
+
+`arcane_jaspr` is the core package. Add one or more renderer packages
+(`arcane_jaspr_shadcn`, `arcane_jaspr_neon`, `arcane_jaspr_neubrutalism`) for the
+themes you want; pick a stylesheet from one of them at runtime.
 
 ## Demo
 
@@ -140,11 +145,42 @@ ArcaneMenubar(
 `package:arcane_jaspr/html.dart` contains the low-level HTML wrapper layer such as `ArcaneDiv`, `ArcaneLabel`, `ArcaneLink`, tables, lists, and SVG helpers.
 `package:arcane_jaspr/web.dart` exposes raw Jaspr and DOM escape hatches.
 
+## Interactivity and SSR
+
+Arcane Jaspr has two distinct interactivity mechanisms. Choosing the right one
+matters for static / server-rendered output:
+
+- Declarative `ArcaneInteraction` actions (passed via `action:`) are encoded into
+  `data-arcane-*` attributes (for example `data-arcane-action`) and executed by the
+  embedded JavaScript runtime that ships with the app. These work in fully static
+  and server-rendered HTML, with no Jaspr client hydration required. This is the
+  SSR-safe path. Use the `ArcaneInteraction` factories such as
+  `ArcaneInteraction.openDialog(...)`, `.navigate(...)`, `.copy(...)`,
+  `.toggleThemeMode`, and `.submitForm(...)`.
+- Dart callbacks like `onPressed` / `onChanged` are wired as Jaspr event handlers
+  and only fire when the app runs with Jaspr client hydration. In a purely static
+  build, `onPressed` does nothing because there is no Dart event listener attached.
+
+In short: if you need behavior in static output, use `action:`; reserve
+`onPressed` / `onChanged` for hydrated client apps.
+
+### Content-Security-Policy caveat
+
+The interactivity runtime is injected as a single inline `<script>` element
+(`ArcaneScriptsComponent` in `lib/util/interactivity/arcane_scripts.dart`, rendered
+from `lib/component/support/app.dart` when `includeFallbackScripts` is true, which is
+the default). Because the runtime is emitted inline rather than as an external file,
+a strict Content-Security-Policy must allow inline scripts (for example
+`script-src 'self' 'unsafe-inline'`). There is currently no built-in nonce hook on
+the injected script, so CSP nonces are not yet supported out of the box. If you need
+strict CSP, set `includeFallbackScripts: false` on `ArcaneApp` and provide the
+runtime yourself through a CSP-compatible mechanism.
+
 ## Docs
 
 - Package docs: [arcanearts.github.io/arcane_jaspr](https://arcanearts.github.io/arcane_jaspr/)
-- Neon workspace: `arcane_jaspr_neon/arcane_neon_web`
-- Generated component catalog: `arcane_jaspr_neon/arcane_neon_web/content/docs/components-catalog.md`
+- Docs/demo app: `arcane_jaspr_docs/arcane_jaspr_docs_web`
+- Generated component catalog: `arcane_jaspr_docs/arcane_jaspr_docs_web/content/docs/components-catalog.md`
 
 ## License
 

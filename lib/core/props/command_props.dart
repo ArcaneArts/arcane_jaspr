@@ -1,5 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
+
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 
 /// Command item data.
 class CommandItemProps {
@@ -58,6 +60,13 @@ class CommandProps {
   final bool focusTrap;
   final bool restoreFocus;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const CommandProps({
     required this.isOpen,
     required this.groups,
@@ -73,6 +82,8 @@ class CommandProps {
     this.scrimCloses = true,
     this.focusTrap = true,
     this.restoreFocus = true,
+    this.styles,
+    this.decoration,
   });
 
   CommandProps copyWith({
@@ -90,6 +101,8 @@ class CommandProps {
     bool? scrimCloses,
     bool? focusTrap,
     bool? restoreFocus,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     return CommandProps(
       id: id ?? this.id,
@@ -106,6 +119,8 @@ class CommandProps {
       scrimCloses: scrimCloses ?? this.scrimCloses,
       focusTrap: focusTrap ?? this.focusTrap,
       restoreFocus: restoreFocus ?? this.restoreFocus,
+      styles: styles ?? this.styles,
+      decoration: decoration ?? this.decoration,
     );
   }
 }

@@ -5,7 +5,7 @@ import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/props/promo_props.dart';
 
-/// Neon Progress Claim Banner renderer.
+/// Neon Progress Claim Banner renderer (neutral placeholder skeleton).
 ///
 /// A banner showing how many people have claimed an offer.
 class NeonProgressClaimBanner extends StatefulComponent {
@@ -85,7 +85,7 @@ class _NeonProgressClaimBannerState extends State<NeonProgressClaimBanner> {
 
     return dom.div(
       classes: 'neon-progress-claim-banner',
-      styles: const dom.Styles(
+      styles: dom.Styles(
         raw: {
           'position': 'fixed',
           'bottom': '1.5rem',
@@ -94,16 +94,13 @@ class _NeonProgressClaimBannerState extends State<NeonProgressClaimBanner> {
           'z-index': '100',
           'width': '420px',
           'max-width': '90vw',
-          // Neon: glass effect
-          'background-color': 'rgba(10, 10, 10, 0.95)',
-          'backdrop-filter': 'blur(12px)',
-          '-webkit-backdrop-filter': 'blur(12px)',
-          'border': '1px solid var(--neon-accent)',
+          'background-color': 'var(--card)',
+          'border': '1px solid var(--border)',
           'border-radius': 'var(--radius-lg)',
-          // Neon: accent glow
-          'box-shadow':
-              '0 0 40px color-mix(in srgb, var(--neon-accent) 25%, transparent), 0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+          'box-shadow': '0 8px 24px rgba(0, 0, 0, 0.15)',
           'padding': '1.25rem 1.5rem',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [
@@ -184,11 +181,9 @@ class _NeonProgressClaimBannerState extends State<NeonProgressClaimBanner> {
                   'left': '0',
                   'height': '100%',
                   'width': '${(progressPercent * 100).toStringAsFixed(1)}%',
-                  'background':
-                      'linear-gradient(90deg, var(--neon-accent), color-mix(in srgb, var(--neon-accent) 70%, transparent))',
+                  'background': 'var(--primary)',
                   'border-radius': 'var(--arcane-radius-full)',
                   'transition': 'width 0.5s ease-out',
-                  'box-shadow': '0 14px 10px color-mix(in srgb, var(--neon-accent) 40%, transparent)',
                 },
               ),
               [],
@@ -245,14 +240,14 @@ class _NeonProgressClaimBannerState extends State<NeonProgressClaimBanner> {
                 styles: const dom.Styles(
                   raw: {
                     'padding': '0.5rem 0.875rem',
-                    'background': 'color-mix(in srgb, var(--neon-accent) 15%, transparent)',
-                    'border': '1px dashed var(--neon-accent)',
+                    'background': 'var(--muted)',
+                    'border': '1px dashed var(--border)',
                     'border-radius': 'var(--radius-sm)',
                     'font-family':
                         'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                     'font-size': 'var(--font-size-sm)',
                     'font-weight': 'var(--font-weight-bold)',
-                    'color': 'var(--neon-accent)',
+                    'color': 'var(--foreground)',
                   },
                 ),
                 [Component.text(component.props.promoCode!)],
@@ -266,17 +261,16 @@ class _NeonProgressClaimBannerState extends State<NeonProgressClaimBanner> {
                   raw: {
                     'flex': '1',
                     'padding': '0.75rem 1rem',
-                    'background': 'var(--neon-accent)',
+                    'background': 'var(--primary)',
                     'border': 'none',
                     'border-radius': 'var(--radius)',
-                    'color': '#ffffff',
+                    'color': 'var(--primary-foreground)',
                     'font-size': 'var(--font-size-sm)',
                     'font-weight': 'var(--font-weight-semibold)',
                     'text-align': 'center',
                     'text-decoration': 'none',
                     'cursor': 'pointer',
                     'transition': 'all var(--transition)',
-                    'box-shadow': '0 14px 15px color-mix(in srgb, var(--neon-accent) 40%, transparent)',
                   },
                 ),
                 events: component.props.onCtaClick != null

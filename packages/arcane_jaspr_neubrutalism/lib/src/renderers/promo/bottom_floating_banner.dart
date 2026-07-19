@@ -106,7 +106,7 @@ class _NeubrutalismBottomFloatingBannerState extends State<NeubrutalismBottomFlo
 
     return dom.div(
       classes: 'neubrutalism-bottom-floating-banner',
-      styles: const dom.Styles(
+      styles: dom.Styles(
         raw: {
           'position': 'fixed',
           'bottom': '1.5rem',
@@ -124,6 +124,8 @@ class _NeubrutalismBottomFloatingBannerState extends State<NeubrutalismBottomFlo
           'border-radius': 'var(--nb-radius-soft, 4px)',
           // Neubrutalism: accent glow
           'box-shadow': 'var(--nb-shadow-md, 5px 5px 0 0 var(--nb-shadow-color, #000))',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [

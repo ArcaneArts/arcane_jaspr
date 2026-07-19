@@ -1,6 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 
 import '../shared/shared.dart';
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 
 class NativeSelectOptionProps {
   final String label;
@@ -28,6 +30,13 @@ class NativeSelectProps {
   final bool fullWidth;
   final void Function(String)? onChange;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const NativeSelectProps({
     required this.options,
     this.value,
@@ -41,6 +50,8 @@ class NativeSelectProps {
     this.error,
     this.fullWidth = false,
     this.onChange,
+    this.styles,
+    this.decoration,
   });
 
   NativeSelectProps copyWith({
@@ -56,6 +67,8 @@ class NativeSelectProps {
     String? error,
     bool? fullWidth,
     void Function(String)? onChange,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     return NativeSelectProps(
       options: options ?? this.options,
@@ -70,6 +83,8 @@ class NativeSelectProps {
       error: error ?? this.error,
       fullWidth: fullWidth ?? this.fullWidth,
       onChange: onChange ?? this.onChange,
+      styles: styles ?? this.styles,
+      decoration: decoration ?? this.decoration,
     );
   }
 }

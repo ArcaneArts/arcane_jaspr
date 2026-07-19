@@ -1,13 +1,15 @@
-import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' as dom;
-
 import 'package:arcane_jaspr/core/props/kbd_props.dart';
+import 'package:arcane_jaspr/core/rendering/base/kbd_render_base.dart';
 
 /// Neubrutalism keyboard shortcut display component.
-class NeubrutalismKbd extends StatelessComponent {
-  final KbdProps props;
+class NeubrutalismKbd extends KbdRenderBase {
+  const NeubrutalismKbd(super.props, {super.key});
 
-  const NeubrutalismKbd(this.props, {super.key});
+  @override
+  String? get kbdClasses => 'neubrutalism-kbd';
+
+  @override
+  String get keysWrapperGap => '6px';
 
   (String padding, String fontSize, String minWidth) get _sizeStyles =>
       switch (props.size) {
@@ -16,7 +18,8 @@ class NeubrutalismKbd extends StatelessComponent {
         ComponentSize.lg => ('5px 12px', '0.9375rem', '34px'),
       };
 
-  Map<String, String> get _styleMap {
+  @override
+  Map<String, String> get styleMap {
     final (padding, fontSize, minWidth) = _sizeStyles;
 
     final Map<String, String> baseStyles = <String, String>{
@@ -36,7 +39,7 @@ class NeubrutalismKbd extends StatelessComponent {
       'color': 'var(--nb-accent-cool, var(--secondary))',
     };
 
-    return switch (props.style) {
+    return switch (props.variant) {
       KbdStyle.raised => <String, String>{
         ...baseStyles,
         'box-shadow': 'var(--nb-shadow-md, 5px 5px 0 0 var(--nb-shadow-color, #000))',
@@ -52,47 +55,5 @@ class NeubrutalismKbd extends StatelessComponent {
         'box-shadow': 'none',
       },
     };
-  }
-
-  @override
-  Component build(BuildContext context) {
-    if (props.keys != null && props.keys!.isNotEmpty) {
-      return dom.span(
-        styles: const dom.Styles(
-          raw: {
-            'display': 'inline-flex',
-            'align-items': 'center',
-            'gap': '6px',
-          },
-        ),
-        [
-          for (var i = 0; i < props.keys!.length; i++) ...[
-            Component.element(
-              tag: 'kbd',
-              classes: 'neubrutalism-kbd',
-              styles: dom.Styles(raw: _styleMap),
-              children: [Component.text(props.keys![i])],
-            ),
-            if (i < props.keys!.length - 1)
-              dom.span(
-                styles: const dom.Styles(
-                  raw: {
-                    'color': 'var(--muted-foreground)',
-                    'font-size': 'var(--font-size-xs)',
-                  },
-                ),
-                [Component.text(props.separator)],
-              ),
-          ],
-        ],
-      );
-    }
-
-    return Component.element(
-      tag: 'kbd',
-      classes: 'neubrutalism-kbd',
-      styles: dom.Styles(raw: _styleMap),
-      children: [Component.text(props.keyText ?? '')],
-    );
   }
 }

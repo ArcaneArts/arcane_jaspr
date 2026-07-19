@@ -1,5 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
+
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 
 /// Floating content trigger mode.
 enum FloatingTrigger {
@@ -83,6 +85,13 @@ class FloatingProps {
   /// Whether pressing Escape should close the floating content.
   final bool closeOnEscape;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const FloatingProps({
     this.id,
     required this.trigger,
@@ -102,6 +111,8 @@ class FloatingProps {
     this.maxWidth,
     this.closeOnOutsideClick = true,
     this.closeOnEscape = true,
+    this.styles,
+    this.decoration,
   });
 
   /// Whether this is a simple text tooltip (no component content).
@@ -126,6 +137,8 @@ class FloatingProps {
     double? maxWidth,
     bool? closeOnOutsideClick,
     bool? closeOnEscape,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     return FloatingProps(
       id: id ?? this.id,
@@ -146,6 +159,8 @@ class FloatingProps {
       maxWidth: maxWidth ?? this.maxWidth,
       closeOnOutsideClick: closeOnOutsideClick ?? this.closeOnOutsideClick,
       closeOnEscape: closeOnEscape ?? this.closeOnEscape,
+      styles: styles ?? this.styles,
+      decoration: decoration ?? this.decoration,
     );
   }
 }

@@ -136,6 +136,18 @@ class ArcaneStyleData {
 
   final String? borderCollapse;
 
+  final String? paddingTop;
+  final String? paddingRight;
+  final String? paddingBottom;
+  final String? paddingLeft;
+  final String? borderTopCustom;
+  final String? borderRightCustom;
+  final String? borderBottomCustom;
+  final String? borderLeftCustom;
+  final BoxSizing? boxSizing;
+  final BackgroundClip? backgroundClip;
+  final String? backdropFilterCustom;
+
   /// Raw CSS properties escape hatch
   final Map<String, String>? raw;
 
@@ -256,6 +268,17 @@ class ArcaneStyleData {
     this.objectFitCustom,
     this.objectPosition,
     this.borderCollapse,
+    this.paddingTop,
+    this.paddingRight,
+    this.paddingBottom,
+    this.paddingLeft,
+    this.borderTopCustom,
+    this.borderRightCustom,
+    this.borderBottomCustom,
+    this.borderLeftCustom,
+    this.boxSizing,
+    this.backgroundClip,
+    this.backdropFilterCustom,
     this.raw,
   });
 
@@ -401,6 +424,24 @@ class ArcaneStyleData {
     if (objectPosition != null) css['object-position'] = objectPosition!.css;
 
     if (borderCollapse != null) css['border-collapse'] = borderCollapse!;
+
+    if (paddingTop != null) css['padding-top'] = paddingTop!;
+    if (paddingRight != null) css['padding-right'] = paddingRight!;
+    if (paddingBottom != null) css['padding-bottom'] = paddingBottom!;
+    if (paddingLeft != null) css['padding-left'] = paddingLeft!;
+    if (borderTopCustom != null) css['border-top'] = borderTopCustom!;
+    if (borderRightCustom != null) css['border-right'] = borderRightCustom!;
+    if (borderBottomCustom != null) css['border-bottom'] = borderBottomCustom!;
+    if (borderLeftCustom != null) css['border-left'] = borderLeftCustom!;
+    if (boxSizing != null) css['box-sizing'] = boxSizing!.css;
+    if (backgroundClip != null) {
+      css['background-clip'] = backgroundClip!.css;
+      css['-webkit-background-clip'] = backgroundClip!.css;
+    }
+    if (backdropFilterCustom != null) {
+      css['backdrop-filter'] = backdropFilterCustom!;
+      css['-webkit-backdrop-filter'] = backdropFilterCustom!;
+    }
 
     if (raw != null) css.addAll(raw!);
 
@@ -550,6 +591,24 @@ class ArcaneStyleData {
 
     if (borderCollapse != null) css['border-collapse'] = borderCollapse!;
 
+    if (paddingTop != null) css['padding-top'] = paddingTop!;
+    if (paddingRight != null) css['padding-right'] = paddingRight!;
+    if (paddingBottom != null) css['padding-bottom'] = paddingBottom!;
+    if (paddingLeft != null) css['padding-left'] = paddingLeft!;
+    if (borderTopCustom != null) css['border-top'] = borderTopCustom!;
+    if (borderRightCustom != null) css['border-right'] = borderRightCustom!;
+    if (borderBottomCustom != null) css['border-bottom'] = borderBottomCustom!;
+    if (borderLeftCustom != null) css['border-left'] = borderLeftCustom!;
+    if (boxSizing != null) css['box-sizing'] = boxSizing!.css;
+    if (backgroundClip != null) {
+      css['background-clip'] = backgroundClip!.css;
+      css['-webkit-background-clip'] = backgroundClip!.css;
+    }
+    if (backdropFilterCustom != null) {
+      css['backdrop-filter'] = backdropFilterCustom!;
+      css['-webkit-backdrop-filter'] = backdropFilterCustom!;
+    }
+
     if (raw != null) css.addAll(raw!);
 
     return css;
@@ -564,6 +623,8 @@ class ArcaneStyleData {
       flexWrap: other.flexWrap ?? flexWrap,
       mainAxisAlignment: other.mainAxisAlignment ?? mainAxisAlignment,
       crossAxisAlignment: other.crossAxisAlignment ?? crossAxisAlignment,
+      alignItems: other.alignItems ?? alignItems,
+      justifyContent: other.justifyContent ?? justifyContent,
       alignSelf: other.alignSelf ?? alignSelf,
       position: other.position ?? position,
       visibility: other.visibility ?? visibility,
@@ -673,6 +734,17 @@ class ArcaneStyleData {
       objectFitCustom: other.objectFitCustom ?? objectFitCustom,
       objectPosition: other.objectPosition ?? objectPosition,
       borderCollapse: other.borderCollapse ?? borderCollapse,
+      paddingTop: other.paddingTop ?? paddingTop,
+      paddingRight: other.paddingRight ?? paddingRight,
+      paddingBottom: other.paddingBottom ?? paddingBottom,
+      paddingLeft: other.paddingLeft ?? paddingLeft,
+      borderTopCustom: other.borderTopCustom ?? borderTopCustom,
+      borderRightCustom: other.borderRightCustom ?? borderRightCustom,
+      borderBottomCustom: other.borderBottomCustom ?? borderBottomCustom,
+      borderLeftCustom: other.borderLeftCustom ?? borderLeftCustom,
+      boxSizing: other.boxSizing ?? boxSizing,
+      backgroundClip: other.backgroundClip ?? backgroundClip,
+      backdropFilterCustom: other.backdropFilterCustom ?? backdropFilterCustom,
       raw: {...?raw, ...?other.raw},
     );
   }
@@ -795,6 +867,17 @@ class ArcaneStyleData {
     String? objectFitCustom,
     ObjectPosition? objectPosition,
     String? borderCollapse,
+    String? paddingTop,
+    String? paddingRight,
+    String? paddingBottom,
+    String? paddingLeft,
+    String? borderTopCustom,
+    String? borderRightCustom,
+    String? borderBottomCustom,
+    String? borderLeftCustom,
+    BoxSizing? boxSizing,
+    BackgroundClip? backgroundClip,
+    String? backdropFilterCustom,
     Map<String, String>? raw,
   }) {
     return ArcaneStyleData(
@@ -914,6 +997,17 @@ class ArcaneStyleData {
       objectFitCustom: objectFitCustom ?? this.objectFitCustom,
       objectPosition: objectPosition ?? this.objectPosition,
       borderCollapse: borderCollapse ?? this.borderCollapse,
+      paddingTop: paddingTop ?? this.paddingTop,
+      paddingRight: paddingRight ?? this.paddingRight,
+      paddingBottom: paddingBottom ?? this.paddingBottom,
+      paddingLeft: paddingLeft ?? this.paddingLeft,
+      borderTopCustom: borderTopCustom ?? this.borderTopCustom,
+      borderRightCustom: borderRightCustom ?? this.borderRightCustom,
+      borderBottomCustom: borderBottomCustom ?? this.borderBottomCustom,
+      borderLeftCustom: borderLeftCustom ?? this.borderLeftCustom,
+      boxSizing: boxSizing ?? this.boxSizing,
+      backgroundClip: backgroundClip ?? this.backgroundClip,
+      backdropFilterCustom: backdropFilterCustom ?? this.backdropFilterCustom,
       raw: raw ?? this.raw,
     );
   }

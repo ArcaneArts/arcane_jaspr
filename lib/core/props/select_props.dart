@@ -1,6 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 import '../interaction/interaction.dart';
 import '../shared/shared.dart';
 
@@ -69,6 +70,13 @@ class SelectProps<T> {
   final String? group;
   final ArcaneInteraction? onSelectAction;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const SelectProps({
     required this.options,
     this.value,
@@ -104,6 +112,8 @@ class SelectProps<T> {
     this.id,
     this.group,
     this.onSelectAction,
+    this.styles,
+    this.decoration,
   });
 }
 

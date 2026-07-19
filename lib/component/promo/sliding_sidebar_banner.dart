@@ -1,8 +1,9 @@
 import 'package:jaspr/dom.dart' as dom;
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 /// A vertical sidebar banner that slides in from the edge of the screen.
 ///
@@ -21,6 +22,12 @@ class ArcaneSlidingSidebarBanner extends StatefulWidget {
   final int delayMs;
   final List<String>? features;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneSlidingSidebarBanner({
     required this.title,
     required this.message,
@@ -34,6 +41,8 @@ class ArcaneSlidingSidebarBanner extends StatefulWidget {
     this.position = PromoSidebarPosition.right,
     this.delayMs = 3000,
     this.features,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -86,6 +95,8 @@ class _ArcaneSlidingSidebarBannerState
       position: component.position,
       delayMs: component.delayMs,
       features: component.features,
+      styles: component.styles,
+      decoration: component.decoration,
     ));
   }
 }

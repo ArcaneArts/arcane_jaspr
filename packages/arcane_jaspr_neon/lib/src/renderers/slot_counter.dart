@@ -5,7 +5,7 @@ import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/props/slot_counter_props.dart';
 
-/// Neon Slot Counter renderer (stateful with animation).
+/// Neon Slot Counter renderer (stateful with animation, neutral placeholder skeleton).
 class NeonSlotCounter extends StatefulComponent {
   final SlotCounterProps props;
 
@@ -139,7 +139,7 @@ class _NeonSlotCounterState extends State<NeonSlotCounter> {
       case SlotCounterColor.primary:
         return 'var(--foreground)';
       case SlotCounterColor.accent:
-        return 'var(--neon-accent)';
+        return 'var(--primary)';
       case SlotCounterColor.muted:
         return 'var(--muted-foreground)';
       case SlotCounterColor.success:
@@ -157,12 +157,14 @@ class _NeonSlotCounterState extends State<NeonSlotCounter> {
 
     return dom.div(
       classes: 'neon-slot-counter',
-      styles: const dom.Styles(
+      styles: dom.Styles(
         raw: {
           'display': 'inline-flex',
           'flex-direction': 'column',
           'align-items': 'center',
           'gap': 'var(--space-2)',
+          ...?component.props.decoration?.universalStyles(),
+          ...?component.props.styles?.toMap(),
         },
       ),
       [
@@ -199,9 +201,6 @@ class _NeonSlotCounterState extends State<NeonSlotCounter> {
                   'font-variant-numeric': 'tabular-nums',
                   'color': _getColor(component.props.valueColor),
                   'opacity': _isSpinning ? '0.7' : '1',
-                  'text-shadow': component.props.valueColor == SlotCounterColor.accent
-                      ? '0 0 18px color-mix(in srgb, var(--neon-accent) 38%, transparent)'
-                      : 'none',
                   'transition': 'opacity 200ms ease',
                 },
               ),
@@ -229,8 +228,6 @@ class _NeonSlotCounterState extends State<NeonSlotCounter> {
                 'font-size': _getFontSize(component.props.labelSize),
                 'font-weight': 'var(--font-weight-semibold)',
                 'color': _getColor(component.props.labelColor),
-                'text-transform': 'uppercase',
-                'letter-spacing': '0.12em',
               },
             ),
             [Component.text(component.props.label!)],
@@ -240,7 +237,7 @@ class _NeonSlotCounterState extends State<NeonSlotCounter> {
   }
 }
 
-/// Neon Slot Counter Row renderer.
+/// Neon Slot Counter Row renderer (neutral placeholder skeleton).
 class NeonSlotCounterRow extends StatelessComponent {
   final SlotCounterRowProps props;
 
@@ -264,7 +261,7 @@ class NeonSlotCounterRow extends StatelessComponent {
   }
 }
 
-/// Neon Slot Counter Card renderer.
+/// Neon Slot Counter Card renderer (neutral placeholder skeleton).
 class NeonSlotCounterCard extends StatelessComponent {
   final SlotCounterCardProps props;
 
@@ -281,15 +278,14 @@ class NeonSlotCounterCard extends StatelessComponent {
           'align-items': 'center',
           'padding': props.padding,
           if (props.showBackground) ...{
-            'background': 'var(--neon-panel-surface)',
-            'clip-path': 'var(--neon-clip-md)',
-            'box-shadow':
-                'var(--neon-shadow-sm), inset 0 1px 0 var(--neon-inset)',
+            'background': 'var(--card)',
+            'border-radius': 'var(--radius-md)',
           } else ...{
             'border-radius': props.borderRadius,
           },
-          if (props.showBorder)
-            'border': '1px solid var(--neon-panel-border)',
+          if (props.showBorder) 'border': '1px solid var(--border)',
+          ...?props.decoration?.universalStyles(),
+          ...?props.styles?.toMap(),
         },
       ),
       [NeonSlotCounter(props.counter)],

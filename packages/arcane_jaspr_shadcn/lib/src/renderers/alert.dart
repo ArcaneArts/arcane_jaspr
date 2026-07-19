@@ -1,25 +1,14 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/component/view/icon.dart';
 import 'package:arcane_jaspr/core/props/alert_props.dart';
+import 'package:arcane_jaspr/core/rendering/base/alert_render_base.dart';
 
 /// ShadCN Alert renderer.
 ///
 /// Reference: https://ui.shadcn.com/docs/components/alert
-class ShadcnAlert extends StatelessComponent {
-  final AlertProps props;
-
-  const ShadcnAlert(this.props, {super.key});
-
-  Component get _defaultIcon => switch (props.color) {
-    ColorVariant.info => ArcaneIcon.info(size: IconSize.sm),
-    ColorVariant.success => ArcaneIcon.circleCheck(size: IconSize.sm),
-    ColorVariant.warning => ArcaneIcon.triangleAlert(size: IconSize.sm),
-    ColorVariant.destructive => ArcaneIcon.circleX(size: IconSize.sm),
-    ColorVariant.primary => ArcaneIcon.info(size: IconSize.sm),
-    ColorVariant.secondary => ArcaneIcon.info(size: IconSize.sm),
-  };
+class ShadcnAlert extends AlertRenderBase {
+  const ShadcnAlert(super.props, {super.key});
 
   (String primary, String background, String border) get _colors =>
       switch (props.color) {
@@ -56,11 +45,34 @@ class ShadcnAlert extends StatelessComponent {
       };
 
   @override
-  Component build(BuildContext context) {
-    final (primary, bgColor, borderColor) = _colors;
+  Component get defaultIcon => switch (props.color) {
+    ColorVariant.info => ArcaneIcon.info(size: IconSize.sm),
+    ColorVariant.success => ArcaneIcon.circleCheck(size: IconSize.sm),
+    ColorVariant.warning => ArcaneIcon.triangleAlert(size: IconSize.sm),
+    ColorVariant.destructive => ArcaneIcon.circleX(size: IconSize.sm),
+    ColorVariant.primary => ArcaneIcon.info(size: IconSize.sm),
+    ColorVariant.secondary => ArcaneIcon.info(size: IconSize.sm),
+  };
+
+  @override
+  String get rootClass => 'arcane-alert';
+
+  @override
+  Map<String, String> get rootAttributes =>
+      const <String, String>{'role': 'alert'};
+
+  @override
+  Map<String, String> get rootLayoutStyles =>
+      const <String, String>{'gap': '12px', 'padding': '16px'};
+
+  @override
+  Map<String, String> get containerStyles {
+    final String primary = _colors.$1;
+    final String bgColor = _colors.$2;
+    final String borderColor = _colors.$3;
 
     // ShadCN Alert styles vary by style
-    final containerStyles = switch (props.style) {
+    return switch (props.variant) {
       AlertStyle.subtle => <String, String>{
         'background-color': bgColor,
         'border': '1px solid $borderColor',
@@ -85,121 +97,87 @@ class ShadcnAlert extends StatelessComponent {
         'border-radius': 'var(--radius-md)',
       },
     };
-
-    final isSolid = props.style == AlertStyle.solid;
-
-    return dom.div(
-      classes: 'arcane-alert',
-      attributes: const {'role': 'alert'},
-      styles: dom.Styles(
-        raw: {
-          'position': 'relative',
-          'width': '100%',
-          'display': 'flex',
-          'align-items': 'flex-start',
-          'gap': '12px',
-          'padding': '16px', // p-4
-          ...containerStyles,
-        },
-      ),
-      [
-        // Icon
-        if (props.showIcon)
-          dom.div(
-            classes: 'arcane-alert-icon',
-            styles: dom.Styles(
-              raw: {
-                'flex-shrink': '0',
-                'width': '16px',
-                'height': '16px',
-                'display': 'flex',
-                'align-items': 'center',
-                'justify-content': 'center',
-                'color': isSolid ? 'var(--primary-foreground)' : primary,
-                'margin-top': '1px',
-              },
-            ),
-            [props.icon ?? _defaultIcon],
-          ),
-
-        // Content
-        dom.div(
-          classes: 'arcane-alert-content',
-          styles: const dom.Styles(raw: {'flex': '1', 'min-width': '0'}),
-          [
-            // Title
-            if (props.title != null)
-              dom.div(
-                classes: 'arcane-alert-title',
-                styles: dom.Styles(
-                  raw: {
-                    'font-weight': 'var(--font-weight-medium)',
-                    'line-height': '1',
-                    'letter-spacing': '-0.025em',
-                    'color': isSolid
-                        ? 'var(--primary-foreground)'
-                        : 'var(--foreground)',
-                    if (props.message != null || props.child != null)
-                      'margin-bottom': '4px',
-                  },
-                ),
-                [Component.text(props.title!)],
-              ),
-            // Description
-            if (props.message != null)
-              dom.div(
-                classes: 'arcane-alert-description',
-                styles: dom.Styles(
-                  raw: {
-                    'font-size': 'var(--font-size-sm)',
-                    'line-height': '1.625',
-                    'color': isSolid
-                        ? 'var(--primary-foreground)'
-                        : 'var(--muted-foreground)',
-                  },
-                ),
-                [Component.text(props.message!)],
-              ),
-            if (props.child != null) props.child!,
-            if (props.action != null)
-              dom.div(styles: const dom.Styles(raw: {'margin-top': '12px'}), [
-                props.action!,
-              ]),
-          ],
-        ),
-
-        // Dismiss button
-        if (props.dismissible)
-          dom.button(
-            type: dom.ButtonType.button,
-            classes: 'arcane-alert-dismiss',
-            attributes: const {'aria-label': 'Dismiss'},
-            styles: dom.Styles(
-              raw: {
-                'position': 'absolute',
-                'right': '8px',
-                'top': '8px',
-                'display': 'inline-flex',
-                'align-items': 'center',
-                'justify-content': 'center',
-                'width': '24px',
-                'height': '24px',
-                'padding': '0',
-                'border': 'none',
-                'background': 'transparent',
-                'color': isSolid
-                    ? 'var(--primary-foreground)'
-                    : 'var(--muted-foreground)',
-                'cursor': 'pointer',
-                'border-radius': 'var(--radius-xs)', // rounded-sm
-                'opacity': '0.7',
-                'transition': 'opacity var(--transition)',
-              },
-            ),
-            events: {'click': (_) => props.onDismiss?.call()},
-            [ArcaneIcon.x(size: IconSize.sm)],
-          ),
-      ],
-    );
   }
+
+  @override
+  String get iconClass => 'arcane-alert-icon';
+
+  @override
+  Map<String, String> get iconStyles {
+    final bool isSolid = props.variant == AlertStyle.solid;
+    final String primary = _colors.$1;
+    return <String, String>{
+      'flex-shrink': '0',
+      'width': '16px',
+      'height': '16px',
+      'display': 'flex',
+      'align-items': 'center',
+      'justify-content': 'center',
+      'color': isSolid ? 'var(--primary-foreground)' : primary,
+      'margin-top': '1px',
+    };
+  }
+
+  @override
+  String get contentClass => 'arcane-alert-content';
+
+  @override
+  String get titleClass => 'arcane-alert-title';
+
+  @override
+  Map<String, String> get titleStyles {
+    final bool isSolid = props.variant == AlertStyle.solid;
+    return <String, String>{
+      'font-weight': 'var(--font-weight-medium)',
+      'line-height': '1',
+      'letter-spacing': '-0.025em',
+      'color': isSolid ? 'var(--primary-foreground)' : 'var(--foreground)',
+      if (props.message != null || props.child != null) 'margin-bottom': '4px',
+    };
+  }
+
+  @override
+  String get descriptionClass => 'arcane-alert-description';
+
+  @override
+  Map<String, String> get descriptionStyles {
+    final bool isSolid = props.variant == AlertStyle.solid;
+    return <String, String>{
+      'font-size': 'var(--font-size-sm)',
+      'line-height': '1.625',
+      'color': isSolid ? 'var(--primary-foreground)' : 'var(--muted-foreground)',
+    };
+  }
+
+  @override
+  String get actionMarginTop => '12px';
+
+  @override
+  String get dismissClass => 'arcane-alert-dismiss';
+
+  @override
+  Map<String, String> get dismissStyles {
+    final bool isSolid = props.variant == AlertStyle.solid;
+    return <String, String>{
+      'position': 'absolute',
+      'right': '8px',
+      'top': '8px',
+      'display': 'inline-flex',
+      'align-items': 'center',
+      'justify-content': 'center',
+      'width': '24px',
+      'height': '24px',
+      'padding': '0',
+      'border': 'none',
+      'background': 'transparent',
+      'color': isSolid ? 'var(--primary-foreground)' : 'var(--muted-foreground)',
+      'cursor': 'pointer',
+      'border-radius': 'var(--radius-xs)', // rounded-sm
+      'opacity': '0.7',
+      'transition': 'opacity var(--transition)',
+    };
+  }
+
+  @override
+  Component get dismissChild => ArcaneIcon.x(size: IconSize.sm);
 }

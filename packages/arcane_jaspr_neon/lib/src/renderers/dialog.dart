@@ -1,425 +1,48 @@
-import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' as dom;
+import 'package:arcane_jaspr/core/rendering/base/dialog_render_base.dart';
 
-import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
-import 'package:arcane_jaspr/core/props/dialog_props.dart';
-
-class NeonDialog extends StatelessComponent {
-  final DialogProps props;
-
-  const NeonDialog(this.props, {super.key});
+class NeonDialog extends DialogRenderBase {
+  const NeonDialog(super.props, {super.key});
 
   @override
-  Component build(BuildContext context) {
-    final String surfaceId = props.id ?? _autoId();
-    final Map<String, String> surfAttrs = surfaceAttrs(
-      surface: 'dialog',
-      id: surfaceId,
-      initiallyOpen: props.isOpen,
-      dismissible: props.barrierDismissible,
-      escapeCloses: props.escapeCloses,
-      focusTrap: props.focusTrap,
-      scrimCloses: props.barrierDismissible,
-      restoreFocus: props.restoreFocus,
-    );
+  String get themePrefix => 'neon';
 
-    return dom.div(
-      classes: 'neon-dialog-overlay',
-      attributes: <String, String>{
-        ...surfAttrs,
-        'data-arcane-scrim': '',
-      },
-      styles: const dom.Styles(
-        raw: <String, String>{
-          'position': 'fixed',
-          'inset': '0',
-          'z-index': '50',
-          'display': 'flex',
-          'align-items': 'center',
-          'justify-content': 'center',
-          'padding': '1.5rem',
-          'background-color':
-              'color-mix(in srgb, var(--neon-surface-0, #12151C) 78%, transparent)',
-          'backdrop-filter': 'blur(8px) saturate(1.1)',
-          '-webkit-backdrop-filter': 'blur(8px) saturate(1.1)',
-        },
-      ),
-      events: <String, EventCallback>{
-        if (props.barrierDismissible && props.onClose != null)
-          'click': (dynamic e) {
-            if ((e as dynamic).target == (e as dynamic).currentTarget) {
-              props.onClose!();
-            }
-          },
-      },
-      <Component>[
-        dom.div(
-          classes: 'neon-dialog',
-          attributes: <String, String>{
-            'role': 'dialog',
-            'aria-modal': 'true',
-            'data-arcane-autofocus': '',
-            if (props.title != null)
-              'aria-labelledby': 'neon-dialog-title-$surfaceId',
-          },
-          styles: dom.Styles(
-            raw: <String, String>{
-              'position': 'relative',
-              'max-width': '${props.maxWidth}px',
-              'width': '100%',
-              'padding': '2rem',
-              'color': 'var(--foreground)',
-            },
-          ),
-          events: <String, EventCallback>{
-            'click': (dynamic e) => (e as dynamic).stopPropagation(),
-          },
-          <Component>[
-            if (props.showCloseButton)
-              dom.button(
-                classes: 'neon-dialog-close',
-                attributes: <String, String>{
-                  'type': 'button',
-                  'aria-label': 'Close dialog',
-                  ...dismissAttrs(),
-                },
-                styles: const dom.Styles(
-                  raw: <String, String>{
-                    'position': 'absolute',
-                    'top': '0.875rem',
-                    'right': '0.875rem',
-                    'width': '32px',
-                    'height': '32px',
-                    'display': 'inline-flex',
-                    'align-items': 'center',
-                    'justify-content': 'center',
-                    'background': 'transparent',
-                    'border': 'none',
-                    'border-radius': 'var(--neon-radius-control)',
-                    'color': 'var(--muted-foreground)',
-                    'cursor': 'pointer',
-                    'font-size': '1.125rem',
-                    'transition':
-                        'color 0.15s ease, background 0.15s ease, transform 0.15s ease',
-                  },
-                ),
-                events: <String, EventCallback>{
-                  if (props.onClose != null)
-                    'click': (dynamic _) => props.onClose!(),
-                },
-                <Component>[const Component.text('\u2715')],
-              ),
-            if (props.title != null)
-              dom.h2(
-                id: 'neon-dialog-title-$surfaceId',
-                classes: 'neon-dialog-title',
-                styles: const dom.Styles(
-                  raw: <String, String>{
-                    'font-family': 'var(--font-heading)',
-                    'font-size': 'var(--font-size-xl)',
-                    'font-weight': '600',
-                    'letter-spacing': '0.04em',
-                    'color': 'var(--foreground)',
-                    'margin': '0 0 0.875rem 0',
-                    'padding-right': '2rem',
-                  },
-                ),
-                <Component>[Component.text(props.title!)],
-              ),
-            dom.div(
-              classes: 'neon-dialog-content',
-              styles: const dom.Styles(
-                raw: <String, String>{'color': 'var(--foreground)'},
-              ),
-              props.content,
-            ),
-            if (props.actions != null && props.actions!.isNotEmpty)
-              dom.div(
-                classes: 'neon-dialog-actions',
-                styles: const dom.Styles(
-                  raw: <String, String>{
-                    'display': 'flex',
-                    'justify-content': 'flex-end',
-                    'gap': '0.625rem',
-                    'margin-top': '1.5rem',
-                  },
-                ),
-                props.actions!,
-              ),
-          ],
-        ),
-      ],
-    );
-  }
+  @override
+  Map<String, String> get overlayStyles => const <String, String>{};
+
+  @override
+  Map<String, String> get closeButtonStyles => const <String, String>{};
 
   static int _autoCounter = 0;
-  static String _autoId() {
+
+  @override
+  String generateAutoId() {
     _autoCounter++;
     return 'neon-dialog-$_autoCounter';
   }
 }
 
-class NeonSheet extends StatelessComponent {
-  final SheetProps props;
-
-  const NeonSheet(this.props, {super.key});
+class NeonSheet extends SheetRenderBase {
+  const NeonSheet(super.props, {super.key});
 
   @override
-  Component build(BuildContext context) {
-    final String surfaceId = props.id ?? _autoId();
+  String get themePrefix => 'neon';
 
-    String sizeValue = switch (props.size) {
-      SheetSizeVariant.auto => 'auto',
-      SheetSizeVariant.sm => _isHorizontal ? '320px' : '30vh',
-      SheetSizeVariant.md => _isHorizontal ? '440px' : '50vh',
-      SheetSizeVariant.lg => _isHorizontal ? '600px' : '70vh',
-      SheetSizeVariant.xl => _isHorizontal ? '800px' : '90vh',
-      SheetSizeVariant.full => '100%',
-    };
+  @override
+  Map<String, String> get overlayBackdropStyles => const <String, String>{};
 
-    Map<String, String> positionStyles = switch (props.position) {
-      SheetPosition.left => <String, String>{
-        'left': '0',
-        'top': '0',
-        'bottom': '0',
-        'width': props.maxWidth ?? sizeValue,
-        'max-width': '100vw',
-      },
-      SheetPosition.right => <String, String>{
-        'right': '0',
-        'top': '0',
-        'bottom': '0',
-        'width': props.maxWidth ?? sizeValue,
-        'max-width': '100vw',
-      },
-      SheetPosition.top => <String, String>{
-        'left': '0',
-        'right': '0',
-        'top': '0',
-        'height': sizeValue,
-        'max-height': '100vh',
-      },
-      SheetPosition.bottom => <String, String>{
-        'left': '0',
-        'right': '0',
-        'bottom': '0',
-        'height': sizeValue,
-        'max-height': '100vh',
-      },
-    };
+  @override
+  String get dragHandleColor => 'var(--muted-foreground)';
 
-    return dom.div(
-      classes: 'neon-sheet-overlay',
-      attributes: <String, String>{
-        ...surfaceAttrs(
-          surface: 'sheet',
-          id: surfaceId,
-          initiallyOpen: props.isOpen,
-          dismissible: props.closeOnBackdropClick,
-          escapeCloses: props.escapeCloses,
-          focusTrap: props.focusTrap,
-          scrimCloses: props.closeOnBackdropClick,
-          restoreFocus: props.restoreFocus,
-        ),
-        'data-arcane-scrim': '',
-        'data-position': props.position.name,
-      },
-      styles: dom.Styles(
-        raw: <String, String>{
-          'position': 'fixed',
-          'inset': '0',
-          'z-index': '50',
-          if (props.showBackdrop) ...<String, String>{
-            'background-color':
-                'color-mix(in srgb, var(--neon-surface-0, #12151C) 78%, transparent)',
-            'backdrop-filter': 'blur(8px) saturate(1.1)',
-            '-webkit-backdrop-filter': 'blur(8px) saturate(1.1)',
-          },
-        },
-      ),
-      events: <String, EventCallback>{
-        if (props.closeOnBackdropClick && props.onClose != null)
-          'click': (dynamic e) {
-            if ((e as dynamic).target == (e as dynamic).currentTarget) {
-              props.onClose!();
-            }
-          },
-      },
-      <Component>[
-        dom.div(
-          classes: 'neon-sheet',
-          attributes: const <String, String>{
-            'role': 'dialog',
-            'aria-modal': 'true',
-            'data-arcane-autofocus': '',
-          },
-          styles: dom.Styles(
-            raw: <String, String>{
-              'position': 'fixed',
-              ...positionStyles,
-              'display': 'flex',
-              'flex-direction': 'column',
-            },
-          ),
-          events: <String, EventCallback>{
-            'click': (dynamic e) => (e as dynamic).stopPropagation(),
-          },
-          <Component>[
-            if (props.showDragHandle && !_isHorizontal)
-              const dom.div(
-                classes: 'neon-sheet-drag-handle',
-                styles: dom.Styles(
-                  raw: <String, String>{
-                    'display': 'flex',
-                    'justify-content': 'center',
-                    'padding': '0.625rem 0 0.375rem',
-                  },
-                ),
-                <Component>[
-                  dom.div(
-                    styles: dom.Styles(
-                      raw: <String, String>{
-                        'width': '40px',
-                        'height': '3px',
-                        'background': 'var(--neon-panel-border-hot)',
-                        'border-radius': '9999px',
-                        'opacity': '0.7',
-                      },
-                    ),
-                    <Component>[],
-                  ),
-                ],
-              ),
-            if (props.header != null ||
-                props.title != null ||
-                props.showCloseButton)
-              _buildHeader(),
-            dom.div(
-              classes: 'neon-sheet-content',
-              styles: const dom.Styles(
-                raw: <String, String>{
-                  'flex': '1',
-                  'overflow-y': 'auto',
-                  'padding': '1.5rem',
-                },
-              ),
-              <Component>[props.child],
-            ),
-            if (props.footer != null)
-              dom.div(
-                classes: 'neon-sheet-footer',
-                styles: const dom.Styles(
-                  raw: <String, String>{
-                    'flex-shrink': '0',
-                    'padding': '1rem 1.5rem',
-                    'border-top': '1px solid var(--neon-panel-border)',
-                  },
-                ),
-                <Component>[props.footer!],
-              ),
-          ],
-        ),
-      ],
-    );
-  }
+  @override
+  String get panelBorder => 'none';
 
-  bool get _isHorizontal =>
-      props.position == SheetPosition.left ||
-      props.position == SheetPosition.right;
-
-  Component _buildHeader() {
-    if (props.header != null) {
-      return dom.div(
-        classes: 'neon-sheet-header',
-        styles: const dom.Styles(
-          raw: <String, String>{
-            'flex-shrink': '0',
-            'padding': '1rem 1.5rem',
-            'border-bottom': '1px solid var(--neon-panel-border)',
-          },
-        ),
-        <Component>[props.header!],
-      );
-    }
-
-    return dom.div(
-      classes: 'neon-sheet-header',
-      styles: const dom.Styles(
-        raw: <String, String>{
-          'display': 'flex',
-          'align-items': 'flex-start',
-          'justify-content': 'space-between',
-          'flex-shrink': '0',
-          'padding': '1rem 1.5rem',
-          'border-bottom': '1px solid var(--neon-panel-border)',
-        },
-      ),
-      <Component>[
-        dom.div(
-          styles: const dom.Styles(raw: <String, String>{'flex': '1'}),
-          <Component>[
-            if (props.title != null)
-              dom.h2(
-                styles: const dom.Styles(
-                  raw: <String, String>{
-                    'font-family': 'var(--font-heading)',
-                    'font-size': 'var(--font-size-lg)',
-                    'font-weight': '600',
-                    'letter-spacing': '0.04em',
-                    'color': 'var(--foreground)',
-                    'margin': '0',
-                  },
-                ),
-                <Component>[Component.text(props.title!)],
-              ),
-            if (props.description != null)
-              dom.p(
-                styles: const dom.Styles(
-                  raw: <String, String>{
-                    'font-size': 'var(--font-size-sm)',
-                    'color': 'var(--muted-foreground)',
-                    'margin': '0.375rem 0 0 0',
-                  },
-                ),
-                <Component>[Component.text(props.description!)],
-              ),
-          ],
-        ),
-        if (props.showCloseButton)
-          dom.button(
-            classes: 'neon-sheet-close',
-            attributes: <String, String>{
-              'type': 'button',
-              'aria-label': 'Close sheet',
-              ...dismissAttrs(),
-            },
-            styles: const dom.Styles(
-              raw: <String, String>{
-                'width': '28px',
-                'height': '28px',
-                'display': 'inline-flex',
-                'align-items': 'center',
-                'justify-content': 'center',
-                'background': 'transparent',
-                'border': 'none',
-                'border-radius': 'var(--neon-radius-control)',
-                'color': 'var(--muted-foreground)',
-                'cursor': 'pointer',
-                'transition': 'color 0.15s ease, background 0.15s ease',
-              },
-            ),
-            events: <String, EventCallback>{
-              if (props.onClose != null)
-                'click': (dynamic _) => props.onClose!(),
-            },
-            <Component>[const Component.text('\u2715')],
-          ),
-      ],
-    );
-  }
+  @override
+  Map<String, String> get sheetCloseButtonStyles => const <String, String>{};
 
   static int _autoCounter = 0;
-  static String _autoId() {
+
+  @override
+  String generateAutoId() {
     _autoCounter++;
     return 'neon-sheet-$_autoCounter';
   }

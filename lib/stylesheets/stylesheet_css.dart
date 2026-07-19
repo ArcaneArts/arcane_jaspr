@@ -15,14 +15,14 @@ class ArcaneStylesheetCss {
     required ThemeSeed darkSeed,
     required FontConfig fonts,
     required RadiusConfig radius,
-    required String componentCss,
+    required String Function() componentCss,
   }) {
-    String? cached = _cache[cacheKey];
+    final String? cached = _cache[cacheKey];
     if (cached != null) return cached;
 
-    ThemePalette lightPalette = PaletteGenerator.generate(lightSeed);
-    ThemePalette darkPalette = PaletteGenerator.generate(darkSeed);
-    String generated =
+    final ThemePalette lightPalette = PaletteGenerator.generate(lightSeed);
+    final ThemePalette darkPalette = PaletteGenerator.generate(darkSeed);
+    final String generated =
         '''
 $fontFaces
 
@@ -30,7 +30,7 @@ ${CssGenerator.generateBoth(light: lightPalette, dark: darkPalette, fonts: fonts
 
 ${ArcaneBaseCss.shared}
 
-$componentCss
+${componentCss()}
 ''';
     _cache[cacheKey] = generated;
     return generated;

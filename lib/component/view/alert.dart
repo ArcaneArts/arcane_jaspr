@@ -1,7 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
+import '../../core/decoration/arcane_decoration.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 /// Inline alert component for important messages that need user attention.
 class ArcaneAlert extends StatelessWidget {
@@ -9,24 +10,32 @@ class ArcaneAlert extends StatelessWidget {
   final String? title;
   final String? message;
   final Widget? child;
-  final AlertStyle style;
+  final AlertStyle variant;
   final Widget? icon;
   final bool showIcon;
   final bool dismissible;
   final void Function()? onDismiss;
   final Widget? action;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneAlert({
     required this.color,
     this.title,
     this.message,
     this.child,
-    this.style = AlertStyle.subtle,
+    this.variant = AlertStyle.subtle,
     this.icon,
     this.showIcon = true,
     this.dismissible = false,
     this.onDismiss,
     this.action,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -34,12 +43,14 @@ class ArcaneAlert extends StatelessWidget {
     this.title,
     this.message,
     this.child,
-    this.style = AlertStyle.subtle,
+    this.variant = AlertStyle.subtle,
     this.icon,
     this.showIcon = true,
     this.dismissible = false,
     this.onDismiss,
     this.action,
+    this.styles,
+    this.decoration,
     super.key,
   }) : color = ColorVariant.info;
 
@@ -47,12 +58,14 @@ class ArcaneAlert extends StatelessWidget {
     this.title,
     this.message,
     this.child,
-    this.style = AlertStyle.subtle,
+    this.variant = AlertStyle.subtle,
     this.icon,
     this.showIcon = true,
     this.dismissible = false,
     this.onDismiss,
     this.action,
+    this.styles,
+    this.decoration,
     super.key,
   }) : color = ColorVariant.success;
 
@@ -60,12 +73,14 @@ class ArcaneAlert extends StatelessWidget {
     this.title,
     this.message,
     this.child,
-    this.style = AlertStyle.subtle,
+    this.variant = AlertStyle.subtle,
     this.icon,
     this.showIcon = true,
     this.dismissible = false,
     this.onDismiss,
     this.action,
+    this.styles,
+    this.decoration,
     super.key,
   }) : color = ColorVariant.warning;
 
@@ -73,12 +88,14 @@ class ArcaneAlert extends StatelessWidget {
     this.title,
     this.message,
     this.child,
-    this.style = AlertStyle.subtle,
+    this.variant = AlertStyle.subtle,
     this.icon,
     this.showIcon = true,
     this.dismissible = false,
     this.onDismiss,
     this.action,
+    this.styles,
+    this.decoration,
     super.key,
   }) : color = ColorVariant.destructive;
 
@@ -89,12 +106,14 @@ class ArcaneAlert extends StatelessWidget {
       title: title,
       message: message,
       child: child,
-      style: style,
+      variant: variant,
       icon: icon,
       showIcon: showIcon,
       dismissible: dismissible,
       onDismiss: onDismiss,
       action: action,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

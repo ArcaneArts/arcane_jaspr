@@ -5,7 +5,64 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.1.0] - 2026-03-13
+## [x.x.x]
+
+### Added
+
+- **Nested cards flatten by default (all four themes).** An arcane `Card` rendered inside another arcane `Card` now drops its own frame — background, border, shadow, and (neon) the top accent bar — so stacked panels no longer read as a "card-in-card" border-in-border, most visibly under Shadcn and Neubrutalism. The inner card re-asserts a distinct frame by opting out with `decoration:`/`styles:` (which set the `data-arcane-decorated` attribute the flatten rule excludes). Implemented as pure per-theme CSS (`#arcane-root.arcane-theme-* .<theme>-card .<theme>-card:not([data-arcane-decorated])`), scoped and `!important` so it beats both inline variant styles (shadcn/neubrutalism) and the theme's own `!important` surface rules (neubrutalism); golden-neutral (the render snapshot suite excludes theme CSS by design). Note: a layout container that a host app styles as a card via its own CSS is outside the library's reach — only real nested arcane Cards flatten.
+- **Web-safe theme packages + new `arcane_jaspr_kb`.** Split each theme's
+  `*_kb_renderers` (which import `arcane_lexicon`, a server-side `dart:io`/`jaspr_content`
+  docs package) out of the theme packages into a new opt-in `arcane_jaspr_kb` package. The
+  theme packages (`arcane_jaspr_shadcn`/`_neubrutalism`/`_neon`/`_win95`) no longer depend on
+  `arcane_lexicon`, so importing them in a Jaspr **client** app no longer drags `dart:io` into
+  the client entry (which silently dropped `main.client.dart` and shipped a blank app). Docs
+  sites now depend on `arcane_jaspr_kb` for the knowledge-base chrome renderers.
+- **Theme-permeable styling (M0 foundations).** New `ArcaneDecoration` (`core/decoration/arcane_decoration.dart`) — a Flutter-`BoxDecoration`-shaped, theme-permeable surface with universal fields (color, gradient, borderRadius, border, padding, backdropFilter) plus an `Elevation` *intent* every theme maps to its own idiom (shadcn ambient blur, neubrutalism hard offset, neon glow) and a theme-specific `shadowColor` honored-or-ignored per theme. `Button` and `Card` now accept `decoration:` (semantic) and `styles: ArcaneStyleData?` (literal escape hatch that always wins). Render bases expose a concrete-default `decorationStyles(ArcaneDecoration?)` hook (returns `{}`) so themes opt in without a breaking change; the merge seam layers `theme base -> variant -> size -> decoration -> literal styles`.
+- `ArcaneColorOps` extension on `String` — `.opacity(double)` and `.on(base, double)` emit `color-mix()` for any CSS color (hex, `var(--x)`, `ArcaneColor.*.css`, runtime accents), replacing raw `color-mix` strings and the fragile `${color}30` hex-alpha hack (which produces invalid CSS for `var()` colors).
+- `ArcaneStyleData` gained the typed fields that previously forced `raw:` maps: single-side padding (`paddingTop`/`Right`/`Bottom`/`Left`), per-side custom border strings (`borderTopCustom`/…, which can carry a runtime color or `none`), `boxSizing` (`BoxSizing` enum), `backgroundClip` (emits standard + `-webkit-`), and `backdropFilterCustom`.
+- **M1: the `styles:`/`decoration:` surface now covers all ~60 wired themed-visual components** — every actionable component across buttons, cards, feedback (Alert/Avatar/StatusBadge/Toast/Kbd/Breadcrumbs/Progress/CircularProgress/Skeleton/LoadingSpinner/EmptyState), interactive (Accordion/Disclosure/Cycle/Toggle/ToggleGroup/ToggleSwitch/Checkbox/RadioGroup/Slider/Separator), overlays (Dialog/Sheet/Drawer/Command/Floating/ContextMenu/DropdownMenu/Menubar/Toolbar), inputs (TextInput/Select/NativeSelect/OtpInput/TimePicker/DatePicker/Calendar/FieldWrapper/InputGroup), tabs/pagination, and the promo chrome (TopAnnouncementBar/PromoModal/…/SlotCounter). For overlay components the override routes to the visible panel, never the scrim; for standalone theme renderers that don't extend the shared base the merge is applied directly; components with no core render base use the 2-spread form. Calendar's per-theme style member was migrated from `dom.Styles` to `Map<String,String>` to host the seam. Every addition is golden-neutral (rendered output unchanged when the new fields are unset).
+- **M2: shipped the orphaned card family + `IconBadge`.** The card props + renderer-contracts that existed as dead code (`StatCardProps`, `FeatureCardProps`, `CTACardProps`, `TestimonialCardProps`, `PricingCardProps`) now have public widgets and per-theme renderers wired into all three themes: `StatCard`/`StatCardRow`, `FeatureCard`/`IconCard`, `CtaCard`, `TestimonialCard`/`RatingStars`, and `PricingCard`/`PricingGrid`. Each renders from theme CSS variables (adapts to any palette), is permeable (`styles:`/`decoration:`), and composes via a shared render base + thin theme subclasses. New `IconBadge` component makes the ubiquitous colored-icon-circle idiom first-class.
+- **M3: Flutter-parity ergonomics.** `cx(List<String?>)` class-join helper (`util/classes.dart`, exported) collapses the `_joinClasses` idiom copy-pasted across sites; `Container` gained a semantic `tag:` (`'nav'`/`'section'`/`'header'`/…) so structural markup no longer drops to raw `dom.*` — the default `div` path is byte-identical.
+- **M4: card-family surface completed against a real consumer.** `CtaCard` gained `accentColor` (tints the icon chip + CTA) and `isExternal` (opens in a new tab with `rel="noopener noreferrer"` and a `↗` affordance); `PricingCard` gained `highlighted` (an accent wash + a solid, row-outranking CTA) and per-row `SpecEntry.highlight`. These are what let QualityNode's marketing pages migrate onto the library cards with zero visual change.
+- **M3 breaking type cleanups (Flutter-parity, no back-compat).** `Card.padding`/`Card.borderRadius` are now typed `EdgeInsets?`/`BorderRadius?` (were raw-CSS `String?`), aligning `Card` with `ArcaneStructuredCard`. The `classes:` parameter on the arcane wrapper widgets (`ArcaneDiv`/`ArcaneSpan`/`ArcaneSection`/`ArcaneParagraph`/`ArcaneHeading`/`ArcaneLink`/`ArcaneNav`/… and the layout/HTML wrappers) now takes `List<String>?` (was `String?`), joined internally via `cx` — conditional class lists (`['card', if (active) 'is-active']`) no longer need a manual join. `ArcaneStyleData.backgroundClip` is now a typed `BackgroundClip` enum (`borderBox`/`paddingBox`/`contentBox`/`text`) instead of a raw `String?`.
+- **`ArcaneGallery` — themeable media masonry.** New `component/collection/gallery.dart` + `core/props/gallery_props.dart` + shared `core/rendering/base/gallery_render_base.dart`, wired into `ComponentRenderers` via `GalleryRendererContract`, with a per-theme renderer in every theme package (`packages/*/lib/src/renderers/gallery.dart`). Each theme renders the SAME `ArcaneGalleryTile{media(aspectRatio,src?),mediaChild?,title,meta,href/onTap,overlay,footer}` list natively: win95 = titled windows on the teal desktop, shadcn = clean cards, neubrutalism = hard-shadow blocks, neon = glow. The CSS-grid base uses coarse rows (`grid-auto-rows: minColumnWidth/2`) + aspect-driven COLUMN spans (`galleryColumnSpan`: wide→2, panorama→3) + `grid-auto-flow: dense` for a variable-width mosaic, refined by an opt-in packing script (`util/interactivity/scripts/gallery/gallery_scripts.dart`, emitted via `includeFallbackScripts`). Media covers its cell (`object-fit: cover`).
+- **Win95 theme: runtime accent override.** The Windows 95 theme's desktop backdrop, title-bar gradient and selection color now read `var(--w95-desktop-in, …)` / `--w95-title-a-in` / `--w95-title-b-in` / `--w95-selection-in` (plus `--primary`/`--accent`/`--ring`), falling back to the active [Win95Theme] scheme when unset. A host app can inject those `--w95-*-in` variables (scoped to `#arcane-root.arcane-theme-win95`) to re-tint the desktop + title bars from a runtime account accent live, without a rebuild — while the silver `#c0c0c0` control face and 3D bevels stay fixed across every accent.
+
+### Fixed
+
+- **`ArcaneGallery` tile caption is now theme-opt-in.** The render base only emits the title/meta header block when the theme opts in via `showsTileHeader` (win95 renders it as the window title bar). The card-style themes (shadcn/neubrutalism/neon) previously rendered the caption after the media, where a rounded tile clipped its bottom corners into a stray "caption strip"; they now render clean media-only tiles and expose the title to assistive tech via the tile's `aria-label`.
+
+- **Permeability internals hardening.** Rolled the `layerStyles` "literal-wins" helper out to 20 more single-root render bases (avatar, breadcrumbs, alert, skeleton, accordion, disclosure, toggle-group, kbd, menubar, toast, slider, radio-group, sidebar, field-wrapper/input-group, separator, time-picker, cycle-button, tab-bar, spinner, calendar) — byte-identical output, so a `decoration` shorthand can no longer out-emit a literal `styles:` longhand anywhere. Removed a dead `decorationStyles` spread from the checkbox/toggle-switch renderers (no theme mapped it; universal `decoration:` fields + literal `styles:` still apply). Renamed the Calendar renderer base's abstract `styles` getter to `rootStyles` to disambiguate it from the permeable `props.styles`. Neubrutalism decorated toasts opt out of the variant-border `!important` reset via `data-arcane-decorated`, matching the card opt-out.
+- **Permeability precedence hardening (quality pass).** The seam now guarantees literal `styles:` wins the cascade via a `layerStyles` helper (`lib/core/rendering/base/style_layering.dart`) that remove-then-reinserts override keys, so "later layer" == "later in the emitted CSS" — closing a Dart map key-position pitfall where a `decoration` shorthand (`background`) could beat a literal `styles:` longhand (`background-color`). Also fixed: trailing button-resets on tappable `Card`/anchor `Button` that clobbered `styles:`; StatusBadge applying its position/card-color mutations after the permeability merge; `ArcaneStyleData.merge()` silently dropping `alignItems`/`justifyContent`; `ArcaneNativeSelect`/`TextArea`/`SlotCounter` factory constructors not threading the new fields; and `ArcaneColorOps.opacity` quantizing to whole percent. Neubrutalism per-instance shadow recolor now bakes the color into the `box-shadow` (CSS custom properties resolve at the theme root, so the prior `var(--nb-shadow-color)` override never inherited), and decorated cards opt out of the theme's `!important` surface reset via a `data-arcane-decorated` attribute.
+- Form controls no longer throw on every interaction under dart2js (Dart 3.11). Event handlers read DOM properties via `dynamic` member access (`(event.target as dynamic).value`, `.checked`, `.selectedIndex`, `.key`, `.stopPropagation()`), which throws `TypeError: <name> is not a function` on `package:web` extension types — silently breaking every text input, textarea, OTP input, select search, and clear button (values never reached the callbacks). Added `core/dom_value.dart` (conditional web/stub helpers using explicit `getProperty`/`callMethod` interop) and routed `text_input`/`field`/`text_input_render_base`/`otp_input_render_base`/`select_render_base` through it. The helper is conditionally imported so styled components keep compiling during off-web style extraction (where `dart:js_interop` is unavailable).
+- `ArcaneApp.head` is now actually rendered. The `head: List<Widget>?` parameter was declared but never injected into the document; `ArcaneApp` now emits the supplied widgets through jaspr's cross-platform `Document.head`, so app-level `<link>`/`<script>`/`<meta>` widgets reach `<head>` during both SSR and client hydration. No change when `head` is null/empty.
+- Server-side rendering crash in the form-field widgets (`ArcaneStringField`, `ArcaneBoolField`, `ArcaneColorField`, `ArcaneDateField`, `ArcaneTimeField`, `ArcaneEnumField`). `ArcaneField` now guards its asynchronous value load to the client (`kIsWeb`), so SSR renders the loading placeholder instead of throwing a build-phase `setState` assertion. Client behavior is unchanged.
+- shadcn knowledge-base sidebar: pinned directly below the sticky top bar (was offset ~56px too low, leaving a gap above the nav) and made independently scrollable (`max-height` + `overflow-y: auto`) instead of requiring the whole page to scroll.
+- shadcn top bar: restored `position: sticky` (it was `static`, so it scrolled off-screen) with a solid background and bottom hairline, so it stays pinned while scrolling.
+- shadcn docs content layout: the content area now centers (capped at `--container-2xl` with auto margins instead of stretching edge-to-edge), and the right-hand table-of-contents column is only reserved when a TOC is actually present — TOC-less pages (e.g. component docs) now center the article instead of leaving an empty reserved column.
+- shadcn docs sidebar: nested nav items (sub-folder contents) now have vertical spacing — `.sidebar-tree` was missing a `gap`, so deeply nested items packed together; added `gap: 0.25rem` so they match the top-level spacing.
+- Neon docs sidebar: pinned directly below the sticky top bar (was offset by a doubled top, leaving a gap above the nav) and given its own scroll rail (`max-height` + `overflow-y: auto`) instead of scrolling with the page. The shadcn layout port had keyed this on the `.shadcn-kb-sidebar` class; the rule now targets `.neon-kb-sidebar` so it actually matches the Neon DOM.
+- Theme CSS is no longer re-materialized on stylesheet cache hits. `ArcaneStylesheetCss.resolve` now takes the component CSS as a thunk (`String Function()`) invoked only on a cache miss, so the large per-theme CSS string (e.g. the Win95 theme's ~5,600 lines) is built once and skipped entirely when the Expando cache is warm. Output is byte-identical.
+- Removed the last two `dynamic` public-API fields (strong-typing): `TreeNodeData.data` is now `Object?`, and the four `FileUploadProps` drag/input handlers are typed `void Function(web.Event)?` (the concrete type jaspr's events layer delivers) instead of `void Function(dynamic)?`.
+
+### Removed
+
+- Deleted ~1,300 lines of unreachable scaffolding that could not be distinguished from the live contract surface: the 514-line `style_presets.dart` catalog (8 preset classes, zero references — the live preset vocabulary is the `ArcaneStyleData` statics) and 11 orphan `*_props.dart` files whose widgets already ship without them (`tile`, `card_section`, `center_body`, `expander`, `glass`, `section`, `radio_cards`, `fab`, `icon_button`, `header`, plus the dead `SearchProps`/`BarProps` classes). Live symbols trapped in dead files (the `BarBackButtonMode` enum, `SearchResult`) were preserved. Verified: every deleted symbol had zero references across `lib`/`packages`/`test`/`tool`/`bin`/docs, `dart analyze` stays 0-error, and the suite holds at 42 pre-existing golden failures.
+- Added a direct unit test for the `layerStyles` cascade helper (`test/unit/layer_styles_test.dart`) — the core "literal `styles:` always wins" guarantee was only exercised indirectly through Card SSR cases; 7 tests now assert later-override-wins, key-moved-to-last, null-skip, and left-to-right multi-override behavior.
+- Removed 47 more orphan `*_props.dart` files (`lib/core/props/` went from 114 files to 67) — every `Props` class + `RendererContract` with zero references to any widget, render base, theme renderer, or dispatch aggregator (`ComponentRenderers`/`LayoutRenderers`). These were scaffolding for components that were never built. Verified by a per-symbol zero-reference scan (`file_upload`, `tree_view`, `timeline`, `stepper`, `tracker`, `meter`, `hero_section`, `game_tile`, `carpet`, `marquee`, `switcher`, and ~36 others, plus a `footer_props`/`footer_column_props` dead cluster). `status_indicator_props.dart` was stripped to just its live `StatusType` enum; live symbols trapped in otherwise-dead files were preserved. `dart analyze` stays 0-error and the suite holds at its 42 pre-existing golden failures.
+
+### Changed
+
+- **Preset `style` field renamed to `variant` (breaking, no back-compat).** The 8 components that exposed a preset-enum selector as `style:` (`ArcaneAlert`, `ArcaneKbd`, `ArcaneEmptyState`, `ArcanePagination`, `InlineHeroBanner`, `CodeBlock`, `MutableText`, `ArcaneDropdownItem`) now expose it as `variant:` — matching `Card`/`PricingCard` which already used `variant`, and eliminating the one-letter collision with the permeable `styles:` escape hatch (a typo between `style:` and `styles:` previously compiled and did the opposite thing). Enum *type* names (`AlertStyle`, `KbdStyle`, …) are unchanged; only the field/param. Rendered output is byte-identical (identifier-only change).
+- **`StatCard.icon` is now `Widget?` (was `String?`, breaking).** It matches `FeatureCard`/`CtaCard`/`PricingCard` — icons are Widgets, as in Flutter. The shared `StatCardRenderBase` now places the widget directly in the icon badge instead of emitting the string as text.
+- **Dropped the `onClick` alias on the `Card` family (breaking).** All nine `Card`/`ArcaneStructuredCard`/`ArcaneImageCard` constructors kept both `onTap` and `onClick` (`_onTap = onTap ?? onClick`); `onClick` is removed, leaving `onTap` (Flutter parity, no-alias rule). No call sites passed `onClick` to a card.
+
+- Internal: deduplicated the `arcane_jaspr_shadcn`, `arcane_jaspr_neon`, and `arcane_jaspr_neubrutalism` renderer implementations into shared base classes under `lib/core/rendering/base/`. Public renderer class names and rendered HTML output are unchanged (verified byte-identical across all three themes via golden snapshots). Removed the per-package `control_styles.dart`.
+- **`PricingCard` layout tuned to match real plan/hosting cards.** The spec table now renders *above* the feature list inside a bordered, rounded box (was plain rows below the features); a non-highlighted card's CTA is a neutral outline (foreground label, `--border` edge) so a `highlighted` card's solid accent CTA visibly outranks its row; and the badge pill is no longer force-uppercased — it renders the label exactly as passed.
+- Neon theme: `PricingCard` and `TestimonialCard` now lift on hover (whole-card `translateY` + shadow), matching the neon card feel. Delivered from the theme layer (`neon_css.dart`) so consumers get it for free instead of stapling it into site CSS.
+- `arcane_jaspr_neon` rebuilt as a dark-first "gamer" theme (replaces the prior neutralized skeleton). Distilled from the QualityNode aesthetic: the default `NeonTheme.green` is an emerald-to-cyan palette, with seven other neon variants. The palette is fully seeded from `NeonTheme` via `lightSeed`/`darkSeed` (like the shadcn and neubrutalism themes); the dark seed enables `accentGlow`, so shadows carry a neon glow. New `NeonCss` supplies a restrained, glow-and-gradient component layer (Oxanium display font, gradient accent bars on cards, uppercase tracked badges, accent focus rings) — every rule scoped to `#arcane-root.arcane-theme-neon`, so the shadcn and neubrutalism themes are unaffected. `NeonCss` also styles the documentation knowledge-base chrome (top bar, sidebar, content grid, TOC) so the Neon docs render correctly (the bespoke Neon docs layout was retired in `arcane_lexicon`; Neon now uses the standard chrome). Neon is back in the golden snapshot tests.
+
+## [3.3.0] - 2026-05-7
 
 ### Changed
 
@@ -205,281 +262,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `arcaneAllDocsStyles` - Combined constant with all documentation styles
 - `arcaneDocsLayoutResponsiveCss` - Responsive breakpoint styles for docs layout
 - `arcanePageNavCss` - Hover styles for page navigation
-
-## [2.9.0] - Unreleased
-
-### Added
-
-**ArcaneColor Type-Safe Theme Colors**
-- Added `ArcaneColor` enum with all theme color references (primary, accent, success, warning, info, destructive, etc.)
-- `.css` getter returns CSS variable reference (e.g., `var(--accent)`)
-- `.withOpacity(double)` returns proper `color-mix()` syntax for transparency
-- Added `GradientStop` class for gradient color stops with optional positions
-- Added `GradientBuilder` class for fluent gradient building API
-- Added `List<ArcaneColor>.toGradient()` extension for easy gradient creation
-
-**ArcaneGradientText Enhancements**
-- Added `.success` constructor (success to accent gradient)
-- Added `.warning` constructor (warning to destructive gradient)
-- Added `.error` constructor (destructive to warning gradient)
-- Added `.rainbow` constructor (multi-color theme gradient)
-- Added `.fromColors()` factory for `List<ArcaneColor>` with even distribution
-- Added `.custom()` constructor for `List<GradientStop>` with custom positions
-- Added `GradientTextProps.buildGradient()` method for unified gradient building
-
-**ArcaneButton CTA Enhancements**
-- Added `ButtonVariant.accent` for gradient background buttons (green-to-cyan in Neon, primary-to-secondary in ShadCN)
-- Added `href` property to render button as anchor tag (`<a>`) for navigation CTAs
-- Added `showArrow` property to display arrow indicator after label
-- Added `ArcaneButton.accent()` named constructor
-- Updated both Neon and ShadCN renderers
-
-**NeonStylesheet Accent Variables**
-- Added `--neon-accent-gradient` CSS variable for gradient backgrounds
-- Added `--neon-accent-glow-medium` CSS variable for button glows
-- Added `--neon-accent-border` CSS variable for accent-colored borders
-- Variables defined for all accent presets (green, red, blue, purple)
-
-**ArcaneCatImage Component**
-- Added `ArcaneCatImage` component for placeholder/testing images using cataas.com API
-- Supports `seed` parameter for consistent random cats
-- Named constructors: `.gif()` for animated cats, `.says()` for text overlay, `.lazy()` for lazy loading
-- Optional `apiWidth` and `apiHeight` parameters for custom dimensions
-
-**CSS Design Token System**
-- Added spacing scale CSS variables (`--arcane-space-0` through `--arcane-space-32`)
-- Added font size CSS variables (`--arcane-font-size-xs` through `--arcane-font-size-5xl`)
-- Added font weight CSS variables (`--arcane-font-weight-normal`, `medium`, `semibold`, `bold`)
-- Added `--arcane-transition-slower` (300ms) for slower animations
-- Updated transitions to use `ease` timing function for consistency
-
-**Unified Floating Component**
-- Added `ArcaneFloating` component that consolidates Tooltip, Popover, and Hovercard into one
-- Named constructors: `.tooltip()`, `.tooltipCustom()`, `.popover()`, `.hovercard()`
-- Unified `FloatingProps` with `FloatingTrigger` (hover, click, manual) and `FloatingPosition` (8 positions)
-
-**Unified Separator Component**
-- Merged `ArcaneDivider` and `ArcaneSeparator` into single `ArcaneSeparator` component
-- Named constructors: `.vertical()`, `.withLabel()`, `.withIcon()`, `.dashed()`, `.subtle()`, `.bold()`
-- Combined feature sets: variants (standard/subtle/bold), dashed lines, labels, icons, custom colors
-- Unified `SeparatorProps` with `SeparatorVariant` and `SeparatorOrientation` enums
-
-### Changed
-
-**NeonStylesheet API Consistency**
-- Renamed `NeonAccent` enum to `NeonTheme` for consistency with `ShadcnTheme`
-- Renamed `accent` parameter to `theme` in `NeonStylesheet` constructor
-- Migration: `NeonStylesheet(accent: NeonAccent.orange)` -> `NeonStylesheet(theme: NeonTheme.orange)`
-
-**Renderer CSS Variable Migration**
-- Migrated 800+ hardcoded style values across 60+ renderer files to use CSS variables
-- All `transition` values now use `var(--arcane-transition-*)` variables
-- All `border-radius` values now use `var(--arcane-radius-*)` variables
-- All `gap` values now use `var(--arcane-space-*)` variables
-- All `font-size` values now use `var(--arcane-font-size-*)` variables
-- All `font-weight` values now use `var(--arcane-font-weight-*)` variables
-- Updated both ShadCN and Neon stylesheets and renderers
-
-### Breaking Changes
-
-**Stylesheet Now Required**
-- `ArcaneApp` and `ArcaneWindow` now require the `stylesheet` parameter (previously defaulted to `ShadcnStylesheet`)
-- You must now explicitly choose a stylesheet for your app
-- No fallback stylesheet behavior - explicit configuration required
-
-### Removed
-
-**Dialog Component Consolidation**
-- Removed `ArcaneInputDialog` component - use `ArcaneDialog` with form inputs as children
-- Removed `ArcaneItemPicker` component - use `ArcaneDialog` with custom list content
-- Removed `InputDialogProps` and `ItemPickerProps` classes
-- Removed `inputDialog()` and `itemPicker()` methods from `ComponentRenderers`
-- Removed ShadCN and Neon renderer implementations for `inputDialog` and `itemPicker`
-- The unified `ArcaneDialog` now handles all dialog use cases through composition
-
-**Divider Component Consolidation**
-- Removed `ArcaneDivider` component - use `ArcaneSeparator` with appropriate named constructor
-- Removed `ArcaneVerticalDivider` - use `ArcaneSeparator.vertical()`
-- Removed `DividerProps` and `DividerVariant`/`DividerOrientation` enums
-- Removed `divider()` method from `ComponentRenderers`
-- Removed ShadCN and Neon renderer implementations for `divider`
-- The unified `ArcaneSeparator` now handles all divider/separator use cases
-
-**Floating Component Consolidation**
-- Removed `ArcaneTooltip` component - use `ArcaneFloating.tooltip()`
-- Removed `ArcaneTooltipCustom` component - use `ArcaneFloating.tooltipCustom()`
-- Removed `ArcaneInfoTooltip` component
-- Removed `ArcanePopover` component - use `ArcaneFloating.popover()`
-- Removed `ArcaneHovercard` component - use `ArcaneFloating.hovercard()`
-- Removed `TooltipProps`, `PopoverProps`, `HovercardProps` classes
-- Removed `tooltip()`, `popover()`, `hovercard()` methods from `ComponentRenderers`
-- Removed ShadCN and Neon renderer implementations for `tooltip`, `popover`, `hovercard`
-- The unified `ArcaneFloating` now handles all floating UI patterns
-
-### Fixed
-
-**Theme Color Consistency**
-- Fixed hardcoded HSL colors across 20+ component files to use theme CSS variables
-- Replaced `hsl(142 76% 36%)` with `var(--success)`
-- Replaced `hsl(38 92% 50%)` with `var(--warning)`
-- Replaced `hsl(199 89% 48%)` with `var(--info)`
-- Fixed invalid `hsl(var(--x) / opacity)` CSS syntax to use `color-mix(in srgb, var(--x) X%, transparent)` pattern
-- Fixed `ArcaneGradientText.brand` to use `var(--primary)` to `var(--accent)` instead of info color
-
-## [2.8.0] - Unreleased
-
-### Changed
-
-#### Component Consolidation and Folder Reorganization, and more! Check out the docs for new usage
-
-**Social Sign-In Buttons Consolidated (11 -> 1)**
-- Merged 10 individual social button files into single `SocialSignInButton` component
-- New factory constructors: `.google()`, `.github()`, `.apple()`, `.microsoft()`, `.discord()`, `.twitter()`, `.facebook()`, `.linkedin()`, `.slack()`, `.gitlab()`
-- Added `SocialProvider` enum for programmatic provider selection
-
-**Menu System Unified**
-- Created shared `ArcaneMenuItem` class in `core/props/menu_item_props.dart`
-- Unified menu items across `ArcaneDropdownMenu`, `ArcaneContextMenu`, and `ArcaneMenubar`
-- Removed redundant `DropdownItemProps`, `ContextMenuItemProps`, and `MenubarItemProps`
-
-**Dialog Components Consolidated**
-- Merged `ArcaneEmailDialog` and `ArcaneTextInputDialog` into `ArcaneInputDialog`
-- New factory constructors: `.text()`, `.email()`, `.password()`, `.multiline()`, `.number()`
-- Added `InputDialogType` enum
-
-### Removed
-
-**Icon Button Close Factory**
-- Removed `ArcaneIconButton.close()` factory constructor (redundant - use `ArcaneIconButton(icon: ArcaneIcon.x())` instead)
-
-**Dropdown Menu Component**
-- Removed `ArcaneDropdownMenu` from navigation (consolidated with Select functionality)
-
-**Search Components Consolidated**
-- Merged `ArcaneSearchBar` into `ArcaneSearch`
-- Added `ArcaneSearch.withResults()` factory for dropdown results
-- Added `SearchResult` class (replacing `ArcaneSearchResult`)
-- Extended `SearchProps` with results, resultsId, showDropdown, dropdownMaxHeight, width
-
-**Slider Components Consolidated**
-- Merged `ArcaneRangeSlider` into `ArcaneSlider`
-- Added `ArcaneSlider.range()` factory for range selection with two handles
-- Extended `SliderProps` with isRange, rangeMin, rangeMax, onRangeChanged
-- `ArcaneRangeSlider` is now a deprecated typedef pointing to `ArcaneSlider.range()`
-
-**DateTime Picker Components Consolidated**
-- Merged `ArcaneDatePicker` and `ArcaneTimePicker` into `ArcaneDateTimePicker`
-- New factory constructors: `.date()` for date-only, `.time()` for time-only
-- Default constructor provides combined date and time picker
-- Added `DateTimePickerMode` enum (date, time, dateTime)
-- Added `DateTimePickerSize` enum (sm, md, lg)
-
-**Folder Reorganization**
-- New `component/menu/` folder: `dropdown_menu.dart`, `context_menu.dart`, `menubar.dart`
-- New `component/card/` folder: `card.dart`, `feature_card.dart`, `pricing_card.dart`, `testimonial_card.dart`, `integration_card.dart`, `stat_card.dart`, `author_card.dart`, `surface_card.dart`, `flexi_cards.dart`, `card_section.dart`
-- New `component/data/` folder: `data_table.dart`, `static_table.dart`, `tree_view.dart`, `timeline.dart`, `tracker.dart`
-- Moved `disclosure.dart` and `expander.dart` to `component/interactive/`
-
-### Removed
-
-- Individual social button files (`google_button.dart`, `github_button.dart`, etc.)
-- `ArcaneEmailDialog` (use `ArcaneInputDialog.email()`)
-- `ArcaneTextInputDialog` (use `ArcaneInputDialog.text()`)
-- `ArcaneCloseButton` (use `ArcaneIconButton.close()`)
-- Duplicate `ArcaneAccordion` from `expander.dart` (keep version in `interactive/accordion.dart`)
-- Duplicate `ArcaneProgressBar` and `ArcaneLoader` from `alert_banner.dart`
-- `ArcaneCtaLink` (use `ArcaneButton` with `href` parameter or `ArcaneLink` for links)
-- `ArcaneSearchBar` (consolidated into `ArcaneSearch` - use `ArcaneSearch.withResults()` for dropdown results)
-- `ArcaneRangeSlider` (consolidated into `ArcaneSlider` - use `ArcaneSlider.range()` for range mode)
-- `ArcaneDatePicker` (consolidated into `ArcaneDateTimePicker` - use `.date()` factory)
-- `ArcaneTimePicker` (consolidated into `ArcaneDateTimePicker` - use `.time()` factory)
-
-### Added
-
-**Map Debug Mode**
-- Added `debugMode` parameter to `ArcaneWorldMap` and `ArcaneUSAMap`
-- When enabled, hovering anywhere on the map shows lat/lng and SVG coordinates in a tooltip
-- Clicking copies the coordinates to clipboard for easy location calibration
-- Added `svgToLatLng()` reverse conversion method to `ArcaneUSAMapProjection`
-
-**Sidebar Enhancement**
-- `ArcaneSidebarSubMenu` - Collapsible nested submenu items
-- `ArcaneSidebarExpanded` - Content visible only when sidebar is expanded
-- `ArcaneSidebarCollapsed` - Content visible only when sidebar is collapsed
-- `ArcaneSidebarSeparator` - Visual separator between groups
-- Added `href` and `tooltip` properties to `ArcaneSidebarItem`
-
-#### Architecture Migration Complete
-The renderer-based architecture is now complete with **204 renderer methods** in the interface and **123 component files** using the renderer pattern. All visual components now delegate to `context.renderers.xxx()` for stylesheet-specific rendering.
-
-**One line changes your entire app's design:**
-```dart
-ArcaneApp(
-  styleSheet: ShadcnStyleSheet(),  // or CodexStyleSheet()
-  child: MyApp(),
-)
-```
-
-#### Convenience Factory Methods for SlotCounterProps
-Added factory constructors to `SlotCounterProps` for common use cases:
-- `SlotCounterProps.latency()` - Pre-configured for latency/ping displays with `ms` suffix
-- `SlotCounterProps.percentage()` - Pre-configured for percentage displays with `%` suffix
-- `SlotCounterProps.currency()` - Pre-configured for currency displays with `$` prefix
-
-### Changed
-
-#### Layout Components Migrated to Renderer Architecture
-All layout components now delegate to the renderer system:
-
-| Component | Renderer Method | Props Class |
-|-----------|-----------------|-------------|
-| `ArcaneScrollRail` | `context.renderers.scrollRail()` | `ScrollRailProps` |
-| `ArcaneScrollRailLayout` | `context.renderers.scrollRailLayout()` | `ScrollRailLayoutProps` |
-| `ArcaneResizable` | `context.renderers.resizable()` | `ResizableProps` |
-| `ArcaneRadioCards` | `context.renderers.radioCards()` | `RadioCardsProps` |
-| `ArcaneChip` | `context.renderers.arcaneChip()` | `ArcaneChipProps` |
-| `ArcaneFlow` | `context.renderers.flow()` | `FlowProps` |
-| `ArcaneRow` | `context.renderers.flow()` | `FlowProps` |
-| `ArcaneColumn` | `context.renderers.flow()` | `FlowProps` |
-
-#### Naming Clarifications
-- `ChipGroupProps` renamed to `SelectableChipGroupProps` to avoid conflict with existing `ChipGroupProps`
-- `ArcaneResizable` factory constructors (`sidebarLayout`, `splitView`) now return proper `ArcaneResizable` instances
-
-### Fixed
-
-#### Neon Demo API Corrections
-- `ArcaneFlexiCardItem` corrected to `FlexiCardItem` (class was renamed)
-- `ArcanePre` corrected to `ArcaneCodeBlock` (legacy name removed)
-- `CalloutStyle` corrected to `CalloutVariant` (enum renamed)
-- `SlotCounterColor` usage in demos now uses correct enum type
-- `ArcaneSlotCounterRow.counters` now correctly uses `List<SlotCounterProps>` instead of component list
-
-### Removed
-
-#### Dead Code Cleanup
-- Removed unused `Arcane` class from `lib/util/arcane.dart` (had stale references to old theme system)
-- Removed empty `lib/stylesheets/codex/` directory (was just a placeholder)
-- Removed hidden name warnings in `arcane_jaspr.dart` for non-existent exports
-
-#### Old Token System (Fully Removed)
-The legacy token system has been completely removed. Components now use CSS variables directly.
-
-**Deleted Files:**
-- `lib/util/tokens/tokens.dart` - Old `ArcaneColors`, `ArcaneSpacing`, `ArcaneTypography`, `ArcaneRadius`, `ArcaneEffects`, `ArcaneLayout`, `ArcaneZIndex` classes
-- `lib/util/tokens/style_presets.dart` - Old `ButtonStyle`, `InputStyle`, `CardStyle`, etc.
-- `lib/util/tokens/common_styles.dart` - Old common style maps
-- `lib/util/tokens/index.dart` - Token barrel export
-- `lib/util/tokens/styles/` - All old style token files
-- `lib/util/tools/styles.dart` - Old `ArcaneStyles` helper class
-- `lib/util/tokens/` directory - Completely removed
-- `lib/util/tools/` directory - Completely removed
-
-**Updated Style Type Files:**
-All enum-based style types now use direct CSS values instead of token references:
-- `lib/util/style_types/borders.dart` - Direct CSS variables (`var(--border)`, etc.)
-- `lib/util/style_types/colors.dart` - Direct CSS variables (`var(--foreground)`, etc.)
-- `lib/util/style_types/effects.dart` - Direct CSS values for shadows, transitions
-- `lib/util/style_types/layout.dart` - Direct pixel/string values for z-index, max-width
-- `lib/util/style_types/spacing.dart` - Direct pixel values for spacing
-- `lib/util/style_types/typography.dart` - Direct rem values for font sizes

@@ -1,406 +1,149 @@
 import 'package:jaspr/dom.dart' as dom;
 import 'package:jaspr/jaspr.dart';
 
-import 'package:arcane_jaspr/core/interaction/interaction.dart';
-import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/radio_group_props.dart';
+import 'package:arcane_jaspr/core/rendering/base/radio_group_render_base.dart';
 
-/// Neon radio group renderer with restrained dark styling.
-class NeonRadioGroup<T> extends StatelessComponent {
-  final RadioGroupProps<T> props;
-
-  const NeonRadioGroup(this.props, {super.key});
+/// Neon radio group renderer (neutralized skeleton).
+class NeonRadioGroup<T> extends RadioGroupRenderBase<T> {
+  const NeonRadioGroup(super.props, {super.key});
 
   @override
-  Component build(BuildContext context) {
-    final String groupId = props.id ?? props.name ?? 'neon-radio-${identityHashCode(this)}';
-    final String? currentGroupValue = props.value?.toString();
-    final Map<String, String> rootAttrs = groupAttrs(
-      groupId: groupId,
-      mode: 'single',
-      value: currentGroupValue ?? '',
-      required: props.required,
-      disabled: props.disabled,
-      changeAction: props.onChangeAction != null
-          ? encodeArcaneAction(props.onChangeAction!)
-          : null,
-    );
+  String get groupIdPrefix => 'neon-radio-';
 
-    final Map<String, String> layoutStyles = switch (props.layout) {
-      RadioGroupLayout.vertical => {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'gap': props.gap,
-      },
-      RadioGroupLayout.horizontal => {
-        'display': 'flex',
-        'flex-wrap': 'wrap',
-        'gap': props.gap,
-      },
-      RadioGroupLayout.grid => {
-        'display': 'grid',
-        'grid-template-columns': 'repeat(${props.gridColumns}, minmax(0, 1fr))',
-        'gap': props.gap,
-      },
-    };
+  @override
+  String get rootClasses =>
+      'neon-radio-group ${props.disabled ? 'disabled' : ''}';
 
-    return dom.div(
-      classes: 'neon-radio-group ${props.disabled ? 'disabled' : ''}',
-      attributes: mergeAttrs(<Map<String, String>>[
-        <String, String>{
-          'data-disabled': '${props.disabled}',
-          'data-layout': props.layout.name,
-          'data-variant': props.variant.name,
-        },
-        rootAttrs,
-      ]),
-      styles: dom.Styles(
-        raw: {'width': '100%', 'opacity': props.disabled ? '0.55' : '1'},
-      ),
-      [
-        if (props.label != null)
-          dom.div(
-            classes: 'neon-radio-group-label',
-            styles: const dom.Styles(
-              raw: {
-                'font-family': 'var(--font-heading)',
-                'font-size': 'var(--font-size-xs)',
-                'font-weight': 'var(--font-weight-semibold)',
-                'letter-spacing': '0.08em',
-                'text-transform': 'uppercase',
-                'color': 'var(--muted-foreground)',
-                'margin-bottom': '0.65rem',
-              },
-            ),
-            [
-              Component.text(props.label!),
-              if (props.required)
-                const dom.span(
-                  styles: dom.Styles(
-                    raw: {
-                      'color': 'var(--destructive)',
-                      'margin-left': '0.35rem',
-                    },
-                  ),
-                  [Component.text('*')],
-                ),
-            ],
-          ),
-        dom.div(
-          classes: 'neon-radio-group-options',
-          styles: dom.Styles(raw: layoutStyles),
-          [
-            for (final RadioOptionProps<T> option in props.options)
-              _buildOption(option, groupId),
-          ],
-        ),
-        if (props.error != null)
-          dom.div(
-            classes: 'neon-radio-group-error',
-            styles: const dom.Styles(
-              raw: {
-                'font-size': 'var(--font-size-sm)',
-                'color': 'var(--destructive)',
-                'margin-top': '0.6rem',
-              },
-            ),
-            [Component.text(props.error!)],
-          )
-        else if (props.helperText != null)
-          dom.div(
-            classes: 'neon-radio-group-helper',
-            styles: const dom.Styles(
-              raw: {
-                'font-size': 'var(--font-size-sm)',
-                'color': 'var(--muted-foreground)',
-                'margin-top': '0.6rem',
-              },
-            ),
-            [Component.text(props.helperText!)],
-          ),
-      ],
-    );
+  @override
+  Map<String, String> rootDataAttrs(String groupName) => <String, String>{
+    'data-disabled': '${props.disabled}',
+    'data-layout': props.layout.name,
+    'data-variant': props.variant.name,
+  };
+
+  @override
+  Map<String, String> get rootStyles => const <String, String>{};
+
+  @override
+  Component buildLabel(String groupName) => dom.div(
+    classes: 'neon-radio-group-label',
+    <Component>[Component.text(props.label!)],
+  );
+
+  @override
+  String get optionsClasses => 'neon-radio-group-options';
+
+  @override
+  Map<String, String> get optionsStyles => const <String, String>{};
+
+  @override
+  List<Component> buildMessage() {
+    if (props.error != null) {
+      return <Component>[
+        dom.div(classes: 'neon-radio-group-error', <Component>[
+          Component.text(props.error!),
+        ]),
+      ];
+    } else if (props.helperText != null) {
+      return <Component>[
+        dom.div(classes: 'neon-radio-group-helper', <Component>[
+          Component.text(props.helperText!),
+        ]),
+      ];
+    }
+    return const <Component>[];
   }
 
-  Component _buildOption(RadioOptionProps<T> option, String groupId) {
-    final bool isSelected = props.value == option.value;
-    final bool isDisabled = props.disabled || option.disabled;
-    final String itemValue = option.value.toString();
-    final Map<String, String> itemAttrs = mergeAttrs(<Map<String, String>>[
-      groupItemAttrs(
-        groupId: groupId,
-        value: itemValue,
-        selected: isSelected,
-        disabled: isDisabled,
-      ),
-      if (!isDisabled)
-        interactionAttrs(
-          ArcaneInteraction.selectValue(groupId, itemValue),
-        ),
-    ]);
-
-    return switch (props.variant) {
-      RadioGroupVariant.standard => _standardOption(
-        option,
-        isSelected,
-        isDisabled,
-        itemAttrs,
-      ),
-      RadioGroupVariant.cards =>
-          _cardOption(option, isSelected, isDisabled, itemAttrs),
-      RadioGroupVariant.buttons => _buttonOption(
-        option,
-        isSelected,
-        isDisabled,
-        itemAttrs,
-      ),
-      RadioGroupVariant.chips =>
-          _chipOption(option, isSelected, isDisabled, itemAttrs),
-    };
-  }
-
-  Component _standardOption(
+  @override
+  Component buildStandardRadio(
     RadioOptionProps<T> option,
+    String groupName,
     bool isSelected,
     bool isDisabled,
+    bool hasError,
     Map<String, String> itemAttrs,
   ) {
     return dom.label(
-      classes:
-          'neon-radio-option ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
-      attributes: mergeAttrs(<Map<String, String>>[
-        <String, String>{
-          'data-state': isSelected ? 'checked' : 'unchecked',
-          'data-disabled': '$isDisabled',
-        },
-        itemAttrs,
-      ]),
-      styles: dom.Styles(
-        raw: {
-          'display': 'flex',
-          'align-items': 'flex-start',
-          'gap': '0.7rem',
-          'padding': '0.25rem 0',
-          'cursor': isDisabled ? 'not-allowed' : 'pointer',
-        },
-      ),
+      classes: 'neon-radio-option',
+      attributes: itemAttrs,
       events: isDisabled
           ? null
-          : {'click': (_) => props.onChanged?.call(option.value)},
-      [
-        dom.div(
-          classes: 'neon-radio-circle',
-          styles: dom.Styles(
-            raw: {
-              'width': '18px',
-              'height': '18px',
-              'border-radius': '50%',
-              'border': isSelected
-                  ? '2px solid var(--neon-accent)'
-                  : '2px solid var(--neon-control-border)',
-              'background': 'var(--neon-surface-1)',
-              'box-shadow': isSelected
-                  ? '0 0 12px color-mix(in srgb, var(--neon-accent) 32%, transparent)'
-                  : 'inset 0 1px 0 var(--neon-inset)',
-              'display': 'flex',
-              'align-items': 'center',
-              'justify-content': 'center',
-              'margin-top': '2px',
-              'transition':
-                  'border-color 200ms ease, box-shadow 200ms ease',
-              'flex-shrink': '0',
+          : <String, EventCallback>{
+              'click': (_) => props.onChanged?.call(option.value),
             },
-          ),
-          [
-            if (isSelected)
-              const dom.div(
-                styles: dom.Styles(
-                  raw: {
-                    'width': '8px',
-                    'height': '8px',
-                    'border-radius': '50%',
-                    'background': 'var(--neon-accent)',
-                  },
-                ),
-                [],
-              ),
-          ],
-        ),
-        _optionText(option, isSelected),
-      ],
+      <Component>[Component.text(option.label)],
     );
   }
 
-  Component _cardOption(
+  @override
+  Component buildCardRadio(
     RadioOptionProps<T> option,
+    String groupName,
     bool isSelected,
     bool isDisabled,
+    bool hasError,
     Map<String, String> itemAttrs,
   ) {
     return dom.div(
-      classes:
-          'neon-radio-card ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
-      attributes: mergeAttrs(<Map<String, String>>[
-        <String, String>{
-          'data-state': isSelected ? 'checked' : 'unchecked',
-          'data-disabled': '$isDisabled',
-        },
-        itemAttrs,
-      ]),
-      styles: dom.Styles(
-        raw: {
-          'display': 'flex',
-          'align-items': 'flex-start',
-          'gap': '0.7rem',
-          'padding': '0.9rem 1rem',
-          'clip-path': 'var(--neon-clip-sm)',
-          'border': isSelected
-              ? '1px solid var(--neon-control-border-strong)'
-              : '1px solid var(--neon-control-border)',
-          'background': isSelected
-              ? 'color-mix(in srgb, var(--neon-accent) 14%, var(--neon-surface-2))'
-              : 'var(--neon-surface-1)',
-          'box-shadow': isSelected
-              ? '0 0 18px color-mix(in srgb, var(--neon-accent) 22%, transparent), inset 0 1px 0 var(--neon-inset)'
-              : 'inset 0 1px 0 var(--neon-inset)',
-          'cursor': isDisabled ? 'not-allowed' : 'pointer',
-          'transition':
-              'background 200ms ease, border-color 200ms ease, box-shadow 200ms ease',
-        },
-      ),
+      classes: 'neon-radio-card',
+      attributes: itemAttrs,
       events: isDisabled
           ? null
-          : {'click': (_) => props.onChanged?.call(option.value)},
-      [if (option.icon != null) option.icon!, _optionText(option, isSelected)],
-    );
-  }
-
-  Component _buttonOption(
-    RadioOptionProps<T> option,
-    bool isSelected,
-    bool isDisabled,
-    Map<String, String> itemAttrs,
-  ) {
-    return dom.button(
-      classes:
-          'neon-radio-button ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
-      attributes: mergeAttrs(<Map<String, String>>[
-        <String, String>{
-          'type': 'button',
-          'data-state': isSelected ? 'checked' : 'unchecked',
-          'data-disabled': '$isDisabled',
-          if (isDisabled) 'disabled': 'true',
-        },
-        itemAttrs,
-      ]),
-      styles: dom.Styles(
-        raw: {
-          'display': 'inline-flex',
-          'align-items': 'center',
-          'justify-content': 'center',
-          'gap': '0.55rem',
-          'padding': '0.6rem 1rem',
-          'clip-path': 'var(--neon-clip-sm)',
-          'border': isSelected
-              ? '1px solid var(--neon-control-border-strong)'
-              : '1px solid var(--neon-control-border)',
-          'background': isSelected
-              ? 'color-mix(in srgb, var(--neon-accent) 18%, var(--neon-surface-2))'
-              : 'var(--neon-surface-1)',
-          'color': isSelected ? 'var(--neon-accent)' : 'var(--foreground)',
-          'font-family': 'var(--font-heading)',
-          'font-weight': 'var(--font-weight-semibold)',
-          'letter-spacing': '0.04em',
-          'box-shadow': isSelected
-              ? '0 0 18px color-mix(in srgb, var(--neon-accent) 24%, transparent), inset 0 1px 0 var(--neon-inset)'
-              : 'inset 0 1px 0 var(--neon-inset)',
-          'cursor': isDisabled ? 'not-allowed' : 'pointer',
-          'transition':
-              'background 200ms ease, border-color 200ms ease, color 200ms ease, box-shadow 200ms ease',
-        },
-      ),
-      events: isDisabled
-          ? null
-          : {'click': (_) => props.onChanged?.call(option.value)},
-      [if (option.icon != null) option.icon!, Component.text(option.label)],
-    );
-  }
-
-  Component _chipOption(
-    RadioOptionProps<T> option,
-    bool isSelected,
-    bool isDisabled,
-    Map<String, String> itemAttrs,
-  ) {
-    return dom.button(
-      classes:
-          'neon-radio-chip ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
-      attributes: mergeAttrs(<Map<String, String>>[
-        <String, String>{
-          'type': 'button',
-          'data-state': isSelected ? 'checked' : 'unchecked',
-          'data-disabled': '$isDisabled',
-          if (isDisabled) 'disabled': 'true',
-        },
-        itemAttrs,
-      ]),
-      styles: dom.Styles(
-        raw: {
-          'display': 'inline-flex',
-          'align-items': 'center',
-          'gap': '0.45rem',
-          'padding': '0.4rem 0.85rem',
-          'clip-path': 'var(--neon-clip-xs)',
-          'border': isSelected
-              ? '1px solid var(--neon-control-border-strong)'
-              : '1px solid var(--neon-control-border)',
-          'background': isSelected
-              ? 'color-mix(in srgb, var(--neon-accent) 16%, var(--neon-surface-2))'
-              : 'var(--neon-surface-1)',
-          'color': isSelected ? 'var(--neon-accent)' : 'var(--foreground)',
-          'font-family': 'var(--font-heading)',
-          'font-size': 'var(--font-size-xs)',
-          'font-weight': 'var(--font-weight-semibold)',
-          'letter-spacing': '0.04em',
-          'box-shadow': isSelected
-              ? '0 0 14px color-mix(in srgb, var(--neon-accent) 22%, transparent)'
-              : 'inset 0 1px 0 var(--neon-inset)',
-          'cursor': isDisabled ? 'not-allowed' : 'pointer',
-          'transition':
-              'background 200ms ease, border-color 200ms ease, color 200ms ease, box-shadow 200ms ease',
-        },
-      ),
-      events: isDisabled
-          ? null
-          : {'click': (_) => props.onChanged?.call(option.value)},
-      [if (option.icon != null) option.icon!, Component.text(option.label)],
-    );
-  }
-
-  Component _optionText(RadioOptionProps<T> option, bool isSelected) {
-    return dom.div(styles: const dom.Styles(raw: {'flex': '1'}), [
-      dom.div(
-        styles: dom.Styles(
-          raw: {
-            'font-size': 'var(--font-size-sm)',
-            'font-weight': 'var(--font-weight-medium)',
-            'color': isSelected ? 'var(--neon-accent)' : 'var(--foreground)',
-          },
-        ),
-        [Component.text(option.label)],
-      ),
-      if (option.description != null)
-        dom.div(
-          styles: const dom.Styles(
-            raw: {
-              'font-size': 'var(--font-size-sm)',
-              'color': 'var(--muted-foreground)',
-              'margin-top': '0.2rem',
-              'line-height': '1.35',
+          : <String, EventCallback>{
+              'click': (_) => props.onChanged?.call(option.value),
             },
-          ),
-          [Component.text(option.description!)],
-        ),
-    ]);
+      <Component>[Component.text(option.label)],
+    );
+  }
+
+  @override
+  Component buildButtonRadio(
+    RadioOptionProps<T> option,
+    String groupName,
+    bool isSelected,
+    bool isDisabled,
+    bool hasError,
+    Map<String, String> itemAttrs,
+  ) {
+    return dom.button(
+      classes: 'neon-radio-button',
+      attributes: <String, String>{
+        'type': 'button',
+        ...itemAttrs,
+        if (isDisabled) 'disabled': 'true',
+      },
+      events: isDisabled
+          ? null
+          : <String, EventCallback>{
+              'click': (_) => props.onChanged?.call(option.value),
+            },
+      <Component>[Component.text(option.label)],
+    );
+  }
+
+  @override
+  Component buildChipRadio(
+    RadioOptionProps<T> option,
+    String groupName,
+    bool isSelected,
+    bool isDisabled,
+    bool hasError,
+    Map<String, String> itemAttrs,
+  ) {
+    return dom.button(
+      classes: 'neon-radio-chip',
+      attributes: <String, String>{
+        'type': 'button',
+        ...itemAttrs,
+        if (isDisabled) 'disabled': 'true',
+      },
+      events: isDisabled
+          ? null
+          : <String, EventCallback>{
+              'click': (_) => props.onChanged?.call(option.value),
+            },
+      <Component>[Component.text(option.label)],
+    );
   }
 }

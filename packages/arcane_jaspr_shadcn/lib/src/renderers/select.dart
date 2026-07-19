@@ -82,7 +82,7 @@ class ShadcnSelect<T> extends StatelessComponent {
     final String triggerId = '$surfaceId-trigger';
     final String groupId = props.group ?? '$surfaceId-group';
     final String groupMode = props.multiSelect ? 'multi' : 'single';
-    final String? groupValue = props.multiSelect
+    final String groupValue = props.multiSelect
         ? (props.values ?? <T>[])
             .map(_serializeValue)
             .where((String s) => s.isNotEmpty)
@@ -173,6 +173,8 @@ class ShadcnSelect<T> extends StatelessComponent {
                   : 'pointer',
               'opacity': props.disabled ? '0.5' : '1',
               'transition': 'border-color var(--transition)',
+              ...?props.decoration?.universalStyles(),
+              ...?props.styles?.toMap(),
             },
           ),
           events: props.onToggle != null

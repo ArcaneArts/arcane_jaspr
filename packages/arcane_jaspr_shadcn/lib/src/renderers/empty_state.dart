@@ -2,14 +2,13 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/props/empty_state_props.dart';
+import 'package:arcane_jaspr/core/rendering/base/empty_state_render_base.dart';
 
 /// ShadCN Empty State renderer.
 ///
 /// Based on common empty state patterns seen in modern UI libraries.
-class ShadcnEmptyState extends StatelessComponent {
-  final EmptyStateProps props;
-
-  const ShadcnEmptyState(this.props, {super.key});
+class ShadcnEmptyState extends EmptyStateRenderBase {
+  const ShadcnEmptyState(super.props, {super.key});
 
   (
     String iconSize,
@@ -31,96 +30,99 @@ class ShadcnEmptyState extends StatelessComponent {
   };
 
   @override
-  Component build(BuildContext context) {
-    final (iconSize, titleSize, descSize, padding, gap) = _sizeStyles;
+  String get contentClass => 'arcane-empty-state';
 
-    final content = dom.div(
-      classes: 'arcane-empty-state',
-      styles: dom.Styles(
-        raw: {
-          'display': 'flex',
-          'flex-direction': 'column',
-          'align-items': 'center',
-          'justify-content': 'center',
-          'text-align': 'center',
-          'padding': padding,
-          'gap': gap,
-        },
+  @override
+  Map<String, String> get contentStyles {
+    final (_, _, _, padding, gap) = _sizeStyles;
+    return <String, String>{
+      'display': 'flex',
+      'flex-direction': 'column',
+      'align-items': 'center',
+      'justify-content': 'center',
+      'text-align': 'center',
+      'padding': padding,
+      'gap': gap,
+    };
+  }
+
+  @override
+  String get iconClass => 'arcane-empty-state-icon';
+
+  @override
+  Map<String, String> get iconStyles {
+    final (iconSize, _, _, _, _) = _sizeStyles;
+    return <String, String>{
+      'font-size': iconSize,
+      'line-height': '1',
+      'opacity': '0.6',
+    };
+  }
+
+  @override
+  String get actionsClass => 'arcane-empty-state-actions';
+
+  @override
+  Map<String, String> get actionsStyles => const <String, String>{
+    'display': 'flex',
+    'gap': 'var(--space-2)',
+    'margin-top': '0.5rem',
+  };
+
+  @override
+  List<Component> buildBody() {
+    final (_, titleSize, descSize, _, _) = _sizeStyles;
+    return <Component>[
+      // Title
+      dom.div(
+        classes: 'arcane-empty-state-title',
+        styles: dom.Styles(
+          raw: <String, String>{
+            'font-size': titleSize,
+            'font-weight': 'var(--font-weight-semibold)',
+            'color': 'var(--foreground)',
+          },
+        ),
+        [Component.text(props.title)],
       ),
-      [
-        if (props.icon != null)
-          dom.div(
-            classes: 'arcane-empty-state-icon',
-            styles: dom.Styles(
-              raw: {
-                'font-size': iconSize,
-                'line-height': '1',
-                'opacity': '0.6',
-              },
-            ),
-            [props.icon!],
-          ),
 
-        // Title
+      // Description
+      if (props.description != null)
         dom.div(
-          classes: 'arcane-empty-state-title',
+          classes: 'arcane-empty-state-description',
           styles: dom.Styles(
-            raw: {
-              'font-size': titleSize,
-              'font-weight': 'var(--font-weight-semibold)',
-              'color': 'var(--foreground)',
+            raw: <String, String>{
+              'font-size': descSize,
+              'color': 'var(--muted-foreground)',
+              'max-width': '360px',
             },
           ),
-          [Component.text(props.title)],
+          [Component.text(props.description!)],
         ),
+    ];
+  }
 
-        // Description
-        if (props.description != null)
-          dom.div(
-            classes: 'arcane-empty-state-description',
-            styles: dom.Styles(
-              raw: {
-                'font-size': descSize,
-                'color': 'var(--muted-foreground)',
-                'max-width': '360px',
-              },
-            ),
-            [Component.text(props.description!)],
-          ),
-
-        // Actions
-        if (props.action != null || props.secondaryAction != null)
-          dom.div(
-            classes: 'arcane-empty-state-actions',
-            styles: const dom.Styles(
-              raw: {
-                'display': 'flex',
-                'gap': 'var(--space-2)',
-                'margin-top': '0.5rem',
-              },
-            ),
-            [
-              if (props.action != null) props.action!,
-              if (props.secondaryAction != null) props.secondaryAction!,
-            ],
-          ),
-      ],
-    );
-
-    if (props.style == EmptyStateStyleVariant.card) {
+  @override
+  Component buildRoot(Component content, Map<String, String> extraStyles) {
+    if (props.variant == EmptyStateStyleVariant.card) {
       return dom.div(
         classes: 'arcane-empty-state-card',
-        styles: const dom.Styles(
-          raw: {
+        styles: dom.Styles(
+          raw: <String, String>{
             'background-color': 'var(--card)',
             'border': '1px solid var(--border)',
             'border-radius': 'var(--radius-md)',
+            ...extraStyles,
           },
         ),
         [content],
       );
     }
 
-    return content;
+    if (extraStyles.isEmpty) return content;
+    return dom.div(
+      styles: dom.Styles(raw: <String, String>{...extraStyles}),
+      <Component>[content],
+    );
   }
 }

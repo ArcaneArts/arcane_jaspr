@@ -1,6 +1,5 @@
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/dom.dart' as dom;
-import 'package:arcane_jaspr/component/typography/text.dart';
 import 'package:arcane_jaspr/util/arcane.dart';
 
 class Glass extends StatelessWidget {

@@ -19,7 +19,7 @@ class MutableText extends StatefulWidget {
   final String? placeholder;
   final MutableTextTrigger trigger;
   final MutableTextInputType inputType;
-  final MutableTextStyle style;
+  final MutableTextStyle variant;
 
   const MutableText(
     this.value, {
@@ -31,7 +31,7 @@ class MutableText extends StatefulWidget {
     this.placeholder,
     this.trigger = MutableTextTrigger.click,
     this.inputType = MutableTextInputType.text,
-    this.style = MutableTextStyle.inline,
+    this.variant = MutableTextStyle.inline,
     super.key,
   });
 
@@ -82,7 +82,7 @@ class _MutableTextState extends State<MutableText> {
     _ => TextInputType.text,
   };
 
-  Widget get _displayText => switch (component.style) {
+  Widget get _displayText => switch (component.variant) {
     MutableTextStyle.subtle => Text.bodySmall(component.value),
     MutableTextStyle.underline => Text(
         component.value,

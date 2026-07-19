@@ -1,8 +1,9 @@
 import 'package:jaspr/dom.dart' as dom;
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 /// Bottom floating banner that slides up with optional countdown timer.
 ///
@@ -19,6 +20,12 @@ class ArcaneBottomFloatingBanner extends StatefulWidget {
   final DateTime? expiresAt;
   final int delayMs;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneBottomFloatingBanner({
     required this.title,
     required this.message,
@@ -30,6 +37,8 @@ class ArcaneBottomFloatingBanner extends StatefulWidget {
     this.countdownDuration,
     this.expiresAt,
     this.delayMs = 2000,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -80,6 +89,8 @@ class _ArcaneBottomFloatingBannerState
       countdownDuration: component.countdownDuration,
       expiresAt: component.expiresAt,
       delayMs: component.delayMs,
+      styles: component.styles,
+      decoration: component.decoration,
     ));
   }
 }

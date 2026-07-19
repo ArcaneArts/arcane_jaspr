@@ -37,6 +37,8 @@ Component renderToolbar(ToolbarProps props) {
         'align-items': props.crossAxisAlignment.css,
         'gap': '${props.gap}px',
         'padding': effectivePadding,
+        ...?props.decoration?.universalStyles(),
+        ...?props.styles?.toMap(),
       },
     ),
     props.children,

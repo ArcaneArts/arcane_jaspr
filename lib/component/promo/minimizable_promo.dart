@@ -1,8 +1,9 @@
 import 'package:jaspr/dom.dart' as dom;
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 /// A promo drawer that slides in from the right edge.
 ///
@@ -19,6 +20,12 @@ class ArcaneMinimizablePromo extends StatefulWidget {
   final String tabLabel;
   final int delayMs;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
+
   const ArcaneMinimizablePromo({
     required this.title,
     required this.message,
@@ -30,6 +37,8 @@ class ArcaneMinimizablePromo extends StatefulWidget {
     this.onDismiss,
     this.tabLabel = 'DEAL',
     this.delayMs = 2000,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -78,6 +87,8 @@ class _ArcaneMinimizablePromoState extends State<ArcaneMinimizablePromo> {
       onDismiss: _handleDismiss,
       tabLabel: component.tabLabel,
       delayMs: component.delayMs,
+      styles: component.styles,
+      decoration: component.decoration,
     ));
   }
 }

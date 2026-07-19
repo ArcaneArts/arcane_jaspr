@@ -1,7 +1,9 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/classes.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/disclosure_props.dart'
     show DisclosureVariant, DisclosureItemProps;
@@ -14,7 +16,13 @@ class ArcaneDisclosure extends StatelessWidget {
   final DisclosureVariant variant;
   final bool showChevron;
   final bool showTreeLines;
-  final String? classes;
+  final List<String>? classes;
+
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  final ArcaneDecoration? decoration;
 
   const ArcaneDisclosure({
     required this.summary,
@@ -24,6 +32,8 @@ class ArcaneDisclosure extends StatelessWidget {
     this.showChevron = true,
     this.showTreeLines = true,
     this.classes,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -34,6 +44,8 @@ class ArcaneDisclosure extends StatelessWidget {
     this.showChevron = true,
     this.showTreeLines = true,
     this.classes,
+    this.styles,
+    this.decoration,
     super.key,
   }) : variant = DisclosureVariant.minimal;
 
@@ -44,6 +56,8 @@ class ArcaneDisclosure extends StatelessWidget {
     this.showChevron = true,
     this.showTreeLines = true,
     this.classes,
+    this.styles,
+    this.decoration,
     super.key,
   }) : variant = DisclosureVariant.bordered;
 
@@ -54,6 +68,8 @@ class ArcaneDisclosure extends StatelessWidget {
     this.showChevron = true,
     this.showTreeLines = true,
     this.classes,
+    this.styles,
+    this.decoration,
     super.key,
   }) : variant = DisclosureVariant.filled;
 
@@ -66,7 +82,9 @@ class ArcaneDisclosure extends StatelessWidget {
       variant: variant,
       showChevron: showChevron,
       showTreeLines: showTreeLines,
-      classes: classes,
+      classes: classes == null ? null : cx(classes!),
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }

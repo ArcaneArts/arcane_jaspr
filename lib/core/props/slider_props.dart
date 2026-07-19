@@ -1,5 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 import '../interaction/interaction.dart';
 import '../shared/shared.dart';
 
@@ -35,6 +37,13 @@ class SliderProps {
   final void Function(double min, double max)? onRangeChanged;
   final ArcaneInteraction? onChangeAction;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const SliderProps({
     this.id,
     this.value = 0,
@@ -56,6 +65,8 @@ class SliderProps {
     this.rangeMax,
     this.onRangeChanged,
     this.onChangeAction,
+    this.styles,
+    this.decoration,
   });
 
   const SliderProps.range({
@@ -76,6 +87,8 @@ class SliderProps {
     this.disabled = false,
     this.onRangeChanged,
     this.onChangeAction,
+    this.styles,
+    this.decoration,
   })  : value = 0,
         onChanged = null,
         isRange = true,
@@ -103,6 +116,8 @@ class SliderProps {
     double? rangeMax,
     void Function(double min, double max)? onRangeChanged,
     ArcaneInteraction? onChangeAction,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     return SliderProps(
       id: id ?? this.id,
@@ -125,6 +140,8 @@ class SliderProps {
       rangeMax: rangeMax ?? this.rangeMax,
       onRangeChanged: onRangeChanged ?? this.onRangeChanged,
       onChangeAction: onChangeAction ?? this.onChangeAction,
+      styles: styles ?? this.styles,
+      decoration: decoration ?? this.decoration,
     );
   }
 }

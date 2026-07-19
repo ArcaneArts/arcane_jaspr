@@ -1,6 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'menu_item_props.dart';
+
+import '../../util/style_types/arcane_style_data.dart';
+import '../decoration/arcane_decoration.dart';
 
 export 'menu_item_props.dart';
 
@@ -20,6 +22,13 @@ class DropdownMenuProps {
   final bool keepOpenOnAction;
   final bool initiallyOpen;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const DropdownMenuProps({
     required this.id,
     required this.trigger,
@@ -28,6 +37,8 @@ class DropdownMenuProps {
     this.width,
     this.keepOpenOnAction = false,
     this.initiallyOpen = false,
+    this.styles,
+    this.decoration,
   });
 
   DropdownMenuProps copyWith({
@@ -38,6 +49,8 @@ class DropdownMenuProps {
     double? width,
     bool? keepOpenOnAction,
     bool? initiallyOpen,
+    ArcaneStyleData? styles,
+    ArcaneDecoration? decoration,
   }) {
     return DropdownMenuProps(
       id: id ?? this.id,
@@ -47,6 +60,8 @@ class DropdownMenuProps {
       width: width ?? this.width,
       keepOpenOnAction: keepOpenOnAction ?? this.keepOpenOnAction,
       initiallyOpen: initiallyOpen ?? this.initiallyOpen,
+      styles: styles ?? this.styles,
+      decoration: decoration ?? this.decoration,
     );
   }
 }

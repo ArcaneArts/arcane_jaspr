@@ -1,3 +1,4 @@
+import '../../core/dom_value.dart';
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
@@ -53,7 +54,15 @@ class _ArcaneFieldState<T> extends State<ArcaneField<T>> {
   void initState() {
     super.initState();
     _value = component.provider.defaultValue;
-    _loadValue();
+    // Only resolve the async value on the client. During SSR the await
+    // continuation in _loadValue would call setState() after the synchronous
+    // build phase, tripping jaspr's "setState during build" assertion. On the
+    // server _loading stays true so the loading placeholder renders, which
+    // matches the client's first build for clean hydration; the client then
+    // runs _loadValue() to populate the real value.
+    if (kIsWeb) {
+      _loadValue();
+    }
   }
 
   Future<void> _loadValue() async {
@@ -243,7 +252,7 @@ class _StringFieldBuilder extends StatelessWidget {
           'input': (event) {
             final dynamic target = event.target;
             if (target != null) {
-              onChanged((target as dynamic).value ?? '');
+              onChanged(domInputValue(target));
             }
           },
         },
@@ -272,7 +281,7 @@ class _StringFieldBuilder extends StatelessWidget {
         'input': (event) {
           final dynamic target = event.target;
           if (target != null) {
-            onChanged((target as dynamic).value ?? '');
+            onChanged(domInputValue(target));
           }
         },
       },
@@ -316,7 +325,7 @@ class _BoolFieldBuilder extends StatelessWidget {
             'change': (event) {
               final dynamic target = event.target;
               if (target != null) {
-                onChanged((target as dynamic).checked ?? false);
+                onChanged(domCheckedValue(target));
               }
             },
           },
@@ -366,7 +375,7 @@ class _SelectFieldBuilder<T> extends StatelessWidget {
         'change': (event) {
           final dynamic target = event.target;
           if (target != null) {
-            final int selectedIndex = (target as dynamic).selectedIndex as int? ?? 0;
+            final int selectedIndex = domSelectedIndex(target);
             if (selectedIndex >= 0 && selectedIndex < options.length) {
               onChanged(options[selectedIndex]);
             }

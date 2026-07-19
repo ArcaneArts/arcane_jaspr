@@ -374,7 +374,7 @@ Map<String, String> fieldAttrs({
   final Map<String, String> out = <String, String>{
     'data-arcane-form': formId,
     'data-arcane-field': name,
-    if (value != null) 'data-arcane-field-value': value,
+    'data-arcane-field-value': ?value,
   };
   if (required) out['data-arcane-field-required'] = 'true';
   if (disabled) out['data-arcane-field-disabled'] = 'true';

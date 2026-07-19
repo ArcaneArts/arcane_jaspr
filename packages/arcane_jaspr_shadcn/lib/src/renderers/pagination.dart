@@ -22,7 +22,7 @@ class ShadcnPagination extends StatelessComponent {
   Component build(BuildContext context) {
     final (padding, fontSize, minWidth, height) = _sizeStyles;
 
-    if (props.style == PaginationStyleVariant.simple) {
+    if (props.variant == PaginationStyleVariant.simple) {
       return _buildSimplePagination(padding, fontSize);
     }
 
@@ -232,7 +232,7 @@ class ShadcnPagination extends StatelessComponent {
     required String height,
     bool isPrevNext = false,
   }) {
-    final Map<String, String> buttonStyles = switch (props.style) {
+    final Map<String, String> buttonStyles = switch (props.variant) {
       PaginationStyleVariant.outline => {
         'background-color': isActive ? 'var(--background)' : 'transparent',
         'border': isActive ? '1px solid var(--input)' : '1px solid transparent',
@@ -284,6 +284,8 @@ class ShadcnPagination extends StatelessComponent {
           'pointer-events': disabled ? 'none' : 'auto',
           'opacity': disabled ? '0.5' : '1',
           ...buttonStyles,
+          ...?props.decoration?.universalStyles(),
+          ...?props.styles?.toMap(),
         },
       ),
       events: disabled

@@ -1,8 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
-import '../../core/props/status_badge_props.dart';
+import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
+import '../../util/style_types/arcane_style_data.dart';
 
 export '../../core/props/status_badge_props.dart';
 
@@ -32,6 +32,13 @@ class ArcaneStatusBadge extends StatelessWidget {
   final String? borderColor;
   final String? labelColor;
 
+  /// Literal, theme-permeable style override (always applied, wins over theme).
+  final ArcaneStyleData? styles;
+
+  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
+  /// fields honored-or-ignored per theme).
+  final ArcaneDecoration? decoration;
+
   const ArcaneStatusBadge({
     required this.label,
     this.size = ComponentSize.md,
@@ -48,6 +55,8 @@ class ArcaneStatusBadge extends StatelessWidget {
     this.background,
     this.borderColor,
     this.labelColor,
+    this.styles,
+    this.decoration,
     super.key,
   });
 
@@ -62,6 +71,8 @@ class ArcaneStatusBadge extends StatelessWidget {
     this.showGlow = false,
     this.showPulse = true,
     this.icon,
+    this.styles,
+    this.decoration,
     super.key,
   })  : variant = BadgeVariant.status,
         status = StatusType.success,
@@ -81,6 +92,8 @@ class ArcaneStatusBadge extends StatelessWidget {
     this.showGlow = false,
     this.showPulse = false,
     this.icon,
+    this.styles,
+    this.decoration,
     super.key,
   })  : variant = BadgeVariant.status,
         status = StatusType.warning,
@@ -100,6 +113,8 @@ class ArcaneStatusBadge extends StatelessWidget {
     this.showGlow = false,
     this.showPulse = false,
     this.icon,
+    this.styles,
+    this.decoration,
     super.key,
   })  : variant = BadgeVariant.status,
         status = StatusType.error,
@@ -119,6 +134,8 @@ class ArcaneStatusBadge extends StatelessWidget {
     this.showGlow = false,
     this.showPulse = false,
     this.icon,
+    this.styles,
+    this.decoration,
     super.key,
   })  : variant = BadgeVariant.status,
         status = StatusType.info,
@@ -138,6 +155,8 @@ class ArcaneStatusBadge extends StatelessWidget {
     this.showGlow = false,
     this.showPulse = false,
     this.icon,
+    this.styles,
+    this.decoration,
     super.key,
   })  : variant = BadgeVariant.status,
         status = StatusType.offline,
@@ -170,6 +189,8 @@ class ArcaneStatusBadge extends StatelessWidget {
     this.showPulse = false,
     this.showDot = true,
     this.icon,
+    this.styles,
+    this.decoration,
     super.key,
   })  : variant = BadgeVariant.status,
         status = StatusType.info,
@@ -191,6 +212,8 @@ class ArcaneStatusBadge extends StatelessWidget {
     this.size = ComponentSize.md,
     this.icon,
     this.position = const BadgePosition.topRight(),
+    this.styles,
+    this.decoration,
     super.key,
   })  : label = label,
         variant = BadgeVariant.popular,
@@ -212,6 +235,8 @@ class ArcaneStatusBadge extends StatelessWidget {
     this.size = ComponentSize.md,
     this.icon,
     this.position = const BadgePosition.topRight(),
+    this.styles,
+    this.decoration,
     super.key,
   })  : label = label,
         variant = BadgeVariant.recommended,
@@ -233,6 +258,8 @@ class ArcaneStatusBadge extends StatelessWidget {
     this.size = ComponentSize.md,
     this.icon,
     this.position = const BadgePosition.topRight(),
+    this.styles,
+    this.decoration,
     super.key,
   })  : label = label,
         variant = BadgeVariant.isNew,
@@ -258,6 +285,8 @@ class ArcaneStatusBadge extends StatelessWidget {
     this.size = ComponentSize.md,
     this.icon,
     this.position,
+    this.styles,
+    this.decoration,
     super.key,
   })  : variant = BadgeVariant.successSolid,
         status = StatusType.success,
@@ -278,6 +307,8 @@ class ArcaneStatusBadge extends StatelessWidget {
     this.size = ComponentSize.md,
     this.icon,
     this.position,
+    this.styles,
+    this.decoration,
     super.key,
   })  : variant = BadgeVariant.warningSolid,
         status = StatusType.warning,
@@ -298,6 +329,8 @@ class ArcaneStatusBadge extends StatelessWidget {
     this.size = ComponentSize.md,
     this.icon,
     this.position,
+    this.styles,
+    this.decoration,
     super.key,
   })  : variant = BadgeVariant.errorSolid,
         status = StatusType.error,
@@ -318,6 +351,8 @@ class ArcaneStatusBadge extends StatelessWidget {
     this.size = ComponentSize.md,
     this.icon,
     this.position,
+    this.styles,
+    this.decoration,
     super.key,
   })  : variant = BadgeVariant.infoSolid,
         status = StatusType.info,
@@ -337,6 +372,8 @@ class ArcaneStatusBadge extends StatelessWidget {
     this.size = ComponentSize.md,
     this.icon,
     this.position,
+    this.styles,
+    this.decoration,
     super.key,
   })  : variant = BadgeVariant.outline,
         status = StatusType.info,
@@ -361,6 +398,8 @@ class ArcaneStatusBadge extends StatelessWidget {
     this.icon,
     this.showDefaultIcon = false,
     this.position,
+    this.styles,
+    this.decoration,
     super.key,
   })  : variant = BadgeVariant.primary,
         status = StatusType.info,
@@ -380,6 +419,8 @@ class ArcaneStatusBadge extends StatelessWidget {
     this.icon,
     this.showDefaultIcon = false,
     this.position,
+    this.styles,
+    this.decoration,
     super.key,
   })  : variant = BadgeVariant.secondary,
         status = StatusType.info,
@@ -410,6 +451,8 @@ class ArcaneStatusBadge extends StatelessWidget {
       background: background,
       borderColor: borderColor,
       labelColor: labelColor,
+      styles: styles,
+      decoration: decoration,
     ));
   }
 }
