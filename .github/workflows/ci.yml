@@ -20,11 +20,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        package:
-          - "."
-          - packages/arcane_jaspr_shadcn
-          - packages/arcane_jaspr_neon
-          - packages/arcane_jaspr_neubrutalism
+        include:
+          # The repo root hosts nested projects (packages/*, arcane_jaspr_docs/)
+          # whose dependencies are not resolved in this job. A bare
+          # `dart analyze` from the root builds broken analysis contexts for
+          # them and reports phantom uri_does_not_exist errors, so the root job
+          # analyzes only the core package's own source directories.
+          - package: "."
+            analyze_paths: bin lib test tool
+          - package: packages/arcane_jaspr_shadcn
+          - package: packages/arcane_jaspr_neon
+          - package: packages/arcane_jaspr_neubrutalism
+          - package: packages/arcane_jaspr_win95
+          # arcane_lexicon is unpublished, so arcane_jaspr_kb resolves it from
+          # a sibling checkout (see its dependency_overrides) and cannot pass a
+          # publish dry run until arcane_lexicon is published.
+          - package: packages/arcane_jaspr_kb
+            needs_lexicon: true
+            skip_publish: true
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,6 +46,13 @@ jobs:
         uses: dart-lang/setup-dart@v1
         with:
           sdk: stable
+
+      # Same sibling-checkout pattern as the docs deploy workflow: the kb
+      # package's dependency_overrides points at ../arcane_lexicon relative to
+      # this workspace.
+      - name: Checkout arcane_lexicon dependency
+        if: matrix.needs_lexicon == true
+        run: git clone --depth 1 https://github.com/ArcaneArts/arcane_lexicon.git ../arcane_lexicon
 
       - name: Install dependencies
         working-directory: ${{ matrix.package }}
@@ -44,7 +64,7 @@ jobs:
       # error or warning. Mirrors the commands documented in AGENTS.md.
       - name: Analyze
         working-directory: ${{ matrix.package }}
-        run: dart analyze
+        run: dart analyze ${{ matrix.analyze_paths }}
 
       # Run `dart test` only when real test files exist. Another package may not
       # have a test/ dir at all; the core test/ dir may contain non-test sources.
@@ -61,5 +81,6 @@ jobs:
           fi
 
       - name: Publish dry run
+        if: matrix.skip_publish != true
         working-directory: ${{ matrix.package }}
         run: dart pub publish --dry-run
