@@ -120,6 +120,26 @@ class Win95Css {
     inset -1px -1px 0 var(--w95-hilite),
     inset 1px 1px 0 var(--w95-shadow);
 
+  /* --- Window-control glyphs: minimize / maximize / close ---
+     Drawn as geometry, never as text. A literal "_" sits ON the font's
+     baseline, so it sinks to (or past) the bottom edge of its button and its
+     weight changes with every font fallback — the exact bug these replace.
+     Every glyph is authored in the same 10x10 cell so all three read at one
+     size and weight, and the minimize bar is placed deliberately at y5-y7 —
+     the lower-middle of the cell (the maximize box and close cross span
+     y1-y9), below their optical centre but well clear of the bottom edge.
+     Row cells sit at a 15px pitch (0 / 15 / 30) in a 40x10 viewBox.
+     The shape-only forms are tinted by painting `currentColor` through them
+     as a mask, so they follow --w95-title-text / --w95-face-text (host
+     --w95-*-in overrides included). --w95-ctl-row-ink bakes the face text
+     colour for the one surface that paints its own silver background and
+     therefore cannot be masked. */
+  --w95-ctl-min: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath fill='%23000000' d='M1 5h8v2H1z'/%3E%3C/svg%3E");
+  --w95-ctl-max: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath fill='%23000000' d='M1 1h8v2H1zM1 3h1v6H1zM8 3h1v6H8zM2 8h6v1H2z'/%3E%3C/svg%3E");
+  --w95-ctl-close: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath fill='none' stroke='%23000000' stroke-width='1.5' d='M1.6 1.6L8.4 8.4M8.4 1.6L1.6 8.4'/%3E%3C/svg%3E");
+  --w95-ctl-row: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 10'%3E%3Cpath fill='%23000000' d='M1 5h8v2H1zM16 1h8v2h-8zM16 3h1v6h-1zM23 3h1v6h-1zM17 8h6v1h-6z'/%3E%3Cpath fill='none' stroke='%23000000' stroke-width='1.5' d='M31.6 1.6L38.4 8.4M38.4 1.6L31.6 8.4'/%3E%3C/svg%3E");
+  --w95-ctl-row-ink: var(--w95-ctl-row);
+
   color: var(--foreground);
   font-family: var(--font-sans);
 }
@@ -163,6 +183,9 @@ class Win95Css {
   --w95-title-inactive-b: #3a3a3a;
   --w95-selection: var(--w95-selection-in, $selection);
   --w95-selection-text: var(--w95-selection-text-in, #ffffff);
+  /* Dark silver faces carry white text, so the baked-ink control row flips too
+     (the masked forms need no dark variant — they follow currentColor). */
+  --w95-ctl-row-ink: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 10'%3E%3Cpath fill='%23ffffff' d='M1 5h8v2H1zM16 1h8v2h-8zM16 3h1v6h-1zM23 3h1v6h-1zM17 8h6v1h-6z'/%3E%3Cpath fill='none' stroke='%23ffffff' stroke-width='1.5' d='M31.6 1.6L38.4 8.4M38.4 1.6L31.6 8.4'/%3E%3C/svg%3E");
 }
 
 #arcane-root.arcane-theme-win95 ::selection {
@@ -397,18 +420,17 @@ class Win95Css {
 }
 #arcane-root.arcane-theme-win95:not(.win95-chrome-minimal) .win95-command-dialog::after,
 #arcane-root.arcane-theme-win95.win95-chrome-everything .win95-card::after {
-  content: '_ □ ✕';
+  /* Drawn control row (see --w95-ctl-row), centred on the 18px caption bar. */
+  content: '';
   position: absolute;
-  top: 3px;
+  top: 7px;
   right: 6px;
-  height: 18px;
-  display: flex;
-  align-items: center;
-  gap: 3px;
+  width: 40px;
+  height: 10px;
   color: var(--w95-title-text);
-  font-family: var(--font-mono);
-  font-size: 16.5px;
-  letter-spacing: 3px;
+  background-color: currentColor;
+  -webkit-mask: var(--w95-ctl-row) center / 40px 10px no-repeat;
+  mask: var(--w95-ctl-row) center / 40px 10px no-repeat;
   pointer-events: none;
   /* Painted decoration, not controls: dimmed so they never read as clickable. */
   opacity: 0.62;
@@ -469,19 +491,17 @@ class Win95Css {
 /* Decorative _ [] X window controls on the title bar's right edge. Dimmed so
    they read as painted caption decoration rather than clickable controls. */
 #arcane-root.arcane-theme-win95 .win95-gallery-tile-header::after {
-  content: '_ □ ✕';
+  /* Drawn control row (see --w95-ctl-row), centred on the 18px caption bar. */
+  content: '';
   position: absolute;
-  top: 3px;
+  top: 4px;
   right: 5px;
-  height: 16px;
-  display: flex;
-  align-items: center;
-  gap: 3px;
+  width: 40px;
+  height: 10px;
   color: var(--w95-title-text);
-  font-family: var(--font-mono);
-  font-size: 15px;
-  line-height: 16px;
-  letter-spacing: 2px;
+  background-color: currentColor;
+  -webkit-mask: var(--w95-ctl-row) center / 40px 10px no-repeat;
+  mask: var(--w95-ctl-row) center / 40px 10px no-repeat;
   pointer-events: none;
   opacity: 0.62;
 }
@@ -1118,19 +1138,19 @@ class Win95Css {
     linear-gradient(90deg, var(--w95-title-a) 0%, var(--w95-title-b) 100%);
 }
 
-/* Minimize / Maximize / Close glyphs, drawn white on the caption's right. */
+/* Minimize / Maximize / Close glyphs, drawn white on the caption's right.
+   Geometry, not text (see --w95-ctl-row), centred on the 20px caption. */
 #arcane-root.arcane-theme-win95 .arcane-scaffold-header::after {
-  content: "_ □ ✕";
+  content: "";
   position: absolute;
-  top: 3px;
+  top: 5px;
   right: 6px;
-  height: 16px;
-  display: flex;
-  align-items: center;
-  letter-spacing: 5px;
-  font-size: 16.5px;
-  line-height: 16px;
+  width: 40px;
+  height: 10px;
   color: var(--w95-title-text);
+  background-color: currentColor;
+  -webkit-mask: var(--w95-ctl-row) center / 40px 10px no-repeat;
+  mask: var(--w95-ctl-row) center / 40px 10px no-repeat;
   pointer-events: none;
 }
 
@@ -2157,17 +2177,34 @@ class Win95Css {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  font-size: 13.5px !important;
   line-height: 1 !important;
 }
+/* One drawn glyph per button (see --w95-ctl-min / -max / -close) painted with
+   the button's own face text colour, so the minimize bar sits in the deliberate
+   lower-middle of the cap instead of on a font's baseline. */
+#arcane-root.arcane-theme-win95 .kb-landing-terminal-dot:nth-child(-n + 3)::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background-color: currentColor;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: 10px 10px;
+  mask-size: 10px 10px;
+}
 #arcane-root.arcane-theme-win95 .kb-landing-terminal-dot:nth-child(1)::after {
-  content: "_";
+  -webkit-mask-image: var(--w95-ctl-min);
+  mask-image: var(--w95-ctl-min);
 }
 #arcane-root.arcane-theme-win95 .kb-landing-terminal-dot:nth-child(2)::after {
-  content: "□";
+  -webkit-mask-image: var(--w95-ctl-max);
+  mask-image: var(--w95-ctl-max);
 }
 #arcane-root.arcane-theme-win95 .kb-landing-terminal-dot:nth-child(3)::after {
-  content: "✕";
+  -webkit-mask-image: var(--w95-ctl-close);
+  mask-image: var(--w95-ctl-close);
 }
 /* Window controls belong on the RIGHT in Windows, not the left. */
 #arcane-root.arcane-theme-win95 .kb-landing-terminal-bar {
@@ -4315,20 +4352,19 @@ class Win95Css {
   background: linear-gradient(90deg, var(--w95-title-a) 0%, var(--w95-title-b) 100%) !important;
 }
 
-/* [_][]X window controls, white on the RIGHT of the title bar. */
+/* [_][]X window controls, white on the RIGHT of the title bar. Drawn
+   geometry (see --w95-ctl-row), centred on the 18px caption bar. */
 #arcane-root.arcane-theme-win95 .kb-article-panel::after {
-  content: "_ □ ✕" !important;
+  content: "" !important;
   position: absolute !important;
-  top: 3px !important;
+  top: 7px !important;
   right: 6px !important;
-  height: 18px !important;
-  display: flex !important;
-  align-items: center !important;
-  letter-spacing: 3px !important;
-  font-family: var(--font-mono) !important;
-  font-size: 16.5px !important;
-  line-height: 18px !important;
+  width: 40px !important;
+  height: 10px !important;
   color: var(--w95-title-text) !important;
+  background-color: currentColor !important;
+  -webkit-mask: var(--w95-ctl-row) center / 40px 10px no-repeat !important;
+  mask: var(--w95-ctl-row) center / 40px 10px no-repeat !important;
   pointer-events: none !important;
 }
 
@@ -5408,42 +5444,28 @@ class Win95Css {
 }
 
 /* ---------- (c) WINDOW-CONTROL GLYPHS ----------
-   Replace the floating underscore with a thick minimize bar (▬), keep
-   the hollow-square maximize (□) and the close X (✕). For the single
-   ::after title-bar controls, drop the three glyphs onto a subtle
-   raised silver strip (black on silver) so they read as buttons. */
+   Drop the drawn control row (--w95-ctl-row-ink) onto a subtle raised
+   silver strip (face ink on silver) so the three controls read as
+   buttons. This surface paints its own background, so it cannot be
+   masked like the plain-caption rows above — it uses the baked-ink
+   variant, which the dark block re-points to the white artwork. */
 #arcane-root.arcane-theme-win95:not(.win95-chrome-minimal) .win95-command-dialog::after,
 #arcane-root.arcane-theme-win95.win95-chrome-everything .win95-card::after,
 #arcane-root.arcane-theme-win95 .arcane-scaffold-header::after,
 #arcane-root.arcane-theme-win95 .kb-article-panel::after {
-  content: "▬ □ ✕" !important;
+  content: "" !important;
   top: 5px !important;
+  width: 46px !important;
   height: 14px !important;
-  display: flex !important;
-  align-items: center !important;
-  padding: 0 4px !important;
-  gap: 0 !important;
-  letter-spacing: 4px !important;
-  font-family: var(--font-mono) !important;
-  font-size: 11px !important;
-  line-height: 1 !important;
   color: var(--w95-face-text) !important;
-  background: var(--w95-face) !important;
+  background-color: var(--w95-face) !important;
+  background-image: var(--w95-ctl-row-ink) !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 40px 10px !important;
   box-shadow: var(--w95-raised-thin) !important;
-}
-
-/* Landing terminal-mock: its three dots are already silver raised
-   squares, so only fix the minimize glyph and sit the bar low. */
-#arcane-root.arcane-theme-win95 .kb-landing-terminal-dot:nth-child(1)::after {
-  content: "▬" !important;
-  line-height: 1 !important;
-  transform: translateY(2px) !important;
-}
-#arcane-root.arcane-theme-win95 .kb-landing-terminal-dot:nth-child(2)::after {
-  content: "□" !important;
-}
-#arcane-root.arcane-theme-win95 .kb-landing-terminal-dot:nth-child(3)::after {
-  content: "✕" !important;
+  -webkit-mask: none !important;
+  mask: none !important;
 }
 
 /* ============================================================

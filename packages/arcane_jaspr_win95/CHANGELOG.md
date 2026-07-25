@@ -15,6 +15,23 @@
 
 ### Fixed
 
+- Title-bar window controls are drawn geometry instead of text characters.
+  The minimize control was a literal `_`, which sits ON the font's baseline
+  and therefore hung at the very bottom of its button (visibly far lower
+  than the `□` and `✕` beside it, and clipped outright in some font
+  fallbacks). All three glyphs are now authored in one 10x10 cell as SVG
+  artwork — new `--w95-ctl-min` / `--w95-ctl-max` / `--w95-ctl-close`
+  (single glyph) and `--w95-ctl-row` / `--w95-ctl-row-ink` (all three at a
+  15px pitch) tokens — with the minimize bar placed deliberately in the
+  lower-middle of the cell. Applied to every control row (command dialog,
+  chrome-`everything` cards, gallery-tile captions, scaffold header, KB
+  article panel) and to the landing terminal-mock's three cap buttons, so
+  size, weight and vertical placement are identical across all three
+  controls and no longer depend on which font the browser resolves. The
+  masked forms are tinted with `currentColor`, so they keep following
+  `--w95-title-text` / `--w95-face-text` including the `--w95-*-in` host
+  overrides; the raised silver control strip paints its own background and
+  uses the baked-ink variant, which the dark block re-points to white.
 - Dark mode `--ring` now honours the `--w95-selection-in` runtime override
   hook like the light block already did, so a host-app accent re-tint also
   recolors dark focus rings.

@@ -806,8 +806,11 @@ $neutralOverrides
   opacity: 0.5;
 }
 
+/* Open/active *triggers* take the accent highlight. The dropdown *panel*
+   (.arcane-dropdown-menu) is deliberately absent: it is a popover surface, and
+   painting it with --accent would drop it off the --popover token pair the rest
+   of the floating surfaces share. */
 .arcane-select[data-open='true'],
-.arcane-dropdown-menu[data-state='open'],
 .arcane-menubar-trigger[data-state='open'],
 .arcane-date-picker-trigger[data-state='open'],
 .arcane-tab[data-state='active'],
