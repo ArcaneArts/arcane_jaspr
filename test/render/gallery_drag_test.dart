@@ -11,6 +11,8 @@ Future<String> _render(
   ArcaneStylesheet sheet, {
   required bool draggable,
   bool packing = false,
+  int? minimumTileArea,
+  int? targetTileArea,
 }) async {
   tester.pumpComponent(
     _wrap(
@@ -19,6 +21,8 @@ Future<String> _render(
         id: 'art-gallery',
         ariaLabel: 'Movable artwork',
         packing: packing,
+        minimumTileArea: minimumTileArea,
+        targetTileArea: targetTileArea,
         draggableTiles: draggable,
         dragKeyboardStep: 12,
         dragInset: 6,
@@ -134,6 +138,36 @@ void main() {
 
     expect(html, contains('data-packing="true"'));
     expect(html, contains('data-arcane-gallery-draggable="true"'));
+  });
+
+  testServer('packing area controls emit their measurement contract', (
+    ServerTester tester,
+  ) async {
+    final String html = await _render(
+      tester,
+      const ShadcnStylesheet(),
+      draggable: false,
+      packing: true,
+      minimumTileArea: 4,
+      targetTileArea: 6,
+    );
+
+    expect(html, contains('data-arcane-gallery-minimum-tile-area="4"'));
+    expect(html, contains('data-arcane-gallery-target-tile-area="6"'));
+  });
+
+  testServer('packing area controls remain absent by default', (
+    ServerTester tester,
+  ) async {
+    final String html = await _render(
+      tester,
+      const ShadcnStylesheet(),
+      draggable: false,
+      packing: true,
+    );
+
+    expect(html, isNot(contains('data-arcane-gallery-minimum-tile-area')));
+    expect(html, isNot(contains('data-arcane-gallery-target-tile-area')));
   });
 
   testServer('drag targets protect structural attributes and custom label', (
@@ -381,6 +415,31 @@ void main() {
         tiles: tiles,
         ariaLabel: 'Invalid inset',
         dragInset: double.nan,
+      ),
+      throwsA(isA<AssertionError>()),
+    );
+    expect(
+      () => ArcaneGallery(
+        tiles: tiles,
+        ariaLabel: 'Invalid minimum tile area',
+        minimumTileArea: -1,
+      ),
+      throwsA(isA<AssertionError>()),
+    );
+    expect(
+      () => ArcaneGallery(
+        tiles: tiles,
+        ariaLabel: 'Invalid target tile area',
+        targetTileArea: 0,
+      ),
+      throwsA(isA<AssertionError>()),
+    );
+    expect(
+      () => ArcaneGallery(
+        tiles: tiles,
+        ariaLabel: 'Inverted tile area range',
+        minimumTileArea: 8,
+        targetTileArea: 6,
       ),
       throwsA(isA<AssertionError>()),
     );

@@ -108,6 +108,21 @@ class GalleryProps {
   /// The `minmax()` minimum column width in px for the CSS-grid base.
   final double minColumnWidth;
 
+  /// Optional minimum rendered tile area in grid cells.
+  ///
+  /// A tile's area is its column span multiplied by its row span. The
+  /// ratio-aware packer excludes candidate spans smaller than this value. This
+  /// only affects galleries with [packing] enabled.
+  final int? minimumTileArea;
+
+  /// Optional preferred rendered tile area in grid cells.
+  ///
+  /// Unlike the packer's legacy aspect-derived area target, this value is
+  /// shared by every tile so aspect ratio chooses shape without deciding how
+  /// much visual weight the artwork receives. This only affects galleries with
+  /// [packing] enabled.
+  final int? targetTileArea;
+
   final String classes;
 
   const GalleryProps({
@@ -120,9 +135,18 @@ class GalleryProps {
     this.dragKeyboardStep = 16,
     this.dragInset = 4,
     this.minColumnWidth = 220,
+    this.minimumTileArea,
+    this.targetTileArea,
     this.classes = '',
   }) : assert(dragKeyboardStep > 0 && dragKeyboardStep < double.infinity),
-       assert(dragInset >= 0 && dragInset < double.infinity);
+       assert(dragInset >= 0 && dragInset < double.infinity),
+       assert(minimumTileArea == null || minimumTileArea > 0),
+       assert(targetTileArea == null || targetTileArea > 0),
+       assert(
+         minimumTileArea == null ||
+             targetTileArea == null ||
+             minimumTileArea <= targetTileArea,
+       );
 }
 
 /// Renderer contract for the gallery component.

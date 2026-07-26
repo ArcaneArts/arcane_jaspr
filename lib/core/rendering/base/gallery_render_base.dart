@@ -136,6 +136,12 @@ abstract class GalleryRenderBase extends StatelessComponent {
         'aria-label': props.ariaLabel,
         'data-arcane-gallery': 'true',
         if (props.packing) 'data-packing': 'true',
+        if (props.minimumTileArea != null)
+          'data-arcane-gallery-minimum-tile-area': props.minimumTileArea!
+              .toString(),
+        if (props.targetTileArea != null)
+          'data-arcane-gallery-target-tile-area': props.targetTileArea!
+              .toString(),
         if (props.draggableTiles) ...<String, String>{
           'data-arcane-gallery-draggable': 'true',
           'data-arcane-drag-keyboard-step': props.dragKeyboardStep.toString(),

@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **`ArcaneGallery` area controls.** Packed galleries can now set
+  `minimumTileArea` and `targetTileArea` in grid cells (`columnSpan × rowSpan`).
+  The packer excludes undersized candidate spans when the floor is attainable
+  and uses one ratio-independent target area for every item. Galleries that
+  omit both controls retain the existing aspect-derived sizing behavior.
 - **Nested cards flatten by default (all four themes).** An arcane `Card` rendered inside another arcane `Card` now drops its own frame — background, border, shadow, and (neon) the top accent bar — so stacked panels no longer read as a "card-in-card" border-in-border, most visibly under Shadcn and Neubrutalism. The inner card re-asserts a distinct frame by opting out with `decoration:`/`styles:` (which set the `data-arcane-decorated` attribute the flatten rule excludes). Implemented as pure per-theme CSS (`#arcane-root.arcane-theme-* .<theme>-card .<theme>-card:not([data-arcane-decorated])`), scoped and `!important` so it beats both inline variant styles (shadcn/neubrutalism) and the theme's own `!important` surface rules (neubrutalism); golden-neutral (the render snapshot suite excludes theme CSS by design). Note: a layout container that a host app styles as a card via its own CSS is outside the library's reach — only real nested arcane Cards flatten.
 - **Web-safe theme packages + new `arcane_jaspr_kb`.** Split each theme's
   `*_kb_renderers` (which import `arcane_lexicon`, a server-side `dart:io`/`jaspr_content`

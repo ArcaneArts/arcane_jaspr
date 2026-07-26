@@ -17,12 +17,14 @@ export '../../core/props/gallery_props.dart'
 ///
 /// Layout is CSS-grid masonry by default (works with zero JS). Set [packing] to
 /// enable the opt-in ratio-aware packer (squared-off bottoms) — it requires the
-/// app to include arcane's fallback scripts. Set [draggableTiles] to let users
-/// reposition tiles within the gallery. Windows 95 uses its visible title bar
-/// as the pointer handle; card-style themes use the tile surface. Dragging also
-/// requires the fallback scripts. Give the gallery an [id] and reorderable
-/// tiles a stable [ArcaneGalleryTile.dragId] to retain offsets across complete
-/// DOM replacement.
+/// app to include arcane's fallback scripts. Packed galleries can use
+/// [minimumTileArea] and [targetTileArea], measured as column span times row
+/// span, to keep artwork at a fairer visual weight while aspect ratio chooses
+/// its shape. Set [draggableTiles] to let users reposition tiles within the
+/// gallery. Windows 95 uses its visible title bar as the pointer handle;
+/// card-style themes use the tile surface. Dragging also requires the fallback
+/// scripts. Give the gallery an [id] and reorderable tiles a stable
+/// [ArcaneGalleryTile.dragId] to retain offsets across complete DOM replacement.
 class ArcaneGallery extends StatelessWidget {
   /// Stable DOM/state id for preserving drag offsets across root rerenders.
   final String? id;
@@ -34,6 +36,8 @@ class ArcaneGallery extends StatelessWidget {
   final double dragKeyboardStep;
   final double dragInset;
   final double minColumnWidth;
+  final int? minimumTileArea;
+  final int? targetTileArea;
   final String classes;
 
   const ArcaneGallery({
@@ -46,10 +50,19 @@ class ArcaneGallery extends StatelessWidget {
     this.dragKeyboardStep = 16,
     this.dragInset = 4,
     this.minColumnWidth = 220,
+    this.minimumTileArea,
+    this.targetTileArea,
     this.classes = '',
     super.key,
   }) : assert(dragKeyboardStep > 0 && dragKeyboardStep < double.infinity),
-       assert(dragInset >= 0 && dragInset < double.infinity);
+       assert(dragInset >= 0 && dragInset < double.infinity),
+       assert(minimumTileArea == null || minimumTileArea > 0),
+       assert(targetTileArea == null || targetTileArea > 0),
+       assert(
+         minimumTileArea == null ||
+             targetTileArea == null ||
+             minimumTileArea <= targetTileArea,
+       );
 
   @override
   Widget build(BuildContext context) => context.renderers.gallery(
@@ -63,6 +76,8 @@ class ArcaneGallery extends StatelessWidget {
       dragKeyboardStep: dragKeyboardStep,
       dragInset: dragInset,
       minColumnWidth: minColumnWidth,
+      minimumTileArea: minimumTileArea,
+      targetTileArea: targetTileArea,
       classes: classes,
     ),
   );

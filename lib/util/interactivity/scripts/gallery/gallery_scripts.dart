@@ -1,9 +1,9 @@
 /// Opt-in ratio-packing masonry script for `ArcaneGallery(packing: true)`.
 ///
-/// Ported from Anim.al's `animal_masonry.js` engine. The placement algorithm
-/// (candidate-span scoring, first-fit packing, interior-hole sealing, and
-/// squared-off-bottom sealing) is preserved verbatim; only the DOM keying was
-/// changed to the arcane contract and a self-initializing installer was added.
+/// Ported from Anim.al's `animal_masonry.js` engine. Its candidate-span scoring,
+/// first-fit packing, interior-hole sealing, and squared-off-bottom sealing
+/// retain their legacy behavior when optional area controls are omitted. The
+/// DOM keying follows the arcane contract and the installer self-initializes.
 ///
 /// Self-initializes on load: it finds every `[data-arcane-gallery]
 /// [data-packing="true"]` container, observes each with a `ResizeObserver`, and
@@ -32,6 +32,13 @@ class GalleryScripts {
       ? Number.parseFloat(value)
       : Number(value);
     return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+  }
+
+  function optionalPositiveNumber(value) {
+    const parsed = typeof value === 'string'
+      ? Number.parseFloat(value)
+      : Number(value);
+    return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
   }
 
   function trackCount(gridTemplateColumns) {
@@ -85,6 +92,8 @@ class GalleryScripts {
         options.bottomMaxRatioMismatch,
         DEFAULT_BOTTOM_MAX_RATIO_MISMATCH,
       ),
+      minimumTileArea: optionalPositiveNumber(options.minimumTileArea),
+      targetTileArea: optionalPositiveNumber(options.targetTileArea),
     };
   }
 
@@ -112,8 +121,9 @@ class GalleryScripts {
   function galleryCandidateSpans(item, options = {}) {
     const layout = layoutOptions(options, options.columns);
     const aspectRatio = safeNumber(item.aspectRatio, 1);
-    const targetArea = targetAreaFor(aspectRatio);
+    const targetArea = layout.targetTileArea ?? targetAreaFor(aspectRatio);
     const candidates = [];
+    const undersizedCandidates = [];
 
     for (let columnSpan = 1; columnSpan <= layout.maxColumnSpan; columnSpan++) {
       for (let rowSpan = 1; rowSpan <= layout.maxRowSpan; rowSpan++) {
@@ -135,8 +145,35 @@ class GalleryScripts {
         if (columnSpan === layout.columns && layout.columns > 3) {
           score += 0.5;
         }
-        candidates.push({ columnSpan, rowSpan, score, ratioScore, displayRatio });
+        const candidate = {
+          columnSpan,
+          rowSpan,
+          score,
+          ratioScore,
+          displayRatio,
+        };
+        if (layout.minimumTileArea !== null && area < layout.minimumTileArea) {
+          undersizedCandidates.push(candidate);
+        } else {
+          candidates.push(candidate);
+        }
       }
+    }
+
+    // A narrow layout may make the requested floor impossible. Prefer the
+    // largest attainable spans instead of letting placement fall back to 1×1.
+    if (candidates.length === 0 && undersizedCandidates.length > 0) {
+      const largestArea = Math.max(
+        ...undersizedCandidates.map(
+          (candidate) => candidate.columnSpan * candidate.rowSpan,
+        ),
+      );
+      candidates.push(
+        ...undersizedCandidates.filter(
+          (candidate) =>
+            candidate.columnSpan * candidate.rowSpan === largestArea,
+        ),
+      );
     }
 
     candidates.sort((a, b) =>
@@ -634,6 +671,12 @@ class GalleryScripts {
       container.dataset.arcaneGalleryMaxRowSpan,
       DEFAULT_MAX_ROW_SPAN,
     );
+    const minimumTileArea = optionalPositiveNumber(
+      container.dataset.arcaneGalleryMinimumTileArea,
+    );
+    const targetTileArea = optionalPositiveNumber(
+      container.dataset.arcaneGalleryTargetTileArea,
+    );
     const layout = layoutOptions(
       {
         columns,
@@ -642,6 +685,8 @@ class GalleryScripts {
         gap,
         maxColumnSpan,
         maxRowSpan,
+        minimumTileArea,
+        targetTileArea,
       },
       columns,
     );
@@ -655,6 +700,8 @@ class GalleryScripts {
       gap,
       maxColumnSpan,
       maxRowSpan,
+      minimumTileArea: layout.minimumTileArea,
+      targetTileArea: layout.targetTileArea,
     });
 
     for (let index = 0; index < elements.length; index++) {
@@ -807,7 +854,13 @@ class GalleryScripts {
       childList: true,
       subtree: true,
       attributes: true,
-      attributeFilter: ['style', 'data-ratio', 'data-packing'],
+      attributeFilter: [
+        'style',
+        'data-ratio',
+        'data-packing',
+        'data-arcane-gallery-minimum-tile-area',
+        'data-arcane-gallery-target-tile-area',
+      ],
     });
   }
 
