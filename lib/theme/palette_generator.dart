@@ -16,25 +16,35 @@ abstract class PaletteGenerator {
     final int primary = seed.primary;
 
     // Resolve background
-    final int background = seed.background ?? (isDark ? 0xFF000000 : 0xFFffffff);
+    final int background =
+        seed.background ?? (isDark ? 0xFF000000 : 0xFFffffff);
     final int foreground = contrastingForeground(background);
 
     // Resolve secondary (slightly off from background)
     // Light mode: tint with primary hue for richer surfaces
     // Dark mode: just lighten for subtle elevation
-    final int secondary = seed.secondary ?? (isDark
-        ? lighten(background, 0.06) // Dark: slightly lighter
-        : _tintedSurface(background, primary, 0.06, 0.12)); // Light: richer tinting
+    final int secondary =
+        seed.secondary ??
+        (isDark
+            ? lighten(background, 0.06) // Dark: slightly lighter
+            : _tintedSurface(
+                background,
+                primary,
+                0.06,
+                0.12,
+              )); // Light: richer tinting
 
     // Resolve accent - more prominent tinting for light mode
-    final int accent = seed.accent ?? (isDark
-        ? secondary
-        : _tintedSurface(background, primary, 0.10, 0.18));
+    final int accent =
+        seed.accent ??
+        (isDark ? secondary : _tintedSurface(background, primary, 0.10, 0.18));
 
     // Resolve border - light mode gets visible primary tint
-    final int border = seed.border ?? (isDark
-        ? lighten(background, 0.18)
-        : _tintedSurface(background, primary, 0.18, 0.10));
+    final int border =
+        seed.border ??
+        (isDark
+            ? lighten(background, 0.18)
+            : _tintedSurface(background, primary, 0.18, 0.10));
 
     // Card is same as background or slightly elevated
     // Light mode: subtle but visible primary tint
@@ -46,13 +56,16 @@ abstract class PaletteGenerator {
         : _tintedSurface(card, primary, 0.04, 0.06);
 
     // Muted - light mode gets visible tinting
-    final int muted = isDark ? secondary : _tintedSurface(background, primary, 0.05, 0.10);
+    final int muted = isDark
+        ? secondary
+        : _tintedSurface(background, primary, 0.05, 0.10);
     // Note: Use blendColors for both modes since setAlpha doesn't work
     // with hex output (toHex strips alpha channel)
-    final int mutedForeground = blendColors(
-      foreground,
-      background,
-      isDark ? 0.60 : 0.45,
+    final int mutedForeground = _foregroundBlendAtContrast(
+      foreground: foreground,
+      background: background,
+      surfaces: <int>[background, card, muted],
+      initialAmount: isDark ? 0.60 : 0.45,
     );
 
     // Primary foreground
@@ -104,7 +117,9 @@ abstract class PaletteGenerator {
       // Destructive
       destructive: destructive,
       destructiveForeground: contrastingForeground(destructive),
-      destructiveHover: isDark ? lighten(destructive, 0.10) : darken(destructive, 0.10),
+      destructiveHover: isDark
+          ? lighten(destructive, 0.10)
+          : darken(destructive, 0.10),
       destructiveContainer: container(background, destructive),
 
       // Success
@@ -164,9 +179,66 @@ abstract class PaletteGenerator {
     return 0.2126 * r + 0.7152 * g + 0.0722 * b;
   }
 
+  /// Calculate the WCAG contrast ratio between two opaque colors.
+  static double contrastRatio(int color1, int color2) {
+    final double luminance1 = relativeLuminance(color1);
+    final double luminance2 = relativeLuminance(color2);
+    final double lighter = math.max(luminance1, luminance2);
+    final double darker = math.min(luminance1, luminance2);
+    return (lighter + 0.05) / (darker + 0.05);
+  }
+
+  /// Preserve the intended muted tone while meeting WCAG AA on every surface
+  /// where the token is used by default.
+  static int _foregroundBlendAtContrast({
+    required int foreground,
+    required int background,
+    required List<int> surfaces,
+    required double initialAmount,
+    double minimumRatio = 4.5,
+  }) {
+    int candidate = blendColors(foreground, background, initialAmount);
+    if (_meetsContrast(candidate, surfaces, minimumRatio)) {
+      return candidate;
+    }
+
+    double lowerAmount = initialAmount;
+    double upperAmount = 1;
+
+    // Binary-search toward the full foreground so the result changes only as
+    // much as needed. The upper bound always remains a passing candidate for
+    // the light/dark surface families produced by this generator.
+    for (int iteration = 0; iteration < 16; iteration++) {
+      final double amount = (lowerAmount + upperAmount) / 2;
+      candidate = blendColors(foreground, background, amount);
+      if (_meetsContrast(candidate, surfaces, minimumRatio)) {
+        upperAmount = amount;
+      } else {
+        lowerAmount = amount;
+      }
+    }
+
+    return blendColors(foreground, background, upperAmount);
+  }
+
+  static bool _meetsContrast(
+    int foreground,
+    List<int> backgrounds,
+    double minimumRatio,
+  ) {
+    for (final int background in backgrounds) {
+      if (contrastRatio(foreground, background) < minimumRatio) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   static double _linearize(int channel) {
     final double c = channel / 255.0;
-    return c <= 0.03928 ? c / 12.92 : math.pow((c + 0.055) / 1.055, 2.4).toDouble();
+    return c <= 0.03928
+        ? c / 12.92
+        : math.pow((c + 0.055) / 1.055, 2.4).toDouble();
   }
 
   /// Darken a color by a percentage (0.0 - 1.0).

@@ -56,6 +56,12 @@ class ArcaneGalleryTile {
   final String? href;
   final void Function()? onTap;
 
+  /// Stable key used to preserve a drag offset across item rerenders.
+  ///
+  /// When omitted, the renderer falls back to the tile's list index. Supply a
+  /// key when tiles can be reordered while retaining their positions.
+  final String? dragId;
+
   /// Slot: corner badges rendered over the media.
   final List<Widget> overlay;
 
@@ -72,6 +78,7 @@ class ArcaneGalleryTile {
     this.meta,
     this.href,
     this.onTap,
+    this.dragId,
     this.overlay = const <Widget>[],
     this.footer,
     this.classes = '',
@@ -81,6 +88,7 @@ class ArcaneGalleryTile {
 
 /// Properties for the gallery surface, passed to `context.renderers.gallery`.
 class GalleryProps {
+  final String? id;
   final List<ArcaneGalleryTile> tiles;
   final String ariaLabel;
   final ArcaneGalleryLayout layout;
@@ -88,19 +96,33 @@ class GalleryProps {
   /// Opt-in ratio-aware packing (squared-off bottoms) via the fallback script.
   final bool packing;
 
+  /// Opt-in pointer and keyboard repositioning within the gallery bounds.
+  final bool draggableTiles;
+
+  /// Distance, in logical pixels, moved by Shift+Arrow keyboard commands.
+  final double dragKeyboardStep;
+
+  /// Minimum space, in logical pixels, retained inside the gallery edge.
+  final double dragInset;
+
   /// The `minmax()` minimum column width in px for the CSS-grid base.
   final double minColumnWidth;
 
   final String classes;
 
   const GalleryProps({
+    this.id,
     required this.tiles,
     required this.ariaLabel,
     this.layout = ArcaneGalleryLayout.masonry,
     this.packing = false,
+    this.draggableTiles = false,
+    this.dragKeyboardStep = 16,
+    this.dragInset = 4,
     this.minColumnWidth = 220,
     this.classes = '',
-  });
+  }) : assert(dragKeyboardStep > 0 && dragKeyboardStep < double.infinity),
+       assert(dragInset >= 0 && dragInset < double.infinity);
 }
 
 /// Renderer contract for the gallery component.

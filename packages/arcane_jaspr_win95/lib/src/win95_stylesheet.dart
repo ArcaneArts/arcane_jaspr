@@ -62,45 +62,44 @@ class Win95Stylesheet extends ArcaneStylesheet {
 
   @override
   ThemeSeed get lightSeed => ThemeSeed(
-        primary: theme.accent,
-        // App surfaces are the silver Win95 control face; the teal DESKTOP is
-        // reserved for surfaces that opt in (the gallery), via --w95-desktop.
-        // Using the desktop teal as the whole-app background reads as a flat
-        // "colorbomb" because most app chrome is not itself windowed.
-        background: 0xFFC0C0C0,
-        secondary: 0xFFC0C0C0,
-        accent: theme.titleEnd,
-        border: 0xFF808080,
-        destructive: 0xFFC00000,
-        success: 0xFF008000,
-        warning: 0xFF808000,
-        info: theme.accent,
-      );
+    primary: theme.accent,
+    // Component surfaces are the silver Win95 control face. The component
+    // CSS separately maps ArcaneApp's canvas hook to --w95-desktop so the
+    // area outside those surfaces remains the iconic teal desktop.
+    background: 0xFFC0C0C0,
+    secondary: 0xFFC0C0C0,
+    accent: theme.titleEnd,
+    border: 0xFF808080,
+    destructive: 0xFFC00000,
+    success: 0xFF008000,
+    warning: 0xFF808000,
+    info: theme.accent,
+  );
 
   /// High Contrast Black — the real Win95 accessibility scheme: black surfaces,
   /// white text, lime accents, bevels preserved (inverted) via [Win95Css].
   @override
   ThemeSeed get darkSeed => const ThemeSeed(
-        primary: 0xFF1084D0,
-        background: 0xFF000000,
-        secondary: 0xFF1A1A1A,
-        accent: 0xFF00FF00,
-        border: 0xFF808080,
-        destructive: 0xFFFF5050,
-        success: 0xFF00FF00,
-        warning: 0xFFFFFF00,
-        info: 0xFF00FFFF,
-        isDark: true,
-      );
+    primary: 0xFF1084D0,
+    background: 0xFF000000,
+    secondary: 0xFF1A1A1A,
+    accent: 0xFF00FF00,
+    border: 0xFF808080,
+    destructive: 0xFFFF5050,
+    success: 0xFF00FF00,
+    warning: 0xFFFFFF00,
+    info: 0xFF00FFFF,
+    isDark: true,
+  );
 
   @override
   FontConfig get fonts => const FontConfig(
-        sans:
-            "'Pixelated MS Sans Serif', 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, 'Segoe UI', sans-serif",
-        heading:
-            "'Pixelated MS Sans Serif', 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, 'Segoe UI', sans-serif",
-        mono: "'Fixedsys', 'Consolas', 'Courier New', 'Lucida Console', monospace",
-      );
+    sans:
+        "'Pixelated MS Sans Serif', 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, 'Segoe UI', sans-serif",
+    heading:
+        "'Pixelated MS Sans Serif', 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, 'Segoe UI', sans-serif",
+    mono: "'Fixedsys', 'Consolas', 'Courier New', 'Lucida Console', monospace",
+  );
 
   @override
   RadiusConfig get radius => const RadiusConfig.sharp();

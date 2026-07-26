@@ -1,5 +1,15 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
+import 'package:jaspr/jaspr.dart'
+    hide
+        BuildContext,
+        InheritedComponent,
+        Key,
+        State,
+        StatefulComponent,
+        StatelessComponent,
+        UniqueKey,
+        ValueKey,
+        runApp;
 import 'package:jaspr/dom.dart' as dom;
 
 import '../../core/decoration/arcane_decoration.dart';
@@ -8,6 +18,10 @@ import '../../util/arcane.dart';
 import '../../util/style_types/arcane_style_data.dart';
 
 /// Card component with consistent styling and multiple variants.
+///
+/// The root is a native `<a>` when [href] is provided, a native `<button>`
+/// when [onTap] is provided, and a `<div>` otherwise. [href] and [onTap] are
+/// mutually exclusive so navigation and callback semantics cannot conflict.
 class Card extends StatelessWidget {
   final Widget? _child;
   final List<Widget>? _children;
@@ -15,6 +29,31 @@ class Card extends StatelessWidget {
   final EdgeInsets? padding;
   final BorderRadius? borderRadius;
   final void Function()? _onTap;
+
+  /// Navigation destination. When set, the whole card is a native anchor.
+  final String? href;
+
+  /// Optional anchor browsing context, such as `_blank`.
+  ///
+  /// When this is `_blank`, the renderer adds any missing `noopener` and
+  /// `noreferrer` tokens to [rel].
+  final String? target;
+
+  /// Optional anchor relationship tokens.
+  final String? rel;
+
+  /// Additional CSS classes appended after the theme's card classes.
+  final String? classes;
+
+  /// Additional root attributes. Structural attributes owned by Card, such as
+  /// `href`, `target`, `rel`, `type`, `class`, and `style`, cannot be
+  /// overridden here.
+  final Map<String, String>? attributes;
+
+  /// Accessible name for the card's root element. This is most useful when its
+  /// visible descendants do not already provide a meaningful name.
+  final String? ariaLabel;
+
   final String? backgroundColor;
   final bool fillWidth;
 
@@ -31,16 +70,28 @@ class Card extends StatelessWidget {
     this.padding,
     this.borderRadius,
     void Function()? onTap,
+    this.href,
+    this.target,
+    this.rel,
+    this.classes,
+    this.attributes,
+    this.ariaLabel,
     this.backgroundColor,
     this.fillWidth = false,
     this.styles,
     this.decoration,
     super.key,
-  })  : _child = child,
-        _children = children,
-        _onTap = onTap,
-        assert(child != null || children != null,
-            'Either child or children must be provided');
+  }) : _child = child,
+       _children = children,
+       _onTap = onTap,
+       assert(
+         child != null || children != null,
+         'Either child or children must be provided',
+       ),
+       assert(
+         href == null || onTap == null,
+         'Card href and onTap are mutually exclusive',
+       );
 
   const Card.elevated({
     Widget? child,
@@ -48,17 +99,29 @@ class Card extends StatelessWidget {
     this.padding,
     this.borderRadius,
     void Function()? onTap,
+    this.href,
+    this.target,
+    this.rel,
+    this.classes,
+    this.attributes,
+    this.ariaLabel,
     this.backgroundColor,
     this.fillWidth = false,
     this.styles,
     this.decoration,
     super.key,
-  })  : _child = child,
-        _children = children,
-        _onTap = onTap,
-        variant = CardVariant.elevated,
-        assert(child != null || children != null,
-            'Either child or children must be provided');
+  }) : _child = child,
+       _children = children,
+       _onTap = onTap,
+       variant = CardVariant.elevated,
+       assert(
+         child != null || children != null,
+         'Either child or children must be provided',
+       ),
+       assert(
+         href == null || onTap == null,
+         'Card href and onTap are mutually exclusive',
+       );
 
   const Card.flat({
     Widget? child,
@@ -66,17 +129,29 @@ class Card extends StatelessWidget {
     this.padding,
     this.borderRadius,
     void Function()? onTap,
+    this.href,
+    this.target,
+    this.rel,
+    this.classes,
+    this.attributes,
+    this.ariaLabel,
     this.backgroundColor,
     this.fillWidth = false,
     this.styles,
     this.decoration,
     super.key,
-  })  : _child = child,
-        _children = children,
-        _onTap = onTap,
-        variant = CardVariant.flat,
-        assert(child != null || children != null,
-            'Either child or children must be provided');
+  }) : _child = child,
+       _children = children,
+       _onTap = onTap,
+       variant = CardVariant.flat,
+       assert(
+         child != null || children != null,
+         'Either child or children must be provided',
+       ),
+       assert(
+         href == null || onTap == null,
+         'Card href and onTap are mutually exclusive',
+       );
 
   const Card.outlined({
     Widget? child,
@@ -84,17 +159,29 @@ class Card extends StatelessWidget {
     this.padding,
     this.borderRadius,
     void Function()? onTap,
+    this.href,
+    this.target,
+    this.rel,
+    this.classes,
+    this.attributes,
+    this.ariaLabel,
     this.backgroundColor,
     this.fillWidth = false,
     this.styles,
     this.decoration,
     super.key,
-  })  : _child = child,
-        _children = children,
-        _onTap = onTap,
-        variant = CardVariant.outlined,
-        assert(child != null || children != null,
-            'Either child or children must be provided');
+  }) : _child = child,
+       _children = children,
+       _onTap = onTap,
+       variant = CardVariant.outlined,
+       assert(
+         child != null || children != null,
+         'Either child or children must be provided',
+       ),
+       assert(
+         href == null || onTap == null,
+         'Card href and onTap are mutually exclusive',
+       );
 
   const Card.ghost({
     Widget? child,
@@ -102,17 +189,29 @@ class Card extends StatelessWidget {
     this.padding,
     this.borderRadius,
     void Function()? onTap,
+    this.href,
+    this.target,
+    this.rel,
+    this.classes,
+    this.attributes,
+    this.ariaLabel,
     this.backgroundColor,
     this.fillWidth = false,
     this.styles,
     this.decoration,
     super.key,
-  })  : _child = child,
-        _children = children,
-        _onTap = onTap,
-        variant = CardVariant.ghost,
-        assert(child != null || children != null,
-            'Either child or children must be provided');
+  }) : _child = child,
+       _children = children,
+       _onTap = onTap,
+       variant = CardVariant.ghost,
+       assert(
+         child != null || children != null,
+         'Either child or children must be provided',
+       ),
+       assert(
+         href == null || onTap == null,
+         'Card href and onTap are mutually exclusive',
+       );
 
   const Card.glass({
     Widget? child,
@@ -120,17 +219,29 @@ class Card extends StatelessWidget {
     this.padding,
     this.borderRadius,
     void Function()? onTap,
+    this.href,
+    this.target,
+    this.rel,
+    this.classes,
+    this.attributes,
+    this.ariaLabel,
     this.backgroundColor,
     this.fillWidth = false,
     this.styles,
     this.decoration,
     super.key,
-  })  : _child = child,
-        _children = children,
-        _onTap = onTap,
-        variant = CardVariant.glass,
-        assert(child != null || children != null,
-            'Either child or children must be provided');
+  }) : _child = child,
+       _children = children,
+       _onTap = onTap,
+       variant = CardVariant.glass,
+       assert(
+         child != null || children != null,
+         'Either child or children must be provided',
+       ),
+       assert(
+         href == null || onTap == null,
+         'Card href and onTap are mutually exclusive',
+       );
 
   const Card.interactive({
     Widget? child,
@@ -138,32 +249,52 @@ class Card extends StatelessWidget {
     this.padding,
     this.borderRadius,
     void Function()? onTap,
+    this.href,
+    this.target,
+    this.rel,
+    this.classes,
+    this.attributes,
+    this.ariaLabel,
     this.backgroundColor,
     this.fillWidth = false,
     this.styles,
     this.decoration,
     super.key,
-  })  : _child = child,
-        _children = children,
-        _onTap = onTap,
-        variant = CardVariant.interactive,
-        assert(child != null || children != null,
-            'Either child or children must be provided');
+  }) : _child = child,
+       _children = children,
+       _onTap = onTap,
+       variant = CardVariant.interactive,
+       assert(
+         child != null || children != null,
+         'Either child or children must be provided',
+       ),
+       assert(
+         href == null || onTap == null,
+         'Card href and onTap are mutually exclusive',
+       );
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.card(CardProps(
-      child: _child,
-      children: _children,
-      variant: variant,
-      padding: padding,
-      borderRadius: borderRadius,
-      backgroundColor: backgroundColor,
-      fillWidth: fillWidth,
-      onTap: _onTap,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.card(
+      CardProps(
+        child: _child,
+        children: _children,
+        variant: variant,
+        padding: padding,
+        borderRadius: borderRadius,
+        backgroundColor: backgroundColor,
+        fillWidth: fillWidth,
+        onTap: _onTap,
+        href: href,
+        target: target,
+        rel: rel,
+        classes: classes,
+        attributes: attributes,
+        ariaLabel: ariaLabel,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }
 

@@ -61,6 +61,7 @@ import 'spec_row.dart';
 import 'static_table.dart';
 import 'status_badge.dart';
 import 'tabs.dart';
+import 'text_area.dart';
 import 'text_input.dart';
 import 'time_picker.dart';
 import 'toast.dart';
@@ -77,7 +78,8 @@ import 'promo/promo.dart';
 /// - 1.25x spacing compared to ShadCN
 /// - Larger border radius (14px default)
 /// - Premium dark, high-contrast aesthetic
-class NeubrutalismRenderers extends ComponentRenderers {
+class NeubrutalismRenderers extends ComponentRenderers
+    with TextAreaRendererContract {
   const NeubrutalismRenderers();
 
   @override
@@ -85,6 +87,9 @@ class NeubrutalismRenderers extends ComponentRenderers {
 
   @override
   Component textInput(TextInputProps props) => NeubrutalismTextInput(props);
+
+  @override
+  Component textArea(TextAreaProps props) => NeubrutalismTextArea(props);
 
   @override
   Component card(CardProps props) => NeubrutalismCard(props);
@@ -96,7 +101,8 @@ class NeubrutalismRenderers extends ComponentRenderers {
   Component statCard(StatCardProps props) => NeubrutalismStatCard(props);
 
   @override
-  Component statCardRow(StatCardRowProps props) => NeubrutalismStatCardRow(props);
+  Component statCardRow(StatCardRowProps props) =>
+      NeubrutalismStatCardRow(props);
 
   @override
   Component featureCard(FeatureCardProps props) =>
@@ -151,7 +157,8 @@ class NeubrutalismRenderers extends ComponentRenderers {
   Component checkbox(CheckboxProps props) => NeubrutalismCheckbox(props);
 
   @override
-  Component toggleSwitch(ToggleSwitchProps props) => NeubrutalismToggleSwitch(props);
+  Component toggleSwitch(ToggleSwitchProps props) =>
+      NeubrutalismToggleSwitch(props);
 
   @override
   Component slider(SliderProps props) => NeubrutalismSlider(props);
@@ -163,16 +170,19 @@ class NeubrutalismRenderers extends ComponentRenderers {
   Component tabBar(TabBarProps props) => NeubrutalismTabBar(props);
 
   @override
-  Component breadcrumbs(BreadcrumbsProps props) => NeubrutalismBreadcrumbs(props);
+  Component breadcrumbs(BreadcrumbsProps props) =>
+      NeubrutalismBreadcrumbs(props);
 
   @override
   Component sidebar(SidebarProps props) => NeubrutalismSidebar(props);
 
   @override
-  Component sidebarItem(SidebarItemProps props) => NeubrutalismSidebarItem(props);
+  Component sidebarItem(SidebarItemProps props) =>
+      NeubrutalismSidebarItem(props);
 
   @override
-  Component sidebarGroup(SidebarGroupProps props) => NeubrutalismSidebarGroup(props);
+  Component sidebarGroup(SidebarGroupProps props) =>
+      NeubrutalismSidebarGroup(props);
 
   @override
   Component sidebarSubMenu(SidebarSubMenuProps props) =>
@@ -227,7 +237,8 @@ class NeubrutalismRenderers extends ComponentRenderers {
   Component floating(FloatingProps props) => NeubrutalismFloating(props);
 
   @override
-  Component radioGroup<T>(RadioGroupProps<T> props) => NeubrutalismRadioGroup<T>(props);
+  Component radioGroup<T>(RadioGroupProps<T> props) =>
+      NeubrutalismRadioGroup<T>(props);
 
   @override
   Component select<T>(SelectProps<T> props) => NeubrutalismSelect<T>(props);
@@ -245,7 +256,8 @@ class NeubrutalismRenderers extends ComponentRenderers {
   Component emptyState(EmptyStateProps props) => NeubrutalismEmptyState(props);
 
   @override
-  Component statusBadge(StatusBadgeProps props) => NeubrutalismStatusBadge(props);
+  Component statusBadge(StatusBadgeProps props) =>
+      NeubrutalismStatusBadge(props);
 
   @override
   Component row(RowProps props) => NeubrutalismRow(props);
@@ -275,16 +287,19 @@ class NeubrutalismRenderers extends ComponentRenderers {
   Component gap(GapProps props) => NeubrutalismGap(props);
 
   @override
-  Component buttonPanel(ButtonPanelProps props) => NeubrutalismButtonPanel(props);
+  Component buttonPanel(ButtonPanelProps props) =>
+      NeubrutalismButtonPanel(props);
 
   @override
   Component toolbar(ToolbarProps props) => NeubrutalismToolbar(props);
 
   @override
-  Component buttonGroup(ButtonGroupProps props) => NeubrutalismButtonGroup(props);
+  Component buttonGroup(ButtonGroupProps props) =>
+      NeubrutalismButtonGroup(props);
 
   @override
-  Component aspectRatio(AspectRatioProps props) => NeubrutalismAspectRatio(props);
+  Component aspectRatio(AspectRatioProps props) =>
+      NeubrutalismAspectRatio(props);
 
   @override
   Component gutter(GutterProps props) => NeubrutalismGutter(props);
@@ -294,10 +309,12 @@ class NeubrutalismRenderers extends ComponentRenderers {
       NeubrutalismPaddingWrapper(props);
 
   @override
-  Component fieldWrapper(FieldWrapperProps props) => NeubrutalismFieldWrapper(props);
+  Component fieldWrapper(FieldWrapperProps props) =>
+      NeubrutalismFieldWrapper(props);
 
   @override
-  Component formSection(FormSectionProps props) => NeubrutalismFormSection(props);
+  Component formSection(FormSectionProps props) =>
+      NeubrutalismFormSection(props);
 
   @override
   Component form(FormProps props) => NeubrutalismForm(props);
@@ -337,23 +354,28 @@ class NeubrutalismRenderers extends ComponentRenderers {
   Component command(CommandProps props) => NeubrutalismCommand(props);
 
   @override
-  Component confirmDialog(ConfirmDialogProps props) => NeubrutalismConfirmDialog(props);
+  Component confirmDialog(ConfirmDialogProps props) =>
+      NeubrutalismConfirmDialog(props);
 
   @override
-  Component alertDialog(AlertDialogProps props) => NeubrutalismAlertDialog(props);
+  Component alertDialog(AlertDialogProps props) =>
+      NeubrutalismAlertDialog(props);
 
   @override
-  Component contextMenu(ContextMenuProps props) => NeubrutalismContextMenu(props);
+  Component contextMenu(ContextMenuProps props) =>
+      NeubrutalismContextMenu(props);
 
   @override
   Component cycleButton<T>(CycleButtonProps<T> props) =>
       NeubrutalismCycleButton<T>(props);
 
   @override
-  Component toggleButton(ToggleButtonProps props) => NeubrutalismToggleButton(props);
+  Component toggleButton(ToggleButtonProps props) =>
+      NeubrutalismToggleButton(props);
 
   @override
-  Component dataTable<T>(DataTableProps<T> props) => NeubrutalismDataTable<T>(props);
+  Component dataTable<T>(DataTableProps<T> props) =>
+      NeubrutalismDataTable<T>(props);
 
   @override
   Component datePicker(DatePickerProps props) => NeubrutalismDatePicker(props);
@@ -366,7 +388,8 @@ class NeubrutalismRenderers extends ComponentRenderers {
       NeubrutalismDisclosureGroup(props);
 
   @override
-  Component dropdownMenu(DropdownMenuProps props) => NeubrutalismDropdownMenu(props);
+  Component dropdownMenu(DropdownMenuProps props) =>
+      NeubrutalismDropdownMenu(props);
 
   @override
   Component fadeEdge(FadeEdgeProps props) => NeubrutalismFadeEdge(props);
@@ -378,7 +401,8 @@ class NeubrutalismRenderers extends ComponentRenderers {
   Component menubar(MenubarProps props) => NeubrutalismMenubar(props);
 
   @override
-  Component nativeSelect(NativeSelectProps props) => NeubrutalismNativeSelect(props);
+  Component nativeSelect(NativeSelectProps props) =>
+      NeubrutalismNativeSelect(props);
 
   @override
   Component otpInput(OtpInputProps props) => NeubrutalismOtpInput(props);
@@ -398,7 +422,8 @@ class NeubrutalismRenderers extends ComponentRenderers {
       NeubrutalismVirtualScroll<T>(props);
 
   @override
-  Component slotCounter(SlotCounterProps props) => NeubrutalismSlotCounter(props);
+  Component slotCounter(SlotCounterProps props) =>
+      NeubrutalismSlotCounter(props);
 
   @override
   Component slotCounterRow(SlotCounterRowProps props) =>
@@ -409,16 +434,19 @@ class NeubrutalismRenderers extends ComponentRenderers {
       NeubrutalismSlotCounterCard(props);
 
   @override
-  Component staticTable(StaticTableProps props) => NeubrutalismStaticTable(props);
+  Component staticTable(StaticTableProps props) =>
+      NeubrutalismStaticTable(props);
 
   @override
-  Component keyValueTable(KeyValueTableProps props) => NeubrutalismKeyValueTable(props);
+  Component keyValueTable(KeyValueTableProps props) =>
+      NeubrutalismKeyValueTable(props);
 
   @override
   Component timePicker(TimePickerProps props) => NeubrutalismTimePicker(props);
 
   @override
-  Component toggleGroup(ToggleGroupProps props) => NeubrutalismToggleGroup(props);
+  Component toggleGroup(ToggleGroupProps props) =>
+      NeubrutalismToggleGroup(props);
 
   @override
   Component topAnnouncementBar(TopAnnouncementBarProps props) =>

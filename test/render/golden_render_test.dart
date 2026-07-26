@@ -1,8 +1,9 @@
 // Golden HTML snapshot safety net for the theme-renderer refactor.
 //
 // Each exported component (see component_cases.dart) is server-rendered under
-// every one of the three stylesheets (shadcn, neon, neubrutalism) and its
-// rendered <body> HTML is captured into test/render/goldens/<name>.<theme>.html.
+// the three baseline stylesheets (shadcn, neon, neubrutalism). A focused Win95
+// set covers its distinct field, card, and gallery DOM without multiplying the
+// entire golden corpus.
 //
 // Modes (defaults to ASSERT):
 //   * ASSERT (default)  -- the freshly rendered body must EQUAL the stored
@@ -21,6 +22,7 @@ import 'package:arcane_jaspr/arcane_jaspr.dart';
 import 'package:arcane_jaspr_neon/arcane_jaspr_neon.dart';
 import 'package:arcane_jaspr_neubrutalism/arcane_jaspr_neubrutalism.dart';
 import 'package:arcane_jaspr_shadcn/arcane_jaspr_shadcn.dart';
+import 'package:arcane_jaspr_win95/arcane_jaspr_win95.dart';
 import 'package:jaspr_test/server_test.dart';
 
 import 'component_cases.dart';
@@ -35,6 +37,11 @@ const List<(String, ArcaneStylesheet)> _themes = <(String, ArcaneStylesheet)>[
   ('neon', NeonStylesheet()),
   ('neubrutalism', NeubrutalismStylesheet()),
 ];
+
+/// Win95 has a deliberately focused golden surface. Its extensive CSS contract
+/// is covered separately; these snapshots guard the DOM hooks that contract
+/// targets without adding hundreds of near-duplicate files.
+const Set<String> _win95SharedCases = <String>{'Card', 'TextInput', 'TextArea'};
 
 /// Component names excluded from golden verification because their
 /// server-rendered output is irreducibly non-deterministic: each emits a
@@ -86,13 +93,19 @@ String _sanitize(String name) =>
 /// carries large theme CSS) is intentionally excluded so the snapshot focuses
 /// on component output. Falls back to the full document if no `<body>` is found.
 String _extractBody(String html) {
-  final RegExpMatch? match =
-      RegExp(r'<body[^>]*>(.*)</body>', dotAll: true).firstMatch(html);
+  final RegExpMatch? match = RegExp(
+    r'<body[^>]*>(.*)</body>',
+    dotAll: true,
+  ).firstMatch(html);
   return match != null ? match.group(1)! : html;
 }
 
-void _registerCase(String name, String themeName, ArcaneStylesheet sheet,
-    Widget widget) {
+void _registerCase(
+  String name,
+  String themeName,
+  ArcaneStylesheet sheet,
+  Widget widget,
+) {
   testServer('$name [$themeName]', (ServerTester tester) async {
     tester.pumpComponent(_wrap(sheet, widget));
     final DocumentResponse res = await tester.request('/');
@@ -115,7 +128,8 @@ void _registerCase(String name, String themeName, ArcaneStylesheet sheet,
     expect(
       actual,
       golden,
-      reason: 'Golden drift for $name [$themeName] (${file.path}). '
+      reason:
+          'Golden drift for $name [$themeName] (${file.path}). '
           'Re-run with UPDATE_GOLDENS=1 only if the change is intended.',
     );
   });
@@ -135,4 +149,43 @@ void main() {
       _registerCase(name, themeName, sheet, widget);
     }
   }
+
+  const Win95Stylesheet win95 = Win95Stylesheet();
+  for (final (String name, Widget widget) in cases) {
+    if (_win95SharedCases.contains(name)) {
+      _registerCase(name, 'win95', win95, widget);
+    }
+  }
+
+  _registerCase(
+    'CardVariants',
+    'win95',
+    win95,
+    const Column(
+      children: <Widget>[
+        Card.flat(child: Text('flat panel')),
+        Card.ghost(child: Text('ghost panel')),
+      ],
+    ),
+  );
+  _registerCase(
+    'ArcaneGallery',
+    'win95',
+    win95,
+    const ArcaneGallery(
+      ariaLabel: 'Example gallery',
+      tiles: <ArcaneGalleryTile>[
+        ArcaneGalleryTile(
+          media: ArcaneGalleryMedia(
+            aspectRatio: 1.5,
+            src: 'example.jpg',
+            alt: 'Example artwork',
+          ),
+          title: 'Example window',
+          meta: 'Photographer',
+          footer: Text('Ready'),
+        ),
+      ],
+    ),
+  );
 }

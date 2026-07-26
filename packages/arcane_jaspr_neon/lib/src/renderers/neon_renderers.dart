@@ -61,6 +61,7 @@ import 'spec_row.dart';
 import 'static_table.dart';
 import 'status_badge.dart';
 import 'tabs.dart';
+import 'text_area.dart';
 import 'text_input.dart';
 import 'time_picker.dart';
 import 'toast.dart';
@@ -77,7 +78,7 @@ import 'promo/promo.dart';
 /// - 1.25x spacing compared to ShadCN
 /// - Larger border radius (14px default)
 /// - Premium dark, high-contrast aesthetic
-class NeonRenderers extends ComponentRenderers {
+class NeonRenderers extends ComponentRenderers with TextAreaRendererContract {
   const NeonRenderers();
 
   @override
@@ -85,6 +86,9 @@ class NeonRenderers extends ComponentRenderers {
 
   @override
   Component textInput(TextInputProps props) => NeonTextInput(props);
+
+  @override
+  Component textArea(TextAreaProps props) => NeonTextArea(props);
 
   @override
   Component card(CardProps props) => NeonCard(props);

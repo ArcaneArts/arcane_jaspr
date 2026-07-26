@@ -26,10 +26,7 @@ class ShadcnDialog extends StatelessComponent {
 
     return dom.div(
       classes: 'arcane-dialog-overlay',
-      attributes: <String, String>{
-        ...surfAttrs,
-        'data-arcane-scrim': '',
-      },
+      attributes: <String, String>{...surfAttrs, 'data-arcane-scrim': ''},
       styles: const dom.Styles(
         raw: <String, String>{
           'position': 'fixed',
@@ -63,6 +60,7 @@ class ShadcnDialog extends StatelessComponent {
           },
           styles: dom.Styles(
             raw: <String, String>{
+              'position': 'relative',
               'background-color': 'var(--background)',
               'color': 'var(--foreground)',
               'border-radius': 'var(--radius-md)',
@@ -330,9 +328,7 @@ class ShadcnSheet extends StatelessComponent {
         if (props.showBackdrop)
           dom.div(
             classes: 'arcane-sheet-backdrop',
-            attributes: <String, String>{
-              'data-arcane-scrim': '',
-            },
+            attributes: <String, String>{'data-arcane-scrim': ''},
             styles: const dom.Styles(
               raw: <String, String>{
                 'position': 'absolute',
@@ -404,7 +400,8 @@ class ShadcnSheet extends StatelessComponent {
                   if (props.header != null)
                     dom.div(
                       styles: const dom.Styles(
-                          raw: <String, String>{'flex': '1'}),
+                        raw: <String, String>{'flex': '1'},
+                      ),
                       <Component>[props.header!],
                     )
                   else if (props.title != null)

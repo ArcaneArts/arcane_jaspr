@@ -1,8 +1,40 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/dom_value.dart';
 import 'package:arcane_jaspr/core/props/gallery_props.dart';
 import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
+
+const Set<String> _galleryStructureAttributes = <String>{
+  'data-arcane-gallery-item',
+  'data-ratio',
+  'data-span',
+  'data-column-span',
+};
+
+const Set<String> _galleryDragAttributes = <String>{
+  'data-arcane-draggable-item',
+  'data-arcane-drag-key',
+  'data-arcane-drag-handle',
+  'draggable',
+  'aria-keyshortcuts',
+  'aria-description',
+};
+
+const Set<String> _rolesWithoutAuthorName = <String>{
+  'caption',
+  'code',
+  'deletion',
+  'emphasis',
+  'generic',
+  'insertion',
+  'none',
+  'paragraph',
+  'presentation',
+  'strong',
+  'subscript',
+  'superscript',
+};
 
 /// The CSS-grid base uses coarse, roughly-square cells (a row is ~half a column
 /// wide) so wide artwork must span multiple COLUMNS — that is what produces the
@@ -97,24 +129,34 @@ abstract class GalleryRenderBase extends StatelessComponent {
     );
 
     return dom.div(
+      id: props.id,
       classes: _join(<String>[surfaceClass, props.classes]),
       attributes: <String, String>{
-        'role': 'list',
+        'role': 'region',
         'aria-label': props.ariaLabel,
         'data-arcane-gallery': 'true',
         if (props.packing) 'data-packing': 'true',
+        if (props.draggableTiles) ...<String, String>{
+          'data-arcane-gallery-draggable': 'true',
+          'data-arcane-drag-keyboard-step': props.dragKeyboardStep.toString(),
+          'data-arcane-drag-inset': props.dragInset.toString(),
+          if (props.id != null) 'data-arcane-gallery-drag-id': props.id!,
+        },
       },
       styles: dom.Styles(raw: surface),
       <Component>[
-        for (final ArcaneGalleryTile tile in props.tiles) _tile(tile, masonry),
+        for (int index = 0; index < props.tiles.length; index++)
+          _tile(props.tiles[index], masonry, index),
       ],
     );
   }
 
-  Component _tile(ArcaneGalleryTile tile, bool masonry) {
+  Component _tile(ArcaneGalleryTile tile, bool masonry, int index) {
     final double aspect = _clampAspect(tile.media.aspectRatio);
     final int rowSpan = galleryRowSpan(aspect);
     final int columnSpan = galleryColumnSpan(aspect);
+    final bool hasVisibleHeader =
+        showsTileHeader && (tile.title != null || tile.meta != null);
 
     final Map<String, String> frame = layerStyles(
       <String, String>{
@@ -155,38 +197,93 @@ abstract class GalleryRenderBase extends StatelessComponent {
 
     final List<Component> children = <Component>[
       media,
-      if (showsTileHeader && (tile.title != null || tile.meta != null))
+      if (hasVisibleHeader)
         dom.div(
           classes: '$tileClass-header',
+          attributes: <String, String>{
+            if (props.draggableTiles) 'data-arcane-drag-handle': 'true',
+          },
           <Component>[
             if (tile.title != null)
-              dom.span(
-                classes: '$tileClass-title',
-                <Component>[Component.text(tile.title!)],
-              ),
+              dom.span(classes: '$tileClass-title', <Component>[
+                Component.text(tile.title!),
+              ]),
             if (tile.meta != null)
-              dom.span(
-                classes: '$tileClass-meta',
-                <Component>[Component.text(tile.meta!)],
-              ),
+              dom.span(classes: '$tileClass-meta', <Component>[
+                Component.text(tile.meta!),
+              ]),
           ],
         ),
       if (tile.footer != null)
-        dom.div(
-          classes: '$tileClass-footer',
-          <Component>[tile.footer!],
-        ),
+        dom.div(classes: '$tileClass-footer', <Component>[tile.footer!]),
     ];
 
+    final bool ownsKeyboardSemantics =
+        tile.href == null && (props.draggableTiles || tile.onTap != null);
+    final Map<String, String> callerAttributes =
+        Map<String, String>.fromEntries(
+          tile.attributes.entries.where((MapEntry<String, String> entry) {
+            if (_galleryStructureAttributes.contains(entry.key)) {
+              return false;
+            }
+            if (props.draggableTiles &&
+                _galleryDragAttributes.contains(entry.key)) {
+              return false;
+            }
+            if (ownsKeyboardSemantics &&
+                (entry.key == 'tabindex' || entry.key == 'role')) {
+              return false;
+            }
+            return entry.key != 'aria-label';
+          }),
+        );
+    final String? explicitAriaLabel = _nonEmpty(tile.attributes['aria-label']);
+    final String? callerRole = _nonEmpty(callerAttributes['role']);
+    final String? hiddenTitle = showsTileHeader ? null : _nonEmpty(tile.title);
+    final bool suppressesAccessibleName =
+        callerRole != null &&
+        _rolesWithoutAuthorName.contains(callerRole.toLowerCase());
+    final bool hasNameableSemantics =
+        !suppressesAccessibleName &&
+        (tile.href != null ||
+            tile.onTap != null ||
+            props.draggableTiles ||
+            explicitAriaLabel != null ||
+            hiddenTitle != null);
+    final String? accessibleLabel = hasNameableSemantics
+        ? explicitAriaLabel ??
+              _nonEmpty(tile.title) ??
+              _nonEmpty(tile.media.alt) ??
+              'Gallery item ${index + 1}'
+        : null;
+
     final Map<String, String> attributes = <String, String>{
+      ...callerAttributes,
       'data-arcane-gallery-item': 'true',
       'data-ratio': aspect.toStringAsFixed(4),
       'data-span': '$rowSpan',
       'data-column-span': '$columnSpan',
-      // When the visible caption is suppressed (card themes), keep the title
-      // available to assistive tech.
-      if (!showsTileHeader && tile.title != null) 'aria-label': tile.title!,
-      ...tile.attributes,
+      if (props.draggableTiles) ...<String, String>{
+        'data-arcane-draggable-item': 'true',
+        'draggable': 'false',
+        'aria-keyshortcuts':
+            'Shift+ArrowUp Shift+ArrowDown Shift+ArrowLeft Shift+ArrowRight',
+        'aria-description':
+            'Hold Shift and use the arrow keys to reposition this item.',
+        'data-arcane-drag-key': tile.dragId ?? index.toString(),
+        if (!hasVisibleHeader) 'data-arcane-drag-handle': 'true',
+      },
+      if (tile.href == null && (props.draggableTiles || tile.onTap != null))
+        'tabindex': '0',
+      if (tile.href == null && (tile.onTap != null || props.draggableTiles))
+        'role': tile.onTap != null ? 'button' : 'group',
+      if (tile.href == null &&
+          tile.onTap == null &&
+          !props.draggableTiles &&
+          (explicitAriaLabel != null || hiddenTitle != null) &&
+          callerRole == null)
+        'role': 'group',
+      'aria-label': ?accessibleLabel,
     };
 
     final String cls = _join(<String>[tileClass, tile.classes]);
@@ -207,6 +304,13 @@ abstract class GalleryRenderBase extends StatelessComponent {
       events: tile.onTap != null
           ? <String, void Function(dynamic)>{
               'click': (dynamic _) => tile.onTap!(),
+              'keydown': (dynamic event) {
+                final String key = domEventKey(event);
+                if (key == 'Enter' || key == ' ') {
+                  domPreventDefault(event);
+                  tile.onTap!();
+                }
+              },
             }
           : null,
       children,
@@ -240,3 +344,8 @@ String _join(List<String> names) => names
     .map((String name) => name.trim())
     .where((String name) => name.isNotEmpty)
     .join(' ');
+
+String? _nonEmpty(String? value) {
+  final String trimmed = value?.trim() ?? '';
+  return trimmed.isEmpty ? null : trimmed;
+}

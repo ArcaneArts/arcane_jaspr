@@ -869,6 +869,7 @@ html.dark #arcane-root.arcane-theme-neubrutalism .kb-toc-panel .toc-title {
 }
 
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-text-input,
+#arcane-root.arcane-theme-neubrutalism .neubrutalism-textarea,
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-select,
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-native-select,
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-otp-digit,
@@ -886,6 +887,7 @@ html.dark #arcane-root.arcane-theme-neubrutalism .kb-toc-panel .toc-title {
 }
 
 html.dark #arcane-root.arcane-theme-neubrutalism .neubrutalism-text-input,
+html.dark #arcane-root.arcane-theme-neubrutalism .neubrutalism-textarea,
 html.dark #arcane-root.arcane-theme-neubrutalism .neubrutalism-select,
 html.dark #arcane-root.arcane-theme-neubrutalism .neubrutalism-native-select,
 html.dark #arcane-root.arcane-theme-neubrutalism .neubrutalism-otp-digit,
@@ -898,6 +900,7 @@ html.dark #arcane-root.arcane-theme-neubrutalism textarea {
 
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-text-input:focus,
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-text-input:focus-within,
+#arcane-root.arcane-theme-neubrutalism .neubrutalism-textarea:focus,
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-select:focus,
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-select[data-open="true"],
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-otp-digit:focus,
@@ -1870,9 +1873,26 @@ html.dark #arcane-root.arcane-theme-neubrutalism .prose .hljs-built_in { color: 
 }
 
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-text-input::placeholder,
+#arcane-root.arcane-theme-neubrutalism .neubrutalism-textarea::placeholder,
 #arcane-root.arcane-theme-neubrutalism textarea::placeholder {
   color: color-mix(in srgb, var(--foreground) 45%, transparent) !important;
   font-weight: 500;
+  opacity: 1;
+}
+
+#arcane-root.arcane-theme-neubrutalism .neubrutalism-textarea[data-error="true"] {
+  border-color: var(--destructive) !important;
+}
+
+#arcane-root.arcane-theme-neubrutalism .neubrutalism-textarea:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#arcane-root.arcane-theme-neubrutalism .neubrutalism-textarea[data-readonly="true"] {
+  background-color: var(--nb-control-paper, var(--muted)) !important;
+  cursor: default;
 }
 
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-field-label {

@@ -91,6 +91,10 @@ class ShadcnLayoutRenderers extends LayoutRenderers {
       if (_hasHeader(props)) _header(props),
       dom.div(
         classes: 'arcane-scaffold-body',
+        attributes: <String, String>{
+          if (props.sidebar != null) 'data-has-sidebar': '',
+          if (props.secondary != null) 'data-has-secondary': '',
+        },
         styles: dom.Styles(
           raw: <String, String>{
             'display': 'grid',

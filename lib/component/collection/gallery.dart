@@ -17,34 +17,53 @@ export '../../core/props/gallery_props.dart'
 ///
 /// Layout is CSS-grid masonry by default (works with zero JS). Set [packing] to
 /// enable the opt-in ratio-aware packer (squared-off bottoms) — it requires the
-/// app to include arcane's fallback scripts.
+/// app to include arcane's fallback scripts. Set [draggableTiles] to let users
+/// reposition tiles within the gallery. Windows 95 uses its visible title bar
+/// as the pointer handle; card-style themes use the tile surface. Dragging also
+/// requires the fallback scripts. Give the gallery an [id] and reorderable
+/// tiles a stable [ArcaneGalleryTile.dragId] to retain offsets across complete
+/// DOM replacement.
 class ArcaneGallery extends StatelessWidget {
+  /// Stable DOM/state id for preserving drag offsets across root rerenders.
+  final String? id;
   final List<ArcaneGalleryTile> tiles;
   final String ariaLabel;
   final ArcaneGalleryLayout layout;
   final bool packing;
+  final bool draggableTiles;
+  final double dragKeyboardStep;
+  final double dragInset;
   final double minColumnWidth;
   final String classes;
 
   const ArcaneGallery({
+    this.id,
     required this.tiles,
     required this.ariaLabel,
     this.layout = ArcaneGalleryLayout.masonry,
     this.packing = false,
+    this.draggableTiles = false,
+    this.dragKeyboardStep = 16,
+    this.dragInset = 4,
     this.minColumnWidth = 220,
     this.classes = '',
     super.key,
-  });
+  }) : assert(dragKeyboardStep > 0 && dragKeyboardStep < double.infinity),
+       assert(dragInset >= 0 && dragInset < double.infinity);
 
   @override
   Widget build(BuildContext context) => context.renderers.gallery(
-        GalleryProps(
-          tiles: tiles,
-          ariaLabel: ariaLabel,
-          layout: layout,
-          packing: packing,
-          minColumnWidth: minColumnWidth,
-          classes: classes,
-        ),
-      );
+    GalleryProps(
+      id: id,
+      tiles: tiles,
+      ariaLabel: ariaLabel,
+      layout: layout,
+      packing: packing,
+      draggableTiles: draggableTiles,
+      dragKeyboardStep: dragKeyboardStep,
+      dragInset: dragInset,
+      minColumnWidth: minColumnWidth,
+      classes: classes,
+    ),
+  );
 }

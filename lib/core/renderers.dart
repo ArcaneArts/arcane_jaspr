@@ -122,6 +122,7 @@ export 'props/stat_card_props.dart';
 export 'props/testimonial_card_props.dart';
 export 'props/status_badge_props.dart';
 export 'props/tabs_props.dart';
+export 'props/text_area_props.dart';
 export 'props/text_input_props.dart';
 export 'props/time_picker_props.dart';
 export 'props/toast_props.dart';

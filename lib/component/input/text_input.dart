@@ -5,8 +5,10 @@ import '../../core/dom_value.dart';
 
 export '../../core/props/text_input_props.dart'
     show ComponentSize, TextInputVariant, TextInputType;
+export '../../core/props/text_area_props.dart' show TextAreaResize;
 
 import '../../core/interaction/interaction.dart';
+import '../../core/rendering/base/text_area_render_base.dart';
 import '../../core/theme_provider.dart';
 import '../../core/decoration/arcane_decoration.dart';
 import '../../util/style_types/arcane_style_data.dart';
@@ -78,43 +80,37 @@ class TextInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.textInput(TextInputProps(
-      placeholder: placeholder,
-      type: type,
-      value: value,
-      name: name,
-      id: id,
-      size: size,
-      disabled: disabled,
-      required: required,
-      readOnly: readOnly,
-      fullWidth: fullWidth,
-      label: label,
-      helperText: helperText,
-      error: error,
-      prefix: prefix,
-      suffix: suffix,
-      onChanged: _onChange,
-      onFocus: onFocus,
-      onBlur: onBlur,
-      onSubmit: onSubmit,
-      onChangeAction: onChangeAction,
-      onSubmitAction: onSubmitAction,
-      formId: formId,
-      fieldName: fieldName,
-      attributes: attributes,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.textInput(
+      TextInputProps(
+        placeholder: placeholder,
+        type: type,
+        value: value,
+        name: name,
+        id: id,
+        size: size,
+        disabled: disabled,
+        required: required,
+        readOnly: readOnly,
+        fullWidth: fullWidth,
+        label: label,
+        helperText: helperText,
+        error: error,
+        prefix: prefix,
+        suffix: suffix,
+        onChanged: _onChange,
+        onFocus: onFocus,
+        onBlur: onBlur,
+        onSubmit: onSubmit,
+        onChangeAction: onChangeAction,
+        onSubmitAction: onSubmitAction,
+        formId: formId,
+        fieldName: fieldName,
+        attributes: attributes,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
-}
-
-/// Resize direction for textarea.
-enum TextAreaResize {
-  none,
-  vertical,
-  horizontal,
-  both,
 }
 
 /// A textarea component.
@@ -124,6 +120,7 @@ class TextArea extends StatelessWidget {
   final int? cols;
   final bool disabled;
   final bool required;
+  final bool readOnly;
   final TextAreaResize resize;
   final String? minWidth;
   final String? maxWidth;
@@ -150,6 +147,7 @@ class TextArea extends StatelessWidget {
     this.cols,
     this.disabled = false,
     this.required = false,
+    this.readOnly = false,
     this.resize = TextAreaResize.vertical,
     this.minWidth,
     this.maxWidth,
@@ -171,113 +169,37 @@ class TextArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hasError = error != null;
-
-    final resizeValue = switch (resize) {
-      TextAreaResize.none => 'none',
-      TextAreaResize.vertical => 'vertical',
-      TextAreaResize.horizontal => 'horizontal',
-      TextAreaResize.both => 'both',
-    };
-
-    final Widget textareaElement = jaspr.Component.element(
-      tag: 'textarea',
+    final TextAreaProps props = TextAreaProps(
+      placeholder: placeholder,
+      rows: rows,
+      cols: cols,
+      disabled: disabled,
+      required: required,
+      readOnly: readOnly,
+      resize: resize,
+      minWidth: minWidth,
+      maxWidth: maxWidth,
+      minHeight: minHeight,
+      maxHeight: maxHeight,
+      value: value,
+      name: name,
       id: id,
-      classes: 'arcane-textarea',
-      attributes: {
-        'name': ?name,
-        'placeholder': ?placeholder,
-        'rows': rows.toString(),
-        if (cols != null) 'cols': cols.toString(),
-        if (disabled) 'disabled': 'true',
-        if (required) 'required': 'true',
-      },
-      styles: dom.Styles(raw: {
-        if (fullWidth) 'width': '100%',
-        'padding': '0.5rem 1rem',
-        'font-size': '1rem',
-        'font-family': 'inherit',
-        'line-height': '1.625',
-        'background-color': 'var(--background)',
-        'border': hasError ? '1px solid var(--destructive)' : '1px solid var(--input)',
-        'border-radius': '0.375rem',
-        'color': 'var(--foreground)',
-        'transition': 'color 150ms ease, border-color 150ms ease, box-shadow 150ms ease',
-        'outline': 'none',
-        'resize': resizeValue,
-        'min-width': ?minWidth,
-        'max-width': ?maxWidth,
-        'min-height': ?minHeight,
-        'max-height': ?maxHeight,
-        if (disabled) 'opacity': '0.5',
-        if (disabled) 'cursor': 'not-allowed',
-        ...?decoration?.universalStyles(),
-        ...?styles?.toMap(),
-      }),
-      events: {
-        if (_onChange != null)
-          'input': (e) {
-            _onChange(domInputValue(e.target));
-          },
-      },
-      children: value != null ? [jaspr.Component.text(value!)] : [],
+      label: label,
+      error: error,
+      helperText: helperText,
+      onChanged: _onChange,
+      fullWidth: fullWidth,
+      styles: styles,
+      decoration: decoration,
     );
 
-    if (label != null || error != null || helperText != null) {
-      return dom.div(
-        classes: 'arcane-textarea-wrapper',
-        styles: dom.Styles(raw: {
-          'display': 'flex',
-          'flex-direction': 'column',
-          'gap': '0.25rem',
-          if (fullWidth) 'width': '100%',
-        }),
-        [
-          if (label != null)
-            jaspr.Component.element(
-              tag: 'label',
-              attributes: id != null ? {'for': id!} : null,
-              styles: const dom.Styles(raw: {
-                'font-size': '1rem',
-                'font-weight': '500',
-                'color': 'var(--foreground)',
-              }),
-              children: [
-                jaspr.Component.text(label!),
-                if (required)
-                  const dom.span(
-                    styles: dom.Styles(raw: {
-                      'color': 'var(--destructive)',
-                      'margin-left': '0.25rem',
-                    }),
-                    [jaspr.Component.text('*')],
-                  ),
-              ],
-            ),
-          textareaElement,
-          if (error != null)
-            dom.span(
-              classes: 'arcane-textarea-error',
-              styles: const dom.Styles(raw: {
-                'font-size': '0.875rem',
-                'color': 'var(--destructive)',
-              }),
-              [jaspr.Component.text(error!)],
-            )
-          else if (helperText != null)
-            dom.span(
-              classes: 'arcane-textarea-helper',
-              styles: const dom.Styles(raw: {
-                'font-size': '0.875rem',
-                'color': 'var(--muted-foreground)',
-              }),
-              [jaspr.Component.text(helperText!)],
-            ),
-        ],
-      );
-    }
-
-    return textareaElement;
+    // TextArea historically worked without ArcaneThemeProvider. Keep that
+    // source/runtime contract while letting themed trees opt into their native
+    // renderer.
+    final Object? renderers = ArcaneThemeProvider.of(context)?.renderers;
+    return renderers is TextAreaRendererContract
+        ? renderers.textArea(props)
+        : DefaultTextAreaRenderer(props);
   }
 }
 
@@ -329,20 +251,20 @@ class ArcaneSelect extends StatelessWidget {
 
     final Map<String, String> sizeStyles = switch (size) {
       ComponentSize.sm => {
-          'height': '36px',
-          'padding': '0 12px',
-          'font-size': '14px',
-        },
+        'height': '36px',
+        'padding': '0 12px',
+        'font-size': '14px',
+      },
       ComponentSize.md => {
-          'height': '40px',
-          'padding': '8px 12px',
-          'font-size': '16px',
-        },
+        'height': '40px',
+        'padding': '8px 12px',
+        'font-size': '16px',
+      },
       ComponentSize.lg => {
-          'height': '44px',
-          'padding': '0 16px',
-          'font-size': '16px',
-        },
+        'height': '44px',
+        'padding': '0 16px',
+        'font-size': '16px',
+      },
     };
 
     final Widget selectElement = jaspr.Component.element(
@@ -354,27 +276,32 @@ class ArcaneSelect extends StatelessWidget {
         if (disabled) 'disabled': 'true',
         if (required) 'required': 'true',
       },
-      styles: dom.Styles(raw: {
-        ...sizeStyles,
-        'padding-right': '36px',
-        'font-family': 'inherit',
-        'background-color': 'var(--background)',
-        'border': hasError ? '1px solid var(--destructive)' : '1px solid var(--input)',
-        'border-radius': '0.375rem',
-        'color': 'var(--foreground)',
-        'transition': 'color 150ms ease, border-color 150ms ease, box-shadow 150ms ease',
-        'cursor': 'pointer',
-        'appearance': 'none',
-        'background-image':
-            'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 12 12\'%3E%3Cpath fill=\'%2371717A\' d=\'M2.5 4.5L6 8l3.5-3.5\'/%3E%3C/svg%3E")',
-        'background-repeat': 'no-repeat',
-        'background-position': 'right 12px center',
-        if (fullWidth) 'width': '100%',
-        if (disabled) 'opacity': '0.5',
-        if (disabled) 'cursor': 'not-allowed',
-        ...?decoration?.universalStyles(),
-        ...?styles?.toMap(),
-      }),
+      styles: dom.Styles(
+        raw: {
+          ...sizeStyles,
+          'padding-right': '36px',
+          'font-family': 'inherit',
+          'background-color': 'var(--background)',
+          'border': hasError
+              ? '1px solid var(--destructive)'
+              : '1px solid var(--input)',
+          'border-radius': '0.375rem',
+          'color': 'var(--foreground)',
+          'transition':
+              'color 150ms ease, border-color 150ms ease, box-shadow 150ms ease',
+          'cursor': 'pointer',
+          'appearance': 'none',
+          'background-image':
+              'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 12 12\'%3E%3Cpath fill=\'%2371717A\' d=\'M2.5 4.5L6 8l3.5-3.5\'/%3E%3C/svg%3E")',
+          'background-repeat': 'no-repeat',
+          'background-position': 'right 12px center',
+          if (fullWidth) 'width': '100%',
+          if (disabled) 'opacity': '0.5',
+          if (disabled) 'cursor': 'not-allowed',
+          ...?decoration?.universalStyles(),
+          ...?styles?.toMap(),
+        },
+      ),
       events: {
         if (_onChange != null)
           'change': (e) {
@@ -404,30 +331,36 @@ class ArcaneSelect extends StatelessWidget {
     if (label != null || error != null) {
       return dom.div(
         classes: 'arcane-select-wrapper',
-        styles: dom.Styles(raw: {
-          'display': 'flex',
-          'flex-direction': 'column',
-          'gap': '0.25rem',
-          if (fullWidth) 'width': '100%',
-        }),
+        styles: dom.Styles(
+          raw: {
+            'display': 'flex',
+            'flex-direction': 'column',
+            'gap': '0.25rem',
+            if (fullWidth) 'width': '100%',
+          },
+        ),
         [
           if (label != null)
             jaspr.Component.element(
               tag: 'label',
               attributes: id != null ? {'for': id!} : null,
-              styles: const dom.Styles(raw: {
-                'font-size': '1rem',
-                'font-weight': '500',
-                'color': 'var(--foreground)',
-              }),
+              styles: const dom.Styles(
+                raw: {
+                  'font-size': '1rem',
+                  'font-weight': '500',
+                  'color': 'var(--foreground)',
+                },
+              ),
               children: [
                 jaspr.Component.text(label!),
                 if (required)
                   const dom.span(
-                    styles: dom.Styles(raw: {
-                      'color': 'var(--destructive)',
-                      'margin-left': '0.25rem',
-                    }),
+                    styles: dom.Styles(
+                      raw: {
+                        'color': 'var(--destructive)',
+                        'margin-left': '0.25rem',
+                      },
+                    ),
                     [jaspr.Component.text('*')],
                   ),
               ],
@@ -436,10 +369,9 @@ class ArcaneSelect extends StatelessWidget {
           if (error != null)
             dom.span(
               classes: 'arcane-select-error',
-              styles: const dom.Styles(raw: {
-                'font-size': '0.875rem',
-                'color': 'var(--destructive)',
-              }),
+              styles: const dom.Styles(
+                raw: {'font-size': '0.875rem', 'color': 'var(--destructive)'},
+              ),
               [jaspr.Component.text(error!)],
             ),
         ],

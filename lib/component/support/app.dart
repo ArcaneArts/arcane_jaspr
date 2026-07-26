@@ -102,8 +102,8 @@ class _ArcaneAppState extends State<ArcaneApp> {
       styles: const dom.Styles(
         raw: {
           'min-height': '100vh',
-          'background-color': 'var(--background)',
-          'color': 'var(--foreground)',
+          'background-color': 'var(--arcane-app-background, var(--background))',
+          'color': 'var(--arcane-app-foreground, var(--foreground))',
           'font-family': 'var(--font-sans)',
           '-webkit-font-smoothing': 'antialiased',
           '-moz-osx-font-smoothing': 'grayscale',

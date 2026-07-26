@@ -91,11 +91,32 @@ html:has(#arcane-root.arcane-theme-shadcn) body::-webkit-scrollbar-thumb:hover,
 
 #arcane-root.arcane-theme-shadcn .arcane-scaffold-body {
   display: grid !important;
-  grid-template-columns: minmax(15rem, 17.5rem) minmax(0, 1fr) !important;
   align-items: start !important;
   gap: 0 !important;
   padding: 0 !important;
   overflow: visible !important;
+}
+
+#arcane-root.arcane-theme-shadcn
+  .arcane-scaffold-body:not([data-has-sidebar]):not([data-has-secondary]) {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+#arcane-root.arcane-theme-shadcn
+  .arcane-scaffold-body[data-has-sidebar]:not([data-has-secondary]) {
+  grid-template-columns: minmax(15rem, 17.5rem) minmax(0, 1fr) !important;
+}
+
+#arcane-root.arcane-theme-shadcn
+  .arcane-scaffold-body:not([data-has-sidebar])[data-has-secondary] {
+  grid-template-columns: minmax(0, 1fr) minmax(15rem, 18rem) !important;
+}
+
+#arcane-root.arcane-theme-shadcn
+  .arcane-scaffold-body[data-has-sidebar][data-has-secondary] {
+  grid-template-columns:
+    minmax(15rem, 17.5rem) minmax(0, 1fr)
+    minmax(15rem, 18rem) !important;
 }
 
 #arcane-root.arcane-theme-shadcn .arcane-scaffold-sidebar,
@@ -601,7 +622,14 @@ html:has(#arcane-root.arcane-theme-shadcn) body::-webkit-scrollbar-thumb:hover,
 }
 
 @media (max-width: 900px) {
-  #arcane-root.arcane-theme-shadcn .arcane-scaffold-body {
+  #arcane-root.arcane-theme-shadcn
+    .arcane-scaffold-body:not([data-has-sidebar]):not([data-has-secondary]),
+  #arcane-root.arcane-theme-shadcn
+    .arcane-scaffold-body[data-has-sidebar]:not([data-has-secondary]),
+  #arcane-root.arcane-theme-shadcn
+    .arcane-scaffold-body:not([data-has-sidebar])[data-has-secondary],
+  #arcane-root.arcane-theme-shadcn
+    .arcane-scaffold-body[data-has-sidebar][data-has-secondary] {
     grid-template-columns: minmax(0, 1fr) !important;
   }
 
@@ -668,7 +696,7 @@ html:has(#arcane-root.arcane-theme-shadcn) body::-webkit-scrollbar-thumb:hover,
   --popover: #ffffff;
   --popover-foreground: #09090b;
   --muted: #f4f4f5;
-  --muted-foreground: #71717a;
+  --muted-foreground: #696970;
   --accent: #f4f4f5;
   --accent-foreground: #18181b;
   --border: #e4e4e7;
@@ -698,6 +726,7 @@ $neutralOverrides
 
 .arcane-button,
 .arcane-text-input,
+.arcane-textarea,
 .arcane-select,
 .arcane-select-option,
 .arcane-dropdown-item,
@@ -747,6 +776,7 @@ $neutralOverrides
 
 .arcane-button:focus-visible,
 .arcane-text-input:focus-visible,
+.arcane-textarea:focus-visible,
 .arcane-select:focus-visible,
 .arcane-select-option:focus-visible,
 .arcane-dropdown-item:focus-visible,
@@ -774,6 +804,8 @@ $neutralOverrides
 .arcane-button.disabled,
 .arcane-text-input:disabled,
 .arcane-text-input[data-disabled='true'],
+.arcane-textarea:disabled,
+.arcane-textarea[data-disabled='true'],
 .arcane-select:disabled,
 .arcane-select[data-disabled='true'],
 .arcane-select.disabled,
@@ -832,6 +864,22 @@ $neutralOverrides
 .arcane-otp-digit.error,
 .arcane-calendar-day[data-state='selected'] {
   border-color: var(--ring);
+}
+
+.arcane-textarea::placeholder {
+  color: var(--muted-foreground);
+  opacity: 1;
+}
+
+.arcane-textarea[data-readonly='true'] {
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+  caret-color: var(--muted-foreground);
+  cursor: default;
+}
+
+.arcane-textarea[data-error='true'] {
+  border-color: var(--destructive);
 }
 
 /* ============================================

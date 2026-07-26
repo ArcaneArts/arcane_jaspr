@@ -61,6 +61,7 @@ import 'spec_row.dart';
 import 'static_table.dart';
 import 'status_badge.dart';
 import 'tabs.dart';
+import 'text_area.dart';
 import 'text_input.dart';
 import 'time_picker.dart';
 import 'toast.dart';
@@ -77,7 +78,7 @@ import 'promo/promo.dart';
 /// - 1.25x spacing compared to ShadCN
 /// - Larger border radius (14px default)
 /// - Premium dark, high-contrast aesthetic
-class Win95Renderers extends ComponentRenderers {
+class Win95Renderers extends ComponentRenderers with TextAreaRendererContract {
   const Win95Renderers();
 
   @override
@@ -85,6 +86,9 @@ class Win95Renderers extends ComponentRenderers {
 
   @override
   Component textInput(TextInputProps props) => Win95TextInput(props);
+
+  @override
+  Component textArea(TextAreaProps props) => Win95TextArea(props);
 
   @override
   Component card(CardProps props) => Win95Card(props);
@@ -224,7 +228,8 @@ class Win95Renderers extends ComponentRenderers {
   Component floating(FloatingProps props) => Win95Floating(props);
 
   @override
-  Component radioGroup<T>(RadioGroupProps<T> props) => Win95RadioGroup<T>(props);
+  Component radioGroup<T>(RadioGroupProps<T> props) =>
+      Win95RadioGroup<T>(props);
 
   @override
   Component select<T>(SelectProps<T> props) => Win95Select<T>(props);
@@ -334,7 +339,8 @@ class Win95Renderers extends ComponentRenderers {
   Component command(CommandProps props) => Win95Command(props);
 
   @override
-  Component confirmDialog(ConfirmDialogProps props) => Win95ConfirmDialog(props);
+  Component confirmDialog(ConfirmDialogProps props) =>
+      Win95ConfirmDialog(props);
 
   @override
   Component alertDialog(AlertDialogProps props) => Win95AlertDialog(props);
@@ -409,7 +415,8 @@ class Win95Renderers extends ComponentRenderers {
   Component staticTable(StaticTableProps props) => Win95StaticTable(props);
 
   @override
-  Component keyValueTable(KeyValueTableProps props) => Win95KeyValueTable(props);
+  Component keyValueTable(KeyValueTableProps props) =>
+      Win95KeyValueTable(props);
 
   @override
   Component timePicker(TimePickerProps props) => Win95TimePicker(props);

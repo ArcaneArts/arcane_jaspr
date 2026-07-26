@@ -1,6 +1,7 @@
 import 'package:arcane_jaspr/component/navigation/toc.dart'
     show arcaneTocTreeLinesCss;
-import 'package:arcane_jaspr/component/view/map/map_style.dart' show arcaneMapCss;
+import 'package:arcane_jaspr/component/view/map/map_style.dart'
+    show arcaneMapCss;
 import 'package:arcane_jaspr/util/content/prose_styles.dart'
     show arcaneAllDocsStyles;
 
@@ -374,10 +375,13 @@ class NeonCss {
   font-weight: 600;
 }
 #arcane-root.arcane-theme-neon .neon-text-input::placeholder,
+#arcane-root.arcane-theme-neon .neon-textarea::placeholder,
 #arcane-root.arcane-theme-neon .neon-command-input::placeholder {
   color: var(--muted-foreground);
+  opacity: 1;
 }
 #arcane-root.arcane-theme-neon .neon-text-input:focus,
+#arcane-root.arcane-theme-neon .neon-textarea:focus,
 #arcane-root.arcane-theme-neon .neon-select-trigger:focus,
 #arcane-root.arcane-theme-neon .neon-command-input:focus,
 #arcane-root.arcane-theme-neon .neon-select-search:focus,
@@ -386,26 +390,43 @@ class NeonCss {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.25);
 }
-#arcane-root.arcane-theme-neon .neon-text-input-wrapper {
+#arcane-root.arcane-theme-neon .neon-text-input-wrapper,
+#arcane-root.arcane-theme-neon .neon-textarea-wrapper {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
 }
 #arcane-root.arcane-theme-neon .neon-text-input-error,
+#arcane-root.arcane-theme-neon .neon-textarea-error,
 #arcane-root.arcane-theme-neon .neon-select-error,
 #arcane-root.arcane-theme-neon .neon-radio-group-error {
   color: var(--destructive);
   font-size: var(--font-size-xs);
 }
 #arcane-root.arcane-theme-neon .neon-text-input-helper,
+#arcane-root.arcane-theme-neon .neon-textarea-helper,
 #arcane-root.arcane-theme-neon .neon-select-helper,
 #arcane-root.arcane-theme-neon .neon-radio-group-helper {
   color: var(--muted-foreground);
   font-size: var(--font-size-xs);
 }
 #arcane-root.arcane-theme-neon .neon-select.error .neon-select-trigger,
-#arcane-root.arcane-theme-neon .neon-text-input[data-error="true"] {
+#arcane-root.arcane-theme-neon .neon-text-input[data-error="true"],
+#arcane-root.arcane-theme-neon .neon-textarea[data-error="true"] {
   border-color: var(--destructive);
+}
+
+#arcane-root.arcane-theme-neon .neon-textarea:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#arcane-root.arcane-theme-neon .neon-textarea[data-readonly="true"] {
+  background: var(--muted);
+  color: var(--muted-foreground);
+  caret-color: var(--muted-foreground);
+  cursor: default;
 }
 
 /* ---------- Checkbox / radio / toggle ---------- */

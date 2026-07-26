@@ -9,8 +9,8 @@ import 'package:arcane_jaspr/core/props/card_props.dart';
 ///
 /// Factors the identical build logic shared by every theme's card renderer
 /// (content resolution, the style merge, the `data-variant` attribute, and the
-/// clickable-button-vs-div branch with its button reset styles) into one place.
-/// A concrete theme renderer only supplies the root CSS class and the
+/// native anchor/button/div branch with its element reset styles) into one
+/// place. A concrete theme renderer only supplies the root CSS class and the
 /// base/variant style maps.
 ///
 /// This base lives in core and depends only on core props; it must never
@@ -20,8 +20,8 @@ abstract class CardRenderBase extends StatelessComponent {
 
   final CardProps props;
 
-  /// CSS class applied to the root element (e.g. `'arcane-card'`). When the
-  /// card is tappable, `' clickable'` is appended to this class.
+  /// CSS class applied to the root element (e.g. `'arcane-card'`). Interactive
+  /// cards also receive `clickable`, followed by [CardProps.classes].
   String get cssClass;
 
   /// Base layout styles (radius, padding, sizing). Receives [props] because
@@ -39,14 +39,10 @@ abstract class CardRenderBase extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final List<Component> content =
-        props.children ?? <Component>[props.child!];
+    final List<Component> content = props.children ?? <Component>[props.child!];
 
     final Map<String, String> allStyles = layerStyles(
-      <String, String>{
-        ...baseStyles(props),
-        ...variantStyles(props),
-      },
+      <String, String>{...baseStyles(props), ...variantStyles(props)},
       <Map<String, String>?>[
         props.decoration?.universalStyles(),
         decorationStyles(props.decoration),
@@ -54,17 +50,45 @@ abstract class CardRenderBase extends StatelessComponent {
       ],
     );
 
+    final bool isInteractive = props.href != null || props.onTap != null;
+    final String customClasses = props.classes?.trim() ?? '';
+    final String rootClasses = <String>[
+      cssClass,
+      if (isInteractive) 'clickable',
+      customClasses,
+    ].where((String name) => name.isNotEmpty).join(' ');
+    final Map<String, String> rootAttributes = _rootAttributes();
+
+    // href wins deterministically in release builds if a CardProps instance
+    // somehow bypasses its mutual-exclusion assertion.
+    if (props.href != null) {
+      final String? effectiveRel = _effectiveRel;
+      return dom.a(
+        classes: rootClasses,
+        href: props.href!,
+        attributes: <String, String>{
+          ...rootAttributes,
+          'target': ?props.target,
+          'rel': ?effectiveRel,
+        },
+        styles: dom.Styles(
+          raw: <String, String>{
+            // Match the block-level static card and remove only anchor UA
+            // chrome. Theme/decoration/literal styles remain later in the map.
+            'display': 'block',
+            'text-decoration': 'none',
+            ...allStyles,
+          },
+        ),
+        content,
+      );
+    }
+
     if (props.onTap != null) {
       return dom.button(
         type: dom.ButtonType.button,
-        classes: '$cssClass clickable',
-        attributes: <String, String>{
-        'data-variant': props.variant.name,
-        // Decorated cards opt out of themes' !important surface resets (e.g.
-        // neubrutalism) so their inline decoration/styles actually render.
-        if (props.decoration != null || props.styles != null)
-          'data-arcane-decorated': '',
-      },
+        classes: rootClasses,
+        attributes: rootAttributes,
         styles: dom.Styles(
           raw: <String, String>{
             // Button resets are defaults that theme/decoration/styles must be
@@ -81,16 +105,50 @@ abstract class CardRenderBase extends StatelessComponent {
     }
 
     return dom.div(
-      classes: cssClass,
-      attributes: <String, String>{
-        'data-variant': props.variant.name,
-        // Decorated cards opt out of themes' !important surface resets (e.g.
-        // neubrutalism) so their inline decoration/styles actually render.
-        if (props.decoration != null || props.styles != null)
-          'data-arcane-decorated': '',
-      },
+      classes: rootClasses,
+      attributes: rootAttributes,
       styles: dom.Styles(raw: allStyles),
       content,
     );
+  }
+
+  Map<String, String> _rootAttributes() {
+    final Map<String, String> attributes = <String, String>{
+      ...?props.attributes,
+    };
+    // These have dedicated Card API fields or are owned by its style/class
+    // layering and therefore cannot be overridden through the escape hatch.
+    attributes
+      ..remove('class')
+      ..remove('href')
+      ..remove('target')
+      ..remove('rel')
+      ..remove('type')
+      ..remove('style');
+
+    return <String, String>{
+      ...attributes,
+      'data-variant': props.variant.name,
+      if (props.decoration != null || props.styles != null)
+        'data-arcane-decorated': '',
+      if (props.ariaLabel != null) 'aria-label': props.ariaLabel!,
+    };
+  }
+
+  String? get _effectiveRel {
+    final List<String> tokens = (props.rel ?? '')
+        .split(RegExp(r'\s+'))
+        .where((String token) => token.isNotEmpty)
+        .toList();
+
+    if (props.target?.toLowerCase() == '_blank') {
+      for (final String safeToken in const <String>['noopener', 'noreferrer']) {
+        if (!tokens.any((String token) => token.toLowerCase() == safeToken)) {
+          tokens.add(safeToken);
+        }
+      }
+    }
+
+    return tokens.isEmpty ? null : tokens.join(' ');
   }
 }

@@ -17,6 +17,7 @@ class ShadcnFieldWrapper extends FieldWrapperRenderBase {
     'flex-direction': 'column',
     'gap': 'var(--space-1)',
     'width': '100%',
+    'min-width': '0',
   };
 
   @override
@@ -54,9 +55,7 @@ class ShadcnFieldWrapper extends FieldWrapperRenderBase {
               raw: {
                 'font-size': 'var(--font-size-sm)',
                 'font-weight': 'var(--font-weight-medium)',
-                'color': hasError
-                    ? 'var(--destructive)'
-                    : 'var(--foreground)',
+                'color': hasError ? 'var(--destructive)' : 'var(--foreground)',
               },
             ),
             [
@@ -100,7 +99,9 @@ class ShadcnFieldWrapper extends FieldWrapperRenderBase {
   Component buildFieldContent(FieldWrapperProps props) {
     return dom.div(
       classes: 'arcane-field-content',
-      styles: const dom.Styles(raw: {'width': '100%'}),
+      styles: const dom.Styles(
+        raw: <String, String>{'width': '100%', 'min-width': '0'},
+      ),
       [props.field],
     );
   }

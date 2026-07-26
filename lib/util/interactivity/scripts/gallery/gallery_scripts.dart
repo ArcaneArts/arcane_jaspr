@@ -781,6 +781,17 @@ class GalleryScripts {
       } else if (mutation.type === 'attributes') {
         const container = containerFor(mutation.target);
         if (container) {
+          // Drag offsets are CSS custom properties on gallery items. Repacking
+          // the complete masonry grid on every pointermove causes avoidable
+          // layout work and visible jank. The drag runtime explicitly requests
+          // one final pack when the gesture finishes.
+          if (
+            mutation.attributeName === 'style' &&
+            container.classList.contains('is-arcane-gallery-drag-active') &&
+            mutation.target.matches?.('[data-arcane-draggable-item="true"]')
+          ) {
+            continue;
+          }
           schedule(container);
         }
       }

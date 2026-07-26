@@ -83,21 +83,18 @@ abstract class FloatingRenderBase extends StatelessComponent {
   /// Builds a CSS-only tooltip for simple text hints.
   Component _buildCssTooltip() {
     return dom.div(
-      classes: triggerClass,
+      classes: '$triggerClass arcane-css-tooltip-trigger',
       attributes: <String, String>{
         'data-tooltip': props.textContent ?? '',
         'data-tooltip-position': props.position.name,
       },
       styles: const dom.Styles(
-        raw: <String, String>{
-          'position': 'relative',
-          'display': 'inline-flex',
-        },
+        raw: <String, String>{'position': 'relative', 'display': 'inline-flex'},
       ),
       <Component>[
         props.trigger,
         dom.div(
-          classes: cssTooltipClasses,
+          classes: '$cssTooltipClasses arcane-css-tooltip-content',
           attributes: const <String, String>{'role': 'tooltip'},
           styles: dom.Styles(
             raw: <String, String>{
@@ -174,8 +171,11 @@ abstract class FloatingRenderBase extends StatelessComponent {
     required String surfaceKind,
     required bool initiallyOpen,
   }) {
-    final (String positionProp, String positionValue, Map<String, String> alignment) =
-        _getPositionStylesForPanel();
+    final (
+      String positionProp,
+      String positionValue,
+      Map<String, String> alignment,
+    ) = _getPositionStylesForPanel();
     final bool hasRichContent = props.content != null;
     final double? maxWidth = props.maxWidth;
 

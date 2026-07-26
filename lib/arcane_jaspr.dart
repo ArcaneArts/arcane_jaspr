@@ -42,6 +42,7 @@ export 'component/layout/scroll_rail.dart';
 export 'component/layout/aspect_ratio.dart';
 export 'component/layout/resizable.dart';
 export 'component/layout/scaffold.dart';
+export 'component/layout/page.dart';
 
 export 'component/input/button.dart';
 export 'component/input/fab.dart';
@@ -143,6 +144,7 @@ export 'component/collection/section.dart';
 
 export 'component/screen/abstract_screen.dart';
 export 'component/screen/fill_screen.dart';
+export 'component/screen/not_found.dart';
 export 'component/screen/sliver_screen.dart';
 
 export 'component/promo/promo.dart';

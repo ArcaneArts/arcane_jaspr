@@ -36,6 +36,7 @@ import 'separator.dart';
 import 'sidebar.dart';
 import 'slider.dart';
 import 'tabs.dart';
+import 'text_area.dart';
 import 'text_input.dart';
 import 'toast.dart';
 import 'toggle_group.dart';
@@ -70,7 +71,7 @@ import 'promo/promo.dart';
 ///
 /// Implements all components according to the ShadCN/ui design language.
 /// Reference: https://ui.shadcn.com
-class ShadcnRenderers extends ComponentRenderers {
+class ShadcnRenderers extends ComponentRenderers with TextAreaRendererContract {
   const ShadcnRenderers();
 
   @override
@@ -87,6 +88,9 @@ class ShadcnRenderers extends ComponentRenderers {
 
   @override
   Component textInput(TextInputProps props) => ShadcnTextInput(props);
+
+  @override
+  Component textArea(TextAreaProps props) => ShadcnTextArea(props);
 
   @override
   Component radioGroup<T>(RadioGroupProps<T> props) =>

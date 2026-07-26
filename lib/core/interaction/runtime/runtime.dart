@@ -124,6 +124,42 @@ const String _runtimeBaseCss = r'''
 [data-arcane-calendar] .arcane-calendar-day-in-range:not(.arcane-calendar-day-range-start):not(.arcane-calendar-day-range-end) {
   background: var(--accent, rgba(127,127,127,0.2));
 }
+[data-arcane-gallery-draggable="true"] [data-arcane-draggable-item="true"] {
+  position: relative;
+  translate:
+    var(--arcane-drag-x, 0px)
+    var(--arcane-drag-y, 0px);
+}
+[data-arcane-gallery-draggable="true"] [data-arcane-drag-handle="true"] {
+  cursor: grab;
+  user-select: none;
+}
+[data-arcane-gallery-draggable="true"] .is-arcane-gallery-dragging,
+[data-arcane-gallery-draggable="true"] .is-arcane-gallery-dragging [data-arcane-drag-handle="true"] {
+  cursor: grabbing;
+}
+[data-arcane-gallery-draggable="true"] .is-arcane-gallery-dragging {
+  will-change: translate;
+}
+[data-arcane-gallery-draggable="true"].is-arcane-gallery-drag-active {
+  user-select: none;
+}
+.arcane-gallery-drag-announcer {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+@media (pointer: coarse) {
+  [data-arcane-gallery-draggable="true"] [data-arcane-drag-handle="true"] {
+    cursor: default;
+  }
+}
 ''';
 
 String buildArcaneInteractivityRuntime({bool minify = false}) {
