@@ -40,6 +40,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   includes the first wholly empty row. Its defensive fallback also appends
   below occupied cells instead of forcing a multi-cell tile into the first
   undersized gap.
+- **Owner-sized `ArcaneGallery` packing no longer strands interior cells.**
+  Each source-ordered tile anchors at the earliest unfilled cell while retaining
+  its independent ratio-scored row and column spans. Normal masonry gutters and
+  a ragged terminal edge remain unchanged; later tiles cannot skip an interior
+  cell, overlap earlier art, or fall below the configured minimum.
 - **Shadcn: the dropdown *panel* no longer claims the open-trigger accent fill.** `.arcane-dropdown-menu[data-state='open']` sat in the shared "open/active trigger" selector list that paints `background-color: var(--accent); color: var(--accent-foreground)`, so the popover surface was told to drop off the `--popover`/`--popover-foreground` pair every other floating surface uses. It was masked in practice by the renderer's inline `background-color: var(--popover)`, but any consumer that overrode the panel's inline styles (`styles:`/`decoration:`) inherited an accent-tinted panel instead of a popover one. Only the trigger selectors remain in the list.
 
 - **`ArcaneGallery` tile caption is now theme-opt-in.** The render base only emits the title/meta header block when the theme opts in via `showsTileHeader` (win95 renders it as the window title bar). The card-style themes (shadcn/neubrutalism/neon) previously rendered the caption after the media, where a rounded tile clipped its bottom corners into a stray "caption strip"; they now render clean media-only tiles and expose the title to assistive tech via the tile's `aria-label`.

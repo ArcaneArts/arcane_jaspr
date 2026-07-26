@@ -530,18 +530,26 @@ class GalleryScripts {
 
   function galleryPack(items, options = {}) {
     const layout = layoutOptions(options, options.columns);
+    const usesOwnerSizing =
+      layout.minimumTileArea !== null ||
+      layout.targetTileArea !== null;
     const columns = layout.columns;
     const occupied = [];
     const placements = [];
-
     for (const item of items) {
-      const placement = bestPlacementForItem(
-        occupied,
-        galleryCandidateSpans(item, { ...options, columns }),
-        layout,
+      const candidates = galleryCandidateSpans(
+        item,
+        { ...options, columns },
       );
+      const placement = usesOwnerSizing
+        ? bestFrontierPlacementForItem(occupied, candidates, layout)
+        : bestPlacementForItem(occupied, candidates, layout);
       occupy(occupied, placement, columns);
       placements.push(placement);
+    }
+
+    if (usesOwnerSizing) {
+      return placements;
     }
 
     return squareOffBottom(
@@ -549,6 +557,49 @@ class GalleryScripts {
       items,
       layout,
     );
+  }
+
+  function bestFrontierPlacementForItem(occupied, candidates, layout) {
+    const firstCell = firstEmptyCell(occupied, layout.columns);
+
+    for (const candidate of candidates) {
+      const area = candidate.columnSpan * candidate.rowSpan;
+      if (
+        layout.minimumTileArea !== null &&
+        area < layout.minimumTileArea
+      ) {
+        continue;
+      }
+      if (firstCell.column + candidate.columnSpan > layout.columns) {
+        continue;
+      }
+      if (
+        !isFree(
+          occupied,
+          firstCell.row,
+          firstCell.column,
+          candidate.columnSpan,
+          candidate.rowSpan,
+          layout.columns,
+        )
+      ) {
+        continue;
+      }
+
+      return {
+        row: firstCell.row,
+        column: firstCell.column,
+        columnSpan: candidate.columnSpan,
+        rowSpan: candidate.rowSpan,
+      };
+    }
+
+    return {
+      row: firstCell.row,
+      column: firstCell.column,
+      columnSpan: 1,
+      rowSpan: Math.max(1, Math.ceil(layout.minimumTileArea ?? 1)),
+    };
   }
 
   function bestPlacementForItem(occupied, candidates, layout) {
