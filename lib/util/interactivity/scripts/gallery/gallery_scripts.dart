@@ -519,6 +519,15 @@ class GalleryScripts {
     return { row: occupied.length, column: 0 };
   }
 
+  function lastOccupiedRow(occupied) {
+    for (let row = occupied.length - 1; row >= 0; row--) {
+      if (occupied[row].some(Boolean)) {
+        return row;
+      }
+    }
+    return -1;
+  }
+
   function galleryPack(items, options = {}) {
     const layout = layoutOptions(options, options.columns);
     const columns = layout.columns;
@@ -544,7 +553,10 @@ class GalleryScripts {
 
   function bestPlacementForItem(occupied, candidates, layout) {
     const firstCell = firstEmptyCell(occupied, layout.columns);
-    const maxSearchRow = firstCell.row + layout.maxRowSpan + layout.columns + 4;
+    const maxSearchRow = Math.max(
+      firstCell.row + layout.maxRowSpan + layout.columns + 4,
+      lastOccupiedRow(occupied) + 1,
+    );
     let best = null;
 
     for (const candidate of candidates) {
@@ -597,9 +609,12 @@ class GalleryScripts {
 
     const fallback = candidates[0] ?? { columnSpan: 1, rowSpan: 1 };
     return {
-      row: firstCell.row,
-      column: firstCell.column,
-      columnSpan: Math.min(fallback.columnSpan, layout.columns - firstCell.column),
+      // The scored search always includes the first wholly empty row, so this
+      // branch is only defensive. Keep it below every occupied cell instead of
+      // forcing a multi-cell tile into a fragmented first gap.
+      row: lastOccupiedRow(occupied) + 1,
+      column: 0,
+      columnSpan: Math.min(fallback.columnSpan, layout.columns),
       rowSpan: fallback.rowSpan,
     };
   }

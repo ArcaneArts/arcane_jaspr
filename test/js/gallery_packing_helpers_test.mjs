@@ -48,6 +48,33 @@ function placements(candidates) {
   }));
 }
 
+function assertNoPlacementOverlaps(packed) {
+  for (let firstIndex = 0; firstIndex < packed.length; firstIndex++) {
+    const first = packed[firstIndex];
+    for (
+      let secondIndex = firstIndex + 1;
+      secondIndex < packed.length;
+      secondIndex++
+    ) {
+      const second = packed[secondIndex];
+      const overlapWidth =
+        Math.min(
+          first.column + first.columnSpan,
+          second.column + second.columnSpan,
+        ) - Math.max(first.column, second.column);
+      const overlapHeight =
+        Math.min(first.row + first.rowSpan, second.row + second.rowSpan) -
+        Math.max(first.row, second.row);
+
+      assert.equal(
+        overlapWidth > 0 && overlapHeight > 0,
+        false,
+        `placements ${firstIndex} and ${secondIndex} must not overlap`,
+      );
+    }
+  }
+}
+
 test('area controls remain optional and preserve legacy candidate order', () => {
   const legacy = gallery.candidateSpans({ aspectRatio: 1 }, layout);
   const omitted = gallery.candidateSpans(
@@ -116,6 +143,22 @@ test('packing preserves the minimum area across mixed aspect ratios', () => {
     ),
     true,
   );
+});
+
+test('packing never overlaps tiles when an early gap cannot fit a candidate', () => {
+  const packed = gallery.pack(
+    [0.25, 1.25, 1, 1.5, 4, 1.5].map((aspectRatio) => ({ aspectRatio })),
+    {
+      columns: 2,
+      columnWidth: 240,
+      rowHeight: 75,
+      gap: 10,
+      minimumTileArea: 4,
+      targetTileArea: 6,
+    },
+  );
+
+  assertNoPlacementOverlaps(packed);
 });
 
 test('an impossible minimum degrades to the largest attainable span', () => {
