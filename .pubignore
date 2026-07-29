@@ -5,3 +5,5 @@ component-audit.csv
 CONSOLIDATION_PLAN.md
 docs/
 tool/shadcn_codegen/
+tool/bundle_win95_loaders.dart
+assets/loaders/

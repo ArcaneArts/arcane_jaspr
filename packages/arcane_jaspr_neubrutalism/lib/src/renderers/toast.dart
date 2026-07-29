@@ -1,5 +1,4 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/props/toast_props.dart';
 import 'package:arcane_jaspr/core/rendering/base/toast_render_base.dart';
@@ -83,24 +82,6 @@ class NeubrutalismToast extends ToastRenderBase {
     'transition':
         'background-color var(--nb-transition, 120ms ease), border-color var(--nb-transition, 120ms ease)',
   };
-
-  @override
-  Component buildLoadingSpinner() => const dom.span(
-    classes: 'neubrutalism-toast-spinner neubrutalism-loading-spinner',
-    styles: dom.Styles(
-      raw: <String, String>{
-        'display': 'inline-block',
-        'width': '20px',
-        'height': '20px',
-        'border': 'var(--nb-border-base, 3px) solid var(--nb-line, #000)',
-        'border-right-color': 'var(--nb-accent, var(--primary))',
-        'border-radius': '9999px',
-        'animation': 'arcane-spin 0.75s linear infinite',
-        'box-sizing': 'border-box',
-      },
-    ),
-    <Component>[],
-  );
 }
 
 /// Neubrutalism Toast Container renderer.

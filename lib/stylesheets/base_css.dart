@@ -162,6 +162,19 @@ html.light body::-webkit-scrollbar-corner {
   }
 }
 
+.arcane-loader {
+  display: inline-block;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: var(--arcane-loader-size, 24px);
+  height: var(--arcane-loader-size, 24px);
+  border: 2px solid var(--arcane-loader-color, currentColor);
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: arcane-spin 0.75s linear infinite;
+  vertical-align: middle;
+}
+
 @keyframes arcane-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

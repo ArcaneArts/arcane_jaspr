@@ -35,6 +35,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Confirm and alert dialogs are visible when rendered.** Their shared
+  renderer now opens the underlying dialog surface instead of emitting it with
+  the default closed state and `hidden` attribute.
 - **`ArcaneGallery` packed tiles can no longer overlap around fragmented
   gaps.** Placement now searches through the complete occupied board and always
   includes the first wholly empty row. Its defensive fallback also appends
@@ -70,6 +73,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Loaders now have one theme-renderer source of truth.** Standalone spinners,
+  loading buttons, authentication guards, loading toasts (including the
+  JavaScript fallback), and Shadcn loading selects all resolve through
+  `ComponentRenderers.loadingSpinner`, so a theme's loader updates every
+  loading surface.
 - **Preset `style` field renamed to `variant` (breaking, no back-compat).** The 8 components that exposed a preset-enum selector as `style:` (`ArcaneAlert`, `ArcaneKbd`, `ArcaneEmptyState`, `ArcanePagination`, `InlineHeroBanner`, `CodeBlock`, `MutableText`, `ArcaneDropdownItem`) now expose it as `variant:` — matching `Card`/`PricingCard` which already used `variant`, and eliminating the one-letter collision with the permeable `styles:` escape hatch (a typo between `style:` and `styles:` previously compiled and did the opposite thing). Enum *type* names (`AlertStyle`, `KbdStyle`, …) are unchanged; only the field/param. Rendered output is byte-identical (identifier-only change).
 - **`StatCard.icon` is now `Widget?` (was `String?`, breaking).** It matches `FeatureCard`/`CtaCard`/`PricingCard` — icons are Widgets, as in Flutter. The shared `StatCardRenderBase` now places the widget directly in the icon badge instead of emitting the string as text.
 - **Dropped the `onClick` alias on the `Card` family (breaking).** All nine `Card`/`ArcaneStructuredCard`/`ArcaneImageCard` constructors kept both `onTap` and `onClick` (`_onTap = onTap ?? onClick`); `onClick` is removed, leaving `onTap` (Flutter parity, no-alias rule). No call sites passed `onClick` to a card.

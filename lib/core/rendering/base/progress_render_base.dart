@@ -223,10 +223,16 @@ abstract class LoadingSpinnerRenderBase extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return dom.span(
-      classes: rootClass,
+      classes: 'arcane-loader $rootClass',
+      attributes: const <String, String>{
+        'role': 'status',
+        'aria-label': 'Loading',
+      },
       styles: dom.Styles(
         raw: layerStyles(
           <String, String>{
+            '--arcane-loader-size': props.size ?? '24px',
+            '--arcane-loader-color': props.color ?? 'currentColor',
             ...spinnerStyles(props),
           },
           <Map<String, String>?>[

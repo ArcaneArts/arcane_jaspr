@@ -1,5 +1,4 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/props/toast_props.dart';
 import 'package:arcane_jaspr/core/rendering/base/toast_render_base.dart';
@@ -29,10 +28,6 @@ class NeonToast extends ToastRenderBase {
 
   @override
   Map<String, String> get dismissStyles => const <String, String>{};
-
-  @override
-  Component buildLoadingSpinner() =>
-      const dom.span(classes: 'neon-toast-spinner', <Component>[]);
 }
 
 /// Neon Toast Container renderer (neutralized skeleton).

@@ -6,6 +6,8 @@ import 'package:arcane_jaspr/theme/palette_generator.dart';
 import 'package:arcane_jaspr/util/content/prose_styles.dart'
     show arcaneAllDocsStyles;
 
+import 'win95_loader_assets.dart';
+import 'win95_loader_palette.dart';
 import 'win95_theme.dart';
 
 /// Component CSS for the Windows 95 theme.
@@ -35,7 +37,10 @@ class Win95Css {
         '${b.toRadixString(16).padLeft(2, '0')}';
   }
 
-  static String componentCss(Win95Theme theme) {
+  static String componentCss(
+    Win95Theme theme,
+    Win95LoaderPalette loaderPalette,
+  ) {
     final String desktop = _hex(theme.desktop);
     final String desktopForeground = PaletteGenerator.toHex(
       PaletteGenerator.contrastingForeground(theme.desktop),
@@ -43,6 +48,11 @@ class Win95Css {
     final String titleA = _hex(theme.titleStart);
     final String titleB = _hex(theme.titleEnd);
     final String selection = _hex(theme.accent);
+    final String loaderDataUri = switch (loaderPalette) {
+      Win95LoaderPalette.win98 => win95LoaderWin98DataUri,
+      Win95LoaderPalette.amber => win95LoaderAmberDataUri,
+      Win95LoaderPalette.gameboy => win95LoaderGameboyDataUri,
+    };
 
     return '''
 /* ============================================================
@@ -102,6 +112,7 @@ class Win95Css {
   --w95-title-inactive-b: #b5b5b5;
   --w95-selection: var(--w95-selection-in, $selection);
   --w95-selection-text: var(--w95-selection-text-in, #ffffff);
+  --w95-loader-image: url("$loaderDataUri");
   /* Shared navy->cyan caption gradient (one source for every title bar). */
   --w95-title-bar:
     linear-gradient(90deg, var(--w95-title-a), var(--w95-title-b));
@@ -997,11 +1008,6 @@ class Win95Css {
     transparent 12px
   );
 }
-#arcane-root.arcane-theme-win95 .win95-loading-spinner,
-#arcane-root.arcane-theme-win95 .win95-toast-spinner {
-  color: var(--w95-selection);
-}
-
 /* ---------- Misc components ---------- */
 
 #arcane-root.arcane-theme-win95 .win95-avatar {
@@ -3615,32 +3621,24 @@ class Win95Css {
   color: var(--w95-field-text) !important;
 }
 
-/* ---------- Spinners -> small sunken well with a spinning navy block ---------- */
-#arcane-root.arcane-theme-win95 .win95-loading-spinner,
-#arcane-root.arcane-theme-win95 .win95-spinner {
+/* ---------- Loaders -> palette-selected animated Windows hourglass ---------- */
+#arcane-root.arcane-theme-win95 .arcane-loader {
   display: inline-block !important;
   box-sizing: border-box !important;
-  width: 1.25rem !important;
-  height: 1.25rem !important;
-  position: relative !important;
+  flex-shrink: 0 !important;
+  width: var(--arcane-loader-size, 26px) !important;
+  height: var(--arcane-loader-size, 26px) !important;
   vertical-align: middle !important;
-  overflow: hidden !important;
-  background: var(--w95-field) !important;
-  color: var(--w95-selection) !important;
-  box-shadow: var(--w95-sunken-thin) !important;
-}
-#arcane-root.arcane-theme-win95 .win95-loading-spinner::after,
-#arcane-root.arcane-theme-win95 .win95-spinner::after {
-  content: "" !important;
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  width: 0.55rem !important;
-  height: 0.55rem !important;
-  margin: -0.275rem 0 0 -0.275rem !important;
-  background: var(--w95-selection) !important;
-  box-shadow: var(--w95-raised-thin) !important;
-  animation: win95-media-spin 0.9s steps(8, end) infinite !important;
+  background-color: transparent !important;
+  background-image: var(--w95-loader-image) !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  animation: none !important;
+  image-rendering: pixelated;
 }
 
 /* ---------- Images -> sunken Win95 frame; broken images sit in a well ---------- */
@@ -3659,10 +3657,6 @@ class Win95Css {
 #arcane-root.arcane-theme-win95 svg {
   vertical-align: middle !important;
   flex-shrink: 0 !important;
-}
-
-@keyframes win95-media-spin {
-  to { transform: rotate(360deg); }
 }
 
 /* ================= accordion ================= */
@@ -5183,15 +5177,6 @@ class Win95Css {
 #arcane-root.arcane-theme-win95 .win95-toast-dismiss:focus-visible {
   outline: 1px dotted var(--w95-face-text) !important;
   outline-offset: -4px !important;
-}
-
-#arcane-root.arcane-theme-win95 .win95-toast-spinner {
-  display: inline-block !important;
-  width: 14px !important;
-  height: 14px !important;
-  background: var(--w95-field) !important;
-  box-shadow: var(--w95-sunken-thin) !important;
-  border-radius: 0 !important;
 }
 
 #arcane-root.arcane-theme-win95 .win95-toast-container {

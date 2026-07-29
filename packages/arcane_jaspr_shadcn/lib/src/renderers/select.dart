@@ -4,7 +4,7 @@ import 'package:jaspr/dom.dart' as dom;
 import 'package:arcane_jaspr/component/view/icon.dart';
 import 'package:arcane_jaspr/core/interaction/interaction.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
-import 'package:arcane_jaspr/core/props/select_props.dart';
+import 'package:arcane_jaspr/core/theme_provider.dart';
 
 /// ShadCN-style select component
 /// Reference: https://ui.shadcn.com/docs/components/select
@@ -223,19 +223,11 @@ class ShadcnSelect<T> extends StatelessComponent {
 
             // Loading spinner
             if (props.loading)
-              const dom.span(
-                styles: dom.Styles(
-                  raw: <String, String>{
-                    'display': 'inline-block',
-                    'width': '16px',
-                    'height': '16px',
-                    'border': '2px solid var(--border)',
-                    'border-top-color': 'var(--primary)',
-                    'border-radius': '50%',
-                    'animation': 'spin 0.8s linear infinite',
-                  },
+              context.renderers.loadingSpinner(
+                const LoadingSpinnerProps(
+                  size: '16px',
+                  color: 'var(--primary)',
                 ),
-                <Component>[],
               ),
 
             // Clear button

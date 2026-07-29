@@ -5,7 +5,7 @@ import 'package:arcane_jaspr/component/view/icon.dart';
 import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
-import 'package:arcane_jaspr/core/props/button_props.dart';
+import 'package:arcane_jaspr/core/theme_provider.dart';
 
 /// Shared structural base for themed button renderers.
 ///
@@ -65,7 +65,11 @@ abstract class ButtonRenderBase extends StatelessComponent {
     final List<Component> children = <Component>[];
 
     if (props.loading) {
-      children.add(_spinner);
+      children.add(
+        context.renderers.loadingSpinner(
+          const LoadingSpinnerProps(size: '1rem', color: 'currentColor'),
+        ),
+      );
     } else if (props.icon != null) {
       children.add(props.icon!);
     }
@@ -151,19 +155,3 @@ abstract class ButtonRenderBase extends StatelessComponent {
     );
   }
 }
-
-/// Loading spinner shared by every theme button (identical markup).
-const Component _spinner = dom.span(
-  styles: dom.Styles(
-    raw: <String, String>{
-      'display': 'inline-block',
-      'width': '1rem',
-      'height': '1rem',
-      'border': '2px solid currentColor',
-      'border-right-color': 'transparent',
-      'border-radius': '50%',
-      'animation': 'arcane-spin 0.75s linear infinite',
-    },
-  ),
-  <Component>[],
-);

@@ -612,8 +612,7 @@ class NeonCss {
   border-radius: var(--radius-full);
   box-shadow: 0 0 12px rgba(var(--primary-rgb), 0.5);
 }
-#arcane-root.arcane-theme-neon .neon-loading-spinner,
-#arcane-root.arcane-theme-neon .neon-toast-spinner {
+#arcane-root.arcane-theme-neon .neon-loading-spinner {
   color: var(--primary);
 }
 

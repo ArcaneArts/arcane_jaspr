@@ -228,5 +228,6 @@ package-lock.json
 yarn.lock
 pnpm-lock.yaml
 .playwright-mcp/
+.qa/
 
 CONSOLIDATION_PLAN.md

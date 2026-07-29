@@ -3,7 +3,7 @@ import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
-import 'package:arcane_jaspr/core/props/toast_props.dart';
+import 'package:arcane_jaspr/core/theme_provider.dart';
 
 /// Shared structural base for the neon/neubrutalism toast renderers.
 ///
@@ -12,7 +12,8 @@ import 'package:arcane_jaspr/core/props/toast_props.dart';
 /// title/message/description content block, the action button and the dismiss
 /// button, plus the glyph fallback icon. They diverge only in the class prefix,
 /// the loading accent, the root attributes, the per-theme root/action/dismiss
-/// style maps and the loading spinner, which are exposed as abstract members.
+/// style maps. The loading state is routed through the active theme's canonical
+/// loader renderer.
 ///
 /// The ShadCN toast is structurally divergent (icon components, a progress bar,
 /// `role`/`aria-live` attributes and a close-button gated on `onDismiss`) and is
@@ -47,9 +48,6 @@ abstract class ToastRenderBase extends StatelessComponent {
 
   /// Inline styles for the dismiss button.
   Map<String, String> get dismissStyles;
-
-  /// Builds the loading spinner (loading variant only).
-  Component buildLoadingSpinner();
 
   /// Per-instance decoration overrides. Default: none. Themes translate an
   /// ArcaneDecoration into their own CSS; unimplemented fields are ignored.
@@ -104,7 +102,7 @@ abstract class ToastRenderBase extends StatelessComponent {
           styles: dom.Styles(
             raw: <String, String>{'flex-shrink': '0', 'color': accentVar},
           ),
-          <Component>[props.icon ?? _buildDefaultIcon()],
+          <Component>[props.icon ?? _buildDefaultIcon(context)],
         ),
 
         dom.div(
@@ -168,18 +166,18 @@ abstract class ToastRenderBase extends StatelessComponent {
             styles: dom.Styles(raw: dismissStyles),
             events: props.onDismiss == null
                 ? null
-                : <String, EventCallback>{
-                    'click': (_) => props.onDismiss!(),
-                  },
+                : <String, EventCallback>{'click': (_) => props.onDismiss!()},
             <Component>[const Component.text('\u2715')],
           ),
       ],
     );
   }
 
-  Component _buildDefaultIcon() {
+  Component _buildDefaultIcon(BuildContext context) {
     if (props.variant == ToastVariant.loading) {
-      return buildLoadingSpinner();
+      return context.renderers.loadingSpinner(
+        const LoadingSpinnerProps(size: '20px'),
+      );
     }
 
     final String icon = switch (props.variant) {

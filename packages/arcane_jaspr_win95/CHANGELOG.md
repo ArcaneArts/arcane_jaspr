@@ -4,6 +4,10 @@
 
 ### Added
 
+- `Win95LoaderPalette` and `Win95Stylesheet.loaderPalette` select one bundled
+  pixel-art APNG hourglass (`win98`, `amber`, or `gameboy`) for every loading
+  surface in the theme. The lossless 26×26 source scales through CSS with
+  pixel-preserving rendering.
 - Runtime text-override hooks `--w95-title-text-in` and
   `--w95-selection-text-in` (mirroring the `--nb-on-accent-in` contract in
   `arcane_jaspr_neubrutalism`). The caption text, `::selection` text,

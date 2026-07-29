@@ -48,6 +48,7 @@ abstract class ConfirmDialogRenderBase extends StatelessComponent {
   Component build(BuildContext context) {
     return buildDialog(
       DialogProps(
+        isOpen: true,
         title: props.title,
         onClose: props.onCancel,
         maxWidth: maxWidth,
@@ -142,6 +143,7 @@ abstract class AlertDialogRenderBase extends StatelessComponent {
   Component build(BuildContext context) {
     return buildDialog(
       DialogProps(
+        isOpen: true,
         title: props.title,
         onClose: props.onDismiss,
         maxWidth: maxWidth,

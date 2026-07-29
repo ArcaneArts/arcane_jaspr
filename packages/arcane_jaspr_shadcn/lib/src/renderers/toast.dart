@@ -2,7 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/component/view/icon.dart';
-import 'package:arcane_jaspr/core/props/toast_props.dart';
+import 'package:arcane_jaspr/core/theme_provider.dart';
 
 /// ShadCN Toast renderer.
 ///
@@ -13,7 +13,7 @@ class ShadcnToast extends StatelessComponent {
 
   const ShadcnToast(this.props, {super.key});
 
-  Component _buildIcon() {
+  Component _buildIcon(BuildContext context) {
     if (props.icon != null) {
       return props.icon!;
     }
@@ -23,19 +23,14 @@ class ShadcnToast extends StatelessComponent {
       ToastVariant.error => ArcaneIcon.circleX(size: IconSize.md),
       ToastVariant.warning => ArcaneIcon.triangleAlert(size: IconSize.md),
       ToastVariant.info => ArcaneIcon.info(size: IconSize.md),
-      ToastVariant.loading => ArcaneIcon.loader(size: IconSize.md),
+      ToastVariant.loading => context.renderers.loadingSpinner(
+        const LoadingSpinnerProps(size: '20px'),
+      ),
     };
 
-    final isLoading = props.variant == ToastVariant.loading;
-
     return dom.div(
-      styles: dom.Styles(
-        raw: {
-          'color': _getIconColor(),
-          if (isLoading) 'animation': 'arcane-toast-spin 1s linear infinite',
-        },
-      ),
-      [iconWidget],
+      styles: dom.Styles(raw: <String, String>{'color': _getIconColor()}),
+      <Component>[iconWidget],
     );
   }
 
@@ -131,7 +126,7 @@ class ShadcnToast extends StatelessComponent {
               'margin-top': '2px',
             },
           ),
-          [_buildIcon()],
+          <Component>[_buildIcon(context)],
         ),
 
         // Content

@@ -163,7 +163,7 @@ class ShadcnLoadingSpinner extends StatelessComponent {
     final spinnerColor = props.color ?? 'var(--primary)';
 
     return dom.div(
-      classes: 'arcane-loading-spinner',
+      classes: 'arcane-loader arcane-loading-spinner',
       attributes: {'role': 'status', 'aria-label': 'Loading'},
       styles: dom.Styles(
         raw: {

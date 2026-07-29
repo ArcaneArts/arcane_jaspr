@@ -1,6 +1,4 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
-import 'package:jaspr/dom.dart' as dom;
-import 'package:jaspr/jaspr.dart' as jaspr;
 import 'package:web/web.dart' as web;
 
 /// Route protection for authenticated users.
@@ -62,21 +60,7 @@ class AuthGuard extends StatelessWidget {
         width: Size.full,
         background: Background.background,
       ),
-      children: <Widget>[
-        dom.div(
-          styles: dom.Styles(
-            raw: <String, String>{
-              'width': '40px',
-              'height': '40px',
-              'border': '3px solid var(--border)',
-              'border-top-color': 'var(--primary)',
-              'border-radius': '9999px',
-              'animation': 'arcane-spin 0.75s linear infinite',
-            },
-          ),
-          <jaspr.Component>[],
-        ),
-      ],
+      children: <Widget>[ArcaneLoadingSpinner(size: '40px')],
     );
   }
 }
@@ -122,21 +106,7 @@ class GuestGuard extends StatelessWidget {
         width: Size.full,
         background: Background.background,
       ),
-      children: <Widget>[
-        dom.div(
-          styles: dom.Styles(
-            raw: <String, String>{
-              'width': '40px',
-              'height': '40px',
-              'border': '3px solid var(--border)',
-              'border-top-color': 'var(--primary)',
-              'border-radius': '9999px',
-              'animation': 'arcane-spin 0.75s linear infinite',
-            },
-          ),
-          <jaspr.Component>[],
-        ),
-      ],
+      children: <Widget>[ArcaneLoadingSpinner(size: '40px')],
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:arcane_jaspr/theme/index.dart';
 
 import 'win95_css.dart';
 import 'win95_font.dart';
+import 'win95_loader_palette.dart';
 import 'win95_theme.dart';
 import 'renderers/win95_renderers.dart';
 
@@ -46,9 +47,13 @@ class Win95Stylesheet extends ArcaneStylesheet {
   /// [Win95Chrome.classic].
   final Win95Chrome chrome;
 
+  /// The APNG palette used by every indeterminate loader in this stylesheet.
+  final Win95LoaderPalette loaderPalette;
+
   const Win95Stylesheet({
     this.theme = Win95Theme.standard,
     this.chrome = Win95Chrome.classic,
+    this.loaderPalette = Win95LoaderPalette.win98,
   });
 
   @override
@@ -117,5 +122,5 @@ class Win95Stylesheet extends ArcaneStylesheet {
   String get bodyClass => chrome.bodyClass;
 
   @override
-  String get componentCss => Win95Css.componentCss(theme);
+  String get componentCss => Win95Css.componentCss(theme, loaderPalette);
 }
