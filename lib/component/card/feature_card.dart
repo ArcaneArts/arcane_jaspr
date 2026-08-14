@@ -20,7 +20,7 @@ class FeatureCard extends StatelessWidget {
   final bool horizontal;
 
   /// Custom accent color (CSS color value) tinting the icon badge, the CTA, and
-  /// the card's leading border.
+  /// the card's complete border.
   final String? accentColor;
 
   /// Custom CTA text. Defaults to 'Learn More', or 'View Docs' when external.
@@ -68,28 +68,28 @@ class FeatureCard extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : showArrow = false,
-        horizontal = false,
-        showCta = true;
+  }) : showArrow = false,
+       horizontal = false,
+       showCta = true;
 
   @override
   Widget build(BuildContext context) => context.renderers.featureCard(
-        FeatureCardProps(
-          title: title,
-          description: description,
-          icon: icon,
-          href: href,
-          onTap: onTap,
-          showArrow: showArrow,
-          horizontal: horizontal,
-          accentColor: accentColor,
-          ctaText: ctaText,
-          isExternal: isExternal,
-          showCta: showCta,
-          styles: styles,
-          decoration: decoration,
-        ),
-      );
+    FeatureCardProps(
+      title: title,
+      description: description,
+      icon: icon,
+      href: href,
+      onTap: onTap,
+      showArrow: showArrow,
+      horizontal: horizontal,
+      accentColor: accentColor,
+      ctaText: ctaText,
+      isExternal: isExternal,
+      showCta: showCta,
+      styles: styles,
+      decoration: decoration,
+    ),
+  );
 }
 
 /// A compact surface: an accent-tinted icon badge, a bold title, and an optional
@@ -113,12 +113,12 @@ class IconCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => context.renderers.iconCard(
-        IconCardProps(
-          title: title,
-          icon: icon,
-          subtitle: subtitle,
-          onTap: onTap,
-          href: href,
-        ),
-      );
+    IconCardProps(
+      title: title,
+      icon: icon,
+      subtitle: subtitle,
+      onTap: onTap,
+      href: href,
+    ),
+  );
 }

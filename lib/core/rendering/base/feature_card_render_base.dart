@@ -97,9 +97,7 @@ abstract class FeatureCardRenderBase extends StatelessComponent {
         'background-color': 'var(--card)',
         'color': 'var(--card-foreground)',
         'border': '1px solid var(--border)',
-        // Accent color tints the leading edge of the card.
-        if (accent != null)
-          (horizontal ? 'border-left' : 'border-top'): '3px solid $accent',
+        'border-color': ?accent,
         'border-radius': 'var(--radius, 0.5rem)',
         'width': '100%',
         'box-sizing': 'border-box',

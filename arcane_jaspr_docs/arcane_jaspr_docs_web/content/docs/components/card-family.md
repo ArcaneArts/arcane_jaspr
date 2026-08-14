@@ -71,7 +71,7 @@ FeatureCard.accented(
 )
 ```
 
-Key props: `title` and `description` are required. `accentColor` tints the icon container and gradient border, `isExternal` opens the link in a new tab, `showCta` / `ctaText` control the button, and `horizontal` switches to a side-by-side layout.
+Key props: `title` and `description` are required. `accentColor` tints the icon container and uniform perimeter border, `isExternal` opens the link in a new tab, `showCta` / `ctaText` control the button, and `horizontal` switches to a side-by-side layout.
 
 `IconCard` is a lighter tile — a required `title` and `icon`, with optional `subtitle`, `onTap`, and `href`:
 
@@ -122,7 +122,7 @@ TestimonialCard(
 )
 ```
 
-Key props: `quote` and `authorName` are required. When `rating` is set and no `accentColor` is given, the accent color is derived from the rating (5 = success green down to 1 = destructive red). `showQuotes`, `showRatingBadge`, and `showAccentBorder` toggle the decorative treatments.
+Key props: `quote` and `authorName` are required. When `rating` is set and no `accentColor` is given, the accent color is derived from the rating (5 = success green down to 1 = destructive red). `showQuotes`, `showRatingBadge`, and `showAccentBorder` toggle the decorative treatments; the border always colors the complete perimeter.
 
 `RatingStars` is the standalone star control:
 

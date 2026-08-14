@@ -16,7 +16,7 @@ class TestimonialCardProps {
   /// Whether to show the rating badge (e.g., "5/5") next to stars.
   final bool showRatingBadge;
 
-  /// Whether to show a colored accent border at the top based on rating.
+  /// Whether to show a uniform colored border based on rating.
   final bool showAccentBorder;
 
   /// Custom accent color override (CSS color value).

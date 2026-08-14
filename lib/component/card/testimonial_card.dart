@@ -5,9 +5,9 @@ import '../../core/props/testimonial_card_props.dart';
 import '../../core/theme_provider.dart';
 import '../../util/style_types/arcane_style_data.dart';
 
-/// A quote surface: an optional top accent border, a large decorative quote, an
-/// optional rating row, and an author row (avatar or initials, name, and a
-/// muted `title · company` line). Themed automatically by the active
+/// A quote surface: an optional uniform accent border, a large decorative
+/// quote, an optional rating row, and an author row (avatar or initials, name,
+/// and a muted `title · company` line). Themed automatically by the active
 /// stylesheet.
 class TestimonialCard extends StatelessWidget {
   final String quote;
@@ -45,21 +45,21 @@ class TestimonialCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => context.renderers.testimonialCard(
-        TestimonialCardProps(
-          quote: quote,
-          authorName: authorName,
-          authorTitle: authorTitle,
-          authorCompany: authorCompany,
-          avatarUrl: avatarUrl,
-          rating: rating,
-          showQuotes: showQuotes,
-          showRatingBadge: showRatingBadge,
-          showAccentBorder: showAccentBorder,
-          accentColor: accentColor,
-          styles: styles,
-          decoration: decoration,
-        ),
-      );
+    TestimonialCardProps(
+      quote: quote,
+      authorName: authorName,
+      authorTitle: authorTitle,
+      authorCompany: authorCompany,
+      avatarUrl: avatarUrl,
+      rating: rating,
+      showQuotes: showQuotes,
+      showRatingBadge: showRatingBadge,
+      showAccentBorder: showAccentBorder,
+      accentColor: accentColor,
+      styles: styles,
+      decoration: decoration,
+    ),
+  );
 }
 
 /// A simple row of text rating stars (★/☆), sized by [size] and colored with
@@ -83,12 +83,12 @@ class RatingStars extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => context.renderers.ratingStarsSimple(
-        RatingStarsSimpleProps(
-          rating: rating,
-          maxStars: maxStars,
-          size: size,
-          interactive: interactive,
-          onRatingChanged: onRatingChanged,
-        ),
-      );
+    RatingStarsSimpleProps(
+      rating: rating,
+      maxStars: maxStars,
+      size: size,
+      interactive: interactive,
+      onRatingChanged: onRatingChanged,
+    ),
+  );
 }

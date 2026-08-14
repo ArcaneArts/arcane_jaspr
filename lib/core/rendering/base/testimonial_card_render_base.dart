@@ -7,7 +7,7 @@ import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
 
 /// Shared structural base for themed testimonial-card renderers.
 ///
-/// A testimonial card is a quote surface: an optional top accent border, a
+/// A testimonial card is a quote surface: an optional uniform accent border, a
 /// large decorative quote, an optional rating row, and an author row (avatar or
 /// initials, name, and a muted `title · company` line). The DOM and its inline
 /// chrome (built from theme CSS variables, so it adapts to the active palette)
@@ -41,9 +41,9 @@ abstract class TestimonialCardRenderBase extends StatelessComponent {
         'background-color': 'var(--card)',
         'color': 'var(--card-foreground)',
         'border': '1px solid var(--border)',
+        if (props.showAccentBorder) 'border-color': accent,
         'border-radius': 'var(--radius, 0.5rem)',
         'width': '100%',
-        if (props.showAccentBorder) 'border-top': '3px solid $accent',
       },
       <Map<String, String>?>[
         props.decoration?.universalStyles(),
@@ -282,9 +282,7 @@ abstract class RatingStarsSimpleRenderBase extends StatelessComponent {
         for (int i = 0; i < props.maxStars; i++)
           dom.span(
             styles: dom.Styles(
-              raw: <String, String>{
-                if (props.interactive) 'cursor': 'pointer',
-              },
+              raw: <String, String>{if (props.interactive) 'cursor': 'pointer'},
             ),
             events: props.interactive && props.onRatingChanged != null
                 ? <String, EventCallback>{

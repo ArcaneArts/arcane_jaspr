@@ -1,5 +1,12 @@
 # Changelog
 
+## x.x.x
+
+### Changed
+
+- Accent alerts now use one uniform colored perimeter instead of a thick left
+  edge on a rounded container.
+
 ## 3.3.0
 
 - Align package version and Arcane Jaspr dependency with the 3.3.0 core release.

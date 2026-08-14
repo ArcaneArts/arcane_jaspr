@@ -222,17 +222,7 @@ class NeonCss {
 #arcane-root.arcane-theme-neon .neon-card[data-variant="interactive"],
 #arcane-root.arcane-theme-neon .neon-card.clickable {
   overflow: hidden;
-}
-#arcane-root.arcane-theme-neon .neon-card[data-variant="elevated"]::before,
-#arcane-root.arcane-theme-neon .neon-card[data-variant="interactive"]::before,
-#arcane-root.arcane-theme-neon .neon-card.clickable::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--neon-gradient);
+  border-color: color-mix(in srgb, var(--primary) 42%, var(--border));
 }
 #arcane-root.arcane-theme-neon .neon-card[data-variant="flat"] {
   box-shadow: none;
@@ -245,17 +235,12 @@ class NeonCss {
   border-color: transparent;
 }
 /* Nested cards are sub-surfaces: a neon card inside another neon card drops its
-   frame, glow, and accent bar so stacked panels do not ring twice. Re-assert a
+   frame and glow so stacked panels do not ring twice. Re-assert a
    frame on the inner card with decoration:/styles:. */
 #arcane-root.arcane-theme-neon .neon-card .neon-card:not([data-arcane-decorated]) {
   background: transparent !important;
   border-color: transparent !important;
   box-shadow: none !important;
-}
-#arcane-root.arcane-theme-neon
-  .neon-card
-  .neon-card:not([data-arcane-decorated])::before {
-  display: none !important;
 }
 #arcane-root.arcane-theme-neon .neon-card[data-variant="glass"] {
   background: color-mix(in srgb, var(--card) 55%, transparent);
@@ -536,21 +521,20 @@ class NeonCss {
   gap: 0.75rem;
   padding: 1rem;
   border-radius: var(--radius-lg);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--primary);
+  border: 2px solid var(--primary);
   background: var(--card);
 }
 #arcane-root.arcane-theme-neon .neon-alert[data-variant="destructive"] {
-  border-left-color: var(--destructive);
+  border-color: var(--destructive);
 }
 #arcane-root.arcane-theme-neon .neon-alert[data-variant="success"] {
-  border-left-color: var(--success);
+  border-color: var(--success);
 }
 #arcane-root.arcane-theme-neon .neon-alert[data-variant="warning"] {
-  border-left-color: var(--warning);
+  border-color: var(--warning);
 }
 #arcane-root.arcane-theme-neon .neon-alert[data-variant="info"] {
-  border-left-color: var(--info);
+  border-color: var(--info);
 }
 #arcane-root.arcane-theme-neon .neon-alert-title {
   font-weight: 700;

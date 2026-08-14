@@ -58,12 +58,15 @@ class ShadcnAlert extends AlertRenderBase {
   String get rootClass => 'arcane-alert';
 
   @override
-  Map<String, String> get rootAttributes =>
-      const <String, String>{'role': 'alert'};
+  Map<String, String> get rootAttributes => const <String, String>{
+    'role': 'alert',
+  };
 
   @override
-  Map<String, String> get rootLayoutStyles =>
-      const <String, String>{'gap': '12px', 'padding': '16px'};
+  Map<String, String> get rootLayoutStyles => const <String, String>{
+    'gap': '12px',
+    'padding': '16px',
+  };
 
   @override
   Map<String, String> get containerStyles {
@@ -92,8 +95,7 @@ class ShadcnAlert extends AlertRenderBase {
       },
       AlertStyle.accent => <String, String>{
         'background-color': bgColor,
-        'border': '1px solid $borderColor',
-        'border-left': '4px solid $primary',
+        'border': '2px solid $primary',
         'border-radius': 'var(--radius-md)',
       },
     };
@@ -145,7 +147,9 @@ class ShadcnAlert extends AlertRenderBase {
     return <String, String>{
       'font-size': 'var(--font-size-sm)',
       'line-height': '1.625',
-      'color': isSolid ? 'var(--primary-foreground)' : 'var(--muted-foreground)',
+      'color': isSolid
+          ? 'var(--primary-foreground)'
+          : 'var(--muted-foreground)',
     };
   }
 
@@ -170,7 +174,9 @@ class ShadcnAlert extends AlertRenderBase {
       'padding': '0',
       'border': 'none',
       'background': 'transparent',
-      'color': isSolid ? 'var(--primary-foreground)' : 'var(--muted-foreground)',
+      'color': isSolid
+          ? 'var(--primary-foreground)'
+          : 'var(--muted-foreground)',
       'cursor': 'pointer',
       'border-radius': 'var(--radius-xs)', // rounded-sm
       'opacity': '0.7',

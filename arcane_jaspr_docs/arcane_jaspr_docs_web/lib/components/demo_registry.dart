@@ -123,9 +123,18 @@ List<DemoDefinition> demoDefinitions = <DemoDefinition>[
     componentType: 'alert',
     symbolName: 'ArcaneAlert',
     sourcePath: 'lib/component/view/alert.dart',
-    code: '''const ArcaneAlert.info(
-  title: 'Heads up',
-  message: 'This is a live alert preview rendered by the current theme.',
+    code: '''const Column(
+  children: [
+    ArcaneAlert.info(
+      title: 'Heads up',
+      message: 'This is a live alert preview rendered by the current theme.',
+    ),
+    ArcaneAlert.success(
+      title: 'Published',
+      message: 'Accent alerts use a complete, uniform perimeter.',
+      variant: AlertStyle.accent,
+    ),
+  ],
 )''',
     previewBuilder: _buildAlertDemo,
   ),
@@ -1138,9 +1147,25 @@ Widget _buildAccordionDemo(DemoStateController state) {
 
 Widget _buildAlertDemo(DemoStateController state) {
   return _surface(
-    const ArcaneAlert.info(
-      title: 'Heads up',
-      message: 'This is a live alert preview rendered by the current theme.',
+    const ArcaneBox(
+      style: ArcaneStyleData(
+        width: Size.full,
+        display: Display.flex,
+        flexDirection: FlexDirection.column,
+        gap: Gap.md,
+      ),
+      children: <Widget>[
+        ArcaneAlert.info(
+          title: 'Heads up',
+          message:
+              'This is a live alert preview rendered by the current theme.',
+        ),
+        ArcaneAlert.success(
+          title: 'Published',
+          message: 'Accent alerts use a complete, uniform perimeter.',
+          variant: AlertStyle.accent,
+        ),
+      ],
     ),
   );
 }

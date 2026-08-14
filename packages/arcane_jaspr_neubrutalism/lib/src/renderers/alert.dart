@@ -69,8 +69,7 @@ class NeubrutalismAlert extends AlertRenderBase {
       },
       AlertStyle.accent => <String, String>{
         'background-color': 'var(--nb-paper, var(--card))',
-        'border': 'var(--nb-border-thick, 4px) solid var(--nb-line, #000)',
-        'border-left': 'calc(var(--nb-border-thick, 4px) * 2) solid $accent',
+        'border': 'var(--nb-border-thick, 4px) solid $accent',
         'border-radius': 'var(--nb-radius-soft, 4px)',
         'box-shadow':
             'var(--nb-shadow-md, 5px 5px 0 0 var(--nb-shadow-color, #000))',

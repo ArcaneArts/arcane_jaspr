@@ -570,8 +570,7 @@ body {
   padding: 1rem 1rem 1rem 1.25rem;
   margin: 1.5rem 0;
   border-radius: var(--radius-lg, 12px);
-  border: 1px solid var(--border);
-  border-left-width: 4px;
+  border: 2px solid var(--border);
   background: var(--card);
 }
 
@@ -605,7 +604,7 @@ body {
 }
 
 .kb-callout-note {
-  border-left-color: #3b82f6;
+  border-color: #3b82f6;
   background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(59, 130, 246, 0.02) 100%);
 }
 .kb-callout-note .kb-callout-title { color: #3b82f6; }
@@ -614,7 +613,7 @@ body {
 }
 
 .kb-callout-tip {
-  border-left-color: #22c55e;
+  border-color: #22c55e;
   background: linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(34, 197, 94, 0.02) 100%);
 }
 .kb-callout-tip .kb-callout-title { color: #22c55e; }
@@ -623,7 +622,7 @@ body {
 }
 
 .kb-callout-important {
-  border-left-color: #a855f7;
+  border-color: #a855f7;
   background: linear-gradient(135deg, rgba(168, 85, 247, 0.08) 0%, rgba(168, 85, 247, 0.02) 100%);
 }
 .kb-callout-important .kb-callout-title { color: #a855f7; }
@@ -632,7 +631,7 @@ body {
 }
 
 .kb-callout-warning {
-  border-left-color: #f59e0b;
+  border-color: #f59e0b;
   background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(245, 158, 11, 0.02) 100%);
 }
 .kb-callout-warning .kb-callout-title { color: #f59e0b; }
@@ -641,7 +640,7 @@ body {
 }
 
 .kb-callout-caution {
-  border-left-color: #ef4444;
+  border-color: #ef4444;
   background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(239, 68, 68, 0.02) 100%);
 }
 .kb-callout-caution .kb-callout-title { color: #ef4444; }
@@ -990,12 +989,11 @@ html.light #arcane-root[class*="neon-"],
 #arcane-root[class*="neon-"] .kb-topbar-right {
   gap: 0.45rem;
   padding: 0.22rem;
-  clip-path: var(--kb-neon-clip-sm);
   border: 1px solid var(--kb-neon-line-soft);
   border-radius: 0.32rem;
   background:
     linear-gradient(135deg, color-mix(in srgb, var(--kb-neon-panel-strong) 78%, transparent), color-mix(in srgb, var(--kb-neon-panel) 72%, transparent));
-  box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--kb-neon-node) 18%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--kb-neon-node) 18%, transparent);
 }
 
 #arcane-root[class*="neon-"] .kb-topbar-left {
@@ -1054,8 +1052,8 @@ html.light #arcane-root[class*="neon-"],
 }
 
 #arcane-root[class*="neon-"] .sidebar-link.active {
-  border-left-color: var(--kb-neon-node) !important;
-  box-shadow: inset 2px 0 0 var(--kb-neon-node) !important;
+  outline-color: var(--kb-neon-node) !important;
+  box-shadow: inset 0 0 0 1px var(--kb-neon-node), 0 0 12px color-mix(in srgb, var(--kb-neon-node) 22%, transparent) !important;
 }
 
 #arcane-root[class*="shadcn-"] .kb-landing-prose {

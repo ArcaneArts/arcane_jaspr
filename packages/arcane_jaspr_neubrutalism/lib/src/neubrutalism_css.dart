@@ -2976,8 +2976,7 @@ html.dark #arcane-root.arcane-theme-neubrutalism .kb-search-input {
 }
 
 #arcane-root.arcane-theme-neubrutalism .markdown-alert {
-  border: var(--nb-border-base) solid var(--nb-line) !important;
-  border-left-width: var(--nb-border-thick) !important;
+  border: var(--nb-border-thick) solid var(--kb-alert-accent, var(--nb-line)) !important;
   border-radius: var(--nb-radius-soft) !important;
   background: var(--secondary-background) !important;
   color: var(--foreground) !important;

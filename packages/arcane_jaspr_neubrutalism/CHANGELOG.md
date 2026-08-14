@@ -14,6 +14,8 @@
 
 ### Changed
 
+- Accent alerts and knowledge-base callouts now color the complete border
+  instead of thickening only the left edge of a rounded surface.
 - Dark mode readability overhaul. The dark canvas now mixes only 8% of the
   accent over a neutral near-black (was 18%, which washed the page in an
   olive-brown under the yellow theme), cards sit on a slightly lighter

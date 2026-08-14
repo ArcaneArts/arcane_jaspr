@@ -1,5 +1,12 @@
 # Changelog
 
+## x.x.x
+
+### Changed
+
+- Rounded cards and alerts now use complete accent borders instead of clipped
+  top strips or thick left edges.
+
 ## 3.3.0
 
 - Align package version and Arcane Jaspr dependency with the 3.3.0 core release.

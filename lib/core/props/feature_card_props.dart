@@ -14,7 +14,7 @@ class FeatureCardProps {
   final bool horizontal;
 
   /// Custom accent color for theming (CSS color value).
-  /// When set, applies accent styling to icon container and gradient border.
+  /// When set, applies accent styling to the icon container and full border.
   final String? accentColor;
 
   /// Custom CTA button text. Defaults to 'Learn More' or 'View Docs' for external.
@@ -61,9 +61,9 @@ class FeatureCardProps {
     this.isExternal = false,
     this.styles,
     this.decoration,
-  })  : showArrow = false,
-        horizontal = false,
-        showCta = true;
+  }) : showArrow = false,
+       horizontal = false,
+       showCta = true;
 }
 
 /// Icon card component properties.

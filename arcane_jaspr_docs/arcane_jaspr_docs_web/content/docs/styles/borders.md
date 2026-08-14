@@ -56,6 +56,11 @@ Complete border configurations combining width, style, and color.
 | `topSubtle` | Top border only |
 | `bottomSubtle` | Bottom border only |
 
+Directional borders are separators for adjoining regions. Do not use a
+one-sided colored border, inset strip, or pseudo-element stripe to emphasize a
+rounded card or container; use a complete perimeter, fill, badge, or symmetric
+ring instead.
+
 ### Usage
 
 ```dart
@@ -287,7 +292,7 @@ ArcaneBox(
 )
 ```
 
-### Accent Left Border
+### Accent Perimeter
 
 ```dart
 ArcaneBox(
@@ -295,9 +300,7 @@ ArcaneBox(
     padding: PaddingPreset.md,
     background: Background.surface,
     borderRadius: Radius.md,
-    raw: {
-      'border-left': '4px solid var(--arcane-accent)',
-    },
+    border: BorderPreset.accentThick,
   ),
   children: [
     Text('Note: This is important information.'),
