@@ -18,8 +18,12 @@ dependencies:
 dev_dependencies:
   lints: ^6.1.0
 
-# arcane_lexicon is unpublished; resolve from the sibling checkout for local
-# dev/test. Publish arcane_lexicon (or use a git ref) for CI and pub publish.
+# Resolve arcane_lexicon from the sibling checkout, and force its arcane_jaspr
+# requirement to this repo's root package — otherwise CI races pub.dev
+# propagation whenever arcane_lexicon's constraint points at a just-published
+# arcane_jaspr version.
 dependency_overrides:
   arcane_lexicon:
     path: ../../../arcane_lexicon
+  arcane_jaspr:
+    path: ../..
