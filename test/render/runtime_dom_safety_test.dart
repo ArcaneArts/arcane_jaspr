@@ -23,6 +23,28 @@ void main() {
     expect(script, contains("element.removeAttribute('id')"));
   });
 
+  test('anchored surfaces preserve fallback geometry and trigger state', () {
+    final String script = ArcaneScripts.all;
+
+    expect(script, contains('surfaceEl._arcaneAnchorInlineStyle'));
+    expect(script, contains("anchorEl.setAttribute('aria-expanded', 'true')"));
+    expect(script, contains("anchorEl.setAttribute('aria-expanded', 'false')"));
+    expect(
+      script,
+      contains("el.style.position = inlineStyle ? inlineStyle.position : ''"),
+    );
+    expect(script, contains("surfaceEl.style.width = sw + 'px'"));
+    expect(script, contains("surfaceEl.style.minWidth = sw + 'px'"));
+    expect(
+      script,
+      contains("el.style.width = inlineStyle ? inlineStyle.width : ''"),
+    );
+    expect(
+      script,
+      contains("el.style.minWidth = inlineStyle ? inlineStyle.minWidth : ''"),
+    );
+  });
+
   testServer('carousel clone is inert in server-rendered DOM', (
     ServerTester tester,
   ) async {

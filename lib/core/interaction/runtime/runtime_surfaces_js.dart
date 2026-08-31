@@ -104,7 +104,18 @@ function positionAnchored(surfaceEl, anchorEl) {
   if (left + sw > vw - 4) left = vw - sw - 4;
   if (top + sh > vh - 4) top = vh - sh - 4;
 
+  if (!surfaceEl._arcaneAnchorInlineStyle) {
+    surfaceEl._arcaneAnchorInlineStyle = {
+      position: surfaceEl.style.position,
+      top: surfaceEl.style.top,
+      left: surfaceEl.style.left,
+      width: surfaceEl.style.width,
+      minWidth: surfaceEl.style.minWidth
+    };
+  }
   surfaceEl.style.position = 'fixed';
+  surfaceEl.style.width = sw + 'px';
+  surfaceEl.style.minWidth = sw + 'px';
   surfaceEl.style.top = top + 'px';
   surfaceEl.style.left = left + 'px';
   surfaceEl.setAttribute('data-arcane-actual-placement', actualPlacement);
@@ -147,6 +158,16 @@ function openSurface(type, id, opts) {
   el.removeAttribute('hidden');
   el.setAttribute('data-arcane-state', 'open');
   el.setAttribute('aria-hidden', 'false');
+
+  const anchorId = el.getAttribute('data-arcane-anchor');
+  if (anchorId) {
+    const anchorEl = document.querySelector(
+      '[data-arcane-anchor-id="' + cssEscape(anchorId) + '"]'
+    );
+    if (anchorEl && anchorEl.hasAttribute('aria-expanded')) {
+      anchorEl.setAttribute('aria-expanded', 'true');
+    }
+  }
 
   applyAnchor(el);
 
@@ -201,6 +222,16 @@ function closeSurface(type, id, opts) {
   el.classList.remove('arcane-surface-open');
   el.classList.add('arcane-surface-closing');
 
+  const anchorId = el.getAttribute('data-arcane-anchor');
+  if (anchorId) {
+    const anchorEl = document.querySelector(
+      '[data-arcane-anchor-id="' + cssEscape(anchorId) + '"]'
+    );
+    if (anchorEl && anchorEl.hasAttribute('aria-expanded')) {
+      anchorEl.setAttribute('aria-expanded', 'false');
+    }
+  }
+
   ARCANE.stack = ARCANE.stack.filter(function(entry) {
     return entry.el !== el;
   });
@@ -227,9 +258,13 @@ function closeSurface(type, id, opts) {
   const finalize = function() {
     el.setAttribute('hidden', '');
     el.classList.remove('arcane-surface-closing');
-    el.style.position = '';
-    el.style.top = '';
-    el.style.left = '';
+    const inlineStyle = el._arcaneAnchorInlineStyle;
+    el.style.position = inlineStyle ? inlineStyle.position : '';
+    el.style.top = inlineStyle ? inlineStyle.top : '';
+    el.style.left = inlineStyle ? inlineStyle.left : '';
+    el.style.width = inlineStyle ? inlineStyle.width : '';
+    el.style.minWidth = inlineStyle ? inlineStyle.minWidth : '';
+    el._arcaneAnchorInlineStyle = null;
     el.removeAttribute('data-arcane-actual-placement');
     if (restoreFocus && prevFocus && prevFocus.focus) {
       try { prevFocus.focus({ preventScroll: true }); } catch (e) { prevFocus.focus(); }

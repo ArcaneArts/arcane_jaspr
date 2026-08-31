@@ -48,41 +48,69 @@ class ArcaneNavDropdown extends StatefulWidget {
 }
 
 class _ArcaneNavDropdownState extends State<ArcaneNavDropdown> {
+  static final Set<_ArcaneNavDropdownState> _openDropdowns =
+      <_ArcaneNavDropdownState>{};
+
   bool _isOpen = false;
   bool _openedByHover = false;
 
   void _openFromHover() {
     if (_isOpen) return;
+    _closeOpenPeers();
     setState(() {
       _isOpen = true;
       _openedByHover = true;
     });
+    _openDropdowns.add(this);
   }
 
   void _closeFromHover() {
     if (!_openedByHover) return;
-    setState(() {
-      _isOpen = false;
-      _openedByHover = false;
-    });
+    _close();
   }
 
   void _toggleFromActivation() {
-    setState(() {
-      if (_openedByHover) {
+    if (_openedByHover) {
+      setState(() {
         _openedByHover = false;
-        return;
-      }
-      _isOpen = !_isOpen;
+      });
+      return;
+    }
+
+    if (_isOpen) {
+      _close();
+      return;
+    }
+
+    _closeOpenPeers();
+    setState(() {
+      _isOpen = true;
+      _openedByHover = false;
     });
+    _openDropdowns.add(this);
   }
 
   void _close() {
-    if (!_isOpen) return;
+    _openDropdowns.remove(this);
+    if (!_isOpen || !mounted) return;
     setState(() {
       _isOpen = false;
       _openedByHover = false;
     });
+  }
+
+  void _closeOpenPeers() {
+    final List<_ArcaneNavDropdownState> peers =
+        List<_ArcaneNavDropdownState>.of(_openDropdowns);
+    for (final _ArcaneNavDropdownState peer in peers) {
+      if (!identical(peer, this)) peer._close();
+    }
+  }
+
+  @override
+  void dispose() {
+    _openDropdowns.remove(this);
+    super.dispose();
   }
 
   void _handleTriggerKeyDown(dynamic event) {
@@ -166,12 +194,14 @@ class _ArcaneNavDropdownState extends State<ArcaneNavDropdown> {
             children: [],
           ),
           ArcaneDiv(
+            classes: const <String>['arcane-nav-dropdown-panel'],
             styles: ArcaneStyleData(
               position: Position.absolute,
               top: 'calc(100% + 8px)',
               left: component.alignRight ? null : '0',
               right: component.alignRight ? '0' : null,
-              background: Background.card,
+              backgroundCustom:
+                  'var(--arcane-nav-dropdown-background, var(--card))',
               borderCustom:
                   '1px solid color-mix(in srgb, var(--foreground) 10%, transparent)',
               borderRadius: Radius.sm,

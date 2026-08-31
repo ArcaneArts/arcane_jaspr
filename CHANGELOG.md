@@ -20,6 +20,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Themeable navigation dropdown panels.** `ArcaneNavDropdown` now exposes the
+  stable `arcane-nav-dropdown-panel` class and a scoped background token so
+  themes can style its transient panel without changing content surfaces.
+- **Select popover contract.** Shared select options now expose listbox option
+  semantics and selected state, while triggers report their current expanded
+  state instead of a fixed value.
 - **Bounded theme geometry and elevation.** Radius authoring now ends at the
   8px `md` tier, renderer references use that tier directly, and palette
   shadows are fixed neutral structural presets rather than injectable strings.
@@ -98,6 +104,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Stable interactive select surfaces.** Renderer-owned select callbacks no
+  longer compete with delegated surface actions, and anchored surfaces restore
+  their authored fallback geometry and trigger expanded state after closing.
+- **Exclusive navigation dropdowns.** Opening a navigation dropdown now closes
+  any open peer so compact and mobile header menus cannot overlap.
 - **Balanced native controls.** `ArcaneSelect` now renders a real sibling
   chevron with a 14px end inset and a 40px value reserve instead of embedding
   SVG artwork in `background-image`; shared prefix/suffix field shells own the

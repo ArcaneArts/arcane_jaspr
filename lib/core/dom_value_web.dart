@@ -39,6 +39,17 @@ String domEventValue(Object? event) {
   return domInputValue(target);
 }
 
+/// Read an attribute from the DOM event target (web).
+String domEventTargetAttribute(Object? event, String name) {
+  final JSObject? ev = event as JSObject?;
+  final JSObject? target = ev?.getProperty<JSAny?>('target'.toJS) as JSObject?;
+  final JSAny? value = target?.callMethod<JSAny?>(
+    'getAttribute'.toJS,
+    name.toJS,
+  );
+  return (value as JSString?)?.toDart ?? '';
+}
+
 /// Call `event.stopPropagation()` on a DOM event (web).
 void domStopPropagation(Object? event) {
   (event as JSObject?)?.callMethod<JSAny?>('stopPropagation'.toJS);

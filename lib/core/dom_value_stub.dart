@@ -5,5 +5,6 @@ bool domCheckedValue(Object? target) => false;
 int domSelectedIndex(Object? target) => 0;
 String domEventKey(Object? event) => '';
 String domEventValue(Object? event) => '';
+String domEventTargetAttribute(Object? event, String name) => '';
 void domStopPropagation(Object? event) {}
 void domPreventDefault(Object? event) {}

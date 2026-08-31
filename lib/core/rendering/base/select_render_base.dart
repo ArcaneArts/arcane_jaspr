@@ -84,6 +84,25 @@ abstract class SelectRenderBase<T> extends StatelessComponent {
     return value.toString();
   }
 
+  void _handleRuntimeSelection(dynamic event) {
+    if (props.onSelect == null) return;
+    final String serializedValue =
+        domEventTargetAttribute(
+          event,
+          'data-arcane-group-value',
+        ).split('\u001f').firstOrNull ??
+        '';
+    final SelectOptionProps<T>? selectedOption = props.options
+        .where(
+          (SelectOptionProps<T> option) =>
+              _serializeValue(option.value) == serializedValue,
+        )
+        .firstOrNull;
+    if (selectedOption != null) {
+      props.onSelect!(selectedOption.value);
+    }
+  }
+
   String _getDisplayText() {
     if (props.multiSelect) {
       if (props.values == null || props.values!.isEmpty) {
@@ -115,12 +134,15 @@ abstract class SelectRenderBase<T> extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final (String height, String fontSize, String padding) =
-        switch (props.size) {
-          ComponentSize.sm => ('40px', '0.8125rem', '0.625rem 1rem'),
-          ComponentSize.md => ('48px', '0.875rem', '0.75rem 1.25rem'),
-          ComponentSize.lg => ('56px', '1rem', '1rem 1.5rem'),
-        };
+    final (
+      String height,
+      String fontSize,
+      String padding,
+    ) = switch (props.size) {
+      ComponentSize.sm => ('40px', '0.8125rem', '0.625rem 1rem'),
+      ComponentSize.md => ('48px', '0.875rem', '0.75rem 1.25rem'),
+      ComponentSize.lg => ('56px', '1rem', '1rem 1.5rem'),
+    };
 
     final String displayText = _getDisplayText();
 
@@ -205,7 +227,7 @@ abstract class SelectRenderBase<T> extends StatelessComponent {
             'type': 'button',
             'aria-haspopup': 'listbox',
             'aria-controls': surfaceId,
-            'aria-expanded': 'false',
+            'aria-expanded': '${props.isOpen}',
             'data-disabled': '${props.disabled}',
             'data-variant': props.multiSelect ? 'multi' : 'single',
             'data-size': props.size.name,
@@ -227,11 +249,6 @@ abstract class SelectRenderBase<T> extends StatelessComponent {
               ...?props.styles?.toMap(),
             },
           ),
-          events: props.disabled || props.onToggle == null
-              ? null
-              : <String, void Function(dynamic)>{
-                  'click': (_) => props.onToggle!(),
-                },
           <Component>[
             if (props.prefix != null)
               dom.span(
@@ -336,6 +353,11 @@ abstract class SelectRenderBase<T> extends StatelessComponent {
             'data-arcane-command': surfaceId,
           },
           styles: dom.Styles(raw: dropdownStyles(maxHeight)),
+          events: props.onSelect == null
+              ? null
+              : <String, void Function(dynamic)>{
+                  'arcane:change': _handleRuntimeSelection,
+                },
           <Component>[
             if (props.searchable)
               dom.div(
@@ -351,13 +373,6 @@ abstract class SelectRenderBase<T> extends StatelessComponent {
                       'data-arcane-autofocus': 'true',
                     },
                     styles: dom.Styles(raw: searchInputStyles),
-                    events: props.onSearchChange == null
-                        ? null
-                        : <String, void Function(dynamic)>{
-                            'input': (dynamic e) {
-                              props.onSearchChange!(domEventValue(e));
-                            },
-                          },
                   ),
                 ],
               ),
@@ -485,6 +500,8 @@ abstract class SelectRenderBase<T> extends StatelessComponent {
           '$classPrefix-select-option ${isSelected ? 'selected' : ''} ${option.disabled ? 'disabled' : ''}',
       attributes: <String, String>{
         'type': 'button',
+        'role': 'option',
+        'aria-selected': '$isSelected',
         if (option.disabled) 'disabled': 'true',
         'data-arcane-command-item': '',
         'data-arcane-command-group-id': '$surfaceId-default',
@@ -499,11 +516,6 @@ abstract class SelectRenderBase<T> extends StatelessComponent {
         if (!option.disabled) ...interactionAttrs(itemAction),
       },
       styles: dom.Styles(raw: optionStyles(isSelected, option.disabled)),
-      events: option.disabled || props.onSelect == null
-          ? null
-          : <String, void Function(dynamic)>{
-              'click': (_) => props.onSelect!(option.value),
-            },
       <Component>[
         if (props.multiSelect && props.showCheckboxes)
           dom.div(

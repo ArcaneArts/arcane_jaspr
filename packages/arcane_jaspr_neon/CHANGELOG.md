@@ -4,6 +4,9 @@
 
 ### Changed
 
+- Dropdown, submenu, select, and navigation menu overlays now use one
+  transparent frosted surface with an opaque reduced-transparency fallback;
+  cards and other content surfaces remain flat.
 - Card-like renderers now use the bounded `md` radius and surface markers;
   keyboard-key borders are uniform instead of bottom-heavy.
 - Command palettes now render as bounded viewport modals with one framed
@@ -29,6 +32,10 @@
 
 ### Fixed
 
+- Non-native select triggers now own complete control geometry, and their
+  viewport-bounded popovers have stable width, scrolling, and overlay layering.
+- Non-native select popovers are anchored outside document flow, and searchable
+  selects now style the input itself instead of framing its wrapper.
 - Disclosure summaries now suppress the browser marker, keep their content and
   one plain plus indicator on a single row, and rotate that indicator when open.
 

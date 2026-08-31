@@ -1,5 +1,6 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 import 'package:jaspr/jaspr.dart' hide Text;
+import 'package:jaspr/dom.dart' as dom;
 import 'package:jaspr_test/jaspr_test.dart';
 
 Finder _trigger() {
@@ -21,6 +22,16 @@ Finder _expandedTrigger(bool expanded) {
         component.attributes?['aria-haspopup'] == 'menu' &&
         component.attributes?['aria-expanded'] == '$expanded',
     description: '${expanded ? 'expanded' : 'collapsed'} dropdown trigger',
+  );
+}
+
+Finder _panel() {
+  return find.byComponentPredicate(
+    (Component component) =>
+        component is DomComponent &&
+        component.classes?.split(' ').contains('arcane-nav-dropdown-panel') ==
+            true,
+    description: 'navigation dropdown panel',
   );
 }
 
@@ -48,6 +59,7 @@ void main() {
     await tester.click(_trigger());
     expect(_expandedTrigger(true), findsOneComponent);
     expect(find.text('Dropdown content'), findsOneComponent);
+    expect(_panel(), findsOneComponent);
 
     await tester.click(_trigger());
     expect(_expandedTrigger(false), findsOneComponent);
@@ -84,5 +96,34 @@ void main() {
 
     await tester.click(_trigger());
     expect(find.text('Dropdown content'), findsNothing);
+  });
+
+  testComponents('opening a dropdown closes its open peer', (
+    ComponentTester tester,
+  ) async {
+    tester.pumpComponent(
+      const dom.div(<Widget>[
+        ArcaneNavDropdown(
+          label: 'Game servers',
+          width: '240px',
+          content: Text('Game server links'),
+        ),
+        ArcaneNavDropdown(
+          label: 'Resources',
+          width: '240px',
+          content: Text('Resource links'),
+        ),
+      ]),
+    );
+
+    await tester.click(_trigger().first);
+    expect(find.text('Game server links'), findsOneComponent);
+    expect(find.text('Resource links'), findsNothing);
+
+    await tester.click(_trigger().last);
+    expect(find.text('Game server links'), findsNothing);
+    expect(find.text('Resource links'), findsOneComponent);
+    expect(_expandedTrigger(true), findsOneComponent);
+    expect(_expandedTrigger(false), findsOneComponent);
   });
 }

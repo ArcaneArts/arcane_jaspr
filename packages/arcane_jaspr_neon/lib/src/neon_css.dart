@@ -36,6 +36,8 @@ class NeonCss {
 #arcane-root.arcane-theme-neon {
   --neon-primary: $primary;
   --neon-overlay-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+  --neon-overlay-frost: rgba(var(--card-rgb), 0.78);
+  --arcane-nav-dropdown-background: var(--neon-overlay-frost);
 }
 
 #arcane-root.arcane-theme-neon ::selection {
@@ -262,6 +264,31 @@ class NeonCss {
 /* ---------- Dropdown / popover / command items ---------- */
 
 #arcane-root.arcane-theme-neon .neon-dropdown-menu,
+#arcane-root.arcane-theme-neon .neon-dropdown-submenu,
+#arcane-root.arcane-theme-neon .neon-select-dropdown,
+#arcane-root.arcane-theme-neon .arcane-nav-dropdown-panel {
+  background: var(--neon-overlay-frost);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: var(--neon-overlay-shadow);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  #arcane-root.arcane-theme-neon {
+    --neon-overlay-frost: var(--card);
+  }
+
+  #arcane-root.arcane-theme-neon .neon-dropdown-menu,
+  #arcane-root.arcane-theme-neon .neon-dropdown-submenu,
+  #arcane-root.arcane-theme-neon .neon-select-dropdown,
+  #arcane-root.arcane-theme-neon .arcane-nav-dropdown-panel {
+    background: var(--card);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+#arcane-root.arcane-theme-neon .neon-dropdown-menu,
 #arcane-root.arcane-theme-neon .neon-popover,
 #arcane-root.arcane-theme-neon .neon-select-dropdown {
   padding: 0.35rem;
@@ -307,7 +334,7 @@ class NeonCss {
 #arcane-root.arcane-theme-neon .neon-text-input,
 #arcane-root.arcane-theme-neon .neon-select-trigger,
 #arcane-root.arcane-theme-neon .neon-command-input,
-#arcane-root.arcane-theme-neon .neon-select-search,
+#arcane-root.arcane-theme-neon .neon-select-search input,
 #arcane-root.arcane-theme-neon .neon-otp-digit {
   width: 100%;
   background: var(--input);
@@ -325,7 +352,8 @@ class NeonCss {
 }
 #arcane-root.arcane-theme-neon .neon-text-input::placeholder,
 #arcane-root.arcane-theme-neon .neon-textarea::placeholder,
-#arcane-root.arcane-theme-neon .neon-command-input::placeholder {
+#arcane-root.arcane-theme-neon .neon-command-input::placeholder,
+#arcane-root.arcane-theme-neon .neon-select-search input::placeholder {
   color: var(--muted-foreground);
   opacity: 1;
 }
@@ -333,7 +361,7 @@ class NeonCss {
 #arcane-root.arcane-theme-neon .neon-textarea:focus,
 #arcane-root.arcane-theme-neon .neon-select-trigger:focus,
 #arcane-root.arcane-theme-neon .neon-command-input:focus,
-#arcane-root.arcane-theme-neon .neon-select-search:focus,
+#arcane-root.arcane-theme-neon .neon-select-search input:focus,
 #arcane-root.arcane-theme-neon .neon-otp-digit:focus {
   outline: none;
   border-color: var(--primary);

@@ -71,11 +71,23 @@ bool _isIntrinsicGeometry(String selector) {
 bool _isTransientOverlay(String selector) {
   const List<String> overlaySelectors = <String>[
     'dropdown-menu',
+    'dropdown-submenu',
+    'nav-dropdown-panel',
     'popover',
     'search-results',
     'select-dropdown',
   ];
   return overlaySelectors.any(selector.contains);
+}
+
+bool _isFrostedMenuOverlay(String selector) {
+  const List<String> menuOverlaySelectors = <String>[
+    'neon-dropdown-menu',
+    'neon-dropdown-submenu',
+    'neon-select-dropdown',
+    'arcane-nav-dropdown-panel',
+  ];
+  return menuOverlaySelectors.any(selector.contains);
 }
 
 void main() {
@@ -105,6 +117,94 @@ void main() {
     expect(statusBadge.declarations['border-radius'], 'var(--radius-sm)');
     expect(css, isNot(contains('.neon-promo-badge')));
     expect(css, isNot(contains('.neon-badge')));
+  });
+
+  test(
+    'Neon comboboxes use anchored overlays and theme-owned search fields',
+    () {
+      expect(
+        css,
+        contains('#arcane-root.arcane-theme-neon .neon-select-search input'),
+      );
+      expect(
+        css,
+        isNot(
+          contains('#arcane-root.arcane-theme-neon .neon-select-search:focus'),
+        ),
+      );
+
+      final String rendererSource = File(
+        'packages/arcane_jaspr_neon/lib/src/renderers/select.dart',
+      ).readAsStringSync();
+      expect(rendererSource, contains("'position': 'absolute'"));
+      expect(rendererSource, contains("'top': 'calc(100% + 8px)'"));
+      expect(rendererSource, contains("'width': '100%'"));
+      expect(rendererSource, contains("'background': 'var(--input)'"));
+    },
+  );
+
+  test('frost is limited to transient menu overlays', () {
+    final List<_CssRule> activeFrostRules = rules
+        .where((_CssRule rule) {
+          return rule.declarations['backdrop-filter'] != null &&
+              rule.declarations['backdrop-filter'] != 'none';
+        })
+        .toList(growable: false);
+
+    expect(activeFrostRules, hasLength(1));
+    final _CssRule overlayRule = activeFrostRules.single;
+    for (final String selector in <String>[
+      '.neon-dropdown-menu',
+      '.neon-dropdown-submenu',
+      '.neon-select-dropdown',
+      '.arcane-nav-dropdown-panel',
+    ]) {
+      expect(overlayRule.selector, contains(selector));
+    }
+    expect(overlayRule.declarations['background'], 'var(--neon-overlay-frost)');
+    expect(overlayRule.declarations['backdrop-filter'], 'blur(18px)');
+    expect(overlayRule.declarations['-webkit-backdrop-filter'], 'blur(18px)');
+    expect(
+      overlayRule.declarations['box-shadow'],
+      'var(--neon-overlay-shadow)',
+    );
+
+    final _CssRule themeRoot = rules.singleWhere(
+      (_CssRule rule) =>
+          rule.selector == '#arcane-root.arcane-theme-neon' &&
+          rule.declarations['--neon-overlay-frost'] ==
+              'rgba(var(--card-rgb), 0.78)',
+    );
+    expect(
+      themeRoot.declarations['--neon-overlay-frost'],
+      'rgba(var(--card-rgb), 0.78)',
+    );
+    expect(
+      themeRoot.declarations['--arcane-nav-dropdown-background'],
+      'var(--neon-overlay-frost)',
+    );
+
+    final _CssRule reducedTransparencyRule = rules.singleWhere(
+      (_CssRule rule) =>
+          _isFrostedMenuOverlay(rule.selector) &&
+          rule.declarations['backdrop-filter'] == 'none',
+    );
+    expect(css, contains('@media (prefers-reduced-transparency: reduce)'));
+    expect(reducedTransparencyRule.declarations['background'], 'var(--card)');
+    expect(reducedTransparencyRule.declarations['backdrop-filter'], 'none');
+    expect(
+      reducedTransparencyRule.declarations['-webkit-backdrop-filter'],
+      'none',
+    );
+    final _CssRule reducedTransparencyRoot = rules.singleWhere(
+      (_CssRule rule) =>
+          rule.selector == '#arcane-root.arcane-theme-neon' &&
+          rule.declarations['--neon-overlay-frost'] == 'var(--card)',
+    );
+    expect(
+      reducedTransparencyRoot.declarations['--neon-overlay-frost'],
+      'var(--card)',
+    );
   });
 
   test('Neon exposes one green and grayscale palette', () {
@@ -140,7 +240,7 @@ void main() {
     }
   });
 
-  test('Neon rules reject glow, gradients, frost, and lifted surfaces', () {
+  test('Neon rules reject glow, gradients, and lifted surfaces', () {
     for (final _CssRule rule in rules) {
       for (final MapEntry<String, String> declaration
           in rule.declarations.entries) {
@@ -148,11 +248,14 @@ void main() {
         final String value = declaration.value;
         final String description = '${rule.selector} {$property: $value}';
 
-        expect(
-          property,
-          isNot(anyOf('backdrop-filter', '-webkit-backdrop-filter')),
-          reason: description,
-        );
+        if (property == 'backdrop-filter' ||
+            property == '-webkit-backdrop-filter') {
+          expect(
+            _isFrostedMenuOverlay(rule.selector),
+            isTrue,
+            reason: description,
+          );
+        }
         expect(value, isNot(contains('linear-gradient(')), reason: description);
         expect(value, isNot(contains('radial-gradient(')), reason: description);
         expect(property, isNot('text-shadow'), reason: description);
