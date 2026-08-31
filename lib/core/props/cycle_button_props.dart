@@ -1,37 +1,21 @@
 import 'package:arcane_jaspr/flutter.dart';
+import '../../component/view/icon.dart';
 
 import '../../util/style_types/arcane_style_data.dart';
 import '../decoration/arcane_decoration.dart';
 import '../interaction/interaction.dart';
 
-enum CycleButtonSize {
-  small,
-  medium,
-  large,
-  icon,
-  iconSmall,
-  iconLarge,
-}
+enum CycleButtonSize { small, medium, large, icon, iconSmall, iconLarge }
 
-enum CycleButtonVariant {
-  outline,
-  primary,
-  secondary,
-  ghost,
-  destructive,
-}
+enum CycleButtonVariant { outline, primary, secondary, ghost, destructive }
 
 /// Cycle option data.
 class CycleOption<T> {
   final T value;
   final String? label;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
 
-  const CycleOption({
-    required this.value,
-    this.label,
-    this.icon,
-  });
+  const CycleOption({required this.value, this.label, this.icon});
 }
 
 /// Cycle button component properties.
@@ -102,7 +86,7 @@ class ToggleButtonProps {
   final void Function(bool value)? onChanged;
   final ArcaneInteraction? onChangeAction;
   final String? label;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final CycleButtonSize size;
   final bool disabled;
   final String? id;
@@ -134,7 +118,7 @@ class ToggleButtonProps {
     void Function(bool value)? onChanged,
     ArcaneInteraction? onChangeAction,
     String? label,
-    Widget? icon,
+    ArcaneGlyph? icon,
     CycleButtonSize? size,
     bool? disabled,
     String? id,

@@ -8,7 +8,7 @@ class RadioScripts {
       if (group.dataset.arcaneInteractive === 'true') return;
       group.dataset.arcaneInteractive = 'true';
 
-      var radios = group.querySelectorAll('.arcane-radio-item, .arcane-radio-card, .arcane-radio-button, .arcane-radio-chip, .arcane-radio');
+      var radios = group.querySelectorAll('.arcane-radio-item, .arcane-radio-card, .arcane-radio-button, .arcane-radio');
 
       radios.forEach(function(radio) {
         var input = radio.querySelector('input[type="radio"]');
@@ -50,17 +50,11 @@ class RadioScripts {
               r.style.borderColor = isChecked ? 'var(--arcane-accent)' : 'var(--arcane-border)';
             }
 
-            if (r.classList.contains('arcane-radio-chip')) {
-              r.style.background = isChecked ? 'var(--arcane-accent-container)' : 'var(--arcane-surface)';
-              r.style.color = isChecked ? 'var(--arcane-accent)' : 'var(--arcane-on-surface)';
-              r.style.borderColor = isChecked ? 'var(--arcane-accent)' : 'var(--arcane-border)';
-            }
-
             var indicator = r.querySelector('.arcane-radio-indicator');
             if (indicator) {
               indicator.style.borderColor = isChecked ? 'var(--arcane-accent)' : 'var(--arcane-border)';
               if (isChecked) {
-                indicator.innerHTML = '<div style="width: 10px; height: 10px; border-radius: 9999px; background: var(--arcane-accent);"></div>';
+                indicator.innerHTML = '<div data-arcane-intrinsic-shape="radio-dot" style="width: 10px; height: 10px; border-radius: 50%; background: var(--arcane-accent);"></div>';
               } else {
                 indicator.innerHTML = '';
               }

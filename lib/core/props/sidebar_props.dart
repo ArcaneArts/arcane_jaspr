@@ -1,4 +1,5 @@
 import 'package:arcane_jaspr/flutter.dart';
+import '../../component/view/icon.dart';
 
 import '../../util/style_types/arcane_style_data.dart';
 import '../decoration/arcane_decoration.dart';
@@ -6,7 +7,7 @@ import '../decoration/arcane_decoration.dart';
 /// Sidebar item component properties.
 class SidebarItemProps {
   final String label;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final void Function()? onTap;
   final String? href;
   final bool selected;
@@ -46,7 +47,7 @@ class SidebarGroupProps {
 /// Uses native `<details>/<summary>` for static-site-friendly collapsibles.
 class SidebarSubMenuProps {
   final String label;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final List<Widget> children;
 
   /// Whether the section is open by default (sets `open` attribute on `<details>`).
@@ -69,7 +70,7 @@ class SidebarSubMenuProps {
 /// For sections that are always expanded with a header.
 class SidebarSectionProps {
   final String label;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final List<Widget> children;
 
   const SidebarSectionProps({

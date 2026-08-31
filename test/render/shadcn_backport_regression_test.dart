@@ -53,14 +53,14 @@ String _openingTagForClass(String html, String className) {
 }
 
 void main() {
-  group('shared CSS tooltip contract', () {
+  group('shared anchored tooltip contract', () {
     const List<ArcaneStylesheet> stylesheets = <ArcaneStylesheet>[
       ShadcnStylesheet(),
       Win95Stylesheet(),
     ];
 
     for (final ArcaneStylesheet stylesheet in stylesheets) {
-      testServer('${stylesheet.id} emits shared reveal hooks', (
+      testServer('${stylesheet.id} emits viewport anchor hooks', (
         ServerTester tester,
       ) async {
         final String html = await _render(
@@ -72,17 +72,24 @@ void main() {
           ),
         );
         expect(
-          _openingTagForClass(html, 'arcane-css-tooltip-trigger'),
-          contains(
+          _openingTagForClass(
+            html,
             stylesheet.id == 'win95'
-                ? 'win95-floating-trigger'
-                : 'arcane-floating-trigger',
+                ? 'win95-floating-container'
+                : 'arcane-floating-container',
           ),
+          contains('position: relative'),
         );
         expect(
-          _openingTagForClass(html, 'arcane-css-tooltip-content'),
-          contains('role="tooltip"'),
+          _openingTagForClass(
+            html,
+            stylesheet.id == 'win95'
+                ? 'win95-floating-content'
+                : 'arcane-floating-content',
+          ),
+          contains('data-arcane-anchor-placement="top"'),
         );
+        expect(html, contains('data-arcane-anchor-align="center"'));
       });
     }
   });

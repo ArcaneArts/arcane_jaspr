@@ -52,6 +52,7 @@ class ShadcnProgress extends StatelessComponent {
         'aria-valuemin': '0',
         'aria-valuemax': '100',
         'aria-valuenow': '$percentage',
+        'data-arcane-intrinsic-shape': 'progress-track',
       },
       styles: dom.Styles(
         raw: {
@@ -59,7 +60,7 @@ class ShadcnProgress extends StatelessComponent {
           'width': '100%',
           'height': height,
           'overflow': 'hidden',
-          'border-radius': 'var(--radius-full)', // rounded-full
+          'border-radius': 'var(--radius-xs)',
           'background-color': trackColor,
           ...?props.decoration?.universalStyles(),
           ...?props.styles?.toMap(),
@@ -70,11 +71,14 @@ class ShadcnProgress extends StatelessComponent {
         dom.div(
           classes:
               'arcane-progress-indicator ${props.indeterminate ? 'indeterminate' : ''}',
+          attributes: const <String, String>{
+            'data-arcane-intrinsic-shape': 'progress-fill',
+          },
           styles: dom.Styles(
             raw: {
               'height': '100%',
               'background-color': indicatorColor,
-              'border-radius': 'var(--radius-full)',
+              'border-radius': 'var(--radius-xs)',
               'transition': 'width var(--transition-slow)',
               if (props.indeterminate) ...{
                 'width': '50%',
@@ -121,7 +125,7 @@ class ShadcnCircularProgress extends CircularProgressRenderBase {
       'position': 'absolute',
       'width': '100%',
       'height': '100%',
-      'border-radius': 'var(--radius-full)',
+      'border-radius': '50%',
       'background':
           'conic-gradient($fillColor 0deg ${props.value * 360}deg, $trackColor ${props.value * 360}deg 360deg)',
       'mask':
@@ -164,14 +168,18 @@ class ShadcnLoadingSpinner extends StatelessComponent {
 
     return dom.div(
       classes: 'arcane-loader arcane-loading-spinner',
-      attributes: {'role': 'status', 'aria-label': 'Loading'},
+      attributes: {
+        'role': 'status',
+        'aria-label': 'Loading',
+        'data-arcane-intrinsic-shape': 'circular-loader',
+      },
       styles: dom.Styles(
         raw: {
           'width': actualSize,
           'height': actualSize,
           'border': '3px solid var(--border)',
           'border-top-color': spinnerColor,
-          'border-radius': 'var(--radius-full)',
+          'border-radius': '50%',
           'animation': 'arcane-spin 0.75s linear infinite',
           ...?props.decoration?.universalStyles(),
           ...?props.styles?.toMap(),

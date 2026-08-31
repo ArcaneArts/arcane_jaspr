@@ -76,8 +76,8 @@ class _ArcaneSpanChildren extends ArcaneSpan {
     super.id,
     super.events,
     super.key,
-  })  : _children = children,
-        super(child: const _Placeholder());
+  }) : _children = children,
+       super(child: const _Placeholder());
 
   @override
   Component build(BuildContext context) {

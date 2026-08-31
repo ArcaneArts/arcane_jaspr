@@ -198,12 +198,16 @@ abstract class SliderRenderBase extends StatelessComponent {
           <Component>[
             dom.div(
               classes: '$classPrefix-track',
+              attributes: const <String, String>{
+                'data-arcane-intrinsic-shape': 'slider-track',
+              },
               styles: dom.Styles(raw: trackStyles(trackHeight)),
               <Component>[
                 dom.div(
                   classes: '$classPrefix-track-fill',
                   attributes: const <String, String>{
                     'data-arcane-slider-fill': '',
+                    'data-arcane-intrinsic-shape': 'slider-fill',
                   },
                   styles: dom.Styles(
                     raw: trackFillStyles(
@@ -278,6 +282,7 @@ abstract class SliderRenderBase extends StatelessComponent {
   }) {
     final Map<String, String> attrs = <String, String>{
       'data-arcane-slider-thumb': kind,
+      'data-arcane-intrinsic-shape': 'slider-thumb',
       ...thumbStateAttrs(),
       'role': 'slider',
       'tabindex': props.disabled ? '-1' : '0',

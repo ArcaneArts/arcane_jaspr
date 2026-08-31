@@ -3,6 +3,7 @@ import 'package:arcane_jaspr/flutter.dart';
 import '../../core/theme_provider.dart';
 import '../../core/decoration/arcane_decoration.dart';
 import '../../util/style_types/arcane_style_data.dart';
+import 'icon.dart';
 
 export '../../core/props/separator_props.dart'
     show SeparatorOrientation, SeparatorVariant, SeparatorProps;
@@ -20,7 +21,7 @@ class ArcaneSeparator extends StatelessWidget {
   final SeparatorOrientation orientation;
   final SeparatorVariant variant;
   final String? label;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final String? color;
   final bool dashed;
   final bool decorative;
@@ -60,9 +61,9 @@ class ArcaneSeparator extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : orientation = SeparatorOrientation.vertical,
-        label = null,
-        icon = null;
+  }) : orientation = SeparatorOrientation.vertical,
+       label = null,
+       icon = null;
 
   /// Creates a separator with a text label in the middle.
   const ArcaneSeparator.withLabel({
@@ -74,14 +75,14 @@ class ArcaneSeparator extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : orientation = SeparatorOrientation.horizontal,
-        icon = null,
-        decorative = false,
-        height = null;
+  }) : orientation = SeparatorOrientation.horizontal,
+       icon = null,
+       decorative = false,
+       height = null;
 
   /// Creates a separator with an icon in the middle.
   const ArcaneSeparator.withIcon({
-    required Widget this.icon,
+    required ArcaneGlyph this.icon,
     this.variant = SeparatorVariant.standard,
     this.color,
     this.dashed = false,
@@ -89,10 +90,10 @@ class ArcaneSeparator extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : orientation = SeparatorOrientation.horizontal,
-        label = null,
-        decorative = false,
-        height = null;
+  }) : orientation = SeparatorOrientation.horizontal,
+       label = null,
+       decorative = false,
+       height = null;
 
   /// Creates a dashed separator.
   const ArcaneSeparator.dashed({
@@ -106,8 +107,8 @@ class ArcaneSeparator extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : dashed = true,
-        decorative = true;
+  }) : dashed = true,
+       decorative = true;
 
   /// Creates a subtle (muted) separator.
   const ArcaneSeparator.subtle({
@@ -121,8 +122,8 @@ class ArcaneSeparator extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : variant = SeparatorVariant.subtle,
-        decorative = true;
+  }) : variant = SeparatorVariant.subtle,
+       decorative = true;
 
   /// Creates a bold (thicker) separator.
   const ArcaneSeparator.bold({
@@ -136,23 +137,25 @@ class ArcaneSeparator extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : variant = SeparatorVariant.bold,
-        decorative = true;
+  }) : variant = SeparatorVariant.bold,
+       decorative = true;
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.separator(SeparatorProps(
-      orientation: orientation,
-      variant: variant,
-      label: label,
-      icon: icon,
-      color: color,
-      dashed: dashed,
-      decorative: decorative,
-      margin: margin,
-      height: height,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.separator(
+      SeparatorProps(
+        orientation: orientation,
+        variant: variant,
+        label: label,
+        icon: icon,
+        color: color,
+        dashed: dashed,
+        decorative: decorative,
+        margin: margin,
+        height: height,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }

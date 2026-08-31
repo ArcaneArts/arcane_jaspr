@@ -92,16 +92,6 @@ abstract class RadioGroupRenderBase<T> extends StatelessComponent {
     Map<String, String> itemAttrs,
   );
 
-  /// Builds the `chips` variant option.
-  Component buildChipRadio(
-    RadioOptionProps<T> option,
-    String groupName,
-    bool isSelected,
-    bool isDisabled,
-    bool hasError,
-    Map<String, String> itemAttrs,
-  );
-
   /// Resolves item interaction attributes and dispatches to the variant body.
   Component buildOption(
     RadioOptionProps<T> option,
@@ -120,9 +110,7 @@ abstract class RadioGroupRenderBase<T> extends StatelessComponent {
         disabled: isDisabled,
       ),
       if (!isDisabled)
-        interactionAttrs(
-          ArcaneInteraction.selectValue(groupId, itemValue),
-        ),
+        interactionAttrs(ArcaneInteraction.selectValue(groupId, itemValue)),
     ]);
 
     return switch (props.variant) {
@@ -143,14 +131,6 @@ abstract class RadioGroupRenderBase<T> extends StatelessComponent {
         itemAttrs,
       ),
       RadioGroupVariant.buttons => buildButtonRadio(
-        option,
-        groupName,
-        isSelected,
-        isDisabled,
-        hasError,
-        itemAttrs,
-      ),
-      RadioGroupVariant.chips => buildChipRadio(
         option,
         groupName,
         isSelected,
@@ -188,9 +168,7 @@ abstract class RadioGroupRenderBase<T> extends StatelessComponent {
       ]),
       styles: dom.Styles(
         raw: layerStyles(
-          <String, String>{
-            ...rootStyles,
-          },
+          <String, String>{...rootStyles},
           <Map<String, String>?>[
             props.decoration?.universalStyles(),
             decorationStyles(props.decoration),

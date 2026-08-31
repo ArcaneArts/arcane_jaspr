@@ -28,8 +28,8 @@ class ArcaneKbd extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : keys = null,
-        separator = '+';
+  }) : keys = null,
+       separator = '+';
 
   const ArcaneKbd.combo(
     this.keys, {
@@ -61,14 +61,16 @@ class ArcaneKbd extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.kbd(KbdProps(
-      keyText: keyText,
-      keys: keys,
-      separator: separator,
-      variant: variant,
-      size: size,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.kbd(
+      KbdProps(
+        keyText: keyText,
+        keys: keys,
+        separator: separator,
+        variant: variant,
+        size: size,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }

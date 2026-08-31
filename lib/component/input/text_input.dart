@@ -12,6 +12,7 @@ import '../../core/rendering/base/text_area_render_base.dart';
 import '../../core/theme_provider.dart';
 import '../../core/decoration/arcane_decoration.dart';
 import '../../util/style_types/arcane_style_data.dart';
+import '../view/icon.dart';
 
 /// A styled text input component.
 class TextInput extends StatelessWidget {
@@ -273,13 +274,14 @@ class ArcaneSelect extends StatelessWidget {
       classes: 'arcane-select',
       attributes: {
         'name': ?name,
+        'data-arcane-field-control': 'true',
         if (disabled) 'disabled': 'true',
         if (required) 'required': 'true',
       },
       styles: dom.Styles(
         raw: {
           ...sizeStyles,
-          'padding-right': '36px',
+          'padding-right': '40px',
           'font-family': 'inherit',
           'background-color': 'var(--background)',
           'border': hasError
@@ -291,10 +293,7 @@ class ArcaneSelect extends StatelessWidget {
               'color 150ms ease, border-color 150ms ease, box-shadow 150ms ease',
           'cursor': 'pointer',
           'appearance': 'none',
-          'background-image':
-              'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 12 12\'%3E%3Cpath fill=\'%2371717A\' d=\'M2.5 4.5L6 8l3.5-3.5\'/%3E%3C/svg%3E")',
-          'background-repeat': 'no-repeat',
-          'background-position': 'right 12px center',
+          '-webkit-appearance': 'none',
           if (fullWidth) 'width': '100%',
           if (disabled) 'opacity': '0.5',
           if (disabled) 'cursor': 'not-allowed',
@@ -325,6 +324,39 @@ class ArcaneSelect extends StatelessWidget {
             },
             children: [jaspr.Component.text(opt.label)],
           ),
+      ],
+    );
+
+    final Widget selectShell = dom.div(
+      classes: 'arcane-native-select-shell',
+      attributes: const <String, String>{'data-arcane-field-shell': 'true'},
+      styles: dom.Styles(
+        raw: <String, String>{
+          'position': 'relative',
+          'display': fullWidth ? 'block' : 'inline-block',
+          if (fullWidth) 'width': '100%',
+        },
+      ),
+      <Widget>[
+        selectElement,
+        dom.span(
+          classes: 'arcane-native-select-chevron',
+          attributes: const <String, String>{'aria-hidden': 'true'},
+          styles: const dom.Styles(
+            raw: <String, String>{
+              'position': 'absolute',
+              'right': '14px',
+              'top': '50%',
+              'display': 'inline-flex',
+              'align-items': 'center',
+              'justify-content': 'center',
+              'color': 'var(--muted-foreground)',
+              'pointer-events': 'none',
+              'transform': 'translateY(-50%)',
+            },
+          ),
+          <Widget>[ArcaneIcon.chevronDown(size: IconSize.sm)],
+        ),
       ],
     );
 
@@ -365,7 +397,7 @@ class ArcaneSelect extends StatelessWidget {
                   ),
               ],
             ),
-          selectElement,
+          selectShell,
           if (error != null)
             dom.span(
               classes: 'arcane-select-error',
@@ -378,7 +410,7 @@ class ArcaneSelect extends StatelessWidget {
       );
     }
 
-    return selectElement;
+    return selectShell;
   }
 }
 

@@ -1,6 +1,6 @@
 # Changelog
 
-## x.x.x
+## 4.0.0 - 2026-08-31
 
 ### Added
 
@@ -24,9 +24,9 @@
   and therefore hung at the very bottom of its button (visibly far lower
   than the `□` and `✕` beside it, and clipped outright in some font
   fallbacks). All three glyphs are now authored in one 10x10 cell as SVG
-  artwork — new `--w95-ctl-min` / `--w95-ctl-max` / `--w95-ctl-close`
+  artwork. New `--w95-ctl-min` / `--w95-ctl-max` / `--w95-ctl-close`
   (single glyph) and `--w95-ctl-row` / `--w95-ctl-row-ink` (all three at a
-  15px pitch) tokens — with the minimize bar placed deliberately in the
+  15px pitch) tokens, with the minimize bar placed deliberately in the
   lower-middle of the cell. Applied to every control row (command dialog,
   chrome-`everything` cards, gallery-tile captions, scaffold header, KB
   article panel) and to the landing terminal-mock's three cap buttons, so
@@ -40,8 +40,19 @@
   hook like the light block already did, so a host-app accent re-tint also
   recolors dark focus rings.
 
+### Removed
+
+- Removed the network font bundler; the existing bitmap font faces remain a
+  committed embedded asset and require no remote source at build or runtime.
+- Removed the floating, modal, ticker, progress, sidebar, takeover, and toast
+  promo renderers; the retained top and inline announcements are flat links.
+
 ### Changed
 
+- Flexi cards and card-style empty states now identify nested surfaces for
+  automatic frame flattening.
+- Button rendering now consumes core's single typed semantic icon slot; the
+  obsolete automatic-arrow transition hook was removed.
 - Destructive buttons are no longer identical to every other silver button:
   they keep the 3D face but carry a bold maroon label and a 1px maroon ring
   inside the bevel (brightened red in dark mode) so dangerous actions are

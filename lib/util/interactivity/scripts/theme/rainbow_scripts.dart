@@ -57,8 +57,6 @@ class RainbowScripts {
       docRoot.style.setProperty('--primary', primary);
       docRoot.style.setProperty('--ring', ring);
       docRoot.style.setProperty('--primary-rgb', r + ',' + g + ',' + b);
-      docRoot.style.setProperty('--glow-color', 'rgba(' + r + ',' + g + ',' + b + ',0.35)');
-
       requestAnimationFrame(animate);
     }
 

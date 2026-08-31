@@ -17,9 +17,6 @@ enum Win95Chrome {
   /// beveled panels. The default.
   classic,
 
-  /// Every card also gets a navy title bar, for a maximally "desktop" look.
-  everything,
-
   /// No title bars anywhere — just raised/sunken beveled surfaces.
   minimal;
 
@@ -30,7 +27,7 @@ enum Win95Chrome {
 /// Windows 95 theme — a pixel-faithful recreation of the classic Win95 desktop.
 ///
 /// Sharp-cornered `#c0c0c0` control faces with the signature layered-inset bevel
-/// (raised buttons, sunken fields), navy→cyan gradient title bars, segmented
+/// (raised buttons, sunken fields), solid navy title bars, segmented
 /// progress wells, chunky beveled scrollbars, dotted focus rectangles, and the
 /// MS Sans Serif bitmap font. Light mode is one of the real Win95 [Win95Theme]
 /// appearance schemes (default: the teal-desktop [Win95Theme.standard]); dark
@@ -43,7 +40,7 @@ class Win95Stylesheet extends ArcaneStylesheet {
   /// The light-mode appearance scheme. Defaults to [Win95Theme.standard].
   final Win95Theme theme;
 
-  /// How far the navy title-bar chrome reaches. Defaults to
+  /// Whether semantic window title bars are shown. Defaults to
   /// [Win95Chrome.classic].
   final Win95Chrome chrome;
 

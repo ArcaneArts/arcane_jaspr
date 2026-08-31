@@ -35,7 +35,8 @@ class NeubrutalismCard extends CardRenderBase {
       'background-color':
           props.backgroundColor ?? 'var(--nb-paper, var(--card))',
       'border': 'var(--nb-border-base, 3px) solid var(--nb-line, #000)',
-      'box-shadow': 'var(--nb-shadow-md, 5px 5px 0 0 var(--nb-shadow-color, #000))',
+      'box-shadow':
+          'var(--nb-shadow-md, 5px 5px 0 0 var(--nb-shadow-color, #000))',
     },
     CardVariant.flat => <String, String>{
       'background-color':
@@ -53,17 +54,12 @@ class NeubrutalismCard extends CardRenderBase {
       'border': 'none',
       'box-shadow': 'none',
     },
-    CardVariant.glass => <String, String>{
-      'background-color':
-          props.backgroundColor ?? 'var(--nb-paper, var(--card))',
-      'border': 'var(--nb-border-base, 3px) solid var(--nb-line, #000)',
-      'box-shadow': 'var(--nb-shadow-lg, 7px 7px 0 0 var(--nb-shadow-color, #000))',
-    },
     CardVariant.interactive => <String, String>{
       'background-color':
           props.backgroundColor ?? 'var(--nb-paper, var(--card))',
       'border': 'var(--nb-border-base, 3px) solid var(--nb-line, #000)',
-      'box-shadow': 'var(--nb-shadow-md, 5px 5px 0 0 var(--nb-shadow-color, #000))',
+      'box-shadow':
+          'var(--nb-shadow-md, 5px 5px 0 0 var(--nb-shadow-color, #000))',
     },
   };
 }

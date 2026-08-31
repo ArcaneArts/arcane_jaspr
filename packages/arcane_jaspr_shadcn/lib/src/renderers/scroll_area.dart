@@ -12,9 +12,6 @@ class ShadcnScrollArea extends ScrollAreaRenderBase {
   String get cssPrefix => 'arcane';
 
   @override
-  String get scrollShadowSize => '24px';
-
-  @override
   Map<String, String> scrollbarTrackStyles() => <String, String>{
     'scrollbar-color': 'var(--border) transparent',
   };

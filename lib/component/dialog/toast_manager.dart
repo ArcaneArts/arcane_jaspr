@@ -1,8 +1,7 @@
 import 'dart:async';
 
-import 'package:arcane_jaspr/flutter.dart';
-
 import '../../core/props/toast_props.dart';
+import '../view/icon.dart';
 
 /// Toast data for the queue.
 class ToastData {
@@ -14,7 +13,7 @@ class ToastData {
   final int duration;
   final bool dismissible;
   final ToastAction? action;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final ToastPosition position;
 
   ToastData({
@@ -38,7 +37,7 @@ class ToastData {
     int? duration,
     bool? dismissible,
     ToastAction? action,
-    Widget? icon,
+    ArcaneGlyph? icon,
   }) {
     return ToastData(
       id: id,
@@ -133,7 +132,7 @@ class ToastManager {
     String? description,
     int duration = 4000,
     ToastAction? action,
-    Widget? icon,
+    ArcaneGlyph? icon,
     ToastPosition? position,
   }) {
     return _show(
@@ -157,7 +156,7 @@ class ToastManager {
     String? description,
     int duration = 4000,
     ToastAction? action,
-    Widget? icon,
+    ArcaneGlyph? icon,
     ToastPosition? position,
   }) {
     return _show(
@@ -181,7 +180,7 @@ class ToastManager {
     String? description,
     int duration = 5000,
     ToastAction? action,
-    Widget? icon,
+    ArcaneGlyph? icon,
     ToastPosition? position,
   }) {
     return _show(
@@ -205,7 +204,7 @@ class ToastManager {
     String? description,
     int duration = 6000,
     ToastAction? action,
-    Widget? icon,
+    ArcaneGlyph? icon,
     ToastPosition? position,
   }) {
     return _show(

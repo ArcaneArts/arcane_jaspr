@@ -35,7 +35,8 @@ class RadioCards<T> extends StatelessWidget {
           gap: 6,
           children: <Widget>[
             Text.label(labelBuilder(entry)),
-            if (descriptionBuilder != null) Text.bodySmall(descriptionBuilder!(entry)),
+            if (descriptionBuilder != null)
+              Text.bodySmall(descriptionBuilder!(entry)),
           ],
         ),
       );

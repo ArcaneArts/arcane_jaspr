@@ -38,20 +38,20 @@ class MapProjection {
 
   /// Get map dimensions for a given map type.
   static ({double width, double height, String viewBox, double aspectRatio})
-      dimensions(MapType type) {
+  dimensions(MapType type) {
     return switch (type) {
       MapType.world => (
-          width: worldWidth,
-          height: worldHeight,
-          viewBox: worldViewBox,
-          aspectRatio: worldAspectRatio,
-        ),
+        width: worldWidth,
+        height: worldHeight,
+        viewBox: worldViewBox,
+        aspectRatio: worldAspectRatio,
+      ),
       MapType.usa => (
-          width: usaWidth,
-          height: usaHeight,
-          viewBox: usaViewBox,
-          aspectRatio: usaAspectRatio,
-        ),
+        width: usaWidth,
+        height: usaHeight,
+        viewBox: usaViewBox,
+        aspectRatio: usaAspectRatio,
+      ),
     };
   }
 

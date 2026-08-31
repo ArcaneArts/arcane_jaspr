@@ -1,9 +1,10 @@
 import 'package:arcane_jaspr/component/input/button.dart';
+import 'package:arcane_jaspr/component/view/icon.dart';
 import 'package:arcane_jaspr/core/interaction/interaction.dart';
 import 'package:arcane_jaspr/flutter.dart';
 
 class IconButton extends StatelessWidget {
-  final Widget icon;
+  final ArcaneGlyph icon;
   final void Function()? onPressed;
   final ArcaneInteraction? action;
   final ButtonVariant variant;
@@ -88,6 +89,6 @@ class IconButton extends StatelessWidget {
     disabled: disabled,
     loading: loading,
     href: href,
-    child: icon,
+    icon: icon,
   );
 }

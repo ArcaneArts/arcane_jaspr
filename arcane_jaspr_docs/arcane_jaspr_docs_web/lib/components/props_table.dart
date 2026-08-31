@@ -27,7 +27,7 @@ class PropsTable extends StatelessWidget {
           ),
         ArcaneDiv(
           styles: const ArcaneStyleData(
-            borderRadius: Radius.lg,
+            borderRadius: Radius.md,
             overflow: Overflow.auto,
             border: BorderPreset.standard,
           ),
@@ -60,10 +60,8 @@ class PropsTable extends StatelessWidget {
                             padding: PaddingPreset.inlineCode,
                             borderRadius: Radius.xs,
                             textColor: TextColor.error,
-                            raw: {
-                              'background':
-                                  'rgba(var(--arcane-destructive-rgb), 0.15)',
-                            },
+                            backgroundCustom:
+                                'rgba(var(--arcane-destructive-rgb), 0.15)',
                           ),
                           child: const Text('required'),
                         ),
@@ -89,7 +87,7 @@ class PropsTable extends StatelessWidget {
                             fontFamily: FontFamily.mono,
                             fontSize: FontSize.sm,
                             padding: PaddingPreset.inlineCode,
-                            background: Background.glassTint,
+                            background: Background.code,
                             borderRadius: Radius.xs,
                             textColor: TextColor.mutedForeground,
                           ),
@@ -181,7 +179,7 @@ class EnumTable extends StatelessWidget {
           ),
         ArcaneDiv(
           styles: const ArcaneStyleData(
-            borderRadius: Radius.lg,
+            borderRadius: Radius.md,
             overflow: Overflow.auto,
             border: BorderPreset.standard,
           ),

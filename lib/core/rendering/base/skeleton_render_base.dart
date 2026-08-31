@@ -54,11 +54,15 @@ abstract class SkeletonRenderBase extends StatelessComponent {
 
     final String width = props.width ?? defaultWidth;
     final String height = props.height ?? defaultHeight;
-    final String? borderRadius = props.borderRadius ?? defaultRadius;
+    final String? borderRadius = defaultRadius;
     final bool useChamfer = borderRadius == null && defaultClip != null;
 
     return dom.div(
       classes: '$cssClass ${props.animate ? 'animate' : ''}',
+      attributes: <String, String>{
+        if (props.shape == SkeletonShape.circle)
+          'data-arcane-intrinsic-shape': 'skeleton-circle',
+      },
       styles: dom.Styles(
         raw: layerStyles(
           <String, String>{

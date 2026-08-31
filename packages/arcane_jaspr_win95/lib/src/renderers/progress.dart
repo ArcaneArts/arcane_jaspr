@@ -23,12 +23,20 @@ class Win95Progress extends ProgressRenderBase {
       ? 'win95-progress-indicator indeterminate'
       : 'win95-progress-indicator';
 
+  /// Without an explicit width the block-level indicator resolves to `auto`,
+  /// which is 100% of the track, so every meter rendered permanently full. The
+  /// fill is emitted as a plain percentage with no transition: a Win95 meter
+  /// snapped to each new value in whole segments and never eased between them.
+  /// An indeterminate meter is the hourglass instead (see win95_css.dart), so
+  /// it spans the full track and lets the art centre itself.
   @override
   Map<String, String> indicatorStyles(
     ProgressProps props,
     double percentage,
     bool indeterminate,
-  ) => const <String, String>{};
+  ) => <String, String>{
+    'width': indeterminate ? '100%' : '${percentage.toStringAsFixed(2)}%',
+  };
 
   @override
   Map<String, String> get valueStyles => const <String, String>{};
@@ -45,9 +53,15 @@ class Win95CircularProgress extends CircularProgressRenderBase {
   Map<String, String> rootStyles(CircularProgressProps props) =>
       const <String, String>{};
 
+  /// Feeds the swept angle to the hard-stop conic gauge in win95_css.dart. The
+  /// ring itself is authored in the sheet; only the value can vary per
+  /// instance, so it travels as a custom property rather than a full gradient.
+  /// Emitted unconditionally: without it 5% and 95% rendered identically.
   @override
-  Map<String, String> ringStyles(CircularProgressProps props) =>
-      const <String, String>{};
+  Map<String, String> ringStyles(CircularProgressProps props) {
+    final int percentage = (props.value.clamp(0.0, 1.0) * 100).round();
+    return <String, String>{'--w95-gauge-pct': '$percentage%'};
+  }
 
   @override
   bool showCenter(CircularProgressProps props) =>

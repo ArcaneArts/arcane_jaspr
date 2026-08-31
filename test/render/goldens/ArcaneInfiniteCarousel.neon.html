@@ -1,10 +1,8 @@
 
     <div class="arcane-carousel" style="position: relative; overflow: hidden" data-animation-duration="60" data-resume-delay="5000">
-      <div class="arcane-infinite-carousel-fade-left" style="position: absolute; left: 0; top: 0; bottom: 0; width: 150px; background: linear-gradient(to right, var(--card), transparent); z-index: 10; pointer-events: none"></div>
-      <div class="arcane-infinite-carousel-fade-right" style="position: absolute; right: 0; top: 0; bottom: 0; width: 150px; background: linear-gradient(to left, var(--card), transparent); z-index: 10; pointer-events: none"></div>
-      <div class="arcane-infinite-carousel-track arcane-carousel-track" style="display: flex; width: max-content; cursor: grab; user-select: none; animation: scroll-carousel 60s linear infinite">
-        <div style="display: flex; gap: 1.5rem; padding: 0 0.5rem"><span class="arcane-text">a</span><span class="arcane-text">b</span></div>
-        <div style="display: flex; gap: 1.5rem; padding: 0 0.5rem"><span class="arcane-text">a</span><span class="arcane-text">b</span></div>
+      <div class="arcane-infinite-carousel-track arcane-carousel-track" style="display: flex; width: max-content; cursor: var(--arcane-drag-cursor, grab); user-select: none; animation: scroll-carousel 60s linear infinite">
+        <div style="display: flex; gap: 1.5rem; padding: 0 0.5rem" data-arcane-carousel-content="original"><span class="arcane-text">a</span><span class="arcane-text">b</span></div>
+        <div style="display: flex; gap: 1.5rem; padding: 0 0.5rem; pointer-events: none" data-arcane-carousel-content="clone" aria-hidden="true" inert="true"><span class="arcane-text">a</span><span class="arcane-text">b</span></div>
       </div>
     </div>
   

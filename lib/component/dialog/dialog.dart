@@ -42,30 +42,34 @@ class ArcaneDialog extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : _child = child,
-        _children = children,
-        assert(child != null || children != null,
-            'Either child or children must be provided');
+  }) : _child = child,
+       _children = children,
+       assert(
+         child != null || children != null,
+         'Either child or children must be provided',
+       );
 
   @override
   Widget build(BuildContext context) {
     final List<Widget> content = _children ?? <Widget>[_child!];
 
-    return context.renderers.dialog(DialogProps(
-      id: id,
-      isOpen: isOpen,
-      title: title,
-      content: content,
-      actions: actions,
-      showCloseButton: showCloseButton,
-      onClose: onClose,
-      maxWidth: maxWidth,
-      barrierDismissible: barrierDismissible,
-      escapeCloses: escapeCloses,
-      focusTrap: focusTrap,
-      restoreFocus: restoreFocus,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.dialog(
+      DialogProps(
+        id: id,
+        isOpen: isOpen,
+        title: title,
+        content: content,
+        actions: actions,
+        showCloseButton: showCloseButton,
+        onClose: onClose,
+        maxWidth: maxWidth,
+        barrierDismissible: barrierDismissible,
+        escapeCloses: escapeCloses,
+        focusTrap: focusTrap,
+        restoreFocus: restoreFocus,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }

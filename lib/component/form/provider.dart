@@ -211,8 +211,8 @@ class ArcaneFormScope extends InheritedWidget {
   });
 
   static ArcaneFormContext? of(BuildContext context) {
-    final scope =
-        context.dependOnInheritedComponentOfExactType<ArcaneFormScope>();
+    final scope = context
+        .dependOnInheritedComponentOfExactType<ArcaneFormScope>();
     return scope?.formContext;
   }
 

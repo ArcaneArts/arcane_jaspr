@@ -18,11 +18,7 @@ enum AvatarSize {
   static const AvatarSize extraLarge = xl;
 }
 
-enum AvatarShape {
-  circle,
-  rounded,
-  square,
-}
+enum AvatarShape { circle, rounded, square }
 
 /// Avatar component properties.
 class AvatarProps {

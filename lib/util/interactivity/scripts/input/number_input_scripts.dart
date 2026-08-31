@@ -47,12 +47,12 @@ class NumberInputScripts {
 
         if (decrementBtn) {
           decrementBtn.disabled = newValue <= min;
-          decrementBtn.style.cursor = newValue <= min ? 'not-allowed' : 'pointer';
+          decrementBtn.style.cursor = newValue <= min ? 'var(--arcane-step-cursor-disabled, not-allowed)' : 'var(--arcane-step-cursor, pointer)';
           decrementBtn.style.color = newValue <= min ? 'var(--arcane-muted)' : 'var(--arcane-on-surface)';
         }
         if (incrementBtn) {
           incrementBtn.disabled = newValue >= max;
-          incrementBtn.style.cursor = newValue >= max ? 'not-allowed' : 'pointer';
+          incrementBtn.style.cursor = newValue >= max ? 'var(--arcane-step-cursor-disabled, not-allowed)' : 'var(--arcane-step-cursor, pointer)';
           incrementBtn.style.color = newValue >= max ? 'var(--arcane-muted)' : 'var(--arcane-on-surface)';
         }
       }

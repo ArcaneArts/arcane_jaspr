@@ -10,16 +10,16 @@ This page is generated from the current `package:arcane_jaspr/arcane_jaspr.dart`
 
 ## Snapshot
 
-- Generated on `April 24, 2026`
-- Primary live component demos: `56`
-- Primary support component modules: `55`
-- Main-surface foundation exports: `20`
-- Total main-surface export modules: `128`
+- Generated on `August 31, 2026`
+- Primary live component demos: `66`
+- Primary support component modules: `61`
+- Main-surface foundation exports: `24`
+- Total main-surface export modules: `138`
 - Advanced HTML modules: `22`
 
 Use `package:arcane_jaspr/arcane_jaspr.dart` for the Flutter-first surface. Use `package:arcane_jaspr/html.dart` and `package:arcane_jaspr/web.dart` only when you intentionally need lower-level HTML or raw Jaspr escape hatches.
 
-## Primary Live Components (56)
+## Primary Live Components (66)
 
 | Component | Symbol | Source |
 |---|---|---|
@@ -79,12 +79,28 @@ Use `package:arcane_jaspr/arcane_jaspr.dart` for the Flutter-first surface. Use 
 | `toggle-group` | `ArcaneToggleGroup` | `lib/component/input/toggle_group.dart` |
 | `tooltip` | `ArcaneTooltip` | `lib/component/dialog/tooltip.dart` |
 | `typography` | `Text` | `lib/component/typography/text.dart` |
+| `styling` | `ArcaneStyleData` | `lib/util/style_types/arcane_style_data.dart` |
+| `tokens` | `Background` | `lib/util/style_types/colors.dart` |
+| `theming` | `ArcaneStyleData` | `lib/util/style_types/arcane_style_data.dart` |
+| `aliases` | `ArcaneBox` | `lib/arcane_jaspr.dart` |
+| `borders` | `BorderPreset` | `lib/util/style_types/borders.dart` |
+| `colors` | `Background` | `lib/util/style_types/colors.dart` |
+| `display` | `Display` | `lib/util/style_types/layout.dart` |
+| `effects` | `Shadow` | `lib/util/style_types/effects.dart` |
+| `spacing` | `Gap` | `lib/util/style_types/spacing.dart` |
+| `typography-styles` | `Text` | `lib/component/typography/text.dart` |
 
-## Primary Support Modules (55)
+## Primary Support Modules (61)
 
 | Symbol | Source |
 |---|---|
+| `CtaCard` | `lib/component/card/cta_card.dart` |
+| `FeatureCard` | `lib/component/card/feature_card.dart` |
+| `PricingCard` | `lib/component/card/pricing_card.dart` |
+| `StatCard` | `lib/component/card/stat_card.dart` |
+| `TestimonialCard` | `lib/component/card/testimonial_card.dart` |
 | `Collection` | `lib/component/collection/collection.dart` |
+| `ArcaneGallery` | `lib/component/collection/gallery.dart` |
 | `ArcaneInfiniteCarousel` | `lib/component/collection/infinite_carousel.dart` |
 | `section` | `lib/component/collection/section.dart` |
 | `ConfirmText` | `lib/component/dialog/confirm_text.dart` |
@@ -110,11 +126,11 @@ Use `package:arcane_jaspr/arcane_jaspr.dart` for the Flutter-first surface. Use 
 | `SearchResult` | `lib/component/input/search.dart` |
 | `Selector` | `lib/component/input/selector.dart` |
 | `Carpet` | `lib/component/layout/carpet.dart` |
-| `FancyIcon` | `lib/component/layout/fancy_icon.dart` |
 | `FancyProgressBar` | `lib/component/layout/fancy_progress.dart` |
 | `Wrap` | `lib/component/layout/flow.dart` |
 | `FormHeader` | `lib/component/layout/form_header.dart` |
 | `Gutter` | `lib/component/layout/gutter.dart` |
+| `ArcanePage` | `lib/component/layout/page.dart` |
 | `RadioCards` | `lib/component/layout/radio_cards.dart` |
 | `ArcaneScaffold` | `lib/component/layout/scaffold.dart` |
 | `ArcaneScrollRail` | `lib/component/layout/scroll_rail.dart` |
@@ -123,6 +139,7 @@ Use `package:arcane_jaspr/arcane_jaspr.dart` for the Flutter-first surface. Use 
 | `promo` | `lib/component/promo/promo.dart` |
 | `Screen` | `lib/component/screen/abstract_screen.dart` |
 | `FillScreen` | `lib/component/screen/fill_screen.dart` |
+| `ArcaneNotFoundAction` | `lib/component/screen/not_found.dart` |
 | `SliverScreen` | `lib/component/screen/sliver_screen.dart` |
 | `ArcaneApp` | `lib/component/support/app.dart` |
 | `DeleteIconButton` | `lib/component/support/delete_icon_button.dart` |
@@ -133,17 +150,19 @@ Use `package:arcane_jaspr/arcane_jaspr.dart` for the Flutter-first surface. Use 
 | `CardSection` | `lib/component/view/card_section.dart` |
 | `CenterBody` | `lib/component/view/center_body.dart` |
 | `Expander` | `lib/component/view/expander.dart` |
-| `Glass` | `lib/component/view/glass.dart` |
 | `ArcaneIcon` | `lib/component/view/icon.dart` |
 | `Image` | `lib/component/view/image.dart` |
 | `Logo` | `lib/component/view/logo.dart` |
 | `Markdown` | `lib/component/view/markdown.dart` |
 | `Tile` | `lib/component/view/tile.dart` |
 
-## Main-Surface Foundation Exports (20)
+## Main-Surface Foundation Exports (24)
 
 | Symbol | Source |
 |---|---|
+| `ArcaneDecoration` | `lib/core/decoration/arcane_decoration.dart` |
+| `ArcaneInteraction` | `lib/core/interaction/interaction.dart` |
+| `interaction_attrs` | `lib/core/interaction/interaction_attrs.dart` |
 | `LayoutRenderers` | `lib/core/layout_renderers.dart` |
 | `ButtonProps` | `lib/core/props/button_props.dart` |
 | `ComponentRenderers` | `lib/core/renderers.dart` |
@@ -159,6 +178,7 @@ Use `package:arcane_jaspr/arcane_jaspr.dart` for the Flutter-first surface. Use 
 | `Color` | `lib/util/appearance/colors.dart` |
 | `EdgeInsets` | `lib/util/arcane.dart` |
 | `PasswordPolicy` | `lib/util/auth/password_policy.dart` |
+| `classes` | `lib/util/classes.dart` |
 | `prose_styles` | `lib/util/content/prose_styles.dart` |
 | `ReadingTimeResult` | `lib/util/content/reading_time.dart` |
 | `ArcaneColors` | `lib/util/design_tokens.dart` |

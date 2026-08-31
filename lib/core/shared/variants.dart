@@ -1,12 +1,5 @@
 /// Color variants for semantic meaning.
-enum ColorVariant {
-  primary,
-  secondary,
-  destructive,
-  success,
-  warning,
-  info;
-}
+enum ColorVariant { primary, secondary, destructive, success, warning, info }
 
 /// Style variants for visual treatment.
 enum StyleVariant {
@@ -16,6 +9,6 @@ enum StyleVariant {
   link,
 
   /// Soft/subtle variant with muted background and border.
-  /// Ideal for display tags like "Pre-installed" chips.
-  soft;
+  /// Ideal for compact display labels such as "Pre-installed".
+  soft,
 }

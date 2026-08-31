@@ -1,17 +1,18 @@
 import 'package:arcane_jaspr/flutter.dart';
 
-import '../html/div.dart';
-import '../html/arcane_span.dart';
+import '../../core/dom_value.dart';
+import '../../util/arcane.dart';
+import '../../util/style_types/index.dart';
 import '../html/arcane_link.dart';
+import '../html/arcane_span.dart';
+import '../html/div.dart';
 import '../typography/text.dart';
 import '../view/icon.dart';
-import '../../util/style_types/index.dart';
-import '../../util/arcane.dart';
 
-/// Hover-based navigation dropdown for header menus.
+/// Navigation dropdown for header menus.
 ///
-/// Opens on hover with an invisible bridge element to maintain hover state
-/// when moving from trigger to content. Supports left/right alignment.
+/// Opens on hover, click, touch, or keyboard activation. An invisible bridge
+/// maintains hover state when moving from the trigger to the content.
 ///
 /// Example:
 /// ```dart
@@ -48,6 +49,55 @@ class ArcaneNavDropdown extends StatefulWidget {
 
 class _ArcaneNavDropdownState extends State<ArcaneNavDropdown> {
   bool _isOpen = false;
+  bool _openedByHover = false;
+
+  void _openFromHover() {
+    if (_isOpen) return;
+    setState(() {
+      _isOpen = true;
+      _openedByHover = true;
+    });
+  }
+
+  void _closeFromHover() {
+    if (!_openedByHover) return;
+    setState(() {
+      _isOpen = false;
+      _openedByHover = false;
+    });
+  }
+
+  void _toggleFromActivation() {
+    setState(() {
+      if (_openedByHover) {
+        _openedByHover = false;
+        return;
+      }
+      _isOpen = !_isOpen;
+    });
+  }
+
+  void _close() {
+    if (!_isOpen) return;
+    setState(() {
+      _isOpen = false;
+      _openedByHover = false;
+    });
+  }
+
+  void _handleTriggerKeyDown(dynamic event) {
+    switch (domEventKey(event)) {
+      case 'Enter':
+      case ' ':
+        domPreventDefault(event);
+        _toggleFromActivation();
+        return;
+      case 'Escape':
+        domPreventDefault(event);
+        _close();
+        return;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +107,8 @@ class _ArcaneNavDropdownState extends State<ArcaneNavDropdown> {
         display: Display.inlineFlex,
       ),
       events: {
-        'mouseenter': (_) => setState(() => _isOpen = true),
-        'mouseleave': (_) => setState(() => _isOpen = false),
+        'mouseenter': (_) => _openFromHover(),
+        'mouseleave': (_) => _closeFromHover(),
       },
       children: [
         // Trigger button
@@ -66,14 +116,14 @@ class _ArcaneNavDropdownState extends State<ArcaneNavDropdown> {
           styles: ArcaneStyleData(
             display: Display.flex,
             alignItems: AlignItems.center,
-            justifyContent:
-                component.alignRight ? null : JustifyContent.center,
+            justifyContent: component.alignRight ? null : JustifyContent.center,
             gap: Gap.xs,
             padding: PaddingPreset.smMd,
             borderRadius: Radius.sm,
             cursor: Cursor.pointer,
-            textColorCustom:
-                _isOpen ? 'var(--foreground)' : 'var(--muted-foreground)',
+            textColorCustom: _isOpen
+                ? 'var(--foreground)'
+                : 'var(--muted-foreground)',
             fontSize: FontSize.sm,
             fontWeight: FontWeight.w500,
             transition: Transition.allFast,
@@ -81,6 +131,16 @@ class _ArcaneNavDropdownState extends State<ArcaneNavDropdown> {
                 ? 'color-mix(in srgb, var(--foreground) 5%, transparent)'
                 : 'transparent',
           ),
+          attributes: {
+            'role': 'button',
+            'tabindex': '0',
+            'aria-haspopup': 'menu',
+            'aria-expanded': _isOpen ? 'true' : 'false',
+          },
+          events: {
+            'click': (_) => _toggleFromActivation(),
+            'keydown': _handleTriggerKeyDown,
+          },
           children: [
             Text(component.label),
             ArcaneDiv(
@@ -114,14 +174,13 @@ class _ArcaneNavDropdownState extends State<ArcaneNavDropdown> {
               background: Background.card,
               borderCustom:
                   '1px solid color-mix(in srgb, var(--foreground) 10%, transparent)',
-              borderRadius: Radius.lg,
+              borderRadius: Radius.sm,
               minWidth: component.width,
-              shadowCustom:
-                  '0 10px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.02)',
               zIndex: ZIndex.popover,
               animation: AnimationPreset.dropdownFade,
-              transformOrigin:
-                  component.alignRight ? TransformOrigin.topRight : TransformOrigin.topLeft,
+              transformOrigin: component.alignRight
+                  ? TransformOrigin.topRight
+                  : TransformOrigin.topLeft,
             ),
             children: [component.content],
           ),
@@ -180,9 +239,6 @@ class ArcaneDropdownDivider extends StatelessWidget {
 
 /// Style variants for dropdown items
 enum ArcaneDropdownItemStyle {
-  /// Icon in styled container with optional description - for primary items
-  iconBadge,
-
   /// Simple icon + label with subtle background - for resource links
   simple,
 
@@ -192,14 +248,12 @@ enum ArcaneDropdownItemStyle {
 
 /// Dropdown item component with multiple style variants.
 ///
-/// Supports icon badge style with colored containers, simple style with
-/// inline icons, and compact style for dense lists.
+/// Supports simple inline icons and a compact style for dense lists.
 class ArcaneDropdownItem extends StatefulWidget {
   final String label;
   final String? description;
   final String href;
-  final Widget icon;
-  final String? accentColor;
+  final ArcaneGlyph icon;
   final bool isExternal;
   final ArcaneDropdownItemStyle variant;
 
@@ -208,9 +262,8 @@ class ArcaneDropdownItem extends StatefulWidget {
     required this.href,
     required this.icon,
     this.description,
-    this.accentColor,
     this.isExternal = false,
-    this.variant = ArcaneDropdownItemStyle.iconBadge,
+    this.variant = ArcaneDropdownItemStyle.simple,
     super.key,
   });
 
@@ -224,110 +277,17 @@ class _ArcaneDropdownItemState extends State<ArcaneDropdownItem> {
   @override
   Widget build(BuildContext context) {
     return switch (component.variant) {
-      ArcaneDropdownItemStyle.iconBadge => _buildIconBadgeStyle(),
       ArcaneDropdownItemStyle.simple => _buildSimpleStyle(),
       ArcaneDropdownItemStyle.compact => _buildCompactStyle(),
     };
-  }
-
-  /// Icon badge style - compact icon in subtle colored container
-  Widget _buildIconBadgeStyle() {
-    final String accent = component.accentColor ?? 'var(--primary)';
-
-    return ArcaneLink.children(
-      href: component.href,
-      styles: ArcaneStyleData(
-        display: Display.flex,
-        alignItems: AlignItems.center,
-        gap: Gap.sm,
-        padding: PaddingPreset.sm,
-        borderRadius: Radius.md,
-        textDecoration: TextDecoration.none,
-        overflow: Overflow.hidden,
-        transition: Transition.allFast,
-        backgroundCustom: _isHovered
-            ? 'color-mix(in srgb, $accent 8%, transparent)'
-            : 'transparent',
-        borderCustom: _isHovered
-            ? '1px solid color-mix(in srgb, $accent 20%, transparent)'
-            : '1px solid transparent',
-      ),
-      events: {
-        'mouseenter': (_) => setState(() => _isHovered = true),
-        'mouseleave': (_) => setState(() => _isHovered = false),
-      },
-      children: [
-        // Icon container
-        ArcaneDiv(
-          styles: ArcaneStyleData(
-            display: Display.flex,
-            alignItems: AlignItems.center,
-            justifyContent: JustifyContent.center,
-            widthCustom: '32px',
-            heightCustom: '32px',
-            borderRadius: Radius.sm,
-            backgroundCustom: _isHovered
-                ? 'color-mix(in srgb, $accent 15%, transparent)'
-                : 'color-mix(in srgb, $accent 8%, transparent)',
-            textColorCustom: accent,
-            flexShrink: 0,
-            transition: Transition.allFast,
-          ),
-          children: [component.icon],
-        ),
-        // Text content
-        ArcaneDiv(
-          styles: const ArcaneStyleData(
-            display: Display.flex,
-            flexDirection: FlexDirection.column,
-            flexGrow: 1,
-          ),
-          children: [
-            ArcaneSpan(
-              styles: const ArcaneStyleData(
-                fontSize: FontSize.sm,
-                fontWeight: FontWeight.w500,
-                textColor: TextColor.primary,
-              ),
-              child: Text(component.label),
-            ),
-            if (component.description != null)
-              ArcaneSpan(
-                styles: const ArcaneStyleData(
-                  fontSize: FontSize.xs,
-                  textColor: TextColor.muted,
-                ),
-                child: Text(component.description!),
-              ),
-          ],
-        ),
-        // External link indicator or arrow
-        if (component.isExternal)
-          ArcaneDiv(
-            styles: ArcaneStyleData(
-              textColorCustom: _isHovered ? accent : 'var(--muted-foreground)',
-              opacity: _isHovered ? Opacity.high : Opacity.half,
-              transition: Transition.allFast,
-            ),
-            children: [ArcaneIcon.externalLink(size: IconSize.xs)],
-          )
-        else
-          ArcaneDiv(
-            styles: ArcaneStyleData(
-              textColorCustom: _isHovered ? accent : 'var(--muted-foreground)',
-              opacity: _isHovered ? Opacity.high : Opacity.half,
-              transition: Transition.allFast,
-            ),
-            children: [ArcaneIcon.chevronRight(size: IconSize.xs)],
-          ),
-      ],
-    );
   }
 
   /// Simple style - compact minimal design with icon
   Widget _buildSimpleStyle() {
     return ArcaneLink.children(
       href: component.href,
+      target: component.isExternal ? '_blank' : null,
+      rel: component.isExternal ? 'noopener noreferrer' : null,
       styles: ArcaneStyleData(
         display: Display.flex,
         alignItems: AlignItems.center,
@@ -337,8 +297,9 @@ class _ArcaneDropdownItemState extends State<ArcaneDropdownItem> {
         textDecoration: TextDecoration.none,
         fontSize: FontSize.sm,
         transition: Transition.allFast,
-        textColorCustom:
-            _isHovered ? 'var(--foreground)' : 'var(--muted-foreground)',
+        textColorCustom: _isHovered
+            ? 'var(--foreground)'
+            : 'var(--muted-foreground)',
         backgroundCustom: _isHovered
             ? 'color-mix(in srgb, var(--foreground) 5%, transparent)'
             : 'transparent',
@@ -351,29 +312,18 @@ class _ArcaneDropdownItemState extends State<ArcaneDropdownItem> {
         // Icon
         ArcaneDiv(
           styles: ArcaneStyleData(
-            textColorCustom:
-                _isHovered ? 'var(--foreground)' : 'var(--muted-foreground)',
+            textColorCustom: _isHovered
+                ? 'var(--foreground)'
+                : 'var(--muted-foreground)',
             transition: Transition.allFast,
           ),
           children: [component.icon],
         ),
         // Label
         ArcaneSpan(
-          styles: const ArcaneStyleData(
-            flexGrow: 1,
-          ),
+          styles: const ArcaneStyleData(flexGrow: 1),
           child: Text(component.label),
         ),
-        // External indicator
-        if (component.isExternal)
-          ArcaneDiv(
-            styles: ArcaneStyleData(
-              textColor: TextColor.muted,
-              opacity: _isHovered ? Opacity.high : Opacity.half,
-              transition: Transition.allFast,
-            ),
-            children: [ArcaneIcon.externalLink(size: IconSize.xs)],
-          ),
       ],
     );
   }
@@ -382,6 +332,8 @@ class _ArcaneDropdownItemState extends State<ArcaneDropdownItem> {
   Widget _buildCompactStyle() {
     return ArcaneLink.children(
       href: component.href,
+      target: component.isExternal ? '_blank' : null,
+      rel: component.isExternal ? 'noopener noreferrer' : null,
       styles: ArcaneStyleData(
         display: Display.flex,
         alignItems: AlignItems.center,
@@ -391,8 +343,9 @@ class _ArcaneDropdownItemState extends State<ArcaneDropdownItem> {
         textDecoration: TextDecoration.none,
         fontSize: FontSize.sm,
         transition: Transition.allFast,
-        textColorCustom:
-            _isHovered ? 'var(--foreground)' : 'var(--muted-foreground)',
+        textColorCustom: _isHovered
+            ? 'var(--foreground)'
+            : 'var(--muted-foreground)',
         backgroundCustom: _isHovered
             ? 'color-mix(in srgb, var(--foreground) 5%, transparent)'
             : 'transparent',
@@ -404,8 +357,9 @@ class _ArcaneDropdownItemState extends State<ArcaneDropdownItem> {
       children: [
         ArcaneDiv(
           styles: ArcaneStyleData(
-            textColorCustom:
-                _isHovered ? 'var(--foreground)' : 'var(--muted-foreground)',
+            textColorCustom: _isHovered
+                ? 'var(--foreground)'
+                : 'var(--muted-foreground)',
             transition: Transition.allFast,
           ),
           children: [component.icon],

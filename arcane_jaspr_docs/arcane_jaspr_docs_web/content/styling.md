@@ -33,7 +33,7 @@ ArcaneThemeProvider(
       gap: Gap.md,
       background: Background.surface,
       border: BorderPreset.standard,
-      borderRadius: Radius.lg,
+      borderRadius: Radius.md,
       shadow: Shadow.md,
     ),
     children: [

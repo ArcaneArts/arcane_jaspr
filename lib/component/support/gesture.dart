@@ -1,12 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/dom.dart' as dom;
 
-enum GestureType {
-  press,
-  secondaryPress,
-  doublePress,
-  longPress,
-}
+enum GestureType { press, secondaryPress, doublePress, longPress }
 
 class OnHover extends StatelessWidget {
   final void Function(bool hovering) action;
@@ -42,11 +37,8 @@ class OnGesture extends StatelessWidget {
     super.key,
   });
 
-  const OnGesture.press({
-    required this.child,
-    required this.action,
-    super.key,
-  }) : type = GestureType.press;
+  const OnGesture.press({required this.child, required this.action, super.key})
+    : type = GestureType.press;
 
   const OnGesture.secondaryPress({
     required this.child,

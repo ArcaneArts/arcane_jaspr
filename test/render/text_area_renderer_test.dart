@@ -202,7 +202,7 @@ void main() {
               widthCustom: '71%',
               backgroundCustom: '#123456',
               textColorCustom: '#abcdef',
-              borderRadiusCustom: '19px',
+              borderRadius: Radius.md,
             ),
           ),
         );
@@ -215,7 +215,10 @@ void main() {
           textarea,
           contains('-webkit-text-fill-color: #abcdef !important'),
         );
-        expect(textarea, contains('border-radius: 19px !important'));
+        expect(
+          textarea,
+          contains('border-radius: var(--arcane-radius-md, 8px) !important'),
+        );
         expect(
           textarea.indexOf('background: #123456'),
           greaterThan(textarea.indexOf('background-color:')),

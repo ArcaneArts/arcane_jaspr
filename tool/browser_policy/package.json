@@ -1,0 +1,11 @@
+{
+  "name": "arcane-browser-policy",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "audit": "node runner.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}

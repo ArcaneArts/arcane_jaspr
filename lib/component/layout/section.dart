@@ -42,7 +42,8 @@ class Section extends StatelessWidget {
               ?title,
               if (title == null && titleText != null) Text.heading2(titleText!),
               ?subtitle,
-              if (subtitle == null && subtitleText != null) Text.body(subtitleText!),
+              if (subtitle == null && subtitleText != null)
+                Text.body(subtitleText!),
             ],
           ),
         ),
@@ -51,8 +52,19 @@ class Section extends StatelessWidget {
     );
 
     final List<Widget> content = <Widget>[
-      if (title != null || titleText != null || subtitle != null || subtitleText != null || trailing != null) header,
-      if ((title != null || titleText != null || subtitle != null || subtitleText != null || trailing != null) && showDivider && children.isNotEmpty)
+      if (title != null ||
+          titleText != null ||
+          subtitle != null ||
+          subtitleText != null ||
+          trailing != null)
+        header,
+      if ((title != null ||
+              titleText != null ||
+              subtitle != null ||
+              subtitleText != null ||
+              trailing != null) &&
+          showDivider &&
+          children.isNotEmpty)
         const ArcaneSeparator.subtle(),
       ...children,
     ];

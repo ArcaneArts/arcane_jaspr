@@ -3,7 +3,6 @@ import 'package:arcane_jaspr/component/input/button.dart';
 import 'package:arcane_jaspr/component/input/date_picker.dart';
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:arcane_jaspr/component/input/calendar.dart';
-import 'package:arcane_jaspr/component/typography/text.dart';
 
 class DialogDateRange extends StatefulWidget {
   final String title;
@@ -42,7 +41,10 @@ class _DialogDateRangeState extends State<DialogDateRange> {
       },
     ),
     actions: <Widget>[
-      Button.primary(onPressed: () => component.onConfirm(_value), child: const Text('Done')),
+      Button.primary(
+        onPressed: () => component.onConfirm(_value),
+        label: 'Done',
+      ),
     ],
   );
 }

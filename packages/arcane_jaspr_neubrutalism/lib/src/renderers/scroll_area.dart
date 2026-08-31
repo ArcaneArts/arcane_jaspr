@@ -8,9 +8,6 @@ class NeubrutalismScrollArea extends ScrollAreaRenderBase {
   String get cssPrefix => 'neubrutalism';
 
   @override
-  String get scrollShadowSize => '32px';
-
-  @override
   Map<String, String> scrollbarTrackStyles() => <String, String>{
     'scrollbar-color': 'var(--nb-ink, #000) var(--nb-paper-soft, #f1f1f1)',
     'scrollbar-width': 'thin',

@@ -6,11 +6,7 @@ import '../shared/shared.dart';
 
 export '../shared/shared.dart' show ComponentSize;
 
-enum KbdStyle {
-  raised,
-  flat,
-  outline,
-}
+enum KbdStyle { raised, flat, outline }
 
 /// Keyboard shortcut display component properties.
 class KbdProps {
@@ -35,8 +31,10 @@ class KbdProps {
     this.size = ComponentSize.md,
     this.styles,
     this.decoration,
-  }) : assert(keyText != null || keys != null,
-            'Either keyText or keys must be provided');
+  }) : assert(
+         keyText != null || keys != null,
+         'Either keyText or keys must be provided',
+       );
 
   const KbdProps.key(
     String key, {
@@ -44,9 +42,9 @@ class KbdProps {
     this.size = ComponentSize.md,
     this.styles,
     this.decoration,
-  })  : keyText = key,
-        keys = null,
-        separator = '+';
+  }) : keyText = key,
+       keys = null,
+       separator = '+';
 
   const KbdProps.combo(
     List<String> this.keys, {

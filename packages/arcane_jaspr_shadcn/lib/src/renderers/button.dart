@@ -18,9 +18,6 @@ class ShadcnButton extends ButtonRenderBase {
   @override
   String get cssClass => 'arcane-button';
 
-  @override
-  String get arrowTransition => 'transform var(--transition)';
-
   // ShadCN base classes (from cva buttonVariants).
   @override
   Map<String, String> baseStyles(bool isDisabled) => <String, String>{
@@ -91,11 +88,6 @@ class ShadcnButton extends ButtonRenderBase {
     ButtonVariant.info => <String, String>{
       'background-color': 'var(--info, #3b82f6)',
       'color': 'var(--info-foreground, #ffffff)',
-      'border': 'none',
-    },
-    ButtonVariant.accent => <String, String>{
-      'background-color': 'var(--accent)',
-      'color': 'var(--accent-foreground)',
       'border': 'none',
     },
   };

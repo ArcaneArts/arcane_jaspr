@@ -100,7 +100,7 @@ class NeubrutalismCss {
   --main-foreground: var(--nb-on-accent-in, $accentForeground);
   --nb-ink: #000000;
   --nb-line: var(--nb-line-in, #000000);
-  --nb-shadow-color: var(--nb-shadow-in, #000000);
+  --nb-shadow-color: #000000;
   --nb-paper: var(--secondary-background);
   --nb-paper-soft: var(--muted);
   --nb-on-background: $lightSurfaceForeground;
@@ -159,19 +159,10 @@ class NeubrutalismCss {
   --nb-radius-tight: 0;
   --nb-radius-soft: 5px;
   --nb-radius-soft-lg: 5px;
-  --nb-radius-pill: 9999px;
   --border-radius: 5px;
 
   --nb-transition: 120ms cubic-bezier(0.2, 0.8, 0.2, 1);
   --nb-transition-fast: 80ms cubic-bezier(0.2, 0.8, 0.2, 1);
-
-  --nb-stripe-bg: repeating-linear-gradient(
-    45deg,
-    var(--nb-line) 0,
-    var(--nb-line) 2px,
-    transparent 2px,
-    transparent 8px
-  );
 
   background: var(--background) !important;
 }
@@ -232,7 +223,7 @@ html.light #arcane-root.arcane-theme-neubrutalism,
   --main-foreground: var(--nb-on-accent-in, $accentForeground);
   --nb-ink: #000000;
   --nb-line: var(--nb-line-in, #000000);
-  --nb-shadow-color: var(--nb-shadow-in, #000000);
+  --nb-shadow-color: #000000;
   --nb-paper: var(--secondary-background);
   --nb-paper-soft: var(--muted);
   --nb-on-background: $lightSurfaceForeground;
@@ -282,7 +273,7 @@ html.dark #arcane-root.arcane-theme-neubrutalism,
   --destructive: #FF4747;
   --nb-ink: #000000;
   --nb-line: var(--nb-line-in, color-mix(in srgb, var(--nb-dark-inverse-black) 72%, var(--background)));
-  --nb-shadow-color: var(--nb-shadow-in, var(--nb-dark-inverse-black-soft));
+  --nb-shadow-color: var(--nb-dark-inverse-black-soft);
   --nb-paper: var(--secondary-background);
   --nb-paper-soft: var(--muted);
   --nb-on-background: $darkBackgroundForeground;
@@ -636,20 +627,6 @@ html.dark #arcane-root.arcane-theme-neubrutalism .kb-search-input {
     color var(--nb-transition);
 }
 
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-dropdown-item:not(.checkbox):not(.radio)::before,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-context-menu-item::before,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-menubar-trigger::before,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-select-option::before {
-  content: '';
-  display: inline-block;
-  width: 0.45rem;
-  height: 0.45rem;
-  flex: 0 0 0.45rem;
-  border: var(--nb-border-thin) solid var(--nb-line);
-  background: var(--nb-paper);
-  box-shadow: 2px 2px 0 0 var(--nb-shadow-color);
-}
-
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-dropdown-item:hover:not([data-disabled="true"]),
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-dropdown-item:focus-visible:not([data-disabled="true"]),
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-dropdown-item[aria-checked="true"],
@@ -665,19 +642,6 @@ html.dark #arcane-root.arcane-theme-neubrutalism .kb-search-input {
   color: var(--foreground) !important;
   box-shadow: var(--nb-shadow-xs) !important;
   transform: translate(-1px, -1px);
-}
-
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-dropdown-item:not(.checkbox):not(.radio):hover:not([data-disabled="true"])::before,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-dropdown-item:not(.checkbox):not(.radio):focus-visible:not([data-disabled="true"])::before,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-context-menu-item:hover:not([data-disabled="true"])::before,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-context-menu-item:focus-visible:not([data-disabled="true"])::before,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-menubar-trigger:hover:not([data-disabled="true"])::before,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-menubar-trigger:focus-visible:not([data-disabled="true"])::before,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-select-option:hover:not([data-disabled="true"])::before,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-select-option:focus-visible:not([data-disabled="true"])::before,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-select-option[data-state="selected"]::before {
-  background: var(--nb-selection-mark);
-  border-color: var(--nb-line);
 }
 
 html.dark #arcane-root.arcane-theme-neubrutalism .arcane-scaffold-sidebar,
@@ -715,7 +679,7 @@ html.dark #arcane-root.arcane-theme-neubrutalism .arcane-scaffold-main {
 #arcane-root.arcane-theme-neubrutalism .kb-toc-panel .toc-title {
   position: relative;
   margin: -0.625rem -0.625rem 0.625rem !important;
-  padding: 0.65rem 2.25rem 0.65rem 0.75rem !important;
+  padding: 0.65rem 0.75rem !important;
   border-bottom: var(--nb-border-thick) solid var(--nb-line) !important;
   border-radius: 0 !important;
   background: var(--nb-paper-soft) !important;
@@ -725,20 +689,6 @@ html.dark #arcane-root.arcane-theme-neubrutalism .arcane-scaffold-main {
   font-weight: 900 !important;
   letter-spacing: 0.04em !important;
   text-transform: uppercase !important;
-  box-shadow: inset -1rem 0 0 var(--nb-selection-mark);
-}
-
-#arcane-root.arcane-theme-neubrutalism .kb-toc-panel .toc-title::after {
-  content: '';
-  position: absolute;
-  right: 0.55rem;
-  top: 50%;
-  width: 0.5rem;
-  height: 0.5rem;
-  border: var(--nb-border-thin) solid var(--nb-line);
-  background: var(--nb-paper);
-  box-shadow: 2px 2px 0 0 var(--nb-shadow-color);
-  transform: translateY(-50%);
 }
 
 #arcane-root.arcane-theme-neubrutalism .kb-toc-panel .toc-content > ul,
@@ -931,7 +881,7 @@ html.dark #arcane-root.arcane-theme-neubrutalism textarea {
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-toggle-switch {
   background-color: var(--nb-paper-soft) !important;
   border: var(--nb-border-base) solid var(--nb-line) !important;
-  border-radius: 9999px !important;
+  border-radius: var(--nb-radius-soft) !important;
   box-shadow: var(--nb-shadow-xs) !important;
   transition: background-color var(--nb-transition), box-shadow var(--nb-transition);
 }
@@ -944,14 +894,14 @@ html.dark #arcane-root.arcane-theme-neubrutalism textarea {
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-toggle-switch-thumb {
   background-color: var(--nb-paper) !important;
   border: var(--nb-border-thin) solid var(--nb-line) !important;
-  border-radius: 9999px !important;
+  border-radius: 50% !important;
   box-shadow: var(--nb-shadow-xs) !important;
 }
 
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-radio-circle {
   background-color: var(--nb-paper) !important;
   border: var(--nb-border-base) solid var(--nb-line) !important;
-  border-radius: 9999px !important;
+  border-radius: 50% !important;
   box-shadow: var(--nb-shadow-xs) !important;
 }
 
@@ -962,25 +912,25 @@ html.dark #arcane-root.arcane-theme-neubrutalism textarea {
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-slider-track {
   background-color: var(--nb-paper) !important;
   border: var(--nb-border-base) solid var(--nb-line) !important;
-  border-radius: 9999px !important;
+  border-radius: var(--nb-radius-soft) !important;
 }
 
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-slider-fill {
   background-color: var(--nb-accent) !important;
-  border-radius: 9999px !important;
+  border-radius: var(--nb-radius-soft) !important;
 }
 
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-slider-thumb {
   background-color: var(--nb-paper) !important;
   border: var(--nb-border-base) solid var(--nb-line) !important;
-  border-radius: 9999px !important;
+  border-radius: 50% !important;
   box-shadow: var(--nb-shadow-xs) !important;
 }
 
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-progress-track {
   background-color: var(--nb-paper) !important;
   border: var(--nb-border-base) solid var(--nb-line) !important;
-  border-radius: 9999px !important;
+  border-radius: var(--nb-radius-soft) !important;
   overflow: hidden;
   box-shadow: var(--nb-shadow-xs);
 }
@@ -1017,8 +967,7 @@ html.dark #arcane-root.arcane-theme-neubrutalism textarea {
 }
 
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-status-badge,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-kbd,
-#arcane-root.arcane-theme-neubrutalism .arcane-chip {
+#arcane-root.arcane-theme-neubrutalism .neubrutalism-kbd {
   border: var(--nb-border-thin) solid var(--nb-line) !important;
   border-radius: var(--nb-radius-soft) !important;
   box-shadow: var(--nb-shadow-xs);
@@ -1056,8 +1005,6 @@ html.dark #arcane-root.arcane-theme-neubrutalism textarea {
   border: var(--nb-border-thin) solid var(--nb-line) !important;
   border-radius: var(--nb-radius-soft) !important;
   box-shadow: var(--nb-shadow-xs);
-  background-image: var(--nb-stripe-bg);
-  background-size: 16px 16px;
   opacity: 0.55;
 }
 
@@ -1318,7 +1265,6 @@ html.dark #arcane-root.arcane-theme-neubrutalism .prose .hljs-built_in { color: 
 }
 
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-status-badge,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-promo-badge,
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-badge {
   background: var(--nb-paper) !important;
   background-image: none !important;
@@ -1329,14 +1275,11 @@ html.dark #arcane-root.arcane-theme-neubrutalism .prose .hljs-built_in { color: 
   letter-spacing: 0.02em;
 }
 
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-badge-primary,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-badge-popular,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-badge-recommended {
+#arcane-root.arcane-theme-neubrutalism .neubrutalism-badge-primary {
   background: var(--nb-accent) !important;
   color: var(--nb-on-accent) !important;
 }
 
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-badge-isNew,
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-badge-successSolid {
   background: var(--success, #22c55e) !important;
   color: var(--success-foreground, #000) !important;
@@ -1471,17 +1414,12 @@ html.dark #arcane-root.arcane-theme-neubrutalism .prose .hljs-built_in { color: 
 
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-skeleton {
   animation: none !important;
-  background-image: var(--nb-stripe-bg) !important;
+  background-image: none !important;
 }
 
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-skeleton.animate {
-  background-image: var(--nb-stripe-bg) !important;
-  animation: nb-skeleton-stripe 1.6s linear infinite !important;
-}
-
-@keyframes nb-skeleton-stripe {
-  0% { background-position: 0 0; }
-  100% { background-position: 32px 0; }
+  background-image: none !important;
+  animation: none !important;
 }
 
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-toolbar,
@@ -1565,53 +1503,6 @@ html.dark #arcane-root.arcane-theme-neubrutalism .prose .hljs-built_in { color: 
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-toast[data-variant="error"]:not([data-arcane-decorated]) { border-color: var(--destructive) !important; }
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-toast[data-variant="info"]:not([data-arcane-decorated]) { border-color: var(--info, #3b82f6) !important; }
 
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-promo-bar,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-top-announcement-bar,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-bottom-floating-banner,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-corner-promo-toast,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-promo-modal,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-inline-hero-banner,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-sliding-sidebar-banner,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-marquee-ticker-bar,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-progress-claim-banner,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-minimizable-promo,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-fullscreen-takeover,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-expanding-fab-promo {
-  background: var(--nb-accent) !important;
-  background-image: none !important;
-  color: var(--nb-on-accent) !important;
-  border: var(--nb-border-base) solid var(--nb-line) !important;
-  border-radius: var(--nb-radius-soft) !important;
-  box-shadow: var(--nb-shadow-md) !important;
-  font-family: var(--font-sans);
-  font-weight: 700;
-  text-shadow: none !important;
-}
-
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-inline-hero-banner.ribbon,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-marquee-ticker-bar {
-  border-radius: 0 !important;
-}
-
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-inline-hero-banner.pill,
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-inline-hero-banner.badge {
-  border-radius: 9999px !important;
-}
-
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-promo-modal {
-  box-shadow: var(--nb-shadow-xl) !important;
-}
-
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-fullscreen-takeover {
-  border: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-}
-
-#arcane-root.arcane-theme-neubrutalism .neubrutalism-expanding-fab-promo {
-  border-radius: 9999px !important;
-}
-
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-otp-digit {
   font-family: var(--font-mono) !important;
   font-weight: 800 !important;
@@ -1638,8 +1529,7 @@ html.dark #arcane-root.arcane-theme-neubrutalism .prose .hljs-built_in { color: 
 }
 
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-progress-fill {
-  background-image: var(--nb-stripe-bg) !important;
-  background-size: 12px 12px;
+  background-image: none !important;
   background-color: var(--nb-accent) !important;
   background-blend-mode: normal;
   transition: width var(--nb-transition);
@@ -1661,7 +1551,7 @@ html.dark #arcane-root.arcane-theme-neubrutalism .prose .hljs-built_in { color: 
 }
 
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-avatar-inner.rounded-full {
-  border-radius: 9999px !important;
+  border-radius: 50% !important;
 }
 
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-image,
@@ -1689,9 +1579,7 @@ html.dark #arcane-root.arcane-theme-neubrutalism .prose .hljs-built_in { color: 
 
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-file-upload {
   background: var(--nb-paper) !important;
-  background-image: var(--nb-stripe-bg) !important;
-  background-size: 16px 16px;
-  background-blend-mode: lighten;
+  background-image: none !important;
   border: var(--nb-border-base) dashed var(--nb-line) !important;
   border-radius: var(--nb-radius-soft) !important;
   color: var(--foreground) !important;
@@ -1801,7 +1689,7 @@ html.dark #arcane-root.arcane-theme-neubrutalism .prose .hljs-built_in { color: 
   background: var(--nb-accent) !important;
   color: var(--nb-on-accent) !important;
   border: var(--nb-border-thin) solid var(--nb-line) !important;
-  border-radius: 9999px !important;
+  border-radius: var(--nb-radius-soft) !important;
   font-weight: 900;
 }
 
@@ -1868,7 +1756,7 @@ html.dark #arcane-root.arcane-theme-neubrutalism .prose .hljs-built_in { color: 
 
 #arcane-root.arcane-theme-neubrutalism .neubrutalism-drawer-handle {
   background: var(--nb-line) !important;
-  border-radius: 9999px !important;
+  border-radius: 1px !important;
   height: 4px !important;
 }
 
@@ -2747,15 +2635,6 @@ html.dark #arcane-root.arcane-theme-neubrutalism .kb-search-input {
   font-weight: 900 !important;
 }
 
-#arcane-root.arcane-theme-neubrutalism .arcane-demo-component-chip {
-  border: var(--nb-border-thin) solid var(--nb-line) !important;
-  border-radius: var(--nb-radius-soft) !important;
-  background: var(--background) !important;
-  color: var(--foreground) !important;
-  font-weight: 800 !important;
-  box-shadow: var(--nb-shadow-xs) !important;
-}
-
 #arcane-root.arcane-theme-neubrutalism .arcane-demo-section-title,
 #arcane-root.arcane-theme-neubrutalism .arcane-demo-code-label {
   color: var(--foreground) !important;
@@ -2782,9 +2661,7 @@ html.dark #arcane-root.arcane-theme-neubrutalism .kb-search-input {
   min-height: clamp(220px, 28vw, 360px) !important;
   padding: 1.25rem !important;
   overflow: visible !important;
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--main) 16%, transparent) 0 38%, transparent 38% 100%),
-    var(--secondary-background) !important;
+  background: var(--secondary-background) !important;
 }
 
 #arcane-root.arcane-theme-neubrutalism .arcane-demo-preview-scope > .arcane-box {
@@ -2991,9 +2868,7 @@ html.dark #arcane-root.arcane-theme-neubrutalism .kb-search-input {
 
 #arcane-root.arcane-theme-neubrutalism .kb-callout {
   padding: 1rem 1.1rem !important;
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--kb-callout-accent, var(--main)) 18%, transparent) 0 45%, transparent 45% 100%),
-    var(--secondary-background) !important;
+  background: var(--secondary-background) !important;
 }
 
 #arcane-root.arcane-theme-neubrutalism .kb-callout-title {
@@ -3280,11 +3155,7 @@ html.dark #arcane-root.neubrutalism-greyscale .kb-landing-kicker,
 
 #arcane-root.arcane-theme-neubrutalism .kb-landing-hero {
   --nb-local-foreground: var(--nb-on-paper);
-  background:
-    linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
-    linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px),
-    var(--nb-paper, var(--primary));
-  background-size: 4rem 4rem, 4rem 4rem, auto;
+  background: var(--nb-paper, var(--primary));
   color: var(--nb-local-foreground) !important;
 }
 
@@ -3349,11 +3220,7 @@ html.dark #arcane-root.neubrutalism-greyscale .kb-landing-kicker,
 
 html.dark #arcane-root.arcane-theme-neubrutalism .kb-landing-hero,
 #arcane-root.dark.arcane-theme-neubrutalism .kb-landing-hero {
-  background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-    var(--nb-paper, var(--primary));
-  background-size: 4rem 4rem, 4rem 4rem, auto;
+  background: var(--nb-paper, var(--primary));
 }
 
 html.dark #arcane-root.arcane-theme-neubrutalism .kb-landing-card,

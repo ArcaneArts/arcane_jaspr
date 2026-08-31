@@ -13,7 +13,9 @@ void main(List<String> args) {
   );
 
   if (!generatorFile.existsSync()) {
-    stderr.writeln('Run this script from arcane_jaspr_neon/arcane_neon_web.');
+    stderr.writeln(
+      'Run this script from arcane_jaspr_docs/arcane_jaspr_docs_web.',
+    );
     exit(1);
   }
 

@@ -1,9 +1,6 @@
 import 'package:arcane_jaspr/flutter.dart';
 
-enum ResizeDirection {
-  horizontal,
-  vertical,
-}
+enum ResizeDirection { horizontal, vertical }
 
 /// Resizable panel data.
 class ResizablePanelData {

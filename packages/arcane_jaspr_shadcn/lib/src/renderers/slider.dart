@@ -68,7 +68,7 @@ class ShadcnSlider extends SliderRenderBase {
     'right': '0',
     'height': trackHeight,
     'background-color': 'var(--secondary)',
-    'border-radius': 'var(--radius-full)',
+    'border-radius': 'var(--radius-xs)',
     'overflow': 'hidden',
   };
 
@@ -106,7 +106,7 @@ class ShadcnSlider extends SliderRenderBase {
     'width': '2px',
     'height': '2px',
     'background': 'var(--muted-foreground)',
-    'border-radius': 'var(--radius-full)',
+    'border-radius': '50%',
   };
 
   @override
@@ -123,7 +123,7 @@ class ShadcnSlider extends SliderRenderBase {
     'height': thumbSize,
     'background-color': 'var(--background)',
     'border': '2px solid $_fillColor',
-    'border-radius': 'var(--radius-full)',
+    'border-radius': '50%',
     'transition':
         'left 0.1s ease-out, color var(--transition), transform var(--transition), box-shadow var(--transition)',
     'z-index': '2',

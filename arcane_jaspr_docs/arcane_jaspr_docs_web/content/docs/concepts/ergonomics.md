@@ -1,6 +1,6 @@
 ---
 title: Ergonomics
-description: Small authoring conveniences — the cx class-join helper and semantic tag on Container
+description: The cx class-join helper and semantic tag on Container
 layout: kb
 ---
 
@@ -41,7 +41,7 @@ cx(<String?>['btn', disabled ? 'btn-disabled' : null]);
 
 ## Semantic tags on Container
 
-`Container` renders a `div` by default, but the `tag:` parameter lets you emit any semantic HTML element instead — `nav`, `section`, `header`, `main`, `aside`, and so on. This keeps layout code Flutter-shaped while producing meaningful, accessible markup.
+`Container` renders a `div` by default, but the `tag:` parameter can emit `nav`, `section`, `header`, `main`, `aside`, or another semantic HTML element. Layout code stays Flutter-shaped while the output uses the requested tag.
 
 Source: `lib/component/layout/flow.dart`
 

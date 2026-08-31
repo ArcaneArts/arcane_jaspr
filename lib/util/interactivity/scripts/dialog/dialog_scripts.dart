@@ -9,7 +9,6 @@ import 'modal_scripts.dart';
 import 'popover_scripts.dart';
 import 'sheet_scripts.dart';
 import 'time_dialog_scripts.dart';
-import 'toast_scripts.dart';
 import 'tooltip_scripts.dart';
 
 export 'chat_scripts.dart';
@@ -21,15 +20,14 @@ export 'modal_scripts.dart';
 export 'popover_scripts.dart';
 export 'sheet_scripts.dart';
 export 'time_dialog_scripts.dart';
-export 'toast_scripts.dart';
 export 'tooltip_scripts.dart';
 
 /// Combined dialog scripts.
 class DialogScripts {
   DialogScripts._();
 
-  static String get code => '''
-${ToastScripts.code}
+  static String get code =>
+      '''
 ${PopoverScripts.code}
 ${TooltipScripts.code}
 ${ModalScripts.code}

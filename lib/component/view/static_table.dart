@@ -67,7 +67,10 @@ class KeyValueTable extends StatelessWidget {
   Widget build(BuildContext context) => context.renderers.keyValueTable(
     KeyValueTableProps(
       rows: rows
-          .map((KeyValueRow row) => KeyValueRowData(key: row.key, value: row.value))
+          .map(
+            (KeyValueRow row) =>
+                KeyValueRowData(key: row.key, value: row.value),
+          )
           .toList(),
       keyWidth: keyWidth,
       showDividers: showDividers,

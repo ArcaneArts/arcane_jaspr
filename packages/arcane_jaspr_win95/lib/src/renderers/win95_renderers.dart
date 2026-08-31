@@ -34,7 +34,6 @@ import 'disclosure.dart';
 import 'dropdown_menu.dart';
 import 'drawer.dart';
 import 'empty_state.dart';
-import 'fade_edge.dart';
 import 'field_wrapper.dart';
 import 'flexi_cards.dart';
 import 'floating.dart';
@@ -372,9 +371,6 @@ class Win95Renderers extends ComponentRenderers with TextAreaRendererContract {
   Component dropdownMenu(DropdownMenuProps props) => Win95DropdownMenu(props);
 
   @override
-  Component fadeEdge(FadeEdgeProps props) => Win95FadeEdge(props);
-
-  @override
   Component kbd(KbdProps props) => Win95Kbd(props);
 
   @override
@@ -429,41 +425,6 @@ class Win95Renderers extends ComponentRenderers with TextAreaRendererContract {
       Win95TopAnnouncementBar(props);
 
   @override
-  Component bottomFloatingBanner(BottomFloatingBannerProps props) =>
-      Win95BottomFloatingBanner(props);
-
-  @override
-  Component cornerPromoToast(CornerPromoToastProps props) =>
-      Win95CornerPromoToast(props);
-
-  @override
-  Component promoModal(PromoModalProps props) => Win95PromoModal(props);
-
-  @override
   Component inlineHeroBanner(InlineHeroBannerProps props) =>
       Win95InlineHeroBanner(props);
-
-  @override
-  Component slidingSidebarBanner(SlidingSidebarBannerProps props) =>
-      Win95SlidingSidebarBanner(props);
-
-  @override
-  Component marqueeTickerBar(MarqueeTickerBarProps props) =>
-      Win95MarqueeTickerBar(props);
-
-  @override
-  Component expandingFabPromo(ExpandingFabPromoProps props) =>
-      Win95ExpandingFabPromo(props);
-
-  @override
-  Component progressClaimBanner(ProgressClaimBannerProps props) =>
-      Win95ProgressClaimBanner(props);
-
-  @override
-  Component minimizablePromo(MinimizablePromoProps props) =>
-      Win95MinimizablePromo(props);
-
-  @override
-  Component fullscreenTakeover(FullscreenTakeoverProps props) =>
-      Win95FullscreenTakeover(props);
 }

@@ -3,46 +3,12 @@ import 'package:arcane_jaspr/core/rendering/base/floating_render_base.dart';
 /// Neubrutalism Floating renderer.
 ///
 /// Unified component for tooltip, popover, and hovercard patterns.
-/// Implements the Neubrutalism design language with subtle glow effects.
+/// Implements the Neubrutalism design language with neutral structural depth.
 class NeubrutalismFloating extends FloatingRenderBase {
   const NeubrutalismFloating(super.props, {super.key});
 
   @override
-  String get triggerClass => 'neubrutalism-floating-trigger';
-
-  @override
   String get containerClass => 'neubrutalism-floating-container';
-
-  @override
-  String get cssTooltipClasses =>
-      'neubrutalism-floating neubrutalism-floating-tooltip neubrutalism-tooltip';
-
-  @override
-  Map<String, String> cssTooltipStyles(Map<String, String> positionStyles) =>
-      <String, String>{
-        'position': 'absolute',
-        'z-index': '50',
-        'padding': '6px 10px',
-        'max-width': '${props.maxWidth ?? 250}px',
-        'font-family': 'var(--font-body)',
-        'font-size': 'var(--arcane-font-size-sm)',
-        'font-weight': '600',
-        'line-height': '1.4',
-        'background': 'var(--nb-ink, #000)',
-        'color': 'var(--nb-paper, #fff)',
-        'border': 'var(--nb-border-thin, 2px) solid var(--nb-line, #000)',
-        'border-radius': '0',
-        'box-shadow':
-            'var(--nb-shadow-sm, 3px 3px 0 0 var(--nb-shadow-color, #000))',
-        'overflow': 'hidden',
-        'white-space': 'nowrap',
-        'pointer-events': 'none',
-        'opacity': '0',
-        'visibility': 'hidden',
-        'transition':
-            'opacity 0.15s ease, visibility 0.15s ease, transform 0.15s ease',
-        ...positionStyles,
-      };
 
   @override
   String floatingContentClasses(bool hasRichContent) => hasRichContent

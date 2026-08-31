@@ -21,10 +21,14 @@ Future<String> _render(
 void main() {
   for (final (String name, ArcaneStylesheet sheet, String cls)
       in <(String, ArcaneStylesheet, String)>[
-    ('shadcn', const ShadcnStylesheet(), 'arcane-stat-card'),
-    ('neon', const NeonStylesheet(), 'neon-stat-card'),
-    ('neubrutalism', const NeubrutalismStylesheet(), 'neubrutalism-stat-card'),
-  ]) {
+        ('shadcn', const ShadcnStylesheet(), 'arcane-stat-card'),
+        ('neon', const NeonStylesheet(), 'neon-stat-card'),
+        (
+          'neubrutalism',
+          const NeubrutalismStylesheet(),
+          'neubrutalism-stat-card',
+        ),
+      ]) {
     testServer('StatCard renders its content under $name', (
       ServerTester tester,
     ) async {
@@ -71,10 +75,13 @@ void main() {
         const StatCard(
           label: 'X',
           value: '1',
-          styles: ArcaneStyleData(borderRadiusCustom: '432px'),
+          styles: ArcaneStyleData(borderRadius: Radius.md),
         ),
       );
-      expect(html.contains('border-radius: 432px'), isTrue);
+      expect(
+        html.contains('border-radius: var(--arcane-radius-md, 8px)'),
+        isTrue,
+      );
     });
   }
 }

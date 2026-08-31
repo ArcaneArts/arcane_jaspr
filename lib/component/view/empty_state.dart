@@ -13,7 +13,7 @@ typedef EmptyStateSize = EmptyStateSizeVariant;
 
 /// Empty state placeholder component displaying a message when there's no content.
 class ArcaneEmptyState extends StatelessWidget {
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final String title;
   final String? description;
   final Widget? action;
@@ -89,29 +89,31 @@ class ArcaneEmptyState extends StatelessWidget {
   }) : icon = ArcaneIcon.wifiOff(size: IconSize.lg);
 
   EmptyStateStyleVariant get _propsStyle => switch (variant) {
-        EmptyStateStyle.centered => EmptyStateStyleVariant.centered,
-        EmptyStateStyle.compact => EmptyStateStyleVariant.compact,
-        EmptyStateStyle.card => EmptyStateStyleVariant.card,
-      };
+    EmptyStateStyle.centered => EmptyStateStyleVariant.centered,
+    EmptyStateStyle.compact => EmptyStateStyleVariant.compact,
+    EmptyStateStyle.card => EmptyStateStyleVariant.card,
+  };
 
   EmptyStateSizeVariant get _propsSize => switch (size) {
-        EmptyStateSize.sm => EmptyStateSizeVariant.sm,
-        EmptyStateSize.md => EmptyStateSizeVariant.md,
-        EmptyStateSize.lg => EmptyStateSizeVariant.lg,
-      };
+    EmptyStateSize.sm => EmptyStateSizeVariant.sm,
+    EmptyStateSize.md => EmptyStateSizeVariant.md,
+    EmptyStateSize.lg => EmptyStateSizeVariant.lg,
+  };
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.emptyState(EmptyStateProps(
-      icon: icon,
-      title: title,
-      description: description,
-      action: action,
-      secondaryAction: secondaryAction,
-      variant: _propsStyle,
-      size: _propsSize,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.emptyState(
+      EmptyStateProps(
+        icon: icon,
+        title: title,
+        description: description,
+        action: action,
+        secondaryAction: secondaryAction,
+        variant: _propsStyle,
+        size: _propsSize,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }

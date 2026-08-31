@@ -38,13 +38,15 @@ class ArcaneSpecRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.specRow(SpecRowProps(
-      label: label,
-      value: value,
-      highlight: highlight,
-      labelColor: labelColor,
-      valueColor: valueColor,
-      fontSize: fontSize,
-    ));
+    return context.renderers.specRow(
+      SpecRowProps(
+        label: label,
+        value: value,
+        highlight: highlight,
+        labelColor: labelColor,
+        valueColor: valueColor,
+        fontSize: fontSize,
+      ),
+    );
   }
 }

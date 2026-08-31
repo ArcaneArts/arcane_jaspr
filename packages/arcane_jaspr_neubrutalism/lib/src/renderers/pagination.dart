@@ -5,7 +5,7 @@ import 'package:arcane_jaspr/core/rendering/base/pagination_render_base.dart';
 ///
 /// Implements the Neubrutalism design language:
 /// - Larger button sizes
-/// - Accent-colored active state with glow
+/// - Accent-colored active state with a neutral structural shadow
 /// - More spacing between items
 class NeubrutalismPagination extends PaginationRenderBase {
   const NeubrutalismPagination(super.props, {super.key});

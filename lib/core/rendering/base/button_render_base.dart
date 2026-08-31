@@ -1,7 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
-import 'package:arcane_jaspr/component/view/icon.dart';
 import 'package:arcane_jaspr/core/decoration/arcane_decoration.dart';
 import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
 import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
@@ -13,8 +12,7 @@ import 'package:arcane_jaspr/core/theme_provider.dart';
 /// (children assembly, loading/disabled handling, the href-vs-button branch,
 /// interaction wiring and the loading spinner) into one place. A concrete
 /// theme renderer only supplies the value-producing members below: the root
-/// CSS class, the arrow-indicator transition, and the base/variant/size style
-/// maps.
+/// CSS class and the base/variant/size style maps.
 ///
 /// This base lives in core and depends only on core props and interaction
 /// helpers; it must never depend on a theme package.
@@ -25,9 +23,6 @@ abstract class ButtonRenderBase extends StatelessComponent {
 
   /// CSS class applied to the root element (e.g. `'arcane-button'`).
   String get cssClass;
-
-  /// `transition` value applied to the trailing arrow indicator span.
-  String get arrowTransition;
 
   /// Base layout styles for the control; receives the resolved disabled flag.
   Map<String, String> baseStyles(bool isDisabled);
@@ -70,34 +65,19 @@ abstract class ButtonRenderBase extends StatelessComponent {
           const LoadingSpinnerProps(size: '1rem', color: 'currentColor'),
         ),
       );
-    } else if (props.icon != null) {
-      children.add(props.icon!);
+    } else if (props.icon != null &&
+        props.iconPosition == ButtonIconPosition.leading) {
+      children.add(_semanticIcon());
     }
 
     if (props.label != null) {
       children.add(Component.text(props.label!));
     }
 
-    if (props.child != null) {
-      children.add(props.child!);
-    }
-
-    if (props.trailing != null && !props.loading) {
-      children.add(props.trailing!);
-    }
-
-    if (props.showArrow && !props.loading) {
-      children.add(
-        dom.span(
-          styles: dom.Styles(
-            raw: <String, String>{
-              'margin-left': '0.25rem',
-              'transition': arrowTransition,
-            },
-          ),
-          <Component>[ArcaneIcon.arrowRight(size: IconSize.sm)],
-        ),
-      );
+    if (!props.loading &&
+        props.icon != null &&
+        props.iconPosition == ButtonIconPosition.trailing) {
+      children.add(_semanticIcon());
     }
 
     final Map<String, String> baseAttributes = <String, String>{
@@ -154,4 +134,11 @@ abstract class ButtonRenderBase extends StatelessComponent {
       children,
     );
   }
+
+  Component _semanticIcon() => dom.span(
+    attributes: <String, String>{
+      'data-arcane-semantic-icon': props.iconPosition.name,
+    },
+    <Component>[props.icon!],
+  );
 }

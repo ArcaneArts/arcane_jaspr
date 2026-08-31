@@ -68,13 +68,15 @@ class ArcaneRawButton extends StatelessComponent {
     return button(
       id: id,
       classes: classes == null ? null : cx(classes!),
-      type: type != null ? ButtonType.values.firstWhere((t) => t.name == type, orElse: () => ButtonType.button) : null,
+      type: type != null
+          ? ButtonType.values.firstWhere(
+              (t) => t.name == type,
+              orElse: () => ButtonType.button,
+            )
+          : null,
       disabled: disabled,
       styles: styles?.toStyles() ?? const Styles(raw: {}),
-      events: {
-        if (onClick != null) 'click': (_) => onClick!(),
-        ...?events,
-      },
+      events: {if (onClick != null) 'click': (_) => onClick!(), ...?events},
       [child],
     );
   }
@@ -93,21 +95,23 @@ class _ArcaneRawButtonChildren extends ArcaneRawButton {
     super.onClick,
     super.events,
     super.key,
-  })  : _children = children,
-        super(child: const _Placeholder());
+  }) : _children = children,
+       super(child: const _Placeholder());
 
   @override
   Component build(BuildContext context) {
     return button(
       id: id,
       classes: classes == null ? null : cx(classes!),
-      type: type != null ? ButtonType.values.firstWhere((t) => t.name == type, orElse: () => ButtonType.button) : null,
+      type: type != null
+          ? ButtonType.values.firstWhere(
+              (t) => t.name == type,
+              orElse: () => ButtonType.button,
+            )
+          : null,
       disabled: disabled,
       styles: styles?.toStyles() ?? const Styles(raw: {}),
-      events: {
-        if (onClick != null) 'click': (_) => onClick!(),
-        ...?events,
-      },
+      events: {if (onClick != null) 'click': (_) => onClick!(), ...?events},
       _children,
     );
   }

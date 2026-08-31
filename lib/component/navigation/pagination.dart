@@ -7,18 +7,9 @@ import '../../util/style_types/arcane_style_data.dart';
 export '../../core/props/pagination_props.dart'
     show PaginationStyleVariant, PaginationSizeVariant;
 
-enum PaginationStyle {
-  outline,
-  filled,
-  ghost,
-  simple,
-}
+enum PaginationStyle { outline, filled, ghost, simple }
 
-enum PaginationSize {
-  sm,
-  md,
-  lg,
-}
+enum PaginationSize { sm, md, lg }
 
 /// Page navigation component.
 class ArcanePagination extends StatelessWidget {
@@ -67,16 +58,22 @@ class ArcanePagination extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : variant = PaginationStyle.simple,
-        siblingCount = 0,
-        showFirstLast = false,
-        showPrevNext = true,
-        showPageCount = true;
+  }) : variant = PaginationStyle.simple,
+       siblingCount = 0,
+       showFirstLast = false,
+       showPrevNext = true,
+       showPageCount = true;
 
   List<int?> _getPageNumbers() {
     final List<int?> pages = [];
-    final int leftSiblingIndex = (currentPage - siblingCount).clamp(1, totalPages);
-    final int rightSiblingIndex = (currentPage + siblingCount).clamp(1, totalPages);
+    final int leftSiblingIndex = (currentPage - siblingCount).clamp(
+      1,
+      totalPages,
+    );
+    final int rightSiblingIndex = (currentPage + siblingCount).clamp(
+      1,
+      totalPages,
+    );
 
     final bool showLeftDots = leftSiblingIndex > 2;
     final bool showRightDots = rightSiblingIndex < totalPages - 1;
@@ -125,21 +122,23 @@ class ArcanePagination extends StatelessWidget {
       PaginationSize.lg => PaginationSizeVariant.lg,
     };
 
-    return context.renderers.pagination(PaginationProps(
-      currentPage: currentPage,
-      totalPages: totalPages,
-      onPageChange: onPageChange,
-      variant: styleVariant,
-      size: sizeVariant,
-      siblingCount: siblingCount,
-      showFirstLast: showFirstLast,
-      showPrevNext: showPrevNext,
-      showPageCount: showPageCount,
-      previousText: previousText,
-      nextText: nextText,
-      pageNumbers: _getPageNumbers(),
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.pagination(
+      PaginationProps(
+        currentPage: currentPage,
+        totalPages: totalPages,
+        onPageChange: onPageChange,
+        variant: styleVariant,
+        size: sizeVariant,
+        siblingCount: siblingCount,
+        showFirstLast: showFirstLast,
+        showPrevNext: showPrevNext,
+        showPageCount: showPageCount,
+        previousText: previousText,
+        nextText: nextText,
+        pageNumbers: _getPageNumbers(),
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }

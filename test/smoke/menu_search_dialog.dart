@@ -24,7 +24,7 @@ class _MenuSearchDialogExampleState extends State<MenuSearchDialogExample> {
             MenuItemAction(label: 'Open palette'),
             MenuItemAction(label: 'Open docs'),
           ],
-          child: IconButton(icon: Icon(Icons.moreHorizontal)),
+          child: IconButton(icon: Icons.moreHorizontal()),
         ),
       ],
       child: Collection(

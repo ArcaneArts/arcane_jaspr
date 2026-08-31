@@ -16,9 +16,6 @@ class NeonButton extends ButtonRenderBase {
   String get cssClass => 'neon-button';
 
   @override
-  String get arrowTransition => 'transform 0.2s ease';
-
-  @override
   Map<String, String> baseStyles(bool isDisabled) => const <String, String>{};
 
   @override

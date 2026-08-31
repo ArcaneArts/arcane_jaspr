@@ -16,10 +16,7 @@ class GutterProps {
   final GutterSize size;
   final bool horizontal;
 
-  const GutterProps({
-    this.size = GutterSize.medium,
-    this.horizontal = false,
-  });
+  const GutterProps({this.size = GutterSize.medium, this.horizontal = false});
 }
 
 /// Gap component properties.

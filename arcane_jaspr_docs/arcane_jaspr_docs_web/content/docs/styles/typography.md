@@ -68,9 +68,9 @@ Font family presets.
 
 | Value | CSS Output | Use Case |
 |-------|-----------|----------|
-| `sans` | System sans-serif stack | Body text |
-| `heading` | System sans-serif stack | Headings |
-| `mono` | `Fira Code, JetBrains Mono, monospace` | Code |
+| `sans` | `Akzidenz-GroteskPro` | Body text |
+| `heading` | `ITCAvantGardeStd` | Headings |
+| `mono` | `Hack` | Code |
 | `inherit` | `inherit` | Inherit from parent |
 
 ### Usage
@@ -303,11 +303,9 @@ ArcaneSpan(
   style: const ArcaneStyleData(
     fontFamily: FontFamily.mono,
     fontSize: FontSize.sm,
-    raw: {
-      'padding': '2px 6px',
-      'background': 'var(--code-background)',
-      'border-radius': '4px',
-    },
+    padding: PaddingPreset.inlineCode,
+    backgroundCustom: 'var(--code-background)',
+    borderRadius: Radius.xs,
   ),
   child: Text('npm install'),
 )

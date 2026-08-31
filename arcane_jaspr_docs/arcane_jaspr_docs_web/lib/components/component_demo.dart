@@ -44,7 +44,7 @@ class ComponentDemo extends StatelessWidget {
     return ArcaneDiv(
       styles: const ArcaneStyleData(
         margin: MarginPreset.bottomXl,
-        borderRadius: Radius.lg,
+        borderRadius: Radius.md,
         overflow: Overflow.hidden,
         border: BorderPreset.standard,
       ),
@@ -54,7 +54,7 @@ class ComponentDemo extends StatelessWidget {
             styles: const ArcaneStyleData(
               padding: PaddingPreset.md,
               background: Background.backgroundSecondary,
-              borderBottom: BorderPreset.standard,
+              border: BorderPreset.standard,
             ),
             children: [
               if (title != null)
@@ -84,12 +84,12 @@ class ComponentDemo extends StatelessWidget {
             alignItems: AlignItems.center,
             justifyContent: JustifyContent.center,
             minHeight: '120px',
-            raw: <String, String>{'background': background.css},
+            backgroundCustom: background.css,
           ),
           children: [child],
         ),
         ArcaneDiv(
-          styles: const ArcaneStyleData(borderTop: BorderPreset.standard),
+          styles: const ArcaneStyleData(border: BorderPreset.standard),
           children: [_DemoCodeBlock(code: code, language: language)],
         ),
       ],
@@ -315,7 +315,7 @@ class ComponentDemoRow extends StatelessWidget {
             alignItems: AlignItems.center,
             gap: gap,
             padding: PaddingPreset.lg,
-            borderRadius: Radius.lg,
+            borderRadius: Radius.md,
             background: Background.backgroundSecondary,
             border: BorderPreset.standard,
           ),

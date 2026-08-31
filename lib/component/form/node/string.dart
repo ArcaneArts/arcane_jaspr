@@ -32,22 +32,24 @@ class ArcaneStringField extends StatelessWidget {
       placeholder: placeholder,
     ),
     provider: provider,
-    builder: (BuildContext context, String value, void Function(String) onChanged) => ArcaneFieldWrapper(
-      labelText: name,
-      description: description,
-      required: required,
-      field: maxLines > 1
-          ? TextArea(
-              value: value,
-              rows: maxLines,
-              onChange: onChanged,
-              placeholder: placeholder,
-            )
-          : TextInput(
-              value: value,
-              onChange: onChanged,
-              placeholder: placeholder,
+    builder:
+        (BuildContext context, String value, void Function(String) onChanged) =>
+            ArcaneFieldWrapper(
+              labelText: name,
+              description: description,
+              required: required,
+              field: maxLines > 1
+                  ? TextArea(
+                      value: value,
+                      rows: maxLines,
+                      onChange: onChanged,
+                      placeholder: placeholder,
+                    )
+                  : TextInput(
+                      value: value,
+                      onChange: onChanged,
+                      placeholder: placeholder,
+                    ),
             ),
-    ),
   );
 }

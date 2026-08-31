@@ -5,8 +5,8 @@ import 'package:arcane_jaspr/core/rendering/base/progress_render_base.dart';
 ///
 /// Implements the Neubrutalism design language:
 /// - Larger track heights (1.25x)
-/// - Accent-colored indicator with subtle glow
-/// - Larger border radius
+/// - Accent-colored indicator with a neutral structural shadow
+/// - Compact border radius
 class NeubrutalismProgress extends ProgressRenderBase {
   const NeubrutalismProgress(super.props, {super.key});
 
@@ -32,7 +32,7 @@ class NeubrutalismProgress extends ProgressRenderBase {
       'height': trackHeight,
       'background-color': props.trackColor ?? 'var(--nb-paper, var(--card))',
       'border': 'var(--nb-border-thin, 2px) solid var(--nb-line, #000)',
-      'border-radius': '9999px',
+      'border-radius': 'var(--nb-radius-soft, 4px)',
       'overflow': 'hidden',
       'box-shadow':
           'var(--nb-shadow-xs, 2px 2px 0 0 var(--nb-shadow-color, #000))',
@@ -123,7 +123,7 @@ class NeubrutalismCircularProgress extends CircularProgressRenderBase {
       'position': 'absolute',
       'width': '100%',
       'height': '100%',
-      'border-radius': '9999px',
+      'border-radius': '50%',
       'background':
           'conic-gradient($fillColor 0deg ${clampedValue * 360}deg, $trackColor ${clampedValue * 360}deg 360deg)',
       'mask':
@@ -176,7 +176,7 @@ class NeubrutalismLoadingSpinner extends LoadingSpinnerRenderBase {
       'height': size,
       'border': 'var(--nb-border-base, 3px) solid var(--nb-line, #000)',
       'border-right-color': color,
-      'border-radius': '9999px',
+      'border-radius': '50%',
       'animation': 'arcane-spin 0.75s linear infinite',
       'box-sizing': 'border-box',
     };

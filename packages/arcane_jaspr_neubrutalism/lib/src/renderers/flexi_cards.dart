@@ -49,8 +49,6 @@ class _NeubrutalismFlexiCardsState extends State<NeubrutalismFlexiCards> {
               : component.props.collapsedFlex);
 
     // Whether to show expanded content
-    final bool showLongText =
-        !component.props.expandLongTextOnHover || isHovered;
 
     final List<Component> cardContent = [
       // Header
@@ -61,7 +59,8 @@ class _NeubrutalismFlexiCardsState extends State<NeubrutalismFlexiCards> {
             raw: {
               'margin': '-1.5rem -1.5rem 1rem -1.5rem',
               'padding': '0.75rem 1rem',
-              'border-bottom': 'var(--nb-border-thin, 2px) solid var(--nb-line, #000)',
+              'border-bottom':
+                  'var(--nb-border-thin, 2px) solid var(--nb-line, #000)',
             },
           ),
           [item.header!],
@@ -78,8 +77,7 @@ class _NeubrutalismFlexiCardsState extends State<NeubrutalismFlexiCards> {
             'height': '52px',
             'background': 'var(--nb-accent, var(--primary))',
             'color': 'var(--nb-on-accent, #000)',
-            'border':
-                'var(--nb-border-base, 3px) solid var(--nb-line, #000)',
+            'border': 'var(--nb-border-base, 3px) solid var(--nb-line, #000)',
             'border-radius': 'var(--nb-radius-soft, 4px)',
             'box-shadow':
                 'var(--nb-shadow-xs, 2px 2px 0 0 var(--nb-shadow-color, #000))',
@@ -106,16 +104,11 @@ class _NeubrutalismFlexiCardsState extends State<NeubrutalismFlexiCards> {
         [Component.text(item.shortText)],
       ),
 
-      // Long text (description) - uses CSS Grid for smooth animation
+      // Long text is always present and visible.
       dom.div(
         classes: 'neubrutalism-flexi-card-long-text-wrapper',
         styles: dom.Styles(
-          raw: {
-            'display': 'grid',
-            'grid-template-rows': showLongText ? '1fr' : '0fr',
-            'transition':
-                'grid-template-rows ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)',
-          },
+          raw: {'display': 'grid', 'grid-template-rows': '1fr'},
         ),
         [
           dom.div(
@@ -133,8 +126,7 @@ class _NeubrutalismFlexiCardsState extends State<NeubrutalismFlexiCards> {
                     'margin': '0',
                     'padding-bottom': '1rem',
                     'line-height': '1.6',
-                    'opacity': showLongText ? '1' : '0',
-                    'transition': 'opacity ${duration}ms ease',
+                    'opacity': '1',
                   },
                 ),
                 [Component.text(item.longText)],
@@ -147,17 +139,12 @@ class _NeubrutalismFlexiCardsState extends State<NeubrutalismFlexiCards> {
       // Spacer
       const dom.div(styles: dom.Styles(raw: {'flex': '1'}), []),
 
-      // Footer with grid animation
+      // Footer is always present when supplied.
       if (item.footer != null)
         dom.div(
           classes: 'neubrutalism-flexi-card-footer-wrapper',
           styles: dom.Styles(
-            raw: {
-              'display': 'grid',
-              'grid-template-rows': showLongText ? '1fr' : '0fr',
-              'transition':
-                  'grid-template-rows ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)',
-            },
+            raw: {'display': 'grid', 'grid-template-rows': '1fr'},
           ),
           [
             dom.div(
@@ -171,9 +158,9 @@ class _NeubrutalismFlexiCardsState extends State<NeubrutalismFlexiCards> {
                   styles: dom.Styles(
                     raw: {
                       'padding-top': '1rem',
-                      'border-top': 'var(--nb-border-thin, 2px) solid var(--nb-line, #000)',
-                      'opacity': showLongText ? '1' : '0.5',
-                      'transition': 'opacity ${duration}ms ease',
+                      'border-top':
+                          'var(--nb-border-thin, 2px) solid var(--nb-line, #000)',
+                      'opacity': '1',
                     },
                   ),
                   [item.footer!],
@@ -228,6 +215,9 @@ class _NeubrutalismFlexiCardsState extends State<NeubrutalismFlexiCards> {
 
     Component card = dom.div(
       classes: 'neubrutalism-flexi-card${isHovered ? ' hovered' : ''}',
+      attributes: const <String, String>{
+        'data-arcane-surface': 'flexi-card',
+      },
       styles: dom.Styles(raw: cardStyles),
       events: {
         'mouseenter': (_) => setState(() => _hoveredIndex = index),
@@ -279,6 +269,9 @@ class NeubrutalismFlexiCardsSimple extends StatelessComponent {
   Component _buildCard(FlexiCardItem item) {
     Component card = dom.div(
       classes: 'neubrutalism-flexi-card-simple',
+      attributes: const <String, String>{
+        'data-arcane-surface': 'flexi-card',
+      },
       styles: dom.Styles(
         raw: {
           'display': 'flex',

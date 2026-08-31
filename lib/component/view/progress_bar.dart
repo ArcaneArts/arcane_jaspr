@@ -43,10 +43,10 @@ class ArcaneProgressBar extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : variant = ProgressVariant.primary,
-        indeterminate = false,
-        trackColor = null,
-        indicatorColor = null;
+  }) : variant = ProgressVariant.primary,
+       indeterminate = false,
+       trackColor = null,
+       indicatorColor = null;
 
   const ArcaneProgressBar.success({
     required this.value,
@@ -55,10 +55,10 @@ class ArcaneProgressBar extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : variant = ProgressVariant.success,
-        indeterminate = false,
-        trackColor = null,
-        indicatorColor = null;
+  }) : variant = ProgressVariant.success,
+       indeterminate = false,
+       trackColor = null,
+       indicatorColor = null;
 
   const ArcaneProgressBar.warning({
     required this.value,
@@ -67,10 +67,10 @@ class ArcaneProgressBar extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : variant = ProgressVariant.warning,
-        indeterminate = false,
-        trackColor = null,
-        indicatorColor = null;
+  }) : variant = ProgressVariant.warning,
+       indeterminate = false,
+       trackColor = null,
+       indicatorColor = null;
 
   const ArcaneProgressBar.error({
     required this.value,
@@ -79,24 +79,26 @@ class ArcaneProgressBar extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : variant = ProgressVariant.error,
-        indeterminate = false,
-        trackColor = null,
-        indicatorColor = null;
+  }) : variant = ProgressVariant.error,
+       indeterminate = false,
+       trackColor = null,
+       indicatorColor = null;
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.progress(ProgressProps(
-      value: value,
-      size: size,
-      variant: variant,
-      indeterminate: indeterminate,
-      showValue: showValue,
-      trackColor: trackColor,
-      indicatorColor: indicatorColor,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.progress(
+      ProgressProps(
+        value: value,
+        size: size,
+        variant: variant,
+        indeterminate: indeterminate,
+        showValue: showValue,
+        trackColor: trackColor,
+        indicatorColor: indicatorColor,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }
 
@@ -131,17 +133,19 @@ class ArcaneCircularProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.circularProgress(CircularProgressProps(
-      value: value,
-      size: size,
-      strokeWidth: strokeWidth,
-      fillColor: fillColor,
-      trackColor: trackColor,
-      label: label,
-      showPercentage: showPercentage,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.circularProgress(
+      CircularProgressProps(
+        value: value,
+        size: size,
+        strokeWidth: strokeWidth,
+        fillColor: fillColor,
+        trackColor: trackColor,
+        label: label,
+        showPercentage: showPercentage,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }
 
@@ -166,11 +170,13 @@ class ArcaneLoadingSpinner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.loadingSpinner(LoadingSpinnerProps(
-      size: size,
-      color: color,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.loadingSpinner(
+      LoadingSpinnerProps(
+        size: size,
+        color: color,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }

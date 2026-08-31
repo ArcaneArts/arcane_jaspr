@@ -26,7 +26,11 @@ class ArcaneDirection extends StatelessWidget {
     };
 
     return context.renderers.direction(
-      DirectionProps(value: mappedValue, children: children, classes: classes == null ? null : cx(classes!)),
+      DirectionProps(
+        value: mappedValue,
+        children: children,
+        classes: classes == null ? null : cx(classes!),
+      ),
     );
   }
 }

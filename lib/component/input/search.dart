@@ -4,10 +4,8 @@ import 'package:arcane_jaspr/component/input/icon_button.dart';
 import 'package:arcane_jaspr/component/input/text_input.dart';
 import 'package:arcane_jaspr/component/layout/flow.dart';
 import 'package:arcane_jaspr/component/support/icons.dart';
-import 'package:arcane_jaspr/component/view/item.dart';
 import 'package:arcane_jaspr/component/view/separator.dart';
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:arcane_jaspr/component/typography/text.dart';
 import 'package:arcane_jaspr/util/arcane.dart';
 
 class SearchResult {
@@ -60,7 +58,7 @@ class Search extends StatelessWidget {
       prefix: Icon(Icons.search),
       suffix: showClear && (value?.isNotEmpty ?? false)
           ? IconButton(
-              icon: Icon(Icons.x),
+              icon: Icons.x(),
               onPressed: onChanged == null ? null : () => onChanged!(''),
             )
           : null,
@@ -79,21 +77,13 @@ class Search extends StatelessWidget {
           fillWidth: true,
           children: <Widget>[
             for (int index = 0; index < results.length; index++) ...<Widget>[
-              ArcaneItem(
+              Button.ghost(
+                fullWidth: true,
                 href: results[index].href,
-                child: Button.ghost(
-                  fullWidth: true,
-                  onPressed: results[index].onTap,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    gap: 4,
-                    children: <Widget>[
-                      Text.label(results[index].title),
-                      if (results[index].subtitle != null)
-                        Text.bodySmall(results[index].subtitle!),
-                    ],
-                  ),
-                ),
+                onPressed: results[index].onTap,
+                label: results[index].subtitle == null
+                    ? results[index].title
+                    : '${results[index].title} - ${results[index].subtitle}',
               ),
               if (index < results.length - 1) const ArcaneSeparator.subtle(),
             ],

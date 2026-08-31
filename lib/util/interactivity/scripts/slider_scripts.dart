@@ -120,7 +120,7 @@ class SliderScripts {
         });
 
         // Update any thumb
-        container.querySelectorAll('[style*="border-radius: 9999px"]').forEach(function(thumb) {
+        container.querySelectorAll('[data-arcane-slider-thumb]').forEach(function(thumb) {
           if (thumb.style.position === 'absolute' && thumb.style.width) {
             var thumbSize = parseInt(thumb.style.width) || 18;
             thumb.style.left = 'calc(' + percent + '% - ' + (thumbSize / 2) + 'px)';

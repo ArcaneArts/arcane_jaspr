@@ -273,6 +273,9 @@ class NeubrutalismSlotCounterCard extends StatelessComponent {
   Component build(BuildContext context) {
     return dom.div(
       classes: 'neubrutalism-slot-counter-card',
+      attributes: const <String, String>{
+        'data-arcane-surface': 'slot-counter-card',
+      },
       styles: dom.Styles(
         raw: {
           'display': 'inline-flex',
@@ -284,7 +287,7 @@ class NeubrutalismSlotCounterCard extends StatelessComponent {
             'box-shadow':
                 'var(--nb-shadow-sm, 3px 3px 0 0 var(--nb-shadow-color, #000))',
           } else ...{
-            'border-radius': props.borderRadius,
+            'border-radius': 'var(--nb-radius-soft, 4px)',
           },
           if (props.showBorder)
             'border': 'var(--nb-border-thin, 2px) solid var(--nb-line, #000)',

@@ -2,7 +2,8 @@ import 'package:arcane_jaspr/flutter.dart';
 
 import '../../core/theme_provider.dart';
 
-export '../../core/props/resizable_props.dart' show ResizeDirection, ResizablePanelData;
+export '../../core/props/resizable_props.dart'
+    show ResizeDirection, ResizablePanelData;
 
 typedef ResizablePanel = ResizablePanelData;
 
@@ -69,11 +70,13 @@ class ArcaneResizable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.resizable(ResizableProps(
-      panels: panels,
-      direction: direction,
-      handleSize: handleSize,
-      showGrip: showGrip,
-    ));
+    return context.renderers.resizable(
+      ResizableProps(
+        panels: panels,
+        direction: direction,
+        handleSize: handleSize,
+        showGrip: showGrip,
+      ),
+    );
   }
 }

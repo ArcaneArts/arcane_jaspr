@@ -15,9 +15,6 @@ class NeubrutalismButton extends ButtonRenderBase {
   String get cssClass => 'neubrutalism-button';
 
   @override
-  String get arrowTransition => 'transform 0.2s ease';
-
-  @override
   Map<String, String> baseStyles(bool isDisabled) => <String, String>{
     'display': 'inline-flex',
     'align-items': 'center',
@@ -88,10 +85,6 @@ class NeubrutalismButton extends ButtonRenderBase {
     ButtonVariant.info => <String, String>{
       'background-color': 'var(--info, #3b82f6)',
       'color': '#FFFFFF',
-    },
-    ButtonVariant.accent => <String, String>{
-      'background-color': 'var(--nb-accent-hot, var(--primary))',
-      'color': 'var(--nb-ink, #000)',
     },
   };
 

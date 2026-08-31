@@ -26,16 +26,7 @@ const Map<String, ArcaneStylesheet> clientShadcnStylesheets =
       'teal': ShadcnStylesheet(theme: ShadcnTheme.teal),
     };
 const Map<String, ArcaneStylesheet> clientNeonStylesheets =
-    <String, ArcaneStylesheet>{
-      'green': NeonStylesheet(theme: NeonTheme.green),
-      'red': NeonStylesheet(theme: NeonTheme.red),
-      'blue': NeonStylesheet(theme: NeonTheme.blue),
-      'purple': NeonStylesheet(theme: NeonTheme.purple),
-      'cyan': NeonStylesheet(theme: NeonTheme.cyan),
-      'pink': NeonStylesheet(theme: NeonTheme.pink),
-      'orange': NeonStylesheet(theme: NeonTheme.orange),
-      'rainbow': NeonStylesheet(theme: NeonTheme.rainbow),
-    };
+    <String, ArcaneStylesheet>{'green': NeonStylesheet(theme: NeonTheme.green)};
 const Map<String, ArcaneStylesheet> clientNeubrutalismStylesheets =
     <String, ArcaneStylesheet>{
       'yellow': NeubrutalismStylesheet(theme: NeubrutalismTheme.yellow),
@@ -136,7 +127,7 @@ class _InteractiveDemoState extends State<InteractiveDemo> {
         dom.div(<Widget>[
           dom.span(<Widget>[
             Text('Component: ${component.componentType}'),
-          ], classes: 'arcane-demo-component-chip'),
+          ], classes: 'arcane-demo-component-meta'),
         ], classes: 'arcane-demo-meta'),
         dom.div(const <Widget>[
           Text('Preview + Code'),
@@ -160,9 +151,10 @@ class _InteractiveDemoState extends State<InteractiveDemo> {
             raw: <String, String>{
               'margin': '0',
               'padding': '16px',
-              'background': 'var(--card)',
-              'border': '1px solid var(--border)',
-              'border-radius': 'var(--radius)',
+              'background': 'transparent',
+              'border': '0',
+              'border-top': '1px solid var(--border)',
+              'border-radius': '0',
               'overflow-x': 'auto',
             },
           ),
@@ -200,7 +192,7 @@ const String _previewScopeCss = '''
 .arcane-demo-kicker,
 .arcane-demo-section-title,
 .arcane-demo-code-label,
-.arcane-demo-component-chip,
+.arcane-demo-component-meta,
 .arcane-demo-missing-title,
 .arcane-demo-missing-body {
   box-sizing: border-box;
@@ -222,13 +214,12 @@ const String _previewScopeCss = '''
   margin: 0 0 1rem;
 }
 
-.arcane-demo-component-chip {
+.arcane-demo-component-meta {
   display: inline-flex;
   align-items: center;
-  min-height: 1.75rem;
-  padding: 0.25rem 0.625rem;
-  border-radius: 999px;
-  background: var(--secondary);
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
   color: var(--muted-foreground);
   font-size: 0.875rem;
   line-height: 1.25rem;

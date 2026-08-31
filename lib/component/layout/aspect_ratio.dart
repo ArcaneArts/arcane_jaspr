@@ -64,11 +64,13 @@ class ArcaneAspectRatio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.aspectRatio(AspectRatioProps(
-      ratio: ratio,
-      child: child,
-      classes: classes == null ? null : cx(classes!),
-      styles: styles,
-    ));
+    return context.renderers.aspectRatio(
+      AspectRatioProps(
+        ratio: ratio,
+        child: child,
+        classes: classes == null ? null : cx(classes!),
+        styles: styles,
+      ),
+    );
   }
 }

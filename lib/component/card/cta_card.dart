@@ -4,6 +4,7 @@ import '../../core/decoration/arcane_decoration.dart';
 import '../../core/props/cta_card_props.dart';
 import '../../core/theme_provider.dart';
 import '../../util/style_types/arcane_style_data.dart';
+import '../view/icon.dart';
 
 /// A dashed-border, centered call-to-action card: an optional icon in an accent
 /// circle, a bold title, a muted description, and a prominent CTA control that
@@ -11,7 +12,7 @@ import '../../util/style_types/arcane_style_data.dart';
 /// stylesheet.
 class CtaCard extends StatelessWidget {
   /// Icon to display at the top of the card.
-  final Widget? icon;
+  final ArcaneGlyph? icon;
 
   /// Main title/heading text.
   final String title;
@@ -31,13 +32,7 @@ class CtaCard extends StatelessWidget {
   /// Custom minimum height for the card.
   final String height;
 
-  /// Animation delay in milliseconds for staggered grid animations.
-  final int? animationDelayMs;
-
-  /// Whether to show hover effects.
-  final bool showHoverEffects;
-
-  /// Accent color (CSS color string) for the icon chip and CTA button.
+  /// Accent color (CSS color string) for the icon and CTA button.
   /// Defaults to the theme's `var(--primary)` when null.
   final String? accentColor;
 
@@ -60,8 +55,6 @@ class CtaCard extends StatelessWidget {
     this.href,
     this.onTap,
     this.height = '420px',
-    this.animationDelayMs,
-    this.showHoverEffects = true,
     this.accentColor,
     this.isExternal = false,
     this.styles,
@@ -71,20 +64,18 @@ class CtaCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => context.renderers.ctaCard(
-        CTACardProps(
-          icon: icon,
-          title: title,
-          description: description,
-          ctaText: ctaText,
-          href: href,
-          onTap: onTap,
-          height: height,
-          animationDelayMs: animationDelayMs,
-          showHoverEffects: showHoverEffects,
-          accentColor: accentColor,
-          isExternal: isExternal,
-          styles: styles,
-          decoration: decoration,
-        ),
-      );
+    CTACardProps(
+      icon: icon,
+      title: title,
+      description: description,
+      ctaText: ctaText,
+      href: href,
+      onTap: onTap,
+      height: height,
+      accentColor: accentColor,
+      isExternal: isExternal,
+      styles: styles,
+      decoration: decoration,
+    ),
+  );
 }

@@ -40,8 +40,7 @@ class ShadcnKbd extends KbdRenderBase {
     return switch (props.variant) {
       KbdStyle.raised => {
         ...baseStyles,
-        'background':
-            'linear-gradient(180deg, var(--muted) 0%, var(--card) 100%)',
+        'background': 'var(--card)',
         'border': '1px solid var(--border)',
         'border-radius': 'var(--arcane-radius-xs, 0.25rem)',
         'box-shadow':

@@ -83,6 +83,10 @@ abstract class TextInputRenderBase extends StatelessComponent {
 
     final (String height, String paddingX, String paddingY, String fontSize) =
         sizeValues(props.size);
+    final Map<String, String> baseContainerStyles = containerStyles(hasError);
+    final bool containerOwnsPerimeter =
+        baseContainerStyles.containsKey('border') ||
+        baseContainerStyles.containsKey('box-shadow');
 
     final dom.InputType inputType = switch (props.type) {
       TextInputType.text => dom.InputType.text,
@@ -193,10 +197,11 @@ abstract class TextInputRenderBase extends StatelessComponent {
             attributes: <String, String>{
               'data-disabled': '${props.disabled}',
               'data-error': '$hasError',
+              if (containerOwnsPerimeter) 'data-arcane-field-shell': 'true',
             },
             styles: dom.Styles(
               raw: <String, String>{
-                ...containerStyles(hasError),
+                ...baseContainerStyles,
                 ...?props.decoration?.universalStyles(),
                 ...decorationStyles(props.decoration),
                 ...?props.styles?.toMap(),
@@ -215,6 +220,9 @@ abstract class TextInputRenderBase extends StatelessComponent {
                 name: props.name,
                 classes: '$classPrefix-text-input',
                 attributes: <String, String>{
+                  if (containerOwnsPerimeter)
+                    'data-arcane-field-control': 'true',
+                  if (containerOwnsPerimeter) 'data-arcane-field-inner': 'true',
                   if (props.placeholder != null)
                     'placeholder': props.placeholder!,
                   if (props.value != null) 'value': props.value!,

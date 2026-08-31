@@ -45,6 +45,6 @@ class Win95Checkbox extends CheckboxRenderBase {
             ...?props.styles?.toMap(),
           },
         ),
-        <Component>[if (props.checked) const Component.text('x')],
+        const <Component>[],
       );
 }

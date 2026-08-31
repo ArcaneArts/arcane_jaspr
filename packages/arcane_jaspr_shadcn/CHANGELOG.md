@@ -1,11 +1,22 @@
 # Changelog
 
-## x.x.x
+## 4.0.0 - 2026-08-31
 
 ### Changed
 
+- Card-like renderers now use the bounded `md` radius and identify nested
+  surfaces for automatic frame flattening.
+- Button rendering now consumes core's single typed semantic icon slot; the
+  obsolete automatic-arrow transition hook was removed.
 - Accent alerts now use one uniform colored perimeter instead of a thick left
   edge on a rounded container.
+- Replaced Google-hosted Inter with the committed product font assets and
+  removed remote stylesheet loading.
+
+### Removed
+
+- Removed the floating, modal, ticker, progress, sidebar, takeover, and toast
+  promo renderers; the retained top and inline announcements are flat links.
 
 ## 3.3.0
 

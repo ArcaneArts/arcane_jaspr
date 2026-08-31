@@ -38,18 +38,19 @@ class _ArcaneMenubarState extends State<ArcaneMenubar> {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.menubar(MenubarProps(
-      menus: component.menus
-          .map((menu) => MenubarMenuProps(
-                label: menu.label,
-                items: menu.items,
-              ))
-          .toList(),
-      openMenuIndex: _openMenuIndex,
-      onMenuChange: _onMenuChange,
-      styles: component.styles,
-      decoration: component.decoration,
-    ));
+    return context.renderers.menubar(
+      MenubarProps(
+        menus: component.menus
+            .map(
+              (menu) => MenubarMenuProps(label: menu.label, items: menu.items),
+            )
+            .toList(),
+        openMenuIndex: _openMenuIndex,
+        onMenuChange: _onMenuChange,
+        styles: component.styles,
+        decoration: component.decoration,
+      ),
+    );
   }
 }
 
@@ -58,8 +59,5 @@ class ArcaneMenubarMenu {
   final String label;
   final List<ArcaneMenuItem> items;
 
-  const ArcaneMenubarMenu({
-    required this.label,
-    required this.items,
-  });
+  const ArcaneMenubarMenu({required this.label, required this.items});
 }

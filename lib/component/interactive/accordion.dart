@@ -81,25 +81,29 @@ class ArcaneAccordion extends StatelessWidget {
     }
 
     final List<AccordionItemProps> itemProps = items
-        .map((ArcaneAccordionItem item) => AccordionItemProps(
-              title: item.title,
-              content: item.content,
-              customContent: item.customContent,
-              category: item.category,
-              accentColor: item.accentColor,
-            ))
+        .map(
+          (ArcaneAccordionItem item) => AccordionItemProps(
+            title: item.title,
+            content: item.content,
+            customContent: item.customContent,
+            category: item.category,
+            accentColor: item.accentColor,
+          ),
+        )
         .toList();
 
-    return context.renderers.accordion(AccordionProps(
-      items: itemProps,
-      openItems: defaultOpenItems,
-      allowMultiple: allowMultiple,
-      bordered: bordered,
-      variant: variant,
-      defaultAccentColor: defaultAccentColor,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.accordion(
+      AccordionProps(
+        items: itemProps,
+        openItems: defaultOpenItems,
+        allowMultiple: allowMultiple,
+        bordered: bordered,
+        variant: variant,
+        defaultAccentColor: defaultAccentColor,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }
 
@@ -110,19 +114,16 @@ class ArcaneAccordion extends StatelessWidget {
 class ArcaneFaqAccordion extends StatelessWidget {
   final List<({String question, String answer})> faqs;
 
-  const ArcaneFaqAccordion({
-    required this.faqs,
-    super.key,
-  });
+  const ArcaneFaqAccordion({required this.faqs, super.key});
 
   @override
   Widget build(BuildContext context) {
     return ArcaneAccordion(
       items: faqs
-          .map((faq) => ArcaneAccordionItem(
-                title: faq.question,
-                content: faq.answer,
-              ))
+          .map(
+            (faq) =>
+                ArcaneAccordionItem(title: faq.question, content: faq.answer),
+          )
           .toList(),
       allowMultiple: true,
     );

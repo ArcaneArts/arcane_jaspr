@@ -1,5 +1,15 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
+import 'package:jaspr/jaspr.dart'
+    hide
+        BuildContext,
+        InheritedComponent,
+        Key,
+        State,
+        StatefulComponent,
+        StatelessComponent,
+        UniqueKey,
+        ValueKey,
+        runApp;
 
 import '../../core/decoration/arcane_decoration.dart';
 import '../../core/interaction/interaction.dart';
@@ -15,23 +25,13 @@ export '../../core/props/toggle_group_props.dart'
         ToggleGroupProps;
 
 /// Toggle group variants.
-enum ToggleGroupVariant {
-  defaultVariant,
-  outline,
-}
+enum ToggleGroupVariant { defaultVariant, outline }
 
 /// Toggle group size.
-enum ToggleGroupSize {
-  sm,
-  md,
-  lg,
-}
+enum ToggleGroupSize { sm, md, lg }
 
 /// Toggle group selection type.
-enum ToggleGroupType {
-  single,
-  multiple,
-}
+enum ToggleGroupType { single, multiple }
 
 /// A toggle group component for selecting one or multiple options.
 class ArcaneToggleGroup extends StatelessWidget {
@@ -65,9 +65,9 @@ class ArcaneToggleGroup extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : type = ToggleGroupType.single,
-        values = null,
-        onMultiChanged = null;
+  }) : type = ToggleGroupType.single,
+       values = null,
+       onMultiChanged = null;
 
   const ArcaneToggleGroup.multiple({
     this.id,
@@ -81,50 +81,53 @@ class ArcaneToggleGroup extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : type = ToggleGroupType.multiple,
-        value = null,
-        onChanged = null;
+  }) : type = ToggleGroupType.multiple,
+       value = null,
+       onChanged = null;
 
   ToggleGroupVariantStyle get _propsVariant => switch (variant) {
-        ToggleGroupVariant.defaultVariant =>
-          ToggleGroupVariantStyle.defaultVariant,
-        ToggleGroupVariant.outline => ToggleGroupVariantStyle.outline,
-      };
+    ToggleGroupVariant.defaultVariant => ToggleGroupVariantStyle.defaultVariant,
+    ToggleGroupVariant.outline => ToggleGroupVariantStyle.outline,
+  };
 
   ToggleGroupSizeVariant get _propsSize => switch (size) {
-        ToggleGroupSize.sm => ToggleGroupSizeVariant.sm,
-        ToggleGroupSize.md => ToggleGroupSizeVariant.md,
-        ToggleGroupSize.lg => ToggleGroupSizeVariant.lg,
-      };
+    ToggleGroupSize.sm => ToggleGroupSizeVariant.sm,
+    ToggleGroupSize.md => ToggleGroupSizeVariant.md,
+    ToggleGroupSize.lg => ToggleGroupSizeVariant.lg,
+  };
 
   ToggleGroupSelectionType get _propsType => switch (type) {
-        ToggleGroupType.single => ToggleGroupSelectionType.single,
-        ToggleGroupType.multiple => ToggleGroupSelectionType.multiple,
-      };
+    ToggleGroupType.single => ToggleGroupSelectionType.single,
+    ToggleGroupType.multiple => ToggleGroupSelectionType.multiple,
+  };
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.toggleGroup(ToggleGroupProps(
-      id: id,
-      items: items
-          .map((item) => ToggleGroupItemProps(
+    return context.renderers.toggleGroup(
+      ToggleGroupProps(
+        id: id,
+        items: items
+            .map(
+              (item) => ToggleGroupItemProps(
                 value: item.value,
                 child: item.child,
                 disabled: item.disabled,
-              ))
-          .toList(),
-      value: value,
-      values: values,
-      type: _propsType,
-      variant: _propsVariant,
-      size: _propsSize,
-      disabled: disabled,
-      onChanged: onChanged,
-      onMultiChanged: onMultiChanged,
-      onChangeAction: onChangeAction,
-      styles: styles,
-      decoration: decoration,
-    ));
+              ),
+            )
+            .toList(),
+        value: value,
+        values: values,
+        type: _propsType,
+        variant: _propsVariant,
+        size: _propsSize,
+        disabled: disabled,
+        onChanged: onChanged,
+        onMultiChanged: onMultiChanged,
+        onChangeAction: onChangeAction,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }
 

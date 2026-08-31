@@ -153,12 +153,19 @@ class ThemePalette {
   // Shadows
   // ============================================
 
-  /// Shadow configuration strings (pre-computed).
-  final String shadowXs;
-  final String shadowSm;
-  final String shadowMd;
-  final String shadowLg;
-  final String shadowXl;
+  /// Neutral structural shadow presets.
+  ///
+  /// These are intentionally fixed rather than palette inputs so themes cannot
+  /// turn structural elevation into colored bloom or glow.
+  String get shadowXs => '0 1px 2px rgba(0, 0, 0, 0.05)';
+  String get shadowSm =>
+      '0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06)';
+  String get shadowMd =>
+      '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)';
+  String get shadowLg =>
+      '0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05)';
+  String get shadowXl =>
+      '0 20px 25px rgba(0, 0, 0, 0.15), 0 8px 10px rgba(0, 0, 0, 0.04)';
 
   const ThemePalette({
     required this.isDark,
@@ -215,11 +222,5 @@ class ThemePalette {
     required this.overlay,
     required this.navbar,
     required this.codeBackground,
-    // Shadows
-    required this.shadowXs,
-    required this.shadowSm,
-    required this.shadowMd,
-    required this.shadowLg,
-    required this.shadowXl,
   });
 }

@@ -4,11 +4,7 @@ import '../../util/style_types/arcane_style_data.dart';
 import '../decoration/arcane_decoration.dart';
 import 'calendar_props.dart';
 
-enum DatePickerSizeVariant {
-  sm,
-  md,
-  lg,
-}
+enum DatePickerSizeVariant { sm, md, lg }
 
 /// Date picker component properties.
 class DatePickerProps {

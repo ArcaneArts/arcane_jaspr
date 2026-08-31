@@ -220,10 +220,10 @@ class ShadcnSheet extends StatelessComponent {
   }
 
   String get _borderRadius => switch (props.position) {
-    SheetPosition.bottom => '0.75rem 0.75rem 0 0',
-    SheetPosition.top => '0 0 0.75rem 0.75rem',
-    SheetPosition.right => '0.75rem 0 0 0.75rem',
-    SheetPosition.left => '0 0.75rem 0.75rem 0',
+    SheetPosition.bottom => 'var(--radius-md) var(--radius-md) 0 0',
+    SheetPosition.top => '0 0 var(--radius-md) var(--radius-md)',
+    SheetPosition.right => 'var(--radius-md) 0 0 var(--radius-md)',
+    SheetPosition.left => '0 var(--radius-md) var(--radius-md) 0',
   };
 
   @override
@@ -372,7 +372,7 @@ class ShadcnSheet extends StatelessComponent {
                         'width': '36px',
                         'height': '4px',
                         'background': 'var(--muted-foreground)',
-                        'border-radius': 'var(--radius-full)',
+                        'border-radius': 'var(--radius-xs)',
                         'opacity': '0.4',
                       },
                     ),

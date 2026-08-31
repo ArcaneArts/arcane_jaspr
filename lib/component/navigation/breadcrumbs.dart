@@ -3,6 +3,7 @@ import 'package:arcane_jaspr/flutter.dart';
 import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
 import '../../util/style_types/arcane_style_data.dart';
+import '../view/icon.dart';
 
 export '../../core/props/breadcrumbs_props.dart'
     show BreadcrumbItemProps, BreadcrumbSeparatorStyle, BreadcrumbSizeVariant;
@@ -11,27 +12,14 @@ export '../../core/props/breadcrumbs_props.dart'
 class BreadcrumbItem {
   final String label;
   final String? href;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
 
-  const BreadcrumbItem({
-    required this.label,
-    this.href,
-    this.icon,
-  });
+  const BreadcrumbItem({required this.label, this.href, this.icon});
 }
 
-enum BreadcrumbSeparator {
-  slash,
-  chevron,
-  arrow,
-  dot,
-}
+enum BreadcrumbSeparator { slash, chevron, arrow, dot }
 
-enum BreadcrumbSize {
-  sm,
-  md,
-  lg,
-}
+enum BreadcrumbSize { sm, md, lg }
 
 /// Navigation breadcrumbs component.
 class ArcaneBreadcrumbs extends StatelessWidget {
@@ -63,11 +51,13 @@ class ArcaneBreadcrumbs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final itemProps = items
-        .map((item) => BreadcrumbItemProps(
-              label: item.label,
-              href: item.href,
-              icon: item.icon,
-            ))
+        .map(
+          (item) => BreadcrumbItemProps(
+            label: item.label,
+            href: item.href,
+            icon: item.icon,
+          ),
+        )
         .toList();
 
     final separatorStyle = switch (separator) {
@@ -83,21 +73,23 @@ class ArcaneBreadcrumbs extends StatelessWidget {
       BreadcrumbSize.lg => BreadcrumbSizeVariant.lg,
     };
 
-    return context.renderers.breadcrumbs(BreadcrumbsProps(
-      items: itemProps,
-      separator: separatorStyle,
-      size: sizeVariant,
-      showHomeIcon: showHomeIcon,
-      customSeparator: customSeparator,
-      onItemClick: onItemClick != null
-          ? (BreadcrumbItemProps itemProp, int index) {
-              if (index < items.length) {
-                onItemClick!(items[index], index);
+    return context.renderers.breadcrumbs(
+      BreadcrumbsProps(
+        items: itemProps,
+        separator: separatorStyle,
+        size: sizeVariant,
+        showHomeIcon: showHomeIcon,
+        customSeparator: customSeparator,
+        onItemClick: onItemClick != null
+            ? (BreadcrumbItemProps itemProp, int index) {
+                if (index < items.length) {
+                  onItemClick!(items[index], index);
+                }
               }
-            }
-          : null,
-      styles: styles,
-      decoration: decoration,
-    ));
+            : null,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }

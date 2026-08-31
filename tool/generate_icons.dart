@@ -28,6 +28,16 @@ const Map<String, String> upperAbbreviations = <String, String>{
   'za': 'ZA',
 };
 
+/// Decorative icons excluded from the product-facing API.
+///
+/// These symbols are strongly associated with generic AI-generated chrome and
+/// are intentionally unavailable rather than merely discouraged.
+const Set<String> forbiddenIconNames = <String>{
+  'sparkle',
+  'sparkles',
+  'wand-sparkles',
+};
+
 /// Semantic aliases for common icon names
 /// Maps alias method name -> actual lucide icon name (kebab-case)
 const Map<String, String> semanticAliases = <String, String>{
@@ -150,7 +160,8 @@ const Map<String, String> semanticAliases = <String, String>{
 
 /// Custom brand icons with SVG path data (not from Lucide font)
 /// Maps method name -> (viewBox, list of path data)
-const Map<String, (String viewBox, List<String> paths)> customBrandIcons = <String, (String, List<String>)>{
+const Map<String, (String viewBox, List<String> paths)>
+customBrandIcons = <String, (String, List<String>)>{
   'xbox': (
     '0 0 50 50',
     <String>[
@@ -287,14 +298,21 @@ void main() async {
   // Read icon info from the lucide font info.json
   final File infoFile = File('assets/fonts/lucide/info.json');
   if (!infoFile.existsSync()) {
-    error('info.json not found. Run: npm pack lucide-static && extract font files');
+    error(
+      'info.json not found. Run: npm pack lucide-static && extract font files',
+    );
     exit(1);
   }
 
   final String infoContent = await infoFile.readAsString();
-  final Map<String, dynamic> iconInfo = jsonDecode(infoContent) as Map<String, dynamic>;
+  final Map<String, dynamic> iconInfo =
+      jsonDecode(infoContent) as Map<String, dynamic>;
 
-  final List<String> iconNames = iconInfo.keys.toList()..sort();
+  final List<String> iconNames =
+      iconInfo.keys
+          .where((String name) => !forbiddenIconNames.contains(name))
+          .toList()
+        ..sort();
   print('Found ${iconNames.length} icons in Lucide font');
 
   // Build codepoint map
@@ -318,7 +336,18 @@ void main() async {
 // Uses the Lucide icon font for efficient loading
 // Font files: assets/fonts/lucide/lucide.woff2 (245KB for all ${iconNames.length} icons)
 
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart'
+    hide
+        BuildContext,
+        InheritedComponent,
+        Key,
+        State,
+        StatefulComponent,
+        StatelessComponent,
+        UniqueKey,
+        ValueKey,
+        runApp;
 import 'package:jaspr/dom.dart' as dom;
 
 /// Icon size presets for consistent sizing.
@@ -343,9 +372,17 @@ extension IconSizeExtension on IconSize {
       };
 }
 
+/// A structurally bounded, single rendered glyph.
+///
+/// Semantic icon slots accept this type instead of arbitrary [Widget] trees,
+/// preventing callers from composing overlapping or multi-icon marks.
+sealed class ArcaneGlyph extends StatelessWidget {
+  const ArcaneGlyph({super.key});
+}
+
 /// Base component for font-based icons.
 /// Uses the Lucide icon font with Unicode codepoints.
-class _LucideIcon extends StatelessComponent {
+final class _LucideIcon extends ArcaneGlyph {
   final String codepoint;
   final IconSize size;
 
@@ -355,7 +392,7 @@ class _LucideIcon extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final double px = size.pixels;
     return dom.i(
       styles: dom.Styles(raw: <String, String>{
@@ -377,19 +414,21 @@ class _LucideIcon extends StatelessComponent {
 
 /// Custom SVG-based icon component for brand icons.
 /// Uses inline SVG paths for icons not available in the Lucide font.
-class _CustomSvgIcon extends StatelessComponent {
+final class _CustomSvgIcon extends ArcaneGlyph {
   final String viewBox;
   final List<String> paths;
+  final List<String>? pathFills;
   final IconSize size;
 
   const _CustomSvgIcon({
     required this.viewBox,
     required this.paths,
+    this.pathFills,
     this.size = IconSize.md,
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final String px = size.pixels.toStringAsFixed(0);
     return Component.element(
       tag: 'svg',
@@ -400,10 +439,13 @@ class _CustomSvgIcon extends StatelessComponent {
         'fill': 'currentColor',
       },
       children: <Component>[
-        for (final String path in paths)
+        for (final (int index, String path) in paths.indexed)
           Component.element(
             tag: 'path',
-            attributes: <String, String>{'d': path},
+            attributes: <String, String>{
+              'd': path,
+              if (pathFills != null) 'fill': pathFills![index],
+            },
             children: <Component>[],
           ),
       ],
@@ -428,6 +470,22 @@ class _CustomSvgIcon extends StatelessComponent {
 /// For the complete icon catalog, visit: https://lucide.dev/icons
 class ArcaneIcon {
   ArcaneIcon._();
+
+  /// Creates one custom SVG glyph. Multiple paths remain inside one SVG mark.
+  static ArcaneGlyph customSvg({
+    required String viewBox,
+    required List<String> paths,
+    List<String>? pathFills,
+    IconSize size = IconSize.md,
+  }) {
+    assert(pathFills == null || pathFills.length == paths.length);
+    return _CustomSvgIcon(
+      viewBox: viewBox,
+      paths: paths,
+      pathFills: pathFills,
+      size: size,
+    );
+  }
 ''');
 
   // Generate methods for each icon
@@ -442,7 +500,7 @@ class ArcaneIcon {
 
     buffer.writeln('''
   /// $displayName icon
-  static Component $methodName({IconSize size = IconSize.md}) =>
+  static ArcaneGlyph $methodName({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: '$codepoint', size: size);
 ''');
   }
@@ -457,7 +515,9 @@ class ArcaneIcon {
 ''');
 
   // Generate alias methods
-  final Set<String> existingMethods = iconNames.map((String n) => getMethodName(n)).toSet();
+  final Set<String> existingMethods = iconNames
+      .map((String n) => getMethodName(n))
+      .toSet();
 
   for (final MapEntry<String, String> entry in semanticAliases.entries) {
     final String aliasName = entry.key;
@@ -478,7 +538,7 @@ class ArcaneIcon {
 
     buffer.writeln('''
   /// Alias for $targetIconName - semantic name for common use case
-  static Component $aliasName({IconSize size = IconSize.md}) =>
+  static ArcaneGlyph $aliasName({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: '$codepoint', size: size);
 ''');
   }
@@ -492,20 +552,22 @@ class ArcaneIcon {
 ''');
 
   // Generate custom brand icon methods
-  for (final MapEntry<String, (String, List<String>)> entry in customBrandIcons.entries) {
+  for (final MapEntry<String, (String, List<String>)> entry
+      in customBrandIcons.entries) {
     final String methodName = entry.key;
     final String viewBox = entry.value.$1;
     final List<String> paths = entry.value.$2;
 
     // Convert method name to display name (e.g., 'xbox' -> 'Xbox')
-    final String displayName = methodName[0].toUpperCase() + methodName.substring(1);
+    final String displayName =
+        methodName[0].toUpperCase() + methodName.substring(1);
 
     // Format paths as a Dart list literal
     final String pathsLiteral = paths.map((String p) => "'$p'").join(', ');
 
     buffer.writeln('''
   /// $displayName brand icon (SVG-based)
-  static Component $methodName({IconSize size = IconSize.md}) =>
+  static ArcaneGlyph $methodName({IconSize size = IconSize.md}) =>
       _CustomSvgIcon(viewBox: '$viewBox', paths: <String>[$pathsLiteral], size: size);
 ''');
   }

@@ -128,6 +128,7 @@ abstract class CardRenderBase extends StatelessComponent {
 
     return <String, String>{
       ...attributes,
+      'data-arcane-surface': 'card',
       'data-variant': props.variant.name,
       if (props.decoration != null || props.styles != null)
         'data-arcane-decorated': '',

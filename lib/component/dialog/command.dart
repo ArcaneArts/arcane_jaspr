@@ -3,6 +3,7 @@ import 'package:arcane_jaspr/flutter.dart';
 import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
 import '../../util/style_types/arcane_style_data.dart';
+import '../view/icon.dart';
 
 export '../../core/props/command_props.dart'
     show CommandItemProps, CommandGroupProps;
@@ -85,54 +86,62 @@ class _ArcaneCommandState extends State<ArcaneCommand> {
   @override
   Widget build(BuildContext context) {
     final groupProps = component.groups
-        .map((g) => CommandGroupProps(
-              heading: g.heading,
-              items: g.items
-                  .map((i) => CommandItemProps(
-                        label: i.label,
-                        icon: i.icon,
-                        shortcut: i.shortcut,
-                        onSelect: i.onSelect,
-                        disabled: i.disabled,
-                        keywords: i.keywords,
-                        href: i.href,
-                        hrefTarget: i.hrefTarget,
-                      ))
-                  .toList(),
-            ))
+        .map(
+          (g) => CommandGroupProps(
+            heading: g.heading,
+            items: g.items
+                .map(
+                  (i) => CommandItemProps(
+                    label: i.label,
+                    icon: i.icon,
+                    shortcut: i.shortcut,
+                    onSelect: i.onSelect,
+                    disabled: i.disabled,
+                    keywords: i.keywords,
+                    href: i.href,
+                    hrefTarget: i.hrefTarget,
+                  ),
+                )
+                .toList(),
+          ),
+        )
         .toList();
 
     final filteredItemProps = _filteredItems
-        .map((i) => CommandItemProps(
-              label: i.label,
-              icon: i.icon,
-              shortcut: i.shortcut,
-              onSelect: i.onSelect,
-              disabled: i.disabled,
-              keywords: i.keywords,
-              href: i.href,
-              hrefTarget: i.hrefTarget,
-            ))
+        .map(
+          (i) => CommandItemProps(
+            label: i.label,
+            icon: i.icon,
+            shortcut: i.shortcut,
+            onSelect: i.onSelect,
+            disabled: i.disabled,
+            keywords: i.keywords,
+            href: i.href,
+            hrefTarget: i.hrefTarget,
+          ),
+        )
         .toList();
 
-    return context.renderers.command(CommandProps(
-      id: component.id,
-      isOpen: component.isOpen,
-      onClose: component.onClose,
-      groups: groupProps,
-      placeholder: component.placeholder,
-      emptyMessage: component.emptyMessage,
-      searchQuery: _searchQuery,
-      filteredItems: filteredItemProps,
-      onSearch: _handleSearch,
-      onSelectItem: _selectItem,
-      escapeCloses: component.escapeCloses,
-      scrimCloses: component.scrimCloses,
-      focusTrap: component.focusTrap,
-      restoreFocus: component.restoreFocus,
-      styles: component.styles,
-      decoration: component.decoration,
-    ));
+    return context.renderers.command(
+      CommandProps(
+        id: component.id,
+        isOpen: component.isOpen,
+        onClose: component.onClose,
+        groups: groupProps,
+        placeholder: component.placeholder,
+        emptyMessage: component.emptyMessage,
+        searchQuery: _searchQuery,
+        filteredItems: filteredItemProps,
+        onSearch: _handleSearch,
+        onSelectItem: _selectItem,
+        escapeCloses: component.escapeCloses,
+        scrimCloses: component.scrimCloses,
+        focusTrap: component.focusTrap,
+        restoreFocus: component.restoreFocus,
+        styles: component.styles,
+        decoration: component.decoration,
+      ),
+    );
   }
 }
 
@@ -141,16 +150,13 @@ class CommandGroup {
   final String? heading;
   final List<CommandItem> items;
 
-  const CommandGroup({
-    this.heading,
-    required this.items,
-  });
+  const CommandGroup({this.heading, required this.items});
 }
 
 /// A single command item.
 class CommandItem {
   final String label;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final String? shortcut;
   final void Function()? onSelect;
   final bool disabled;

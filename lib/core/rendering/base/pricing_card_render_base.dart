@@ -7,10 +7,9 @@ import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
 
 /// Shared structural base for themed pricing-card renderers.
 ///
-/// A pricing card is a plan surface: an optional badge pill, an optional icon,
-/// a bold title, a price row (optional struck-through original price + large
-/// price + muted period), an optional subtitle, an included/excluded feature
-/// list, an optional spec table, and a call-to-action button. The DOM and its
+/// A pricing card is a plan surface: an optional icon,
+/// a bold title, a price row, an optional subtitle, an included/excluded
+/// feature list, an optional spec table, and a call-to-action button. The DOM and its
 /// inline chrome (built from theme CSS variables, so it adapts to the active
 /// palette) are identical across themes; a concrete theme renderer supplies only
 /// the root [cssClass] and may override [decorationStyles].
@@ -31,29 +30,15 @@ abstract class PricingCardRenderBase extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final String? accent = props.accentColor;
-    final bool highlighted = props.effectiveHighlighted;
-    final String accentColor = accent ?? 'var(--primary)';
-    final bool useAccentBorder = highlighted || accent != null;
-
     final String padding = switch (props.variant) {
       PricingCardVariant.compact => '1.25rem',
       PricingCardVariant.standard => '1.75rem',
-      PricingCardVariant.hero => '2.25rem',
     };
     final String priceSize = switch (props.variant) {
       PricingCardVariant.compact => '1.75rem',
       PricingCardVariant.standard => '2.25rem',
-      PricingCardVariant.hero => '3rem',
     };
-    final String titleSize =
-        props.variant == PricingCardVariant.hero ? '1.5rem' : '1.15rem';
-
-    // A highlighted card gets a subtle accent wash layered over its card
-    // surface so it visually pops. Non-highlighted cards emit no
-    // `background-image` and are therefore byte-identical to before.
-    final String accentWash =
-        'linear-gradient(160deg, color-mix(in srgb, $accentColor 8%, transparent), transparent 55%)';
+    const String titleSize = '1.15rem';
 
     final Map<String, String> rootStyles = layerStyles(
       <String, String>{
@@ -63,12 +48,9 @@ abstract class PricingCardRenderBase extends StatelessComponent {
         'gap': '1rem',
         'padding': padding,
         'background-color': 'var(--card)',
-        if (highlighted) 'background-image': accentWash,
         'color': 'var(--card-foreground)',
-        'border': useAccentBorder
-            ? '2px solid $accentColor'
-            : '1px solid var(--border)',
-        'border-radius': 'var(--radius, 0.5rem)',
+        'border': '1px solid var(--border)',
+        'border-radius': '8px',
         'width': '100%',
         'box-sizing': 'border-box',
       },
@@ -79,7 +61,6 @@ abstract class PricingCardRenderBase extends StatelessComponent {
       ],
     );
 
-    final String? badge = props.effectiveBadge;
     final String? subtitle = props.effectiveSubtitle;
     final List<String> features = props.effectiveFeatures;
     final List<String> excluded = props.excludedFeatures;
@@ -87,29 +68,9 @@ abstract class PricingCardRenderBase extends StatelessComponent {
 
     return dom.div(
       classes: cssClass,
+      attributes: const <String, String>{'data-arcane-surface': 'pricing-card'},
       styles: dom.Styles(raw: rootStyles),
       <Component>[
-        if (badge != null)
-          dom.span(
-            classes: '$cssClass-badge',
-            styles: dom.Styles(
-              raw: <String, String>{
-                'position': 'absolute',
-                'top': padding,
-                'right': padding,
-                'display': 'inline-flex',
-                'align-items': 'center',
-                'padding': '0.25rem 0.6rem',
-                'font-size': '0.7rem',
-                'font-weight': '600',
-                'letter-spacing': '0.03em',
-                'border-radius': '999px',
-                'background-color': accent ?? _badgeBackground(props.badgeVariant),
-                'color': _badgeForeground(props.badgeVariant),
-              },
-            ),
-            <Component>[Component.text(badge)],
-          ),
         if (props.icon != null)
           dom.div(
             classes: '$cssClass-icon',
@@ -117,13 +78,7 @@ abstract class PricingCardRenderBase extends StatelessComponent {
               raw: <String, String>{
                 'display': 'inline-flex',
                 'align-items': 'center',
-                'justify-content': 'center',
-                'width': '2.75rem',
-                'height': '2.75rem',
-                'border-radius': '0.75rem',
-                'background-color':
-                    'color-mix(in srgb, $accentColor 12%, transparent)',
-                'color': accentColor,
+                'color': 'var(--foreground)',
                 'font-size': '1.25rem',
               },
             ),
@@ -150,17 +105,6 @@ abstract class PricingCardRenderBase extends StatelessComponent {
             },
           ),
           <Component>[
-            if (props.originalPrice != null)
-              dom.span(
-                styles: const dom.Styles(
-                  raw: <String, String>{
-                    'font-size': '1.1rem',
-                    'text-decoration': 'line-through',
-                    'color': 'var(--muted-foreground)',
-                  },
-                ),
-                <Component>[Component.text(props.originalPrice!)],
-              ),
             dom.span(
               styles: dom.Styles(
                 raw: <String, String>{
@@ -201,16 +145,14 @@ abstract class PricingCardRenderBase extends StatelessComponent {
               raw: <String, String>{
                 'display': 'flex',
                 'flex-direction': 'column',
-                'border': '1px solid var(--border)',
-                'border-radius': 'var(--radius, 0.5rem)',
-                'padding': '0.15rem 0.85rem',
-                'background-color':
-                    'color-mix(in srgb, var(--foreground) 3%, transparent)',
+                'border-top': '1px solid var(--border)',
+                'border-bottom': '1px solid var(--border)',
+                'padding': '0.15rem 0',
               },
             ),
             <Component>[
               for (int i = 0; i < specs.length; i++)
-                _specRow(specs[i], accentColor, isLast: i == specs.length - 1),
+                _specRow(specs[i], isLast: i == specs.length - 1),
             ],
           ),
         if (features.isNotEmpty || excluded.isNotEmpty)
@@ -238,8 +180,6 @@ abstract class PricingCardRenderBase extends StatelessComponent {
           label: props.effectiveCtaText,
           buttonLink: props.buttonLink,
           onClick: props.onButtonClick ?? props.onCtaPressed,
-          highlighted: highlighted,
-          accentColor: accentColor,
         ),
       ],
     );
@@ -257,7 +197,9 @@ Component _featureItem(String text, {required bool included}) {
         'gap': '0.5rem',
         'font-size': '0.875rem',
         'line-height': '1.4',
-        'color': included ? 'var(--card-foreground)' : 'var(--muted-foreground)',
+        'color': included
+            ? 'var(--card-foreground)'
+            : 'var(--muted-foreground)',
         if (!included) 'text-decoration': 'line-through',
       },
     ),
@@ -280,8 +222,7 @@ Component _featureItem(String text, {required bool included}) {
 }
 
 /// A single spec row: a muted label on the left and a value on the right,
-/// tinted [accentColor] when [SpecEntry.highlight] is set.
-Component _specRow(SpecEntry spec, String accentColor, {bool isLast = false}) {
+Component _specRow(SpecEntry spec, {bool isLast = false}) {
   return dom.div(
     styles: dom.Styles(
       raw: <String, String>{
@@ -304,7 +245,7 @@ Component _specRow(SpecEntry spec, String accentColor, {bool isLast = false}) {
         styles: dom.Styles(
           raw: <String, String>{
             'font-weight': '600',
-            'color': spec.highlight ? accentColor : 'var(--foreground)',
+            'color': 'var(--foreground)',
           },
         ),
         <Component>[Component.text(spec.value)],
@@ -316,18 +257,11 @@ Component _specRow(SpecEntry spec, String accentColor, {bool isLast = false}) {
 /// The call-to-action surface: an anchor when [buttonLink] is set, otherwise a
 /// button that invokes [onClick].
 ///
-/// When [highlighted] the control is SOLID — a filled [accentColor] surface
-/// (identical to the historical primary button when [accentColor] defaults to
-/// `var(--primary)`). When not highlighted it is a NEUTRAL outline — a
-/// transparent surface with a `--foreground` label and `--border` edge, so a
-/// highlighted card's solid CTA visibly outranks its neighbours in the row.
 Component _ctaButton({
   required String cssClass,
   required String label,
   required String? buttonLink,
   required void Function()? onClick,
-  required bool highlighted,
-  required String accentColor,
 }) {
   final Map<String, String> base = <String, String>{
     'display': 'inline-flex',
@@ -340,10 +274,10 @@ Component _ctaButton({
     'box-sizing': 'border-box',
     'font-size': '0.9rem',
     'font-weight': '600',
-    'border': highlighted ? 'none' : '1px solid var(--border)',
-    'border-radius': 'var(--radius, 0.5rem)',
-    'background-color': highlighted ? accentColor : 'transparent',
-    'color': highlighted ? 'var(--primary-foreground)' : 'var(--foreground)',
+    'border': '1px solid var(--border)',
+    'border-radius': '6px',
+    'background-color': 'transparent',
+    'color': 'var(--foreground)',
     'text-decoration': 'none',
     'text-align': 'center',
     'cursor': 'pointer',
@@ -376,21 +310,6 @@ Component _ctaButton({
     <Component>[Component.text(label)],
   );
 }
-
-String _badgeBackground(PricingBadgeVariant variant) => switch (variant) {
-      PricingBadgeVariant.popular => 'var(--primary)',
-      PricingBadgeVariant.recommended => 'var(--success, #16a34a)',
-      PricingBadgeVariant.isNew => 'var(--accent, var(--primary))',
-      PricingBadgeVariant.primary => 'var(--primary)',
-    };
-
-String _badgeForeground(PricingBadgeVariant variant) => switch (variant) {
-      PricingBadgeVariant.popular => 'var(--primary-foreground)',
-      PricingBadgeVariant.recommended => 'var(--success-foreground, #ffffff)',
-      PricingBadgeVariant.isNew =>
-        'var(--accent-foreground, var(--primary-foreground))',
-      PricingBadgeVariant.primary => 'var(--primary-foreground)',
-    };
 
 /// Shared structural base for themed pricing-grid renderers — a responsive grid
 /// that maps each [PricingTier] onto a [PricingCardProps] and renders it with
@@ -431,13 +350,11 @@ abstract class PricingGridRenderBase extends StatelessComponent {
   }
 
   PricingCardProps _tierToProps(PricingTier tier) => PricingCardProps(
-        title: tier.name,
-        price: tier.price != null ? '${tier.currency}${tier.price}' : null,
-        period: '/${tier.period}',
-        subtitle: tier.description,
-        features: tier.features,
-        buttonText: tier.ctaText,
-        badge: tier.isPopular ? 'Popular' : null,
-        highlighted: tier.isHighlighted,
-      );
+    title: tier.name,
+    price: tier.price != null ? '${tier.currency}${tier.price}' : null,
+    period: '/${tier.period}',
+    subtitle: tier.description,
+    features: tier.features,
+    buttonText: tier.ctaText,
+  );
 }

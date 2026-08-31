@@ -8,9 +8,6 @@ class Win95ScrollArea extends ScrollAreaRenderBase {
   String get cssPrefix => 'win95';
 
   @override
-  String get scrollShadowSize => '32px';
-
-  @override
   Map<String, String> scrollbarTrackStyles() => const <String, String>{};
 }
 

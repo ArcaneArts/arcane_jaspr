@@ -7,12 +7,7 @@ import '../shared/shared.dart';
 
 export '../shared/shared.dart' show ComponentSize;
 
-enum SliderVariant {
-  primary,
-  success,
-  warning,
-  error,
-}
+enum SliderVariant { primary, success, warning, error }
 
 /// Slider component properties.
 class SliderProps {
@@ -89,11 +84,11 @@ class SliderProps {
     this.onChangeAction,
     this.styles,
     this.decoration,
-  })  : value = 0,
-        onChanged = null,
-        isRange = true,
-        rangeMin = minValue,
-        rangeMax = maxValue;
+  }) : value = 0,
+       onChanged = null,
+       isRange = true,
+       rangeMin = minValue,
+       rangeMax = maxValue;
 
   SliderProps copyWith({
     String? id,

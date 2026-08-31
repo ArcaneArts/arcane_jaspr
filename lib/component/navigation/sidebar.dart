@@ -3,9 +3,14 @@ import 'package:arcane_jaspr/flutter.dart';
 import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
 import '../../util/style_types/arcane_style_data.dart';
+import '../view/icon.dart';
 
 export '../../core/props/sidebar_props.dart'
-    show SidebarItemProps, SidebarGroupProps, SidebarSubMenuProps, SidebarSectionProps;
+    show
+        SidebarItemProps,
+        SidebarGroupProps,
+        SidebarSubMenuProps,
+        SidebarSectionProps;
 
 /// Sidebar navigation component.
 class ArcaneSidebar extends StatefulWidget {
@@ -71,20 +76,22 @@ class _ArcaneSidebarState extends State<ArcaneSidebar> {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.sidebar(SidebarProps(
-      children: component.children,
-      header: component.header,
-      footer: component.footer,
-      isCollapsed: _isCollapsed,
-      onCollapseChanged: component.onCollapseChanged,
-      width: component.width,
-      collapsedWidth: component.collapsedWidth,
-      showCollapseToggle: component.showCollapseToggle,
-      rightSide: component.rightSide,
-      onToggleCollapse: _toggleCollapse,
-      styles: component.styles,
-      decoration: component.decoration,
-    ));
+    return context.renderers.sidebar(
+      SidebarProps(
+        children: component.children,
+        header: component.header,
+        footer: component.footer,
+        isCollapsed: _isCollapsed,
+        onCollapseChanged: component.onCollapseChanged,
+        width: component.width,
+        collapsedWidth: component.collapsedWidth,
+        showCollapseToggle: component.showCollapseToggle,
+        rightSide: component.rightSide,
+        onToggleCollapse: _toggleCollapse,
+        styles: component.styles,
+        decoration: component.decoration,
+      ),
+    );
   }
 }
 
@@ -103,18 +110,16 @@ class ArcaneSidebarGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.sidebarGroup(SidebarGroupProps(
-      label: label,
-      children: children,
-      collapsed: collapsed,
-    ));
+    return context.renderers.sidebarGroup(
+      SidebarGroupProps(label: label, children: children, collapsed: collapsed),
+    );
   }
 }
 
 /// Sidebar navigation item.
 class ArcaneSidebarItem extends StatelessWidget {
   final String label;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final void Function()? onTap;
   final String? href;
   final bool selected;
@@ -138,17 +143,19 @@ class ArcaneSidebarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.sidebarItem(SidebarItemProps(
-      label: label,
-      icon: icon,
-      onTap: onTap,
-      href: href,
-      selected: selected,
-      disabled: disabled,
-      badge: badge,
-      collapsed: collapsed,
-      tooltip: tooltip,
-    ));
+    return context.renderers.sidebarItem(
+      SidebarItemProps(
+        label: label,
+        icon: icon,
+        onTap: onTap,
+        href: href,
+        selected: selected,
+        disabled: disabled,
+        badge: badge,
+        collapsed: collapsed,
+        tooltip: tooltip,
+      ),
+    );
   }
 }
 
@@ -156,10 +163,7 @@ class ArcaneSidebarItem extends StatelessWidget {
 class ArcaneSidebarExpanded extends StatelessWidget {
   final List<Widget> children;
 
-  const ArcaneSidebarExpanded({
-    required this.children,
-    super.key,
-  });
+  const ArcaneSidebarExpanded({required this.children, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -171,10 +175,7 @@ class ArcaneSidebarExpanded extends StatelessWidget {
 class ArcaneSidebarCollapsed extends StatelessWidget {
   final List<Widget> children;
 
-  const ArcaneSidebarCollapsed({
-    required this.children,
-    super.key,
-  });
+  const ArcaneSidebarCollapsed({required this.children, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -198,7 +199,7 @@ class ArcaneSidebarSeparator extends StatelessWidget {
 /// controls whether the section starts expanded.
 class ArcaneSidebarSubMenu extends StatelessWidget {
   final String label;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final List<Widget> children;
   final bool defaultOpen;
   final bool collapsed;
@@ -216,14 +217,16 @@ class ArcaneSidebarSubMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.sidebarSubMenu(SidebarSubMenuProps(
-      label: label,
-      icon: icon,
-      children: children,
-      defaultOpen: defaultOpen,
-      collapsed: collapsed,
-      badge: badge,
-    ));
+    return context.renderers.sidebarSubMenu(
+      SidebarSubMenuProps(
+        label: label,
+        icon: icon,
+        children: children,
+        defaultOpen: defaultOpen,
+        collapsed: collapsed,
+        badge: badge,
+      ),
+    );
   }
 }
 
@@ -232,7 +235,7 @@ class ArcaneSidebarSubMenu extends StatelessWidget {
 /// For sections with a header that don't need collapsing behavior.
 class ArcaneSidebarSection extends StatelessWidget {
   final String label;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final List<Widget> children;
 
   const ArcaneSidebarSection({
@@ -244,10 +247,8 @@ class ArcaneSidebarSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.sidebarSection(SidebarSectionProps(
-      label: label,
-      icon: icon,
-      children: children,
-    ));
+    return context.renderers.sidebarSection(
+      SidebarSectionProps(label: label, icon: icon, children: children),
+    );
   }
 }

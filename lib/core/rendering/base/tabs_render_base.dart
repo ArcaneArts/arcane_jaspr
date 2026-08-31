@@ -14,7 +14,7 @@ import 'package:arcane_jaspr/core/props/tabs_props.dart';
 /// the disabled opacity and the badge styling, which are exposed as abstract
 /// members.
 ///
-/// The ShadCN tabs are structurally divergent (a muted-background pill list and
+/// The ShadCN tabs are structurally divergent (a muted-background tab list and
 /// a separate `role="tabpanel"` panel) and are left standalone.
 ///
 /// This base lives in core and depends only on core props; it must never depend
@@ -43,8 +43,7 @@ abstract class TabsRenderBase extends StatelessComponent {
   Map<String, String> get badgeStyles;
 
   /// Per-instance decoration overrides. Default: none. A theme overrides this
-  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
-  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  /// to translate an [ArcaneDecoration] elevation intent into its own CSS.
   Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
       const <String, String>{};
 
@@ -171,8 +170,7 @@ abstract class TabBarRenderBase extends StatelessComponent {
   String get tabTextTransform;
 
   /// Per-instance decoration overrides. Default: none. A theme overrides this
-  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
-  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  /// to translate an [ArcaneDecoration] elevation intent into its own CSS.
   Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
       const <String, String>{};
 

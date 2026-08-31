@@ -6,11 +6,7 @@ import '../decoration/arcane_decoration.dart';
 
 export 'menu_item_props.dart';
 
-enum DropdownAlignment {
-  left,
-  right,
-  center,
-}
+enum DropdownAlignment { left, right, center }
 
 /// Dropdown menu component properties.
 class DropdownMenuProps {

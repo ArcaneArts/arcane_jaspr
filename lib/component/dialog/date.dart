@@ -52,8 +52,11 @@ class _DialogDateState extends State<DialogDate> {
       ],
     ),
     actions: <Widget>[
-      Button.ghost(onPressed: () {}, child: const Text('Cancel')),
-      Button.primary(onPressed: () => component.onConfirm(_value), child: const Text('Done')),
+      Button.ghost(onPressed: () {}, label: 'Cancel'),
+      Button.primary(
+        onPressed: () => component.onConfirm(_value),
+        label: 'Done',
+      ),
     ],
   );
 }

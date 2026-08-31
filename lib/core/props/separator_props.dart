@@ -1,4 +1,5 @@
 import 'package:arcane_jaspr/flutter.dart';
+import '../../component/view/icon.dart';
 
 import '../../util/style_types/arcane_style_data.dart';
 import '../decoration/arcane_decoration.dart';
@@ -16,10 +17,7 @@ enum SeparatorVariant {
 }
 
 /// Separator orientation.
-enum SeparatorOrientation {
-  horizontal,
-  vertical,
-}
+enum SeparatorOrientation { horizontal, vertical }
 
 /// Unified separator component properties.
 ///
@@ -35,7 +33,7 @@ class SeparatorProps {
   final String? label;
 
   /// Optional icon to display in the middle (horizontal only).
-  final Widget? icon;
+  final ArcaneGlyph? icon;
 
   /// Custom color override (CSS color value).
   final String? color;
@@ -77,7 +75,7 @@ class SeparatorProps {
     SeparatorOrientation? orientation,
     SeparatorVariant? variant,
     String? label,
-    Widget? icon,
+    ArcaneGlyph? icon,
     String? color,
     bool? dashed,
     bool? decorative,

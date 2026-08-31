@@ -5,15 +5,12 @@
 /* ============================================
    GOOGLE FONTS
    ============================================ */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
 /* ============================================
    CUSTOM FONTS
    ============================================ */
 @font-face {
   font-family: 'Akzidenz-GroteskPro';
-  src: url('fonts/Akzidenz-GroteskPro/akzidenzgroteskpro_light.woff2') format('woff2'),
-       url('fonts/Akzidenz-GroteskPro/akzidenzgroteskpro_light.woff') format('woff');
+  src: url('fonts/Akzidenz-GroteskPro/akzidenzgroteskpro_light.ttf') format('truetype');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -21,8 +18,7 @@
 
 @font-face {
   font-family: 'Akzidenz-GroteskPro';
-  src: url('fonts/Akzidenz-GroteskPro/akzidenzgroteskpro_regular.woff2') format('woff2'),
-       url('fonts/Akzidenz-GroteskPro/akzidenzgroteskpro_regular.woff') format('woff');
+  src: url('fonts/Akzidenz-GroteskPro/akzidenzgroteskpro_regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -30,8 +26,7 @@
 
 @font-face {
   font-family: 'Akzidenz-GroteskPro';
-  src: url('fonts/Akzidenz-GroteskPro/akzidenzgroteskpro_md.woff2') format('woff2'),
-       url('fonts/Akzidenz-GroteskPro/akzidenzgroteskpro_md.woff') format('woff');
+  src: url('fonts/Akzidenz-GroteskPro/akzidenzgroteskpro_md.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -126,9 +121,31 @@
    ROOT VARIABLES
    ============================================ */
 :root {
-  --font-sans: var(--arcane-font-sans, 'Akzidenz-GroteskPro', -apple-system, BlinkMacSystemFont, sans-serif);
-  --font-heading: var(--arcane-font-heading, 'ITCAvantGardeStd', 'Akzidenz-GroteskPro', sans-serif);
-  --font-mono: var(--arcane-font-mono, 'Hack', 'Fira Code', monospace);
+  --font-sans: 'Akzidenz-GroteskPro', sans-serif;
+  --font-heading: 'ITCAvantGardeStd', 'Akzidenz-GroteskPro', sans-serif;
+  --font-mono: 'Hack', monospace;
+}
+
+/* jaspr_content emits its own Open Sans / JetBrains Mono content tokens after
+   this file. Bind those tokens at the themed application root so every
+   rendered article still resolves through the committed Arcane font assets. */
+#arcane-root {
+  --content-font: var(--font-sans);
+  --content-code-font: var(--font-mono);
+}
+
+/* The content package also styles the document root after this stylesheet.
+   Keep the actual inherited document faces on the bundled Arcane families. */
+html,
+body {
+  font-family: var(--font-sans) !important;
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: var(--font-mono) !important;
 }
 
 /* ============================================
@@ -569,7 +586,7 @@ body {
   position: relative;
   padding: 1rem 1rem 1rem 1.25rem;
   margin: 1.5rem 0;
-  border-radius: var(--radius-lg, 12px);
+  border-radius: var(--radius-md, 8px);
   border: 2px solid var(--border);
   background: var(--card);
 }
@@ -603,49 +620,28 @@ body {
   color: var(--muted-foreground);
 }
 
-.kb-callout-note {
-  border-color: #3b82f6;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(59, 130, 246, 0.02) 100%);
+.kb-callout-note,
+.kb-callout-tip,
+.kb-callout-important,
+.kb-callout-warning,
+.kb-callout-caution {
+  border-color: var(--border);
+  background: var(--card);
 }
-.kb-callout-note .kb-callout-title { color: #3b82f6; }
-.dark .kb-callout-note {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(59, 130, 246, 0.04) 100%);
+
+.kb-callout-note .kb-callout-title,
+.kb-callout-important .kb-callout-title,
+.kb-callout-warning .kb-callout-title,
+.kb-callout-caution .kb-callout-title {
+  color: var(--foreground);
 }
 
 .kb-callout-tip {
-  border-color: #22c55e;
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(34, 197, 94, 0.02) 100%);
-}
-.kb-callout-tip .kb-callout-title { color: #22c55e; }
-.dark .kb-callout-tip {
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.12) 0%, rgba(34, 197, 94, 0.04) 100%);
+  border-color: var(--primary);
 }
 
-.kb-callout-important {
-  border-color: #a855f7;
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.08) 0%, rgba(168, 85, 247, 0.02) 100%);
-}
-.kb-callout-important .kb-callout-title { color: #a855f7; }
-.dark .kb-callout-important {
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.12) 0%, rgba(168, 85, 247, 0.04) 100%);
-}
-
-.kb-callout-warning {
-  border-color: #f59e0b;
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(245, 158, 11, 0.02) 100%);
-}
-.kb-callout-warning .kb-callout-title { color: #f59e0b; }
-.dark .kb-callout-warning {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(245, 158, 11, 0.04) 100%);
-}
-
-.kb-callout-caution {
-  border-color: #ef4444;
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(239, 68, 68, 0.02) 100%);
-}
-.kb-callout-caution .kb-callout-title { color: #ef4444; }
-.dark .kb-callout-caution {
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, rgba(239, 68, 68, 0.04) 100%);
+.kb-callout-tip .kb-callout-title {
+  color: var(--primary);
 }
 
 /* ============================================
@@ -955,7 +951,6 @@ html.dark #arcane-root[class*="neubrutalism-"] .kb-landing-band p,
   --kb-neon-node: var(--neon-accent);
   --kb-neon-node-soft: color-mix(in srgb, var(--neon-accent) 18%, transparent);
   --kb-neon-node-alt: color-mix(in srgb, var(--primary) 72%, var(--foreground));
-  --kb-neon-shadow-soft: 0 0 22px color-mix(in srgb, var(--neon-accent) 10%, transparent);
 }
 
 html.dark #arcane-root[class*="neon-"],
@@ -965,8 +960,6 @@ html.dark #arcane-root[class*="neon-"],
   --kb-neon-node: var(--neon-accent);
   --kb-neon-node-soft: color-mix(in srgb, var(--neon-accent) 18%, transparent);
   --kb-neon-node-alt: color-mix(in srgb, var(--neon-accent) 74%, #F2F0EA);
-  --kb-neon-shadow-panel: 0 22px 70px rgba(0, 0, 0, 0.5), 0 0 24px color-mix(in srgb, var(--neon-accent) 8%, transparent);
-  --kb-neon-shadow-soft: 0 0 18px color-mix(in srgb, var(--neon-accent) 10%, transparent);
 }
 
 html.light #arcane-root[class*="neon-"],
@@ -976,8 +969,6 @@ html.light #arcane-root[class*="neon-"],
   --kb-neon-node: var(--neon-accent);
   --kb-neon-node-soft: color-mix(in srgb, var(--neon-accent) 18%, transparent);
   --kb-neon-node-alt: color-mix(in srgb, var(--neon-accent) 74%, var(--foreground));
-  --kb-neon-shadow-panel: 0 18px 42px color-mix(in srgb, var(--neon-accent) 12%, transparent), 0 1px 0 rgba(255, 255, 255, 0.95);
-  --kb-neon-shadow-soft: 0 10px 24px color-mix(in srgb, var(--neon-accent) 10%, transparent);
 }
 
 #arcane-root[class*="neon-"] .kb-topbar-inner {
@@ -989,11 +980,9 @@ html.light #arcane-root[class*="neon-"],
 #arcane-root[class*="neon-"] .kb-topbar-right {
   gap: 0.45rem;
   padding: 0.22rem;
-  border: 1px solid var(--kb-neon-line-soft);
-  border-radius: 0.32rem;
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--kb-neon-panel-strong) 78%, transparent), color-mix(in srgb, var(--kb-neon-panel) 72%, transparent));
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--kb-neon-node) 18%, transparent);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
 }
 
 #arcane-root[class*="neon-"] .kb-topbar-left {
@@ -1036,10 +1025,8 @@ html.light #arcane-root[class*="neon-"],
 
 #arcane-root[class*="neon-"] .kb-landing-list-index {
   border: 1px solid color-mix(in srgb, var(--kb-neon-node) 72%, var(--kb-neon-line));
-  background:
-    linear-gradient(135deg, var(--kb-neon-node), color-mix(in srgb, var(--kb-neon-node) 58%, var(--kb-neon-panel-strong)));
+  background: var(--kb-neon-node);
   color: var(--primary-foreground);
-  box-shadow: 0 0 18px color-mix(in srgb, var(--kb-neon-node) 28%, transparent);
 }
 
 #arcane-root[class*="neon-"] .sidebar-details[open] > .sidebar-summary,
@@ -1053,7 +1040,7 @@ html.light #arcane-root[class*="neon-"],
 
 #arcane-root[class*="neon-"] .sidebar-link.active {
   outline-color: var(--kb-neon-node) !important;
-  box-shadow: inset 0 0 0 1px var(--kb-neon-node), 0 0 12px color-mix(in srgb, var(--kb-neon-node) 22%, transparent) !important;
+  box-shadow: none !important;
 }
 
 #arcane-root[class*="shadcn-"] .kb-landing-prose {

@@ -28,8 +28,7 @@ class NeonTextArea extends TextAreaRenderBase {
         : '1px solid var(--border)',
     'border-radius': 'var(--radius-md)',
     'outline': 'none',
-    'transition':
-        'border-color var(--transition), box-shadow var(--transition)',
+    'transition': 'border-color var(--transition)',
   };
 
   @override

@@ -99,9 +99,7 @@ Preset padding configurations.
 
 | Value | CSS Output | Description |
 |-------|-----------|-------------|
-| `badge` | `2px 8px` | Badge/tag styling |
 | `inlineCode` | `2px 6px` | Inline code snippets |
-| `chip` | `4px 12px` | Chip/pill elements |
 
 ### Usage
 

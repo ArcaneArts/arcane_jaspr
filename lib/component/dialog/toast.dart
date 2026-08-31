@@ -5,6 +5,7 @@ import 'package:arcane_jaspr/flutter.dart';
 import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
 import '../../util/style_types/arcane_style_data.dart';
+import '../view/icon.dart';
 import 'toast_manager.dart';
 
 export '../../core/props/toast_props.dart'
@@ -21,7 +22,7 @@ class ArcaneToast extends StatefulWidget {
   final int duration;
   final bool dismissible;
   final ToastAction? action;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final void Function()? onClose;
   final String? id;
 

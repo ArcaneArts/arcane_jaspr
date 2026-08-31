@@ -1,17 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 
-enum ScrollRailPosition {
-  left,
-  right,
-}
+enum ScrollRailPosition { left, right }
 
-enum ScrollRailSize {
-  narrow,
-  sm,
-  md,
-  lg,
-  xl,
-}
+enum ScrollRailSize { narrow, sm, md, lg, xl }
 
 /// Scroll rail component properties.
 class ScrollRailProps {

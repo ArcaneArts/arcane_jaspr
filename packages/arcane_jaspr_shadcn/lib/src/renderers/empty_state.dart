@@ -107,6 +107,9 @@ class ShadcnEmptyState extends EmptyStateRenderBase {
     if (props.variant == EmptyStateStyleVariant.card) {
       return dom.div(
         classes: 'arcane-empty-state-card',
+        attributes: const <String, String>{
+          'data-arcane-surface': 'empty-state-card',
+        },
         styles: dom.Styles(
           raw: <String, String>{
             'background-color': 'var(--card)',

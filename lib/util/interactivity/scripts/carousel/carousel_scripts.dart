@@ -5,6 +5,32 @@ class CarouselScripts {
   static const String code = r'''
   function bindCarousels() {
     document.querySelectorAll('.arcane-carousel').forEach(function(carousel) {
+      // The duplicate track is visual continuity only. `aria-hidden` on an
+      // ancestor does not remove interactive descendants from keyboard focus,
+      // and older browsers do not consistently enforce the inert attribute.
+      // Neutralize every focus path both at initial bind and after mutations.
+      var clone = carousel.querySelector('[data-arcane-carousel-content="clone"]');
+      if (clone) {
+        clone.setAttribute('aria-hidden', 'true');
+        clone.setAttribute('inert', 'true');
+        clone.inert = true;
+        clone.style.pointerEvents = 'none';
+        clone.querySelectorAll(
+          'a[href], area[href], button, input, select, textarea, iframe, object, embed, audio[controls], video[controls], summary, [contenteditable], [tabindex]'
+        ).forEach(function(element) {
+          element.setAttribute('tabindex', '-1');
+          element.setAttribute('aria-hidden', 'true');
+          element.removeAttribute('autofocus');
+          if (element.hasAttribute('contenteditable')) {
+            element.setAttribute('contenteditable', 'false');
+          }
+          if ('disabled' in element) element.disabled = true;
+        });
+        clone.querySelectorAll('[id]').forEach(function(element) {
+          element.removeAttribute('id');
+        });
+      }
+
       if (carousel.dataset.arcaneCarouselBound) return;
       carousel.dataset.arcaneCarouselBound = 'true';
 

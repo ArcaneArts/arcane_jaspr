@@ -32,8 +32,7 @@ class NeubrutalismToggleSwitch extends ToggleSwitchRenderBase {
       ColorVariant.info => 'var(--info)',
     };
 
-    double thumbTranslate =
-        props.value ? (width - thumbSize - (inset * 2)) : 0;
+    double thumbTranslate = props.value ? (width - thumbSize - (inset * 2)) : 0;
 
     return dom.button(
       classes:
@@ -47,6 +46,7 @@ class NeubrutalismToggleSwitch extends ToggleSwitchRenderBase {
           'data-disabled': '${props.disabled}',
           'data-variant': props.color.name,
           'data-size': props.size.name,
+          'data-arcane-intrinsic-shape': 'switch-track',
           if (props.disabled) 'disabled': 'true',
         },
         itemAttrs,
@@ -59,11 +59,13 @@ class NeubrutalismToggleSwitch extends ToggleSwitchRenderBase {
           'width': '${width}px',
           'height': '${height}px',
           'padding': '${inset}px',
-          'border-radius': '9999px',
+          'border-radius': 'var(--nb-radius-soft, 4px)',
           'border': 'var(--nb-border-thick, 3px) solid var(--nb-line, #000)',
-          'background-color':
-              props.value ? tone : 'var(--nb-paper, var(--card))',
-          'box-shadow': 'var(--nb-shadow-sm, 3px 3px 0 0 var(--nb-shadow-color, #000))',
+          'background-color': props.value
+              ? tone
+              : 'var(--nb-paper, var(--card))',
+          'box-shadow':
+              'var(--nb-shadow-sm, 3px 3px 0 0 var(--nb-shadow-color, #000))',
           'cursor': props.disabled ? 'not-allowed' : 'pointer',
           'opacity': props.disabled ? '0.5' : '1',
           'pointer-events': props.disabled ? 'none' : 'auto',
@@ -82,18 +84,20 @@ class NeubrutalismToggleSwitch extends ToggleSwitchRenderBase {
       <Component>[
         dom.span(
           classes: 'neubrutalism-toggle-switch-thumb',
+          attributes: const <String, String>{
+            'data-arcane-intrinsic-shape': 'switch-thumb',
+          },
           styles: dom.Styles(
             raw: <String, String>{
               'display': 'block',
               'width': '${thumbSize}px',
               'height': '${thumbSize}px',
-              'border-radius': '9999px',
+              'border-radius': '50%',
               'background-color': 'var(--nb-paper, #fff)',
               'border':
                   'var(--nb-border-thick, 3px) solid var(--nb-line, #000)',
               'transform': 'translateX(${thumbTranslate}px)',
-              'transition':
-                  'transform 220ms cubic-bezier(0.4, 0.1, 0.3, 1)',
+              'transition': 'transform 220ms cubic-bezier(0.4, 0.1, 0.3, 1)',
               'pointer-events': 'none',
             },
           ),

@@ -20,13 +20,19 @@ class ArcaneTimeField extends StatelessWidget {
   Widget build(BuildContext context) => ArcaneField<TimeOfDay>(
     meta: ArcaneFieldMetadata(name: name, description: description),
     provider: provider,
-    builder: (BuildContext context, TimeOfDay value, void Function(TimeOfDay) onChanged) => ArcaneFieldWrapper(
-      labelText: name,
-      description: description,
-      field: ArcaneTimePicker(
-        value: value,
-        onChanged: (TimeOfDay? next) => onChanged(next ?? provider.defaultValue),
-      ),
-    ),
+    builder:
+        (
+          BuildContext context,
+          TimeOfDay value,
+          void Function(TimeOfDay) onChanged,
+        ) => ArcaneFieldWrapper(
+          labelText: name,
+          description: description,
+          field: ArcaneTimePicker(
+            value: value,
+            onChanged: (TimeOfDay? next) =>
+                onChanged(next ?? provider.defaultValue),
+          ),
+        ),
   );
 }

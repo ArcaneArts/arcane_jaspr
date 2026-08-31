@@ -23,7 +23,7 @@ class NeonAspectRatio extends StatelessComponent {
           'width': '100%',
           'aspect-ratio': props.ratio.toString(),
           'overflow': 'hidden',
-          'border-radius': 'var(--radius-lg)',
+          'border-radius': 'var(--radius-md)',
           ...?props.styles,
         },
       ),

@@ -3,18 +3,9 @@ import 'package:jaspr/jaspr.dart';
 import '../../util/style_types/arcane_style_data.dart';
 import '../decoration/arcane_decoration.dart';
 
-enum PaginationStyleVariant {
-  outline,
-  filled,
-  ghost,
-  simple,
-}
+enum PaginationStyleVariant { outline, filled, ghost, simple }
 
-enum PaginationSizeVariant {
-  sm,
-  md,
-  lg,
-}
+enum PaginationSizeVariant { sm, md, lg }
 
 /// Pagination component properties.
 class PaginationProps {

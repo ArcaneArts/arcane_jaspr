@@ -422,6 +422,7 @@ ArcaneDatePicker(
     Button.primary(label: 'Open dialog', onPressed: openDialog),
     if (dialogOpen)
       ArcaneDialog(
+        isOpen: true,
         title: 'Confirm Settings',
         onClose: closeDialog,
         child: const Text('Apply changes to your current workspace?'),
@@ -505,9 +506,7 @@ ArcaneDatePicker(
     sourcePath: 'lib/component/view/floating.dart',
     code: '''ArcaneHoverCard.hovercard(
   trigger: Button.secondary(label: 'Hover card', onPressed: () {}),
-  content: const Card(
-    child: Text('A lightweight profile or preview card.'),
-  ),
+  content: const Text('A lightweight profile or preview.'),
 )''',
     previewBuilder: _buildHoverCardDemo,
   ),
@@ -638,7 +637,7 @@ ArcanePagination(
   isOpen: popoverOpen,
   onOpenChange: setPopoverOpen,
   trigger: Button.secondary(label: 'Open popover', onPressed: () {}),
-  content: const Card(child: Text('Popover content')),
+  content: const Text('Popover content'),
 )''',
     previewBuilder: _buildPopoverDemo,
   ),
@@ -957,7 +956,7 @@ ArcaneToggleGroup(
     gap: Gap.md,
     background: Background.surface,
     border: BorderPreset.standard,
-    borderRadius: Radius.lg,
+    borderRadius: Radius.md,
     shadow: Shadow.md,
   ),
   children: const [
@@ -977,7 +976,7 @@ ArcaneToggleGroup(
     padding: PaddingPreset.lg,
     background: Background.surface,
     border: BorderPreset.standard,
-    borderRadius: Radius.lg,
+    borderRadius: Radius.md,
   ),
   children: const [
     ArcaneStatusBadge.primary('Primary'),
@@ -996,7 +995,7 @@ ArcaneToggleGroup(
     padding: PaddingPreset.lg,
     background: Background.card,
     border: BorderPreset.accent,
-    borderRadius: Radius.lg,
+    borderRadius: Radius.md,
   ),
   children: [
     Button.primary(label: 'Primary', onPressed: () {}),
@@ -1030,7 +1029,7 @@ ArcaneToggleGroup(
   style: const ArcaneStyleData(
     padding: PaddingPreset.lg,
     border: BorderPreset.accentThick,
-    borderRadius: Radius.lg,
+    borderRadius: Radius.md,
     background: Background.surface,
   ),
   children: const [Text.body('Theme-owned borders')],
@@ -1045,7 +1044,7 @@ ArcaneToggleGroup(
   style: const ArcaneStyleData(
     background: Background.accentContainer,
     padding: PaddingPreset.lg,
-    borderRadius: Radius.lg,
+    borderRadius: Radius.md,
   ),
   children: const [Text.heading3('Palette aware')],
 )''',
@@ -1078,8 +1077,8 @@ ArcaneToggleGroup(
     padding: PaddingPreset.lg,
     background: Background.surface,
     border: BorderPreset.standard,
-    borderRadius: Radius.lg,
-    shadow: Shadow.glowAccent,
+    borderRadius: Radius.md,
+    shadow: Shadow.md,
   ),
   children: const [Text.body('Theme-specific effects')],
 )''',
@@ -1478,6 +1477,7 @@ Widget _buildDialogDemo(DemoStateController state) {
         ),
         if (dialogOpen)
           ArcaneDialog(
+            isOpen: true,
             title: 'Confirm Settings',
             onClose: () => state.setBool('dialog-open', false),
             child: const Text('Apply changes to your current workspace?'),
@@ -1573,9 +1573,7 @@ Widget _buildHoverCardDemo(DemoStateController state) {
   return _surface(
     ArcaneHoverCard.hovercard(
       trigger: Button.secondary(label: 'Hover card', onPressed: () {}),
-      content: const Card(
-        child: Text('A lightweight profile or preview card.'),
-      ),
+      content: const Text('A lightweight profile or preview.'),
     ),
     minHeight: '180px',
   );
@@ -1690,7 +1688,7 @@ Widget _buildPopoverDemo(DemoStateController state) {
       isOpen: popoverOpen,
       onOpenChange: (value) => state.setBool('popover-open', value),
       trigger: Button.secondary(label: 'Open popover', onPressed: () {}),
-      content: const Card(child: Text('Popover content')),
+      content: const Text('Popover content'),
     ),
     minHeight: '180px',
   );
@@ -1980,7 +1978,7 @@ Widget _buildStylingDemo(DemoStateController state) {
         gap: Gap.md,
         background: Background.surface,
         border: BorderPreset.standard,
-        borderRadius: Radius.lg,
+        borderRadius: Radius.md,
         shadow: elevated ? Shadow.md : Shadow.none,
       ),
       children: [
@@ -2015,7 +2013,7 @@ Widget _buildTokensDemo(DemoStateController state) {
         gap: Gap.md,
         background: Background.surface,
         border: BorderPreset.standard,
-        borderRadius: Radius.lg,
+        borderRadius: Radius.md,
       ),
       children: [
         const Text.heading3('Token-driven surface'),
@@ -2049,7 +2047,7 @@ Widget _buildThemingDemo(DemoStateController state) {
         gap: Gap.md,
         background: Background.card,
         border: BorderPreset.accent,
-        borderRadius: Radius.lg,
+        borderRadius: Radius.md,
         shadow: Shadow.sm,
       ),
       children: [
@@ -2079,7 +2077,7 @@ Widget _buildAliasesDemo(DemoStateController state) {
         gap: Gap.sm,
         background: Background.backgroundSecondary,
         border: BorderPreset.subtle,
-        borderRadius: Radius.lg,
+        borderRadius: Radius.md,
       ),
       children: [
         const Text.heading3('Widget aliases'),
@@ -2098,7 +2096,7 @@ Widget _buildBordersDemo(DemoStateController state) {
   return _surface(
     _demoRow(
       _styleTile('Subtle', BorderPreset.subtle, Radius.sm, Shadow.none),
-      _styleTile('Accent', BorderPreset.accentThick, Radius.lg, Shadow.sm),
+      _styleTile('Accent', BorderPreset.accentThick, Radius.md, Shadow.sm),
       _styleTile(
         'Dashed',
         BorderPreset.dashedStandard,
@@ -2135,7 +2133,7 @@ Widget _buildDisplayDemo(DemoStateController state) {
         gap: Gap.sm,
         background: Background.surface,
         border: BorderPreset.standard,
-        borderRadius: Radius.lg,
+        borderRadius: Radius.md,
       ),
       children: const [
         ArcaneStatusBadge.secondary('Wrap'),
@@ -2149,7 +2147,7 @@ Widget _buildDisplayDemo(DemoStateController state) {
 }
 
 Widget _buildEffectsDemo(DemoStateController state) {
-  bool glow = state.boolValue('effects-glow', initial: true);
+  bool elevated = state.boolValue('effects-elevated', initial: true);
   return _surface(
     ArcaneBox(
       style: ArcaneStyleData(
@@ -2161,15 +2159,15 @@ Widget _buildEffectsDemo(DemoStateController state) {
         gap: Gap.md,
         background: Background.surface,
         border: BorderPreset.standard,
-        borderRadius: Radius.lg,
-        shadow: glow ? Shadow.glowAccent : Shadow.md,
+        borderRadius: Radius.md,
+        shadow: elevated ? Shadow.lg : Shadow.md,
       ),
       children: [
         const Text.heading3('Theme effects'),
         const Text.body('Effects remain tied to the active stylesheet.'),
         Button.secondary(
-          label: glow ? 'Use shadow' : 'Use glow',
-          onPressed: () => state.toggleBool('effects-glow', initial: true),
+          label: elevated ? 'Reduce elevation' : 'Increase elevation',
+          onPressed: () => state.toggleBool('effects-elevated', initial: true),
         ),
       ],
     ),
@@ -2189,7 +2187,7 @@ Widget _buildSpacingDemo(DemoStateController state) {
         gap: Gap.md,
         background: Background.surface,
         border: BorderPreset.standard,
-        borderRadius: Radius.lg,
+        borderRadius: Radius.md,
       ),
       children: [
         Button.primary(label: 'First action', onPressed: () {}),
@@ -2213,7 +2211,7 @@ Widget _buildTypographyStylesDemo(DemoStateController state) {
         gap: Gap.sm,
         background: Background.surface,
         border: BorderPreset.standard,
-        borderRadius: Radius.lg,
+        borderRadius: Radius.md,
       ),
       children: const [
         Text.heading2('Heading'),
@@ -2258,7 +2256,7 @@ Widget _colorTile(String label, Background background) {
       justifyContent: JustifyContent.center,
       background: background,
       border: BorderPreset.standard,
-      borderRadius: Radius.lg,
+      borderRadius: Radius.md,
     ),
     children: [Text.body(label, color: TextColor.primary)],
   );
@@ -2291,7 +2289,7 @@ Widget _surface(Widget child, {String minHeight = '140px'}) {
     style: ArcaneStyleData(
       padding: PaddingPreset.lg,
       border: BorderPreset.subtle,
-      borderRadius: Radius.lg,
+      borderRadius: Radius.md,
       background: Background.backgroundSecondary,
       minHeight: minHeight,
       display: Display.flex,

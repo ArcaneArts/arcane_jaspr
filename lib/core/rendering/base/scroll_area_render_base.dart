@@ -5,11 +5,7 @@ import 'package:arcane_jaspr/core/props/scroll_area_props.dart';
 
 /// Shared structural base for themed scroll-area renderers.
 ///
-/// Every theme's scroll area produces the same structure (a positioned `div`
-/// with optional sticky scroll shadows around the content). Themes differ only
-/// in the CSS class prefix, the trailing scrollbar track styles, and the scroll
-/// shadow size. This base factors the shared layout, overflow and shadow logic,
-/// leaving those few values to the concrete renderer.
+/// Every theme's scroll area produces the same positioned scroll container.
 ///
 /// This base lives in core and depends only on core props; it must never
 /// depend on a theme package.
@@ -20,12 +16,8 @@ abstract class ScrollAreaRenderBase extends StatelessComponent {
 
   /// CSS class prefix (e.g. `'arcane'`, `'neon'`). The root and instance
   /// classes are derived as `'$cssPrefix-scroll-area'` and
-  /// `'$cssPrefix-scroll-area-<instanceId>'`; shadows use
-  /// `'$cssPrefix-scroll-shadow'`.
+  /// `'$cssPrefix-scroll-area-<instanceId>'`.
   String get cssPrefix;
-
-  /// Size (height for vertical / width for horizontal) of a scroll shadow.
-  String get scrollShadowSize;
 
   /// Trailing scrollbar track styles appended to the root element's styles
   /// (e.g. `scrollbar-color` / `scrollbar-width`).
@@ -72,74 +64,7 @@ abstract class ScrollAreaRenderBase extends StatelessComponent {
           ...scrollbarTrackStyles(),
         },
       ),
-      <Component>[
-        if (props.showScrollShadows) ...<Component>[
-          _buildScrollShadow(props.direction, isStart: true),
-          _buildScrollShadow(props.direction, isStart: false),
-        ],
-        props.child,
-      ],
-    );
-  }
-
-  Component _buildScrollShadow(
-    ScrollDirectionVariant direction, {
-    required bool isStart,
-  }) {
-    final bool isVertical =
-        direction == ScrollDirectionVariant.vertical ||
-        direction == ScrollDirectionVariant.both;
-    final bool isHorizontal =
-        direction == ScrollDirectionVariant.horizontal ||
-        direction == ScrollDirectionVariant.both;
-
-    if (isVertical && !isHorizontal) {
-      return dom.div(
-        classes: '$cssPrefix-scroll-shadow ${isStart ? "top" : "bottom"}',
-        styles: dom.Styles(
-          raw: <String, String>{
-            'position': 'sticky',
-            if (isStart) 'top': '0',
-            if (!isStart) 'bottom': '0',
-            'left': '0',
-            'right': '0',
-            'height': scrollShadowSize,
-            'background': isStart
-                ? 'linear-gradient(to bottom, var(--background), transparent)'
-                : 'linear-gradient(to top, var(--background), transparent)',
-            'pointer-events': 'none',
-            'z-index': '1',
-          },
-        ),
-        const <Component>[],
-      );
-    }
-
-    if (isHorizontal) {
-      return dom.div(
-        classes: '$cssPrefix-scroll-shadow ${isStart ? "left" : "right"}',
-        styles: dom.Styles(
-          raw: <String, String>{
-            'position': 'sticky',
-            if (isStart) 'left': '0',
-            if (!isStart) 'right': '0',
-            'top': '0',
-            'bottom': '0',
-            'width': scrollShadowSize,
-            'background': isStart
-                ? 'linear-gradient(to right, var(--background), transparent)'
-                : 'linear-gradient(to left, var(--background), transparent)',
-            'pointer-events': 'none',
-            'z-index': '1',
-          },
-        ),
-        const <Component>[],
-      );
-    }
-
-    return const dom.span(
-      styles: dom.Styles(raw: <String, String>{'display': 'none'}),
-      <Component>[],
+      <Component>[props.child],
     );
   }
 }

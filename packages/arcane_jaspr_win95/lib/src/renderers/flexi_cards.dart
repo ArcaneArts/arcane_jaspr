@@ -5,7 +5,10 @@ import 'package:arcane_jaspr/core/props/flexi_cards_props.dart';
 
 /// Win95 FlexiCards renderer (neutral placeholder skeleton).
 ///
-/// Uses CSS Grid with `grid-template-rows` for smooth height animations.
+/// Uses CSS Grid with `grid-template-rows` to expand and collapse. The grid
+/// technique is only a layout mechanism here: `FlexiCardsProps.transitionDuration`
+/// is deliberately not honoured, because a Windows 95 pane changed size in a
+/// single repaint and nothing about it eased.
 class Win95FlexiCards extends StatefulComponent {
   final FlexiCardsProps props;
 
@@ -39,7 +42,6 @@ class _Win95FlexiCardsState extends State<Win95FlexiCards> {
   Component _buildCard(FlexiCardItem item, int index) {
     final bool isHovered = _hoveredIndex == index;
     final bool hasHoveredCard = _hoveredIndex != null;
-    final int duration = component.props.transitionDuration;
 
     // Calculate flex - shrink others when one is hovered
     final double flex = isHovered
@@ -49,8 +51,6 @@ class _Win95FlexiCardsState extends State<Win95FlexiCards> {
               : component.props.collapsedFlex);
 
     // Whether to show expanded content
-    final bool showLongText =
-        !component.props.expandLongTextOnHover || isHovered;
 
     final List<Component> cardContent = [
       // Header
@@ -70,7 +70,7 @@ class _Win95FlexiCardsState extends State<Win95FlexiCards> {
       // Icon treatment
       dom.div(
         classes: 'win95-flexi-card-icon',
-        styles: dom.Styles(
+        styles: const dom.Styles(
           raw: {
             'display': 'flex',
             'align-items': 'center',
@@ -82,7 +82,7 @@ class _Win95FlexiCardsState extends State<Win95FlexiCards> {
             'border': '1px solid var(--border)',
             'color': 'var(--foreground)',
             'margin-bottom': '1.125rem',
-            'transition': 'all ${duration}ms ease',
+            'transition': 'none',
           },
         ),
         [item.icon],
@@ -91,27 +91,26 @@ class _Win95FlexiCardsState extends State<Win95FlexiCards> {
       // Short text (title)
       dom.h3(
         classes: 'win95-flexi-card-title',
-        styles: dom.Styles(
+        styles: const dom.Styles(
           raw: {
             'font-size': 'var(--font-size-lg, 1.125rem)',
             'font-weight': 'var(--font-weight-semibold, 600)',
             'color': 'var(--foreground)',
             'margin': '0 0 0.5rem 0',
-            'transition': 'color ${duration}ms ease',
+            'transition': 'none',
           },
         ),
         [Component.text(item.shortText)],
       ),
 
-      // Long text (description) - uses CSS Grid for smooth animation
+      // Long text is always present and visible.
       dom.div(
         classes: 'win95-flexi-card-long-text-wrapper',
         styles: dom.Styles(
           raw: {
             'display': 'grid',
-            'grid-template-rows': showLongText ? '1fr' : '0fr',
-            'transition':
-                'grid-template-rows ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)',
+            'grid-template-rows': '1fr',
+            'transition': 'none',
           },
         ),
         [
@@ -130,8 +129,8 @@ class _Win95FlexiCardsState extends State<Win95FlexiCards> {
                     'margin': '0',
                     'padding-bottom': '1rem',
                     'line-height': '1.6',
-                    'opacity': showLongText ? '1' : '0',
-                    'transition': 'opacity ${duration}ms ease',
+                    'opacity': '1',
+                    'transition': 'none',
                   },
                 ),
                 [Component.text(item.longText)],
@@ -144,16 +143,15 @@ class _Win95FlexiCardsState extends State<Win95FlexiCards> {
       // Spacer
       const dom.div(styles: dom.Styles(raw: {'flex': '1'}), []),
 
-      // Footer with grid animation
+      // Footer is always present when supplied.
       if (item.footer != null)
         dom.div(
           classes: 'win95-flexi-card-footer-wrapper',
           styles: dom.Styles(
             raw: {
               'display': 'grid',
-              'grid-template-rows': showLongText ? '1fr' : '0fr',
-              'transition':
-                  'grid-template-rows ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)',
+              'grid-template-rows': '1fr',
+              'transition': 'none',
             },
           ),
           [
@@ -169,8 +167,8 @@ class _Win95FlexiCardsState extends State<Win95FlexiCards> {
                     raw: {
                       'padding-top': '1rem',
                       'border-top': '1px solid var(--border)',
-                      'opacity': showLongText ? '1' : '0.5',
-                      'transition': 'opacity ${duration}ms ease',
+                      'opacity': '1',
+                      'transition': 'none',
                     },
                   ),
                   [item.footer!],
@@ -209,18 +207,14 @@ class _Win95FlexiCardsState extends State<Win95FlexiCards> {
       'padding': '1.5rem',
       'background': isHovered ? 'var(--muted)' : 'var(--card)',
       'border': '1px solid var(--border)',
-      'border-radius': 'var(--radius-lg)',
-      'transition':
-          'flex ${duration}ms cubic-bezier(0.4, 0, 0.2, 1), '
-          'width ${duration}ms cubic-bezier(0.4, 0, 0.2, 1), '
-          'background ${duration}ms ease, '
-          'border-color ${duration}ms ease',
+      'border-radius': 'var(--radius-md)',
+      'transition': 'none',
       'overflow': 'hidden',
-      if (item.onTap != null || item.href != null) 'cursor': 'pointer',
     };
 
     Component card = dom.div(
       classes: 'win95-flexi-card${isHovered ? ' hovered' : ''}',
+      attributes: const <String, String>{'data-arcane-surface': 'flexi-card'},
       styles: dom.Styles(raw: cardStyles),
       events: {
         'mouseenter': (_) => setState(() => _hoveredIndex = index),
@@ -272,16 +266,16 @@ class Win95FlexiCardsSimple extends StatelessComponent {
   Component _buildCard(FlexiCardItem item) {
     Component card = dom.div(
       classes: 'win95-flexi-card-simple',
-      styles: dom.Styles(
+      attributes: const <String, String>{'data-arcane-surface': 'flexi-card'},
+      styles: const dom.Styles(
         raw: {
           'display': 'flex',
           'flex-direction': 'column',
           'padding': '1.5rem',
           'background-color': 'var(--card)',
           'border': '1px solid var(--border)',
-          'border-radius': 'var(--radius-lg)',
-          'transition': 'all var(--arcane-transition)',
-          if (item.onTap != null || item.href != null) 'cursor': 'pointer',
+          'border-radius': 'var(--radius-md)',
+          'transition': 'none',
         },
       ),
       events: item.onTap != null ? {'click': (_) => item.onTap!()} : null,

@@ -1,12 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 
-enum CheckStyle {
-  check,
-  bullet,
-  arrow,
-  plus,
-  star,
-}
+enum CheckStyle { check, bullet, arrow, plus, star }
 
 /// Check item component properties.
 class CheckItemProps {

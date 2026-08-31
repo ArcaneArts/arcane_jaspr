@@ -1,4 +1,5 @@
 import 'package:arcane_jaspr/flutter.dart';
+import '../../component/view/icon.dart';
 
 import '../../util/style_types/arcane_style_data.dart';
 import '../decoration/arcane_decoration.dart';
@@ -7,27 +8,14 @@ import '../decoration/arcane_decoration.dart';
 class BreadcrumbItemProps {
   final String label;
   final String? href;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
 
-  const BreadcrumbItemProps({
-    required this.label,
-    this.href,
-    this.icon,
-  });
+  const BreadcrumbItemProps({required this.label, this.href, this.icon});
 }
 
-enum BreadcrumbSeparatorStyle {
-  slash,
-  chevron,
-  arrow,
-  dot,
-}
+enum BreadcrumbSeparatorStyle { slash, chevron, arrow, dot }
 
-enum BreadcrumbSizeVariant {
-  sm,
-  md,
-  lg,
-}
+enum BreadcrumbSizeVariant { sm, md, lg }
 
 /// Breadcrumbs component properties.
 class BreadcrumbsProps {

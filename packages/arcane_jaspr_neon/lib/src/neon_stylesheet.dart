@@ -5,17 +5,12 @@ import 'neon_css.dart';
 import 'neon_theme.dart';
 import 'renderers/neon_renderers.dart';
 
-/// Neon theme — a dark-first "gamer" aesthetic.
+/// Green and grayscale theme for technical product interfaces.
 ///
-/// Distilled from the QualityNode site: near-black surfaces, a vivid accent with
-/// a cool gradient companion, neon glow on interactive elements, gradient accent
-/// bars on cards, and uppercase tracked labels. The palette is fully seeded from
-/// [NeonTheme] (like the shadcn and neubrutalism themes), so switching variants
-/// or overriding fonts is a one-line change. All component styling lives in
-/// [NeonCss] scoped to `#arcane-root.arcane-theme-neon`, so it never affects
-/// other themes.
+/// Component styling lives in [NeonCss] and is scoped to
+/// `#arcane-root.arcane-theme-neon`, so it never affects other themes.
 class NeonStylesheet extends ArcaneStylesheet {
-  /// The color variant. Defaults to [NeonTheme.green] (QualityNode emerald/cyan).
+  /// The color palette. Green is the only supported palette.
   final NeonTheme theme;
 
   const NeonStylesheet({this.theme = NeonTheme.green});
@@ -31,59 +26,40 @@ class NeonStylesheet extends ArcaneStylesheet {
 
   @override
   ThemeSeed get lightSeed => ThemeSeed(
-        primary: theme.color,
-        background: theme.lightSurface,
-        secondary: theme.lightSecondary,
-        accent: theme.lightAccent,
-        border: theme.lightBorder,
-        destructive: 0xFFEF4444,
-        success: 0xFF22C55E,
-        warning: 0xFFF59E0B,
-        info: 0xFF3B82F6,
-        glowColor: theme.color,
-      );
+    primary: theme.color,
+    background: 0xFFF7F7F6,
+    secondary: 0xFFEDEDEB,
+    accent: 0xFFE3E3E0,
+    border: 0xFFC9C9C5,
+    destructive: 0xFF525252,
+    success: theme.color,
+    warning: 0xFF737373,
+    info: 0xFF404040,
+  );
 
   @override
   ThemeSeed get darkSeed => ThemeSeed(
-        primary: theme.color,
-        background: 0xFF0A0A0B,
-        secondary: 0xFF151518,
-        accent: theme.accentCool,
-        border: 0xFF26262B,
-        destructive: 0xFFFF4D4D,
-        success: 0xFF2DD48A,
-        warning: 0xFFFBBF24,
-        info: 0xFF38BDF8,
-        isDark: true,
-        accentGlow: true,
-        glowColor: theme.color,
-      );
+    primary: theme.color,
+    background: 0xFF0B0B0B,
+    secondary: 0xFF181818,
+    accent: 0xFF222222,
+    border: 0xFF303030,
+    destructive: 0xFFA3A3A3,
+    success: theme.color,
+    warning: 0xFF8A8A8A,
+    info: 0xFFB3B3B3,
+    isDark: true,
+  );
 
   @override
   FontConfig get fonts => const FontConfig(
-        sans:
-            "'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-        heading:
-            "'Oxanium', 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif",
-        mono:
-            "'JetBrains Mono', 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
-      );
+    sans: "'Akzidenz-GroteskPro'",
+    heading: "'ITCAvantGardeStd'",
+    mono: "'Hack'",
+  );
 
   @override
-  RadiusConfig get radius => const RadiusConfig(
-        xs: '3px',
-        sm: '5px',
-        md: '8px',
-        lg: '12px',
-        xl: '16px',
-        xxl: '20px',
-        full: '9999px',
-      );
-
-  @override
-  List<String> get externalCssUrls => const [
-        'https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap',
-      ];
+  RadiusConfig get radius => const RadiusConfig.dense();
 
   @override
   String get bodyClass => 'neon-${theme.name}';

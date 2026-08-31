@@ -7,11 +7,7 @@ class DeleteMenuButton extends StatelessWidget {
   final void Function()? onPressed;
   final String label;
 
-  const DeleteMenuButton({
-    this.onPressed,
-    this.label = 'Delete',
-    super.key,
-  });
+  const DeleteMenuButton({this.onPressed, this.label = 'Delete', super.key});
 
   @override
   Widget build(BuildContext context) => IconButtonMenu(
@@ -21,7 +17,7 @@ class DeleteMenuButton extends StatelessWidget {
         label: label,
         destructive: true,
         onSelect: onPressed,
-        icon: Icon(Icons.trash2),
+        icon: Icons.trash2(),
       ),
     ],
   );

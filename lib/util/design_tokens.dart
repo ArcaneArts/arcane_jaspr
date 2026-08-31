@@ -4,13 +4,18 @@ library;
 abstract class ArcaneColors {
   ArcaneColors._();
 
-  static const String background = 'var(--arcane-background, var(--background))';
-  static const String backgroundSecondary = 'var(--arcane-background-secondary, var(--muted))';
-  static const String backgroundTertiary = 'var(--arcane-background-tertiary, var(--secondary))';
-  static const String backgroundOverlay = 'var(--arcane-overlay, rgba(0, 0, 0, 0.5))';
+  static const String background =
+      'var(--arcane-background, var(--background))';
+  static const String backgroundSecondary =
+      'var(--arcane-background-secondary, var(--muted))';
+  static const String backgroundTertiary =
+      'var(--arcane-background-tertiary, var(--secondary))';
+  static const String backgroundOverlay =
+      'var(--arcane-overlay, rgba(0, 0, 0, 0.5))';
 
   static const String surface = 'var(--arcane-surface, var(--card))';
-  static const String surfaceVariant = 'var(--arcane-surface-variant, var(--secondary))';
+  static const String surfaceVariant =
+      'var(--arcane-surface-variant, var(--secondary))';
   static const String card = 'var(--arcane-card, var(--card))';
   static const String cardHover = 'var(--arcane-card-hover, var(--secondary))';
   static const String cardAlt = 'var(--arcane-card-alt, var(--secondary))';
@@ -23,38 +28,62 @@ abstract class ArcaneColors {
   static const String accent = 'var(--arcane-accent, var(--accent))';
   static const String muted = 'var(--arcane-muted, var(--muted))';
 
-  static const String foreground = 'var(--arcane-foreground, var(--foreground))';
-  static const String onBackground = 'var(--arcane-on-background, var(--foreground))';
-  static const String onSurface = 'var(--arcane-on-surface, var(--card-foreground))';
-  static const String cardForeground = 'var(--arcane-card-foreground, var(--card-foreground))';
-  static const String mutedForeground = 'var(--arcane-muted-foreground, var(--muted-foreground))';
-  static const String textSubtle = 'var(--arcane-text-subtle, var(--muted-foreground))';
-  static const String textFaint = 'var(--arcane-text-faint, rgba(113, 113, 122, 0.6))';
-  static const String primaryForeground = 'var(--arcane-primary-foreground, var(--primary-foreground))';
-  static const String secondaryForeground = 'var(--arcane-secondary-foreground, var(--secondary-foreground))';
-  static const String accentForeground = 'var(--arcane-accent-foreground, var(--accent-foreground))';
+  static const String foreground =
+      'var(--arcane-foreground, var(--foreground))';
+  static const String onBackground =
+      'var(--arcane-on-background, var(--foreground))';
+  static const String onSurface =
+      'var(--arcane-on-surface, var(--card-foreground))';
+  static const String cardForeground =
+      'var(--arcane-card-foreground, var(--card-foreground))';
+  static const String mutedForeground =
+      'var(--arcane-muted-foreground, var(--muted-foreground))';
+  static const String textSubtle =
+      'var(--arcane-text-subtle, var(--muted-foreground))';
+  static const String textFaint =
+      'var(--arcane-text-faint, rgba(113, 113, 122, 0.6))';
+  static const String primaryForeground =
+      'var(--arcane-primary-foreground, var(--primary-foreground))';
+  static const String secondaryForeground =
+      'var(--arcane-secondary-foreground, var(--secondary-foreground))';
+  static const String accentForeground =
+      'var(--arcane-accent-foreground, var(--accent-foreground))';
 
   static const String border = 'var(--arcane-border, var(--border))';
-  static const String borderSubtle = 'var(--arcane-border-subtle, var(--input))';
-  static const String borderMedium = 'var(--arcane-border-medium, var(--border))';
-  static const String borderLight = 'var(--arcane-border-light, rgba(228, 228, 231, 0.5))';
+  static const String borderSubtle =
+      'var(--arcane-border-subtle, var(--input))';
+  static const String borderMedium =
+      'var(--arcane-border-medium, var(--border))';
+  static const String borderLight =
+      'var(--arcane-border-light, rgba(228, 228, 231, 0.5))';
   static const String ring = 'var(--arcane-ring, var(--ring))';
 
-  static const String success = 'var(--arcane-success, var(--success, #22c55e))';
-  static const String successForeground = 'var(--arcane-success-foreground, var(--success-foreground, #ffffff))';
-  static const String warning = 'var(--arcane-warning, var(--warning, #f59e0b))';
-  static const String warningForeground = 'var(--arcane-warning-foreground, var(--warning-foreground, #000000))';
-  static const String error = 'var(--arcane-error, var(--destructive, #ef4444))';
-  static const String errorForeground = 'var(--arcane-error-foreground, var(--destructive-foreground, #ffffff))';
-  static const String destructive = 'var(--arcane-destructive, var(--destructive, #ef4444))';
-  static const String destructiveForeground = 'var(--arcane-destructive-foreground, var(--destructive-foreground, #ffffff))';
+  static const String success =
+      'var(--arcane-success, var(--success, #22c55e))';
+  static const String successForeground =
+      'var(--arcane-success-foreground, var(--success-foreground, #ffffff))';
+  static const String warning =
+      'var(--arcane-warning, var(--warning, #f59e0b))';
+  static const String warningForeground =
+      'var(--arcane-warning-foreground, var(--warning-foreground, #000000))';
+  static const String error =
+      'var(--arcane-error, var(--destructive, #ef4444))';
+  static const String errorForeground =
+      'var(--arcane-error-foreground, var(--destructive-foreground, #ffffff))';
+  static const String destructive =
+      'var(--arcane-destructive, var(--destructive, #ef4444))';
+  static const String destructiveForeground =
+      'var(--arcane-destructive-foreground, var(--destructive-foreground, #ffffff))';
   static const String info = 'var(--arcane-info, var(--info, #3b82f6))';
-  static const String infoForeground = 'var(--arcane-info-foreground, var(--info-foreground, #ffffff))';
+  static const String infoForeground =
+      'var(--arcane-info-foreground, var(--info-foreground, #ffffff))';
 
   static const String tooltip = 'var(--arcane-tooltip, var(--popover))';
-  static const String tooltipForeground = 'var(--arcane-tooltip-foreground, var(--popover-foreground))';
+  static const String tooltipForeground =
+      'var(--arcane-tooltip-foreground, var(--popover-foreground))';
 
-  static const String codeBackground = 'var(--arcane-code-background, var(--secondary))';
+  static const String codeBackground =
+      'var(--arcane-code-background, var(--secondary))';
 
   static const String neonPink = '#EC4899';
   static const String neonCyan = '#06B6D4';
@@ -103,9 +132,10 @@ abstract class ArcaneSpacing {
 abstract class ArcaneTypography {
   ArcaneTypography._();
 
-  static const String fontFamily = "var(--font-sans, 'Inter', ui-sans-serif, system-ui, sans-serif)";
-  static const String fontFamilyMono = "var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace)";
-  static const String fontFamilyHeading = "var(--font-heading, var(--font-sans))";
+  static const String fontFamily = "var(--font-sans, 'Akzidenz-GroteskPro')";
+  static const String fontFamilyMono = "var(--font-mono, 'Hack')";
+  static const String fontFamilyHeading =
+      "var(--font-heading, var(--font-sans))";
 
   static const String fontSizeXs = '12px';
   static const String fontSizeSm = '14px';
@@ -145,18 +175,9 @@ abstract class ArcaneRadius {
   static const String xs = '4px';
   static const String smStatic = '6px';
   static const String mdStatic = '8px';
-  static const String lgStatic = '12px';
-  static const String xlStatic = '16px';
-  static const String xxlStatic = '24px';
-  static const String fullStatic = '9999px';
-  static const String circle = '50%';
 
   static const String sm = 'var(--arcane-radius-sm, 6px)';
   static const String md = 'var(--arcane-radius-md, 8px)';
-  static const String lg = 'var(--arcane-radius-lg, 12px)';
-  static const String xl = 'var(--arcane-radius-xl, 16px)';
-  static const String xxl = 'var(--arcane-radius-2xl, 24px)';
-  static const String full = 'var(--arcane-radius-full, 9999px)';
 }
 
 /// Layout design tokens.
@@ -198,9 +219,6 @@ abstract class ArcaneZIndex {
 abstract class ArcaneEffects {
   ArcaneEffects._();
 
-  static const String backdropBlur = 'blur(8px)';
-  static const String backdropBlurStrong = 'blur(16px)';
-
   static const String shadowXs = '0 1px 2px rgba(0, 0, 0, 0.05)';
   static const String shadowSm = '0 1px 3px rgba(0, 0, 0, 0.1)';
   static const String shadowMd = '0 4px 6px rgba(0, 0, 0, 0.1)';
@@ -208,20 +226,10 @@ abstract class ArcaneEffects {
   static const String shadowXlStatic = '0 20px 25px rgba(0, 0, 0, 0.15)';
   static const String shadowCard = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
 
-  static const String glowPrimary = '0 0 20px var(--arcane-primary)';
-  static const String glowGreen = '0 0 20px rgba(16, 185, 129, 0.5)';
-  static const String glowCyan = '0 0 20px rgba(6, 182, 212, 0.5)';
-  static const String glowPurple = '0 0 20px rgba(139, 92, 246, 0.5)';
-  static const String glowOrange = '0 0 20px rgba(249, 115, 22, 0.5)';
-  static const String glowPink = '0 0 20px rgba(236, 72, 153, 0.5)';
-
   static const String transitionFast = '150ms ease';
   static const String transitionNormal = '200ms ease';
   static const String transitionSlow = '300ms ease';
   static const String transitionBounce = '300ms cubic-bezier(0.4, 0, 0.2, 1)';
-
-  static const String hoverLift = 'translateY(-2px)';
-  static const String hoverScale = 'scale(1.02)';
 }
 
 /// Common style patterns.
@@ -230,7 +238,7 @@ abstract class ArcaneCommonStyles {
 
   static Map<String, String> get card => {
     'background': ArcaneColors.card,
-    'border-radius': ArcaneRadius.lg,
+    'border-radius': ArcaneRadius.md,
     'border': '1px solid ${ArcaneColors.border}',
   };
 
@@ -323,24 +331,16 @@ abstract class ArcaneCommonStyles {
     'padding': '0 ${ArcaneSpacing.lg}',
   };
 
-  static Map<String, String> statusBadge(String bgColor, String textColor) => {
-    'display': 'inline-flex',
-    'align-items': 'center',
-    'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
-    'border-radius': ArcaneRadius.full,
-    'font-size': ArcaneTypography.fontSizeXs,
-    'font-weight': ArcaneTypography.fontWeightMedium,
-    'background': bgColor,
-    'color': textColor,
-  };
-
   static Map<String, String> grid(int cols, {String gap = '24px'}) => {
     'display': 'grid',
     'grid-template-columns': 'repeat($cols, 1fr)',
     'gap': gap,
   };
 
-  static Map<String, String> gridAuto({String minWidth = '300px', String gap = '24px'}) => {
+  static Map<String, String> gridAuto({
+    String minWidth = '300px',
+    String gap = '24px',
+  }) => {
     'display': 'grid',
     'grid-template-columns': 'repeat(auto-fit, minmax($minWidth, 1fr))',
     'gap': gap,

@@ -1,4 +1,5 @@
 import 'package:arcane_jaspr/flutter.dart';
+import '../../component/view/icon.dart';
 
 import '../../util/style_types/arcane_style_data.dart';
 import '../decoration/arcane_decoration.dart';
@@ -12,7 +13,7 @@ class ConfirmDialogProps {
   final void Function()? onConfirm;
   final void Function()? onCancel;
   final bool destructive;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
 
   /// Literal, theme-permeable style override (always applied, wins over theme).
   final ArcaneStyleData? styles;
@@ -41,7 +42,7 @@ class AlertDialogProps {
   final String message;
   final String buttonText;
   final void Function()? onDismiss;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
 
   /// Literal, theme-permeable style override (always applied, wins over theme).
   final ArcaneStyleData? styles;

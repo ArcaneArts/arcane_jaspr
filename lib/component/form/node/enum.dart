@@ -24,19 +24,20 @@ class ArcaneEnumField<T> extends StatelessWidget {
   Widget build(BuildContext context) => ArcaneField<T>(
     meta: ArcaneFieldMetadata(name: name, description: description),
     provider: provider,
-    builder: (BuildContext context, T value, void Function(T) onChanged) => ArcaneFieldWrapper(
-      labelText: name,
-      description: description,
-      field: Selector<T>(
-        value: value,
-        values: options,
-        onChanged: (T? next) {
-          if (next != null) {
-            onChanged(next);
-          }
-        },
-        labelBuilder: labelBuilder ?? (T entry) => entry.toString(),
-      ),
-    ),
+    builder: (BuildContext context, T value, void Function(T) onChanged) =>
+        ArcaneFieldWrapper(
+          labelText: name,
+          description: description,
+          field: Selector<T>(
+            value: value,
+            values: options,
+            onChanged: (T? next) {
+              if (next != null) {
+                onChanged(next);
+              }
+            },
+            labelBuilder: labelBuilder ?? (T entry) => entry.toString(),
+          ),
+        ),
   );
 }

@@ -26,7 +26,7 @@ class NeubrutalismTabs extends TabsRenderBase {
     'font-weight': '900',
     'padding': '0.125rem 0.5rem',
     'border': 'var(--nb-border-thin, 2px) solid var(--nb-line, #000)',
-    'border-radius': '9999px',
+    'border-radius': 'var(--nb-radius-soft, 4px)',
     'margin-left': '0.375rem',
     'line-height': '1.2',
   };

@@ -54,8 +54,7 @@ abstract class EmptyStateRenderBase extends StatelessComponent {
   List<Component> buildBody();
 
   /// Per-instance decoration overrides. Default: none. A theme overrides this
-  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
-  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  /// to translate an [ArcaneDecoration] elevation intent into its own CSS.
   Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
       const <String, String>{};
 

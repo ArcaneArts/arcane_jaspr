@@ -3,7 +3,7 @@ import 'package:arcane_jaspr/core/rendering/base/floating_render_base.dart';
 /// ShadCN Floating renderer.
 ///
 /// Unified component for tooltip, popover, and hovercard patterns.
-/// Handles text tooltips with CSS :hover, and rich content with state management.
+/// Handles text tooltips and rich floating content.
 ///
 /// Reference: https://ui.shadcn.com/docs/components/tooltip
 /// Reference: https://ui.shadcn.com/docs/components/popover
@@ -12,41 +12,11 @@ class ShadcnFloating extends FloatingRenderBase {
   const ShadcnFloating(super.props, {super.key});
 
   @override
-  String get triggerClass => 'arcane-floating-trigger';
-
-  @override
   String get containerClass => 'arcane-floating-container';
 
   @override
-  String get cssTooltipClasses => 'arcane-floating arcane-floating-tooltip';
-
-  @override
-  Map<String, String> cssTooltipStyles(Map<String, String> positionStyles) =>
-      <String, String>{
-        'position': 'absolute',
-        'z-index': '50',
-        'padding': '6px 12px',
-        'max-width': '${props.maxWidth ?? 250}px',
-        'font-size': 'var(--font-size-sm)',
-        'font-weight': 'var(--font-weight-medium)',
-        'line-height': '1.4',
-        'color': 'var(--popover-foreground)',
-        'background-color': 'var(--popover)',
-        'border': '1px solid var(--border)',
-        'border-radius': 'var(--radius-sm)',
-        'box-shadow': 'var(--shadow-md)',
-        'overflow': 'hidden',
-        'white-space': 'nowrap',
-        'pointer-events': 'none',
-        'opacity': '0',
-        'visibility': 'hidden',
-        'transition':
-            'opacity var(--transition), visibility var(--transition), transform var(--transition)',
-        ...positionStyles,
-      };
-
-  @override
-  String floatingContentClasses(bool hasRichContent) => 'arcane-floating-content';
+  String floatingContentClasses(bool hasRichContent) =>
+      'arcane-floating-content';
 
   @override
   Map<String, String> floatingContentStyles({

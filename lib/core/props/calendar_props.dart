@@ -3,20 +3,14 @@ import 'package:jaspr/jaspr.dart';
 import '../../util/style_types/arcane_style_data.dart';
 import '../decoration/arcane_decoration.dart';
 
-enum CalendarModeVariant {
-  single,
-  range,
-}
+enum CalendarModeVariant { single, range }
 
 /// Date range value.
 class DateRangeValue {
   final DateTime start;
   final DateTime end;
 
-  const DateRangeValue({
-    required this.start,
-    required this.end,
-  });
+  const DateRangeValue({required this.start, required this.end});
 }
 
 /// Calendar component properties.

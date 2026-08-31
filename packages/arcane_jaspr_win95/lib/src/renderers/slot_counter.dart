@@ -201,7 +201,6 @@ class _Win95SlotCounterState extends State<Win95SlotCounter> {
                   'font-variant-numeric': 'tabular-nums',
                   'color': _getColor(component.props.valueColor),
                   'opacity': _isSpinning ? '0.7' : '1',
-                  'transition': 'opacity 200ms ease',
                 },
               ),
               [Component.text(displayValue)],
@@ -271,6 +270,9 @@ class Win95SlotCounterCard extends StatelessComponent {
   Component build(BuildContext context) {
     return dom.div(
       classes: 'win95-slot-counter-card',
+      attributes: const <String, String>{
+        'data-arcane-surface': 'slot-counter-card',
+      },
       styles: dom.Styles(
         raw: {
           'display': 'inline-flex',
@@ -281,7 +283,7 @@ class Win95SlotCounterCard extends StatelessComponent {
             'background': 'var(--card)',
             'border-radius': 'var(--radius-md)',
           } else ...{
-            'border-radius': props.borderRadius,
+            'border-radius': '0',
           },
           if (props.showBorder) 'border': '1px solid var(--border)',
           ...?props.decoration?.universalStyles(),

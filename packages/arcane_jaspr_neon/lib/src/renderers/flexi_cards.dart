@@ -49,8 +49,6 @@ class _NeonFlexiCardsState extends State<NeonFlexiCards> {
               : component.props.collapsedFlex);
 
     // Whether to show expanded content
-    final bool showLongText =
-        !component.props.expandLongTextOnHover || isHovered;
 
     final List<Component> cardContent = [
       // Header
@@ -103,16 +101,11 @@ class _NeonFlexiCardsState extends State<NeonFlexiCards> {
         [Component.text(item.shortText)],
       ),
 
-      // Long text (description) - uses CSS Grid for smooth animation
+      // Long text is always present and visible.
       dom.div(
         classes: 'neon-flexi-card-long-text-wrapper',
         styles: dom.Styles(
-          raw: {
-            'display': 'grid',
-            'grid-template-rows': showLongText ? '1fr' : '0fr',
-            'transition':
-                'grid-template-rows ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)',
-          },
+          raw: {'display': 'grid', 'grid-template-rows': '1fr'},
         ),
         [
           dom.div(
@@ -130,8 +123,7 @@ class _NeonFlexiCardsState extends State<NeonFlexiCards> {
                     'margin': '0',
                     'padding-bottom': '1rem',
                     'line-height': '1.6',
-                    'opacity': showLongText ? '1' : '0',
-                    'transition': 'opacity ${duration}ms ease',
+                    'opacity': '1',
                   },
                 ),
                 [Component.text(item.longText)],
@@ -144,17 +136,12 @@ class _NeonFlexiCardsState extends State<NeonFlexiCards> {
       // Spacer
       const dom.div(styles: dom.Styles(raw: {'flex': '1'}), []),
 
-      // Footer with grid animation
+      // Footer is always present when supplied.
       if (item.footer != null)
         dom.div(
           classes: 'neon-flexi-card-footer-wrapper',
           styles: dom.Styles(
-            raw: {
-              'display': 'grid',
-              'grid-template-rows': showLongText ? '1fr' : '0fr',
-              'transition':
-                  'grid-template-rows ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)',
-            },
+            raw: {'display': 'grid', 'grid-template-rows': '1fr'},
           ),
           [
             dom.div(
@@ -169,8 +156,7 @@ class _NeonFlexiCardsState extends State<NeonFlexiCards> {
                     raw: {
                       'padding-top': '1rem',
                       'border-top': '1px solid var(--border)',
-                      'opacity': showLongText ? '1' : '0.5',
-                      'transition': 'opacity ${duration}ms ease',
+                      'opacity': '1',
                     },
                   ),
                   [item.footer!],
@@ -209,7 +195,7 @@ class _NeonFlexiCardsState extends State<NeonFlexiCards> {
       'padding': '1.5rem',
       'background': isHovered ? 'var(--muted)' : 'var(--card)',
       'border': '1px solid var(--border)',
-      'border-radius': 'var(--radius-lg)',
+      'border-radius': 'var(--radius-md)',
       'transition':
           'flex ${duration}ms cubic-bezier(0.4, 0, 0.2, 1), '
           'width ${duration}ms cubic-bezier(0.4, 0, 0.2, 1), '
@@ -221,6 +207,7 @@ class _NeonFlexiCardsState extends State<NeonFlexiCards> {
 
     Component card = dom.div(
       classes: 'neon-flexi-card${isHovered ? ' hovered' : ''}',
+      attributes: const <String, String>{'data-arcane-surface': 'flexi-card'},
       styles: dom.Styles(raw: cardStyles),
       events: {
         'mouseenter': (_) => setState(() => _hoveredIndex = index),
@@ -272,6 +259,7 @@ class NeonFlexiCardsSimple extends StatelessComponent {
   Component _buildCard(FlexiCardItem item) {
     Component card = dom.div(
       classes: 'neon-flexi-card-simple',
+      attributes: const <String, String>{'data-arcane-surface': 'flexi-card'},
       styles: dom.Styles(
         raw: {
           'display': 'flex',
@@ -279,7 +267,7 @@ class NeonFlexiCardsSimple extends StatelessComponent {
           'padding': '1.5rem',
           'background-color': 'var(--card)',
           'border': '1px solid var(--border)',
-          'border-radius': 'var(--radius-lg)',
+          'border-radius': 'var(--radius-md)',
           'transition': 'all var(--arcane-transition)',
           if (item.onTap != null || item.href != null) 'cursor': 'pointer',
         },

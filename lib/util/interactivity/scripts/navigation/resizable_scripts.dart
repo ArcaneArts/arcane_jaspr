@@ -29,7 +29,13 @@ class ResizableScripts {
           });
 
           container.classList.add('dragging');
-          document.body.style.cursor = isHorizontal ? 'col-resize' : 'row-resize';
+          // The drag cursor has to sit on <body> so it survives the pointer
+          // leaving the handle, and <body> is outside the themed root, so the
+          // themed value is resolved here rather than referenced with var().
+          // Themes that leave the seam unset fall back to the modern keyword.
+          var resizeSeam = isHorizontal ? '--arcane-resize-cursor-ew' : '--arcane-resize-cursor-ns';
+          var themedCursor = getComputedStyle(container).getPropertyValue(resizeSeam).trim();
+          document.body.style.cursor = themedCursor || (isHorizontal ? 'col-resize' : 'row-resize');
           document.body.style.userSelect = 'none';
         });
 

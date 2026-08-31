@@ -7,7 +7,7 @@ component: tokens
 
 # Design Tokens
 
-Arcane Jaspr uses a comprehensive design token system for consistent styling. These tokens are available as both Dart constants and CSS custom properties.
+Arcane Jaspr exposes design tokens as Dart constants and CSS custom properties.
 
 ## Colors (ArcaneColors)
 
@@ -146,9 +146,9 @@ Consistent spacing scale for margins, padding, and gaps.
 
 | Token | Value | Use Case |
 |-------|-------|----------|
-| `sans` | System sans-serif | Body text |
-| `heading` | System sans-serif | Headings |
-| `mono` | Fira Code, JetBrains Mono | Code |
+| `sans` | Akzidenz Grotesk Pro | Body text |
+| `heading` | ITC Avant Garde | Headings |
+| `mono` | Hack | Code |
 
 ## Border Radius (ArcaneRadius)
 
@@ -161,8 +161,9 @@ Consistent spacing scale for margins, padding, and gaps.
 | `lg` | 12px | Large (theme-reactive) |
 | `xl` | 16px | Extra large |
 | `xxl` | 24px | Very large |
-| `full` | 9999px | Pill shape |
-| `circle` | 50% | Circle |
+
+Circular geometry is owned by semantic components such as avatars, radios,
+switches, and progress indicators. It is not exposed as a generic radius token.
 
 ## Layout (ArcaneLayout)
 
@@ -210,9 +211,6 @@ Semantic z-index layers for proper stacking.
 | `lg` | Large shadow |
 | `xl` | Extra large shadow |
 | `card` | Card shadow |
-| `glowAccent` | Accent glow |
-| `glowSuccess` | Success glow |
-| `glowError` | Error glow |
 
 ### Transitions
 

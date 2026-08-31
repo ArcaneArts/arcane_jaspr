@@ -23,10 +23,6 @@ class NeonStatusBadge extends StatusBadgeRenderBase {
       };
 
   @override
-  String promoColor(StatusBadgeProps props) =>
-      props.accentColor ?? 'var(--foreground)';
-
-  @override
   String indicatorSize(StatusBadgeProps props) => switch (props.size) {
     ComponentSize.sm => '6px',
     ComponentSize.md => '6px',
@@ -34,22 +30,10 @@ class NeonStatusBadge extends StatusBadgeRenderBase {
   };
 
   @override
-  Map<String, String> promoContainerStyles(StatusBadgeProps props) =>
-      const <String, String>{};
-
-  @override
-  Map<String, String> promoIndicatorStyles(StatusBadgeProps props) =>
-      const <String, String>{};
-
-  @override
   Map<String, String> labelStyles(
     StatusBadgeProps props,
     String effectiveLabelColor,
   ) => const <String, String>{};
-
-  @override
-  String promoLabelColor(StatusBadgeProps props) =>
-      props.labelColor ?? promoColor(props);
 
   @override
   String statusLabelColor(StatusBadgeProps props) =>

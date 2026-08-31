@@ -55,10 +55,8 @@ Controls element positioning.
 ArcaneBox(
   style: const ArcaneStyleData(
     position: Position.absolute,
-    raw: {
-      'top': '0',
-      'right': '0',
-    },
+    top: '0',
+    right: '0',
   ),
   children: [...],
 )

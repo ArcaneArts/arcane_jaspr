@@ -1,4 +1,4 @@
-import 'package:arcane_jaspr/flutter.dart';
+import '../../component/view/icon.dart';
 
 import '../interaction/interaction.dart';
 
@@ -11,7 +11,7 @@ sealed class ArcaneMenuItem {
 /// Standard clickable menu item.
 class MenuItemAction extends ArcaneMenuItem {
   final String label;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final String? description;
   final String? shortcut;
   final bool disabled;
@@ -41,7 +41,7 @@ class MenuItemSeparator extends ArcaneMenuItem {
 /// Checkbox menu item.
 class MenuItemCheckbox extends ArcaneMenuItem {
   final String label;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final bool checked;
   final bool disabled;
   final String? shortcut;
@@ -62,7 +62,7 @@ class MenuItemCheckbox extends ArcaneMenuItem {
 /// Radio menu item (part of a group).
 class MenuItemRadio extends ArcaneMenuItem {
   final String label;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final String group;
   final String value;
   final bool selected;
@@ -85,7 +85,7 @@ class MenuItemRadio extends ArcaneMenuItem {
 /// Submenu with nested items.
 class MenuItemSubmenu extends ArcaneMenuItem {
   final String label;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final List<ArcaneMenuItem> children;
   final bool disabled;
   final String? id;

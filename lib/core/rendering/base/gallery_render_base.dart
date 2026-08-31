@@ -265,6 +265,7 @@ abstract class GalleryRenderBase extends StatelessComponent {
 
     final Map<String, String> attributes = <String, String>{
       ...callerAttributes,
+      'data-arcane-surface': 'gallery-tile',
       'data-arcane-gallery-item': 'true',
       'data-ratio': aspect.toStringAsFixed(4),
       'data-span': '$rowSpan',

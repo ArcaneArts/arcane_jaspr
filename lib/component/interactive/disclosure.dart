@@ -75,17 +75,19 @@ class ArcaneDisclosure extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.disclosure(DisclosureProps(
-      summary: summary,
-      child: child,
-      open: open,
-      variant: variant,
-      showChevron: showChevron,
-      showTreeLines: showTreeLines,
-      classes: classes == null ? null : cx(classes!),
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.disclosure(
+      DisclosureProps(
+        summary: summary,
+        child: child,
+        open: open,
+        variant: variant,
+        showChevron: showChevron,
+        showTreeLines: showTreeLines,
+        classes: classes == null ? null : cx(classes!),
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }
 
@@ -106,18 +108,22 @@ class ArcaneDisclosureGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.disclosureGroup(DisclosureGroupProps(
-      items: items
-          .map((item) => DisclosureItemProps(
+    return context.renderers.disclosureGroup(
+      DisclosureGroupProps(
+        items: items
+            .map(
+              (item) => DisclosureItemProps(
                 summary: item.summary,
                 content: item.content,
                 showChevron: item.showChevron,
-              ))
-          .toList(),
-      gap: gap,
-      variant: variant,
-      initialOpenIndex: initialOpenIndex,
-    ));
+              ),
+            )
+            .toList(),
+        gap: gap,
+        variant: variant,
+        initialOpenIndex: initialOpenIndex,
+      ),
+    );
   }
 }
 

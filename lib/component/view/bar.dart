@@ -1,7 +1,6 @@
 import 'package:arcane_jaspr/component/input/icon_button.dart';
 import 'package:arcane_jaspr/component/layout/flow.dart';
 import 'package:arcane_jaspr/component/support/icons.dart';
-import 'package:arcane_jaspr/component/view/glass.dart';
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:arcane_jaspr/component/typography/text.dart';
 import 'package:arcane_jaspr/util/arcane.dart';
@@ -22,7 +21,6 @@ class Bar extends StatelessWidget {
   final Widget? header;
   final Widget? subtitle;
   final bool trailingExpanded;
-  final bool useGlass;
   final bool centerTitle;
   final BarBackButtonMode backButton;
   final void Function()? onBack;
@@ -40,7 +38,6 @@ class Bar extends StatelessWidget {
     this.header,
     this.subtitle,
     this.trailingExpanded = false,
-    this.useGlass = true,
     this.centerTitle = false,
     this.backButton = BarBackButtonMode.never,
     this.onBack,
@@ -51,22 +48,27 @@ class Bar extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Widget> resolvedLeading = <Widget>[
       if (backButton != BarBackButtonMode.never && onBack != null)
-        IconButton(icon: Icon(Icons.chevronLeft), onPressed: onBack),
+        IconButton(icon: Icons.chevronLeft(), onPressed: onBack),
       ...leading,
     ];
 
-    final Widget titleBlock = child ?? Column(
-      crossAxisAlignment: centerTitle ? CrossAxisAlignment.center : CrossAxisAlignment.start,
-      gap: 4,
-      children: <Widget>[
-        ?header,
-        if (header == null && headerText != null) Text.label(headerText!),
-        ?title,
-        if (title == null && titleText != null) Text.heading3(titleText!),
-        ?subtitle,
-        if (subtitle == null && subtitleText != null) Text.bodySmall(subtitleText!),
-      ],
-    );
+    final Widget titleBlock =
+        child ??
+        Column(
+          crossAxisAlignment: centerTitle
+              ? CrossAxisAlignment.center
+              : CrossAxisAlignment.start,
+          gap: 4,
+          children: <Widget>[
+            ?header,
+            if (header == null && headerText != null) Text.label(headerText!),
+            ?title,
+            if (title == null && titleText != null) Text.heading3(titleText!),
+            ?subtitle,
+            if (subtitle == null && subtitleText != null)
+              Text.bodySmall(subtitleText!),
+          ],
+        );
 
     final Widget body = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -87,10 +89,6 @@ class Bar extends StatelessWidget {
       ],
     );
 
-    if (!useGlass) {
-      return body;
-    }
-
-    return Glass(child: body);
+    return body;
   }
 }

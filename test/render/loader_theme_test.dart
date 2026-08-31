@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:arcane_jaspr/arcane_jaspr.dart';
-import 'package:arcane_jaspr/util/interactivity/scripts/dialog/toast_scripts.dart';
 import 'package:arcane_jaspr_neon/arcane_jaspr_neon.dart';
 import 'package:arcane_jaspr_neubrutalism/arcane_jaspr_neubrutalism.dart';
 import 'package:arcane_jaspr_shadcn/arcane_jaspr_shadcn.dart';
@@ -140,14 +139,5 @@ void main() {
       expect(css, contains('image-rendering: pixelated'));
       expect(css, contains('animation: none'));
     }
-  });
-
-  test('fallback toasts inherit the active theme loader', () {
-    expect(ToastScripts.code, contains('class="arcane-loader"'));
-    expect(
-      ToastScripts.code,
-      contains("document.getElementById('arcane-root')"),
-    );
-    expect(ToastScripts.code, isNot(contains('arcane-toast-spin')));
   });
 }

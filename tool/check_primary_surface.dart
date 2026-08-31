@@ -29,7 +29,6 @@ const List<String> _requiredMainExports = <String>[
   'component/input/search.dart',
   'component/input/selector.dart',
   'component/layout/carpet.dart',
-  'component/layout/fancy_icon.dart',
   'component/layout/fancy_progress.dart',
   'component/layout/form_header.dart',
   'component/layout/radio_cards.dart',
@@ -46,7 +45,6 @@ const List<String> _requiredMainExports = <String>[
   'component/view/card_section.dart',
   'component/view/center_body.dart',
   'component/view/expander.dart',
-  'component/view/glass.dart',
   'component/view/image.dart',
   'component/view/logo.dart',
   'component/view/markdown.dart',
@@ -69,13 +67,8 @@ const List<_BannedToken> _docBannedTokens = <_BannedToken>[
   _BannedToken(label: 'ArcaneCard', pattern: r'\bArcaneCard\b'),
   _BannedToken(label: 'ArcaneDataTable', pattern: r'\bArcaneDataTable\b'),
   _BannedToken(label: 'ArcaneStaticTable', pattern: r'\bArcaneStaticTable\b'),
-  _BannedToken(label: '<Widget>', pattern: r'<Widget>'),
   _BannedToken(label: '<ArcaneMenuItem>', pattern: r'<ArcaneMenuItem>'),
   _BannedToken(label: '<SearchResult>', pattern: r'<SearchResult>'),
-  _BannedToken(
-    label: 'const <Type>[...]',
-    pattern: r'const\s+<[A-Za-z_][A-Za-z0-9_<>?, ]*>',
-  ),
 ];
 
 const List<_BannedToken> _catalogBannedTokens = <_BannedToken>[
@@ -85,6 +78,36 @@ const List<_BannedToken> _catalogBannedTokens = <_BannedToken>[
   _BannedToken(label: 'htmlFor', pattern: r'htmlFor'),
   _BannedToken(label: 'dom.InputType', pattern: r'dom\.InputType'),
   _BannedToken(label: '<Component>', pattern: r'<Component>'),
+];
+
+const List<_BannedToken> _retiredDesignTokens = <_BannedToken>[
+  _BannedToken(label: 'IconBadge', pattern: r'\bIconBadge\b'),
+  _BannedToken(label: 'FancyIcon', pattern: r'\bFancyIcon\b'),
+  _BannedToken(
+    label: 'BottomFloatingBanner',
+    pattern: r'\bBottomFloatingBanner\b',
+  ),
+  _BannedToken(label: 'CornerPromoToast', pattern: r'\bCornerPromoToast\b'),
+  _BannedToken(label: 'ExpandingFabPromo', pattern: r'\bExpandingFabPromo\b'),
+  _BannedToken(label: 'FullscreenTakeover', pattern: r'\bFullscreenTakeover\b'),
+  _BannedToken(label: 'MarqueeTickerBar', pattern: r'\bMarqueeTickerBar\b'),
+  _BannedToken(label: 'MinimizablePromo', pattern: r'\bMinimizablePromo\b'),
+  _BannedToken(
+    label: 'ProgressClaimBanner',
+    pattern: r'\bProgressClaimBanner\b',
+  ),
+  _BannedToken(label: 'PromoModal', pattern: r'\bPromoModal\b'),
+  _BannedToken(
+    label: 'SlidingSidebarBanner',
+    pattern: r'\bSlidingSidebarBanner\b',
+  ),
+  _BannedToken(
+    label: 'PricingBadgeVariant',
+    pattern: r'\bPricingBadgeVariant\b',
+  ),
+  _BannedToken(label: 'isPopular', pattern: r'\bisPopular\b'),
+  _BannedToken(label: 'isHighlighted', pattern: r'\bisHighlighted\b'),
+  _BannedToken(label: 'originalPrice', pattern: r'\boriginalPrice\b'),
 ];
 
 const List<_BannedToken> _publicApiBannedTokens = <_BannedToken>[
@@ -163,7 +186,9 @@ void _checkPublicApi(
       continue;
     }
 
-    final File sourceFile = File('${packageRootDirectory.path}/lib/$exportPath');
+    final File sourceFile = File(
+      '${packageRootDirectory.path}/lib/$exportPath',
+    );
     if (!sourceFile.existsSync()) {
       failures.add('Missing exported file: ${sourceFile.path}');
       continue;
@@ -187,19 +212,19 @@ void _checkDocsAndExamples(
 ) {
   final List<File> filesToScan = <File>[
     File('${packageRootDirectory.path}/README.md'),
-    File('${packageRootDirectory.path}/arcane_jaspr_neon/README.md'),
+    File('${packageRootDirectory.path}/arcane_jaspr_docs/README.md'),
     File(
-      '${packageRootDirectory.path}/arcane_jaspr_neon/arcane_neon_web/README.md',
+      '${packageRootDirectory.path}/arcane_jaspr_docs/arcane_jaspr_docs_web/README.md',
     ),
     File(
-      '${packageRootDirectory.path}/arcane_jaspr_neon/arcane_neon_web/lib/components/demo_registry.dart',
+      '${packageRootDirectory.path}/arcane_jaspr_docs/arcane_jaspr_docs_web/lib/components/demo_registry.dart',
     ),
   ];
 
   filesToScan.addAll(
     _collectFiles(
       Directory(
-        '${packageRootDirectory.path}/arcane_jaspr_neon/arcane_neon_web/content',
+        '${packageRootDirectory.path}/arcane_jaspr_docs/arcane_jaspr_docs_web/content',
       ),
       '.md',
     ),
@@ -210,23 +235,6 @@ void _checkDocsAndExamples(
       '.dart',
     ),
   );
-  filesToScan.addAll(
-    _collectFiles(
-      Directory(
-        '${packageRootDirectory.path}/../Oracular/templates/arcane_jaspr_docs',
-      ),
-      '.md',
-    ),
-  );
-  filesToScan.addAll(
-    _collectFiles(
-      Directory(
-        '${packageRootDirectory.path}/../Oracular/templates/arcane_jaspr_app/lib',
-      ),
-      '.dart',
-    ),
-  );
-
   for (File file in filesToScan) {
     if (!file.existsSync()) {
       continue;
@@ -243,6 +251,41 @@ void _checkDocsAndExamples(
       if (pattern.hasMatch(content)) {
         failures.add('${file.path}: ${bannedToken.label}');
       }
+    }
+
+    _checkRetiredDesignTokens(file, content, failures);
+  }
+
+  for (final File generatedIndex in <File>[
+    File(
+      '${packageRootDirectory.path}/arcane_jaspr_docs/arcane_jaspr_docs_web/web/search-index.json',
+    ),
+    File(
+      '${packageRootDirectory.path}/arcane_jaspr_docs/arcane_jaspr_docs_web/web/assets/search-index.json',
+    ),
+  ]) {
+    if (!generatedIndex.existsSync()) {
+      failures.add('Missing generated search index: ${generatedIndex.path}');
+      continue;
+    }
+
+    _checkRetiredDesignTokens(
+      generatedIndex,
+      generatedIndex.readAsStringSync(),
+      failures,
+    );
+  }
+}
+
+void _checkRetiredDesignTokens(
+  File file,
+  String content,
+  List<String> failures,
+) {
+  for (final _BannedToken bannedToken in _retiredDesignTokens) {
+    final RegExp pattern = RegExp(bannedToken.pattern, multiLine: true);
+    if (pattern.hasMatch(content)) {
+      failures.add('${file.path}: retired ${bannedToken.label}');
     }
   }
 }

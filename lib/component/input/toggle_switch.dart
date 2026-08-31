@@ -1,5 +1,15 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
+import 'package:jaspr/jaspr.dart'
+    hide
+        BuildContext,
+        InheritedComponent,
+        Key,
+        State,
+        StatefulComponent,
+        StatelessComponent,
+        UniqueKey,
+        ValueKey,
+        runApp;
 import 'package:jaspr/dom.dart' as dom;
 
 export '../../core/props/toggle_switch_props.dart'
@@ -60,8 +70,8 @@ class ArcaneToggleSwitch extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : onChanged = onChanged ?? onToggle,
-        color = ColorVariant.primary;
+  }) : onChanged = onChanged ?? onToggle,
+       color = ColorVariant.primary;
 
   const ArcaneToggleSwitch.success({
     this.id,
@@ -77,8 +87,8 @@ class ArcaneToggleSwitch extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : onChanged = onChanged ?? onToggle,
-        color = ColorVariant.success;
+  }) : onChanged = onChanged ?? onToggle,
+       color = ColorVariant.success;
 
   const ArcaneToggleSwitch.warning({
     this.id,
@@ -94,8 +104,8 @@ class ArcaneToggleSwitch extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : onChanged = onChanged ?? onToggle,
-        color = ColorVariant.warning;
+  }) : onChanged = onChanged ?? onToggle,
+       color = ColorVariant.warning;
 
   const ArcaneToggleSwitch.destructive({
     this.id,
@@ -111,8 +121,8 @@ class ArcaneToggleSwitch extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : onChanged = onChanged ?? onToggle,
-        color = ColorVariant.destructive;
+  }) : onChanged = onChanged ?? onToggle,
+       color = ColorVariant.destructive;
 
   static int _autoCounter = 0;
   static String _autoId() {
@@ -123,20 +133,22 @@ class ArcaneToggleSwitch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String resolvedId = id ?? _autoId();
-    return context.renderers.toggleSwitch(ToggleSwitchProps(
-      id: resolvedId,
-      value: value,
-      onChanged: onChanged,
-      disabled: disabled,
-      size: size,
-      color: color,
-      label: label,
-      labelLeft: labelLeft,
-      group: group,
-      itemValue: itemValue,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.toggleSwitch(
+      ToggleSwitchProps(
+        id: resolvedId,
+        value: value,
+        onChanged: onChanged,
+        disabled: disabled,
+        size: size,
+        color: color,
+        label: label,
+        labelLeft: labelLeft,
+        group: group,
+        itemValue: itemValue,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }
 
@@ -165,37 +177,44 @@ class ArcaneToggleButtonGroup extends StatelessWidget {
 
     return dom.div(
       classes: 'arcane-toggle-button-group',
-      styles: dom.Styles(raw: {
-        'display': 'inline-flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'height': height,
-        'padding': '4px',
-        'background-color': 'var(--muted)',
-        'border-radius': '0.375rem',
-        'gap': '0',
-      }),
+      styles: dom.Styles(
+        raw: {
+          'display': 'inline-flex',
+          'align-items': 'center',
+          'justify-content': 'center',
+          'height': height,
+          'padding': '4px',
+          'background-color': 'var(--muted)',
+          'border-radius': '0.375rem',
+          'gap': '0',
+        },
+      ),
       [
         for (var i = 0; i < options.length; i++)
           dom.button(
-            classes: 'arcane-toggle-button ${i == selectedIndex ? 'active' : ''}',
+            classes:
+                'arcane-toggle-button ${i == selectedIndex ? 'active' : ''}',
             attributes: {'type': 'button'},
-            styles: dom.Styles(raw: {
-              'padding': '$paddingV $paddingH',
-              'font-size': fontSize,
-              'font-weight': '500',
-              'border': 'none',
-              'border-radius': '0.125rem',
-              'background-color':
-                  i == selectedIndex ? 'var(--background)' : 'transparent',
-              'color': i == selectedIndex
-                  ? 'var(--foreground)'
-                  : 'var(--muted-foreground)',
-              'cursor': 'pointer',
-              'transition': 'all 150ms ease',
-              'white-space': 'nowrap',
-              if (i == selectedIndex) 'box-shadow': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
-            }),
+            styles: dom.Styles(
+              raw: {
+                'padding': '$paddingV $paddingH',
+                'font-size': fontSize,
+                'font-weight': '500',
+                'border': 'none',
+                'border-radius': '0.125rem',
+                'background-color': i == selectedIndex
+                    ? 'var(--background)'
+                    : 'transparent',
+                'color': i == selectedIndex
+                    ? 'var(--foreground)'
+                    : 'var(--muted-foreground)',
+                'cursor': 'pointer',
+                'transition': 'all 150ms ease',
+                'white-space': 'nowrap',
+                if (i == selectedIndex)
+                  'box-shadow': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+              },
+            ),
             events: {
               'click': (event) {
                 if (onChanged != null && i != selectedIndex) {

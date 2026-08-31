@@ -77,21 +77,9 @@ class DialogProps {
   }
 }
 
-enum SheetPosition {
-  left,
-  right,
-  top,
-  bottom,
-}
+enum SheetPosition { left, right, top, bottom }
 
-enum SheetSizeVariant {
-  auto,
-  sm,
-  md,
-  lg,
-  xl,
-  full,
-}
+enum SheetSizeVariant { auto, sm, md, lg, xl, full }
 
 /// Sheet/drawer component properties.
 class SheetProps {

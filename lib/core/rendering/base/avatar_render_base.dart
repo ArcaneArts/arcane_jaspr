@@ -50,11 +50,12 @@ abstract class AvatarRenderBase extends StatelessComponent {
   Component build(BuildContext context) {
     return dom.div(
       classes: rootClass,
+      attributes: const <String, String>{
+        'data-arcane-intrinsic-shape': 'avatar',
+      },
       styles: dom.Styles(
         raw: layerStyles(
-          <String, String>{
-            ...rootStyles(props),
-          },
+          <String, String>{...rootStyles(props)},
           <Map<String, String>?>[
             props.decoration?.universalStyles(),
             decorationStyles(props.decoration),
@@ -70,6 +71,9 @@ abstract class AvatarRenderBase extends StatelessComponent {
         if (props.showStatus)
           dom.div(
             classes: statusClass,
+            attributes: const <String, String>{
+              'data-arcane-intrinsic-shape': 'status-dot',
+            },
             styles: dom.Styles(raw: statusStyles(props)),
             const <Component>[],
           ),

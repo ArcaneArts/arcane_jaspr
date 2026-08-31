@@ -32,13 +32,6 @@ const ArcaneStylesheet shadcnPeach = ShadcnStylesheet(theme: ShadcnTheme.peach);
 const ArcaneStylesheet shadcnTeal = ShadcnStylesheet(theme: ShadcnTheme.teal);
 
 const ArcaneStylesheet neonStylesheet = NeonStylesheet(theme: NeonTheme.green);
-const ArcaneStylesheet neonRed = NeonStylesheet(theme: NeonTheme.red);
-const ArcaneStylesheet neonBlue = NeonStylesheet(theme: NeonTheme.blue);
-const ArcaneStylesheet neonPurple = NeonStylesheet(theme: NeonTheme.purple);
-const ArcaneStylesheet neonCyan = NeonStylesheet(theme: NeonTheme.cyan);
-const ArcaneStylesheet neonPink = NeonStylesheet(theme: NeonTheme.pink);
-const ArcaneStylesheet neonOrange = NeonStylesheet(theme: NeonTheme.orange);
-const ArcaneStylesheet neonRainbow = NeonStylesheet(theme: NeonTheme.rainbow);
 
 const ArcaneStylesheet neubrutalismStylesheet = NeubrutalismStylesheet(
   theme: NeubrutalismTheme.yellow,
@@ -200,55 +193,6 @@ const List<KBStylesheetOption> stylesheetOptions = <KBStylesheetOption>[
         stylesheet: neonStylesheet,
         bodyClass: 'neon-green',
         swatch: '#00f5a0',
-      ),
-      KBPaletteOption(
-        id: 'red',
-        label: 'Red',
-        stylesheet: neonRed,
-        bodyClass: 'neon-red',
-        swatch: '#ff3b3b',
-      ),
-      KBPaletteOption(
-        id: 'blue',
-        label: 'Blue',
-        stylesheet: neonBlue,
-        bodyClass: 'neon-blue',
-        swatch: '#00d9ff',
-      ),
-      KBPaletteOption(
-        id: 'purple',
-        label: 'Purple',
-        stylesheet: neonPurple,
-        bodyClass: 'neon-purple',
-        swatch: '#a855f7',
-      ),
-      KBPaletteOption(
-        id: 'cyan',
-        label: 'Cyan',
-        stylesheet: neonCyan,
-        bodyClass: 'neon-cyan',
-        swatch: '#06b6d4',
-      ),
-      KBPaletteOption(
-        id: 'pink',
-        label: 'Pink',
-        stylesheet: neonPink,
-        bodyClass: 'neon-pink',
-        swatch: '#ff2bd6',
-      ),
-      KBPaletteOption(
-        id: 'orange',
-        label: 'Orange',
-        stylesheet: neonOrange,
-        bodyClass: 'neon-orange',
-        swatch: '#ff7a1f',
-      ),
-      KBPaletteOption(
-        id: 'rainbow',
-        label: 'Rainbow',
-        stylesheet: neonRainbow,
-        bodyClass: 'neon-rainbow',
-        swatch: '#ff66ff',
       ),
     ],
   ),

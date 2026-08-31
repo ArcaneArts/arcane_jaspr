@@ -1,15 +1,10 @@
 import 'package:arcane_jaspr/flutter.dart';
+import '../../component/view/icon.dart';
 
 import '../../util/style_types/arcane_style_data.dart';
 import '../decoration/arcane_decoration.dart';
 
-enum ToastVariant {
-  info,
-  success,
-  warning,
-  error,
-  loading,
-}
+enum ToastVariant { info, success, warning, error, loading }
 
 enum ToastPosition {
   topLeft,
@@ -43,7 +38,7 @@ class ToastProps {
   final int duration;
   final bool dismissible;
   final ToastAction? action;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final String? id;
   final bool isExiting;
   final bool isHovered;
@@ -86,7 +81,7 @@ class ToastProps {
     int? duration,
     bool? dismissible,
     ToastAction? action,
-    Widget? icon,
+    ArcaneGlyph? icon,
     String? id,
     bool? isExiting,
     bool? isHovered,

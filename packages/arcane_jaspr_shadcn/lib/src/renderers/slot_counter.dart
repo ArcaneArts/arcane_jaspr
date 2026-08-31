@@ -270,13 +270,16 @@ class ShadcnSlotCounterCard extends StatelessComponent {
   Component build(BuildContext context) {
     return dom.div(
       classes: 'arcane-slot-counter-card',
+      attributes: const <String, String>{
+        'data-arcane-surface': 'slot-counter-card',
+      },
       styles: dom.Styles(
         raw: {
           'display': 'inline-flex',
           'flex-direction': 'column',
           'align-items': 'center',
           'padding': props.padding,
-          'border-radius': props.borderRadius,
+          'border-radius': 'var(--radius-sm)',
           if (props.showBackground) 'background-color': 'var(--card)',
           if (props.showBorder) 'border': '1px solid var(--border)',
           ...?props.decoration?.universalStyles(),

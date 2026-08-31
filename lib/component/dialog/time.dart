@@ -2,7 +2,6 @@ import 'package:arcane_jaspr/component/dialog/dialog.dart';
 import 'package:arcane_jaspr/component/input/button.dart';
 import 'package:arcane_jaspr/component/input/time_picker.dart';
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:arcane_jaspr/component/typography/text.dart';
 
 class DialogTime extends StatefulWidget {
   final String title;
@@ -41,7 +40,10 @@ class _DialogTimeState extends State<DialogTime> {
       },
     ),
     actions: <Widget>[
-      Button.primary(onPressed: () => component.onConfirm(_value), child: const Text('Done')),
+      Button.primary(
+        onPressed: () => component.onConfirm(_value),
+        label: 'Done',
+      ),
     ],
   );
 }

@@ -10,9 +10,9 @@ class FontConfig {
   final String mono;
 
   const FontConfig({
-    this.sans = "'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
-    this.heading,
-    this.mono = "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+    this.sans = "'Akzidenz-GroteskPro'",
+    this.heading = "'ITCAvantGardeStd'",
+    this.mono = "'Hack'",
   });
 
   /// Returns [heading] if set, otherwise [sans].
@@ -20,22 +20,13 @@ class FontConfig {
 
   /// System fonts only (no external fonts needed).
   const FontConfig.system()
-      : sans = "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-        heading = null,
-        mono = "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace";
-
-  /// Inter font (requires Google Fonts CSS).
-  const FontConfig.inter()
-      : sans = "'Inter', ui-sans-serif, system-ui, sans-serif",
-        heading = null,
-        mono = "ui-monospace, SFMono-Regular, monospace";
+    : sans =
+          "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+      heading = null,
+      mono = "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace";
 
   /// Create a copy with some fields replaced.
-  FontConfig copyWith({
-    String? sans,
-    String? heading,
-    String? mono,
-  }) {
+  FontConfig copyWith({String? sans, String? heading, String? mono}) {
     return FontConfig(
       sans: sans ?? this.sans,
       heading: heading ?? this.heading,

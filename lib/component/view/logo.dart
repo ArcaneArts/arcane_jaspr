@@ -5,6 +5,9 @@ import 'package:arcane_jaspr/component/typography/text.dart';
 import 'package:arcane_jaspr/util/arcane.dart';
 
 class Logo extends StatelessWidget {
+  /// Brand artwork may be a composed logo, wordmark, or image rather than one
+  /// semantic UI glyph. This is intentionally the only public `Widget` icon
+  /// slot in the curated component surface.
   final Widget? icon;
   final String title;
   final String? subtitle;

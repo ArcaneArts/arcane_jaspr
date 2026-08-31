@@ -1,6 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
 
 import '../../util/style_types/arcane_style_data.dart';
+import '../../component/view/icon.dart';
 import '../decoration/arcane_decoration.dart';
 
 /// CTA (Call-to-Action) card component properties.
@@ -9,7 +10,7 @@ import '../decoration/arcane_decoration.dart';
 /// Used for "request" cards, "suggest" cards, or any action-oriented card.
 class CTACardProps {
   /// Icon to display at the top of the card.
-  final Widget? icon;
+  final ArcaneGlyph? icon;
 
   /// Main title/heading text.
   final String title;
@@ -29,13 +30,7 @@ class CTACardProps {
   /// Custom height for the card.
   final String height;
 
-  /// Animation delay in milliseconds for staggered grid animations.
-  final int? animationDelayMs;
-
-  /// Whether to show hover effects.
-  final bool showHoverEffects;
-
-  /// Accent color (CSS color string) for the icon chip and CTA button.
+  /// Accent color (CSS color string) for the icon and CTA button.
   /// Defaults to the theme's `var(--primary)` when null.
   final String? accentColor;
 
@@ -58,8 +53,6 @@ class CTACardProps {
     this.href,
     this.onTap,
     this.height = '420px',
-    this.animationDelayMs,
-    this.showHoverEffects = true,
     this.accentColor,
     this.isExternal = false,
     this.styles,

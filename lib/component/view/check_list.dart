@@ -43,14 +43,16 @@ class ArcaneCheckItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.checkItem(CheckItemProps(
-      text: text,
-      icon: icon,
-      iconColor: iconColor,
-      textColor: textColor,
-      fontSize: fontSize,
-      gap: gap,
-    ));
+    return context.renderers.checkItem(
+      CheckItemProps(
+        text: text,
+        icon: icon,
+        iconColor: iconColor,
+        textColor: textColor,
+        fontSize: fontSize,
+        gap: gap,
+      ),
+    );
   }
 }
 
@@ -101,16 +103,18 @@ class ArcaneCheckList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.checkList(CheckListProps(
-      items: items,
-      icon: icon,
-      iconColor: iconColor,
-      textColor: textColor,
-      fontSize: fontSize,
-      itemGap: itemGap,
-      listGap: listGap,
-      alignItems: alignItems,
-    ));
+    return context.renderers.checkList(
+      CheckListProps(
+        items: items,
+        icon: icon,
+        iconColor: iconColor,
+        textColor: textColor,
+        fontSize: fontSize,
+        itemGap: itemGap,
+        listGap: listGap,
+        alignItems: alignItems,
+      ),
+    );
   }
 }
 
@@ -149,8 +153,8 @@ class ArcaneFeatureRow extends StatelessWidget {
     this.tooltip,
     this.iconSize,
     super.key,
-  })  : included = true,
-        excludedColor = null;
+  }) : included = true,
+       excludedColor = null;
 
   /// Creates a feature row for an excluded feature.
   const ArcaneFeatureRow.excluded({
@@ -161,20 +165,22 @@ class ArcaneFeatureRow extends StatelessWidget {
     this.tooltip,
     this.iconSize,
     super.key,
-  })  : included = false,
-        includedColor = null;
+  }) : included = false,
+       includedColor = null;
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.featureRow(FeatureRowProps(
-      feature: feature,
-      included: included,
-      includedColor: includedColor,
-      excludedColor: excludedColor,
-      strikethrough: strikethrough,
-      circularIcon: circularIcon,
-      tooltip: tooltip,
-      iconSize: iconSize,
-    ));
+    return context.renderers.featureRow(
+      FeatureRowProps(
+        feature: feature,
+        included: included,
+        includedColor: includedColor,
+        excludedColor: excludedColor,
+        strikethrough: strikethrough,
+        circularIcon: circularIcon,
+        tooltip: tooltip,
+        iconSize: iconSize,
+      ),
+    );
   }
 }

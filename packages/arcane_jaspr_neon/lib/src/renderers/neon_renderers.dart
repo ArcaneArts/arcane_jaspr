@@ -34,7 +34,6 @@ import 'disclosure.dart';
 import 'dropdown_menu.dart';
 import 'drawer.dart';
 import 'empty_state.dart';
-import 'fade_edge.dart';
 import 'field_wrapper.dart';
 import 'flexi_cards.dart';
 import 'floating.dart';
@@ -77,7 +76,7 @@ import 'promo/promo.dart';
 /// - Restrained accent emphasis
 /// - 1.25x spacing compared to ShadCN
 /// - Larger border radius (14px default)
-/// - Premium dark, high-contrast aesthetic
+/// - Dark, high-contrast palette
 class NeonRenderers extends ComponentRenderers with TextAreaRendererContract {
   const NeonRenderers();
 
@@ -370,9 +369,6 @@ class NeonRenderers extends ComponentRenderers with TextAreaRendererContract {
   Component dropdownMenu(DropdownMenuProps props) => NeonDropdownMenu(props);
 
   @override
-  Component fadeEdge(FadeEdgeProps props) => NeonFadeEdge(props);
-
-  @override
   Component kbd(KbdProps props) => NeonKbd(props);
 
   @override
@@ -426,41 +422,6 @@ class NeonRenderers extends ComponentRenderers with TextAreaRendererContract {
       NeonTopAnnouncementBar(props);
 
   @override
-  Component bottomFloatingBanner(BottomFloatingBannerProps props) =>
-      NeonBottomFloatingBanner(props);
-
-  @override
-  Component cornerPromoToast(CornerPromoToastProps props) =>
-      NeonCornerPromoToast(props);
-
-  @override
-  Component promoModal(PromoModalProps props) => NeonPromoModal(props);
-
-  @override
   Component inlineHeroBanner(InlineHeroBannerProps props) =>
       NeonInlineHeroBanner(props);
-
-  @override
-  Component slidingSidebarBanner(SlidingSidebarBannerProps props) =>
-      NeonSlidingSidebarBanner(props);
-
-  @override
-  Component marqueeTickerBar(MarqueeTickerBarProps props) =>
-      NeonMarqueeTickerBar(props);
-
-  @override
-  Component expandingFabPromo(ExpandingFabPromoProps props) =>
-      NeonExpandingFabPromo(props);
-
-  @override
-  Component progressClaimBanner(ProgressClaimBannerProps props) =>
-      NeonProgressClaimBanner(props);
-
-  @override
-  Component minimizablePromo(MinimizablePromoProps props) =>
-      NeonMinimizablePromo(props);
-
-  @override
-  Component fullscreenTakeover(FullscreenTakeoverProps props) =>
-      NeonFullscreenTakeover(props);
 }

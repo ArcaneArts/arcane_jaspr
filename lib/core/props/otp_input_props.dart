@@ -3,11 +3,7 @@ import 'package:jaspr/jaspr.dart';
 import '../../util/style_types/arcane_style_data.dart';
 import '../decoration/arcane_decoration.dart';
 
-enum OtpInputSizeVariant {
-  sm,
-  md,
-  lg,
-}
+enum OtpInputSizeVariant { sm, md, lg }
 
 /// OTP input component properties.
 class OtpInputProps {

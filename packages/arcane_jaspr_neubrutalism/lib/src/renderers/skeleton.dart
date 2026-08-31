@@ -11,7 +11,7 @@ class NeubrutalismSkeleton extends SkeletonRenderBase {
   (String, String, String?, String?) defaultGeometry(SkeletonShape shape) =>
       switch (shape) {
         SkeletonShape.rectangle => ('100%', '20px', 'none', null),
-        SkeletonShape.circle => ('48px', '48px', null, '9999px'),
+        SkeletonShape.circle => ('48px', '48px', null, '50%'),
         SkeletonShape.text => (
           '100%',
           '1rem',

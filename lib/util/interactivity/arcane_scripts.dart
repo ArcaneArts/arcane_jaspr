@@ -38,7 +38,6 @@ class ArcaneScripts {
     bindToggleSwitches();
     bindRadioButtons();
     bindNumberInputs();
-    bindTagInputs();
     bindFileUploads();
     bindMutableText();
     bindOtpInputs();
@@ -52,13 +51,11 @@ class ArcaneScripts {
     bindToggleButtons();
     bindButtons();
     bindCopyButtons();
-    bindTabs();
     bindExpandersAccordions();
     bindDropdowns();
     bindSelectors();
     bindTreeViews();
     bindPagination();
-    bindChips();
     bindBackToTop();
     bindContextMenus();
     bindMenubars();
@@ -69,7 +66,6 @@ class ArcaneScripts {
     bindDotIndicators();
     bindTrackers();
     bindDocsToc();
-    bindToasts();
     bindPopovers();
     bindTooltips();
     bindDialogs();

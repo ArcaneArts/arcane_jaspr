@@ -1,18 +1,10 @@
-import 'package:arcane_jaspr/flutter.dart';
+import '../view/icon.dart';
 
 /// Size variants for the selector.
-enum SelectorSize {
-  sm,
-  md,
-  lg,
-}
+enum SelectorSize { sm, md, lg }
 
 /// Direction for dropdown to open.
-enum DropdownDirection {
-  down,
-  up,
-  auto,
-}
+enum DropdownDirection { down, up, auto }
 
 /// An option for ArcaneSelector.
 class ArcaneSelectorOption<T> {
@@ -20,7 +12,7 @@ class ArcaneSelectorOption<T> {
   final String label;
   final String? subtitle;
   final String? description;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final bool disabled;
   final String? group;
   final List<String>? searchKeywords;
@@ -41,7 +33,7 @@ class ArcaneSelectorOption<T> {
 class ArcaneSelectorGroup<T> {
   final String label;
   final List<ArcaneSelectorOption<T>> options;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
 
   const ArcaneSelectorGroup({
     required this.label,

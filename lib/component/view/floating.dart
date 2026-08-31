@@ -16,7 +16,7 @@ export '../../core/props/floating_props.dart'
 ///
 /// - **Tooltip mode**: Simple text hint on hover
 /// - **Popover mode**: Rich content panel on click
-/// - **Hovercard mode**: Rich content on hover with smart delays
+/// - **Hovercard mode**: Content shown after the configured hover delays
 ///
 /// Use the named constructors for common patterns or the default constructor
 /// for full control.
@@ -76,17 +76,17 @@ class ArcaneHoverCard extends StatefulWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : trigger = child,
-        content = null,
-        triggerType = FloatingTrigger.hover,
-        isOpen = null,
-        onOpenChange = null,
-        showArrow = false,
-        offset = 8,
-        openDelay = 0,
-        closeDelay = 0,
-        closeOnOutsideClick = true,
-        closeOnEscape = true;
+  }) : trigger = child,
+       content = null,
+       triggerType = FloatingTrigger.hover,
+       isOpen = null,
+       onOpenChange = null,
+       showArrow = false,
+       offset = 8,
+       openDelay = 0,
+       closeDelay = 0,
+       closeOnOutsideClick = true,
+       closeOnEscape = true;
 
   /// Creates a tooltip with custom component content.
   const ArcaneHoverCard.tooltipCustom({
@@ -98,17 +98,17 @@ class ArcaneHoverCard extends StatefulWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : trigger = child,
-        textContent = null,
-        triggerType = FloatingTrigger.hover,
-        isOpen = null,
-        onOpenChange = null,
-        showArrow = false,
-        offset = 8,
-        openDelay = 0,
-        closeDelay = 0,
-        closeOnOutsideClick = true,
-        closeOnEscape = true;
+  }) : trigger = child,
+       textContent = null,
+       triggerType = FloatingTrigger.hover,
+       isOpen = null,
+       onOpenChange = null,
+       showArrow = false,
+       offset = 8,
+       openDelay = 0,
+       closeDelay = 0,
+       closeOnOutsideClick = true,
+       closeOnEscape = true;
 
   /// Creates a click-triggered popover with rich content.
   ///
@@ -128,13 +128,13 @@ class ArcaneHoverCard extends StatefulWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : textContent = null,
-        triggerType = FloatingTrigger.click,
-        openDelay = 0,
-        closeDelay = 0,
-        maxWidth = null;
+  }) : textContent = null,
+       triggerType = FloatingTrigger.click,
+       openDelay = 0,
+       closeDelay = 0,
+       maxWidth = null;
 
-  /// Creates a hover-triggered card with smart delays.
+  /// Creates a hover-triggered card with configurable delays.
   ///
   /// Best for preview cards that show additional info on hover,
   /// like user profile previews or link previews.
@@ -152,11 +152,11 @@ class ArcaneHoverCard extends StatefulWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : textContent = null,
-        triggerType = FloatingTrigger.hover,
-        maxWidth = null,
-        closeOnOutsideClick = true,
-        closeOnEscape = true;
+  }) : textContent = null,
+       triggerType = FloatingTrigger.hover,
+       maxWidth = null,
+       closeOnOutsideClick = true,
+       closeOnEscape = true;
 
   @override
   State<ArcaneHoverCard> createState() => _ArcaneHoverCardState();
@@ -236,24 +236,26 @@ class _ArcaneHoverCardState extends State<ArcaneHoverCard> {
     final bool isTextTooltip =
         component.textContent != null && component.content == null;
 
-    return context.renderers.floating(FloatingProps(
-      id: component.id,
-      trigger: component.trigger,
-      content: component.content,
-      textContent: component.textContent,
-      isOpen: _isOpen,
-      triggerType: component.triggerType,
-      position: component.position,
-      onToggle: _toggle,
-      onMouseEnter: _handleMouseEnter,
-      onMouseLeave: _handleMouseLeave,
-      showArrow: component.showArrow,
-      offset: component.offset,
-      maxWidth: component.maxWidth ?? (isTextTooltip ? 250 : null),
-      closeOnOutsideClick: component.closeOnOutsideClick,
-      closeOnEscape: component.closeOnEscape,
-      styles: component.styles,
-      decoration: component.decoration,
-    ));
+    return context.renderers.floating(
+      FloatingProps(
+        id: component.id,
+        trigger: component.trigger,
+        content: component.content,
+        textContent: component.textContent,
+        isOpen: _isOpen,
+        triggerType: component.triggerType,
+        position: component.position,
+        onToggle: _toggle,
+        onMouseEnter: _handleMouseEnter,
+        onMouseLeave: _handleMouseLeave,
+        showArrow: component.showArrow,
+        offset: component.offset,
+        maxWidth: component.maxWidth ?? (isTextTooltip ? 250 : null),
+        closeOnOutsideClick: component.closeOnOutsideClick,
+        closeOnEscape: component.closeOnEscape,
+        styles: component.styles,
+        decoration: component.decoration,
+      ),
+    );
   }
 }

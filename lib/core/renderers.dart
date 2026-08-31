@@ -22,7 +22,6 @@ import 'props/disclosure_props.dart';
 import 'props/dropdown_menu_props.dart';
 import 'props/drawer_props.dart';
 import 'props/empty_state_props.dart';
-import 'props/fade_edge_props.dart';
 import 'props/field_wrapper_props.dart';
 import 'props/flexi_cards_props.dart';
 import 'props/floating_props.dart';
@@ -88,7 +87,6 @@ export 'props/disclosure_props.dart';
 export 'props/dropdown_menu_props.dart';
 export 'props/drawer_props.dart';
 export 'props/empty_state_props.dart';
-export 'props/fade_edge_props.dart';
 export 'props/field_wrapper_props.dart';
 export 'props/flexi_cards_props.dart';
 export 'props/floating_props.dart';
@@ -155,7 +153,6 @@ abstract class ComponentRenderers
         DropdownMenuRendererContract,
         DrawerRendererContract,
         EmptyStateRendererContract,
-        FadeEdgeRendererContract,
         FieldWrapperRendererContract,
         FlexiCardsRendererContract,
         FloatingRendererContract,

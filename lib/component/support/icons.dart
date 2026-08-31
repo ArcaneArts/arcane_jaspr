@@ -1,9 +1,10 @@
 import 'package:arcane_jaspr/component/view/icon.dart';
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/dom.dart' as dom;
-export 'package:arcane_jaspr/component/view/icon.dart' show IconSize;
+export 'package:arcane_jaspr/component/view/icon.dart'
+    show ArcaneGlyph, IconSize;
 
-typedef IconData = Widget Function({IconSize size});
+typedef IconData = ArcaneGlyph Function({IconSize size});
 
 class Icon extends StatelessWidget {
   final IconData icon;
@@ -21,12 +22,14 @@ class Icon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => dom.span(
-    styles: dom.Styles(raw: <String, String>{
-      'color': ?color,
-      'display': 'inline-flex',
-      'align-items': 'center',
-      'justify-content': 'center',
-    }),
+    styles: dom.Styles(
+      raw: <String, String>{
+        'color': ?color,
+        'display': 'inline-flex',
+        'align-items': 'center',
+        'justify-content': 'center',
+      },
+    ),
     attributes: <String, String>{
       'aria-label': ?label,
       if (label != null) 'role': 'img',
@@ -53,7 +56,6 @@ class Icons {
   static IconData get pencil => ArcaneIcon.pencil;
   static IconData get plus => ArcaneIcon.plus;
   static IconData get search => ArcaneIcon.search;
-  static IconData get sparkles => ArcaneIcon.sparkles;
   static IconData get trash2 => ArcaneIcon.trash2;
   static IconData get x => ArcaneIcon.x;
 }

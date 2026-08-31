@@ -21,10 +21,10 @@ Future<String> _render(
 void main() {
   for (final (String name, ArcaneStylesheet sheet, String prefix)
       in <(String, ArcaneStylesheet, String)>[
-    ('shadcn', const ShadcnStylesheet(), 'arcane'),
-    ('neon', const NeonStylesheet(), 'neon'),
-    ('neubrutalism', const NeubrutalismStylesheet(), 'neubrutalism'),
-  ]) {
+        ('shadcn', const ShadcnStylesheet(), 'arcane'),
+        ('neon', const NeonStylesheet(), 'neon'),
+        ('neubrutalism', const NeubrutalismStylesheet(), 'neubrutalism'),
+      ]) {
     testServer('FeatureCard renders under $name', (ServerTester tester) async {
       final String html = await _render(
         tester,
@@ -74,21 +74,6 @@ void main() {
       expect(html.contains('Jane Doe'), isTrue);
     });
 
-    testServer('FeatureCard honors a literal styles override under $name', (
-      ServerTester tester,
-    ) async {
-      final String html = await _render(
-        tester,
-        sheet,
-        const FeatureCard(
-          title: 'X',
-          description: 'y',
-          styles: ArcaneStyleData(borderRadiusCustom: '321px'),
-        ),
-      );
-      expect(html.contains('border-radius: 321px'), isTrue);
-    });
-
     testServer('PricingCard renders under $name', (ServerTester tester) async {
       final String html = await _render(
         tester,
@@ -107,16 +92,4 @@ void main() {
       expect(html.contains('Fast'), isTrue);
     });
   }
-
-  testServer('IconBadge renders a tinted accent container', (
-    ServerTester tester,
-  ) async {
-    final String html = await _render(
-      tester,
-      const ShadcnStylesheet(),
-      IconBadge(icon: Text('*'), accentColor: '#ff0000'),
-    );
-    expect(html.contains('arcane-icon-badge'), isTrue);
-    expect(html.contains('color-mix(in srgb, #ff0000 12%'), isTrue);
-  });
 }

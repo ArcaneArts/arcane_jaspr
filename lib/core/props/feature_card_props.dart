@@ -1,16 +1,16 @@
 import 'package:arcane_jaspr/flutter.dart';
 
 import '../../util/style_types/arcane_style_data.dart';
+import '../../component/view/icon.dart';
 import '../decoration/arcane_decoration.dart';
 
 /// Feature card component properties.
 class FeatureCardProps {
   final String title;
   final String description;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final String? href;
   final void Function()? onTap;
-  final bool showArrow;
   final bool horizontal;
 
   /// Custom accent color for theming (CSS color value).
@@ -38,7 +38,6 @@ class FeatureCardProps {
     this.icon,
     this.href,
     this.onTap,
-    this.showArrow = false,
     this.horizontal = false,
     this.accentColor,
     this.ctaText,
@@ -61,8 +60,7 @@ class FeatureCardProps {
     this.isExternal = false,
     this.styles,
     this.decoration,
-  }) : showArrow = false,
-       horizontal = false,
+  }) : horizontal = false,
        showCta = true;
 }
 
@@ -70,7 +68,7 @@ class FeatureCardProps {
 class IconCardProps {
   final String title;
   final String? subtitle;
-  final Widget icon;
+  final ArcaneGlyph icon;
   final void Function()? onTap;
   final String? href;
 

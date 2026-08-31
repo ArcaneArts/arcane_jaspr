@@ -73,14 +73,6 @@ Background color presets.
 | `brandSecondary` | Brand color | Brand secondary |
 | `destructive` | `--arcane-error` | Destructive actions |
 
-### Glass Effects
-
-| Value | CSS Output | Description |
-|-------|-----------|-------------|
-| `glassTint` | `rgba(255, 255, 255, 0.05)` | Subtle glass tint |
-| `glassHeader` | `rgba(255, 255, 255, 0.03)` | Glass header effect |
-| `glassOverlay` | `rgba(255, 255, 255, 0.08)` | Glass overlay effect |
-
 ### Usage
 
 ```dart
@@ -88,7 +80,7 @@ ArcaneBox(
   style: const ArcaneStyleData(
     background: Background.surface,
     padding: PaddingPreset.lg,
-    borderRadius: Radius.lg,
+    borderRadius: Radius.md,
   ),
   children: [...],
 )
@@ -317,10 +309,8 @@ Each has 50-950 variants:
 ```dart
 ArcaneBox(
   style: ArcaneStyleData(
-    raw: {
-      'background': Colors.emerald500.css,
-      'color': Colors.white.css,
-    },
+    backgroundCustom: Colors.emerald500.css,
+    textColorCustom: Colors.white.css,
   ),
   children: [...],
 )

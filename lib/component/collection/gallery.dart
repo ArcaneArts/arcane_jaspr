@@ -10,13 +10,13 @@ export '../../core/props/gallery_props.dart'
 ///
 /// The active stylesheet decides the tile FRAME and the surface: Windows 95
 /// renders titled windows on a teal desktop, shadcn renders clean cards,
-/// neubrutalism renders hard-shadow blocks, neon renders glow frames. Arcane
+/// neubrutalism renders hard-shadow blocks, neon renders neutral frames. Arcane
 /// owns the frame, the title/meta placement, and the layout; the consumer fills
 /// the media ([ArcaneGalleryTile.mediaChild] or [ArcaneGalleryMedia.src]) and
 /// the app-specific slots ([ArcaneGalleryTile.overlay], [ArcaneGalleryTile.footer]).
 ///
 /// Layout is CSS-grid masonry by default (works with zero JS). Set [packing] to
-/// enable the opt-in ratio-aware packer (squared-off bottoms) — it requires the
+/// enable the opt-in ratio-aware packer with squared-off bottoms. It requires the
 /// app to include arcane's fallback scripts. Packed galleries can use
 /// [minimumTileArea] and [targetTileArea], measured as column span times row
 /// span, to keep artwork at a fairer visual weight while aspect ratio chooses

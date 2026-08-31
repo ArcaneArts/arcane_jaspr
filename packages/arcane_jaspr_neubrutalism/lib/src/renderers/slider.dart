@@ -72,9 +72,10 @@ class NeubrutalismSlider extends SliderRenderBase {
     'height': trackHeight,
     'background': 'var(--nb-paper, var(--card))',
     'border': 'var(--nb-border-base, 3px) solid var(--nb-line, #000)',
-    'border-radius': '999px',
+    'border-radius': 'var(--nb-radius-soft, 4px)',
     'overflow': 'hidden',
-    'box-shadow': 'var(--nb-shadow-xs, 2px 2px 0 0 var(--nb-shadow-color, #000))',
+    'box-shadow':
+        'var(--nb-shadow-xs, 2px 2px 0 0 var(--nb-shadow-color, #000))',
   };
 
   @override
@@ -129,7 +130,8 @@ class NeubrutalismSlider extends SliderRenderBase {
     'background': 'var(--nb-accent, var(--primary))',
     'border': 'var(--nb-border-thick, 3px) solid var(--nb-line, #000)',
     'border-radius': '0',
-    'box-shadow': 'var(--nb-shadow-sm, 3px 3px 0 0 var(--nb-shadow-color, #000))',
+    'box-shadow':
+        'var(--nb-shadow-sm, 3px 3px 0 0 var(--nb-shadow-color, #000))',
     'transition': 'left 0.1s ease-out',
     'cursor': props.disabled ? 'not-allowed' : 'grab',
     'z-index': '2',

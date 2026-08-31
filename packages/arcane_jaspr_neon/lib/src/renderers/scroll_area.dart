@@ -8,9 +8,6 @@ class NeonScrollArea extends ScrollAreaRenderBase {
   String get cssPrefix => 'neon';
 
   @override
-  String get scrollShadowSize => '32px';
-
-  @override
   Map<String, String> scrollbarTrackStyles() => const <String, String>{};
 }
 

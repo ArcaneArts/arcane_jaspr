@@ -111,7 +111,7 @@ Component _handle(
               'display': 'flex',
               'align-items': 'center',
               'justify-content': 'center',
-              'border-radius': '999px',
+              'border-radius': 'var(--radius-xs)',
               'border': '1px solid var(--border)',
               'background': 'var(--muted)',
               'width': horizontal ? '12px' : '18px',

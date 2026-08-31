@@ -13,7 +13,7 @@ class ShadcnSkeleton extends SkeletonRenderBase {
   @override
   (String, String, String?, String?) defaultGeometry(SkeletonShape shape) =>
       switch (shape) {
-        SkeletonShape.circle => ('2.5rem', '2.5rem', null, '9999px'),
+        SkeletonShape.circle => ('2.5rem', '2.5rem', null, '50%'),
         SkeletonShape.text => ('100%', '1rem', null, '0.25rem'),
         SkeletonShape.rectangle => ('100%', '1.25rem', null, '0.375rem'),
       };

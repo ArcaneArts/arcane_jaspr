@@ -28,7 +28,7 @@ class ShadcnAvatar extends AvatarRenderBase {
 
   // Shape-specific border radius
   String _borderRadius(AvatarShape shape) => switch (shape) {
-    AvatarShape.circle => '9999px', // rounded-full
+    AvatarShape.circle => '50%',
     AvatarShape.rounded => '0.5rem', // rounded-md
     AvatarShape.square => '0', // rounded-none
   };
@@ -62,7 +62,7 @@ class ShadcnAvatar extends AvatarRenderBase {
       'right': '0',
       'width': statusSize,
       'height': statusSize,
-      'border-radius': 'var(--radius-full)',
+      'border-radius': '50%',
       'background-color': props.statusColor ?? 'var(--success, #22c55e)',
       'border': '2px solid var(--background)',
     };

@@ -8,16 +8,16 @@ class EdgeInsets {
   final double bottom;
 
   const EdgeInsets.all(double value)
-      : left = value,
-        top = value,
-        right = value,
-        bottom = value;
+    : left = value,
+      top = value,
+      right = value,
+      bottom = value;
 
   const EdgeInsets.symmetric({double horizontal = 0, double vertical = 0})
-      : left = horizontal,
-        top = vertical,
-        right = horizontal,
-        bottom = vertical;
+    : left = horizontal,
+      top = vertical,
+      right = horizontal,
+      bottom = vertical;
 
   const EdgeInsets.only({
     this.left = 0,
@@ -80,16 +80,16 @@ class BoxConstraints {
   });
 
   const BoxConstraints.tight(double width, double height)
-      : minWidth = width,
-        maxWidth = width,
-        minHeight = height,
-        maxHeight = height;
+    : minWidth = width,
+      maxWidth = width,
+      minHeight = height,
+      maxHeight = height;
 
   const BoxConstraints.expand({double? width, double? height})
-      : minWidth = width ?? double.infinity,
-        maxWidth = width ?? double.infinity,
-        minHeight = height ?? double.infinity,
-        maxHeight = height ?? double.infinity;
+    : minWidth = width ?? double.infinity,
+      maxWidth = width ?? double.infinity,
+      minHeight = height ?? double.infinity,
+      maxHeight = height ?? double.infinity;
 }
 
 /// Alignment positions for layout.
@@ -342,38 +342,6 @@ enum BoxFit {
         return 'scale-down';
     }
   }
-}
-
-/// Border radius for rounded corners.
-class BorderRadius {
-  final double topLeft;
-  final double topRight;
-  final double bottomLeft;
-  final double bottomRight;
-
-  const BorderRadius.all(double radius)
-      : topLeft = radius,
-        topRight = radius,
-        bottomLeft = radius,
-        bottomRight = radius;
-
-  const BorderRadius.circular(double radius)
-      : topLeft = radius,
-        topRight = radius,
-        bottomLeft = radius,
-        bottomRight = radius;
-
-  const BorderRadius.only({
-    this.topLeft = 0,
-    this.topRight = 0,
-    this.bottomLeft = 0,
-    this.bottomRight = 0,
-  });
-
-  static const BorderRadius zero = BorderRadius.all(0);
-
-  String get css =>
-      '${topLeft}px ${topRight}px ${bottomRight}px ${bottomLeft}px';
 }
 
 /// Box shadow for elevation effects.

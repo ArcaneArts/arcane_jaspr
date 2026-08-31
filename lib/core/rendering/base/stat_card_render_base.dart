@@ -7,7 +7,7 @@ import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
 
 /// Shared structural base for themed stat-card renderers.
 ///
-/// A stat card is a compact metric surface: an optional icon badge, an
+/// A stat card is a compact metric surface: an optional icon, an
 /// uppercase label, a large value, an optional trend, and a description. The
 /// DOM and its inline chrome (built from theme CSS variables, so it adapts to
 /// the active palette) are identical across themes; a concrete theme renderer
@@ -38,7 +38,7 @@ abstract class StatCardRenderBase extends StatelessComponent {
         'background-color': 'var(--card)',
         'color': 'var(--card-foreground)',
         'border': '1px solid var(--border)',
-        'border-radius': 'var(--radius, 0.5rem)',
+        'border-radius': '8px',
         'width': '100%',
       },
       <Map<String, String>?>[
@@ -50,22 +50,19 @@ abstract class StatCardRenderBase extends StatelessComponent {
 
     return dom.div(
       classes: cssClass,
+      attributes: const <String, String>{
+        'data-arcane-surface': 'stat-card',
+      },
       styles: dom.Styles(raw: rootStyles),
       <Component>[
         if (props.icon != null)
           dom.div(
             classes: '$cssClass-icon',
-            styles: dom.Styles(
+            styles: const dom.Styles(
               raw: <String, String>{
                 'display': 'inline-flex',
                 'align-items': 'center',
-                'justify-content': 'center',
-                'width': '2.25rem',
-                'height': '2.25rem',
-                'border-radius': '0.5rem',
                 'margin-bottom': '0.25rem',
-                'background-color': props.iconBackground ??
-                    'color-mix(in srgb, var(--primary) 12%, transparent)',
                 'color': 'var(--primary)',
                 'font-size': '1.1rem',
               },

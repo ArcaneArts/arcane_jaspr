@@ -28,8 +28,14 @@ class FormHeader extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           gap: 6,
           children: <Widget>[
-            title ?? (titleText != null ? Text.sectionTitle(titleText!) : const SizedBox.shrink()),
-            subtitle ?? (subtitleText != null ? Text.body(subtitleText!) : const SizedBox.shrink()),
+            title ??
+                (titleText != null
+                    ? Text.sectionTitle(titleText!)
+                    : const SizedBox.shrink()),
+            subtitle ??
+                (subtitleText != null
+                    ? Text.body(subtitleText!)
+                    : const SizedBox.shrink()),
           ],
         ),
       ),

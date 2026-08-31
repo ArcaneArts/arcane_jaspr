@@ -34,7 +34,6 @@ class NeubrutalismStylesheet extends ArcaneStylesheet {
     success: 0xFF7BCB6A,
     warning: 0xFFFFD23F,
     info: 0xFF6FB3FF,
-    accentGlow: false,
   );
 
   @override
@@ -49,34 +48,17 @@ class NeubrutalismStylesheet extends ArcaneStylesheet {
     warning: 0xFFFFD23F,
     info: 0xFF6FB3FF,
     isDark: true,
-    accentGlow: false,
   );
 
   @override
   FontConfig get fonts => const FontConfig(
-    sans:
-        "'Space Grotesk', 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-    heading:
-        "'Archivo Black', 'Space Grotesk', ui-sans-serif, system-ui, sans-serif",
-    mono:
-        "'JetBrains Mono', 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+    sans: "'Akzidenz-GroteskPro'",
+    heading: "'ITCAvantGardeStd'",
+    mono: "'Hack'",
   );
 
   @override
-  RadiusConfig get radius => const RadiusConfig(
-    xs: '2px',
-    sm: '4px',
-    md: '6px',
-    lg: '8px',
-    xl: '10px',
-    xxl: '12px',
-    full: '9999px',
-  );
-
-  @override
-  List<String> get externalCssUrls => const [
-    'https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap',
-  ];
+  RadiusConfig get radius => const RadiusConfig.compact();
 
   @override
   String get bodyClass => 'neubrutalism-${theme.name}';

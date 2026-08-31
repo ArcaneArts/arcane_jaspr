@@ -1,23 +1,16 @@
 import 'package:arcane_jaspr/flutter.dart';
+import '../../component/view/icon.dart';
 
 import '../../util/style_types/arcane_style_data.dart';
 import '../decoration/arcane_decoration.dart';
 
-enum EmptyStateStyleVariant {
-  centered,
-  compact,
-  card,
-}
+enum EmptyStateStyleVariant { centered, compact, card }
 
-enum EmptyStateSizeVariant {
-  sm,
-  md,
-  lg,
-}
+enum EmptyStateSizeVariant { sm, md, lg }
 
 /// Empty state component properties.
 class EmptyStateProps {
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final String title;
   final String? description;
   final Widget? action;
@@ -28,8 +21,7 @@ class EmptyStateProps {
   /// Literal, theme-permeable style override (always applied, wins over theme).
   final ArcaneStyleData? styles;
 
-  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
-  /// fields honored-or-ignored per theme).
+  /// Semantic, theme-interpreted decoration.
   final ArcaneDecoration? decoration;
 
   const EmptyStateProps({
@@ -45,7 +37,7 @@ class EmptyStateProps {
   });
 
   EmptyStateProps copyWith({
-    Widget? icon,
+    ArcaneGlyph? icon,
     String? title,
     String? description,
     Widget? action,

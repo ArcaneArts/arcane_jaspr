@@ -1,6 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
 
 import '../../util/style_types/arcane_style_data.dart';
+import '../../component/view/icon.dart';
 import '../decoration/arcane_decoration.dart';
 import '../interaction/interaction.dart';
 
@@ -14,7 +15,6 @@ enum ButtonVariant {
   success,
   warning,
   info,
-  accent,
 }
 
 /// Button size enum with icon variants.
@@ -46,11 +46,14 @@ enum ButtonType {
   const ButtonType(this.value);
 }
 
+/// Placement for a button's single semantic icon.
+enum ButtonIconPosition { leading, trailing }
+
+/// Canonical button properties with one optional semantic icon slot.
 class ButtonProps {
   final String? label;
-  final Widget? child;
-  final Widget? icon;
-  final Widget? trailing;
+  final ArcaneGlyph? icon;
+  final ButtonIconPosition iconPosition;
   final void Function()? onPressed;
   final ArcaneInteraction? action;
   final ButtonVariant variant;
@@ -62,7 +65,6 @@ class ButtonProps {
   final Map<String, String>? attributes;
   final String? href;
   final ButtonType type;
-  final bool showArrow;
 
   /// Literal, theme-permeable style override (always applied, wins over theme).
   final ArcaneStyleData? styles;
@@ -73,9 +75,8 @@ class ButtonProps {
 
   const ButtonProps({
     this.label,
-    this.child,
     this.icon,
-    this.trailing,
+    this.iconPosition = ButtonIconPosition.leading,
     this.onPressed,
     this.action,
     this.variant = ButtonVariant.primary,
@@ -87,16 +88,14 @@ class ButtonProps {
     this.attributes,
     this.href,
     this.type = ButtonType.button,
-    this.showArrow = false,
     this.styles,
     this.decoration,
   });
 
   ButtonProps copyWith({
     String? label,
-    Widget? child,
-    Widget? icon,
-    Widget? trailing,
+    ArcaneGlyph? icon,
+    ButtonIconPosition? iconPosition,
     void Function()? onPressed,
     ArcaneInteraction? action,
     ButtonVariant? variant,
@@ -108,15 +107,13 @@ class ButtonProps {
     Map<String, String>? attributes,
     String? href,
     ButtonType? type,
-    bool? showArrow,
     ArcaneStyleData? styles,
     ArcaneDecoration? decoration,
   }) {
     return ButtonProps(
       label: label ?? this.label,
-      child: child ?? this.child,
       icon: icon ?? this.icon,
-      trailing: trailing ?? this.trailing,
+      iconPosition: iconPosition ?? this.iconPosition,
       onPressed: onPressed ?? this.onPressed,
       action: action ?? this.action,
       variant: variant ?? this.variant,
@@ -128,7 +125,6 @@ class ButtonProps {
       attributes: attributes ?? this.attributes,
       href: href ?? this.href,
       type: type ?? this.type,
-      showArrow: showArrow ?? this.showArrow,
       styles: styles ?? this.styles,
       decoration: decoration ?? this.decoration,
     );

@@ -1,12 +1,11 @@
 import 'package:arcane_jaspr/flutter.dart';
 
 import '../../core/decoration/arcane_decoration.dart';
-import '../../core/props/pricing_card_props.dart';
 import '../../core/theme_provider.dart';
 import '../../util/style_types/arcane_style_data.dart';
+import '../view/icon.dart';
 
-/// A plan surface: an optional badge and icon, a title, a price row (optional
-/// struck-through original price + large price + muted period), an optional
+/// A plan surface: an optional icon, a title, a price row, an optional
 /// subtitle, an included/excluded feature list, an optional spec table, and a
 /// call-to-action button. Themed automatically by the active stylesheet.
 class PricingCard extends StatelessWidget {
@@ -16,9 +15,6 @@ class PricingCard extends StatelessWidget {
   final String? subtitle;
   final String? price;
   final String period;
-  final String? originalPrice;
-  final String? badge;
-  final PricingBadgeVariant badgeVariant;
   final List<String> features;
   final List<String> excludedFeatures;
   final List<SpecEntry>? specs;
@@ -26,9 +22,7 @@ class PricingCard extends StatelessWidget {
   final String? buttonLink;
   final void Function()? onButtonClick;
   final PricingCardVariant variant;
-  final bool highlighted;
-  final String? accentColor;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
 
   /// Literal, theme-permeable style override (always applied, wins over theme).
   final ArcaneStyleData? styles;
@@ -43,9 +37,6 @@ class PricingCard extends StatelessWidget {
     this.subtitle,
     this.price,
     this.period = '/month',
-    this.originalPrice,
-    this.badge,
-    this.badgeVariant = PricingBadgeVariant.popular,
     this.features = const <String>[],
     this.excludedFeatures = const <String>[],
     this.specs,
@@ -53,8 +44,6 @@ class PricingCard extends StatelessWidget {
     this.buttonLink,
     this.onButtonClick,
     this.variant = PricingCardVariant.standard,
-    this.highlighted = false,
-    this.accentColor,
     this.icon,
     this.styles,
     this.decoration,
@@ -67,76 +56,41 @@ class PricingCard extends StatelessWidget {
     required String this.price,
     this.subtitle,
     this.period = '/month',
-    this.originalPrice,
-    this.badge,
-    this.badgeVariant = PricingBadgeVariant.popular,
     this.features = const <String>[],
     this.excludedFeatures = const <String>[],
     this.specs,
     this.buttonText = 'Get Started',
     this.buttonLink,
     this.onButtonClick,
-    this.highlighted = false,
-    this.accentColor,
     this.icon,
     this.styles,
     this.decoration,
     super.key,
-  })  : tier = null,
-        onCtaPressed = null,
-        variant = PricingCardVariant.compact;
-
-  /// Creates a hero pricing card for landing pages.
-  const PricingCard.hero({
-    required String this.title,
-    required String this.price,
-    this.subtitle,
-    this.period = '/month',
-    this.originalPrice,
-    this.badge,
-    this.badgeVariant = PricingBadgeVariant.popular,
-    this.features = const <String>[],
-    this.excludedFeatures = const <String>[],
-    this.specs,
-    this.buttonText = 'Get Started',
-    this.buttonLink,
-    this.onButtonClick,
-    this.highlighted = false,
-    this.accentColor,
-    this.icon,
-    this.styles,
-    this.decoration,
-    super.key,
-  })  : tier = null,
-        onCtaPressed = null,
-        variant = PricingCardVariant.hero;
+  }) : tier = null,
+       onCtaPressed = null,
+       variant = PricingCardVariant.compact;
 
   @override
   Widget build(BuildContext context) => context.renderers.pricingCard(
-        PricingCardProps(
-          tier: tier,
-          onCtaPressed: onCtaPressed,
-          title: title,
-          subtitle: subtitle,
-          price: price,
-          period: period,
-          originalPrice: originalPrice,
-          badge: badge,
-          badgeVariant: badgeVariant,
-          features: features,
-          excludedFeatures: excludedFeatures,
-          specs: specs,
-          buttonText: buttonText,
-          buttonLink: buttonLink,
-          onButtonClick: onButtonClick,
-          variant: variant,
-          highlighted: highlighted,
-          accentColor: accentColor,
-          icon: icon,
-          styles: styles,
-          decoration: decoration,
-        ),
-      );
+    PricingCardProps(
+      tier: tier,
+      onCtaPressed: onCtaPressed,
+      title: title,
+      subtitle: subtitle,
+      price: price,
+      period: period,
+      features: features,
+      excludedFeatures: excludedFeatures,
+      specs: specs,
+      buttonText: buttonText,
+      buttonLink: buttonLink,
+      onButtonClick: onButtonClick,
+      variant: variant,
+      icon: icon,
+      styles: styles,
+      decoration: decoration,
+    ),
+  );
 }
 
 /// A responsive grid of pricing cards, one per [tiers] entry, laid out in
@@ -156,10 +110,10 @@ class PricingGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => context.renderers.pricingGrid(
-        PricingGridProps(
-          tiers: tiers,
-          onTierSelected: onTierSelected,
-          columns: columns,
-        ),
-      );
+    PricingGridProps(
+      tiers: tiers,
+      onTierSelected: onTierSelected,
+      columns: columns,
+    ),
+  );
 }

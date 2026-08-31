@@ -6,7 +6,7 @@ import 'package:arcane_jaspr/component/typography/text.dart';
 import 'package:arcane_jaspr/util/arcane.dart';
 
 class CenterBody extends StatelessWidget {
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final IconData? iconData;
   final String? message;
   final String? actionText;
@@ -21,7 +21,9 @@ class CenterBody extends StatelessWidget {
     this.onActionPressed,
     this.child,
     super.key,
-  }) : assert(icon != null || iconData != null || message != null || child != null);
+  }) : assert(
+         icon != null || iconData != null || message != null || child != null,
+       );
 
   @override
   Widget build(BuildContext context) => Center(
@@ -31,14 +33,12 @@ class CenterBody extends StatelessWidget {
       gap: 16,
       children: <Widget>[
         ?icon,
-        if (icon == null && iconData != null) Icon(iconData!, size: IconSize.xl2),
+        if (icon == null && iconData != null)
+          Icon(iconData!, size: IconSize.xl2),
         if (message != null) Text.bodyLarge(message!, align: TextAlign.center),
         ?child,
         if (actionText != null)
-          Button.secondary(
-            onPressed: onActionPressed,
-            child: Text(actionText!),
-          ),
+          Button.secondary(onPressed: onActionPressed, label: actionText!),
       ],
     ),
   );

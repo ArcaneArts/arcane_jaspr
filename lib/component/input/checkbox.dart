@@ -1,5 +1,15 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
+import 'package:jaspr/jaspr.dart'
+    hide
+        BuildContext,
+        InheritedComponent,
+        Key,
+        State,
+        StatefulComponent,
+        StatelessComponent,
+        UniqueKey,
+        ValueKey,
+        runApp;
 import 'package:jaspr/dom.dart' as dom;
 
 export '../../core/props/checkbox_props.dart' show ComponentSize, ColorVariant;
@@ -58,8 +68,8 @@ class ArcaneCheckbox extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : _onChanged = onChanged ?? onToggle,
-        color = ColorVariant.primary;
+  }) : _onChanged = onChanged ?? onToggle,
+       color = ColorVariant.primary;
 
   const ArcaneCheckbox.success({
     this.id,
@@ -75,8 +85,8 @@ class ArcaneCheckbox extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : _onChanged = onChanged ?? onToggle,
-        color = ColorVariant.success;
+  }) : _onChanged = onChanged ?? onToggle,
+       color = ColorVariant.success;
 
   const ArcaneCheckbox.warning({
     this.id,
@@ -92,8 +102,8 @@ class ArcaneCheckbox extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : _onChanged = onChanged ?? onToggle,
-        color = ColorVariant.warning;
+  }) : _onChanged = onChanged ?? onToggle,
+       color = ColorVariant.warning;
 
   const ArcaneCheckbox.destructive({
     this.id,
@@ -109,8 +119,8 @@ class ArcaneCheckbox extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : _onChanged = onChanged ?? onToggle,
-        color = ColorVariant.destructive;
+  }) : _onChanged = onChanged ?? onToggle,
+       color = ColorVariant.destructive;
 
   static int _autoCounter = 0;
   static String _autoId() {
@@ -121,20 +131,22 @@ class ArcaneCheckbox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String resolvedId = id ?? _autoId();
-    return context.renderers.checkbox(CheckboxProps(
-      id: resolvedId,
-      checked: checked,
-      label: label,
-      description: description,
-      size: size,
-      color: color,
-      disabled: disabled,
-      onChanged: _onChanged,
-      group: group,
-      value: value,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.checkbox(
+      CheckboxProps(
+        id: resolvedId,
+        checked: checked,
+        label: label,
+        description: description,
+        size: size,
+        color: color,
+        disabled: disabled,
+        onChanged: _onChanged,
+        group: group,
+        value: value,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }
 
@@ -185,76 +197,86 @@ class ArcaneRadio extends StatelessWidget {
 
     return dom.div(
       classes: 'arcane-radio-wrapper',
-      styles: dom.Styles(raw: {
-        'display': 'flex',
-        'align-items': 'flex-start',
-        'gap': '0.5rem',
-        'cursor': disabled ? 'not-allowed' : 'pointer',
-        'opacity': disabled ? '0.5' : '1',
-        'pointer-events': disabled ? 'none' : 'auto',
-      }),
+      styles: dom.Styles(
+        raw: {
+          'display': 'flex',
+          'align-items': 'flex-start',
+          'gap': '0.5rem',
+          'cursor': disabled ? 'not-allowed' : 'pointer',
+          'opacity': disabled ? '0.5' : '1',
+          'pointer-events': disabled ? 'none' : 'auto',
+        },
+      ),
       events: disabled || _onSelected == null
           ? null
-          : {
-              'click': (event) => _onSelected(),
-            },
+          : {'click': (event) => _onSelected()},
       [
         dom.div(
           classes: 'arcane-radio',
-          styles: dom.Styles(raw: {
-            'width': radioSize,
-            'height': radioSize,
-            'border-radius': '9999px',
-            'background': 'transparent',
-            'border': '1px solid $borderColor',
-            'display': 'flex',
-            'align-items': 'center',
-            'justify-content': 'center',
-            'flex-shrink': '0',
-            'transition': 'color 150ms ease, background-color 150ms ease, border-color 150ms ease',
-          }),
+          attributes: const <String, String>{
+            'data-arcane-intrinsic-shape': 'radio',
+          },
+          styles: dom.Styles(
+            raw: {
+              'width': radioSize,
+              'height': radioSize,
+              'border-radius': '50%',
+              'background': 'transparent',
+              'border': '1px solid $borderColor',
+              'display': 'flex',
+              'align-items': 'center',
+              'justify-content': 'center',
+              'flex-shrink': '0',
+              'transition':
+                  'color 150ms ease, background-color 150ms ease, border-color 150ms ease',
+            },
+          ),
           [
             if (selected)
               dom.div(
-                styles: dom.Styles(raw: {
-                  'width': dotSize,
-                  'height': dotSize,
-                  'border-radius': '9999px',
-                  'background': dotColor,
-                }),
+                attributes: const <String, String>{
+                  'data-arcane-intrinsic-shape': 'radio-dot',
+                },
+                styles: dom.Styles(
+                  raw: {
+                    'width': dotSize,
+                    'height': dotSize,
+                    'border-radius': '50%',
+                    'background': dotColor,
+                  },
+                ),
                 [],
               ),
           ],
         ),
         if (label != null || description != null)
-          dom.div(
-            styles: const dom.Styles(raw: {
-              'flex': '1',
-            }),
-            [
-              if (label != null)
-                dom.span(
-                  styles: const dom.Styles(raw: {
+          dom.div(styles: const dom.Styles(raw: {'flex': '1'}), [
+            if (label != null)
+              dom.span(
+                styles: const dom.Styles(
+                  raw: {
                     'font-size': '14px',
                     'font-weight': '500',
                     'color': 'var(--foreground)',
                     'display': 'block',
                     'line-height': '1',
-                  }),
-                  [Component.text(label!)],
+                  },
                 ),
-              if (description != null)
-                dom.span(
-                  styles: const dom.Styles(raw: {
+                [Component.text(label!)],
+              ),
+            if (description != null)
+              dom.span(
+                styles: const dom.Styles(
+                  raw: {
                     'font-size': '14px',
                     'color': 'var(--muted-foreground)',
                     'display': 'block',
                     'margin-top': '4px',
-                  }),
-                  [Component.text(description!)],
+                  },
                 ),
-            ],
-          ),
+                [Component.text(description!)],
+              ),
+          ]),
       ],
     );
   }

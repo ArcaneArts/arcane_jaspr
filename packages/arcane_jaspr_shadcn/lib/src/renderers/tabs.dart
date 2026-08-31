@@ -139,7 +139,7 @@ class ShadcnTabs extends StatelessComponent {
                 'color': 'var(--primary-foreground)',
                 'font-size': '0.6875rem',
                 'padding': '2px 6px',
-                'border-radius': 'var(--radius-full)',
+                'border-radius': 'var(--radius-xs)',
                 'font-weight': 'var(--font-weight-medium)',
                 'margin-left': '4px',
               },

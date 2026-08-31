@@ -81,10 +81,7 @@ class ArcaneLink extends StatelessComponent {
       classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       events: events,
-      attributes: {
-        'target': ?target,
-        'rel': ?rel,
-      },
+      attributes: {'target': ?target, 'rel': ?rel},
       [child],
     );
   }
@@ -103,8 +100,8 @@ class _ArcaneLinkChildren extends ArcaneLink {
     super.rel,
     super.events,
     super.key,
-  })  : _children = children,
-        super(child: const _Placeholder());
+  }) : _children = children,
+       super(child: const _Placeholder());
 
   @override
   Component build(BuildContext context) {
@@ -114,10 +111,7 @@ class _ArcaneLinkChildren extends ArcaneLink {
       classes: classes == null ? null : cx(classes!),
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       events: events,
-      attributes: {
-        'target': ?target,
-        'rel': ?rel,
-      },
+      attributes: {'target': ?target, 'rel': ?rel},
       _children,
     );
   }

@@ -56,13 +56,19 @@ class _DialogDateMultiState extends State<DialogDateMulti> {
                     _draft = null;
                   });
                 },
-          child: const Text('Add date'),
+          label: 'Add date',
         ),
-        ..._values.map((DateTime value) => Text.body(value.toIso8601String().split('T').first)),
+        ..._values.map(
+          (DateTime value) =>
+              Text.body(value.toIso8601String().split('T').first),
+        ),
       ],
     ),
     actions: <Widget>[
-      Button.primary(onPressed: () => component.onConfirm(_values), child: const Text('Done')),
+      Button.primary(
+        onPressed: () => component.onConfirm(_values),
+        label: 'Done',
+      ),
     ],
   );
 }

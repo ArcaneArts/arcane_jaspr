@@ -53,7 +53,6 @@ import 'static_table.dart';
 import 'check_list.dart';
 import 'spec_row.dart';
 import 'time_picker.dart';
-import 'fade_edge.dart';
 import 'flexi_cards.dart';
 import 'slot_counter.dart';
 import 'field_wrapper.dart';
@@ -359,9 +358,6 @@ class ShadcnRenderers extends ComponentRenderers with TextAreaRendererContract {
   Component otpInput(OtpInputProps props) => ShadcnOtpInput(props);
 
   @override
-  Component fadeEdge(FadeEdgeProps props) => ShadcnFadeEdge(props);
-
-  @override
   Component flexiCards(FlexiCardsProps props) => ShadcnFlexiCards(props);
 
   @override
@@ -409,41 +405,6 @@ class ShadcnRenderers extends ComponentRenderers with TextAreaRendererContract {
       ShadcnTopAnnouncementBar(props);
 
   @override
-  Component bottomFloatingBanner(BottomFloatingBannerProps props) =>
-      ShadcnBottomFloatingBanner(props);
-
-  @override
-  Component cornerPromoToast(CornerPromoToastProps props) =>
-      ShadcnCornerPromoToast(props);
-
-  @override
-  Component promoModal(PromoModalProps props) => ShadcnPromoModal(props);
-
-  @override
   Component inlineHeroBanner(InlineHeroBannerProps props) =>
       ShadcnInlineHeroBanner(props);
-
-  @override
-  Component slidingSidebarBanner(SlidingSidebarBannerProps props) =>
-      ShadcnSlidingSidebarBanner(props);
-
-  @override
-  Component marqueeTickerBar(MarqueeTickerBarProps props) =>
-      ShadcnMarqueeTickerBar(props);
-
-  @override
-  Component expandingFabPromo(ExpandingFabPromoProps props) =>
-      ShadcnExpandingFabPromo(props);
-
-  @override
-  Component progressClaimBanner(ProgressClaimBannerProps props) =>
-      ShadcnProgressClaimBanner(props);
-
-  @override
-  Component minimizablePromo(MinimizablePromoProps props) =>
-      ShadcnMinimizablePromo(props);
-
-  @override
-  Component fullscreenTakeover(FullscreenTakeoverProps props) =>
-      ShadcnFullscreenTakeover(props);
 }

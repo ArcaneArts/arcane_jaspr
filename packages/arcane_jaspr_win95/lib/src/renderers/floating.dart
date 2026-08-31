@@ -7,18 +7,7 @@ class Win95Floating extends FloatingRenderBase {
   const Win95Floating(super.props, {super.key});
 
   @override
-  String get triggerClass => 'win95-floating-trigger';
-
-  @override
   String get containerClass => 'win95-floating-container';
-
-  @override
-  String get cssTooltipClasses =>
-      'win95-floating win95-floating-tooltip win95-tooltip';
-
-  @override
-  Map<String, String> cssTooltipStyles(Map<String, String> positionStyles) =>
-      const <String, String>{};
 
   @override
   String floatingContentClasses(bool hasRichContent) => hasRichContent

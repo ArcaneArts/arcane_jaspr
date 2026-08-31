@@ -6,10 +6,10 @@ enum DataTableTextAlign {
   right;
 
   String get css => switch (this) {
-        DataTableTextAlign.left => 'left',
-        DataTableTextAlign.center => 'center',
-        DataTableTextAlign.right => 'right',
-      };
+    DataTableTextAlign.left => 'left',
+    DataTableTextAlign.center => 'center',
+    DataTableTextAlign.right => 'right',
+  };
 }
 
 /// Data column definition.

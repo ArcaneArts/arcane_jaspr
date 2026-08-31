@@ -9,7 +9,7 @@ import 'package:arcane_jaspr/core/rendering/base/avatar_render_base.dart';
 /// Implements the Neubrutalism design language:
 /// - Larger sizes (1.25x)
 /// - Accent-colored border option
-/// - Subtle glow on status indicator
+/// - Complete status ring
 class NeubrutalismAvatar extends AvatarRenderBase {
   const NeubrutalismAvatar(super.props, {super.key});
 
@@ -70,7 +70,7 @@ class NeubrutalismAvatar extends AvatarRenderBase {
       'right': '0',
       'width': statusSize,
       'height': statusSize,
-      'border-radius': '9999px',
+      'border-radius': '50%',
       'background-color': props.statusColor ?? 'var(--success)',
       'border': '2px solid var(--nb-line, #000)',
       'box-shadow':
@@ -85,7 +85,7 @@ class NeubrutalismAvatar extends AvatarRenderBase {
 
     final bool isCircle = props.shape == AvatarShape.circle;
     final String borderRadius = switch (props.shape) {
-      AvatarShape.circle => '9999px',
+      AvatarShape.circle => '50%',
       AvatarShape.rounded => 'var(--nb-radius-soft, 4px)',
       AvatarShape.square => '0',
     };
@@ -118,11 +118,7 @@ class NeubrutalismAvatar extends AvatarRenderBase {
             src: props.imageUrl!,
             attributes: {'alt': props.initials ?? 'Avatar'},
             styles: const dom.Styles(
-              raw: {
-                'width': '100%',
-                'height': '100%',
-                'object-fit': 'cover',
-              },
+              raw: {'width': '100%', 'height': '100%', 'object-fit': 'cover'},
             ),
           )
         else if (props.initials != null)
@@ -142,10 +138,7 @@ class NeubrutalismAvatar extends AvatarRenderBase {
         else
           dom.span(
             styles: dom.Styles(
-              raw: {
-                'font-size': fontSize,
-                'color': 'var(--muted-foreground)',
-              },
+              raw: {'font-size': fontSize, 'color': 'var(--muted-foreground)'},
             ),
             [const Component.text('?')],
           ),

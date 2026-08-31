@@ -1,8 +1,9 @@
 import 'package:arcane_jaspr/flutter.dart';
+import '../../component/view/icon.dart';
 
 /// Flexi card item data.
 class FlexiCardItem {
-  final Widget icon;
+  final ArcaneGlyph icon;
   final String shortText;
   final String longText;
   final Widget? header;
@@ -31,7 +32,6 @@ class FlexiCardsProps {
   final String gap;
   final String minCardWidth;
   final int transitionDuration;
-  final bool expandLongTextOnHover;
   final String? heightPreLock;
   final String? heightPostLock;
   final String? widthPreLock;
@@ -46,7 +46,6 @@ class FlexiCardsProps {
     this.gap = '1.5rem',
     this.minCardWidth = '200px',
     this.transitionDuration = 300,
-    this.expandLongTextOnHover = true,
     this.heightPreLock,
     this.heightPostLock,
     this.widthPreLock,
@@ -59,10 +58,7 @@ class FlexiCardsSimpleProps {
   final List<FlexiCardItem> items;
   final String gap;
 
-  const FlexiCardsSimpleProps({
-    required this.items,
-    this.gap = '1.5rem',
-  });
+  const FlexiCardsSimpleProps({required this.items, this.gap = '1.5rem'});
 }
 
 // ============================================================================

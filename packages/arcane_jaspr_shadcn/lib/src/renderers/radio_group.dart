@@ -155,6 +155,7 @@ class ShadcnRadioGroup<T> extends RadioGroupRenderBase<T> {
             if (isDisabled) 'disabled': 'true',
             'data-state': isSelected ? 'checked' : 'unchecked',
             'data-disabled': '$isDisabled',
+            'data-arcane-intrinsic-shape': 'radio',
           },
           styles: const dom.Styles(
             raw: {
@@ -185,8 +186,7 @@ class ShadcnRadioGroup<T> extends RadioGroupRenderBase<T> {
               // ShadCN: h-4 w-4 (16px)
               'width': '16px',
               'height': '16px',
-              // ShadCN: rounded-full
-              'border-radius': 'var(--radius-full)',
+              'border-radius': '50%',
               // ShadCN: border border-primary
               'border': hasError
                   ? '1px solid var(--destructive)'
@@ -202,13 +202,15 @@ class ShadcnRadioGroup<T> extends RadioGroupRenderBase<T> {
             // Inner dot when selected - ShadCN: h-2.5 w-2.5 (10px), bg-primary
             if (isSelected)
               const dom.div(
+                attributes: <String, String>{
+                  'data-arcane-intrinsic-shape': 'radio-dot',
+                },
                 styles: dom.Styles(
                   raw: {
                     // ShadCN: h-2.5 w-2.5 (10px)
                     'width': '10px',
                     'height': '10px',
-                    // ShadCN: rounded-full
-                    'border-radius': 'var(--radius-full)',
+                    'border-radius': '50%',
                     // ShadCN: bg-primary
                     'background': 'var(--primary)',
                   },
@@ -353,11 +355,14 @@ class ShadcnRadioGroup<T> extends RadioGroupRenderBase<T> {
               ),
             // Selection indicator
             dom.div(
+              attributes: const <String, String>{
+                'data-arcane-intrinsic-shape': 'radio',
+              },
               styles: dom.Styles(
                 raw: {
                   'width': '16px',
                   'height': '16px',
-                  'border-radius': 'var(--radius-full)',
+                  'border-radius': '50%',
                   'border': isSelected
                       ? '5px solid var(--primary)'
                       : '1px solid var(--border)',
@@ -440,73 +445,6 @@ class ShadcnRadioGroup<T> extends RadioGroupRenderBase<T> {
           // Button group - no rounded corners in middle
           'border-radius': '0',
           'margin-left': '-1px',
-        },
-      ),
-      children: [
-        dom.input(
-          type: dom.InputType.radio,
-          attributes: {
-            'name': groupName,
-            'value': option.value.toString(),
-            if (isSelected) 'checked': 'true',
-            if (isDisabled) 'disabled': 'true',
-            'data-state': isSelected ? 'checked' : 'unchecked',
-            'data-disabled': '$isDisabled',
-          },
-          styles: const dom.Styles(
-            raw: {
-              'position': 'absolute',
-              'opacity': '0',
-              'pointer-events': 'none',
-            },
-          ),
-          events: {
-            if (!isDisabled && props.onChanged != null)
-              'change': (e) => props.onChanged!(option.value),
-          },
-        ),
-        if (option.icon != null) option.icon!,
-        Component.text(option.label),
-      ],
-    );
-  }
-
-  @override
-  Component buildChipRadio(
-    RadioOptionProps<T> option,
-    String groupName,
-    bool isSelected,
-    bool isDisabled,
-    bool hasError,
-    Map<String, String> itemAttrs,
-  ) {
-    return Component.element(
-      tag: 'label',
-      classes: 'arcane-radio-chip',
-      attributes: mergeAttrs(<Map<String, String>>[
-        <String, String>{
-          'data-state': isSelected ? 'checked' : 'unchecked',
-          'data-disabled': '$isDisabled',
-        },
-        itemAttrs,
-      ]),
-      styles: dom.Styles(
-        raw: {
-          'display': 'inline-flex',
-          'align-items': 'center',
-          'gap': 'var(--space-1)',
-          'padding': '0.25rem 1rem',
-          'border-radius': 'var(--radius-full)',
-          'border': isSelected
-              ? '1px solid var(--primary)'
-              : '1px solid var(--border)',
-          'background': isSelected ? 'var(--accent)' : 'var(--card)',
-          'color': isSelected ? 'var(--primary)' : 'var(--foreground)',
-          'font-size': 'var(--font-size-sm)',
-          'cursor': isDisabled ? 'not-allowed' : 'pointer',
-          'opacity': isDisabled ? '0.5' : '1',
-          'transition':
-              'color var(--transition), background-color var(--transition), border-color var(--transition)',
         },
       ),
       children: [

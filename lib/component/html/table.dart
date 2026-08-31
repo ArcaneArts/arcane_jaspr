@@ -175,8 +175,8 @@ class _ArcaneTableHeaderChildren extends ArcaneTableHeader {
     super.classes,
     super.id,
     super.key,
-  })  : _children = children,
-        super(child: const _Placeholder());
+  }) : _children = children,
+       super(child: const _Placeholder());
 
   @override
   Component build(BuildContext context) {
@@ -232,8 +232,8 @@ class _ArcaneTableCellChildren extends ArcaneTableCell {
     super.classes,
     super.id,
     super.key,
-  })  : _children = children,
-        super(child: const _Placeholder());
+  }) : _children = children,
+       super(child: const _Placeholder());
 
   @override
   Component build(BuildContext context) {

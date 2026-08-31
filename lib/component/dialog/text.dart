@@ -78,15 +78,16 @@ class _DialogTextState extends State<DialogText> {
         gap: 12,
         children: <Widget>[
           if (component.description != null) Text.body(component.description!),
-          if (component.descriptionWidget is! SizedBox) component.descriptionWidget,
+          if (component.descriptionWidget is! SizedBox)
+            component.descriptionWidget,
           input,
         ],
       ),
       actions: <Widget>[
-        Button.ghost(onPressed: () {}, child: Text(component.cancelText)),
+        Button.ghost(onPressed: () {}, label: component.cancelText),
         Button.primary(
           onPressed: () => component.onConfirm(_value),
-          child: Text(component.confirmText),
+          label: component.confirmText,
         ),
         ...?component.actions,
       ],

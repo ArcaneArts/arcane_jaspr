@@ -1,6 +1,6 @@
 ---
 title: Card Family
-description: Composite marketing cards — StatCard, FeatureCard, CtaCard, TestimonialCard, PricingCard, and IconBadge — built on the primary surface
+description: StatCard, FeatureCard, CtaCard, TestimonialCard, and PricingCard on the primary surface
 layout: kb
 ---
 
@@ -53,7 +53,7 @@ FeatureCard(
   description: 'Compile-time checked design tokens with full autocomplete.',
   icon: ArcaneIcon.palette(),
   href: '/docs/concepts/styling',
-  showArrow: true,
+  showCta: true,
 )
 ```
 
@@ -71,9 +71,9 @@ FeatureCard.accented(
 )
 ```
 
-Key props: `title` and `description` are required. `accentColor` tints the icon container and uniform perimeter border, `isExternal` opens the link in a new tab, `showCta` / `ctaText` control the button, and `horizontal` switches to a side-by-side layout.
+Key props: `title` and `description` are required. `icon` is the card's single optional semantic icon. `accentColor` tints the icon container and uniform perimeter border, `isExternal` opens the link in a new tab, `showCta` / `ctaText` control the text-only CTA row, and `horizontal` switches to a side-by-side layout. Feature cards never manufacture a second arrow icon.
 
-`IconCard` is a lighter tile — a required `title` and `icon`, with optional `subtitle`, `onTap`, and `href`:
+`IconCard` is a smaller tile with a required `title` and `icon`. `subtitle`, `onTap`, and `href` are optional:
 
 ```dart
 IconCard(
@@ -102,7 +102,7 @@ CtaCard(
 )
 ```
 
-Key props: `title` and `ctaText` are required. `accentColor` colors the icon chip and CTA button (defaults to `var(--primary)`). When `isExternal` is `true` the anchor opens in a new tab with `rel="noopener noreferrer"` and shows a trailing external-link glyph. `height` defaults to `'420px'` and `showHoverEffects` defaults to `true`.
+Key props: `title` and `ctaText` are required. `accentColor` colors the icon and CTA button (defaults to `var(--primary)`). When `isExternal` is `true` the anchor opens in a new tab with `rel="noopener noreferrer"`.
 
 ## TestimonialCard and RatingStars
 
@@ -138,7 +138,7 @@ RatingStars(
 
 ## PricingCard and PricingGrid
 
-`PricingCard` renders a full pricing tier: title, price, feature list, optional hardware specs, a badge, and a CTA.
+`PricingCard` renders a full pricing tier: title, price, feature list, optional hardware specs, and a CTA.
 
 Source: `lib/component/card/pricing_card.dart`
 
@@ -148,9 +148,6 @@ PricingCard(
   price: r'$29',
   period: '/month',
   subtitle: 'For growing teams',
-  badge: 'Popular',
-  badgeVariant: PricingBadgeVariant.popular,
-  highlighted: true,
   features: const <String>[
     'Unlimited projects',
     'Priority support',
@@ -158,14 +155,14 @@ PricingCard(
   ],
   specs: const <SpecEntry>[
     SpecEntry(label: 'Seats', value: '10'),
-    SpecEntry(label: 'Storage', value: '1 TB', highlight: true),
+    SpecEntry(label: 'Storage', value: '1 TB'),
   ],
   buttonText: 'Start free trial',
   buttonLink: '/signup',
 )
 ```
 
-Key props: `highlighted` marks the featured card. `variant` (`PricingCardVariant.compact`, `.standard`, `.hero`) sets the density; `.compact` and `.hero` also have dedicated named constructors that require `title` and `price`. `badge` / `badgeVariant` render the corner badge, `specs` is a `List<SpecEntry>` of hardware/feature rows (each with `label`, `value`, and an optional `highlight`), and `accentColor` overrides the accent.
+All tiers use the same neutral surface and CTA treatment. `variant` (`PricingCardVariant.compact` or `.standard`) sets density; `.compact` also has a named constructor requiring `title` and `price`. `specs` is a `List<SpecEntry>` of hardware rows with `label` and `value`.
 
 `PricingGrid` lays out several tiers from typed `PricingTier` data:
 
@@ -184,26 +181,7 @@ PricingGrid(
       price: 29,
       description: 'For growing teams',
       features: <String>['Unlimited projects', 'Priority support'],
-      isPopular: true,
-      isHighlighted: true,
     ),
   ],
 )
 ```
-
-## IconBadge
-
-A small tinted chip that frames an icon — the building block behind the icon treatments on the other cards.
-
-Source: `lib/component/view/icon_badge.dart`
-
-```dart
-IconBadge(
-  icon: ArcaneIcon.zap(),
-  accentColor: 'var(--primary)',
-  size: 40,
-  tintOpacity: 0.12,
-)
-```
-
-`icon` is required. `accentColor` defaults to `var(--primary)`, `size` to `40`, and `tintOpacity` to `0.12`. Use the `.square` constructor for a rounded-rectangle badge (`radius` defaults to `8`) instead of the default circle.

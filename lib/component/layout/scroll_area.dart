@@ -27,7 +27,6 @@ class ArcaneScrollArea extends StatelessWidget {
   final String? trackColor;
   final String? thumbColor;
   final String scrollbarSize;
-  final bool showScrollShadows;
   final String? padding;
   final String? className;
 
@@ -43,7 +42,6 @@ class ArcaneScrollArea extends StatelessWidget {
     this.trackColor,
     this.thumbColor,
     this.scrollbarSize = '8px',
-    this.showScrollShadows = false,
     this.padding,
     this.className,
     super.key,
@@ -57,14 +55,13 @@ class ArcaneScrollArea extends StatelessWidget {
     this.scrollbarStyle = ScrollbarStyle.thin,
     this.thumbColor,
     this.trackColor,
-    this.showScrollShadows = false,
     this.padding,
     this.className,
     super.key,
-  })  : width = null,
-        maxWidth = null,
-        direction = ScrollDirection.vertical,
-        scrollbarSize = '8px';
+  }) : width = null,
+       maxWidth = null,
+       direction = ScrollDirection.vertical,
+       scrollbarSize = '8px';
 
   const ArcaneScrollArea.horizontal({
     required this.child,
@@ -74,54 +71,54 @@ class ArcaneScrollArea extends StatelessWidget {
     this.scrollbarStyle = ScrollbarStyle.thin,
     this.thumbColor,
     this.trackColor,
-    this.showScrollShadows = false,
     this.padding,
     this.className,
     super.key,
-  })  : height = null,
-        maxHeight = null,
-        direction = ScrollDirection.horizontal,
-        scrollbarSize = '8px';
+  }) : height = null,
+       maxHeight = null,
+       direction = ScrollDirection.horizontal,
+       scrollbarSize = '8px';
 
   ScrollDirectionVariant get _propsDirection => switch (direction) {
-        ScrollDirection.vertical => ScrollDirectionVariant.vertical,
-        ScrollDirection.horizontal => ScrollDirectionVariant.horizontal,
-        ScrollDirection.both => ScrollDirectionVariant.both,
-      };
+    ScrollDirection.vertical => ScrollDirectionVariant.vertical,
+    ScrollDirection.horizontal => ScrollDirectionVariant.horizontal,
+    ScrollDirection.both => ScrollDirectionVariant.both,
+  };
 
   ScrollbarVisibilityVariant get _propsScrollbar => switch (scrollbar) {
-        ScrollbarVisibility.always => ScrollbarVisibilityVariant.always,
-        ScrollbarVisibility.hover => ScrollbarVisibilityVariant.hover,
-        ScrollbarVisibility.auto_ => ScrollbarVisibilityVariant.auto_,
-        ScrollbarVisibility.hidden => ScrollbarVisibilityVariant.hidden,
-      };
+    ScrollbarVisibility.always => ScrollbarVisibilityVariant.always,
+    ScrollbarVisibility.hover => ScrollbarVisibilityVariant.hover,
+    ScrollbarVisibility.auto_ => ScrollbarVisibilityVariant.auto_,
+    ScrollbarVisibility.hidden => ScrollbarVisibilityVariant.hidden,
+  };
 
   ScrollbarStyleVariant get _propsScrollbarStyle => switch (scrollbarStyle) {
-        ScrollbarStyle.default_ => ScrollbarStyleVariant.default_,
-        ScrollbarStyle.thin => ScrollbarStyleVariant.thin,
-        ScrollbarStyle.minimal => ScrollbarStyleVariant.minimal,
-        ScrollbarStyle.custom => ScrollbarStyleVariant.custom,
-      };
+    ScrollbarStyle.default_ => ScrollbarStyleVariant.default_,
+    ScrollbarStyle.thin => ScrollbarStyleVariant.thin,
+    ScrollbarStyle.minimal => ScrollbarStyleVariant.minimal,
+    ScrollbarStyle.custom => ScrollbarStyleVariant.custom,
+  };
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.scrollArea(ScrollAreaProps(
-      child: child,
-      height: height,
-      width: width,
-      maxHeight: maxHeight,
-      maxWidth: maxWidth,
-      direction: _propsDirection,
-      scrollbar: _propsScrollbar,
-      scrollbarStyle: _propsScrollbarStyle,
-      trackColor: trackColor,
-      thumbColor: thumbColor,
-      scrollbarSize: scrollbarSize,
-      showScrollShadows: showScrollShadows,
-      padding: padding,
-      className: className,
-      instanceId: identityHashCode(this),
-    ));
+    return context.renderers.scrollArea(
+      ScrollAreaProps(
+        child: child,
+        height: height,
+        width: width,
+        maxHeight: maxHeight,
+        maxWidth: maxWidth,
+        direction: _propsDirection,
+        scrollbar: _propsScrollbar,
+        scrollbarStyle: _propsScrollbarStyle,
+        trackColor: trackColor,
+        thumbColor: thumbColor,
+        scrollbarSize: scrollbarSize,
+        padding: padding,
+        className: className,
+        instanceId: identityHashCode(this),
+      ),
+    );
   }
 }
 
@@ -151,14 +148,16 @@ class _ArcaneVirtualScrollState<T> extends State<ArcaneVirtualScroll<T>> {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.virtualScroll<T>(VirtualScrollProps<T>(
-      items: component.items,
-      itemBuilder: component.itemBuilder,
-      itemHeight: component.itemHeight,
-      height: component.height,
-      overscan: component.overscan,
-      scrollTop: _scrollTop,
-      onScroll: (scrollTop) => setState(() => _scrollTop = scrollTop),
-    ));
+    return context.renderers.virtualScroll<T>(
+      VirtualScrollProps<T>(
+        items: component.items,
+        itemBuilder: component.itemBuilder,
+        itemHeight: component.itemHeight,
+        height: component.height,
+        overscan: component.overscan,
+        scrollTop: _scrollTop,
+        onScroll: (scrollTop) => setState(() => _scrollTop = scrollTop),
+      ),
+    );
   }
 }

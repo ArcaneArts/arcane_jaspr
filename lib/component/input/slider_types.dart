@@ -1,6 +1,2 @@
 /// Slider size variants.
-enum SliderSize {
-  sm,
-  md,
-  lg,
-}
+enum SliderSize { sm, md, lg }

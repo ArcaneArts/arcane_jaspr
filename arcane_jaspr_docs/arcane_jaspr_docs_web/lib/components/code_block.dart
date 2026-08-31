@@ -180,7 +180,7 @@ class InlineCodeBlock extends StatelessWidget {
         fontFamily: FontFamily.mono,
         fontSize: FontSize.sm,
         padding: PaddingPreset.inlineCode,
-        background: Background.glassOverlay,
+        background: Background.code,
         borderRadius: Radius.xs,
         textColor: TextColor.accent,
       ),

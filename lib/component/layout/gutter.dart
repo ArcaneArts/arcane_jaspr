@@ -36,22 +36,21 @@ class Gutter extends StatelessWidget {
   });
 
   const Gutter.xsmall({this.horizontal = false, super.key})
-      : size = GutterSize.xsmall;
+    : size = GutterSize.xsmall;
   const Gutter.small({this.horizontal = false, super.key})
-      : size = GutterSize.small;
+    : size = GutterSize.small;
   const Gutter.medium({this.horizontal = false, super.key})
-      : size = GutterSize.medium;
+    : size = GutterSize.medium;
   const Gutter.large({this.horizontal = false, super.key})
-      : size = GutterSize.large;
+    : size = GutterSize.large;
   const Gutter.xlarge({this.horizontal = false, super.key})
-      : size = GutterSize.xlarge;
+    : size = GutterSize.xlarge;
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.gutter(GutterProps(
-      size: size,
-      horizontal: horizontal,
-    ));
+    return context.renderers.gutter(
+      GutterProps(size: size, horizontal: horizontal),
+    );
   }
 }
 
@@ -62,21 +61,11 @@ class ArcaneGap extends StatelessWidget {
 
   const ArcaneGap(this.size, {this.horizontal = false, super.key});
 
-  const ArcaneGap.xs({super.key})
-      : size = 4,
-        horizontal = false;
-  const ArcaneGap.sm({super.key})
-      : size = 8,
-        horizontal = false;
-  const ArcaneGap.md({super.key})
-      : size = 16,
-        horizontal = false;
-  const ArcaneGap.lg({super.key})
-      : size = 24,
-        horizontal = false;
-  const ArcaneGap.xl({super.key})
-      : size = 32,
-        horizontal = false;
+  const ArcaneGap.xs({super.key}) : size = 4, horizontal = false;
+  const ArcaneGap.sm({super.key}) : size = 8, horizontal = false;
+  const ArcaneGap.md({super.key}) : size = 16, horizontal = false;
+  const ArcaneGap.lg({super.key}) : size = 24, horizontal = false;
+  const ArcaneGap.xl({super.key}) : size = 32, horizontal = false;
 
   @override
   Widget build(BuildContext context) {
@@ -119,8 +108,10 @@ class ArcaneBox extends StatelessWidget {
     this.overflow,
     this.style,
     super.key,
-  }) : assert(child != null || children != null,
-            'Either child or children must be provided');
+  }) : assert(
+         child != null || children != null,
+         'Either child or children must be provided',
+       );
 
   const ArcaneBox.card({
     this.child,
@@ -136,27 +127,9 @@ class ArcaneBox extends StatelessWidget {
     this.overflow,
     this.style,
     super.key,
-  })  : background = Background.card,
-        border = BorderPreset.subtle,
-        borderRadius = Radius.lg;
-
-  const ArcaneBox.glass({
-    this.child,
-    this.children,
-    this.padding = PaddingPreset.lg,
-    this.margin,
-    this.shadow,
-    this.width,
-    this.height,
-    this.widthCustom,
-    this.heightCustom,
-    this.maxWidth,
-    this.overflow,
-    this.style,
-    super.key,
-  })  : background = Background.surfaceVariant,
-        border = BorderPreset.subtle,
-        borderRadius = Radius.lg;
+  }) : background = Background.card,
+       border = BorderPreset.subtle,
+       borderRadius = Radius.md;
 
   @override
   Widget build(BuildContext context) {
@@ -190,17 +163,11 @@ class Stack extends StatelessWidget {
   final List<Widget> children;
   final ArcaneStyleData? style;
 
-  const Stack({
-    required this.children,
-    this.style,
-    super.key,
-  });
+  const Stack({required this.children, this.style, super.key});
 
   @override
   Widget build(BuildContext context) {
-    const baseStyle = ArcaneStyleData(
-      position: Position.relative,
-    );
+    const baseStyle = ArcaneStyleData(position: Position.relative);
 
     return div(
       classes: 'arcane-stack',
@@ -231,15 +198,12 @@ class Positioned extends StatelessWidget {
     super.key,
   });
 
-  const Positioned.fill({
-    required this.child,
-    this.style,
-    super.key,
-  })  : top = '0',
-        right = '0',
-        bottom = '0',
-        left = '0',
-        inset = null;
+  const Positioned.fill({required this.child, this.style, super.key})
+    : top = '0',
+      right = '0',
+      bottom = '0',
+      left = '0',
+      inset = null;
 
   @override
   Widget build(BuildContext context) {

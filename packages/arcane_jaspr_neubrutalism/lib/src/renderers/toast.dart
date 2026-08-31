@@ -6,9 +6,9 @@ import 'package:arcane_jaspr/core/rendering/base/toast_render_base.dart';
 /// Neubrutalism Toast renderer.
 ///
 /// Implements the Neubrutalism design language:
-/// - Glass effect with subtle blur
-/// - Accent-colored variant glows
-/// - Larger padding and border radius
+/// - Flat high-contrast surface
+/// - Complete accent perimeter for semantic variants
+/// - Compact radius with a neutral hard shadow
 class NeubrutalismToast extends ToastRenderBase {
   const NeubrutalismToast(super.props, {super.key});
 

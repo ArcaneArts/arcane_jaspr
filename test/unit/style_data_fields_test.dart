@@ -1,6 +1,4 @@
-// Unit tests for the ArcaneStyleData fields added to eliminate raw: {} maps
-// that QualityNode was forced to use (single-side padding, per-side custom
-// border strings, box-sizing, background-clip, custom backdrop-filter).
+// Unit tests for the bounded ArcaneStyleData fields used by QualityNode.
 
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 import 'package:jaspr_test/jaspr_test.dart';
@@ -21,50 +19,61 @@ void main() {
     });
   });
 
-  group('per-side custom border strings', () {
-    test('carry a runtime color the BorderPreset enum cannot', () {
-      final Map<String, String> css = const ArcaneStyleData(
-        borderTopCustom: '2px solid #EC4899',
-        borderRightCustom: 'none',
-      ).toMap();
-      expect(css['border-top'], '2px solid #EC4899');
-      expect(css['border-right'], 'none');
-    });
+  test('a complete custom border remains available', () {
+    final Map<String, String> css = const ArcaneStyleData(
+      borderCustom: '2px solid var(--primary)',
+    ).toMap();
+    expect(css['border'], '2px solid var(--primary)');
+  });
 
-    test('custom string wins over the preset for the same side', () {
-      final Map<String, String> css = const ArcaneStyleData(
-        borderTop: BorderPreset.subtle,
-        borderTopCustom: '2px solid red',
-      ).toMap();
-      expect(css['border-top'], '2px solid red');
-    });
+  test('custom borders reject injected directional declarations', () {
+    for (final String border in <String>[
+      '1px solid gray; border-left: 5px solid green',
+      'var(--border, 1px solid gray; border-top: 5px solid green)',
+      '1px solid gray { border-right: 5px solid green }',
+    ]) {
+      expect(
+        () => ArcaneStyleData(borderCustom: border).toMap(),
+        throwsArgumentError,
+        reason: border,
+      );
+    }
   });
 
   test('boxSizing emits box-sizing', () {
     expect(
-      const ArcaneStyleData(boxSizing: BoxSizing.borderBox).toMap()['box-sizing'],
+      const ArcaneStyleData(
+        boxSizing: BoxSizing.borderBox,
+      ).toMap()['box-sizing'],
       'border-box',
     );
   });
 
   test('backgroundClip emits standard + -webkit- pair', () {
-    final Map<String, String> css =
-        const ArcaneStyleData(backgroundClip: BackgroundClip.text).toMap();
+    final Map<String, String> css = const ArcaneStyleData(
+      backgroundClip: BackgroundClip.text,
+    ).toMap();
     expect(css['background-clip'], 'text');
     expect(css['-webkit-background-clip'], 'text');
   });
 
-  test('backdropFilterCustom emits standard + -webkit- pair', () {
-    final Map<String, String> css =
-        const ArcaneStyleData(backdropFilterCustom: 'blur(10px)').toMap();
-    expect(css['backdrop-filter'], 'blur(10px)');
-    expect(css['-webkit-backdrop-filter'], 'blur(10px)');
+  test('custom backgrounds reject gradients', () {
+    expect(
+      () => const ArcaneStyleData(
+        backgroundCustom: 'linear-gradient(red, blue)',
+      ).toMap(),
+      throwsArgumentError,
+    );
   });
 
   test('merge and copyWith preserve the new fields', () {
-    const base = ArcaneStyleData(paddingTop: '4px', boxSizing: BoxSizing.borderBox);
-    final merged =
-        const ArcaneStyleData().merge(base).copyWith(backgroundClip: BackgroundClip.text);
+    const base = ArcaneStyleData(
+      paddingTop: '4px',
+      boxSizing: BoxSizing.borderBox,
+    );
+    final merged = const ArcaneStyleData()
+        .merge(base)
+        .copyWith(backgroundClip: BackgroundClip.text);
     final Map<String, String> css = merged.toMap();
     expect(css['padding-top'], '4px');
     expect(css['box-sizing'], 'border-box');

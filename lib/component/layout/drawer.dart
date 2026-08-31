@@ -118,25 +118,27 @@ class ArcaneDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.drawer(DrawerProps(
-      id: id,
-      isOpen: isOpen,
-      onClose: onClose,
-      position: position,
-      size: size,
-      child: child,
-      header: header,
-      footer: footer,
-      showBackdrop: showBackdrop,
-      closeOnBackdropClick: closeOnBackdropClick,
-      showCloseButton: showCloseButton,
-      width: width,
-      height: height,
-      escapeCloses: escapeCloses,
-      focusTrap: focusTrap,
-      restoreFocus: restoreFocus,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.drawer(
+      DrawerProps(
+        id: id,
+        isOpen: isOpen,
+        onClose: onClose,
+        position: position,
+        size: size,
+        child: child,
+        header: header,
+        footer: footer,
+        showBackdrop: showBackdrop,
+        closeOnBackdropClick: closeOnBackdropClick,
+        showCloseButton: showCloseButton,
+        width: width,
+        height: height,
+        escapeCloses: escapeCloses,
+        focusTrap: focusTrap,
+        restoreFocus: restoreFocus,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }

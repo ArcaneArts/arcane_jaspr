@@ -1,5 +1,27 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, FontStyle, StyleRule, Display, Position, Overflow, Cursor, Visibility, FlexWrap, WhiteSpace;
+import 'package:jaspr/dom.dart'
+    hide
+        Color,
+        Colors,
+        ColorScheme,
+        Gap,
+        Padding,
+        TextAlign,
+        TextOverflow,
+        Border,
+        BorderRadius,
+        Radius,
+        BoxShadow,
+        FontWeight,
+        FontStyle,
+        StyleRule,
+        Display,
+        Position,
+        Overflow,
+        Cursor,
+        Visibility,
+        FlexWrap,
+        WhiteSpace;
 
 import '../../core/theme_provider.dart';
 import '../../util/arcane.dart';
@@ -31,16 +53,18 @@ class Wrap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.flow(FlowProps(
-      children: children,
-      mainAxisAlignment: mainAxisAlignment,
-      crossAxisAlignment: crossAxisAlignment,
-      wrapAlignment: wrapAlignment,
-      gap: gap,
-      rowGap: rowGap,
-      columnGap: columnGap,
-      reverse: reverse,
-    ));
+    return context.renderers.flow(
+      FlowProps(
+        children: children,
+        mainAxisAlignment: mainAxisAlignment,
+        crossAxisAlignment: crossAxisAlignment,
+        wrapAlignment: wrapAlignment,
+        gap: gap,
+        rowGap: rowGap,
+        columnGap: columnGap,
+        reverse: reverse,
+      ),
+    );
   }
 }
 
@@ -68,13 +92,15 @@ class Row extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (style == null && gapSize == null) {
-      return context.renderers.row(RowProps(
-        children: children,
-        mainAxisAlignment: mainAxisAlignment,
-        crossAxisAlignment: crossAxisAlignment,
-        mainAxisSize: mainAxisSize,
-        gap: gap,
-      ));
+      return context.renderers.row(
+        RowProps(
+          children: children,
+          mainAxisAlignment: mainAxisAlignment,
+          crossAxisAlignment: crossAxisAlignment,
+          mainAxisSize: mainAxisSize,
+          gap: gap,
+        ),
+      );
     }
 
     final Map<String, String> baseStyles = {
@@ -127,13 +153,15 @@ class Column extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (style == null && gapSize == null) {
-      return context.renderers.column(ColumnProps(
-        children: children,
-        mainAxisAlignment: mainAxisAlignment,
-        crossAxisAlignment: crossAxisAlignment,
-        mainAxisSize: mainAxisSize,
-        gap: gap,
-      ));
+      return context.renderers.column(
+        ColumnProps(
+          children: children,
+          mainAxisAlignment: mainAxisAlignment,
+          crossAxisAlignment: crossAxisAlignment,
+          mainAxisSize: mainAxisSize,
+          gap: gap,
+        ),
+      );
     }
 
     final Map<String, String> baseStyles = {
@@ -204,18 +232,13 @@ class Padding extends StatelessWidget {
   final EdgeInsets padding;
   final Widget child;
 
-  const Padding({
-    required this.padding,
-    required this.child,
-    super.key,
-  });
+  const Padding({required this.padding, required this.child, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.paddingWrapper(PaddingWrapperProps(
-      padding: padding,
-      child: child,
-    ));
+    return context.renderers.paddingWrapper(
+      PaddingWrapperProps(padding: padding, child: child),
+    );
   }
 }
 
@@ -227,23 +250,18 @@ class SizedBox extends StatelessWidget {
 
   const SizedBox({this.width, this.height, this.child, super.key});
 
-  const SizedBox.shrink({super.key})
-      : width = 0,
-        height = 0,
-        child = null;
+  const SizedBox.shrink({super.key}) : width = 0, height = 0, child = null;
 
   const SizedBox.expand({super.key})
-      : width = double.infinity,
-        height = double.infinity,
-        child = null;
+    : width = double.infinity,
+      height = double.infinity,
+      child = null;
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.sizedBox(SizedBoxProps(
-      width: width,
-      height: height,
-      child: child,
-    ));
+    return context.renderers.sizedBox(
+      SizedBoxProps(width: width, height: height, child: child),
+    );
   }
 }
 
@@ -296,7 +314,9 @@ class Container extends StatelessWidget {
         styles['border'] = decoration!.border!.css;
       }
       if (decoration!.boxShadow != null) {
-        styles['box-shadow'] = decoration!.boxShadow!.map((shadow) => shadow.css).join(', ');
+        styles['box-shadow'] = decoration!.boxShadow!
+            .map((shadow) => shadow.css)
+            .join(', ');
       }
     }
 
@@ -306,8 +326,9 @@ class Container extends StatelessWidget {
       styles['align-items'] = alignment!.cssAlignItems;
     }
 
-    final List<Widget> children =
-        child != null ? <Widget>[child!] : const <Widget>[];
+    final List<Widget> children = child != null
+        ? <Widget>[child!]
+        : const <Widget>[];
     final String elementTag = tag ?? 'div';
     // Keep the default 'div' path byte-identical to the prior output.
     if (elementTag == 'div') {
@@ -329,7 +350,7 @@ class Container extends StatelessWidget {
 /// Box decoration for Container.
 class BoxDecoration {
   final Color? color;
-  final BorderRadius? borderRadius;
+  final Radius? borderRadius;
   final Border? border;
   final List<BoxShadow>? boxShadow;
 
@@ -347,16 +368,9 @@ class Border {
   final double width;
   final String style;
 
-  const Border({
-    required this.color,
-    this.width = 1,
-    this.style = 'solid',
-  });
+  const Border({required this.color, this.width = 1, this.style = 'solid'});
 
-  const Border.all({
-    required this.color,
-    this.width = 1,
-  }) : style = 'solid';
+  const Border.all({required this.color, this.width = 1}) : style = 'solid';
 
   String get css => '${width}px $style ${color.css}';
 }

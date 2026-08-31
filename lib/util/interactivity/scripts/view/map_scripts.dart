@@ -20,7 +20,7 @@ class MapScripts {
         if (e.key === 'Shift' && !_shiftKeyHeld) {
           _shiftKeyHeld = true;
           document.querySelectorAll('.arcane-world-map, .arcane-usa-map').forEach(function(map) {
-            map.style.cursor = 'crosshair';
+            map.classList.add('arcane-map-picking');
           });
         }
       });
@@ -29,7 +29,7 @@ class MapScripts {
         if (e.key === 'Shift') {
           _shiftKeyHeld = false;
           document.querySelectorAll('.arcane-world-map, .arcane-usa-map').forEach(function(map) {
-            map.style.cursor = '';
+            map.classList.remove('arcane-map-picking');
           });
           // Hide all coord tooltips
           Object.values(_mapCoordTooltips).forEach(function(tooltip) {
@@ -207,26 +207,26 @@ class MapScripts {
     tooltip.style.cssText = 'position: fixed; z-index: 9999; pointer-events: none; opacity: 0; visibility: hidden; transition: opacity 150ms ease;';
 
     var inner = document.createElement('div');
-    inner.style.cssText = 'background: rgba(30, 30, 46, 0.95); border: 1px solid #4b5563; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); padding: 10px 14px; backdrop-filter: blur(8px);';
+    inner.style.cssText = 'background: var(--popover); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.32); padding: 10px 14px;';
 
     var latDiv = document.createElement('div');
     latDiv.className = 'coord-lat';
-    latDiv.style.cssText = 'font-size: 13px; font-family: ui-monospace, monospace; color: #f8fafc; white-space: nowrap; font-weight: 500;';
+    latDiv.style.cssText = 'font-size: 13px; font-family: var(--font-mono); color: var(--popover-foreground); white-space: nowrap; font-weight: 500;';
     latDiv.textContent = 'Lat: 0.0000';
 
     var lngDiv = document.createElement('div');
     lngDiv.className = 'coord-lng';
-    lngDiv.style.cssText = 'font-size: 13px; font-family: ui-monospace, monospace; color: #f8fafc; white-space: nowrap; font-weight: 500;';
+    lngDiv.style.cssText = 'font-size: 13px; font-family: var(--font-mono); color: var(--popover-foreground); white-space: nowrap; font-weight: 500;';
     lngDiv.textContent = 'Lng: 0.0000';
 
     var svgDiv = document.createElement('div');
     svgDiv.className = 'coord-svg';
-    svgDiv.style.cssText = 'font-size: 11px; font-family: ui-monospace, monospace; color: #9ca3af; white-space: nowrap; margin-top: 6px;';
+    svgDiv.style.cssText = 'font-size: 11px; font-family: var(--font-mono); color: var(--muted-foreground); white-space: nowrap; margin-top: 6px;';
     svgDiv.textContent = 'SVG: 0, 0';
 
     var hintDiv = document.createElement('div');
     hintDiv.className = 'coord-hint';
-    hintDiv.style.cssText = 'font-size: 11px; color: #60a5fa; margin-top: 6px; font-weight: 500;';
+    hintDiv.style.cssText = 'font-size: 11px; color: var(--primary); margin-top: 6px; font-weight: 500;';
     hintDiv.textContent = 'Click to copy';
 
     inner.appendChild(latDiv);

@@ -1,9 +1,9 @@
 import 'package:arcane_jaspr/flutter.dart';
 
 import '../../core/decoration/arcane_decoration.dart';
-import '../../core/props/feature_card_props.dart';
 import '../../core/theme_provider.dart';
 import '../../util/style_types/arcane_style_data.dart';
+import '../view/icon.dart';
 
 /// A feature/navigation surface: an optional accent-tinted icon badge, a bold
 /// title, a muted description, and an optional call-to-action row. Lays out
@@ -13,10 +13,9 @@ import '../../util/style_types/arcane_style_data.dart';
 class FeatureCard extends StatelessWidget {
   final String title;
   final String description;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final String? href;
   final void Function()? onTap;
-  final bool showArrow;
   final bool horizontal;
 
   /// Custom accent color (CSS color value) tinting the icon badge, the CTA, and
@@ -44,7 +43,6 @@ class FeatureCard extends StatelessWidget {
     this.icon,
     this.href,
     this.onTap,
-    this.showArrow = false,
     this.horizontal = false,
     this.accentColor,
     this.ctaText,
@@ -59,7 +57,7 @@ class FeatureCard extends StatelessWidget {
   const FeatureCard.accented({
     required this.title,
     required this.description,
-    required Widget this.icon,
+    required ArcaneGlyph this.icon,
     required String this.accentColor,
     this.href,
     this.onTap,
@@ -68,8 +66,7 @@ class FeatureCard extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  }) : showArrow = false,
-       horizontal = false,
+  }) : horizontal = false,
        showCta = true;
 
   @override
@@ -80,7 +77,6 @@ class FeatureCard extends StatelessWidget {
       icon: icon,
       href: href,
       onTap: onTap,
-      showArrow: showArrow,
       horizontal: horizontal,
       accentColor: accentColor,
       ctaText: ctaText,
@@ -98,7 +94,7 @@ class FeatureCard extends StatelessWidget {
 class IconCard extends StatelessWidget {
   final String title;
   final String? subtitle;
-  final Widget icon;
+  final ArcaneGlyph icon;
   final void Function()? onTap;
   final String? href;
 

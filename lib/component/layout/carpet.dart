@@ -15,11 +15,14 @@ class Carpet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => dom.div(
-    styles: dom.Styles(raw: <String, String>{
-      'display': 'grid',
-      'gap': '${gap}px',
-      'grid-template-columns': 'repeat(auto-fit, minmax(${minItemWidth}px, 1fr))',
-    }),
+    styles: dom.Styles(
+      raw: <String, String>{
+        'display': 'grid',
+        'gap': '${gap}px',
+        'grid-template-columns':
+            'repeat(auto-fit, minmax(${minItemWidth}px, 1fr))',
+      },
+    ),
     children,
   );
 }

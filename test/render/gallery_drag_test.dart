@@ -397,6 +397,26 @@ void main() {
     expect(css, contains('.arcane-gallery-drag-announcer'));
   });
 
+  test('win95 galleries swap pointer drags to the classic outline mode', () {
+    final String script = ArcaneScripts.all;
+
+    // Outline (wireframe) drag was the Windows 95 default: the window stays
+    // put while a single rectangle tracks the pointer, and the move commits
+    // on release. The runtime enables it whenever the gallery sits inside
+    // the win95 theme root, leaving every other theme on full-content drag.
+    expect(
+      script,
+      contains("const OUTLINE_THEME_SELECTOR = '.arcane-theme-win95'"),
+    );
+    expect(
+      script,
+      contains("const OUTLINE_CLASS = 'arcane-gallery-drag-outline'"),
+    );
+    // Win95's SM_CXDRAG/SM_CYDRAG threshold: 4px, evaluated per axis.
+    expect(script, contains('const OUTLINE_DRAG_THRESHOLD_PX = 4'));
+    expect(script, contains('positionDragOutline'));
+  });
+
   test('drag distances reject non-finite values', () {
     const List<ArcaneGalleryTile> tiles = <ArcaneGalleryTile>[
       ArcaneGalleryTile(media: ArcaneGalleryMedia(aspectRatio: 1)),

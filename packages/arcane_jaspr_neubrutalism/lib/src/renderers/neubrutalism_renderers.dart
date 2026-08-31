@@ -34,7 +34,6 @@ import 'disclosure.dart';
 import 'dropdown_menu.dart';
 import 'drawer.dart';
 import 'empty_state.dart';
-import 'fade_edge.dart';
 import 'field_wrapper.dart';
 import 'flexi_cards.dart';
 import 'floating.dart';
@@ -392,9 +391,6 @@ class NeubrutalismRenderers extends ComponentRenderers
       NeubrutalismDropdownMenu(props);
 
   @override
-  Component fadeEdge(FadeEdgeProps props) => NeubrutalismFadeEdge(props);
-
-  @override
   Component kbd(KbdProps props) => NeubrutalismKbd(props);
 
   @override
@@ -453,41 +449,6 @@ class NeubrutalismRenderers extends ComponentRenderers
       NeubrutalismTopAnnouncementBar(props);
 
   @override
-  Component bottomFloatingBanner(BottomFloatingBannerProps props) =>
-      NeubrutalismBottomFloatingBanner(props);
-
-  @override
-  Component cornerPromoToast(CornerPromoToastProps props) =>
-      NeubrutalismCornerPromoToast(props);
-
-  @override
-  Component promoModal(PromoModalProps props) => NeubrutalismPromoModal(props);
-
-  @override
   Component inlineHeroBanner(InlineHeroBannerProps props) =>
       NeubrutalismInlineHeroBanner(props);
-
-  @override
-  Component slidingSidebarBanner(SlidingSidebarBannerProps props) =>
-      NeubrutalismSlidingSidebarBanner(props);
-
-  @override
-  Component marqueeTickerBar(MarqueeTickerBarProps props) =>
-      NeubrutalismMarqueeTickerBar(props);
-
-  @override
-  Component expandingFabPromo(ExpandingFabPromoProps props) =>
-      NeubrutalismExpandingFabPromo(props);
-
-  @override
-  Component progressClaimBanner(ProgressClaimBannerProps props) =>
-      NeubrutalismProgressClaimBanner(props);
-
-  @override
-  Component minimizablePromo(MinimizablePromoProps props) =>
-      NeubrutalismMinimizablePromo(props);
-
-  @override
-  Component fullscreenTakeover(FullscreenTakeoverProps props) =>
-      NeubrutalismFullscreenTakeover(props);
 }

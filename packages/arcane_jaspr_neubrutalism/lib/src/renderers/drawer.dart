@@ -3,8 +3,8 @@ import 'package:arcane_jaspr/core/rendering/base/drawer_render_base.dart';
 /// Neubrutalism Drawer renderer.
 ///
 /// Implements the Neubrutalism design language:
-/// - Glass effect with backdrop blur
-/// - Subtle accent glow on border
+/// - Flat high-contrast surface
+/// - Complete neutral perimeter
 /// - OLED-optimized dark background
 class NeubrutalismDrawer extends DrawerRenderBase {
   const NeubrutalismDrawer(super.props, {super.key});

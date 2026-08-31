@@ -8,11 +8,14 @@ class Win95Skeleton extends SkeletonRenderBase {
   @override
   String get cssClass => 'win95-skeleton';
 
+  /// No shape is rounded: the circle variant keeps its square geometry rather
+  /// than authoring generic pill geometry that the theme's corner reset then
+  /// has to undo.
   @override
   (String, String, String?, String?) defaultGeometry(SkeletonShape shape) =>
       switch (shape) {
         SkeletonShape.rectangle => ('100%', '20px', null, null),
-        SkeletonShape.circle => ('48px', '48px', null, '9999px'),
+        SkeletonShape.circle => ('48px', '48px', null, null),
         SkeletonShape.text => ('100%', '1rem', null, null),
       };
 

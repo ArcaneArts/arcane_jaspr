@@ -4,13 +4,13 @@ enum SvgSize { xs, sm, md, lg, xl, xxl }
 
 extension SvgSizeExtension on SvgSize {
   String get css => switch (this) {
-        SvgSize.xs => '12',
-        SvgSize.sm => '16',
-        SvgSize.md => '20',
-        SvgSize.lg => '24',
-        SvgSize.xl => '32',
-        SvgSize.xxl => '48',
-      };
+    SvgSize.xs => '12',
+    SvgSize.sm => '16',
+    SvgSize.md => '20',
+    SvgSize.lg => '24',
+    SvgSize.xl => '32',
+    SvgSize.xxl => '48',
+  };
 }
 
 /// SVG container wrapper.

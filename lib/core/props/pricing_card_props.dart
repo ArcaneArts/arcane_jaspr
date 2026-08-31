@@ -1,4 +1,5 @@
 import 'package:arcane_jaspr/flutter.dart';
+import '../../component/view/icon.dart';
 
 import '../../util/style_types/arcane_style_data.dart';
 import '../decoration/arcane_decoration.dart';
@@ -10,30 +11,14 @@ enum PricingCardVariant {
 
   /// Default full-featured card.
   standard,
-
-  /// Large featured card for landing pages.
-  hero,
-}
-
-/// Badge variant for pricing cards.
-enum PricingBadgeVariant {
-  popular,
-  recommended,
-  isNew,
-  primary,
 }
 
 /// Hardware/feature specification entry.
 class SpecEntry {
   final String label;
   final String value;
-  final bool highlight;
 
-  const SpecEntry({
-    required this.label,
-    required this.value,
-    this.highlight = false,
-  });
+  const SpecEntry({required this.label, required this.value});
 }
 
 /// Pricing tier data.
@@ -45,8 +30,6 @@ class PricingTier {
   final String description;
   final List<String> features;
   final String ctaText;
-  final bool isPopular;
-  final bool isHighlighted;
 
   const PricingTier({
     required this.name,
@@ -56,8 +39,6 @@ class PricingTier {
     required this.description,
     required this.features,
     this.ctaText = 'Get Started',
-    this.isPopular = false,
-    this.isHighlighted = false,
   });
 }
 
@@ -82,17 +63,6 @@ class PricingCardProps {
 
   /// Price period (e.g., "/month").
   final String period;
-
-  /// Original price for strikethrough (sale pricing).
-  final String? originalPrice;
-
-  // ---- Badge configuration ----
-
-  /// Badge text (e.g., "Popular", "Best Value").
-  final String? badge;
-
-  /// Badge variant.
-  final PricingBadgeVariant badgeVariant;
 
   // ---- Features and specs ----
 
@@ -121,14 +91,8 @@ class PricingCardProps {
   /// Visual variant.
   final PricingCardVariant variant;
 
-  /// Whether this card is highlighted (featured).
-  final bool highlighted;
-
-  /// Custom accent color (CSS color value).
-  final String? accentColor;
-
   /// Custom icon component for header.
-  final Widget? icon;
+  final ArcaneGlyph? icon;
 
   /// Literal, theme-permeable style override (always applied, wins over theme).
   final ArcaneStyleData? styles;
@@ -143,9 +107,6 @@ class PricingCardProps {
     this.subtitle,
     this.price,
     this.period = '/month',
-    this.originalPrice,
-    this.badge,
-    this.badgeVariant = PricingBadgeVariant.popular,
     this.features = const [],
     this.excludedFeatures = const [],
     this.specs,
@@ -153,8 +114,6 @@ class PricingCardProps {
     this.buttonLink,
     this.onButtonClick,
     this.variant = PricingCardVariant.standard,
-    this.highlighted = false,
-    this.accentColor,
     this.icon,
     this.styles,
     this.decoration,
@@ -166,47 +125,18 @@ class PricingCardProps {
     required String this.price,
     this.subtitle,
     this.period = '/month',
-    this.originalPrice,
-    this.badge,
-    this.badgeVariant = PricingBadgeVariant.popular,
     this.features = const [],
     this.excludedFeatures = const [],
     this.specs,
     this.buttonText = 'Get Started',
     this.buttonLink,
     this.onButtonClick,
-    this.highlighted = false,
-    this.accentColor,
     this.icon,
     this.styles,
     this.decoration,
-  })  : tier = null,
-        onCtaPressed = null,
-        variant = PricingCardVariant.compact;
-
-  /// Creates a hero pricing card for landing pages.
-  const PricingCardProps.hero({
-    required String this.title,
-    required String this.price,
-    this.subtitle,
-    this.period = '/month',
-    this.originalPrice,
-    this.badge,
-    this.badgeVariant = PricingBadgeVariant.popular,
-    this.features = const [],
-    this.excludedFeatures = const [],
-    this.specs,
-    this.buttonText = 'Get Started',
-    this.buttonLink,
-    this.onButtonClick,
-    this.highlighted = false,
-    this.accentColor,
-    this.icon,
-    this.styles,
-    this.decoration,
-  })  : tier = null,
-        onCtaPressed = null,
-        variant = PricingCardVariant.hero;
+  }) : tier = null,
+       onCtaPressed = null,
+       variant = PricingCardVariant.compact;
 
   /// Gets the effective title (from tier or direct property).
   String get effectiveTitle => title ?? tier?.name ?? '';
@@ -216,7 +146,8 @@ class PricingCardProps {
       price ?? (tier?.price != null ? '${tier!.currency}${tier!.price}' : '');
 
   /// Gets the effective period.
-  String get effectivePeriod => tier?.period != null ? '/${tier!.period}' : period;
+  String get effectivePeriod =>
+      tier?.period != null ? '/${tier!.period}' : period;
 
   /// Gets the effective subtitle.
   String? get effectiveSubtitle => subtitle ?? tier?.description;
@@ -228,15 +159,6 @@ class PricingCardProps {
   /// Gets the effective CTA text.
   String get effectiveCtaText =>
       buttonText != 'Get Started' ? buttonText : (tier?.ctaText ?? buttonText);
-
-  /// Gets whether the card is effectively highlighted.
-  bool get effectiveHighlighted => highlighted || (tier?.isHighlighted ?? false);
-
-  /// Gets whether to show popular badge.
-  bool get isPopular => badge != null || (tier?.isPopular ?? false);
-
-  /// Gets the effective badge text.
-  String? get effectiveBadge => badge ?? (tier?.isPopular == true ? 'Popular' : null);
 }
 
 /// Pricing grid component properties.

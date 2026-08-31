@@ -80,7 +80,10 @@ class _MarkdownBlockParser {
       if (isTableHeader(lines, index)) {
         _flushParagraph(paragraphLines, widgets);
         _flushList(listItems, widgets);
-        final List<String> tableLines = <String>[lines[index], lines[index + 1]];
+        final List<String> tableLines = <String>[
+          lines[index],
+          lines[index + 1],
+        ];
         index += 2;
         while (index < lines.length && lines[index].trim().contains('|')) {
           tableLines.add(lines[index]);
@@ -156,8 +159,7 @@ class _MarkdownBlockParser {
     }
     final String header = lines[index].trim();
     final String divider = lines[index + 1].trim();
-    return header.contains('|') &&
-        RegExp(r'^\|?\s*:?[-]+').hasMatch(divider);
+    return header.contains('|') && RegExp(r'^\|?\s*:?[-]+').hasMatch(divider);
   }
 
   static List<String> splitCells(String line) => line

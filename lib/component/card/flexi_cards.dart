@@ -14,7 +14,6 @@ class ArcaneFlexiCards extends StatelessWidget {
   final String gap;
   final String minCardWidth;
   final int transitionDuration;
-  final bool expandLongTextOnHover;
   final String? heightPreLock;
   final String? heightPostLock;
   final String? widthPreLock;
@@ -29,7 +28,6 @@ class ArcaneFlexiCards extends StatelessWidget {
     this.gap = '1.5rem',
     this.minCardWidth = '200px',
     this.transitionDuration = 300,
-    this.expandLongTextOnHover = true,
     this.heightPreLock,
     this.heightPostLock,
     this.widthPreLock,
@@ -39,21 +37,22 @@ class ArcaneFlexiCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.flexiCards(FlexiCardsProps(
-      items: items,
-      collapsedFlex: collapsedFlex,
-      expandedFlex: expandedFlex,
-      scaleHeight: scaleHeight,
-      heightScaleFactor: heightScaleFactor,
-      gap: gap,
-      minCardWidth: minCardWidth,
-      transitionDuration: transitionDuration,
-      expandLongTextOnHover: expandLongTextOnHover,
-      heightPreLock: heightPreLock,
-      heightPostLock: heightPostLock,
-      widthPreLock: widthPreLock,
-      widthPostLock: widthPostLock,
-    ));
+    return context.renderers.flexiCards(
+      FlexiCardsProps(
+        items: items,
+        collapsedFlex: collapsedFlex,
+        expandedFlex: expandedFlex,
+        scaleHeight: scaleHeight,
+        heightScaleFactor: heightScaleFactor,
+        gap: gap,
+        minCardWidth: minCardWidth,
+        transitionDuration: transitionDuration,
+        heightPreLock: heightPreLock,
+        heightPostLock: heightPostLock,
+        widthPreLock: widthPreLock,
+        widthPostLock: widthPostLock,
+      ),
+    );
   }
 }
 
@@ -70,9 +69,8 @@ class ArcaneFlexiCardsSimple extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.flexiCardsSimple(FlexiCardsSimpleProps(
-      items: items,
-      gap: gap,
-    ));
+    return context.renderers.flexiCardsSimple(
+      FlexiCardsSimpleProps(items: items, gap: gap),
+    );
   }
 }

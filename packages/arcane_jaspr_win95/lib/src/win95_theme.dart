@@ -5,7 +5,7 @@ library;
 /// Modeled on the real "Appearance" color schemes shipped in the Windows 95
 /// Display control panel. Each scheme keeps the signature 3D silver control face
 /// (`#c0c0c0`) constant — the bevel shading is identical across schemes — and
-/// varies only the desktop backdrop and the title-bar gradient / selection color.
+/// varies only the desktop backdrop and the title-bar / selection color.
 /// The default [standard] is the iconic teal desktop with a navy title bar.
 ///
 /// Dark mode is a separate, period-accurate "High Contrast Black" scheme driven
@@ -67,10 +67,13 @@ enum Win95Theme {
   /// The desktop backdrop color (behind windows).
   final int desktop;
 
-  /// Title-bar gradient start (left).
+  /// The active title-bar color. Win95 captions are painted solid with this.
   final int titleStart;
 
-  /// Title-bar gradient end (right).
+  /// The scheme's companion caption color (`--w95-title-b`). Windows 95 never
+  /// blended the two — the navy-to-cyan caption gradient is a Windows 98
+  /// feature — so this only feeds the dark scheme's accent and any host that
+  /// redeclares `--w95-title-bar` as that later gradient.
   final int titleEnd;
 
   /// Selection / primary highlight color (menu selection, focused defaults).

@@ -3,6 +3,7 @@ import 'package:arcane_jaspr/flutter.dart';
 import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
 import '../../util/style_types/arcane_style_data.dart';
+import '../view/icon.dart';
 
 /// A tab component for switching between views.
 class ArcaneTabs extends StatefulWidget {
@@ -14,8 +15,7 @@ class ArcaneTabs extends StatefulWidget {
   /// Literal, theme-permeable style override (always applied, wins over theme).
   final ArcaneStyleData? styles;
 
-  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
-  /// fields honored-or-ignored per theme).
+  /// Semantic, theme-interpreted decoration.
   final ArcaneDecoration? decoration;
 
   const ArcaneTabs({
@@ -53,23 +53,27 @@ class _ArcaneTabsState extends State<ArcaneTabs> {
   @override
   Widget build(BuildContext context) {
     final List<TabItemProps> tabProps = component.tabs
-        .map((tab) => TabItemProps(
-              label: tab.label,
-              content: tab.content,
-              icon: tab.icon,
-              badge: tab.badge,
-              disabled: tab.disabled,
-            ))
+        .map(
+          (tab) => TabItemProps(
+            label: tab.label,
+            content: tab.content,
+            icon: tab.icon,
+            badge: tab.badge,
+            disabled: tab.disabled,
+          ),
+        )
         .toList();
 
-    return context.renderers.tabs(TabsProps(
-      tabs: tabProps,
-      selectedIndex: _selectedIndex,
-      onChanged: _selectTab,
-      fill: component.fill,
-      styles: component.styles,
-      decoration: component.decoration,
-    ));
+    return context.renderers.tabs(
+      TabsProps(
+        tabs: tabProps,
+        selectedIndex: _selectedIndex,
+        onChanged: _selectTab,
+        fill: component.fill,
+        styles: component.styles,
+        decoration: component.decoration,
+      ),
+    );
   }
 }
 
@@ -77,7 +81,7 @@ class _ArcaneTabsState extends State<ArcaneTabs> {
 class ArcaneTabItem {
   final String label;
   final Widget content;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final String? badge;
   final bool disabled;
 
@@ -100,8 +104,7 @@ class ArcaneTabBar extends StatelessWidget {
   /// Literal, theme-permeable style override (always applied, wins over theme).
   final ArcaneStyleData? styles;
 
-  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
-  /// fields honored-or-ignored per theme).
+  /// Semantic, theme-interpreted decoration.
   final ArcaneDecoration? decoration;
 
   const ArcaneTabBar({
@@ -117,30 +120,26 @@ class ArcaneTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<TabBarItemProps> tabProps = tabs
-        .map((tab) => TabBarItemProps(
-              label: tab.label,
-              icon: tab.icon,
-            ))
+        .map((tab) => TabBarItemProps(label: tab.label, icon: tab.icon))
         .toList();
 
-    return context.renderers.tabBar(TabBarProps(
-      tabs: tabProps,
-      selectedIndex: selectedIndex,
-      onChanged: onChanged,
-      fill: fill,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.tabBar(
+      TabBarProps(
+        tabs: tabProps,
+        selectedIndex: selectedIndex,
+        onChanged: onChanged,
+        fill: fill,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }
 
 /// A tab bar item.
 class ArcaneTabBarItem {
   final String label;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
 
-  const ArcaneTabBarItem({
-    required this.label,
-    this.icon,
-  });
+  const ArcaneTabBarItem({required this.label, this.icon});
 }

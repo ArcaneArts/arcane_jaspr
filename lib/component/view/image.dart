@@ -33,12 +33,14 @@ class Image extends StatelessWidget {
   Widget build(BuildContext context) => dom.img(
     src: src,
     alt: alt,
-    styles: dom.Styles(raw: <String, String>{
-      if (fillWidth) 'width': '100%',
-      if (width != null) 'width': '${width}px',
-      if (height != null) 'height': '${height}px',
-      if (cover) 'object-fit': 'cover',
-      'display': 'block',
-    }),
+    styles: dom.Styles(
+      raw: <String, String>{
+        if (fillWidth) 'width': '100%',
+        if (width != null) 'width': '${width}px',
+        if (height != null) 'height': '${height}px',
+        if (cover) 'object-fit': 'cover',
+        'display': 'block',
+      },
+    ),
   );
 }

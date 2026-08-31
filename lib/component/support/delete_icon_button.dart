@@ -8,8 +8,6 @@ class DeleteIconButton extends StatelessWidget {
   const DeleteIconButton({this.onPressed, super.key});
 
   @override
-  Widget build(BuildContext context) => IconButton.destructive(
-    icon: Icon(Icons.trash2),
-    onPressed: onPressed,
-  );
+  Widget build(BuildContext context) =>
+      IconButton.destructive(icon: Icons.trash2(), onPressed: onPressed);
 }

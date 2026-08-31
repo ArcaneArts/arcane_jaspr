@@ -96,7 +96,7 @@ class ArcaneToc extends StatelessWidget {
       classes: [classPrefix],
       styles: const ArcaneStyleData(
         padding: PaddingPreset.md,
-        borderRadius: Radius.lg,
+        borderRadius: Radius.md,
         background: Background.surface,
         border: BorderPreset.subtle,
       ),
@@ -112,7 +112,7 @@ class ArcaneToc extends StatelessWidget {
             letterSpacing: LetterSpacing.wide,
             textColor: TextColor.onSurfaceVariant,
             padding: PaddingPreset.bottomMd,
-            borderBottom: BorderPreset.subtle,
+            border: BorderPreset.subtle,
           ),
           children: [Text(title)],
         ),
@@ -156,7 +156,9 @@ class ArcaneToc extends StatelessWidget {
 
     return ArcaneDiv(
       classes: [
-        showTreeLines ? 'sidebar-tree-item sidebar-tree-leaf' : '$classPrefix-item'
+        showTreeLines
+            ? 'sidebar-tree-item sidebar-tree-leaf'
+            : '$classPrefix-item',
       ],
       children: [
         ArcaneLink(
@@ -182,7 +184,7 @@ class ArcaneToc extends StatelessWidget {
 /// CSS styles for ArcaneToc tree-line visual connectors.
 ///
 /// Include this in your stylesheet's baseCss for tree-line styling.
-/// Provides comprehensive tree visualization with proper vertical/horizontal
+/// Renders a tree with vertical and horizontal connector lines.
 /// line connectors, scrollbar styling, and active state highlighting.
 const String arcaneTocTreeLinesCss = '''
 /* ============================================

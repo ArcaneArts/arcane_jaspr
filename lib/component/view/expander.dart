@@ -14,9 +14,6 @@ class Expander extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => ArcaneDisclosure(
-    summary: header,
-    child: child,
-    open: open,
-  );
+  Widget build(BuildContext context) =>
+      ArcaneDisclosure(summary: header, child: child, open: open);
 }

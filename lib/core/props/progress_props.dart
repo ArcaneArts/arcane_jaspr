@@ -6,13 +6,7 @@ import '../decoration/arcane_decoration.dart';
 
 export '../shared/shared.dart' show ComponentSize;
 
-enum ProgressVariant {
-  primary,
-  success,
-  warning,
-  error,
-  info,
-}
+enum ProgressVariant { primary, success, warning, error, info }
 
 /// Progress bar component properties.
 class ProgressProps {

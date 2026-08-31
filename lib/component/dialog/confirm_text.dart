@@ -49,12 +49,12 @@ class _ConfirmTextState extends State<ConfirmText> {
       ],
     ),
     actions: <Widget>[
-      Button.ghost(onPressed: component.onCancel, child: const Text('Cancel')),
+      Button.ghost(onPressed: component.onCancel, label: 'Cancel'),
       Button.destructive(
         onPressed: _value == component.confirmPhrase
             ? () => component.onConfirm?.call(_value)
             : null,
-        child: const Text('Confirm'),
+        label: 'Confirm',
       ),
     ],
   );

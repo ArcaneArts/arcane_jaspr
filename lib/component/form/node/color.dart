@@ -22,31 +22,39 @@ class ArcaneColorField extends StatelessWidget {
   Widget build(BuildContext context) => ArcaneField<Color>(
     meta: ArcaneFieldMetadata(name: name, description: description),
     provider: provider,
-    builder: (BuildContext context, Color value, void Function(Color) onChanged) => ArcaneFieldWrapper(
-      labelText: name,
-      description: description,
-      field: Component.element(
-        tag: 'input',
-        attributes: <String, String>{
-          'type': 'color',
-          'value': value.hex.length == 9 ? value.hex.substring(0, 7) : value.hex,
-        },
-        styles: const dom.Styles(raw: <String, String>{
-          'width': '100%',
-          'height': '2.75rem',
-          'border': '1px solid var(--border)',
-          'border-radius': '0.75rem',
-          'background': 'var(--card)',
-        }),
-        events: <String, dynamic Function(dynamic)>{
-          'input': (dynamic event) {
-            final dynamic target = event.target;
-            onChanged(_colorFromHex((target.value as String?) ?? '#000000'));
-            return null;
-          },
-        },
-      ),
-    ),
+    builder:
+        (BuildContext context, Color value, void Function(Color) onChanged) =>
+            ArcaneFieldWrapper(
+              labelText: name,
+              description: description,
+              field: Component.element(
+                tag: 'input',
+                attributes: <String, String>{
+                  'type': 'color',
+                  'value': value.hex.length == 9
+                      ? value.hex.substring(0, 7)
+                      : value.hex,
+                },
+                styles: const dom.Styles(
+                  raw: <String, String>{
+                    'width': '100%',
+                    'height': '2.75rem',
+                    'border': '1px solid var(--border)',
+                    'border-radius': 'var(--radius-md)',
+                    'background': 'var(--card)',
+                  },
+                ),
+                events: <String, dynamic Function(dynamic)>{
+                  'input': (dynamic event) {
+                    final dynamic target = event.target;
+                    onChanged(
+                      _colorFromHex((target.value as String?) ?? '#000000'),
+                    );
+                    return null;
+                  },
+                },
+              ),
+            ),
   );
 }
 

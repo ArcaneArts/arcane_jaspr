@@ -140,31 +140,33 @@ class ArcaneSlotCounter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.slotCounter(SlotCounterProps(
-      minValue: minValue,
-      maxValue: maxValue,
-      fixedValue: fixedValue,
-      prefix: prefix,
-      suffix: suffix,
-      label: label,
-      spinDurationMs: spinDurationMs,
-      spinIntervalMs: spinIntervalMs,
-      basePauseSeconds: basePauseSeconds,
-      randomPauseSeconds: randomPauseSeconds,
-      autoStart: autoStart,
-      valueSize: valueSize,
-      affixSize: affixSize,
-      labelSize: labelSize,
-      valueColor: valueColor,
-      affixColor: affixColor,
-      labelColor: labelColor,
-      valueBold: valueBold,
-      monospace: monospace,
-      minDigits: minDigits,
-      onValueChange: onValueChange,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.slotCounter(
+      SlotCounterProps(
+        minValue: minValue,
+        maxValue: maxValue,
+        fixedValue: fixedValue,
+        prefix: prefix,
+        suffix: suffix,
+        label: label,
+        spinDurationMs: spinDurationMs,
+        spinIntervalMs: spinIntervalMs,
+        basePauseSeconds: basePauseSeconds,
+        randomPauseSeconds: randomPauseSeconds,
+        autoStart: autoStart,
+        valueSize: valueSize,
+        affixSize: affixSize,
+        labelSize: labelSize,
+        valueColor: valueColor,
+        affixColor: affixColor,
+        labelColor: labelColor,
+        valueBold: valueBold,
+        monospace: monospace,
+        minDigits: minDigits,
+        onValueChange: onValueChange,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }
 
@@ -185,12 +187,14 @@ class ArcaneSlotCounterRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.slotCounterRow(SlotCounterRowProps(
-      counters: counters,
-      gap: gap,
-      wrap: wrap,
-      justifyContent: justifyContent,
-    ));
+    return context.renderers.slotCounterRow(
+      SlotCounterRowProps(
+        counters: counters,
+        gap: gap,
+        wrap: wrap,
+        justifyContent: justifyContent,
+      ),
+    );
   }
 }
 
@@ -198,7 +202,6 @@ class ArcaneSlotCounterRow extends StatelessWidget {
 class ArcaneSlotCounterCard extends StatelessWidget {
   final SlotCounterProps counter;
   final String padding;
-  final String borderRadius;
   final bool showBorder;
   final bool showBackground;
 
@@ -211,7 +214,6 @@ class ArcaneSlotCounterCard extends StatelessWidget {
   const ArcaneSlotCounterCard({
     required this.counter,
     this.padding = '1rem',
-    this.borderRadius = '0.375rem',
     this.showBorder = false,
     this.showBackground = false,
     this.styles,
@@ -221,14 +223,15 @@ class ArcaneSlotCounterCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.slotCounterCard(SlotCounterCardProps(
-      counter: counter,
-      padding: padding,
-      borderRadius: borderRadius,
-      showBorder: showBorder,
-      showBackground: showBackground,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.slotCounterCard(
+      SlotCounterCardProps(
+        counter: counter,
+        padding: padding,
+        showBorder: showBorder,
+        showBackground: showBackground,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }

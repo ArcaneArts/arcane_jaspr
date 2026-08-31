@@ -20,10 +20,12 @@ class ArcaneBoolField extends StatelessWidget {
   Widget build(BuildContext context) => ArcaneField<bool>(
     meta: ArcaneFieldMetadata(name: name, description: description),
     provider: provider,
-    builder: (BuildContext context, bool value, void Function(bool) onChanged) => ArcaneFieldWrapper(
-      labelText: name,
-      description: description,
-      field: ArcaneCheckbox(checked: value, onChanged: onChanged),
-    ),
+    builder:
+        (BuildContext context, bool value, void Function(bool) onChanged) =>
+            ArcaneFieldWrapper(
+              labelText: name,
+              description: description,
+              field: ArcaneCheckbox(checked: value, onChanged: onChanged),
+            ),
   );
 }

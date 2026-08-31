@@ -7,10 +7,10 @@ Use familiar Dart widget structure, keep semantic HTML output, and only drop to 
 
 ```yaml
 dependencies:
-  arcane_jaspr: ^3.3.0
-  arcane_jaspr_shadcn: ^3.3.0
-  arcane_jaspr_neon: ^3.3.0
-  arcane_jaspr_neubrutalism: ^3.3.0
+  arcane_jaspr: ^4.0.0
+  arcane_jaspr_shadcn: ^4.0.0
+  arcane_jaspr_neon: ^4.0.0
+  arcane_jaspr_neubrutalism: ^4.0.0
 ```
 
 `arcane_jaspr` is the core package. Add one or more renderer packages

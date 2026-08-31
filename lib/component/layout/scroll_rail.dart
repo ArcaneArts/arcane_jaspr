@@ -2,7 +2,8 @@ import 'package:arcane_jaspr/flutter.dart';
 
 import '../../core/theme_provider.dart';
 
-export '../../core/props/scroll_rail_props.dart' show ScrollRailPosition, ScrollRailSize;
+export '../../core/props/scroll_rail_props.dart'
+    show ScrollRailPosition, ScrollRailSize;
 
 /// A scrollable sidebar rail that maintains position independently of page scroll.
 class ArcaneScrollRail extends StatelessWidget {
@@ -63,19 +64,21 @@ class ArcaneScrollRail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.scrollRail(ScrollRailProps(
-      position: position,
-      size: size,
-      width: width,
-      topOffset: topOffset,
-      bottomOffset: bottomOffset,
-      showBorder: showBorder,
-      background: background,
-      padding: padding,
-      customScrollbar: customScrollbar,
-      scrollPersistenceId: scrollPersistenceId,
-      children: children,
-    ));
+    return context.renderers.scrollRail(
+      ScrollRailProps(
+        position: position,
+        size: size,
+        width: width,
+        topOffset: topOffset,
+        bottomOffset: bottomOffset,
+        showBorder: showBorder,
+        background: background,
+        padding: padding,
+        customScrollbar: customScrollbar,
+        scrollPersistenceId: scrollPersistenceId,
+        children: children,
+      ),
+    );
   }
 }
 
@@ -106,16 +109,18 @@ class ArcaneScrollRailLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.scrollRailLayout(ScrollRailLayoutProps(
-      rail: rail,
-      child: child,
-      railPosition: railPosition,
-      railSize: railSize,
-      railWidth: railWidth,
-      headerHeight: headerHeight,
-      showBorder: showBorder,
-      railBackground: railBackground,
-      contentBackground: contentBackground,
-    ));
+    return context.renderers.scrollRailLayout(
+      ScrollRailLayoutProps(
+        rail: rail,
+        child: child,
+        railPosition: railPosition,
+        railSize: railSize,
+        railWidth: railWidth,
+        headerHeight: headerHeight,
+        showBorder: showBorder,
+        railBackground: railBackground,
+        contentBackground: contentBackground,
+      ),
+    );
   }
 }

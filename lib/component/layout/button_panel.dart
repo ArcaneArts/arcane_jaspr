@@ -26,13 +26,15 @@ class ButtonPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.buttonPanel(ButtonPanelProps(
-      children: children,
-      mainAxisAlignment: mainAxisAlignment,
-      gap: gap,
-      responsive: responsive,
-      padding: padding,
-    ));
+    return context.renderers.buttonPanel(
+      ButtonPanelProps(
+        children: children,
+        mainAxisAlignment: mainAxisAlignment,
+        gap: gap,
+        responsive: responsive,
+        padding: padding,
+      ),
+    );
   }
 }
 
@@ -63,15 +65,17 @@ class ArcaneToolbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.toolbar(ToolbarProps(
-      children: children,
-      mainAxisAlignment: mainAxisAlignment,
-      crossAxisAlignment: crossAxisAlignment,
-      gap: gap,
-      padding: padding,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.toolbar(
+      ToolbarProps(
+        children: children,
+        mainAxisAlignment: mainAxisAlignment,
+        crossAxisAlignment: crossAxisAlignment,
+        gap: gap,
+        padding: padding,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }
 
@@ -90,10 +94,12 @@ class ButtonGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.buttonGroup(ButtonGroupProps(
-      children: children,
-      vertical: vertical,
-      spacing: spacing,
-    ));
+    return context.renderers.buttonGroup(
+      ButtonGroupProps(
+        children: children,
+        vertical: vertical,
+        spacing: spacing,
+      ),
+    );
   }
 }

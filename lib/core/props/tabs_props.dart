@@ -1,4 +1,5 @@
 import 'package:arcane_jaspr/flutter.dart';
+import '../../component/view/icon.dart';
 
 import '../../util/style_types/arcane_style_data.dart';
 import '../decoration/arcane_decoration.dart';
@@ -7,7 +8,7 @@ import '../decoration/arcane_decoration.dart';
 class TabItemProps {
   final String label;
   final Widget content;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final String? badge;
   final bool disabled;
 
@@ -23,12 +24,9 @@ class TabItemProps {
 /// Tab bar item data.
 class TabBarItemProps {
   final String label;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
 
-  const TabBarItemProps({
-    required this.label,
-    this.icon,
-  });
+  const TabBarItemProps({required this.label, this.icon});
 }
 
 /// Tabs component properties.
@@ -41,8 +39,7 @@ class TabsProps {
   /// Literal, theme-permeable style override (always applied, wins over theme).
   final ArcaneStyleData? styles;
 
-  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
-  /// fields honored-or-ignored per theme).
+  /// Semantic, theme-interpreted decoration.
   final ArcaneDecoration? decoration;
 
   const TabsProps({
@@ -83,8 +80,7 @@ class TabBarProps {
   /// Literal, theme-permeable style override (always applied, wins over theme).
   final ArcaneStyleData? styles;
 
-  /// Semantic, theme-interpreted decoration (elevation intent + theme-specific
-  /// fields honored-or-ignored per theme).
+  /// Semantic, theme-interpreted decoration.
   final ArcaneDecoration? decoration;
 
   const TabBarProps({

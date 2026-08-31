@@ -11,10 +11,7 @@ class MenubarMenuProps {
   final String label;
   final List<ArcaneMenuItem> items;
 
-  const MenubarMenuProps({
-    required this.label,
-    required this.items,
-  });
+  const MenubarMenuProps({required this.label, required this.items});
 }
 
 /// Menubar component properties.

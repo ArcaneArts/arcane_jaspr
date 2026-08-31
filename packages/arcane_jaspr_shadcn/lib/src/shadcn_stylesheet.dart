@@ -12,7 +12,7 @@ import 'shadcn_theme.dart';
 /// - Rounded corners (0.5rem default radius)
 /// - Minimal shadows
 /// - Border-focused design
-/// - Inter font (via Google Fonts)
+/// - Product fonts supplied by committed site assets
 /// - Accessible, clean aesthetic
 ///
 /// Supports multiple color themes via [ShadcnTheme].
@@ -73,15 +73,10 @@ class ShadcnStylesheet extends ArcaneStylesheet {
 
   @override
   FontConfig get fonts => const FontConfig(
-    sans:
-        "'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-    mono: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+    sans: "'Akzidenz-GroteskPro'",
+    heading: "'ITCAvantGardeStd'",
+    mono: "'Hack'",
   );
-
-  @override
-  List<String> get externalCssUrls => const [
-    'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
-  ];
 
   @override
   String get bodyClass => 'shadcn-${theme.name}';

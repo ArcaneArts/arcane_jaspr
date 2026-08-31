@@ -16,7 +16,9 @@ class Collection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Column(
-    crossAxisAlignment: fillWidth ? CrossAxisAlignment.stretch : CrossAxisAlignment.start,
+    crossAxisAlignment: fillWidth
+        ? CrossAxisAlignment.stretch
+        : CrossAxisAlignment.start,
     gap: gap,
     children: children,
   );

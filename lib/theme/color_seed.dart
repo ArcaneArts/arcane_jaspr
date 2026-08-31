@@ -40,12 +40,6 @@ class ThemeSeed {
   /// Affects how derived colors are calculated.
   final bool isDark;
 
-  /// Whether to add accent glow to shadows (for gaming aesthetics).
-  final bool accentGlow;
-
-  /// Optional accent glow color. If null, uses primary.
-  final int? glowColor;
-
   const ThemeSeed({
     required this.primary,
     this.background,
@@ -57,8 +51,6 @@ class ThemeSeed {
     this.warning = 0xFFf59e0b,
     this.info = 0xFF3b82f6,
     this.isDark = false,
-    this.accentGlow = false,
-    this.glowColor,
   });
 
   /// Create a dark mode variant of this seed.
@@ -72,7 +64,6 @@ class ThemeSeed {
     int? success,
     int? warning,
     int? info,
-    bool? accentGlow,
   }) {
     return ThemeSeed(
       primary: primary,
@@ -85,8 +76,6 @@ class ThemeSeed {
       warning: warning ?? 0xFF92400e,
       info: info ?? 0xFF1e40af,
       isDark: true,
-      accentGlow: accentGlow ?? this.accentGlow,
-      glowColor: glowColor,
     );
   }
 
@@ -102,8 +91,6 @@ class ThemeSeed {
     int? warning,
     int? info,
     bool? isDark,
-    bool? accentGlow,
-    int? glowColor,
   }) {
     return ThemeSeed(
       primary: primary ?? this.primary,
@@ -116,8 +103,6 @@ class ThemeSeed {
       warning: warning ?? this.warning,
       info: info ?? this.info,
       isDark: isDark ?? this.isDark,
-      accentGlow: accentGlow ?? this.accentGlow,
-      glowColor: glowColor ?? this.glowColor,
     );
   }
 }

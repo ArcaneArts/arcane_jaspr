@@ -37,10 +37,8 @@ class Selector<T> extends StatelessWidget {
     onChangedAction: onChangedAction,
     options: values
         .map(
-          (T entry) => ComboboxOption<T>(
-            value: entry,
-            label: labelBuilder(entry),
-          ),
+          (T entry) =>
+              ComboboxOption<T>(value: entry, label: labelBuilder(entry)),
         )
         .toList(),
   );

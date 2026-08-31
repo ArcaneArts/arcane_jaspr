@@ -7,6 +7,12 @@
 /// gallery, and suppress the link click that follows a completed drag. Focused
 /// tiles can be moved with Shift+Arrow and announce the result to assistive
 /// technology.
+///
+/// Galleries rendered under the Windows 95 theme drag in the period-correct
+/// OUTLINE mode instead: a single wireframe rectangle tracks the pointer while
+/// the tile stays put, the move commits on release, and the press marks the
+/// grabbed tile active (`data-w95-active`) so the theme can flip its caption.
+/// Every other theme keeps the live full-content translate unchanged.
 class GalleryDragScripts {
   GalleryDragScripts._();
 
@@ -20,6 +26,18 @@ class GalleryDragScripts {
   const HANDLE_SELECTOR = '[data-arcane-drag-handle="true"]';
   const DRAG_THRESHOLD_PX = 6;
   const CLICK_SUPPRESSION_MS = 500;
+  // Windows 95 dragged windows in OUTLINE mode by default: the window itself
+  // stayed put while a single wireframe of its bounds tracked the pointer, and
+  // the move committed once, on release. Galleries inside the win95 theme use
+  // that model; every other theme keeps the live full-content translate.
+  const OUTLINE_THEME_SELECTOR = '.arcane-theme-win95';
+  const OUTLINE_CLASS = 'arcane-gallery-drag-outline';
+  // Win95's SM_CXDRAG / SM_CYDRAG: 4 pixels, compared per axis rather than as
+  // a radius, so a straight nudge starts the drag as readily as a diagonal one.
+  const OUTLINE_DRAG_THRESHOLD_PX = 4;
+  // Pressing a caption ACTIVATED that window, flipping its caption to the
+  // active color and every other window's to the inactive one.
+  const OUTLINE_ACTIVE_ATTRIBUTE = 'data-w95-active';
   const INTERACTIVE_SELECTOR =
     'a[href],button,input,textarea,select,option,summary,[contenteditable="true"],' +
     '[role="button"],[role="link"],[tabindex]';
@@ -33,6 +51,17 @@ class GalleryDragScripts {
 
   function crossedThreshold(deltaX, deltaY) {
     return Math.hypot(deltaX, deltaY) >= DRAG_THRESHOLD_PX;
+  }
+
+  function crossedOutlineThreshold(deltaX, deltaY) {
+    return (
+      Math.abs(deltaX) >= OUTLINE_DRAG_THRESHOLD_PX ||
+      Math.abs(deltaY) >= OUTLINE_DRAG_THRESHOLD_PX
+    );
+  }
+
+  function usesOutlineDrag(gallery) {
+    return !!gallery?.closest?.(OUTLINE_THEME_SELECTOR);
   }
 
   function clamp(value, minimum, maximum) {
@@ -119,6 +148,36 @@ class GalleryDragScripts {
     if (gallery && key) {
       offsetStoreFor(gallery).set(key, { x, y });
     }
+  }
+
+  // The outline lives inside the gallery so theme CSS can reach it, is fixed to
+  // the viewport (the bounds it mirrors are viewport coordinates), and carries
+  // no attribute the packer looks for, so layout ignores it.
+  function createDragOutline(gallery) {
+    const outline = document.createElement('div');
+    outline.className = OUTLINE_CLASS;
+    outline.setAttribute('aria-hidden', 'true');
+    gallery.appendChild(outline);
+    return outline;
+  }
+
+  function positionDragOutline(outline, rect, deltaX, deltaY) {
+    if (!outline) {
+      return;
+    }
+    outline.style.left = `${Math.round(rect.left + deltaX)}px`;
+    outline.style.top = `${Math.round(rect.top + deltaY)}px`;
+    outline.style.width = `${Math.round(rect.width)}px`;
+    outline.style.height = `${Math.round(rect.height)}px`;
+  }
+
+  function activateItem(gallery, item) {
+    gallery.querySelectorAll(ITEM_SELECTOR).forEach((candidate) => {
+      candidate.setAttribute(
+        OUTLINE_ACTIVE_ATTRIBUTE,
+        candidate === item ? 'true' : 'false',
+      );
+    });
   }
 
   function dragInsetFor(gallery) {
@@ -296,8 +355,23 @@ class GalleryDragScripts {
     }
     const current = active;
     active = null;
-    const { item, gallery, dragging, origin } = current;
-    if (cancelled && dragging) {
+    const {
+      item,
+      gallery,
+      dragging,
+      origin,
+      outline,
+      outlineDrag,
+      pending,
+    } = current;
+    outline?.remove?.();
+    if (dragging && outlineDrag) {
+      // The window never left its place: the drop is the only repaint, and a
+      // cancelled drag simply discards the wireframe.
+      if (!cancelled && pending) {
+        writeOffset(item, pending);
+      }
+    } else if (cancelled && dragging) {
       writeOffset(item, origin);
     }
     try {
@@ -343,8 +417,13 @@ class GalleryDragScripts {
         return;
       }
       const origin = offsetFor(target.item);
+      const outlineDrag = usesOutlineDrag(target.gallery);
       target.item.setAttribute('draggable', 'false');
+      // Activation is a mousedown effect, independent of any drag following.
       target.item.style.zIndex = String(++zOrder);
+      if (outlineDrag) {
+        activateItem(target.gallery, target.item);
+      }
       active = {
         ...target,
         pointerId: event.pointerId,
@@ -354,6 +433,9 @@ class GalleryDragScripts {
         galleryRect: target.gallery.getBoundingClientRect(),
         origin,
         dragging: false,
+        outlineDrag,
+        outline: null,
+        pending: null,
       };
       try {
         target.item.setPointerCapture(event.pointerId);
@@ -373,26 +455,41 @@ class GalleryDragScripts {
       const deltaX = event.clientX - active.startX;
       const deltaY = event.clientY - active.startY;
       if (!active.dragging) {
-        if (!crossedThreshold(deltaX, deltaY)) {
+        const crossed = active.outlineDrag
+          ? crossedOutlineThreshold(deltaX, deltaY)
+          : crossedThreshold(deltaX, deltaY);
+        if (!crossed) {
           return;
         }
         active.dragging = true;
         active.item.classList.add('is-arcane-gallery-dragging');
         active.gallery.classList.add('is-arcane-gallery-drag-active');
+        if (active.outlineDrag) {
+          active.outline = createDragOutline(active.gallery);
+        }
       }
       event.preventDefault();
-      writeOffset(
-        active.item,
-        clampOffset({
-          originX: active.origin.x,
-          originY: active.origin.y,
-          deltaX,
-          deltaY,
-          itemRect: active.startRect,
-          galleryRect: active.galleryRect,
-          inset: dragInsetFor(active.gallery),
-        }),
-      );
+      const next = clampOffset({
+        originX: active.origin.x,
+        originY: active.origin.y,
+        deltaX,
+        deltaY,
+        itemRect: active.startRect,
+        galleryRect: active.galleryRect,
+        inset: dragInsetFor(active.gallery),
+      });
+      if (active.outlineDrag) {
+        // Only the wireframe moves; the tile is repositioned by finishDrag.
+        active.pending = next;
+        positionDragOutline(
+          active.outline,
+          active.startRect,
+          next.x - active.origin.x,
+          next.y - active.origin.y,
+        );
+        return;
+      }
+      writeOffset(active.item, next);
     },
     true,
   );
@@ -444,7 +541,9 @@ class GalleryDragScripts {
     'keydown',
     (event) => {
       if (active && event.key === 'Escape') {
-        writeOffset(active.item, active.origin);
+        if (!active.outlineDrag) {
+          writeOffset(active.item, active.origin);
+        }
         finishDrag(active.pointerId, true);
         event.preventDefault();
         return;

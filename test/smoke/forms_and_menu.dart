@@ -57,7 +57,7 @@ class _FormsAndMenuExampleState extends State<FormsAndMenuExample> {
             MenuItemSeparator(),
             MenuItemAction(label: 'Delete', destructive: true),
           ],
-          child: IconButton(icon: Icon(Icons.moreHorizontal)),
+          child: IconButton(icon: Icons.moreHorizontal()),
         ),
       ],
       child: Collection(

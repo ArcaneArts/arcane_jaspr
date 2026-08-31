@@ -64,19 +64,6 @@ class _ArcaneAppState extends State<ArcaneApp> {
       );
     }
 
-    for (String url in stylesheet.externalCssUrls) {
-      if (url.contains('fonts.googleapis.com')) {
-        headElements.addAll([
-          HeadElementData.preconnect('https://fonts.googleapis.com'),
-          HeadElementData.preconnect(
-            'https://fonts.gstatic.com',
-            crossorigin: true,
-          ),
-        ]);
-      }
-      headElements.add(HeadElementData.link(url));
-    }
-
     final String baseCss = stylesheet.baseCss;
     if (baseCss.isNotEmpty) {
       headElements.add(HeadElementData.style(baseCss));

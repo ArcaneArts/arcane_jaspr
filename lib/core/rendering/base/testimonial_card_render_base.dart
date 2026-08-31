@@ -42,7 +42,7 @@ abstract class TestimonialCardRenderBase extends StatelessComponent {
         'color': 'var(--card-foreground)',
         'border': '1px solid var(--border)',
         if (props.showAccentBorder) 'border-color': accent,
-        'border-radius': 'var(--radius, 0.5rem)',
+        'border-radius': '8px',
         'width': '100%',
       },
       <Map<String, String>?>[
@@ -56,6 +56,9 @@ abstract class TestimonialCardRenderBase extends StatelessComponent {
 
     return dom.div(
       classes: cssClass,
+      attributes: const <String, String>{
+        'data-arcane-surface': 'testimonial-card',
+      },
       styles: dom.Styles(raw: rootStyles),
       <Component>[
         // Quote block.
@@ -72,7 +75,7 @@ abstract class TestimonialCardRenderBase extends StatelessComponent {
               dom.span(
                 styles: dom.Styles(
                   raw: <String, String>{
-                    'font-family': 'Georgia, "Times New Roman", serif',
+                    'font-family': 'var(--font-heading)',
                     'font-size': '2.5rem',
                     'line-height': '1',
                     'font-weight': '700',
@@ -183,11 +186,14 @@ abstract class TestimonialCardRenderBase extends StatelessComponent {
       return dom.img(
         src: props.avatarUrl!,
         alt: props.authorName,
+        attributes: const <String, String>{
+          'data-arcane-intrinsic-shape': 'avatar',
+        },
         styles: const dom.Styles(
           raw: <String, String>{
             'width': '2.5rem',
             'height': '2.5rem',
-            'border-radius': '9999px',
+            'border-radius': '50%',
             'object-fit': 'cover',
             'flex-shrink': '0',
           },
@@ -195,6 +201,9 @@ abstract class TestimonialCardRenderBase extends StatelessComponent {
       );
     }
     return dom.div(
+      attributes: const <String, String>{
+        'data-arcane-intrinsic-shape': 'avatar',
+      },
       styles: dom.Styles(
         raw: <String, String>{
           'display': 'inline-flex',
@@ -202,7 +211,7 @@ abstract class TestimonialCardRenderBase extends StatelessComponent {
           'justify-content': 'center',
           'width': '2.5rem',
           'height': '2.5rem',
-          'border-radius': '9999px',
+          'border-radius': '50%',
           'flex-shrink': '0',
           'background-color': 'color-mix(in srgb, $accent 15%, transparent)',
           'color': accent,

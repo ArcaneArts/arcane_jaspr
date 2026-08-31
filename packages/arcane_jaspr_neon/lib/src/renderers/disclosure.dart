@@ -17,12 +17,33 @@ class NeonDisclosure extends DisclosureRenderBase {
 
   @override
   Map<String, String> summaryStyles(DisclosureVariant variant) =>
-      const <String, String>{};
+      const <String, String>{
+        'display': 'flex',
+        'align-items': 'center',
+        'justify-content': 'space-between',
+        'gap': 'var(--space-4)',
+        'cursor': 'pointer',
+        'list-style': 'none',
+        '-webkit-user-select': 'none',
+        'user-select': 'none',
+      };
 
   @override
-  Component buildChevron() => const dom.span(
+  Component buildChevron() => const Component.element(
+    tag: 'span',
     classes: 'neon-disclosure-chevron',
-    <Component>[Component.text('▼')],
+    attributes: <String, String>{'aria-hidden': 'true'},
+    styles: dom.Styles(
+      raw: <String, String>{
+        'display': 'inline-block',
+        'flex': '0 0 auto',
+        'font-size': '1rem',
+        'font-weight': '400',
+        'line-height': '1',
+        'transform-origin': 'center',
+      },
+    ),
+    children: <Component>[Component.text('+')],
   );
 
   @override

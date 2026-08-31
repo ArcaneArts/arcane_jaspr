@@ -10,8 +10,8 @@ hidden: true
 <section class="kb-landing-hero">
   <div class="kb-landing-hero-copy">
     <div class="kb-landing-kicker">Arcane Lexicon</div>
-    <h1>Documentation with a real front door.</h1>
-    <p>Arcane Jaspr docs now open like a product surface instead of a component inventory. Start with the authoring model, jump into the current components, or follow the styling system from tokens to finished pages.</p>
+    <h1>Arcane Jaspr documentation.</h1>
+    <p>Start with the authoring model, open the component catalog, or follow the styling system from tokens to finished pages.</p>
     <div class="kb-landing-actions">
       <a class="kb-landing-primary" href="/docs/quick-start">Quick Start</a>
       <a class="kb-landing-secondary" href="/docs/components-catalog">Browse Components</a>

@@ -27,8 +27,6 @@ abstract class ArcaneStylesheet {
 
   RadiusConfig get radius => const RadiusConfig();
 
-  List<String> get externalCssUrls => const [];
-
   String get fontFaces => '';
 
   String get componentCss => '';

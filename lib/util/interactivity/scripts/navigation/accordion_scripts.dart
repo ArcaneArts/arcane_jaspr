@@ -4,7 +4,7 @@ class AccordionScripts {
 
   static const String code = r'''
   function bindExpandersAccordions() {
-    document.querySelectorAll('.arcane-expander-header, .arcane-accordion-header, button[aria-expanded]').forEach(function(header) {
+    document.querySelectorAll('.arcane-expander-header, .arcane-accordion-header').forEach(function(header) {
       if (header.dataset.arcaneInteractive) return;
       header.dataset.arcaneInteractive = 'true';
 

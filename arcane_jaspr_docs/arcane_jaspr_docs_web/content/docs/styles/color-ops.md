@@ -6,7 +6,7 @@ layout: kb
 
 # Color Operations
 
-`ArcaneColorOps` is an extension on `String` that adds opacity and blend helpers to any CSS color. Colors cross the styling boundary as raw strings — a hex value, a theme variable, an `ArcaneColor.*.css` token, or a runtime accent — and these helpers work for every one of those forms.
+`ArcaneColorOps` is an extension on `String` that adds opacity and blend helpers to CSS colors. It accepts hex values, theme variables, `ArcaneColor.*.css` tokens, and runtime accents.
 
 Source: `lib/util/style_types/colors.dart`
 
@@ -62,7 +62,7 @@ Use it to darken or tint a surface without introducing transparency:
 
 ## Using it in components
 
-The helpers return plain CSS strings, so they slot directly into any field that takes a color string — decoration colors, `styles:` raw maps, and the `accentColor` fields on the card family:
+The helpers return plain CSS strings for decoration colors, `styles:` raw maps, and the card family's `accentColor` fields:
 
 ```dart
 Card(

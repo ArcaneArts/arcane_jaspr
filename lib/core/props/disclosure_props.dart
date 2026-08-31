@@ -3,12 +3,7 @@ import 'package:arcane_jaspr/flutter.dart';
 import '../../util/style_types/arcane_style_data.dart';
 import '../decoration/arcane_decoration.dart';
 
-enum DisclosureVariant {
-  default_,
-  minimal,
-  bordered,
-  filled,
-}
+enum DisclosureVariant { default_, minimal, bordered, filled }
 
 /// Disclosure component properties.
 class DisclosureProps {

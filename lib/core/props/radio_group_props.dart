@@ -1,20 +1,12 @@
 import 'package:arcane_jaspr/flutter.dart';
+import '../../component/view/icon.dart';
 import '../interaction/interaction.dart';
 import '../../util/style_types/arcane_style_data.dart';
 import '../decoration/arcane_decoration.dart';
 
-enum RadioGroupLayout {
-  vertical,
-  horizontal,
-  grid,
-}
+enum RadioGroupLayout { vertical, horizontal, grid }
 
-enum RadioGroupVariant {
-  standard,
-  cards,
-  buttons,
-  chips,
-}
+enum RadioGroupVariant { standard, cards, buttons }
 
 /// Radio option data.
 class RadioOptionProps<T> {
@@ -22,7 +14,7 @@ class RadioOptionProps<T> {
   final String label;
   final String? description;
   final bool disabled;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final String? id;
 
   const RadioOptionProps({

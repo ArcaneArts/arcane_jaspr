@@ -22,6 +22,7 @@ Component _interactiveSurface({
       classes: cssClass,
       href: href,
       attributes: <String, String>{
+        'data-arcane-surface': 'feature-card',
         if (isExternal) 'target': '_blank',
         if (isExternal) 'rel': 'noopener noreferrer',
       },
@@ -36,6 +37,7 @@ Component _interactiveSurface({
     return dom.button(
       type: dom.ButtonType.button,
       classes: '$cssClass clickable',
+      attributes: const <String, String>{'data-arcane-surface': 'feature-card'},
       styles: dom.Styles(
         raw: <String, String>{
           // Button UA resets are defaults that theme/decoration/styles must be
@@ -51,6 +53,7 @@ Component _interactiveSurface({
   }
   return dom.div(
     classes: cssClass,
+    attributes: const <String, String>{'data-arcane-surface': 'feature-card'},
     styles: dom.Styles(raw: styles),
     children,
   );
@@ -58,8 +61,8 @@ Component _interactiveSurface({
 
 /// Shared structural base for themed feature-card renderers.
 ///
-/// A feature card is a marketing/navigation surface: an optional accent-tinted
-/// icon badge, a bold title, a muted description, and an optional call-to-action
+/// A feature card is a marketing/navigation surface: an optional icon, a bold
+/// title, a muted description, and an optional call-to-action
 /// row. It lays out vertically by default and horizontally when
 /// [FeatureCardProps.horizontal] is set. When [FeatureCardProps.href] is set the
 /// whole card becomes an anchor; otherwise [FeatureCardProps.onTap] makes it a
@@ -98,7 +101,7 @@ abstract class FeatureCardRenderBase extends StatelessComponent {
         'color': 'var(--card-foreground)',
         'border': '1px solid var(--border)',
         'border-color': ?accent,
-        'border-radius': 'var(--radius, 0.5rem)',
+        'border-radius': '8px',
         'width': '100%',
         'box-sizing': 'border-box',
         'text-decoration': 'none',
@@ -150,19 +153,7 @@ abstract class FeatureCardRenderBase extends StatelessComponent {
               'color': accent ?? 'var(--primary)',
             },
           ),
-          <Component>[
-            Component.text(ctaLabel),
-            if (props.showArrow)
-              const dom.span(
-                styles: dom.Styles(
-                  raw: <String, String>{
-                    'font-size': '1.05em',
-                    'line-height': '1',
-                  },
-                ),
-                <Component>[Component.text('→')],
-              ),
-          ],
+          <Component>[Component.text(ctaLabel)],
         ),
     ];
 
@@ -170,17 +161,14 @@ abstract class FeatureCardRenderBase extends StatelessComponent {
       if (props.icon != null)
         dom.div(
           classes: '$cssClass-icon',
+          attributes: const <String, String>{
+            'data-arcane-semantic-icon': 'leading',
+          },
           styles: dom.Styles(
             raw: <String, String>{
               'display': 'inline-flex',
               'align-items': 'center',
-              'justify-content': 'center',
-              'width': '2.75rem',
-              'height': '2.75rem',
-              'border-radius': '0.75rem',
               'flex-shrink': '0',
-              'background-color':
-                  'color-mix(in srgb, ${accent ?? 'var(--primary)'} 12%, transparent)',
               'color': accent ?? 'var(--primary)',
               'font-size': '1.25rem',
             },
@@ -214,7 +202,7 @@ abstract class FeatureCardRenderBase extends StatelessComponent {
 
 /// Shared structural base for themed icon-card renderers.
 ///
-/// An icon card is a compact row: an accent-tinted icon badge, a bold title, and
+/// An icon card is a compact row: an icon, a bold title, and
 /// an optional muted subtitle. It becomes an anchor when [IconCardProps.href] is
 /// set or a clickable button when [IconCardProps.onTap] is set. Secondary
 /// surface — no decoration/styles seam.
@@ -238,13 +226,7 @@ abstract class IconCardRenderBase extends StatelessComponent {
           raw: <String, String>{
             'display': 'inline-flex',
             'align-items': 'center',
-            'justify-content': 'center',
-            'width': '2.25rem',
-            'height': '2.25rem',
-            'border-radius': '0.5rem',
             'flex-shrink': '0',
-            'background-color':
-                'color-mix(in srgb, var(--primary) 12%, transparent)',
             'color': 'var(--primary)',
             'font-size': '1.1rem',
           },
@@ -295,7 +277,7 @@ abstract class IconCardRenderBase extends StatelessComponent {
       'background-color': 'var(--card)',
       'color': 'var(--card-foreground)',
       'border': '1px solid var(--border)',
-      'border-radius': 'var(--radius, 0.5rem)',
+      'border-radius': '8px',
       'width': '100%',
       'box-sizing': 'border-box',
       'text-decoration': 'none',

@@ -3,17 +3,12 @@ import 'package:jaspr/jaspr.dart';
 import '../../util/style_types/arcane_style_data.dart';
 import '../decoration/arcane_decoration.dart';
 
-enum SkeletonShape {
-  rectangle,
-  circle,
-  text,
-}
+enum SkeletonShape { rectangle, circle, text }
 
 /// Skeleton component properties.
 class SkeletonProps {
   final String? width;
   final String? height;
-  final String? borderRadius;
   final SkeletonShape shape;
   final bool animate;
 
@@ -27,7 +22,6 @@ class SkeletonProps {
   const SkeletonProps({
     this.width,
     this.height,
-    this.borderRadius,
     this.shape = SkeletonShape.rectangle,
     this.animate = true,
     this.styles,
@@ -37,7 +31,6 @@ class SkeletonProps {
   SkeletonProps copyWith({
     String? width,
     String? height,
-    String? borderRadius,
     SkeletonShape? shape,
     bool? animate,
     ArcaneStyleData? styles,
@@ -46,7 +39,6 @@ class SkeletonProps {
     return SkeletonProps(
       width: width ?? this.width,
       height: height ?? this.height,
-      borderRadius: borderRadius ?? this.borderRadius,
       shape: shape ?? this.shape,
       animate: animate ?? this.animate,
       styles: styles ?? this.styles,

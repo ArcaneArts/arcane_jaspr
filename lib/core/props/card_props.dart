@@ -2,9 +2,10 @@ import 'package:arcane_jaspr/flutter.dart';
 
 import '../../util/arcane.dart';
 import '../../util/style_types/arcane_style_data.dart';
+import '../../util/style_types/borders.dart';
 import '../decoration/arcane_decoration.dart';
 
-enum CardVariant { elevated, flat, outlined, ghost, glass, interactive }
+enum CardVariant { elevated, flat, outlined, ghost, interactive }
 
 /// Card component properties.
 class CardProps {
@@ -12,7 +13,7 @@ class CardProps {
   final List<Widget>? children;
   final CardVariant variant;
   final EdgeInsets? padding;
-  final BorderRadius? borderRadius;
+  final Radius? borderRadius;
   final String? backgroundColor;
   final bool fillWidth;
 
@@ -78,7 +79,7 @@ class CardProps {
     List<Widget>? children,
     CardVariant? variant,
     EdgeInsets? padding,
-    BorderRadius? borderRadius,
+    Radius? borderRadius,
     String? backgroundColor,
     bool? fillWidth,
     void Function()? onTap,

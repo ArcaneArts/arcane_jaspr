@@ -1,5 +1,15 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
+import 'package:jaspr/jaspr.dart'
+    hide
+        BuildContext,
+        InheritedComponent,
+        Key,
+        State,
+        StatefulComponent,
+        StatelessComponent,
+        UniqueKey,
+        ValueKey,
+        runApp;
 import 'package:jaspr/dom.dart' as dom;
 
 import '../../core/decoration/arcane_decoration.dart';
@@ -133,45 +143,47 @@ class ArcaneSheet extends StatelessWidget {
   }) : position = SheetPosition.end;
 
   props.SheetPosition get _propsPosition => switch (position) {
-        SheetPosition.bottom => props.SheetPosition.bottom,
-        SheetPosition.top => props.SheetPosition.top,
-        SheetPosition.end => props.SheetPosition.right,
-        SheetPosition.start => props.SheetPosition.left,
-      };
+    SheetPosition.bottom => props.SheetPosition.bottom,
+    SheetPosition.top => props.SheetPosition.top,
+    SheetPosition.end => props.SheetPosition.right,
+    SheetPosition.start => props.SheetPosition.left,
+  };
 
   props.SheetSizeVariant get _propsSize => switch (size) {
-        SheetSize.auto => props.SheetSizeVariant.auto,
-        SheetSize.sm => props.SheetSizeVariant.sm,
-        SheetSize.md => props.SheetSizeVariant.md,
-        SheetSize.lg => props.SheetSizeVariant.lg,
-        SheetSize.xl => props.SheetSizeVariant.xl,
-        SheetSize.full => props.SheetSizeVariant.full,
-      };
+    SheetSize.auto => props.SheetSizeVariant.auto,
+    SheetSize.sm => props.SheetSizeVariant.sm,
+    SheetSize.md => props.SheetSizeVariant.md,
+    SheetSize.lg => props.SheetSizeVariant.lg,
+    SheetSize.xl => props.SheetSizeVariant.xl,
+    SheetSize.full => props.SheetSizeVariant.full,
+  };
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.sheet(props.SheetProps(
-      id: id,
-      isOpen: isOpen,
-      child: child,
-      position: _propsPosition,
-      size: _propsSize,
-      onClose: onClose,
-      showCloseButton: showCloseButton,
-      title: title,
-      description: description,
-      header: header,
-      footer: footer,
-      showBackdrop: showBackdrop,
-      closeOnBackdropClick: closeOnBackdropClick,
-      showDragHandle: showDragHandle,
-      maxWidth: maxWidth,
-      escapeCloses: escapeCloses,
-      focusTrap: focusTrap,
-      restoreFocus: restoreFocus,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.sheet(
+      props.SheetProps(
+        id: id,
+        isOpen: isOpen,
+        child: child,
+        position: _propsPosition,
+        size: _propsSize,
+        onClose: onClose,
+        showCloseButton: showCloseButton,
+        title: title,
+        description: description,
+        header: header,
+        footer: footer,
+        showBackdrop: showBackdrop,
+        closeOnBackdropClick: closeOnBackdropClick,
+        showDragHandle: showDragHandle,
+        maxWidth: maxWidth,
+        escapeCloses: escapeCloses,
+        focusTrap: focusTrap,
+        restoreFocus: restoreFocus,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }
 
@@ -204,62 +216,63 @@ class ArcaneActionSheet extends StatelessWidget {
       showCloseButton: false,
       showDragHandle: true,
       child: dom.div(
-        styles: const dom.Styles(raw: {
-          'display': 'flex',
-          'flex-direction': 'column',
-          'gap': '4px',
-        }),
+        styles: const dom.Styles(
+          raw: {'display': 'flex', 'flex-direction': 'column', 'gap': '4px'},
+        ),
         [
           if (title != null || message != null)
             dom.div(
-              styles: const dom.Styles(raw: {
-                'text-align': 'center',
-                'padding-bottom': '16px',
-                'margin-bottom': '8px',
-                'border-bottom': '1px solid var(--border)',
-              }),
+              styles: const dom.Styles(
+                raw: {
+                  'text-align': 'center',
+                  'padding-bottom': '16px',
+                  'margin-bottom': '8px',
+                  'border-bottom': '1px solid var(--border)',
+                },
+              ),
               [
                 if (title != null)
                   dom.div(
-                    styles: const dom.Styles(raw: {
-                      'font-size': '1rem',
-                      'font-weight': '600',
-                      'color': 'var(--foreground)',
-                      'margin-bottom': '4px',
-                    }),
+                    styles: const dom.Styles(
+                      raw: {
+                        'font-size': '1rem',
+                        'font-weight': '600',
+                        'color': 'var(--foreground)',
+                        'margin-bottom': '4px',
+                      },
+                    ),
                     [Component.text(title!)],
                   ),
                 if (message != null)
                   dom.div(
-                    styles: const dom.Styles(raw: {
-                      'font-size': '0.875rem',
-                      'color': 'var(--muted-foreground)',
-                    }),
+                    styles: const dom.Styles(
+                      raw: {
+                        'font-size': '0.875rem',
+                        'color': 'var(--muted-foreground)',
+                      },
+                    ),
                     [Component.text(message!)],
                   ),
               ],
             ),
           for (final action in actions) _buildActionItem(action),
           if (showCancel) ...[
-            const dom.div(
-              styles: dom.Styles(raw: {
-                'height': '8px',
-              }),
-              [],
-            ),
+            const dom.div(styles: dom.Styles(raw: {'height': '8px'}), []),
             dom.button(
-              styles: const dom.Styles(raw: {
-                'width': '100%',
-                'padding': '16px',
-                'border': 'none',
-                'background': 'var(--secondary)',
-                'color': 'var(--foreground)',
-                'font-size': '1rem',
-                'font-weight': '500',
-                'border-radius': '8px',
-                'cursor': 'pointer',
-                'transition': 'background 150ms ease',
-              }),
+              styles: const dom.Styles(
+                raw: {
+                  'width': '100%',
+                  'padding': '16px',
+                  'border': 'none',
+                  'background': 'var(--secondary)',
+                  'color': 'var(--foreground)',
+                  'font-size': '1rem',
+                  'font-weight': '500',
+                  'border-radius': '8px',
+                  'cursor': 'pointer',
+                  'transition': 'background 150ms ease',
+                },
+              ),
               events: {'click': (_) => onClose?.call()},
               [Component.text(cancelLabel)],
             ),
@@ -271,22 +284,27 @@ class ArcaneActionSheet extends StatelessWidget {
 
   Widget _buildActionItem(ActionSheetItem action) {
     return dom.button(
-      classes: 'arcane-action-sheet-item ${action.destructive ? 'destructive' : ''}',
-      styles: dom.Styles(raw: {
-        'width': '100%',
-        'display': 'flex',
-        'align-items': 'center',
-        'gap': '16px',
-        'padding': '16px',
-        'border': 'none',
-        'background': 'transparent',
-        'color': action.destructive ? 'var(--destructive)' : 'var(--foreground)',
-        'font-size': '1rem',
-        'border-radius': '6px',
-        'cursor': action.disabled ? 'not-allowed' : 'pointer',
-        'opacity': action.disabled ? '0.5' : '1',
-        'transition': 'background 150ms ease',
-      }),
+      classes:
+          'arcane-action-sheet-item ${action.destructive ? 'destructive' : ''}',
+      styles: dom.Styles(
+        raw: {
+          'width': '100%',
+          'display': 'flex',
+          'align-items': 'center',
+          'gap': '16px',
+          'padding': '16px',
+          'border': 'none',
+          'background': 'transparent',
+          'color': action.destructive
+              ? 'var(--destructive)'
+              : 'var(--foreground)',
+          'font-size': '1rem',
+          'border-radius': '6px',
+          'cursor': action.disabled ? 'not-allowed' : 'pointer',
+          'opacity': action.disabled ? '0.5' : '1',
+          'transition': 'background 150ms ease',
+        },
+      ),
       events: action.disabled
           ? null
           : {
@@ -297,17 +315,11 @@ class ArcaneActionSheet extends StatelessWidget {
             },
       [
         if (action.icon != null)
-          dom.span(
-            styles: const dom.Styles(raw: {
-              'font-size': '1.125rem',
-            }),
-            [Component.text(action.icon!)],
-          ),
+          dom.span(styles: const dom.Styles(raw: {'font-size': '1.125rem'}), [
+            Component.text(action.icon!),
+          ]),
         dom.span(
-          styles: const dom.Styles(raw: {
-            'flex': '1',
-            'text-align': 'left',
-          }),
+          styles: const dom.Styles(raw: {'flex': '1', 'text-align': 'left'}),
           [Component.text(action.label)],
         ),
         if (action.trailing != null) action.trailing!,

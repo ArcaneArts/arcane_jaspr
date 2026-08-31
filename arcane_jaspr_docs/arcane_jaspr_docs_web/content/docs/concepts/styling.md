@@ -22,29 +22,31 @@ ArcaneBox(
     padding: PaddingPreset.lg,
     gap: Gap.md,
     background: Background.surface,
-    borderRadius: Radius.lg,
+    borderRadius: Radius.md,
   ),
   children: [...],
 )
 ```
 
-### Using Raw CSS
+### Using Custom Values
 
-For properties not covered by typed enums, use the `raw` parameter:
+Some layout properties accept a named custom value while keeping the supported
+CSS property explicit:
 
 ```dart
 ArcaneBox(
   style: const ArcaneStyleData(
     display: Display.flex,
-    raw: {
-      'grid-template-columns': 'repeat(3, 1fr)',
-      'backdrop-filter': 'blur(10px)',
-      'animation': 'fadeIn 0.3s ease',
-    },
+    gridColumnsCustom: 'repeat(3, minmax(0, 1fr))',
+    gapCustom: 'clamp(12px, 2vw, 24px)',
   ),
   children: [...],
 )
 ```
+
+`ArcaneStyleData` intentionally has no raw property map and no custom shadow,
+filter, or animation fields. `backgroundCustom` accepts flat colors and tokens;
+literal gradient functions are rejected.
 
 ## Static Presets
 
@@ -111,7 +113,7 @@ Combine multiple style data objects with `merge()`:
 ```dart
 final baseStyles = const ArcaneStyleData(
   padding: PaddingPreset.md,
-  borderRadius: Radius.lg,
+  borderRadius: Radius.md,
 );
 
 final activeStyles = const ArcaneStyleData(
@@ -209,7 +211,6 @@ final cssMap = styleData.toMap();
 | `background` | `Background` | Background color |
 | `borderRadius` | `Radius` | Border radius |
 | `border` | `BorderPreset` | Border style |
-| `borderBottom` | `BorderPreset` | Bottom border |
 | `shadow` | `Shadow` | Box shadow |
 | `opacity` | `Opacity` | Opacity |
 
@@ -232,7 +233,7 @@ ArcaneBox(
     padding: PaddingPreset.lg,
     gap: Gap.md,
     background: Background.card,
-    borderRadius: Radius.lg,
+    borderRadius: Radius.md,
     border: BorderPreset.subtle,
     shadow: Shadow.md,
     transition: Transition.allFast,
@@ -272,9 +273,7 @@ ArcaneBox(
     display: Display.grid,
     gap: Gap.lg,
     padding: PaddingPreset.xl,
-    raw: {
-      'grid-template-columns': 'repeat(auto-fit, minmax(300px, 1fr))',
-    },
+    gridColumnsCustom: 'repeat(auto-fit, minmax(300px, 1fr))',
   ),
   children: [
     // Grid items...

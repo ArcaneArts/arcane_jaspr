@@ -22,9 +22,10 @@ class Win95Menubar extends MenubarRenderBase {
   @override
   String get itemBorderRadius => 'var(--radius-sm)';
 
+  /// A Win95 menu item inverted to the selection bar on the frame the pointer
+  /// entered it; nothing about it eased.
   @override
-  String get itemTransition =>
-      'background-color var(--arcane-transition), color var(--arcane-transition)';
+  String get itemTransition => 'none';
 
   @override
   String get indicatorColor => 'var(--foreground)';

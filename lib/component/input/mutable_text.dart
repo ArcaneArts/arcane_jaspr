@@ -85,13 +85,13 @@ class _MutableTextState extends State<MutableText> {
   Widget get _displayText => switch (component.variant) {
     MutableTextStyle.subtle => Text.bodySmall(component.value),
     MutableTextStyle.underline => Text(
-        component.value,
-        decoration: TextDecoration.underline,
-      ),
+      component.value,
+      decoration: TextDecoration.underline,
+    ),
     MutableTextStyle.dashed => Text(
-        component.value,
-        decoration: TextDecoration.underline,
-      ),
+      component.value,
+      decoration: TextDecoration.underline,
+    ),
     MutableTextStyle.input => Text.body(component.value),
     _ => Text(component.value),
   };
@@ -99,7 +99,9 @@ class _MutableTextState extends State<MutableText> {
   @override
   Widget build(BuildContext context) {
     if (_editing) {
-      final Widget field = component.maxLines > 1 || component.inputType == MutableTextInputType.multiline
+      final Widget field =
+          component.maxLines > 1 ||
+              component.inputType == MutableTextInputType.multiline
           ? TextArea(
               value: _value,
               rows: component.maxLines,
@@ -128,16 +130,13 @@ class _MutableTextState extends State<MutableText> {
         children: <Widget>[
           Expanded(child: field),
           IconButton(
-            icon: Icon(Icons.check),
+            icon: Icons.check(),
             onPressed: () {
               component.onChanged?.call(_value);
               _finishEditing();
             },
           ),
-          IconButton(
-            icon: Icon(Icons.x),
-            onPressed: _finishEditing,
-          ),
+          IconButton(icon: Icons.x(), onPressed: _finishEditing),
         ],
       );
     }
@@ -151,10 +150,7 @@ class _MutableTextState extends State<MutableText> {
       gap: 8,
       children: <Widget>[
         _displayText,
-        IconButton(
-          icon: Icon(Icons.pencil),
-          onPressed: _startEditing,
-        ),
+        IconButton(icon: Icons.pencil(), onPressed: _startEditing),
       ],
     );
   }

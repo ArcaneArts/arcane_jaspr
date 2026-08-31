@@ -3,20 +3,9 @@ import 'package:arcane_jaspr/flutter.dart';
 import '../../util/style_types/arcane_style_data.dart';
 import '../decoration/arcane_decoration.dart';
 
-enum DrawerPosition {
-  left,
-  right,
-  top,
-  bottom,
-}
+enum DrawerPosition { left, right, top, bottom }
 
-enum DrawerSize {
-  sm,
-  md,
-  lg,
-  xl,
-  full,
-}
+enum DrawerSize { sm, md, lg, xl, full }
 
 /// Drawer component properties.
 class DrawerProps {

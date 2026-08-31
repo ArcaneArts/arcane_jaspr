@@ -5,6 +5,119 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0] - 2026-08-31
+
+### Added
+
+- **Win95: the stock bitmap cursor set, as CSS tokens.** `tool/bundle_win95_cursors.dart` authors the classic cursors as ASCII pixel maps and encodes them into `packages/arcane_jaspr_win95/lib/src/win95_cursor_assets.dart` as 1x RGBA PNG data URIs; the theme exposes them with their original hotspots and keyword fallbacks as `--w95-cursor-arrow` (0,0), `--w95-cursor-wait`, `--w95-cursor-ibeam`, `--w95-cursor-crosshair` (IDC_CROSS), `--w95-cursor-no` (IDC_NO, the circle-slash), `--w95-cursor-move` (SIZEALL), and `--w95-cursor-ns` / `-ew` / `-nwse` / `-nesw`. Windows 95 had no hand/pointer and no open/closed "grab" hand at all — those are IE and NeXT idioms — so every drag surface the theme owns (gallery captions, drag handles, the dragging state, the carousel track, the slider thumb) now resolves to the pixel-art arrow, edit wells take the I-beam, splitter grips take the matching double-arrow, and `[aria-busy="true"]` takes the hourglass. Host apps reference the same tokens instead of naming a modern keyword.
+- **Win95: the arrow is now the whole shell's ground state.** `#arcane-root.arcane-theme-win95` sets `cursor: var(--w95-cursor-arrow)`, so the desktop, the maximized window, its caption and its entire client area inherit the bitmap arrow in one declaration — no universal selector, so the genuine exceptions still override it. The exceptions are the I-beam over every edit control (including read-only ones, whose text stayed selectable), the hourglass over `[aria-busy]`, `.arcane-loading`, and a new `#arcane-root[data-busy="true"]` app-wide hook, the resize double-arrows over splitter grips, and IDC_CROSS over `.arcane-map-picking`. Buttons, labels, `<summary>`, and the non-text inputs name the arrow explicitly, because the browser's own stylesheet sets `cursor: default` on them and that outranks inheritance.
+- **Win95: `--w95-cursor-hand`, the one non-shell cursor.** Internet Explorer's link hand, drawn as pixel art to match the rest of the set and scoped to actual hypertext — unadorned `a[href]`, prose/doc links, and `a.win95-breadcrumb-link[href]`. Anchors dressed as buttons, cards, tiles, or navigation chrome keep the arrow, as does the breadcrumb's sibling `<button>`.
+- **Win95: outline (wireframe) window drag.** Galleries rendered under the Windows 95 theme now drag the way Win95 did by default: on threshold-cross a single hard-edged rectangle (`.arcane-gallery-drag-outline`, `mix-blend-mode: difference` over a 4px white frame — the XOR look at SM_CXFRAME thickness) tracks the pointer while the tile itself stays put, and the move commits in one repaint on release. Escape or a cancelled pointer simply discards the wireframe. The threshold drops to Win95's SM_CXDRAG/SM_CYDRAG (4px, compared per axis instead of as a radius). There is one outline at a time, it is not animated, and it leaves no trail.
+- **Win95: caption activation state.** Pressing a gallery tile marks it active and its siblings inactive (`data-w95-active`), and the theme paints inactive captions in the Windows Standard scheme's `COLOR_INACTIVECAPTION` / `COLOR_INACTIVECAPTIONTEXT` pair (solid `#808080` face, `#c0c0c0` text). Tiles with no attribute stay active, so an untouched gallery is unchanged.
+- **Win95: HiDPI hourglass frames.** `tool/bundle_win95_loaders.dart` now bundles the 2x and 3x sheets alongside the 1x for all three palettes (`win95Loader<Palette>DataUri2x` / `3x`), and `.arcane-loader` selects between them with `image-set()` so a retina display gets the sheet drawn at its own device resolution instead of a bilinear upscale of the 26x26 art. The `image-set()` is written with literal URLs rather than through `--w95-loader-image`, so an engine without it simply keeps the 1x declaration above; `--w95-loader-image` itself is unchanged and still resolves to the 1x URI for host apps.
+- **Win95: a blanket zero-motion reset, matching the corner reset.** The theme scope already killed every `border-radius` in one rule; it now does the same for motion — `#arcane-root.arcane-theme-win95 *, *::before, *::after { transition: none !important; animation: none !important; }`. Windows 95 interpolated nothing, and the ~32 scattered per-component `transition: none` declarations could never reach the dozens of inline `transition`/`animation` styles written by core render bases and the interactivity scripts, because an inline declaration outranks any stylesheet rule that is not `!important`. Sidebar width slides, select and accordion hovers, prose and TOC easing, the mega-menu fade, the CTA-card entrance, the modal scale, the avatar pulse and the carousel marquee are all resolved by that single rule. Two things survive it deliberately: the hourglass is an animated `background-image`, not a CSS animation, and `transform` is untouched because tooltips and popovers use it for positioning. Anything a keyframe was making visible is pinned opaque alongside — `.win95-cta-card` emits `opacity: 0` inline and is now pinned to `1`.
+- **Win95: `--w95-check`, the checkbox tick as drawn geometry.** The 7x7 Win95 mark — a two-pixel stroke descending right to the vertex, a second climbing right to the tip — authored one pixel per path run and painted through a mask so it follows `--w95-field-text`. It replaces `content: '✔'` (U+2714), which rendered at a different weight and vertical position in every font in the fallback stack; the Win95 checkbox renderer no longer emits its literal `x` text child either, so the box holds exactly one mark.
+
+### Changed
+
+- **Bounded theme geometry and elevation.** Radius authoring now ends at the
+  8px `md` tier, renderer references use that tier directly, and palette
+  shadows are fixed neutral structural presets rather than injectable strings.
+- **Runtime DOM safety.** Calendar templates no longer expose literal control
+  markup in the global script, and carousel clones recursively neutralize
+  focusable descendants, remove duplicate IDs, and remain inert.
+- **Accessible infinite carousel.** The repeated track copy is now inert and
+  hidden from assistive technology; auto-scroll pauses for keyboard focus and
+  is disabled when reduced motion is requested. Command search inputs also
+  expose an accessible name.
+- **Bounded style overrides.** `ArcaneStyleData.backgroundCustom` now accepts
+  flat colors and tokens and rejects literal gradient functions. Nested semantic
+  surfaces flatten through a shared `data-arcane-surface` contract across card
+  families instead of relying on theme-specific class pairs.
+- **Visible-content hard break.** CTA cards no longer delay or begin hidden,
+  and FlexiCards no longer hide long text until hover.
+- **Single-icon control hard break.** `Button` now exposes one semantic `icon`
+  slot with a typed `ButtonIconPosition`; the arbitrary `child`, independent
+  `trailing`, and manufactured `showArrow` paths were removed. `FeatureCard`
+  likewise keeps one optional semantic icon and no longer manufactures a CTA
+  arrow.
+- **Typed semantic-glyph hard break.** Buttons, badges, cards, menus,
+  navigation, selectors, dialogs, alerts, and other one-icon component slots
+  now accept only the sealed `ArcaneGlyph` type. `ArcaneIcon.customSvg` keeps
+  multi-path brand artwork inside one SVG glyph without reopening a `Widget`
+  composition escape.
+- **Executable design-language policy.** The documentation browser audit now
+  exercises static and interactive states at 375px, 768px, and 1440px and
+  mutation-tests every banned family. Source and render contracts reject
+  visible nested semantic surfaces and reader-facing AI citation or tracking
+  leaks.
+- **Local-font hard break.** `ArcaneStylesheet.externalCssUrls` and ArcaneApp's
+  remote stylesheet injection were removed. Core, ShadCN, Neon, and
+  Neubrutalism now name only the committed Akzidenz Grotesk Pro, ITC Avant
+  Garde, and Hack site assets.
+- **Design-language hard break.** Core marketing surfaces now use flat, restrained geometry; the purpose-built glass, icon-backplate, chip/tag scripts, chip-radio, compact promo/card/pricing badges, `FancyIcon`, accent-button alias, text-glow, promo-pill, glow-theme, gradient-decoration, pin-glow, hover-lift, backdrop-blur, and animated/default-icon badge APIs were removed, with contract tests preventing their return.
+- **Win95: the timing tokens are zeroed at their source.** The theme root now declares `--transition-fast/-/-slow/-slower: 0s` and the four `--arcane-transition-*` aliases alongside `--radius: 0`. The aliases have to be named explicitly: a custom property substitutes `var()` on the element it is declared on, so `--arcane-transition: var(--transition)` had already resolved to `150ms ease` at `:root` and inherits that computed value regardless of what the theme scope does to `--transition`. The theme's button arrow, menubar item, dropdown item, form buttons, slot counter, and flexi-cards now emit no interpolation, and `Win95FlexiCards` ignores `transitionDuration` while keeping the CSS-Grid expansion as a layout mechanism.
+- **Win95: the scripted tooltip is the classic info box.** `TooltipScripts` builds `.arcane-tooltip` — a different element from the `.win95-tooltip` the theme already styled — with an inline 8px radius, a blurred shadow, a dark surface colour and a 150ms cross-fade, plus an 8x8 box rotated 45 degrees as a callout tail. Under the theme it is now `#ffffe1` with a 1px flat black border, no shadow, no radius and no fade, and `.arcane-tooltip-arrow` is hidden: a Win95 tooltip was a plain rectangle with no tail. Its inline `transform: translateX(-50%)` is centring, not motion, and is left alone.
+- **Win95: caption buttons are drawn geometry at the right size.** The live close buttons on dialogs, drawers and sheets were 18x18 (22x18 for dialogs) with a thin bevel and the render base's U+2715 rendered as a font character, while the decorative captions elsewhere in the sheet already did it correctly. All three are now 16x14 raised control faces carrying the `--w95-ctl-close` mask, pressed to `--w95-pressed` with a 1px down-right glyph nudge. `font-size: 0` collapses the text node no theme can remove, so the mark can no longer change weight or baseline with the font fallback.
+- **Win95: the engraved disabled label, everywhere.** `DrawState`/`DSS_DISABLED` drew every greyed caption twice — the text in `COLOR_GRAYTEXT` over a `COLOR_BTNHILIGHT` copy offset one pixel down-right. Only buttons, cycle buttons and toggle buttons had it; calendar days, date/time triggers, select options, pagination, menu, dropdown and menubar items, disabled selects and textareas set flat grey. They now share one `color: var(--w95-shadow); text-shadow: 1px 1px 0 var(--w95-hilite)` recipe, tokenized so the dark scheme inverts it.
+- **Win95: focus rectangles land on the caption.** The checkbox render base puts the tabindex on the 15px check well, so the single global `outline-offset: -3px` rule drew a ~9px dotted square inside the well itself. The well's own rect is now suppressed when there is a caption block to move it to (and only then, so an unlabelled checkbox keeps a focus mark), and the rect is drawn around the caption instead. Standard radios get the rect around the whole `<label>` rather than inset through their circle, and tabs pin the inset explicitly so the active tab's asymmetric bevel cannot clip it.
+- **Win95: elevation is a bevel, not a glow.** `win95DecorationStyles` mapped `Elevation.md` and up onto `0 0 18px`/`0 0 36px` coloured halos — the neon theme's idiom, pasted in — so any component with `ArcaneDecoration(elevation: …)` wore a soft neon glow on a silver panel. The scale now resolves to `--w95-raised-thin` (xs/sm) and `--w95-raised` (md and up), and `shadowColor` is ignored because Win95 had no shadow to tint.
+- **Win95: one inactive-caption colour, not two.** `--w95-title-inactive-b` existed only so a gradient could be built across the pair, which is the same Windows 98 assumption the caption gradient was; it is deleted, and the surviving pair is `--w95-title-inactive-a` plus a new `--w95-title-inactive-text` (`COLOR_INACTIVECAPTION` / `COLOR_INACTIVECAPTIONTEXT`), which the inactive gallery caption now reads instead of a literal.
+
+- **Win95 title bars are solid, not gradients.** `--w95-title-bar` now resolves to `var(--w95-title-a)` alone — the navy-to-cyan caption gradient is a Windows 98 feature — and every caption in the theme (gallery tiles, dialogs, drawers, sheets, the knowledge-base topbar and landing mock) draws from that one token. `--w95-title-a-in` / `--w95-title-b-in` still re-tint captions at runtime, and a host that wants the 98 look redeclares `--w95-title-bar` as a gradient across the two.
+- **Core drag cursors resolve through a theme seam.** The gallery drag runtime, `InfiniteCarousel`'s track, and the carousel dragging state now emit `cursor: var(--arcane-drag-cursor, grab)` / `var(--arcane-drag-cursor-active, grabbing)` instead of the bare keywords, so a theme can re-point them wholesale. Unset — which is every theme but Win95 — they resolve to the same grab/grabbing pair as before.
+- **Win95 no longer shows the modern hand, circle-slash, or grab cursors.** All 44 `cursor: pointer` / `not-allowed` / `default` keywords in the theme sheet were replaced with `var(--w95-cursor-arrow)`: buttons, cards, menu and command items, tabs, the Start button, calendar cells, date/time pickers, combobox triggers, disclosure summaries, breadcrumbs, drawer and sheet closes, toasts, and every disabled state. A greyed Win95 control showed the plain arrow — its engraved label was the affordance — and IDC_NO was reserved for a refused drag-drop, which is what `--w95-cursor-no` is now exposed for. The theme also reclaims the three unscoped core rules that hard-code the hand (`.code-copy-button`, `.sidebar-theme-toggle`, `.sidebar-summary`).
+- **Win95 renderers no longer decide cursors inline.** Inline pointer cursors across form and flexi-card renderers were removed so the theme sheet is the single place a cursor is chosen; the splitter handle emits `var(--w95-cursor-ew)` / `-ns` instead of `col-resize` / `row-resize`.
+- **Two more core inline-cursor seams are themeable.** The number-input spinner script writes `var(--arcane-step-cursor[-disabled], …)` instead of hard-coding `pointer`/`not-allowed`, and the resizable splitter resolves `--arcane-resize-cursor-ew` / `-ns` from the dragged container before parking the value on `<body>` (which sits outside the themed root, so `var()` cannot reach it there). The map coordinate-picking script toggles an `.arcane-map-picking` class rather than writing an inline `crosshair`. Every seam falls back to the previous keyword when a theme leaves it unset, so shadcn, neon, and neubrutalism are unchanged.
+- **Win95 progress meters read the Win95 way.** The trough is now the silver control face (`--w95-face`) inside its sunken bevel rather than the white edit-field colour, so the gutters between the navy blocks read `#c0c0c0` the way every Win95 copy/install dialog did. The blocks themselves changed from a phase-drifting `repeating-linear-gradient` (10px block, 2px gap, gaps punched to `transparent`) to a fixed 16px block on an 18px stride anchored to the left inner edge, so the segment pitch no longer shifts with the control's width.
+- **Win95 has no marquee progress mode.** An indeterminate `ArcaneProgressBar` under the theme now renders the hourglass where the meter would be and drops the trough entirely, instead of the static, permanently-full navy bar it used to paint. Win95 had no indeterminate meter at all — that arrived with the XP-era common controls — and its answer for work of unknown length was the hourglass.
+- **Win95 circular progress shows its value.** `Win95CircularProgress.ringStyles` now emits the swept angle as `--w95-gauge-pct`, and the theme draws the ring as a hard-stop conic gauge (navy on the silver face, masked into a chunky ring so the numeric readout stays legible in the hole) inside the existing sunken frame, with no easing. Win95 shipped no circular control, so this is the closest period-plausible reading of one; previously the ring was a static bezel and 5% and 95% rendered identically.
+- **Win95 loaders snap to the pixel grid.** The hourglass is a 26x26 bitmap and callers ask for 16px, 20px, 24px and 40px — every one a fractional scale that shears rows out of the art rather than crisping it. Under the theme `--arcane-loader-size` is now snapped DOWN to the nearest whole multiple of 26 with 26px as the floor (`max(26px, round(down, …, 26px))`, with a plain `26px` pair ahead of it for engines without `round()`), so loading buttons, toasts, selects and auth guards all draw integer-scaled frames. `image-rendering: pixelated` is now `!important` like every other declaration in the block, preceded by `-moz-crisp-edges` / `crisp-edges` for older engines.
+- **Win95 skeletons are dithered wells, not grey paint.** `.win95-skeleton` swapped its flat `#a0a0a0` fill for the classic 2x2 checkerboard of white and silver — the same 50% dither the scrollbar track uses — on a sunken well, and `Win95Skeleton.defaultGeometry` no longer authors a `9999px` radius for the circle shape (the theme's blanket corner reset was the only thing hiding it). Win95 had no skeleton-placeholder concept; the empty dithered well is its stand-in for a region with nothing in it yet.
+- **Win95 busy states take the hourglass, not the circle-slash.** A control in `data-state="loading"` is marked disabled by the shared button base, which previously handed it the "unavailable" cursor — a mark that meant a drop would be refused, not that work was in progress. `[data-state="loading"]` (and its subtree) and `.arcane-loader` now join `[data-busy]`, `[aria-busy]` and `.arcane-loading` on the `--w95-cursor-wait` rule.
+
+### Removed
+
+- Removed one-sided border fields and presets, large-radius CSS aliases,
+  per-decoration shadow colors, and generated sparkle icon shortcuts so public
+  APIs cannot reconstruct accent crescents, oversized cards, colored bloom, or
+  decorative multi-icon badges.
+- Removed the public `ArcaneStyleData.raw`, `shadowCustom`, `filterCustom`, and
+  `animationCustom` escape hatches that could recreate gradients, colored
+  glows, filters, or arbitrary hidden-state effects.
+- Removed public full/circle/custom-radius shortcuts, `FadeEdge`, scroll-area
+  shadow fades, and carousel feather-gradient configuration. Intrinsically
+  round controls now own their internal geometry instead of exposing pill
+  radii to product surfaces.
+- Removed the legacy imperative toast injector and its `ToastScripts` surface.
+- Removed carousel fade-edge configuration and generated gradient overlays.
+- Removed the floating, modal, ticker, progress, sidebar, takeover, and toast promo families; only the flat top announcement and inline hero announcement remain.
+- Removed `GradientBuilder`, `ArcaneColorGradient.toGradient`, and the pill-shaped `ArcaneStylePresets.statusBadge` shortcut.
+- Removed pricing-tier promotion APIs: hero pricing variants, highlighted/popular tier state, per-card accent overrides, and highlighted spec rows. Pricing comparisons now render every tier with equal neutral hierarchy.
+- Removed pricing-card sale framing: the original-price/strikethrough API and renderer path no longer exist.
+
+### Fixed
+
+- **Balanced native controls.** `ArcaneSelect` now renders a real sibling
+  chevron with a 14px end inset and a 40px value reserve instead of embedding
+  SVG artwork in `background-image`; shared prefix/suffix field shells own the
+  only visible focus perimeter while their inner inputs remain borderless.
+- **Bundled documentation typography.** The generated `jaspr_content` root
+  rules can no longer restore Open Sans or JetBrains Mono after the Arcane
+  stylesheet loads; documents and code now inherit only the committed
+  Akzidenz Grotesk Pro and Hack families.
+- **Uniform custom-border enforcement.** `borderCustom` rejects declaration
+  boundaries and directional border fragments, including semicolon injection
+  through a CSS variable fallback, so it cannot reconstruct a one-sided accent.
+- Legacy accordion binding now targets only explicit Arcane expander and
+  accordion headers instead of capturing every `button[aria-expanded]` on the
+  page.
+- **Win95 progress bars were permanently full.** `Win95Progress.indicatorStyles` returned an empty map, so the block-level indicator's `width` resolved to `auto` — 100% of the track — and every meter rendered at 100% regardless of `props.value`. It now emits the clamped percentage inline with `transition: none`, so the fill snaps in whole segments the way a Win95 meter did. A 20% meter now measures 20% of its trough.
+- **Win95: the default push button's black ring never rendered.** `.win95-button[data-variant="primary"]` drew it as `inset 0 0 0 1px var(--w95-dark)` behind `var(--w95-raised)` — but box-shadows paint first-listed on top and `--w95-raised` already covers a full 1px ring on every side, so the ring was 100% occluded. It is now a real `border: 1px solid var(--w95-dark)` with the bevel inside it, keeping the outer footprint identical via `box-sizing: border-box` so button rows stay aligned. The destructive variant's equally invisible maroon ring got the same treatment.
+- **Win95: scrollbars were 17px and defined twice.** Two complete `::-webkit-scrollbar` blocks disagreed about the track dither; the earlier 16px one was entirely dead (the later block wins on source order and carries `!important` on every declaration) and has been deleted. `SM_CXVSCROLL`/`SM_CYHSCROLL` is 16 in Windows 95 and every part of the control is measured off that module, so the surviving definition — and the page-level `html:has()` copy — moved from 17px to 16px and the 16x16 arrow art lands on the pixel grid again. The in-app track and thumb also stopped hard-coding `#ffffff`/`#c0c0c0` and resolve through `--w95-field`/`--w95-face`, so the dark scheme re-points the dither instead of glaring white.
+- **Win95: no blurred or alpha-composited shadow survives.** Drawer and sheet panels carried `3px 0 10px rgba(0, 0, 0, 0.4)` in all eight directional variants — a 10px gaussian, the most modern artifact in the sheet — and eight popup surfaces (dropdown, popover, select, combobox, date and time pickers, command dialog, dialog, menubar content, search results) added `2px 2px 0 rgba(0, 0, 0, 0.35)`. Windows 95 had no alpha compositing at all, and stock Win95 menus and dialogs cast no shadow whatsoever, so every shadow layer beyond `var(--w95-raised)` is gone; the 45%-black scrim already separates drawers and sheets from the page. The core mega-menu panel's inline 25px/10px blurred double shadow is overridden in theme scope for the same reason.
+- **Win95: the modal scale artifact.** `ModalScripts` writes `transform: scale(0.95)` on close and `scale(1)` on open; with the transition dead that meant the window snapped to 95% and sat there for the 150ms before the overlay was hidden. `.win95-dialog` now pins `transform: none`, because a Win95 dialog appeared and vanished at full size.
+
 ## [3.4.0] - 2026-08-18
 
 ### Fixed

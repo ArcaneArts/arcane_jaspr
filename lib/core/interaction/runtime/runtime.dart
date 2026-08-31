@@ -130,13 +130,16 @@ const String _runtimeBaseCss = r'''
     var(--arcane-drag-x, 0px)
     var(--arcane-drag-y, 0px);
 }
+/* Drag cursors resolve through --arcane-drag-cursor / --arcane-drag-cursor-active
+   so a theme can re-point them wholesale (the Win95 theme has no hand cursor at
+   all). Unset, they fall back to the modern grab/grabbing pair. */
 [data-arcane-gallery-draggable="true"] [data-arcane-drag-handle="true"] {
-  cursor: grab;
+  cursor: var(--arcane-drag-cursor, grab);
   user-select: none;
 }
 [data-arcane-gallery-draggable="true"] .is-arcane-gallery-dragging,
 [data-arcane-gallery-draggable="true"] .is-arcane-gallery-dragging [data-arcane-drag-handle="true"] {
-  cursor: grabbing;
+  cursor: var(--arcane-drag-cursor-active, grabbing);
 }
 [data-arcane-gallery-draggable="true"] .is-arcane-gallery-dragging {
   will-change: translate;

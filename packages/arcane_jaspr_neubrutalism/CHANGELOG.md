@@ -1,19 +1,25 @@
 # Changelog
 
-## x.x.x
+## 4.0.0 - 2026-08-31
 
 ### Added
 
 - Runtime override hooks for the theme's identity colors, mirroring the
   `--w95-*-in` contract in `arcane_jaspr_win95`: `--nb-accent-in` (accent),
   `--nb-on-accent-in` (readable foreground on the accent), `--nb-line-in`
-  (ink border), `--nb-shadow-in` (hard-shadow color) and `--nb-dark-bg-in`
-  (dark canvas). Every consumer now reads `var(--nb-*-in, stock)`, so a host
+  (ink border), and `--nb-dark-bg-in` (dark canvas). Every consumer now reads
+  `var(--nb-*-in, stock)`, so a host
   app can re-tint the whole system from an account accent at runtime without
   a rebuild; with the hooks unset the stock look is unchanged.
 
 ### Changed
 
+- Flexi cards and card-style empty states now identify nested surfaces for
+  automatic frame flattening.
+- Button rendering now consumes core's single typed semantic icon slot; the
+  obsolete automatic-arrow transition hook was removed.
+- Replaced Google-hosted Archivo Black, Space Grotesk, and JetBrains Mono with
+  the committed product font assets and removed remote stylesheet loading.
 - Accent alerts and knowledge-base callouts now color the complete border
   instead of thickening only the left edge of a rounded surface.
 - Dark mode readability overhaul. The dark canvas now mixes only 8% of the
@@ -26,6 +32,15 @@
   dark `--border` lightens from #54545A to #686870, and the dark shadow
   offsets grow from 1/2/3/4/5px to 2/3/4/6/8px so the signature hard-offset
   language survives on dark surfaces.
+
+### Removed
+
+- Removed the hard-shadow color override; structural shadows remain neutral in
+  every appearance mode.
+- Removed the floating, modal, ticker, progress, sidebar, takeover, and toast
+  promo renderers; the retained top and inline announcements are flat links.
+- Removed stale promotion-badge and retired promo-family CSS hooks. The retained
+  announcement renderers now own their flat, neutral presentation directly.
 
 ## 3.3.0
 

@@ -140,7 +140,6 @@ class SlotCounterRowProps {
 class SlotCounterCardProps {
   final SlotCounterProps counter;
   final String padding;
-  final String borderRadius;
   final bool showBorder;
   final bool showBackground;
 
@@ -153,7 +152,6 @@ class SlotCounterCardProps {
   const SlotCounterCardProps({
     required this.counter,
     this.padding = '1rem',
-    this.borderRadius = '0.375rem',
     this.showBorder = false,
     this.showBackground = false,
     this.styles,

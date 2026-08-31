@@ -39,10 +39,10 @@ dart pub global activate jaspr_cli
 
 ```yaml
 dependencies:
-  arcane_jaspr: ^3.1.0
-  arcane_jaspr_neon: ^3.1.0
-  arcane_jaspr_neubrutalism: ^3.1.0
-  arcane_jaspr_shadcn: ^3.1.0
+  arcane_jaspr: ^4.0.0
+  arcane_jaspr_neon: ^4.0.0
+  arcane_jaspr_neubrutalism: ^4.0.0
+  arcane_jaspr_shadcn: ^4.0.0
 ```
 
 ```bash

@@ -68,6 +68,9 @@ abstract class ProgressRenderBase extends StatelessComponent {
       <Component>[
         dom.div(
           classes: trackClass,
+          attributes: const <String, String>{
+            'data-arcane-intrinsic-shape': 'progress-track',
+          },
           styles: dom.Styles(
             raw: <String, String>{
               ...trackStyles(props),
@@ -79,6 +82,9 @@ abstract class ProgressRenderBase extends StatelessComponent {
           <Component>[
             dom.div(
               classes: indicatorClasses(props.indeterminate),
+              attributes: const <String, String>{
+                'data-arcane-intrinsic-shape': 'progress-fill',
+              },
               styles: dom.Styles(
                 raw: indicatorStyles(props, percentage, props.indeterminate),
               ),
@@ -150,11 +156,15 @@ abstract class CircularProgressRenderBase extends StatelessComponent {
         'aria-valuemin': '0',
         'aria-valuemax': '100',
         'aria-valuenow': '$percentage',
+        'data-arcane-intrinsic-shape': 'circular-progress',
       },
       styles: dom.Styles(raw: rootStyles(props)),
       <Component>[
         // Ring using a conic gradient masked into a stroke.
         dom.div(
+          attributes: const <String, String>{
+            'data-arcane-intrinsic-shape': 'circular-progress-ring',
+          },
           styles: dom.Styles(
             raw: <String, String>{
               ...ringStyles(props),
@@ -178,15 +188,13 @@ abstract class CircularProgressRenderBase extends StatelessComponent {
             ),
             <Component>[
               if (props.showPercentage)
-                dom.span(
-                  styles: dom.Styles(raw: percentStyles),
-                  <Component>[Component.text('$percentage%')],
-                ),
+                dom.span(styles: dom.Styles(raw: percentStyles), <Component>[
+                  Component.text('$percentage%'),
+                ]),
               if (props.label != null)
-                dom.span(
-                  styles: dom.Styles(raw: labelStyles),
-                  <Component>[Component.text(props.label!)],
-                ),
+                dom.span(styles: dom.Styles(raw: labelStyles), <Component>[
+                  Component.text(props.label!),
+                ]),
             ],
           ),
       ],
@@ -227,6 +235,7 @@ abstract class LoadingSpinnerRenderBase extends StatelessComponent {
       attributes: const <String, String>{
         'role': 'status',
         'aria-label': 'Loading',
+        'data-arcane-intrinsic-shape': 'circular-loader',
       },
       styles: dom.Styles(
         raw: layerStyles(

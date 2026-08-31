@@ -8,11 +8,7 @@ export '../../core/props/otp_input_props.dart'
     show OtpInputSizeVariant, OtpInputProps;
 
 /// Size variants for OTP input.
-enum OtpInputSize {
-  sm,
-  md,
-  lg,
-}
+enum OtpInputSize { sm, md, lg }
 
 /// One-time password input with separate digit fields.
 class ArcaneOtpInput extends StatefulWidget {
@@ -98,7 +94,8 @@ class _ArcaneOtpInputState extends State<ArcaneOtpInput> {
   }
 
   void _initDigits() {
-    if (component.value != null && component.value!.length == component.length) {
+    if (component.value != null &&
+        component.value!.length == component.length) {
       _digits = component.value!.split('');
     } else {
       _digits = List.filled(component.length, '');
@@ -146,26 +143,28 @@ class _ArcaneOtpInputState extends State<ArcaneOtpInput> {
   }
 
   OtpInputSizeVariant get _propsSize => switch (component.size) {
-        OtpInputSize.sm => OtpInputSizeVariant.sm,
-        OtpInputSize.md => OtpInputSizeVariant.md,
-        OtpInputSize.lg => OtpInputSizeVariant.lg,
-      };
+    OtpInputSize.sm => OtpInputSizeVariant.sm,
+    OtpInputSize.md => OtpInputSizeVariant.md,
+    OtpInputSize.lg => OtpInputSizeVariant.lg,
+  };
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.otpInput(OtpInputProps(
-      length: component.length,
-      digits: _digits,
-      obscure: component.obscure,
-      size: _propsSize,
-      disabled: component.disabled,
-      error: component.error,
-      label: component.label,
-      separator: component.separator,
-      separatorPosition: component.separatorPosition,
-      onInput: _handleInput,
-      styles: component.styles,
-      decoration: component.decoration,
-    ));
+    return context.renderers.otpInput(
+      OtpInputProps(
+        length: component.length,
+        digits: _digits,
+        obscure: component.obscure,
+        size: _propsSize,
+        disabled: component.disabled,
+        error: component.error,
+        label: component.label,
+        separator: component.separator,
+        separatorPosition: component.separatorPosition,
+        onInput: _handleInput,
+        styles: component.styles,
+        decoration: component.decoration,
+      ),
+    );
   }
 }

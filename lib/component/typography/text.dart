@@ -1,6 +1,39 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, FontStyle, StyleRule, Display, Position, Overflow, Cursor, Visibility, TextDecoration, TextTransform, FontFamily, WhiteSpace;
+import 'package:jaspr/jaspr.dart'
+    hide
+        BuildContext,
+        InheritedComponent,
+        Key,
+        State,
+        StatefulComponent,
+        StatelessComponent,
+        UniqueKey,
+        ValueKey,
+        runApp;
+import 'package:jaspr/dom.dart'
+    hide
+        Color,
+        Colors,
+        ColorScheme,
+        Gap,
+        Padding,
+        TextAlign,
+        TextOverflow,
+        Border,
+        BorderRadius,
+        BoxShadow,
+        FontWeight,
+        FontStyle,
+        StyleRule,
+        Display,
+        Position,
+        Overflow,
+        Cursor,
+        Visibility,
+        TextDecoration,
+        TextTransform,
+        FontFamily,
+        WhiteSpace;
 
 import '../../util/arcane.dart';
 import '../../util/style_types/index.dart';
@@ -54,20 +87,20 @@ class Text extends StatelessWidget {
     this.align,
     this.style,
     super.key,
-  })  : size = FontSize.mega,
-        weight = FontWeight.bold,
-        lineHeight = LineHeight.tight,
-        letterSpacing = LetterSpacing.tight,
-        colorCustom = null,
-        decoration = null,
-        transform = null,
-        family = null,
-        fontStyle = null,
-        overflow = null,
-        whiteSpace = null,
-        maxLines = null,
-        selectable = true,
-        element = 'h1';
+  }) : size = FontSize.mega,
+       weight = FontWeight.bold,
+       lineHeight = LineHeight.tight,
+       letterSpacing = LetterSpacing.tight,
+       colorCustom = null,
+       decoration = null,
+       transform = null,
+       family = null,
+       fontStyle = null,
+       overflow = null,
+       whiteSpace = null,
+       maxLines = null,
+       selectable = true,
+       element = 'h1';
 
   const Text.sectionTitle(
     this.text, {
@@ -75,20 +108,20 @@ class Text extends StatelessWidget {
     this.align,
     this.style,
     super.key,
-  })  : size = FontSize.hero,
-        weight = FontWeight.bold,
-        lineHeight = LineHeight.tight,
-        letterSpacing = null,
-        colorCustom = null,
-        decoration = null,
-        transform = null,
-        family = null,
-        fontStyle = null,
-        overflow = null,
-        whiteSpace = null,
-        maxLines = null,
-        selectable = true,
-        element = 'h2';
+  }) : size = FontSize.hero,
+       weight = FontWeight.bold,
+       lineHeight = LineHeight.tight,
+       letterSpacing = null,
+       colorCustom = null,
+       decoration = null,
+       transform = null,
+       family = null,
+       fontStyle = null,
+       overflow = null,
+       whiteSpace = null,
+       maxLines = null,
+       selectable = true,
+       element = 'h2';
 
   const Text.heading(
     this.text, {
@@ -96,20 +129,20 @@ class Text extends StatelessWidget {
     this.align,
     this.style,
     super.key,
-  })  : size = FontSize.xl3,
-        weight = FontWeight.bold,
-        lineHeight = LineHeight.tight,
-        letterSpacing = null,
-        colorCustom = null,
-        decoration = null,
-        transform = null,
-        family = null,
-        fontStyle = null,
-        overflow = null,
-        whiteSpace = null,
-        maxLines = null,
-        selectable = true,
-        element = 'h2';
+  }) : size = FontSize.xl3,
+       weight = FontWeight.bold,
+       lineHeight = LineHeight.tight,
+       letterSpacing = null,
+       colorCustom = null,
+       decoration = null,
+       transform = null,
+       family = null,
+       fontStyle = null,
+       overflow = null,
+       whiteSpace = null,
+       maxLines = null,
+       selectable = true,
+       element = 'h2';
 
   const Text.heading2(
     this.text, {
@@ -117,20 +150,20 @@ class Text extends StatelessWidget {
     this.align,
     this.style,
     super.key,
-  })  : size = FontSize.xl2,
-        weight = FontWeight.w600,
-        lineHeight = LineHeight.snug,
-        letterSpacing = null,
-        colorCustom = null,
-        decoration = null,
-        transform = null,
-        family = null,
-        fontStyle = null,
-        overflow = null,
-        whiteSpace = null,
-        maxLines = null,
-        selectable = true,
-        element = 'h3';
+  }) : size = FontSize.xl2,
+       weight = FontWeight.w600,
+       lineHeight = LineHeight.snug,
+       letterSpacing = null,
+       colorCustom = null,
+       decoration = null,
+       transform = null,
+       family = null,
+       fontStyle = null,
+       overflow = null,
+       whiteSpace = null,
+       maxLines = null,
+       selectable = true,
+       element = 'h3';
 
   const Text.heading3(
     this.text, {
@@ -138,20 +171,20 @@ class Text extends StatelessWidget {
     this.align,
     this.style,
     super.key,
-  })  : size = FontSize.xl,
-        weight = FontWeight.w600,
-        lineHeight = LineHeight.snug,
-        letterSpacing = null,
-        colorCustom = null,
-        decoration = null,
-        transform = null,
-        family = null,
-        fontStyle = null,
-        overflow = null,
-        whiteSpace = null,
-        maxLines = null,
-        selectable = true,
-        element = 'h4';
+  }) : size = FontSize.xl,
+       weight = FontWeight.w600,
+       lineHeight = LineHeight.snug,
+       letterSpacing = null,
+       colorCustom = null,
+       decoration = null,
+       transform = null,
+       family = null,
+       fontStyle = null,
+       overflow = null,
+       whiteSpace = null,
+       maxLines = null,
+       selectable = true,
+       element = 'h4';
 
   const Text.subheading(
     this.text, {
@@ -159,20 +192,20 @@ class Text extends StatelessWidget {
     this.align,
     this.style,
     super.key,
-  })  : size = FontSize.lg,
-        weight = FontWeight.w500,
-        lineHeight = LineHeight.normal,
-        letterSpacing = null,
-        colorCustom = null,
-        decoration = null,
-        transform = null,
-        family = null,
-        fontStyle = null,
-        overflow = null,
-        whiteSpace = null,
-        maxLines = null,
-        selectable = true,
-        element = 'p';
+  }) : size = FontSize.lg,
+       weight = FontWeight.w500,
+       lineHeight = LineHeight.normal,
+       letterSpacing = null,
+       colorCustom = null,
+       decoration = null,
+       transform = null,
+       family = null,
+       fontStyle = null,
+       overflow = null,
+       whiteSpace = null,
+       maxLines = null,
+       selectable = true,
+       element = 'p';
 
   const Text.body(
     this.text, {
@@ -180,20 +213,20 @@ class Text extends StatelessWidget {
     this.align,
     this.style,
     super.key,
-  })  : size = FontSize.base,
-        weight = null,
-        lineHeight = LineHeight.relaxed,
-        letterSpacing = null,
-        colorCustom = null,
-        decoration = null,
-        transform = null,
-        family = null,
-        fontStyle = null,
-        overflow = null,
-        whiteSpace = null,
-        maxLines = null,
-        selectable = true,
-        element = 'p';
+  }) : size = FontSize.base,
+       weight = null,
+       lineHeight = LineHeight.relaxed,
+       letterSpacing = null,
+       colorCustom = null,
+       decoration = null,
+       transform = null,
+       family = null,
+       fontStyle = null,
+       overflow = null,
+       whiteSpace = null,
+       maxLines = null,
+       selectable = true,
+       element = 'p';
 
   const Text.bodyLarge(
     this.text, {
@@ -201,20 +234,20 @@ class Text extends StatelessWidget {
     this.align,
     this.style,
     super.key,
-  })  : size = FontSize.lg,
-        weight = null,
-        lineHeight = LineHeight.relaxed,
-        letterSpacing = null,
-        colorCustom = null,
-        decoration = null,
-        transform = null,
-        family = null,
-        fontStyle = null,
-        overflow = null,
-        whiteSpace = null,
-        maxLines = null,
-        selectable = true,
-        element = 'p';
+  }) : size = FontSize.lg,
+       weight = null,
+       lineHeight = LineHeight.relaxed,
+       letterSpacing = null,
+       colorCustom = null,
+       decoration = null,
+       transform = null,
+       family = null,
+       fontStyle = null,
+       overflow = null,
+       whiteSpace = null,
+       maxLines = null,
+       selectable = true,
+       element = 'p';
 
   const Text.bodySmall(
     this.text, {
@@ -222,20 +255,20 @@ class Text extends StatelessWidget {
     this.align,
     this.style,
     super.key,
-  })  : size = FontSize.sm,
-        weight = null,
-        lineHeight = LineHeight.normal,
-        letterSpacing = null,
-        colorCustom = null,
-        decoration = null,
-        transform = null,
-        family = null,
-        fontStyle = null,
-        overflow = null,
-        whiteSpace = null,
-        maxLines = null,
-        selectable = true,
-        element = 'p';
+  }) : size = FontSize.sm,
+       weight = null,
+       lineHeight = LineHeight.normal,
+       letterSpacing = null,
+       colorCustom = null,
+       decoration = null,
+       transform = null,
+       family = null,
+       fontStyle = null,
+       overflow = null,
+       whiteSpace = null,
+       maxLines = null,
+       selectable = true,
+       element = 'p';
 
   const Text.label(
     this.text, {
@@ -243,20 +276,20 @@ class Text extends StatelessWidget {
     this.align,
     this.style,
     super.key,
-  })  : size = FontSize.sm,
-        weight = FontWeight.w500,
-        lineHeight = null,
-        letterSpacing = null,
-        colorCustom = null,
-        decoration = null,
-        transform = null,
-        family = null,
-        fontStyle = null,
-        overflow = null,
-        whiteSpace = null,
-        maxLines = null,
-        selectable = true,
-        element = 'span';
+  }) : size = FontSize.sm,
+       weight = FontWeight.w500,
+       lineHeight = null,
+       letterSpacing = null,
+       colorCustom = null,
+       decoration = null,
+       transform = null,
+       family = null,
+       fontStyle = null,
+       overflow = null,
+       whiteSpace = null,
+       maxLines = null,
+       selectable = true,
+       element = 'span';
 
   const Text.caption(
     this.text, {
@@ -264,20 +297,20 @@ class Text extends StatelessWidget {
     this.align,
     this.style,
     super.key,
-  })  : size = FontSize.xs,
-        weight = null,
-        lineHeight = null,
-        letterSpacing = null,
-        colorCustom = null,
-        decoration = null,
-        transform = null,
-        family = null,
-        fontStyle = null,
-        overflow = null,
-        whiteSpace = null,
-        maxLines = null,
-        selectable = true,
-        element = 'span';
+  }) : size = FontSize.xs,
+       weight = null,
+       lineHeight = null,
+       letterSpacing = null,
+       colorCustom = null,
+       decoration = null,
+       transform = null,
+       family = null,
+       fontStyle = null,
+       overflow = null,
+       whiteSpace = null,
+       maxLines = null,
+       selectable = true,
+       element = 'span';
 
   const Text.code(
     this.text, {
@@ -285,20 +318,20 @@ class Text extends StatelessWidget {
     this.align,
     this.style,
     super.key,
-  })  : size = FontSize.sm,
-        weight = null,
-        lineHeight = null,
-        letterSpacing = null,
-        colorCustom = null,
-        decoration = null,
-        transform = null,
-        family = FontFamily.mono,
-        fontStyle = null,
-        overflow = null,
-        whiteSpace = null,
-        maxLines = null,
-        selectable = true,
-        element = 'code';
+  }) : size = FontSize.sm,
+       weight = null,
+       lineHeight = null,
+       letterSpacing = null,
+       colorCustom = null,
+       decoration = null,
+       transform = null,
+       family = FontFamily.mono,
+       fontStyle = null,
+       overflow = null,
+       whiteSpace = null,
+       maxLines = null,
+       selectable = true,
+       element = 'code';
 
   const Text.link(
     this.text, {
@@ -306,20 +339,20 @@ class Text extends StatelessWidget {
     this.align,
     this.style,
     super.key,
-  })  : size = null,
-        weight = null,
-        lineHeight = null,
-        letterSpacing = null,
-        colorCustom = null,
-        decoration = TextDecoration.none,
-        transform = null,
-        family = null,
-        fontStyle = null,
-        overflow = null,
-        whiteSpace = null,
-        maxLines = null,
-        selectable = true,
-        element = 'span';
+  }) : size = null,
+       weight = null,
+       lineHeight = null,
+       letterSpacing = null,
+       colorCustom = null,
+       decoration = TextDecoration.none,
+       transform = null,
+       family = null,
+       fontStyle = null,
+       overflow = null,
+       whiteSpace = null,
+       maxLines = null,
+       selectable = true,
+       element = 'span';
 
   const Text.truncated(
     this.text, {
@@ -329,18 +362,18 @@ class Text extends StatelessWidget {
     this.align,
     this.style,
     super.key,
-  })  : overflow = TextOverflow.ellipsis,
-        whiteSpace = WhiteSpace.nowrap,
-        maxLines = 1,
-        lineHeight = null,
-        letterSpacing = null,
-        colorCustom = null,
-        decoration = null,
-        transform = null,
-        family = null,
-        fontStyle = null,
-        selectable = true,
-        element = 'span';
+  }) : overflow = TextOverflow.ellipsis,
+       whiteSpace = WhiteSpace.nowrap,
+       maxLines = 1,
+       lineHeight = null,
+       letterSpacing = null,
+       colorCustom = null,
+       decoration = null,
+       transform = null,
+       family = null,
+       fontStyle = null,
+       selectable = true,
+       element = 'span';
 
   @override
   Widget build(BuildContext context) {
@@ -352,7 +385,8 @@ class Text extends StatelessWidget {
     if (colorCustom != null) textStyles['color'] = colorCustom!;
     if (align != null) textStyles['text-align'] = align!.css;
     if (lineHeight != null) textStyles['line-height'] = lineHeight!.css;
-    if (letterSpacing != null) textStyles['letter-spacing'] = letterSpacing!.css;
+    if (letterSpacing != null)
+      textStyles['letter-spacing'] = letterSpacing!.css;
     if (decoration != null) textStyles['text-decoration'] = decoration!.css;
     if (transform != null) textStyles['text-transform'] = transform!.css;
     if (family != null) textStyles['font-family'] = family!.css;
@@ -384,31 +418,83 @@ class Text extends StatelessWidget {
 
     switch (element) {
       case 'h1':
-        return h1(classes: 'arcane-text', styles: Styles(raw: styles), content);
+        return h1(
+          classes: 'arcane-text',
+          styles: Styles(raw: styles),
+          content,
+        );
       case 'h2':
-        return h2(classes: 'arcane-text', styles: Styles(raw: styles), content);
+        return h2(
+          classes: 'arcane-text',
+          styles: Styles(raw: styles),
+          content,
+        );
       case 'h3':
-        return h3(classes: 'arcane-text', styles: Styles(raw: styles), content);
+        return h3(
+          classes: 'arcane-text',
+          styles: Styles(raw: styles),
+          content,
+        );
       case 'h4':
-        return h4(classes: 'arcane-text', styles: Styles(raw: styles), content);
+        return h4(
+          classes: 'arcane-text',
+          styles: Styles(raw: styles),
+          content,
+        );
       case 'h5':
-        return h5(classes: 'arcane-text', styles: Styles(raw: styles), content);
+        return h5(
+          classes: 'arcane-text',
+          styles: Styles(raw: styles),
+          content,
+        );
       case 'h6':
-        return h6(classes: 'arcane-text', styles: Styles(raw: styles), content);
+        return h6(
+          classes: 'arcane-text',
+          styles: Styles(raw: styles),
+          content,
+        );
       case 'p':
-        return p(classes: 'arcane-text', styles: Styles(raw: styles), content);
+        return p(
+          classes: 'arcane-text',
+          styles: Styles(raw: styles),
+          content,
+        );
       case 'code':
-        return code(classes: 'arcane-text', styles: Styles(raw: styles), content);
+        return code(
+          classes: 'arcane-text',
+          styles: Styles(raw: styles),
+          content,
+        );
       case 'pre':
-        return pre(classes: 'arcane-text', styles: Styles(raw: styles), content);
+        return pre(
+          classes: 'arcane-text',
+          styles: Styles(raw: styles),
+          content,
+        );
       case 'strong':
-        return strong(classes: 'arcane-text', styles: Styles(raw: styles), content);
+        return strong(
+          classes: 'arcane-text',
+          styles: Styles(raw: styles),
+          content,
+        );
       case 'em':
-        return em(classes: 'arcane-text', styles: Styles(raw: styles), content);
+        return em(
+          classes: 'arcane-text',
+          styles: Styles(raw: styles),
+          content,
+        );
       case 'small':
-        return small(classes: 'arcane-text', styles: Styles(raw: styles), content);
+        return small(
+          classes: 'arcane-text',
+          styles: Styles(raw: styles),
+          content,
+        );
       default:
-        return span(classes: 'arcane-text', styles: Styles(raw: styles), content);
+        return span(
+          classes: 'arcane-text',
+          styles: Styles(raw: styles),
+          content,
+        );
     }
   }
 }
@@ -418,11 +504,7 @@ class RichText extends StatelessWidget {
   final List<Widget> children;
   final ArcaneStyleData? style;
 
-  const RichText({
-    required this.children,
-    this.style,
-    super.key,
-  });
+  const RichText({required this.children, this.style, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -475,9 +557,6 @@ class TextSpan extends StatelessWidget {
       spanStyles.addAll(style!.toMap());
     }
 
-    return span(
-      styles: Styles(raw: spanStyles),
-      [Component.text(text)],
-    );
+    return span(styles: Styles(raw: spanStyles), [Component.text(text)]);
   }
 }

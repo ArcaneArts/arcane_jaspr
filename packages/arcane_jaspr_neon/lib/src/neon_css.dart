@@ -7,15 +7,12 @@ import 'package:arcane_jaspr/util/content/prose_styles.dart'
 
 import 'neon_theme.dart';
 
-/// Component CSS for the Neon (gamer) theme.
+/// Component CSS for the green and grayscale Neon theme.
 ///
 /// Every rule is scoped to `#arcane-root.arcane-theme-neon` so it can never
 /// affect the shadcn or neubrutalism themes. Colors come from the seeded palette
 /// variables (`--primary`, `--card`, `--border`, `--shadow-*`, …) which the
-/// stylesheet derives from [NeonTheme]; the `--shadow-*` tokens already carry a
-/// neon glow in dark mode (via the seed's `accentGlow`). This is deliberately a
-/// restrained baseline — enough to read as "gamer" while staying trivial to
-/// override.
+/// stylesheet derives from [NeonTheme].
 class NeonCss {
   const NeonCss._();
 
@@ -28,33 +25,17 @@ class NeonCss {
         '${b.toRadixString(16).padLeft(2, '0')}';
   }
 
-  static String _rgb(int argb) {
-    final int r = (argb >> 16) & 0xFF;
-    final int g = (argb >> 8) & 0xFF;
-    final int b = argb & 0xFF;
-    return '$r, $g, $b';
-  }
-
   static String componentCss(NeonTheme theme) {
-    final String cool = _hex(theme.accentCool);
-    final String hot = _hex(theme.accentHot);
-    final String coolRgb = _rgb(theme.accentCool);
-    final String hotRgb = _rgb(theme.accentHot);
+    final String primary = _hex(theme.color);
 
     return '''
 /* ============================================================
-   NEON THEME — gamer aesthetic. Scoped to .arcane-theme-neon.
+   NEON THEME: green and neutral. Scoped to .arcane-theme-neon.
    ============================================================ */
 
 #arcane-root.arcane-theme-neon {
-  --neon-cool: $cool;
-  --neon-hot: $hot;
-  --neon-cool-rgb: $coolRgb;
-  --neon-hot-rgb: $hotRgb;
-  --neon-gradient: linear-gradient(135deg, var(--primary), var(--neon-cool));
-  --neon-glow-sm: 0 0 10px rgba(var(--primary-rgb), 0.35);
-  --neon-glow: 0 0 18px rgba(var(--primary-rgb), 0.45);
-  --neon-glow-cool: 0 0 18px rgba(var(--neon-cool-rgb), 0.45);
+  --neon-primary: $primary;
+  --neon-overlay-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
 }
 
 #arcane-root.arcane-theme-neon ::selection {
@@ -63,8 +44,8 @@ class NeonCss {
 }
 
 #arcane-root.arcane-theme-neon :focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px var(--background), 0 0 0 4px rgba(var(--primary-rgb), 0.6);
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 /* ---------- Buttons ---------- */
@@ -79,11 +60,11 @@ class NeonCss {
   line-height: 1;
   white-space: nowrap;
   border: 1px solid transparent;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   cursor: pointer;
   text-decoration: none;
-  transition: transform var(--transition), box-shadow var(--transition),
-    background var(--transition), border-color var(--transition);
+  transition: background var(--transition), border-color var(--transition),
+    color var(--transition);
   padding: 0.5rem 1rem;
   font-size: var(--font-size-sm);
 }
@@ -121,10 +102,6 @@ class NeonCss {
   color: var(--secondary-foreground);
   border-color: var(--border);
 }
-#arcane-root.arcane-theme-neon .neon-button[data-variant="accent"] {
-  background: var(--neon-cool);
-  color: #04121a;
-}
 #arcane-root.arcane-theme-neon .neon-button[data-variant="outline"] {
   background: transparent;
   color: var(--primary);
@@ -161,8 +138,7 @@ class NeonCss {
 
 #arcane-root.arcane-theme-neon
   .neon-button:hover:not([data-disabled="true"]):not([data-variant="link"]):not([data-variant="ghost"]) {
-  transform: translateY(-1px);
-  box-shadow: var(--neon-glow);
+  border-color: color-mix(in srgb, var(--primary) 68%, var(--border));
 }
 #arcane-root.arcane-theme-neon
   .neon-button[data-variant="outline"]:hover:not([data-disabled="true"]) {
@@ -175,7 +151,7 @@ class NeonCss {
 }
 #arcane-root.arcane-theme-neon
   .neon-button:active:not([data-disabled="true"]) {
-  transform: translateY(0);
+  opacity: 0.88;
 }
 #arcane-root.arcane-theme-neon .neon-button[data-disabled="true"] {
   opacity: 0.5;
@@ -192,6 +168,19 @@ class NeonCss {
   flex-wrap: wrap;
 }
 
+/* ---------- Disclosure ---------- */
+
+#arcane-root.arcane-theme-neon .neon-disclosure-summary::-webkit-details-marker {
+  display: none;
+}
+#arcane-root.arcane-theme-neon .neon-disclosure-summary::marker {
+  content: '';
+}
+#arcane-root.arcane-theme-neon
+  .neon-disclosure[open] > .neon-disclosure-summary > .neon-disclosure-chevron {
+  transform: rotate(45deg);
+}
+
 /* ---------- Surfaces (cards, popovers, menus, dialogs) ---------- */
 
 #arcane-root.arcane-theme-neon .neon-card,
@@ -205,24 +194,22 @@ class NeonCss {
 #arcane-root.arcane-theme-neon .neon-empty-state {
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   color: var(--card-foreground);
 }
 
 #arcane-root.arcane-theme-neon .neon-card {
   position: relative;
   padding: 1.25rem;
-  transition: transform var(--transition), box-shadow var(--transition),
-    border-color var(--transition);
+  transition: background var(--transition), border-color var(--transition);
 }
 #arcane-root.arcane-theme-neon .neon-card[data-variant="elevated"] {
-  box-shadow: var(--shadow-md);
+  box-shadow: none;
 }
 #arcane-root.arcane-theme-neon .neon-card[data-variant="elevated"],
 #arcane-root.arcane-theme-neon .neon-card[data-variant="interactive"],
 #arcane-root.arcane-theme-neon .neon-card.clickable {
-  overflow: hidden;
-  border-color: color-mix(in srgb, var(--primary) 42%, var(--border));
+  border-color: var(--border);
 }
 #arcane-root.arcane-theme-neon .neon-card[data-variant="flat"] {
   box-shadow: none;
@@ -234,18 +221,13 @@ class NeonCss {
   background: transparent;
   border-color: transparent;
 }
-/* Nested cards are sub-surfaces: a neon card inside another neon card drops its
-   frame and glow so stacked panels do not ring twice. Re-assert a
-   frame on the inner card with decoration:/styles:. */
-#arcane-root.arcane-theme-neon .neon-card .neon-card:not([data-arcane-decorated]) {
+/* Nested cards collapse to unframed content. Neon permits one visible surface
+   perimeter per hierarchy level. */
+#arcane-root.arcane-theme-neon .neon-card .neon-card {
   background: transparent !important;
-  border-color: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
   box-shadow: none !important;
-}
-#arcane-root.arcane-theme-neon .neon-card[data-variant="glass"] {
-  background: color-mix(in srgb, var(--card) 55%, transparent);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
 #arcane-root.arcane-theme-neon .neon-card[data-variant="interactive"],
 #arcane-root.arcane-theme-neon .neon-card.clickable {
@@ -253,46 +235,28 @@ class NeonCss {
 }
 #arcane-root.arcane-theme-neon .neon-card[data-variant="interactive"]:hover,
 #arcane-root.arcane-theme-neon .neon-card.clickable:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-lg);
-  border-color: color-mix(in srgb, var(--primary) 40%, var(--border));
+  background: var(--card-hover);
+  border-color: var(--primary);
 }
 
 /* ---------- Feature / icon cards ---------- */
 
 #arcane-root.arcane-theme-neon .neon-feature-card,
 #arcane-root.arcane-theme-neon .neon-icon-card {
-  transition: transform var(--transition), box-shadow var(--transition),
-    border-color var(--transition);
+  transition: background var(--transition), border-color var(--transition);
 }
-/* Only interactive cards (anchors or clickable buttons) lift on hover, mirroring
-   the interactive .neon-card feel: the border is set inline on these surfaces, so
-   the neon accent glow is delivered through box-shadow. */
 #arcane-root.arcane-theme-neon a.neon-feature-card:hover,
 #arcane-root.arcane-theme-neon .neon-feature-card.clickable:hover,
 #arcane-root.arcane-theme-neon a.neon-icon-card:hover,
 #arcane-root.arcane-theme-neon .neon-icon-card.clickable:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-lg), var(--neon-glow);
+  background: var(--card-hover);
 }
 
 /* ---------- Pricing / testimonial cards ---------- */
 
-/* These surfaces are not themselves interactive (only their CTA is), so unlike
-   feature cards the WHOLE card lifts on hover. The card border is set inline by
-   the render base, so hover accent is carried by box-shadow, not border-color. */
 #arcane-root.arcane-theme-neon .neon-pricing-card,
 #arcane-root.arcane-theme-neon .neon-testimonial-card {
-  transition: transform var(--transition), box-shadow var(--transition),
-    border-color var(--transition);
-}
-#arcane-root.arcane-theme-neon .neon-pricing-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg), 0 18px 40px rgba(0, 0, 0, 0.36);
-}
-#arcane-root.arcane-theme-neon .neon-testimonial-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-lg), 0 14px 28px rgba(0, 0, 0, 0.34);
+  transition: border-color var(--transition);
 }
 
 /* ---------- Dropdown / popover / command items ---------- */
@@ -301,7 +265,7 @@ class NeonCss {
 #arcane-root.arcane-theme-neon .neon-popover,
 #arcane-root.arcane-theme-neon .neon-select-dropdown {
   padding: 0.35rem;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--neon-overlay-shadow);
 }
 #arcane-root.arcane-theme-neon .neon-dropdown-item,
 #arcane-root.arcane-theme-neon .neon-command-item,
@@ -352,7 +316,7 @@ class NeonCss {
   padding: 0.5rem 0.75rem;
   color: var(--foreground);
   font: inherit;
-  transition: border-color var(--transition), box-shadow var(--transition);
+  transition: border-color var(--transition);
 }
 #arcane-root.arcane-theme-neon .neon-otp-digit {
   width: 2.75rem;
@@ -373,7 +337,7 @@ class NeonCss {
 #arcane-root.arcane-theme-neon .neon-otp-digit:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.25);
+  box-shadow: none;
 }
 #arcane-root.arcane-theme-neon .neon-text-input-wrapper,
 #arcane-root.arcane-theme-neon .neon-textarea-wrapper {
@@ -428,7 +392,6 @@ class NeonCss {
 #arcane-root.arcane-theme-neon input:checked + .neon-checkbox-box {
   background: var(--primary);
   border-color: var(--primary);
-  box-shadow: var(--neon-glow-sm);
 }
 #arcane-root.arcane-theme-neon .neon-toggle-switch {
   position: relative;
@@ -438,7 +401,7 @@ class NeonCss {
   width: 2.5rem;
   height: 1.4rem;
   border: none;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-sm);
   background: var(--border);
   padding: 2px;
   cursor: pointer;
@@ -447,7 +410,6 @@ class NeonCss {
 #arcane-root.arcane-theme-neon .neon-toggle-switch[data-state="checked"],
 #arcane-root.arcane-theme-neon .neon-toggle-switch.active {
   background: var(--primary);
-  box-shadow: var(--neon-glow-sm);
 }
 #arcane-root.arcane-theme-neon .neon-toggle-switch[data-disabled="true"] {
   opacity: 0.5;
@@ -508,7 +470,7 @@ class NeonCss {
 #arcane-root.arcane-theme-neon .neon-tab-bar-item.active {
   background: var(--card);
   color: var(--primary);
-  box-shadow: 0 0 12px rgba(var(--primary-rgb), 0.35);
+  outline: 1px solid var(--border);
 }
 #arcane-root.arcane-theme-neon .neon-tabs-content {
   padding-top: 1rem;
@@ -520,7 +482,7 @@ class NeonCss {
   display: flex;
   gap: 0.75rem;
   padding: 1rem;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   border: 2px solid var(--primary);
   background: var(--card);
 }
@@ -552,14 +514,12 @@ class NeonCss {
 
 /* ---------- Badges / status ---------- */
 
-#arcane-root.arcane-theme-neon .neon-badge,
-#arcane-root.arcane-theme-neon .neon-status-badge,
-#arcane-root.arcane-theme-neon .neon-promo-badge {
+#arcane-root.arcane-theme-neon .neon-status-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
   padding: 0.2rem 0.6rem;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-sm);
   font-size: var(--font-size-xs);
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -573,7 +533,6 @@ class NeonCss {
   height: 0.5rem;
   border-radius: 50%;
   background: currentColor;
-  box-shadow: 0 0 8px currentColor;
 }
 #arcane-root.arcane-theme-neon .neon-status-label {
   text-transform: uppercase;
@@ -586,15 +545,14 @@ class NeonCss {
 #arcane-root.arcane-theme-neon .neon-progress,
 #arcane-root.arcane-theme-neon .neon-progress-track {
   background: var(--secondary);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-xs);
   overflow: hidden;
 }
 #arcane-root.arcane-theme-neon .neon-progress-indicator,
 #arcane-root.arcane-theme-neon .neon-progress-value {
   height: 100%;
-  background: var(--neon-gradient);
-  border-radius: var(--radius-full);
-  box-shadow: 0 0 12px rgba(var(--primary-rgb), 0.5);
+  background: var(--primary);
+  border-radius: var(--radius-xs);
 }
 #arcane-root.arcane-theme-neon .neon-loading-spinner {
   color: var(--primary);
@@ -603,7 +561,7 @@ class NeonCss {
 /* ---------- Misc components ---------- */
 
 #arcane-root.arcane-theme-neon .neon-avatar {
-  border-radius: var(--radius-full);
+  border-radius: 50%;
   border: 1px solid var(--border);
   overflow: hidden;
   background: var(--secondary);
@@ -628,7 +586,6 @@ class NeonCss {
   font-size: 0.8em;
   padding: 0.1rem 0.4rem;
   border: 1px solid var(--border);
-  border-bottom-width: 2px;
   border-radius: var(--radius-sm);
   background: var(--secondary);
   color: var(--foreground);
@@ -696,10 +653,8 @@ class NeonCss {
   padding: 0 !important;
   border-bottom: 1px solid var(--border) !important;
   border-bottom-color: var(--border) !important;
-  background: color-mix(in srgb, var(--background) 85%, transparent) !important;
+  background: var(--background) !important;
   box-shadow: none !important;
-  backdrop-filter: blur(8px) saturate(1.08) !important;
-  -webkit-backdrop-filter: blur(8px) saturate(1.08) !important;
 }
 
 #arcane-root.arcane-theme-neon .arcane-scaffold-body {
@@ -751,9 +706,7 @@ class NeonCss {
   z-index: 50;
   border: 0;
   border-bottom: 1px solid var(--border);
-  background: color-mix(in srgb, var(--background) 85%, transparent);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: var(--background);
   box-shadow: none;
 }
 
@@ -845,7 +798,6 @@ class NeonCss {
 #arcane-root.arcane-theme-neon .kb-topbar-link.active {
   background: transparent;
   color: var(--primary);
-  text-shadow: 0 0 8px rgba(var(--primary-rgb), 0.5);
   box-shadow: none;
 }
 
@@ -860,7 +812,6 @@ class NeonCss {
   right: 0;
   bottom: -0.7rem;
   height: 2px;
-  border-radius: 999px;
   background: transparent;
 }
 
@@ -898,9 +849,9 @@ class NeonCss {
   margin: 0 0 0.5rem;
   padding: 0.625rem;
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   background: var(--card);
-  box-shadow: 0 1px 0 color-mix(in srgb, var(--foreground) 4%, transparent);
+  box-shadow: none;
 }
 
 #arcane-root.arcane-theme-neon .sidebar-nav {
@@ -979,13 +930,14 @@ class NeonCss {
 #arcane-root.arcane-theme-neon .sidebar-search input:focus {
   border-color: var(--primary);
   background: var(--background);
-  box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.25);
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
 }
 
 #arcane-root.arcane-theme-neon .search-results {
   border-color: var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--neon-overlay-shadow);
 }
 
 #arcane-root.arcane-theme-neon .sidebar-tabs {
@@ -1020,7 +972,6 @@ class NeonCss {
 #arcane-root.arcane-theme-neon .sidebar-link.active {
   background: rgba(var(--primary-rgb), 0.12);
   color: var(--primary);
-  text-shadow: 0 0 8px rgba(var(--primary-rgb), 0.5);
   outline-color: var(--border);
   box-shadow: none;
 }
@@ -1105,29 +1056,21 @@ class NeonCss {
 #arcane-root.arcane-theme-neon .arcane-demo-preview-scope,
 #arcane-root.arcane-theme-neon .arcane-demo-code {
   border-color: var(--border) !important;
-  border-radius: var(--radius-lg);
+  border-radius: 0;
   box-shadow: none !important;
 }
 
 #arcane-root.arcane-theme-neon .arcane-demo-panel {
-  padding: 1.5rem !important;
-  border: 1px solid var(--border) !important;
-  border-radius: var(--radius-xl) !important;
-  background: color-mix(in srgb, var(--card) 96%, var(--background)) !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
   box-shadow: none !important;
 }
 
 #arcane-root.arcane-theme-neon .arcane-demo-kicker,
 #arcane-root.arcane-theme-neon .arcane-demo-code-label {
   color: var(--muted-foreground) !important;
-}
-
-#arcane-root.arcane-theme-neon .arcane-demo-component-chip {
-  border: 1px solid transparent !important;
-  border-radius: 999px !important;
-  background: var(--secondary) !important;
-  color: var(--muted-foreground) !important;
-  box-shadow: none !important;
 }
 
 #arcane-root.arcane-theme-neon .arcane-demo-section-title {
@@ -1139,7 +1082,7 @@ class NeonCss {
   align-items: center !important;
   justify-content: center !important;
   border-width: 1px !important;
-  background: color-mix(in srgb, var(--card) 96%, var(--background)) !important;
+  background: var(--card) !important;
 }
 
 #arcane-root.arcane-theme-neon .arcane-demo-preview-scope > .arcane-box {
@@ -1150,17 +1093,17 @@ class NeonCss {
 
 #arcane-root.arcane-theme-neon .arcane-demo-missing {
   border: 1px solid var(--border) !important;
-  border-radius: var(--radius-lg) !important;
+  border-radius: var(--radius-md) !important;
   background: var(--background) !important;
   color: var(--foreground) !important;
   box-shadow: none !important;
 }
 
 #arcane-root.arcane-theme-neon .arcane-demo-missing-icon {
-  border: 1px solid color-mix(in srgb, var(--warning, #f59e0b) 42%, var(--border)) !important;
+  border: 1px solid color-mix(in srgb, var(--warning) 42%, var(--border)) !important;
   border-radius: var(--radius-sm) !important;
-  background: color-mix(in srgb, var(--warning, #f59e0b) 16%, var(--background)) !important;
-  color: color-mix(in srgb, var(--warning, #f59e0b) 74%, var(--foreground)) !important;
+  background: color-mix(in srgb, var(--warning) 16%, var(--background)) !important;
+  color: color-mix(in srgb, var(--warning) 74%, var(--foreground)) !important;
 }
 
 #arcane-root.arcane-theme-neon .arcane-demo-missing-title {
@@ -1224,11 +1167,7 @@ class NeonCss {
 }
 
 #arcane-root.arcane-theme-neon .kb-landing-hero {
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--card) 92%, var(--primary) 8%), color-mix(in srgb, var(--background) 88%, var(--primary) 12%)),
-    linear-gradient(90deg, color-mix(in srgb, var(--primary) 7%, transparent) 1px, transparent 1px),
-    linear-gradient(color-mix(in srgb, var(--border) 54%, transparent) 1px, transparent 1px);
-  background-size: auto, 4rem 4rem, 4rem 4rem;
+  background: var(--background);
 }
 
 #arcane-root.arcane-theme-neon .kb-landing-prose {
@@ -1258,8 +1197,7 @@ class NeonCss {
 }
 
 #arcane-root.arcane-theme-neon .kb-landing-card:hover {
-  border-color: color-mix(in srgb, var(--primary) 42%, var(--border));
-  box-shadow: 0 1rem 2.5rem color-mix(in srgb, var(--primary) 10%, transparent);
+  border-color: var(--primary);
 }
 
 /* ---------- Shared docs / prose / TOC / map (variable-driven) ---------- */

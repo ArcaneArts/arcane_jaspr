@@ -77,9 +77,6 @@ abstract class PaletteGenerator {
     final int warning = seed.warning;
     final int info = seed.info;
 
-    // Glow color for shadows
-    final int? glowColor = seed.accentGlow ? (seed.glowColor ?? primary) : null;
-
     return ThemePalette(
       isDark: isDark,
 
@@ -149,13 +146,6 @@ abstract class PaletteGenerator {
       overlay: 0x80000000, // 50% black
       navbar: setAlpha(background, 0.8),
       codeBackground: secondary,
-
-      // Shadows
-      shadowXs: _shadowXs(isDark, glowColor),
-      shadowSm: _shadowSm(isDark, glowColor),
-      shadowMd: _shadowMd(isDark, glowColor),
-      shadowLg: _shadowLg(isDark, glowColor),
-      shadowXl: _shadowXl(isDark, glowColor),
     );
   }
 
@@ -348,49 +338,5 @@ abstract class PaletteGenerator {
     final int darkened = darken(background, darkenAmount);
     // Then blend in the accent color for hue
     return blendColors(accent, darkened, tintAmount);
-  }
-
-  // ============================================
-  // Shadow Generation
-  // ============================================
-
-  static String _shadowXs(bool isDark, int? glowColor) {
-    if (glowColor != null && isDark) {
-      final String rgb = toRgbString(glowColor);
-      return '0 1px 2px rgba(0, 0, 0, 0.05), 0 0 8px rgba($rgb, 0.08)';
-    }
-    return '0 1px 2px rgba(0, 0, 0, 0.05)';
-  }
-
-  static String _shadowSm(bool isDark, int? glowColor) {
-    if (glowColor != null && isDark) {
-      final String rgb = toRgbString(glowColor);
-      return '0 1px 3px rgba(0, 0, 0, 0.1), 0 0 12px rgba($rgb, 0.1)';
-    }
-    return '0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06)';
-  }
-
-  static String _shadowMd(bool isDark, int? glowColor) {
-    if (glowColor != null && isDark) {
-      final String rgb = toRgbString(glowColor);
-      return '0 4px 6px rgba(0, 0, 0, 0.1), 0 0 20px rgba($rgb, 0.15)';
-    }
-    return '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)';
-  }
-
-  static String _shadowLg(bool isDark, int? glowColor) {
-    if (glowColor != null && isDark) {
-      final String rgb = toRgbString(glowColor);
-      return '0 10px 15px rgba(0, 0, 0, 0.1), 0 0 30px rgba($rgb, 0.2)';
-    }
-    return '0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05)';
-  }
-
-  static String _shadowXl(bool isDark, int? glowColor) {
-    if (glowColor != null && isDark) {
-      final String rgb = toRgbString(glowColor);
-      return '0 20px 25px rgba(0, 0, 0, 0.15), 0 0 50px rgba($rgb, 0.25)';
-    }
-    return '0 20px 25px rgba(0, 0, 0, 0.15), 0 8px 10px rgba(0, 0, 0, 0.04)';
   }
 }

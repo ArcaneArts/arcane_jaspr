@@ -38,7 +38,8 @@ class Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => FillScreen(
     sidebar: sidebar,
-    header: header ??
+    header:
+        header ??
         ((title != null || subtitle != null || actions.isNotEmpty)
             ? Bar(
                 titleText: title,

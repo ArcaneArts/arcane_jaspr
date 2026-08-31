@@ -1,11 +1,36 @@
 # Changelog
 
-## x.x.x
+## 4.0.0 - 2026-08-31
 
 ### Changed
 
+- Card-like renderers now use the bounded `md` radius and surface markers;
+  keyboard-key borders are uniform instead of bottom-heavy.
+- Command palettes now render as bounded viewport modals with one framed
+  dialog, a flat scrollable results list, and explicit search/footer regions.
+- Button rendering now consumes core's single typed semantic icon slot; the
+  obsolete automatic-arrow transition hook was removed.
 - Rounded cards and alerts now use complete accent borders instead of clipped
   top strips or thick left edges.
+- Rebuilt Neon around one green palette, grayscale surfaces, flat controls, and
+  compact radii; removed card lift, decorative glow, glass, and gradient styles.
+- Removed external font loading in favor of the bundled Akzidenz Grotesk Pro,
+  ITC Avant Garde, and Hack font families.
+- Removed the obsolete empty remote-stylesheet override after core deleted the
+  external stylesheet API.
+- Text fields, textareas, select triggers, and search controls now focus by
+  changing one uniform border instead of stacking an outline or shadow around
+  the existing control edge.
+
+### Removed
+
+- Removed the floating, modal, ticker, progress, sidebar, takeover, and toast
+  promo renderers; the retained top and inline announcements are flat links.
+
+### Fixed
+
+- Disclosure summaries now suppress the browser marker, keep their content and
+  one plain plus indicator on a single row, and rotate that indicator when open.
 
 ## 3.3.0
 

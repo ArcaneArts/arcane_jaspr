@@ -94,7 +94,8 @@ Card.outlined(
           Button.primary(
             label: 'Start trial',
             onPressed: () {},
-            showArrow: true,
+            icon: ArcaneIcon.arrowRight(size: IconSize.sm),
+            iconPosition: ButtonIconPosition.trailing,
           ),
           Button.secondary(
             label: 'Preview plans',

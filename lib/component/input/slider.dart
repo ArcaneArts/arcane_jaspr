@@ -57,10 +57,10 @@ class ArcaneSlider extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : isRange = false,
-        rangeMin = null,
-        rangeMax = null,
-        onRangeChanged = null;
+  }) : isRange = false,
+       rangeMin = null,
+       rangeMax = null,
+       onRangeChanged = null;
 
   const ArcaneSlider.range({
     this.id,
@@ -83,11 +83,11 @@ class ArcaneSlider extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : value = 0,
-        onChanged = null,
-        isRange = true,
-        rangeMin = minValue,
-        rangeMax = maxValue;
+  }) : value = 0,
+       onChanged = null,
+       isRange = true,
+       rangeMin = minValue,
+       rangeMax = maxValue;
 
   const ArcaneSlider.primary({
     this.id,
@@ -108,11 +108,11 @@ class ArcaneSlider extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : variant = SliderVariant.primary,
-        isRange = false,
-        rangeMin = null,
-        rangeMax = null,
-        onRangeChanged = null;
+  }) : variant = SliderVariant.primary,
+       isRange = false,
+       rangeMin = null,
+       rangeMax = null,
+       onRangeChanged = null;
 
   const ArcaneSlider.success({
     this.id,
@@ -133,11 +133,11 @@ class ArcaneSlider extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : variant = SliderVariant.success,
-        isRange = false,
-        rangeMin = null,
-        rangeMax = null,
-        onRangeChanged = null;
+  }) : variant = SliderVariant.success,
+       isRange = false,
+       rangeMin = null,
+       rangeMax = null,
+       onRangeChanged = null;
 
   const ArcaneSlider.warning({
     this.id,
@@ -158,11 +158,11 @@ class ArcaneSlider extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : variant = SliderVariant.warning,
-        isRange = false,
-        rangeMin = null,
-        rangeMax = null,
-        onRangeChanged = null;
+  }) : variant = SliderVariant.warning,
+       isRange = false,
+       rangeMin = null,
+       rangeMax = null,
+       onRangeChanged = null;
 
   const ArcaneSlider.error({
     this.id,
@@ -183,38 +183,40 @@ class ArcaneSlider extends StatelessWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : variant = SliderVariant.error,
-        isRange = false,
-        rangeMin = null,
-        rangeMax = null,
-        onRangeChanged = null;
+  }) : variant = SliderVariant.error,
+       isRange = false,
+       rangeMin = null,
+       rangeMax = null,
+       onRangeChanged = null;
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.slider(SliderProps(
-      id: id,
-      value: value,
-      min: min,
-      max: max,
-      step: step,
-      label: label,
-      showValue: showValue,
-      valuePrefix: valuePrefix,
-      valueSuffix: valueSuffix,
-      valueDecimals: valueDecimals,
-      variant: variant,
-      size: size,
-      showSteps: showSteps,
-      disabled: disabled,
-      onChanged: onChanged,
-      isRange: isRange,
-      rangeMin: rangeMin,
-      rangeMax: rangeMax,
-      onRangeChanged: onRangeChanged,
-      onChangeAction: onChangeAction,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.slider(
+      SliderProps(
+        id: id,
+        value: value,
+        min: min,
+        max: max,
+        step: step,
+        label: label,
+        showValue: showValue,
+        valuePrefix: valuePrefix,
+        valueSuffix: valueSuffix,
+        valueDecimals: valueDecimals,
+        variant: variant,
+        size: size,
+        showSteps: showSteps,
+        disabled: disabled,
+        onChanged: onChanged,
+        isRange: isRange,
+        rangeMin: rangeMin,
+        rangeMax: rangeMax,
+        onRangeChanged: onRangeChanged,
+        onChangeAction: onChangeAction,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }
 

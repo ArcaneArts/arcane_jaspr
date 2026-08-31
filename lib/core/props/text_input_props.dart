@@ -6,21 +6,9 @@ import '../decoration/arcane_decoration.dart';
 
 export '../shared/shared.dart' show ComponentSize;
 
-enum TextInputVariant {
-  outline,
-  filled,
-  underline,
-}
+enum TextInputVariant { outline, filled, underline }
 
-enum TextInputType {
-  text,
-  email,
-  password,
-  number,
-  tel,
-  url,
-  search,
-}
+enum TextInputType { text, email, password, number, tel, url, search }
 
 /// Text input component properties.
 class TextInputProps {

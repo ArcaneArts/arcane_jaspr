@@ -19,7 +19,7 @@ class DocsHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         padding: PaddingPreset.horizontalLg,
         heightCustom: '64px',
-        borderBottom: BorderPreset.subtle,
+        border: BorderPreset.subtle,
         background: Background.background,
         position: Position.sticky,
         top: '0',

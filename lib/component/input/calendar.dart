@@ -8,20 +8,14 @@ export '../../core/props/calendar_props.dart'
     show CalendarModeVariant, DateRangeValue, CalendarProps;
 
 /// Calendar selection mode.
-enum CalendarMode {
-  single,
-  range,
-}
+enum CalendarMode { single, range }
 
 /// A date range.
 class DateRange {
   final DateTime start;
   final DateTime end;
 
-  const DateRange({
-    required this.start,
-    required this.end,
-  });
+  const DateRange({required this.start, required this.end});
 }
 
 /// A calendar component for date selection.
@@ -106,8 +100,10 @@ class _ArcaneCalendarState extends State<ArcaneCalendar> {
 
   bool _isDisabled(DateTime date) {
     if (component.disabledDates?.call(date) ?? false) return true;
-    if (component.minDate != null && date.isBefore(component.minDate!)) return true;
-    if (component.maxDate != null && date.isAfter(component.maxDate!)) return true;
+    if (component.minDate != null && date.isBefore(component.minDate!))
+      return true;
+    if (component.maxDate != null && date.isAfter(component.maxDate!))
+      return true;
     return false;
   }
 
@@ -129,9 +125,9 @@ class _ArcaneCalendarState extends State<ArcaneCalendar> {
   }
 
   CalendarModeVariant get _propsMode => switch (component.mode) {
-        CalendarMode.single => CalendarModeVariant.single,
-        CalendarMode.range => CalendarModeVariant.range,
-      };
+    CalendarMode.single => CalendarModeVariant.single,
+    CalendarMode.range => CalendarModeVariant.range,
+  };
 
   DateRangeValue? get _propsSelectedRange {
     if (component.selectedRange == null) return null;
@@ -143,25 +139,27 @@ class _ArcaneCalendarState extends State<ArcaneCalendar> {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.calendar(CalendarProps(
-      id: component.id,
-      selected: component.selected,
-      displayMonth: _displayMonth,
-      minDate: component.minDate,
-      maxDate: component.maxDate,
-      showWeekNumbers: component.showWeekNumbers,
-      showToday: component.showToday,
-      firstDayOfWeek: component.firstDayOfWeek,
-      mode: _propsMode,
-      selectedRange: _propsSelectedRange,
-      rangeStart: _rangeStart,
-      isDisabled: _isDisabled,
-      onPreviousMonth: _previousMonth,
-      onNextMonth: _nextMonth,
-      onGoToToday: _goToToday,
-      onSelectDate: _selectDate,
-      styles: component.styles,
-      decoration: component.decoration,
-    ));
+    return context.renderers.calendar(
+      CalendarProps(
+        id: component.id,
+        selected: component.selected,
+        displayMonth: _displayMonth,
+        minDate: component.minDate,
+        maxDate: component.maxDate,
+        showWeekNumbers: component.showWeekNumbers,
+        showToday: component.showToday,
+        firstDayOfWeek: component.firstDayOfWeek,
+        mode: _propsMode,
+        selectedRange: _propsSelectedRange,
+        rangeStart: _rangeStart,
+        isDisabled: _isDisabled,
+        onPreviousMonth: _previousMonth,
+        onNextMonth: _nextMonth,
+        onGoToToday: _goToToday,
+        onSelectDate: _selectDate,
+        styles: component.styles,
+        decoration: component.decoration,
+      ),
+    );
   }
 }

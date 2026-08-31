@@ -1,4 +1,5 @@
 import 'package:arcane_jaspr/flutter.dart';
+import '../../component/view/icon.dart';
 import '../shared/shared.dart';
 import '../../util/style_types/arcane_style_data.dart';
 import '../decoration/arcane_decoration.dart';
@@ -6,12 +7,7 @@ import '../decoration/arcane_decoration.dart';
 export '../shared/shared.dart' show ColorVariant;
 
 /// Alert visual style variant.
-enum AlertStyle {
-  subtle,
-  solid,
-  outline,
-  accent,
-}
+enum AlertStyle { subtle, solid, outline, accent }
 
 /// Alert component properties.
 class AlertProps {
@@ -20,7 +16,7 @@ class AlertProps {
   final String? message;
   final Widget? child;
   final AlertStyle variant;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final bool showIcon;
   final bool dismissible;
   final void Function()? onDismiss;
@@ -53,7 +49,7 @@ class AlertProps {
     String? message,
     Widget? child,
     AlertStyle? variant,
-    Widget? icon,
+    ArcaneGlyph? icon,
     bool? showIcon,
     bool? dismissible,
     void Function()? onDismiss,

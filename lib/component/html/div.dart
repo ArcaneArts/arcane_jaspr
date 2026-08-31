@@ -81,8 +81,8 @@ class _ArcaneDivChild extends ArcaneDiv {
     super.events,
     super.attributes,
     super.key,
-  })  : _child = child,
-        super(children: const []);
+  }) : _child = child,
+       super(children: const []);
 
   @override
   Component build(BuildContext context) {

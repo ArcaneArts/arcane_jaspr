@@ -61,10 +61,14 @@ class ArcaneMap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dims = MapProjection.dimensions(type);
-    final className =
-        type == MapType.world ? 'arcane-world-map' : 'arcane-usa-map';
+    final className = type == MapType.world
+        ? 'arcane-world-map'
+        : 'arcane-usa-map';
     final mapUrl =
-        svgUrl ?? (type == MapType.world ? '/assets/map/world.svg' : '/assets/map/us.svg');
+        svgUrl ??
+        (type == MapType.world
+            ? '/assets/map/world.svg'
+            : '/assets/map/us.svg');
 
     // Use aspect-ratio container to ensure pins align with SVG
     return dom.div(
@@ -74,54 +78,66 @@ class ArcaneMap extends StatelessWidget {
         'data-map-type': type.name,
         if (showTooltips && tooltipBuilder != null) 'data-has-tooltips': 'true',
       },
-      styles: dom.Styles(raw: {
-        'display': 'flex',
-        'justify-content': 'center',
-        'align-items': 'center',
-        'width': '100%',
-        'height': ?height,
-        'max-height': '80vh',
-        'overflow': 'visible',
-      }),
+      styles: dom.Styles(
+        raw: {
+          'display': 'flex',
+          'justify-content': 'center',
+          'align-items': 'center',
+          'width': '100%',
+          'height': ?height,
+          'max-height': '80vh',
+          'overflow': 'visible',
+        },
+      ),
       [
         // Inner container with aspect ratio matching the SVG
         dom.div(
-          styles: dom.Styles(raw: {
-            'position': 'relative',
-            'width': '100%',
-            'max-width': '100%',
-            'aspect-ratio': '${dims.aspectRatio}',
-            'max-height': '100%',
-            'overflow': 'visible',
-          }),
+          styles: dom.Styles(
+            raw: {
+              'position': 'relative',
+              'width': '100%',
+              'max-width': '100%',
+              'aspect-ratio': '${dims.aspectRatio}',
+              'max-height': '100%',
+              'overflow': 'visible',
+            },
+          ),
           [
             // SVG Map as image - fills the aspect-ratio container
             dom.img(
               src: mapUrl,
               attributes: {'alt': 'Map'},
-              styles: const dom.Styles(raw: {
-                'width': '100%',
-                'height': '100%',
-                'display': 'block',
-                'border-radius': '8px',
-              }),
+              styles: const dom.Styles(
+                raw: {
+                  'width': '100%',
+                  'height': '100%',
+                  'display': 'block',
+                  'border-radius': '8px',
+                },
+              ),
             ),
             // Pins container
             dom.div(
               key: const ValueKey('pins-container'),
               classes: 'arcane-map-pins',
-              styles: const dom.Styles(raw: {
-                'position': 'absolute',
-                'top': '0',
-                'left': '0',
-                'width': '100%',
-                'height': '100%',
-                'pointer-events': 'none',
-                'z-index': '10',
-              }),
+              styles: const dom.Styles(
+                raw: {
+                  'position': 'absolute',
+                  'top': '0',
+                  'left': '0',
+                  'width': '100%',
+                  'height': '100%',
+                  'pointer-events': 'none',
+                  'z-index': '10',
+                },
+              ),
               [
                 for (final location in locations)
-                  _buildPin(location, dims, key: ValueKey('pin-${location.id}')),
+                  _buildPin(
+                    location,
+                    dims,
+                    key: ValueKey('pin-${location.id}'),
+                  ),
               ],
             ),
             // Tooltip containers
@@ -129,18 +145,24 @@ class ArcaneMap extends StatelessWidget {
               dom.div(
                 key: const ValueKey('tooltips-container'),
                 classes: 'arcane-map-tooltips',
-                styles: const dom.Styles(raw: {
-                  'position': 'absolute',
-                  'top': '0',
-                  'left': '0',
-                  'width': '100%',
-                  'height': '100%',
-                  'pointer-events': 'none',
-                  'z-index': '100',
-                }),
+                styles: const dom.Styles(
+                  raw: {
+                    'position': 'absolute',
+                    'top': '0',
+                    'left': '0',
+                    'width': '100%',
+                    'height': '100%',
+                    'pointer-events': 'none',
+                    'z-index': '100',
+                  },
+                ),
                 [
                   for (final location in locations)
-                    _buildTooltipWrapper(location, dims, key: ValueKey('tooltip-${location.id}')),
+                    _buildTooltipWrapper(
+                      location,
+                      dims,
+                      key: ValueKey('tooltip-${location.id}'),
+                    ),
                 ],
               ),
           ],
@@ -165,33 +187,31 @@ class ArcaneMap extends StatelessWidget {
     final leftPct = (x / dims.width) * 100;
     final topPct = (y / dims.height) * 100;
     // Use location's custom color if provided, otherwise fall back to style
-    final color = location.color ??
+    final color =
+        location.color ??
         (location.isActive ? style.pinActiveColor : style.pinColor);
     final size = style.pinSize * 2; // Double for HTML rendering
 
     return dom.div(
       key: key,
       classes: 'arcane-map-pin',
-      attributes: {
-        'data-location': location.id,
-      },
-      styles: dom.Styles(raw: {
-        'position': 'absolute',
-        'left': '${leftPct.toStringAsFixed(2)}%',
-        'top': '${topPct.toStringAsFixed(2)}%',
-        'width': '${size}px',
-        'height': '${size}px',
-        'background': color,
-        'border-radius': '50%',
-        'transform': 'translate(-50%, -50%)',
-        'pointer-events': 'auto',
-        'cursor': onLocationTap != null ? 'pointer' : 'default',
-        'transition': 'transform 150ms ease, box-shadow 150ms ease',
-        'box-shadow': style.pinGlowIntensity > 0
-            ? '0 0 ${size}px ${(size * 0.5).toInt()}px ${color}40'
-            : 'none',
-        'z-index': '10',
-      }),
+      attributes: {'data-location': location.id},
+      styles: dom.Styles(
+        raw: {
+          'position': 'absolute',
+          'left': '${leftPct.toStringAsFixed(2)}%',
+          'top': '${topPct.toStringAsFixed(2)}%',
+          'width': '${size}px',
+          'height': '${size}px',
+          'background': color,
+          'border-radius': '50%',
+          'transform': 'translate(-50%, -50%)',
+          'pointer-events': 'auto',
+          'cursor': onLocationTap != null ? 'pointer' : 'default',
+          'transition': 'transform 150ms ease',
+          'z-index': '10',
+        },
+      ),
       [],
     );
   }
@@ -215,20 +235,20 @@ class ArcaneMap extends StatelessWidget {
     return dom.div(
       key: key,
       classes: 'arcane-map-tooltip',
-      attributes: {
-        'data-for-location': location.id,
-      },
-      styles: dom.Styles(raw: {
-        'position': 'absolute',
-        'left': '${leftPct.toStringAsFixed(2)}%',
-        'top': '${topPct.toStringAsFixed(2)}%',
-        'transform': 'translate(-50%, -100%) translateY(-16px)',
-        'z-index': '100',
-        'pointer-events': 'none',
-        'opacity': '0',
-        'visibility': 'hidden',
-        'transition': 'opacity 150ms ease, visibility 150ms ease',
-      }),
+      attributes: {'data-for-location': location.id},
+      styles: dom.Styles(
+        raw: {
+          'position': 'absolute',
+          'left': '${leftPct.toStringAsFixed(2)}%',
+          'top': '${topPct.toStringAsFixed(2)}%',
+          'transform': 'translate(-50%, -100%) translateY(-16px)',
+          'z-index': '100',
+          'pointer-events': 'none',
+          'opacity': '0',
+          'visibility': 'hidden',
+          'transition': 'opacity 150ms ease, visibility 150ms ease',
+        },
+      ),
       [tooltipBuilder!(location)],
     );
   }

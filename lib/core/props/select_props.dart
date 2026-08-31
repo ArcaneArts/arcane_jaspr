@@ -1,4 +1,5 @@
 import 'package:arcane_jaspr/flutter.dart';
+import '../../component/view/icon.dart';
 
 import '../../util/style_types/arcane_style_data.dart';
 import '../decoration/arcane_decoration.dart';
@@ -7,10 +8,7 @@ import '../shared/shared.dart';
 
 export '../shared/shared.dart' show ComponentSize;
 
-enum SelectDropdownDirection {
-  up,
-  down,
-}
+enum SelectDropdownDirection { up, down }
 
 /// Select option data.
 class SelectOptionProps<T> {
@@ -18,7 +16,7 @@ class SelectOptionProps<T> {
   final String label;
   final String? subtitle;
   final String? description;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final bool disabled;
   final List<String>? searchKeywords;
 

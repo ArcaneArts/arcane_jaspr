@@ -41,19 +41,21 @@ class ArcaneFieldWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.fieldWrapper(FieldWrapperProps(
-      field: field,
-      labelText: labelText,
-      description: description,
-      icon: icon,
-      error: error,
-      required: required,
-      showValidation: showValidation,
-      leading: leading,
-      trailing: trailing,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.fieldWrapper(
+      FieldWrapperProps(
+        field: field,
+        labelText: labelText,
+        description: description,
+        icon: icon,
+        error: error,
+        required: required,
+        showValidation: showValidation,
+        leading: leading,
+        trailing: trailing,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }
 
@@ -74,12 +76,14 @@ class ArcaneFormSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.formSection(FormSectionProps(
-      title: title,
-      description: description,
-      children: children,
-      spacing: spacing,
-    ));
+    return context.renderers.formSection(
+      FormSectionProps(
+        title: title,
+        description: description,
+        children: children,
+        spacing: spacing,
+      ),
+    );
   }
 }
 
@@ -106,15 +110,17 @@ class ArcaneForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.form(FormProps(
-      children: children,
-      submitText: submitText,
-      cancelText: cancelText,
-      onSubmit: onSubmit,
-      onCancel: onCancel,
-      showActions: showActions,
-      spacing: spacing,
-    ));
+    return context.renderers.form(
+      FormProps(
+        children: children,
+        submitText: submitText,
+        cancelText: cancelText,
+        onSubmit: onSubmit,
+        onCancel: onCancel,
+        showActions: showActions,
+        spacing: spacing,
+      ),
+    );
   }
 }
 
@@ -139,11 +145,13 @@ class ArcaneInputGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.inputGroup(InputGroupProps(
-      children: children,
-      gap: gap,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.inputGroup(
+      InputGroupProps(
+        children: children,
+        gap: gap,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }

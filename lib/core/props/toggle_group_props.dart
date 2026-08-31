@@ -4,21 +4,11 @@ import '../../util/style_types/arcane_style_data.dart';
 import '../decoration/arcane_decoration.dart';
 import '../interaction/interaction.dart';
 
-enum ToggleGroupVariantStyle {
-  defaultVariant,
-  outline,
-}
+enum ToggleGroupVariantStyle { defaultVariant, outline }
 
-enum ToggleGroupSizeVariant {
-  sm,
-  md,
-  lg,
-}
+enum ToggleGroupSizeVariant { sm, md, lg }
 
-enum ToggleGroupSelectionType {
-  single,
-  multiple,
-}
+enum ToggleGroupSelectionType { single, multiple }
 
 /// Toggle group item data.
 class ToggleGroupItemProps {

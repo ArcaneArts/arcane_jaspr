@@ -121,29 +121,4 @@ class Win95RadioGroup<T> extends RadioGroupRenderBase<T> {
       <Component>[Component.text(option.label)],
     );
   }
-
-  @override
-  Component buildChipRadio(
-    RadioOptionProps<T> option,
-    String groupName,
-    bool isSelected,
-    bool isDisabled,
-    bool hasError,
-    Map<String, String> itemAttrs,
-  ) {
-    return dom.button(
-      classes: 'win95-radio-chip',
-      attributes: <String, String>{
-        'type': 'button',
-        ...itemAttrs,
-        if (isDisabled) 'disabled': 'true',
-      },
-      events: isDisabled
-          ? null
-          : <String, EventCallback>{
-              'click': (_) => props.onChanged?.call(option.value),
-            },
-      <Component>[Component.text(option.label)],
-    );
-  }
 }

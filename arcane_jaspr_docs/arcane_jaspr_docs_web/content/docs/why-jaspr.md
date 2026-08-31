@@ -6,15 +6,15 @@ layout: kb
 
 # Why Jaspr + Arcane Jaspr?
 
-This guide helps you understand when Jaspr is the right choice for your web project, especially compared to Flutter web.
+Jaspr and Flutter web use different rendering models. Choose between them based on the browser behavior your project needs.
 
 ## The Core Difference
 
-**Flutter Web** renders your UI to a canvas element. The browser sees a single `<canvas>` tag, not your buttons, text, or links.
+Flutter web can render an app through a canvas-based surface. In that mode, browser tools do not receive the same element tree as a normal HTML page.
 
-**Jaspr** renders to semantic HTML. Your button is a `<button>`, your text is a `<p>`, your link is an `<a>`. The browser understands your content.
+Jaspr renders semantic HTML. A button is a `<button>`, text can be a `<p>`, and a link is an `<a>`.
 
-This fundamental difference affects everything.
+That distinction affects indexing, browser tools, accessibility, and page behavior.
 
 ---
 
@@ -39,7 +39,7 @@ This fundamental difference affects everything.
 | Twitter Cards | Complex workarounds | Simple meta tags |
 | WhatsApp/Telegram Previews | Often broken | Works correctly |
 
-**Bottom Line:** If people need to find your site via Google or share it on social media, Jaspr is the clear choice.
+Jaspr exposes page content as HTML for indexing and link previews.
 
 ---
 
@@ -70,7 +70,7 @@ This fundamental difference affects everything.
 | Memory Usage | Higher | Lower |
 | CPU Usage | Higher | Lower |
 
-**Note:** Flutter has better runtime performance for complex animations, but most websites do not need this level of performance.
+Flutter's canvas renderer is often a better fit for animation-heavy application interfaces. Jaspr keeps document-oriented sites in the browser's HTML model.
 
 ---
 
@@ -101,7 +101,7 @@ This fundamental difference affects everything.
 
 ## Use Case Comparison
 
-### Choose Jaspr When Building:
+### Choose Jaspr when building
 
 | Use Case | Why Jaspr |
 |----------|-----------|
@@ -114,7 +114,7 @@ This fundamental difference affects everything.
 | Company websites | Professional presence |
 | SaaS marketing pages | Lead generation |
 
-### Choose Flutter When Building:
+### Choose Flutter when building
 
 | Use Case | Why Flutter |
 |----------|-------------|
@@ -131,7 +131,7 @@ This fundamental difference affects everything.
 
 Both platforms use the Arcane design system, but implementations differ:
 
-### Shared Features
+### Shared features
 
 | Feature | Flutter Arcane | Jaspr Arcane |
 |---------|---------------|--------------|
@@ -140,7 +140,7 @@ Both platforms use the Arcane design system, but implementations differ:
 | Component Library | 100+ widgets | 75+ components |
 | Consistent Design | Yes | Yes |
 
-### Implementation Differences
+### Implementation differences
 
 | Aspect | Flutter Arcane | Jaspr Arcane |
 |--------|---------------|--------------|
@@ -156,26 +156,27 @@ Both platforms use the Arcane design system, but implementations differ:
 
 ### From Flutter Web to Jaspr
 
-If you have a Flutter web app that needs better SEO:
+For a Flutter web app that needs HTML output:
 
-1. **Evaluate Complexity:** Simple UIs migrate easily. Complex custom painting does not.
-2. **Identify Components:** Most Arcane widgets have Arcane Jaspr equivalents.
-3. **Plan Routing:** jaspr_router uses different patterns than Navigator.
-4. **Test SEO:** Verify Google can index your new site.
+1. Check whether the interface depends on custom painting or canvas behavior.
+2. Map the existing widgets to their Arcane Jaspr equivalents.
+3. Replace Navigator routes with the project's Jaspr routing setup.
+4. Verify the built HTML and metadata with browser and indexing tools.
 
 ### Keeping Both
 
-Many teams use both:
-- **Flutter** for native mobile/desktop apps
-- **Jaspr** for marketing site, docs, blog
+The two frameworks can share a product without sharing a renderer:
 
-The Arcane design system ensures visual consistency across both platforms.
+- Use Flutter for native mobile and desktop applications.
+- Use Jaspr for HTML documentation and public web pages.
+
+The Arcane packages keep related component names and theme concepts across both platforms.
 
 ---
 
 ## Getting Started
 
-Ready to build with Jaspr + Arcane Jaspr?
+Create an Arcane Jaspr project:
 
 ```bash
 # Install Oracular

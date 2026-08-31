@@ -48,10 +48,7 @@ class NeubrutalismRadioGroup<T> extends RadioGroupRenderBase<T> {
       if (props.required)
         const dom.span(
           styles: dom.Styles(
-            raw: {
-              'color': 'var(--destructive)',
-              'margin-left': '0.35rem',
-            },
+            raw: {'color': 'var(--destructive)', 'margin-left': '0.35rem'},
           ),
           [Component.text('*')],
         ),
@@ -148,13 +145,15 @@ class NeubrutalismRadioGroup<T> extends RadioGroupRenderBase<T> {
       [
         dom.div(
           classes: 'neubrutalism-radio-circle',
+          attributes: const <String, String>{
+            'data-arcane-intrinsic-shape': 'radio',
+          },
           styles: dom.Styles(
             raw: {
               'width': '20px',
               'height': '20px',
-              'border-radius': '9999px',
-              'border':
-                  'var(--nb-border-base, 3px) solid var(--nb-line, #000)',
+              'border-radius': '50%',
+              'border': 'var(--nb-border-base, 3px) solid var(--nb-line, #000)',
               'background': isSelected
                   ? 'var(--nb-accent, var(--primary))'
                   : 'var(--nb-paper, var(--card))',
@@ -172,11 +171,14 @@ class NeubrutalismRadioGroup<T> extends RadioGroupRenderBase<T> {
           [
             if (isSelected)
               const dom.div(
+                attributes: <String, String>{
+                  'data-arcane-intrinsic-shape': 'radio-dot',
+                },
                 styles: dom.Styles(
                   raw: {
                     'width': '8px',
                     'height': '8px',
-                    'border-radius': '9999px',
+                    'border-radius': '50%',
                     'background': 'var(--nb-on-accent, #000)',
                   },
                 ),
@@ -214,8 +216,7 @@ class NeubrutalismRadioGroup<T> extends RadioGroupRenderBase<T> {
           'align-items': 'flex-start',
           'gap': '0.7rem',
           'padding': '0.9rem 1rem',
-          'border':
-              'var(--nb-border-base, 3px) solid var(--nb-line, #000)',
+          'border': 'var(--nb-border-base, 3px) solid var(--nb-line, #000)',
           'border-radius': 'var(--nb-radius-soft, 4px)',
           'background': isSelected
               ? 'var(--nb-accent, var(--primary))'
@@ -265,8 +266,7 @@ class NeubrutalismRadioGroup<T> extends RadioGroupRenderBase<T> {
           'justify-content': 'center',
           'gap': '0.55rem',
           'padding': '0.6rem 1rem',
-          'border':
-              'var(--nb-border-base, 3px) solid var(--nb-line, #000)',
+          'border': 'var(--nb-border-base, 3px) solid var(--nb-line, #000)',
           'border-radius': 'var(--nb-radius-soft, 4px)',
           'background': isSelected
               ? 'var(--nb-accent, var(--primary))'
@@ -275,60 +275,6 @@ class NeubrutalismRadioGroup<T> extends RadioGroupRenderBase<T> {
               ? 'var(--nb-on-accent, #000)'
               : 'var(--foreground)',
           'font-family': 'var(--font-heading)',
-          'font-weight': '800',
-          'letter-spacing': '0.02em',
-          'box-shadow':
-              'var(--nb-shadow-xs, 2px 2px 0 0 var(--nb-shadow-color, #000))',
-          'cursor': isDisabled ? 'not-allowed' : 'pointer',
-          'transition':
-              'transform var(--nb-transition, 120ms ease), box-shadow var(--nb-transition, 120ms ease), background-color var(--nb-transition, 120ms ease), color var(--nb-transition, 120ms ease)',
-        },
-      ),
-      events: isDisabled
-          ? null
-          : {'click': (_) => props.onChanged?.call(option.value)},
-      [if (option.icon != null) option.icon!, Component.text(option.label)],
-    );
-  }
-
-  @override
-  Component buildChipRadio(
-    RadioOptionProps<T> option,
-    String groupName,
-    bool isSelected,
-    bool isDisabled,
-    bool hasError,
-    Map<String, String> itemAttrs,
-  ) {
-    return dom.button(
-      classes:
-          'neubrutalism-radio-chip ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
-      attributes: mergeAttrs(<Map<String, String>>[
-        <String, String>{
-          'type': 'button',
-          'data-state': isSelected ? 'checked' : 'unchecked',
-          'data-disabled': '$isDisabled',
-          if (isDisabled) 'disabled': 'true',
-        },
-        itemAttrs,
-      ]),
-      styles: dom.Styles(
-        raw: {
-          'display': 'inline-flex',
-          'align-items': 'center',
-          'gap': '0.45rem',
-          'padding': '0.4rem 0.85rem',
-          'border':
-              'var(--nb-border-thin, 2px) solid var(--nb-line, #000)',
-          'border-radius': 'var(--nb-radius-soft, 4px)',
-          'background': isSelected
-              ? 'var(--nb-accent, var(--primary))'
-              : 'var(--nb-paper, var(--card))',
-          'color': isSelected
-              ? 'var(--nb-on-accent, #000)'
-              : 'var(--foreground)',
-          'font-family': 'var(--font-heading)',
-          'font-size': 'var(--font-size-xs)',
           'font-weight': '800',
           'letter-spacing': '0.02em',
           'box-shadow':
@@ -352,7 +298,9 @@ class NeubrutalismRadioGroup<T> extends RadioGroupRenderBase<T> {
           raw: {
             'font-size': 'var(--font-size-sm)',
             'font-weight': 'var(--font-weight-medium)',
-            'color': isSelected ? 'var(--nb-accent, var(--primary))' : 'var(--foreground)',
+            'color': isSelected
+                ? 'var(--nb-accent, var(--primary))'
+                : 'var(--foreground)',
           },
         ),
         [Component.text(option.label)],

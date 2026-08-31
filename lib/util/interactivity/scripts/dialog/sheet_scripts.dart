@@ -59,7 +59,7 @@ class SheetScripts {
 
     var baseStyles = 'background:var(--arcane-surface);display:flex;flex-direction:column;overflow:hidden;';
     if (position === 'bottom' || position === 'top') {
-      sheet.style.cssText = baseStyles + 'width:100%;max-height:' + (options.height || 400) + 'px;border-radius:var(--arcane-radius-lg) var(--arcane-radius-lg) 0 0;';
+      sheet.style.cssText = baseStyles + 'width:100%;max-height:' + (options.height || 400) + 'px;border-radius:var(--arcane-radius-md) var(--arcane-radius-md) 0 0;';
     } else {
       sheet.style.cssText = baseStyles + 'height:100%;width:' + (options.width || 400) + 'px;max-width:100%;';
     }

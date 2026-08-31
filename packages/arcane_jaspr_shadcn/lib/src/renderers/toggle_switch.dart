@@ -61,6 +61,7 @@ class ShadcnToggleSwitch extends ToggleSwitchRenderBase {
           if (props.disabled) 'disabled': 'true',
           'data-state': props.value ? 'checked' : 'unchecked',
           'data-disabled': '${props.disabled}',
+          'data-arcane-intrinsic-shape': 'switch-track',
         },
         itemAttrs,
       ]),
@@ -74,8 +75,7 @@ class ShadcnToggleSwitch extends ToggleSwitchRenderBase {
           'height': '${height}px',
           'padding': '${thumbOffset}px',
           'border': props.value ? 'none' : '1px solid var(--border)',
-          // ShadCN: rounded-full
-          'border-radius': 'var(--radius-full)',
+          'border-radius': 'var(--radius-sm)',
           // ShadCN: bg-input (off) / bg-primary (on)
           'background-color': props.value ? activeColor : inactiveColor,
           'cursor': props.disabled ? 'not-allowed' : 'pointer',
@@ -107,14 +107,14 @@ class ShadcnToggleSwitch extends ToggleSwitchRenderBase {
           classes: 'arcane-toggle-thumb',
           attributes: <String, String>{
             'data-state': props.value ? 'checked' : 'unchecked',
+            'data-arcane-intrinsic-shape': 'switch-thumb',
           },
           styles: dom.Styles(
             raw: <String, String>{
               'display': 'block',
               'width': '${thumbSize}px',
               'height': '${thumbSize}px',
-              // ShadCN: rounded-full
-              'border-radius': 'var(--radius-full)',
+              'border-radius': '50%',
               // ShadCN: bg-background
               'background-color': 'var(--background)',
               // ShadCN: shadow-lg

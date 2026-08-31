@@ -1,6 +1,6 @@
 {
-  "generated": "2026-03-14T06:34:19.033936Z",
-  "itemCount": 73,
+  "generated": "2026-08-31T04:02:17.463083Z",
+  "itemCount": 79,
   "items": [
     {
       "title": "Arcane Jaspr",
@@ -15,9 +15,9 @@
         "buildcontext",
         "canonical",
         "changed",
-        "neon",
         "here",
         "jaspr",
+        "neon",
         "package:arcane_jaspr/web.dart",
         "reference",
         "runapp",
@@ -28,477 +28,547 @@
         "what",
         "widget"
       ],
-      "content": "Arcane Jaspr Neon Arcane Jaspr is the Flutter-first surface for Jaspr. The primary path is , with HTML wrappers and raw Jaspr moved behind secondary imports. Start Here - $1 - $1 - $1 - $1 - $1 What Changed - The primary import now exposes , , , , , and - HTML-first wrappers such as , , and now live on - Raw Jaspr escape hatches now live on - The component catalog is generated from the current export surface instead of hand-maintained counts Canonical Reference Use the $1 as the current source "
+      "content": "Arcane Jaspr Neon Arcane Jaspr is the Flutter-first surface for Jaspr. The primary path is , with HTML wrappers and raw Jaspr moved behind secondary imports. Start Here - $1 - $1 - $1 - $1 - $1 What Changed - The primary import now exposes , , , , , and - HTML-first wrappers such as , , and now live on - Raw Jaspr escape hatches now live on - The component catalog is generated from the current export surface instead of hand-maintained counts Canonical Reference Use the $1 as the current source o"
+    },
+    {
+      "title": "Arcane Lexicon",
+      "description": "A styled front door for Arcane Jaspr documentation.",
+      "url": "/Landing",
+      "section": "Landing",
+      "keywords": [
+        "arcane",
+        "lexicon"
+      ],
+      "content": "Arcane Lexicon Documentation with a real front door. Arcane Jaspr docs now open like a product surface instead of a component inventory. Start with the authoring model, jump into the current components, or follow the styling system from tokens to finished pages. Quick Start Browse Components Author Write Markdown once. Render Lexicon owns nav, search, TOC, demos, and routing. Theme Shadcn, Neon, and Neubrutalism each get their own visual language. Build from widgets Use the Flutter-shaped Arcane"
     },
     {
       "title": "ArcaneAccordion",
-      "description": "Live preview for accordion",
+      "description": "Use accordions for compact question-and-answer blocks or progressive disclosure sections where one page should stay scannable.",
       "url": "/docs/components/accordion",
       "section": "components",
       "keywords": [
         "arcaneaccordion"
       ],
-      "content": "ArcaneAccordion Live preview for component 'accordion' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneAccordion Use accordions for compact question-and-answer blocks or progressive disclosure sections where one page should stay scannable. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneAlert",
-      "description": "Live preview for alert",
+      "description": "Use alerts for inline feedback, validation messages, and status updates that should be styled by the active renderer.",
       "url": "/docs/components/alert",
       "section": "components",
       "keywords": [
-        "arcanealert"
+        "arcanealert",
+        "lib/component/view/alert.dart"
       ],
-      "content": "ArcaneAlert Live preview for component 'alert' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneAlert Use alerts for inline feedback, validation messages, and status updates that should be styled by the active renderer. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneAlertDialog",
-      "description": "Live preview for alert-dialog",
+      "description": "Use alert dialogs for focused confirmation moments where the user needs a clear title, message, and acknowledgement action.",
       "url": "/docs/components/alert-dialog",
       "section": "components",
       "keywords": [
         "arcanealertdialog"
       ],
-      "content": "ArcaneAlertDialog Live preview for component 'alert-dialog' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneAlertDialog Use alert dialogs for focused confirmation moments where the user needs a clear title, message, and acknowledgement action. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneAspectRatio",
-      "description": "Live preview for aspect-ratio",
+      "description": "Use aspect ratio containers to keep media, charts, and framed previews stable across responsive widths.",
       "url": "/docs/components/aspect-ratio",
       "section": "components",
       "keywords": [
         "arcaneaspectratio"
       ],
-      "content": "ArcaneAspectRatio Live preview for component 'aspect-ratio' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneAspectRatio Use aspect ratio containers to keep media, charts, and framed previews stable across responsive widths. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneAvatar",
-      "description": "Live preview for avatar",
+      "description": "Use avatars and avatar groups for people, teams, account identity, and compact ownership signals.",
       "url": "/docs/components/avatar",
       "section": "components",
       "keywords": [
         "arcaneavatar"
       ],
-      "content": "ArcaneAvatar Live preview for component 'avatar' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneAvatar Use avatars and avatar groups for people, teams, account identity, and compact ownership signals. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneBreadcrumbs",
-      "description": "Live preview for breadcrumb",
+      "description": "Use breadcrumbs to show hierarchy and give users a quick route back through nested documentation or app pages.",
       "url": "/docs/components/breadcrumb",
       "section": "components",
       "keywords": [
         "arcanebreadcrumbs"
       ],
-      "content": "ArcaneBreadcrumbs Live preview for component 'breadcrumb' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneBreadcrumbs Use breadcrumbs to show hierarchy and give users a quick route back through nested documentation or app pages. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneCalendar",
-      "description": "Live preview for calendar",
+      "description": "Use calendars for visible date selection surfaces that can inherit renderer-specific spacing, border, and state treatment.",
       "url": "/docs/components/calendar",
       "section": "components",
       "keywords": [
         "arcanecalendar"
       ],
-      "content": "ArcaneCalendar Live preview for component 'calendar' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneCalendar Use calendars for visible date selection surfaces that can inherit renderer-specific spacing, border, and state treatment. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneChart",
-      "description": "Live preview for chart",
+      "description": "Use charts for lightweight value comparisons that should match the surrounding component theme.",
       "url": "/docs/components/chart",
       "section": "components",
       "keywords": [
-        "arcanechart"
+        "arcanechart",
+        "lib/component/data/chart.dart"
       ],
-      "content": "ArcaneChart Live preview for component 'chart' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneChart Use charts for lightweight value comparisons that should match the surrounding component theme. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneCheckbox",
-      "description": "Live preview for checkbox",
+      "description": "Use checkboxes for independent boolean choices with optional label and description copy.",
       "url": "/docs/components/checkbox",
       "section": "components",
       "keywords": [
         "arcanecheckbox"
       ],
-      "content": "ArcaneCheckbox Live preview for component 'checkbox' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneCheckbox Use checkboxes for independent boolean choices with optional label and description copy. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneCombobox",
-      "description": "Live preview for combobox",
+      "description": "Use comboboxes when users need to choose from named options with search-friendly semantics.",
       "url": "/docs/components/combobox",
       "section": "components",
       "keywords": [
         "arcanecombobox"
       ],
-      "content": "ArcaneCombobox Live preview for component 'combobox' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneCombobox Use comboboxes when users need to choose from named options with search-friendly semantics. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneCommand",
-      "description": "Live preview for command",
+      "description": "Use command surfaces for launcher-style navigation and power-user action palettes.",
       "url": "/docs/components/command",
       "section": "components",
       "keywords": [
         "arcanecommand"
       ],
-      "content": "ArcaneCommand Live preview for component 'command' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneCommand Use command surfaces for launcher-style navigation and power-user action palettes. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneContextMenu",
-      "description": "Live preview for context-menu",
+      "description": "Use context menus for secondary actions attached to a specific trigger or surface.",
       "url": "/docs/components/context-menu",
       "section": "components",
       "keywords": [
         "arcanecontextmenu"
       ],
-      "content": "ArcaneContextMenu Live preview for component 'context-menu' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneContextMenu Use context menus for secondary actions attached to a specific trigger or surface. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneDatePicker",
-      "description": "Live preview for date-picker",
+      "description": "Use date pickers for form-style date selection with label support and renderer-owned input chrome.",
       "url": "/docs/components/date-picker",
       "section": "components",
       "keywords": [
         "arcanedatepicker"
       ],
-      "content": "ArcaneDatePicker Live preview for component 'date-picker' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneDatePicker Use date pickers for form-style date selection with label support and renderer-owned input chrome. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneDialog",
-      "description": "Live preview for dialog",
+      "description": "Use dialogs for contained tasks that need title, body content, and action buttons.",
       "url": "/docs/components/dialog",
       "section": "components",
       "keywords": [
         "arcanedialog"
       ],
-      "content": "ArcaneDialog Live preview for component 'dialog' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneDialog Use dialogs for contained tasks that need title, body content, and action buttons. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneDirection",
-      "description": "Live preview for direction",
+      "description": "Use direction wrappers when a subtree needs explicit left-to-right, right-to-left, or automatic text direction.",
       "url": "/docs/components/direction",
       "section": "components",
       "keywords": [
         "arcanedirection"
       ],
-      "content": "ArcaneDirection Live preview for component 'direction' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneDirection Use direction wrappers when a subtree needs explicit left-to-right, right-to-left, or automatic text direction. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneDisclosure",
-      "description": "Live preview for collapsible",
+      "description": "Use collapsible disclosure when secondary content should stay accessible without dominating the page.",
       "url": "/docs/components/collapsible",
       "section": "components",
       "keywords": [
         "arcanedisclosure"
       ],
-      "content": "ArcaneDisclosure Live preview for component 'collapsible' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneDisclosure Use collapsible disclosure when secondary content should stay accessible without dominating the page. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneDrawer",
-      "description": "Live preview for drawer",
+      "description": "Use drawers for temporary side panels, navigation overlays, and narrow-screen detail surfaces.",
       "url": "/docs/components/drawer",
       "section": "components",
       "keywords": [
         "arcanedrawer"
       ],
-      "content": "ArcaneDrawer Live preview for component 'drawer' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneDrawer Use drawers for temporary side panels, navigation overlays, and narrow-screen detail surfaces. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneDropdownMenu",
-      "description": "Live preview for dropdown-menu",
+      "description": "Use dropdown menus for compact action lists attached to a button-like trigger.",
       "url": "/docs/components/dropdown-menu",
       "section": "components",
       "keywords": [
         "arcanedropdownmenu"
       ],
-      "content": "ArcaneDropdownMenu Live preview for component 'dropdown-menu' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneDropdownMenu Use dropdown menus for compact action lists attached to a button-like trigger. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneEmptyState",
-      "description": "Live preview for empty",
+      "description": "Use empty states when a list, table, or workflow has no content and should offer a next action.",
       "url": "/docs/components/empty",
       "section": "components",
       "keywords": [
         "arcaneemptystate"
       ],
-      "content": "ArcaneEmptyState Live preview for component 'empty' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneEmptyState Use empty states when a list, table, or workflow has no content and should offer a next action. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
-      "title": "ArcaneField",
-      "description": "Live preview for field",
+      "title": "ArcaneFieldWrapper",
+      "description": "Use field wrappers to pair an input with label, helper text, and validation-ready layout.",
       "url": "/docs/components/field",
       "section": "components",
       "keywords": [
-        "arcanefield"
+        "arcanefieldwrapper"
       ],
-      "content": "ArcaneField Live preview for component 'field' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneFieldWrapper Use field wrappers to pair an input with label, helper text, and validation-ready layout. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneHoverCard",
-      "description": "Live preview for hover-card",
+      "description": "Use hover cards for lightweight contextual previews that should appear near a trigger.",
       "url": "/docs/components/hover-card",
       "section": "components",
       "keywords": [
         "arcanehovercard"
       ],
-      "content": "ArcaneHoverCard Live preview for component 'hover-card' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneHoverCard Use hover cards for lightweight contextual previews that should appear near a trigger. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneInputGroup",
-      "description": "Live preview for input-group",
+      "description": "Use input groups when an input and action button need to read as one related control.",
       "url": "/docs/components/input-group",
       "section": "components",
       "keywords": [
         "arcaneinputgroup"
       ],
-      "content": "ArcaneInputGroup Live preview for component 'input-group' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneInputGroup Use input groups when an input and action button need to read as one related control. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneItem",
-      "description": "Live preview for item",
+      "description": "Use items for clickable rows and navigation entries that need renderer-owned hit area and state styling.",
       "url": "/docs/components/item",
       "section": "components",
       "keywords": [
-        "arcaneitem"
+        "arcaneitem",
+        "lib/component/view/item.dart"
       ],
-      "content": "ArcaneItem Live preview for component 'item' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneItem Use items for clickable rows and navigation entries that need renderer-owned hit area and state styling. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneKbd",
-      "description": "Live preview for kbd",
+      "description": "Use keyboard tokens for shortcuts, key hints, and command documentation.",
       "url": "/docs/components/kbd",
       "section": "components",
       "keywords": [
-        "arcanekbd"
+        "arcanekbd",
+        "lib/component/view/kbd.dart"
       ],
-      "content": "ArcaneKbd Live preview for component 'kbd' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneKbd Use keyboard tokens for shortcuts, key hints, and command documentation. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneMenubar",
-      "description": "Live preview for menubar",
+      "description": "Use menubars for app-style command groups that expose nested menu actions.",
       "url": "/docs/components/menubar",
       "section": "components",
       "keywords": [
         "arcanemenubar"
       ],
-      "content": "ArcaneMenubar Live preview for component 'menubar' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneMenubar Use menubars for app-style command groups that expose nested menu actions. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneNavDropdown",
-      "description": "Live preview for navigation-menu",
+      "description": "Use navigation menus for top-level navigation with richer dropdown content.",
       "url": "/docs/components/navigation-menu",
       "section": "components",
       "keywords": [
         "arcanenavdropdown"
       ],
-      "content": "ArcaneNavDropdown Live preview for component 'navigation-menu' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneNavDropdown Use navigation menus for top-level navigation with richer dropdown content. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneOtpInput",
-      "description": "Live preview for input-otp",
+      "description": "Use OTP inputs for short segmented verification codes and other fixed-length token entry.",
       "url": "/docs/components/input-otp",
       "section": "components",
       "keywords": [
         "arcaneotpinput"
       ],
-      "content": "ArcaneOtpInput Live preview for component 'input-otp' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneOtpInput Use OTP inputs for short segmented verification codes and other fixed-length token entry. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcanePagination",
-      "description": "Live preview for pagination",
+      "description": "Use pagination for bounded result sets where users need page navigation without custom chrome.",
       "url": "/docs/components/pagination",
       "section": "components",
       "keywords": [
         "arcanepagination"
       ],
-      "content": "ArcanePagination Live preview for component 'pagination' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcanePagination Use pagination for bounded result sets where users need page navigation without custom chrome. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcanePopover",
-      "description": "Live preview for popover",
+      "description": "Use popovers for small anchored panels that should be visible without leaving the current page.",
       "url": "/docs/components/popover",
       "section": "components",
       "keywords": [
         "arcanepopover"
       ],
-      "content": "ArcanePopover Live preview for component 'popover' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcanePopover Use popovers for small anchored panels that should be visible without leaving the current page. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneProgressBar",
-      "description": "Live preview for progress",
+      "description": "Use progress bars to show determinate task progress with renderer-owned sizing and status color.",
       "url": "/docs/components/progress",
       "section": "components",
       "keywords": [
         "arcaneprogressbar"
       ],
-      "content": "ArcaneProgressBar Live preview for component 'progress' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneProgressBar Use progress bars to show determinate task progress with renderer-owned sizing and status color. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneRadioGroup",
-      "description": "Live preview for radio-group",
+      "description": "Use radio groups when exactly one option should be selected from a small set.",
       "url": "/docs/components/radio-group",
       "section": "components",
       "keywords": [
         "arcaneradiogroup"
       ],
-      "content": "ArcaneRadioGroup Live preview for component 'radio-group' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneRadioGroup Use radio groups when exactly one option should be selected from a small set. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneResizable",
-      "description": "Live preview for resizable",
+      "description": "Use resizable layouts for workbench-style panes and split surfaces.",
       "url": "/docs/components/resizable",
       "section": "components",
       "keywords": [
         "arcaneresizable"
       ],
-      "content": "ArcaneResizable Live preview for component 'resizable' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneResizable Use resizable layouts for workbench-style panes and split surfaces. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneScrollArea",
-      "description": "Live preview for scroll-area",
+      "description": "Use scroll areas when a bounded region should manage overflow without changing the surrounding layout.",
       "url": "/docs/components/scroll-area",
       "section": "components",
       "keywords": [
         "arcanescrollarea"
       ],
-      "content": "ArcaneScrollArea Live preview for component 'scroll-area' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneScrollArea Use scroll areas when a bounded region should manage overflow without changing the surrounding layout. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneSelect",
-      "description": "Live preview for select",
+      "description": "Use selects for constrained option picking in forms and toolbars.",
       "url": "/docs/components/select",
       "section": "components",
       "keywords": [
         "arcaneselect"
       ],
-      "content": "ArcaneSelect Live preview for component 'select' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneSelect Use selects for constrained option picking in forms and toolbars. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneSeparator",
-      "description": "Live preview for separator",
+      "description": "Use separators to divide related content with optional labels that stay theme-aware.",
       "url": "/docs/components/separator",
       "section": "components",
       "keywords": [
         "arcaneseparator"
       ],
-      "content": "ArcaneSeparator Live preview for component 'separator' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneSeparator Use separators to divide related content with optional labels that stay theme-aware. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneSheet",
-      "description": "Live preview for sheet",
+      "description": "Use sheets for temporary panels that slide from an edge while preserving the user context.",
       "url": "/docs/components/sheet",
       "section": "components",
       "keywords": [
         "arcanesheet"
       ],
-      "content": "ArcaneSheet Live preview for component 'sheet' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneSheet Use sheets for temporary panels that slide from an edge while preserving the user context. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneSidebar",
-      "description": "Live preview for sidebar",
+      "description": "Use sidebars for durable app navigation, workspace sections, and shell-level commands.",
       "url": "/docs/components/sidebar",
       "section": "components",
       "keywords": [
         "arcanesidebar"
       ],
-      "content": "ArcaneSidebar Live preview for component 'sidebar' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneSidebar Use sidebars for durable app navigation, workspace sections, and shell-level commands. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneSkeleton",
-      "description": "Live preview for skeleton",
+      "description": "Use skeletons to reserve layout while data is loading.",
       "url": "/docs/components/skeleton",
       "section": "components",
       "keywords": [
         "arcaneskeleton"
       ],
-      "content": "ArcaneSkeleton Live preview for component 'skeleton' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneSkeleton Use skeletons to reserve layout while data is loading. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneSlider",
-      "description": "Live preview for slider",
+      "description": "Use sliders for bounded numeric choices where direct manipulation is more efficient than typing.",
       "url": "/docs/components/slider",
       "section": "components",
       "keywords": [
         "arcaneslider"
       ],
-      "content": "ArcaneSlider Live preview for component 'slider' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneSlider Use sliders for bounded numeric choices where direct manipulation is more efficient than typing. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneSonner",
-      "description": "Live preview for sonner",
+      "description": "Use sonner surfaces for toast stacks and transient notifications.",
       "url": "/docs/components/sonner",
       "section": "components",
       "keywords": [
         "arcanesonner"
       ],
-      "content": "ArcaneSonner Live preview for component 'sonner' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneSonner Use sonner surfaces for toast stacks and transient notifications. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneSpinner",
-      "description": "Live preview for spinner",
+      "description": "Use spinners for indeterminate loading states and short pending operations.",
       "url": "/docs/components/spinner",
       "section": "components",
       "keywords": [
         "arcanespinner"
       ],
-      "content": "ArcaneSpinner Live preview for component 'spinner' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneSpinner Use spinners for indeterminate loading states and short pending operations. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneStatusBadge",
-      "description": "Live preview for badge",
+      "description": "Use badges for status, category, and lightweight metadata that needs a compact visual treatment.",
       "url": "/docs/components/badge",
       "section": "components",
       "keywords": [
         "arcanestatusbadge"
       ],
-      "content": "ArcaneStatusBadge Live preview for component 'badge' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneStatusBadge Use badges for status, category, and lightweight metadata that needs a compact visual treatment. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneTabs",
-      "description": "Live preview for tabs",
+      "description": "Use tabs to switch between related panels without leaving the current route.",
       "url": "/docs/components/tabs",
       "section": "components",
       "keywords": [
         "arcanetabs"
       ],
-      "content": "ArcaneTabs Live preview for component 'tabs' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneTabs Use tabs to switch between related panels without leaving the current route. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneToggleButton",
-      "description": "Live preview for toggle",
+      "description": "Use toggles for independent pressed/unpressed controls such as formatting or tool modes.",
       "url": "/docs/components/toggle",
       "section": "components",
       "keywords": [
         "arcanetogglebutton"
       ],
-      "content": "ArcaneToggleButton Live preview for component 'toggle' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneToggleButton Use toggles for independent pressed/unpressed controls such as formatting or tool modes. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneToggleGroup",
-      "description": "Live preview for toggle-group",
+      "description": "Use toggle groups for mutually related segmented choices.",
       "url": "/docs/components/toggle-group",
       "section": "components",
       "keywords": [
         "arcanetogglegroup"
       ],
-      "content": "ArcaneToggleGroup Live preview for component 'toggle-group' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneToggleGroup Use toggle groups for mutually related segmented choices. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneToggleSwitch",
-      "description": "Live preview for switch",
+      "description": "Use switches for immediate on/off settings.",
       "url": "/docs/components/switch",
       "section": "components",
       "keywords": [
         "arcanetoggleswitch"
       ],
-      "content": "ArcaneToggleSwitch Live preview for component 'switch' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneToggleSwitch Use switches for immediate on/off settings. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ArcaneTooltip",
-      "description": "Live preview for tooltip",
+      "description": "Use tooltips for short contextual help on controls that should not add permanent page text.",
       "url": "/docs/components/tooltip",
       "section": "components",
       "keywords": [
         "arcanetooltip"
       ],
-      "content": "ArcaneTooltip Live preview for component 'tooltip' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ArcaneTooltip Use tooltips for short contextual help on controls that should not add permanent page text. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
+    },
+    {
+      "title": "Authoring like Flutter",
+      "description": "The two-surface permeability model — semantic decoration that each theme interprets, plus bounded literal overrides",
+      "url": "/docs/concepts/permeability",
+      "section": "concepts",
+      "keywords": [
+        "arcaneapp",
+        "arcanecolor",
+        "arcanecolor.*.css",
+        "arcanedecoration",
+        "arcanedecoration?",
+        "arcanestyledata",
+        "arcanestyledata:",
+        "arcanestyledata?",
+        "authoring",
+        "border",
+        "borderradius",
+        "bounded",
+        "button",
+        "card",
+        "color",
+        "decoration:",
+        "edgeinsets",
+        "edgeinsets.all",
+        "edgeinsets.only",
+        "edgeinsets.symmetric",
+        "edgeinsets?",
+        "elevation",
+        "example",
+        "fields",
+        "flutter",
+        "how",
+        "intent",
+        "killer",
+        "layers",
+        "like",
+        "literal",
+        "overrides",
+        "padding",
+        "paddingcustom",
+        "radius.lg",
+        "radius.sm",
+        "radius?",
+        "resolve",
+        "shadowcolor",
+        "string?",
+        "styles:",
+        "the",
+        "theme-specific:",
+        "universal",
+        "universalstyles()",
+        "var(--x)"
+      ],
+      "content": "Authoring like Flutter Arcane Jaspr lets you decorate a single component instance and have every stylesheet render it in its own idiom. You describe $1; the active theme decides how that intent looks. This is the permeability model, and it is what keeps app code portable across Shadcn, Neon, and Neubrutalism without branching on the theme. Two per-instance surfaces sit on every decoratable component ( , , the card family, and more): | Surface | Type | Role | Behavior | |---------|------|------|-"
     },
     {
       "title": "Borders",
@@ -534,7 +604,6 @@
         "focus",
         "info",
         "input",
-        "left",
         "light",
         "marginpreset",
         "medium",
@@ -542,6 +611,7 @@
         "outlinepreset",
         "paddingpreset",
         "patterns",
+        "perimeter",
         "properties",
         "radius",
         "ring",
@@ -560,43 +630,105 @@
     },
     {
       "title": "Button",
-      "description": "Live preview for button",
+      "description": "Use buttons for primary, secondary, and outline actions while leaving visual weight and sizing to the selected renderer.",
       "url": "/docs/components/button",
       "section": "components",
       "keywords": [
         "button"
       ],
-      "content": "Button Live preview for component 'button' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "Button Use buttons for primary, secondary, and outline actions while leaving visual weight and sizing to the selected renderer. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "ButtonGroup",
-      "description": "Live preview for button-group",
+      "description": "Use button groups when related actions should be presented as one compact control cluster.",
       "url": "/docs/components/button-group",
       "section": "components",
       "keywords": [
         "buttongroup"
       ],
-      "content": "ButtonGroup Live preview for component 'button-group' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "ButtonGroup Use button groups when related actions should be presented as one compact control cluster. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "Card",
-      "description": "Live preview for card",
+      "description": "Use cards to group related content into a renderer-owned surface without hard-coding padding, radius, or elevation.",
       "url": "/docs/components/card",
       "section": "components",
       "keywords": [
-        "card"
+        "card",
+        "lib/component/card/card.dart"
       ],
-      "content": "Card Live preview for component 'card' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "Card Use cards to group related content into a renderer-owned surface without hard-coding padding, radius, or elevation. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
+    },
+    {
+      "title": "Card Family",
+      "description": "Composite marketing cards — StatCard, FeatureCard, CtaCard, TestimonialCard, and PricingCard — built on the primary surface",
+      "url": "/docs/components/card-family",
+      "section": "components",
+      "keywords": [
+        ".\n\n",
+        ":\n\n",
+        "and",
+        "arcanearts",
+        "arcaneicon",
+        "card",
+        "ctacard",
+        "decoration:",
+        "family",
+        "featurecard",
+        "iconcard",
+        "lib/component/card/",
+        "pricingcard",
+        "pricingcardvariant",
+        "pricinggrid",
+        "pricingtier",
+        "ratingstars",
+        "specentry",
+        "statcard",
+        "statcardrow",
+        "styles:",
+        "testimonialcard"
+      ],
+      "content": "Card Family The card family is a set of composite, marketing-oriented components built on the primary surface. Each one is themed automatically by the active stylesheet, and most accept the same per-instance and surfaces described in $1. Source: StatCard and StatCardRow A compact metric surface: a label, a value, and optional trend, description, and icon. Source: Arrange several in a responsive grid with : : and are required. is a literal text/glyph string rendered inside the icon badge, is a CS"
     },
     {
       "title": "CardCarousel",
-      "description": "Live preview for carousel",
+      "description": "Use carousels for horizontally browsable cards, feature blocks, and compact preview collections.",
       "url": "/docs/components/carousel",
       "section": "components",
       "keywords": [
         "cardcarousel"
       ],
-      "content": "CardCarousel Live preview for component 'carousel' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "CardCarousel Use carousels for horizontally browsable cards, feature blocks, and compact preview collections. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
+    },
+    {
+      "title": "Color Operations",
+      "description": "Opacity and blend helpers for any CSS color string via the ArcaneColorOps extension",
+      "url": "/docs/styles/color-ops",
+      "section": "styles",
+      "keywords": [
+        "${color}30",
+        ".\n\n",
+        ".on(string",
+        ".opacity(double",
+        "amount)",
+        "arcanecolor",
+        "arcanecolor.*.css",
+        "arcanecolorops",
+        "arcanedecoration",
+        "base,",
+        "color",
+        "components",
+        "double",
+        "featurecard",
+        "operations",
+        "precision",
+        "problem",
+        "replaces",
+        "string",
+        "the",
+        "using"
+      ],
+      "content": "Color Operations is an extension on that adds opacity and blend helpers to any CSS color. Colors cross the styling boundary as raw strings — a hex value, a theme variable, an token, or a runtime accent — and these helpers work for every one of those forms. Source: The problem it replaces The historic hex-alpha suffix hack only works on plain hex colors. Applied to anything else it produces invalid CSS: Hand-writing works but is verbose and easy to get wrong: gives you both correctly and concisel"
     },
     {
       "title": "Colors",
@@ -653,14 +785,9 @@
         "colors",
         "core",
         "destructive",
-        "effects",
         "error",
         "fixed",
         "gamecolor",
-        "glass",
-        "glassheader",
-        "glassoverlay",
-        "glasstint",
         "gray",
         "info",
         "input",
@@ -700,20 +827,24 @@
       "url": "/docs/components-catalog",
       "section": "docs",
       "keywords": [
-        "(20)",
         "(22)",
-        "(56)",
-        "(9)",
+        "(24)",
+        "(61)",
+        "(66)",
+        "138",
         "accordion",
         "advanced",
         "alert",
         "alert-dialog",
+        "aliases",
         "arcaneaccordion",
         "arcanealert",
         "arcanealertdialog",
         "arcaneapp",
         "arcaneaspectratio",
         "arcaneavatar",
+        "arcaneboolfield",
+        "arcanebox",
         "arcanebreadcrumbs",
         "arcanebulletlist",
         "arcanecalendar",
@@ -721,12 +852,14 @@
         "arcanechart",
         "arcanecheckbox",
         "arcanecodeblock",
+        "arcanecolorfield",
         "arcanecolors",
         "arcanecombobox",
         "arcanecommand",
         "arcanecontextmenu",
-        "arcanedatatable",
+        "arcanedatefield",
         "arcanedatepicker",
+        "arcanedecoration",
         "arcanedialog",
         "arcanedirection",
         "arcanedisclosure",
@@ -734,8 +867,11 @@
         "arcanedrawer",
         "arcanedropdownmenu",
         "arcaneemptystate",
-        "arcanefield",
-        "arcaneflow",
+        "arcaneenumfield",
+        "arcanefieldmetadata",
+        "arcanefieldprovider",
+        "arcanefieldwrapper",
+        "arcanegallery",
         "arcaneheader",
         "arcaneheading",
         "arcanehovercard",
@@ -745,6 +881,7 @@
         "arcaneimage",
         "arcaneinfinitecarousel",
         "arcaneinputgroup",
+        "arcaneinteraction",
         "arcaneitem",
         "arcanekbd",
         "arcanelabel",
@@ -753,7 +890,9 @@
         "arcanemenubar",
         "arcanenav",
         "arcanenavdropdown",
+        "arcanenotfoundaction",
         "arcaneotpinput",
+        "arcanepage",
         "arcanepagination",
         "arcaneparagraph",
         "arcanepopover",
@@ -763,6 +902,7 @@
         "arcanerawbutton",
         "arcanerawinput",
         "arcaneresizable",
+        "arcanescaffold",
         "arcanescripts",
         "arcanescrollarea",
         "arcanescrollrail",
@@ -776,24 +916,32 @@
         "arcanesonner",
         "arcanespan",
         "arcanespinner",
-        "arcanestatictable",
         "arcanestatusbadge",
+        "arcanestringfield",
+        "arcanestyledata",
+        "arcanestylesheet",
         "arcanesvg",
         "arcanetable",
         "arcanetabs",
+        "arcanetext",
         "arcanethemeprovider",
+        "arcanetimefield",
+        "arcanetoast",
         "arcanetogglebutton",
         "arcanetogglegroup",
         "arcanetoggleswitch",
         "arcanetooltip",
-        "arcanetypography",
         "aspect-ratio",
         "auth_guard_export",
         "auth_provider_export",
         "auth_service_export",
         "authuser",
         "avatar",
+        "background",
         "badge",
+        "bar",
+        "borderpreset",
+        "borders",
         "breadcrumb",
         "button",
         "button-group",
@@ -802,39 +950,70 @@
         "calendar",
         "card",
         "cardcarousel",
+        "cardsection",
         "carousel",
+        "carpet",
         "catalog",
+        "centerbody",
         "chart",
         "checkbox",
-        "neonstylesheet",
+        "classes",
         "collapsible",
+        "collection",
         "color",
+        "colors",
         "combobox",
         "command",
         "component",
         "componentrenderers",
         "components",
+        "confirmtext",
         "context-menu",
+        "ctacard",
         "data-table",
+        "datatable",
         "date-picker",
+        "deleteiconbutton",
+        "deletemenubutton",
         "dialog",
+        "dialogdate",
+        "dialogdatemulti",
+        "dialogdaterange",
+        "dialogemail",
+        "dialogtext",
+        "dialogtime",
         "direction",
+        "display",
         "drawer",
         "dropdown-menu",
         "edgeinsets",
+        "effects",
         "empty",
+        "expander",
         "exports",
+        "fabsocket",
+        "fancyprogressbar",
+        "featurecard",
         "field",
+        "fillscreen",
+        "formheader",
         "foundation",
+        "gap",
         "gutter",
         "hover-card",
         "html",
+        "icon",
+        "iconbutton",
+        "image",
         "index",
         "input",
         "input-group",
         "input-otp",
+        "interaction_attrs",
         "item",
         "kbd",
+        "layoutrenderers",
+        "lib/arcane_jaspr.dart",
         "lib/component/card/card.dart",
         "lib/component/data/chart.dart",
         "lib/component/form/field.dart",
@@ -844,70 +1023,98 @@
         "lib/component/html/quote.dart",
         "lib/component/html/svg.dart",
         "lib/component/html/table.dart",
+        "lib/component/input/fab.dart",
         "lib/component/view/alert.dart",
+        "lib/component/view/bar.dart",
         "lib/component/view/icon.dart",
+        "lib/component/view/image.dart",
         "lib/component/view/item.dart",
         "lib/component/view/kbd.dart",
+        "lib/component/view/logo.dart",
+        "lib/component/view/tile.dart",
         "lib/core/renderers.dart",
         "lib/core/theme_provider.dart",
         "lib/flutter.dart",
+        "lib/mods/card.dart",
         "lib/service/auth_state.dart",
         "lib/theme/index.dart",
         "lib/util/arcane.dart",
+        "lib/util/classes.dart",
         "lib/util/design_tokens.dart",
         "live",
+        "logo",
         "main-surface",
+        "markdown",
         "menubar",
         "modules",
-        "mystylesheet",
+        "mutabletext",
         "navigation-menu",
+        "onhover",
         "package:arcane_jaspr/web.dart",
         "pagination",
         "passwordpolicy",
         "popover",
+        "popupmenu",
+        "pricingcard",
         "primary",
         "progress",
         "promo",
         "prose_styles",
         "radio-group",
+        "radiocards",
         "readingtimeresult",
         "resizable",
+        "screen",
         "scroll-area",
+        "searchresult",
+        "section",
         "select",
+        "selector",
         "separator",
-        "shadcnstylesheet",
+        "shadow",
         "sheet",
         "sidebar",
         "skeleton",
         "slider",
+        "sliverscreen",
         "snapshot",
         "sonner",
+        "spacing",
         "spinner",
+        "statcard",
         "statelesswidget",
+        "statictable",
+        "styling",
         "support",
         "switch",
         "table",
         "tabs",
+        "testimonialcard",
         "text",
         "textarea",
         "textinput",
+        "theming",
+        "tile",
         "tocentry",
         "toggle",
         "toggle-group",
+        "tokens",
         "tooltip",
-        "typography"
+        "typography",
+        "typography-styles",
+        "wrap"
       ],
-      "content": "Component Catalog This page is generated from the current and exports. Snapshot - Generated on - Primary live component demos: - Primary support component modules: - Main-surface foundation exports: - Total main-surface export modules: - Advanced HTML modules: Use for the Flutter-first surface. Use and only when you intentionally need lower-level HTML or raw Jaspr escape hatches. Primary Live Components (56) | Component | Symbol | Source | |---|---|---| | | | | | | | | | | | | | | | | | | | | | "
+      "content": "Component Catalog This page is generated from the current and exports. Snapshot - Generated on - Primary live component demos: - Primary support component modules: - Main-surface foundation exports: - Total main-surface export modules: - Advanced HTML modules: Use for the Flutter-first surface. Use and only when you intentionally need lower-level HTML or raw Jaspr escape hatches. Primary Live Components (66) | Component | Symbol | Source | |---|---|---| | | | | | | | | | | | | | | | | | | | | | "
     },
     {
       "title": "DataTable",
-      "description": "Live preview for data-table",
+      "description": "Use data tables for structured records where columns, rows, and cell renderers stay declarative.",
       "url": "/docs/components/data-table",
       "section": "components",
       "keywords": [
         "datatable"
       ],
-      "content": "DataTable Live preview for component 'data-table' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "DataTable Use data tables for structured records where columns, rows, and cell renderers stay declarative. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "Deployment",
@@ -1016,7 +1223,6 @@
         "cardalt",
         "cardforeground",
         "cardhover",
-        "circle",
         "codebackground",
         "colors",
         "container",
@@ -1036,9 +1242,6 @@
         "font",
         "form",
         "full",
-        "glowaccent",
-        "glowerror",
-        "glowsuccess",
         "heading",
         "hero",
         "heroy",
@@ -1047,7 +1250,6 @@
         "infoforeground",
         "input",
         "inputforeground",
-        "jetbrains",
         "layout",
         "massive",
         "max",
@@ -1168,16 +1370,12 @@
       "url": "/docs/styles/effects",
       "section": "styles",
       "keywords": [
-        "accent",
         "alignitems",
         "all",
         "arcanebox",
         "arcaneloader",
         "arcanestyledata",
-        "backdropfilter",
         "basic",
-        "borderpreset",
-        "button",
         "card",
         "common",
         "cursor",
@@ -1185,19 +1383,7 @@
         "easing",
         "effect",
         "effects",
-        "glassmorphism",
-        "glow",
-        "glowaccent",
-        "glowcyan",
-        "glowerror",
-        "glowgreen",
-        "glowing",
-        "gloworange",
-        "glowpink",
-        "glowprimary",
-        "glowpurple",
-        "glowsuccess",
-        "hover",
+        "elevated",
         "justifycontent",
         "loading",
         "none",
@@ -1210,13 +1396,35 @@
         "shadows",
         "specific",
         "state",
+        "surface",
         "timing",
         "transform",
         "transition",
         "usage",
         "userselect"
       ],
-      "content": "Effects These enums control visual effects including shadows, transitions, transforms, and more. Shadow Box shadow presets. Basic Shadows | Value | Description | |-------|-------------| | | No shadow | | | Extra small shadow | | | Small shadow | | | Medium shadow | | | Large shadow | | | Extra large shadow | | | Card-specific shadow | Glow Effects | Value | Description | |-------|-------------| | | Accent color glow | | | Success color glow | | | Error color glow | | | Primary color glow | | | G"
+      "content": "Effects These enums control visual effects including shadows, transitions, transforms, and more. Shadow Box shadow presets. Basic Shadows | Value | Description | |-------|-------------| | | No shadow | | | Extra small shadow | | | Small shadow | | | Medium shadow | | | Large shadow | | | Extra large shadow | | | Card-specific shadow | Usage Transition CSS transition presets. Timing | Value | Duration | Description | |-------|----------|-------------| | | - | No transition | | | 150ms | Quick tra"
+    },
+    {
+      "title": "Ergonomics",
+      "description": "Small authoring conveniences — the cx class-join helper and semantic tag on Container",
+      "url": "/docs/concepts/ergonomics",
+      "section": "concepts",
+      "keywords": [
+        "_joinclasses",
+        "class",
+        "container",
+        "cx:",
+        "edgeinsets",
+        "ergonomics",
+        "joining",
+        "lib/util/classes.dart",
+        "names",
+        "null",
+        "semantic",
+        "tags"
+      ],
+      "content": "Ergonomics A couple of small helpers remove boilerplate that otherwise gets copy-pasted across a codebase. cx: joining class names joins CSS class names into a single space-separated string, skipping and blank entries. It replaces the ad-hoc helper that tends to get reinvented at every call site that composes conditional classes. Source: Pass it to any parameter, mixing always-on classes with conditional ones: and whitespace-only entries are dropped, so a branch simply contributes nothing: Seman"
     },
     {
       "title": "Import Surfaces",
@@ -1244,17 +1452,19 @@
       "url": "/docs/quick-start",
       "section": "docs",
       "keywords": [
-        "alignitems",
         "app",
         "arcaneapp",
-        "arcanebox",
-        "arcanestyledata",
+        "arcanescaffold",
+        "arcanestylesheet",
         "buildcontext",
         "confirms",
         "counter",
-        "flexdirection",
         "installation",
-        "justifycontent",
+        "mainaxissize",
+        "neonstylesheet",
+        "neontheme",
+        "neubrutalismstylesheet",
+        "neubrutalismtheme",
         "next",
         "quick",
         "shadcnstylesheet",
@@ -1265,7 +1475,7 @@
         "this",
         "what"
       ],
-      "content": "Quick Start This is the baseline Arcane Jaspr example. If you can write this app, you are on the intended primary surface. Counter App What This Confirms - You imported only - You used , , , and - You did not need explicit type arguments in normal widget usage - You did not need HTML wrappers or raw Jaspr types Next Steps - Browse $1 - Read $1 - Read $1"
+      "content": "Quick Start This is the baseline Arcane Jaspr example. If you can write this app, you are on the intended primary surface. Counter App What This Confirms - You imported plus one concrete renderer package - You used , , , and - You let pass semantic layout slots to the active stylesheet - You did not need HTML wrappers or raw Jaspr types Next Steps - Browse $1 - Read $1 - Read $1"
     },
     {
       "title": "Introduction",
@@ -1275,11 +1485,14 @@
       "keywords": [
         "advanced",
         "arcane",
+        "arcaneicon",
         "build",
         "buttongroup",
+        "buttoniconposition",
         "documentation",
         "exists",
         "here",
+        "iconsize",
         "import",
         "imports",
         "introduction",
@@ -1306,12 +1519,17 @@
         "app",
         "arcane",
         "arcaneapp",
+        "arcanestylesheet",
         "build",
         "buildcontext",
         "existing",
         "import",
         "installation",
         "jaspr",
+        "neonstylesheet",
+        "neontheme",
+        "neubrutalismstylesheet",
+        "neubrutalismtheme",
         "option",
         "oracular",
         "output",
@@ -1394,13 +1612,35 @@
     },
     {
       "title": "StaticTable",
-      "description": "Live preview for table",
+      "description": "Use static tables for simple tabular content that does not need sorting or row state.",
       "url": "/docs/components/table",
       "section": "components",
       "keywords": [
         "statictable"
       ],
-      "content": "StaticTable Live preview for component 'table' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "StaticTable Use static tables for simple tabular content that does not need sorting or row state. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
+    },
+    {
+      "title": "Styling",
+      "description": "Preview renderer-owned styling and copy the ArcaneStyleData shape used by the active stylesheet.",
+      "url": "/styling",
+      "section": "",
+      "keywords": [
+        "arcanebox",
+        "arcanestyledata",
+        "arcanethemeprovider",
+        "borderpreset",
+        "changes",
+        "copy",
+        "flexdirection",
+        "neubrutalismstylesheet",
+        "neubrutalismtheme",
+        "paddingpreset",
+        "pattern",
+        "styling",
+        "what"
+      ],
+      "content": "Styling Use this page as the quick visual check for the active stylesheet and palette. The selector in the top bar swaps the renderer package and palette, while the preview below keeps the same neutral Arcane Jaspr code. What Changes | Control | Effect | |---|---| | Stylesheet | Swaps the concrete renderer package, such as Shadcn, Neon, or Neubrutalism | | Palette | Swaps the renderer palette while preserving the same widget API | | Theme | Switches between light and dark theme variables | Copy "
     },
     {
       "title": "Styling",
@@ -1424,6 +1664,7 @@
         "converting",
         "copying",
         "css",
+        "custom",
         "effects",
         "example:",
         "fill",
@@ -1447,7 +1688,6 @@
         "paddingpreset",
         "presets",
         "properties",
-        "raw",
         "responsive",
         "row",
         "size",
@@ -1463,40 +1703,41 @@
         "typography",
         "usage",
         "using",
+        "values",
         "visual",
         "with"
       ],
-      "content": "Styling Arcane Jaspr uses for declarative, type-safe styling. This approach provides autocomplete, compile-time checking, and consistent design tokens. ArcaneStyleData The class is the foundation of all styling in Arcane Jaspr. It converts typed properties into CSS. Basic Usage Using Raw CSS For properties not covered by typed enums, use the parameter: Static Presets ArcaneStyleData provides static presets for common layouts: Row Layout Row with Space Between Column Layout Centered Content Full "
+      "content": "Styling Arcane Jaspr uses for declarative, type-safe styling. This approach provides autocomplete, compile-time checking, and consistent design tokens. ArcaneStyleData The class is the foundation of all styling in Arcane Jaspr. It converts typed properties into CSS. Basic Usage Using Custom Values Some layout properties accept a named custom value while keeping the supported CSS property explicit: intentionally has no raw property map and no custom shadow, filter, or animation fields. accepts fl"
     },
     {
       "title": "Text",
-      "description": "Live preview for typography",
+      "description": "Use typography primitives to express semantic text hierarchy without hard-coded CSS.",
       "url": "/docs/components/typography",
       "section": "components",
       "keywords": [
         "text"
       ],
-      "content": "Text Live preview for component 'typography' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "Text Use typography primitives to express semantic text hierarchy without hard-coded CSS. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "TextArea",
-      "description": "Live preview for textarea",
+      "description": "Use text areas for multi-line text entry with renderer-owned resize and field chrome.",
       "url": "/docs/components/textarea",
       "section": "components",
       "keywords": [
         "textarea"
       ],
-      "content": "TextArea Live preview for component 'textarea' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "TextArea Use text areas for multi-line text entry with renderer-owned resize and field chrome. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "TextInput",
-      "description": "Live preview for input",
+      "description": "Use text inputs for simple labeled text entry while renderer packages own the field density and border treatment.",
       "url": "/docs/components/input",
       "section": "components",
       "keywords": [
         "textinput"
       ],
-      "content": "TextInput Live preview for component 'input' in the current Arcane catalog. See the $1 for source mapping and parity status."
+      "content": "TextInput Use text inputs for simple labeled text entry while renderer packages own the field density and border treatment. The live preview and code sample above use the neutral API. The selected stylesheet owns spacing, density, radius, color, and interaction styling, so the same app code can render differently under Shadcn or Neon. Source: See the $1 for the full exported surface and source mapping."
     },
     {
       "title": "Theming",
@@ -1509,6 +1750,7 @@
         "arcane",
         "arcaneapp",
         "arcanebox",
+        "arcanescaffold",
         "arcanestyledata",
         "arcanestylesheet",
         "arcanethemetoggle",
@@ -1516,8 +1758,6 @@
         "borderpreset",
         "brightness",
         "buildcontext",
-        "buttonprops",
-        "neonstylesheet",
         "colors",
         "component",
         "componentrenderers",
@@ -1526,10 +1766,15 @@
         "css",
         "custom",
         "javascript",
+        "layoutrenderers",
         "mode",
         "myapp",
+        "mylayouts",
         "myrenderers",
         "mystylesheet",
+        "neonstylesheet",
+        "neubrutalismstylesheet",
+        "neubrutalismtheme",
         "renderers",
         "shadcnstylesheet",
         "site",
@@ -1548,7 +1793,7 @@
         "variables",
         "yourapp"
       ],
-      "content": "Theming Arcane Jaspr uses a stylesheet-based theming system built on CSS custom properties. Stylesheets provide complete design systems including colors, typography, spacing, and component renderers. ArcaneApp Every Arcane application must be wrapped in an component which provides the theme context and injects the stylesheet CSS. Available Stylesheets Arcane Jaspr includes two stylesheets: | Stylesheet | Description | |------------|-------------| | | Minimal, modern, accessible. Based on shadcn/"
+      "content": "Theming Arcane Jaspr uses a stylesheet-based theming system built on CSS custom properties. Stylesheets provide complete design systems including colors, typography, spacing, and component renderers. ArcaneApp Every Arcane application must be wrapped in an component which provides the theme context and injects the stylesheet CSS. Available Stylesheets Arcane Jaspr keeps the Flutter-like authoring surface in and ships concrete stylesheets as renderer packages: | Stylesheet | Description | |------"
     },
     {
       "title": "Typography",
@@ -1582,17 +1827,18 @@
         "fontsize",
         "fontstyle",
         "fontweight",
+        "groteskpro",
         "heading",
         "hero",
         "inherit",
         "inline",
-        "jetbrains",
         "label",
         "letterspacing",
         "lineheight",
         "marginpreset",
         "mega",
         "muted",
+        "paddingpreset",
         "page",
         "patterns",
         "section",

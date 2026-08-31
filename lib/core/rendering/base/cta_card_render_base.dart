@@ -7,8 +7,8 @@ import 'package:arcane_jaspr/core/rendering/base/style_layering.dart';
 
 /// Shared structural base for themed CTA-card renderers.
 ///
-/// A CTA (call-to-action) card is a dashed-border, centered surface: an
-/// optional icon in an accent circle, a bold title, a muted description, and a
+/// A CTA (call-to-action) card is a bordered, centered surface: an optional
+/// icon, a bold title, a muted description, and a
 /// prominent call-to-action control (an `<a>` when [CTACardProps.href] is set,
 /// otherwise a `<button>` wired to [CTACardProps.onTap]). The DOM and its inline
 /// chrome (built from theme CSS variables, so it adapts to the active palette)
@@ -44,16 +44,11 @@ abstract class CtaCardRenderBase extends StatelessComponent {
         'text-align': 'center',
         'background-color': 'var(--card)',
         'color': 'var(--card-foreground)',
-        'border': '1px dashed var(--border)',
-        'border-radius': 'var(--radius, 0.5rem)',
+        'border': '1px solid var(--border)',
+        'border-radius': '8px',
         'width': '100%',
         'min-height': props.height,
         'box-sizing': 'border-box',
-        if (props.showHoverEffects)
-          'transition': 'transform 0.2s ease, box-shadow 0.2s ease',
-        if (props.animationDelayMs != null) 'opacity': '0',
-        if (props.animationDelayMs != null)
-          'animation': 'arcane-fade-in 0.4s ease ${props.animationDelayMs}ms both',
       },
       <Map<String, String>?>[
         props.decoration?.universalStyles(),
@@ -64,6 +59,9 @@ abstract class CtaCardRenderBase extends StatelessComponent {
 
     return dom.div(
       classes: cssClass,
+      attributes: const <String, String>{
+        'data-arcane-surface': 'cta-card',
+      },
       styles: dom.Styles(raw: rootStyles),
       <Component>[
         if (props.icon != null)
@@ -73,12 +71,6 @@ abstract class CtaCardRenderBase extends StatelessComponent {
               raw: <String, String>{
                 'display': 'inline-flex',
                 'align-items': 'center',
-                'justify-content': 'center',
-                'width': '3.5rem',
-                'height': '3.5rem',
-                'border-radius': '9999px',
-                'background-color':
-                    'color-mix(in srgb, $accent 12%, transparent)',
                 'color': accent,
                 'font-size': '1.5rem',
               },
@@ -129,12 +121,11 @@ abstract class CtaCardRenderBase extends StatelessComponent {
       'font-weight': '600',
       'line-height': '1',
       'border': 'none',
-      'border-radius': 'var(--radius, 0.5rem)',
+      'border-radius': '6px',
       'background-color': accent,
       'color': 'var(--primary-foreground)',
       'cursor': 'pointer',
       'text-decoration': 'none',
-      if (props.showHoverEffects) 'transition': 'opacity 0.2s ease',
     };
 
     if (props.href != null) {
@@ -160,9 +151,7 @@ abstract class CtaCardRenderBase extends StatelessComponent {
       classes: '$cssClass-button',
       attributes: const <String, String>{'type': 'button'},
       styles: dom.Styles(raw: ctaStyles),
-      events: <String, EventCallback>{
-        'click': (_) => props.onTap?.call(),
-      },
+      events: <String, EventCallback>{'click': (_) => props.onTap?.call()},
       <Component>[Component.text(props.ctaText)],
     );
   }

@@ -24,20 +24,9 @@ abstract class FloatingRenderBase extends StatelessComponent {
 
   final FloatingProps props;
 
-  /// Class for the CSS-only tooltip trigger wrapper (e.g.
-  /// `'arcane-floating-trigger'`).
-  String get triggerClass;
-
   /// Class for the stateful floating container (e.g.
   /// `'arcane-floating-container'`).
   String get containerClass;
-
-  /// Class string for the inner CSS-tooltip surface.
-  String get cssTooltipClasses;
-
-  /// Full style map for the inner CSS-tooltip surface. [positionStyles] are the
-  /// resolved position offsets and must be spread last to match each theme.
-  Map<String, String> cssTooltipStyles(Map<String, String> positionStyles);
 
   /// Class string for the floating content surface, given whether it carries
   /// rich content (popover) versus plain text (tooltip).
@@ -71,43 +60,7 @@ abstract class FloatingRenderBase extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Simple text tooltip uses CSS :hover (no JS needed).
-    if (props.isTextTooltip && props.triggerType == FloatingTrigger.hover) {
-      return _buildCssTooltip();
-    }
-
-    // Rich content uses state-based rendering.
     return _buildStatefulFloating();
-  }
-
-  /// Builds a CSS-only tooltip for simple text hints.
-  Component _buildCssTooltip() {
-    return dom.div(
-      classes: '$triggerClass arcane-css-tooltip-trigger',
-      attributes: <String, String>{
-        'data-tooltip': props.textContent ?? '',
-        'data-tooltip-position': props.position.name,
-      },
-      styles: const dom.Styles(
-        raw: <String, String>{'position': 'relative', 'display': 'inline-flex'},
-      ),
-      <Component>[
-        props.trigger,
-        dom.div(
-          classes: '$cssTooltipClasses arcane-css-tooltip-content',
-          attributes: const <String, String>{'role': 'tooltip'},
-          styles: dom.Styles(
-            raw: <String, String>{
-              ...cssTooltipStyles(_getPositionStyles(props.position)),
-              ...?props.decoration?.universalStyles(),
-              ...decorationStyles(props.decoration),
-              ...?props.styles?.toMap(),
-            },
-          ),
-          <Component>[Component.text(props.textContent ?? '')],
-        ),
-      ],
-    );
   }
 
   /// Builds a state-controlled floating panel for rich content.
@@ -189,7 +142,8 @@ abstract class FloatingRenderBase extends StatelessComponent {
       scrimCloses: false,
       restoreFocus: true,
       anchorId: anchorId,
-      anchorPlacement: props.position.name,
+      anchorPlacement: _anchorPlacement,
+      anchorAlign: _anchorAlign,
       anchorOffset: props.offset.toString(),
     );
 
@@ -223,61 +177,32 @@ abstract class FloatingRenderBase extends StatelessComponent {
     );
   }
 
+  String get _anchorPlacement => switch (props.position) {
+    FloatingPosition.top ||
+    FloatingPosition.topStart ||
+    FloatingPosition.topEnd => 'top',
+    FloatingPosition.bottom ||
+    FloatingPosition.bottomStart ||
+    FloatingPosition.bottomEnd => 'bottom',
+    FloatingPosition.left => 'left',
+    FloatingPosition.right => 'right',
+  };
+
+  String get _anchorAlign => switch (props.position) {
+    FloatingPosition.topStart || FloatingPosition.bottomStart => 'start',
+    FloatingPosition.topEnd || FloatingPosition.bottomEnd => 'end',
+    FloatingPosition.top ||
+    FloatingPosition.bottom ||
+    FloatingPosition.left ||
+    FloatingPosition.right => 'center',
+  };
+
   Component _buildArrow() {
     return dom.div(
       classes: arrowClass,
       styles: dom.Styles(raw: arrowStyles(_getArrowStyles())),
       const <Component>[],
     );
-  }
-
-  Map<String, String> _getPositionStyles(FloatingPosition position) {
-    return switch (position) {
-      FloatingPosition.top => const <String, String>{
-        'bottom': '100%',
-        'left': '50%',
-        'transform': 'translateX(-50%) translateY(-4px)',
-        'margin-bottom': '8px',
-      },
-      FloatingPosition.bottom => const <String, String>{
-        'top': '100%',
-        'left': '50%',
-        'transform': 'translateX(-50%) translateY(4px)',
-        'margin-top': '8px',
-      },
-      FloatingPosition.left => const <String, String>{
-        'right': '100%',
-        'top': '50%',
-        'transform': 'translateY(-50%) translateX(-4px)',
-        'margin-right': '8px',
-      },
-      FloatingPosition.right => const <String, String>{
-        'left': '100%',
-        'top': '50%',
-        'transform': 'translateY(-50%) translateX(4px)',
-        'margin-left': '8px',
-      },
-      FloatingPosition.topStart => const <String, String>{
-        'bottom': '100%',
-        'left': '0',
-        'margin-bottom': '8px',
-      },
-      FloatingPosition.topEnd => const <String, String>{
-        'bottom': '100%',
-        'right': '0',
-        'margin-bottom': '8px',
-      },
-      FloatingPosition.bottomStart => const <String, String>{
-        'top': '100%',
-        'left': '0',
-        'margin-top': '8px',
-      },
-      FloatingPosition.bottomEnd => const <String, String>{
-        'top': '100%',
-        'right': '0',
-        'margin-top': '8px',
-      },
-    };
   }
 
   (String, String, Map<String, String>) _getPositionStylesForPanel() {

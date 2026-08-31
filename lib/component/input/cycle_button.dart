@@ -4,6 +4,7 @@ import '../../core/decoration/arcane_decoration.dart';
 import '../../core/interaction/interaction.dart';
 import '../../core/theme_provider.dart';
 import '../../util/style_types/arcane_style_data.dart';
+import '../view/icon.dart';
 
 export '../../core/props/cycle_button_props.dart'
     show CycleButtonSize, CycleButtonVariant, CycleOption;
@@ -44,19 +45,21 @@ class ArcaneCycleButton<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.cycleButton<T>(CycleButtonProps<T>(
-      options: options,
-      value: value,
-      onChanged: onChanged,
-      onChangeAction: onChangeAction,
-      variant: variant,
-      size: size,
-      disabled: disabled,
-      id: id,
-      attributes: attributes,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.cycleButton<T>(
+      CycleButtonProps<T>(
+        options: options,
+        value: value,
+        onChanged: onChanged,
+        onChangeAction: onChangeAction,
+        variant: variant,
+        size: size,
+        disabled: disabled,
+        id: id,
+        attributes: attributes,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }
 
@@ -66,7 +69,7 @@ class ArcaneToggleButton extends StatelessWidget {
   final void Function(bool value)? onChanged;
   final ArcaneInteraction? onChangeAction;
   final String? label;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final CycleButtonSize size;
   final bool disabled;
   final String? id;
@@ -96,18 +99,20 @@ class ArcaneToggleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.toggleButton(ToggleButtonProps(
-      value: value,
-      onChanged: onChanged,
-      onChangeAction: onChangeAction,
-      label: label,
-      icon: icon,
-      size: size,
-      disabled: disabled,
-      id: id,
-      attributes: attributes,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.toggleButton(
+      ToggleButtonProps(
+        value: value,
+        onChanged: onChanged,
+        onChangeAction: onChangeAction,
+        label: label,
+        icon: icon,
+        size: size,
+        disabled: disabled,
+        id: id,
+        attributes: attributes,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }

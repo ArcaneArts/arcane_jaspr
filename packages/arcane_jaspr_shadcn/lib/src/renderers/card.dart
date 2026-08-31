@@ -52,13 +52,6 @@ class ShadcnCard extends CardRenderBase {
       'border': 'none',
       'box-shadow': 'none',
     },
-    CardVariant.glass => <String, String>{
-      'background-color': 'color-mix(in srgb, var(--card) 80%, transparent)',
-      'border': '1px solid var(--border)',
-      'box-shadow': 'var(--shadow-xs)',
-      'backdrop-filter': 'blur(8px)',
-      '-webkit-backdrop-filter': 'blur(8px)',
-    },
     CardVariant.interactive => <String, String>{
       'background-color': props.backgroundColor ?? 'var(--card)',
       'border': '1px solid var(--border)',

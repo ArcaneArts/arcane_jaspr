@@ -137,10 +137,6 @@ abstract class CssGenerator {
       buffer.writeln('  --radius-xs: ${radius.xs};');
       buffer.writeln('  --radius-sm: ${radius.sm};');
       buffer.writeln('  --radius-md: ${radius.md};');
-      buffer.writeln('  --radius-lg: ${radius.lg};');
-      buffer.writeln('  --radius-xl: ${radius.xl};');
-      buffer.writeln('  --radius-2xl: ${radius.xxl};');
-      buffer.writeln('  --radius-full: ${radius.full};');
       buffer.writeln();
 
       // Spacing scale
@@ -292,10 +288,6 @@ abstract class CssGenerator {
       buffer.writeln('  --arcane-radius-xs: var(--radius-xs);');
       buffer.writeln('  --arcane-radius-sm: var(--radius-sm);');
       buffer.writeln('  --arcane-radius-md: var(--radius-md);');
-      buffer.writeln('  --arcane-radius-lg: var(--radius-lg);');
-      buffer.writeln('  --arcane-radius-xl: var(--radius-xl);');
-      buffer.writeln('  --arcane-radius-2xl: var(--radius-2xl);');
-      buffer.writeln('  --arcane-radius-full: var(--radius-full);');
       buffer.writeln();
 
       buffer.writeln('  --arcane-font-sans: var(--font-sans);');

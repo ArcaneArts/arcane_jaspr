@@ -3,6 +3,7 @@ import 'package:arcane_jaspr/flutter.dart';
 import '../../core/decoration/arcane_decoration.dart';
 import '../../core/theme_provider.dart';
 import '../../util/style_types/arcane_style_data.dart';
+import '../view/icon.dart';
 
 export '../../core/props/confirm_dialog_props.dart';
 
@@ -15,7 +16,7 @@ class ArcaneConfirmDialog extends StatelessWidget {
   final void Function()? onConfirm;
   final void Function()? onCancel;
   final bool destructive;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final ArcaneStyleData? styles;
   final ArcaneDecoration? decoration;
 
@@ -35,18 +36,20 @@ class ArcaneConfirmDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.confirmDialog(ConfirmDialogProps(
-      title: title,
-      message: message,
-      confirmText: confirmText,
-      cancelText: cancelText,
-      onConfirm: onConfirm,
-      onCancel: onCancel,
-      destructive: destructive,
-      icon: icon,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.confirmDialog(
+      ConfirmDialogProps(
+        title: title,
+        message: message,
+        confirmText: confirmText,
+        cancelText: cancelText,
+        onConfirm: onConfirm,
+        onCancel: onCancel,
+        destructive: destructive,
+        icon: icon,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }
 
@@ -56,7 +59,7 @@ class ArcaneAlertDialog extends StatelessWidget {
   final String message;
   final String buttonText;
   final void Function()? onDismiss;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final ArcaneStyleData? styles;
   final ArcaneDecoration? decoration;
 
@@ -73,14 +76,16 @@ class ArcaneAlertDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.alertDialog(AlertDialogProps(
-      title: title,
-      message: message,
-      buttonText: buttonText,
-      onDismiss: onDismiss,
-      icon: icon,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.alertDialog(
+      AlertDialogProps(
+        title: title,
+        message: message,
+        buttonText: buttonText,
+        onDismiss: onDismiss,
+        icon: icon,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }

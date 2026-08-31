@@ -53,7 +53,7 @@ html:has(#arcane-root.arcane-theme-shadcn) body::-webkit-scrollbar-thumb,
 #arcane-root.arcane-theme-shadcn *::-webkit-scrollbar-thumb {
   background: color-mix(in srgb, var(--border) 72%, transparent);
   border: 2px solid transparent;
-  border-radius: 999px;
+  border-radius: var(--radius-xs);
   background-clip: padding-box;
 }
 
@@ -83,10 +83,8 @@ html:has(#arcane-root.arcane-theme-shadcn) body::-webkit-scrollbar-thumb:hover,
   padding: 0 !important;
   border-bottom: 1px solid var(--shadcn-hairline) !important;
   border-bottom-color: var(--shadcn-hairline) !important;
-  background: color-mix(in srgb, var(--background) 94%, transparent) !important;
+  background: var(--background) !important;
   box-shadow: none !important;
-  backdrop-filter: blur(10px) saturate(1.08) !important;
-  -webkit-backdrop-filter: blur(10px) saturate(1.08) !important;
 }
 
 #arcane-root.arcane-theme-shadcn .arcane-scaffold-body {
@@ -265,7 +263,7 @@ html:has(#arcane-root.arcane-theme-shadcn) body::-webkit-scrollbar-thumb:hover,
   right: 0;
   bottom: -0.7rem;
   height: 2px;
-  border-radius: 999px;
+  border-radius: 1px;
   background: transparent;
 }
 
@@ -303,7 +301,7 @@ html:has(#arcane-root.arcane-theme-shadcn) body::-webkit-scrollbar-thumb:hover,
   margin: 0 0 0.5rem;
   padding: 0.625rem;
   border: 1px solid var(--shadcn-hairline);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   background: var(--shadcn-panel-highlight);
   box-shadow: 0 1px 0 color-mix(in srgb, var(--foreground) 4%, transparent);
 }
@@ -386,7 +384,7 @@ html:has(#arcane-root.arcane-theme-shadcn) body::-webkit-scrollbar-thumb:hover,
 
 #arcane-root.arcane-theme-shadcn .search-results {
   border-color: var(--shadcn-subtle-line);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   box-shadow: 0 10px 28px -22px rgba(0, 0, 0, 0.42);
 }
 
@@ -517,14 +515,14 @@ html:has(#arcane-root.arcane-theme-shadcn) body::-webkit-scrollbar-thumb:hover,
 #arcane-root.arcane-theme-shadcn .arcane-demo-preview-scope,
 #arcane-root.arcane-theme-shadcn .arcane-demo-code {
   border-color: var(--shadcn-subtle-line) !important;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   box-shadow: none !important;
 }
 
 #arcane-root.arcane-theme-shadcn .arcane-demo-panel {
   padding: 1.5rem !important;
   border: 1px solid var(--shadcn-subtle-line) !important;
-  border-radius: var(--radius-xl) !important;
+  border-radius: var(--radius-md) !important;
   background: color-mix(in srgb, var(--card) 96%, var(--background)) !important;
   box-shadow: none !important;
 }
@@ -532,14 +530,6 @@ html:has(#arcane-root.arcane-theme-shadcn) body::-webkit-scrollbar-thumb:hover,
 #arcane-root.arcane-theme-shadcn .arcane-demo-kicker,
 #arcane-root.arcane-theme-shadcn .arcane-demo-code-label {
   color: var(--muted-foreground) !important;
-}
-
-#arcane-root.arcane-theme-shadcn .arcane-demo-component-chip {
-  border: 1px solid transparent !important;
-  border-radius: 999px !important;
-  background: var(--shadcn-control-fill) !important;
-  color: var(--muted-foreground) !important;
-  box-shadow: none !important;
 }
 
 #arcane-root.arcane-theme-shadcn .arcane-demo-section-title {
@@ -562,7 +552,7 @@ html:has(#arcane-root.arcane-theme-shadcn) body::-webkit-scrollbar-thumb:hover,
 
 #arcane-root.arcane-theme-shadcn .arcane-demo-missing {
   border: 1px solid var(--shadcn-subtle-line) !important;
-  border-radius: var(--radius-lg) !important;
+  border-radius: var(--radius-md) !important;
   background: var(--background) !important;
   color: var(--foreground) !important;
   box-shadow: none !important;
@@ -645,11 +635,7 @@ html:has(#arcane-root.arcane-theme-shadcn) body::-webkit-scrollbar-thumb:hover,
 
 
 #arcane-root.arcane-theme-shadcn .kb-landing-hero {
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--card) 92%, var(--primary) 8%), color-mix(in srgb, var(--background) 88%, var(--primary) 12%)),
-    linear-gradient(90deg, color-mix(in srgb, var(--primary) 7%, transparent) 1px, transparent 1px),
-    linear-gradient(color-mix(in srgb, var(--border) 54%, transparent) 1px, transparent 1px);
-  background-size: auto, 4rem 4rem, 4rem 4rem;
+  background: var(--card);
 }
 
 #arcane-root.arcane-theme-shadcn .kb-landing-prose {
@@ -680,7 +666,7 @@ html:has(#arcane-root.arcane-theme-shadcn) body::-webkit-scrollbar-thumb:hover,
 
 #arcane-root.arcane-theme-shadcn .kb-landing-card:hover {
   border-color: color-mix(in srgb, var(--primary) 42%, var(--border));
-  box-shadow: 0 1rem 2.5rem color-mix(in srgb, var(--primary) 10%, transparent);
+  box-shadow: none;
 }
 
 ''';

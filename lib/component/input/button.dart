@@ -4,19 +4,21 @@ import '../../core/decoration/arcane_decoration.dart';
 import '../../core/interaction/interaction.dart';
 import '../../core/theme_provider.dart';
 import '../../util/style_types/arcane_style_data.dart';
+import '../view/icon.dart';
 
 export '../../core/props/button_props.dart'
-    show ButtonVariant, ButtonSize, ButtonType;
+    show ButtonIconPosition, ButtonVariant, ButtonSize, ButtonType;
 
 /// A styled button component.
 ///
 /// Can render as either a `<button>` or `<a>` element depending on whether
 /// [href] is provided. Use [href] for CTA buttons that navigate to other pages.
+/// [icon] is the only semantic icon slot and [iconPosition] places that one
+/// icon before or after the label.
 class Button extends StatelessWidget {
   final String? label;
-  final Widget? child;
-  final Widget? icon;
-  final Widget? trailing;
+  final ArcaneGlyph? icon;
+  final ButtonIconPosition iconPosition;
   final void Function()? onPressed;
   final ArcaneInteraction? action;
   final ButtonVariant variant;
@@ -35,21 +37,16 @@ class Button extends StatelessWidget {
   /// Useful for CTA buttons that navigate to other pages.
   final String? href;
 
-  /// Whether to show an arrow indicator after the label.
-  /// Useful for CTA buttons to indicate navigation.
-  final bool showArrow;
-
   /// Literal, theme-permeable style override (always applied, wins over theme).
   final ArcaneStyleData? styles;
 
-  /// Semantic, theme-interpreted decoration (elevation + theme-specific fields).
+  /// Semantic, theme-interpreted decoration.
   final ArcaneDecoration? decoration;
 
   const Button({
     this.label,
-    this.child,
     this.icon,
-    this.trailing,
+    this.iconPosition = ButtonIconPosition.leading,
     this.onPressed,
     this.action,
     this.variant = ButtonVariant.primary,
@@ -61,7 +58,6 @@ class Button extends StatelessWidget {
     this.id,
     this.type = ButtonType.button,
     this.href,
-    this.showArrow = false,
     this.styles,
     this.decoration,
     super.key,
@@ -69,9 +65,8 @@ class Button extends StatelessWidget {
 
   const Button.primary({
     this.label,
-    this.child,
     this.icon,
-    this.trailing,
+    this.iconPosition = ButtonIconPosition.leading,
     this.onPressed,
     this.action,
     this.size = ButtonSize.medium,
@@ -82,7 +77,6 @@ class Button extends StatelessWidget {
     this.id,
     this.type = ButtonType.button,
     this.href,
-    this.showArrow = false,
     this.styles,
     this.decoration,
     super.key,
@@ -90,9 +84,8 @@ class Button extends StatelessWidget {
 
   const Button.secondary({
     this.label,
-    this.child,
     this.icon,
-    this.trailing,
+    this.iconPosition = ButtonIconPosition.leading,
     this.onPressed,
     this.action,
     this.size = ButtonSize.medium,
@@ -103,7 +96,6 @@ class Button extends StatelessWidget {
     this.id,
     this.type = ButtonType.button,
     this.href,
-    this.showArrow = false,
     this.styles,
     this.decoration,
     super.key,
@@ -111,9 +103,8 @@ class Button extends StatelessWidget {
 
   const Button.outline({
     this.label,
-    this.child,
     this.icon,
-    this.trailing,
+    this.iconPosition = ButtonIconPosition.leading,
     this.onPressed,
     this.action,
     this.size = ButtonSize.medium,
@@ -124,7 +115,6 @@ class Button extends StatelessWidget {
     this.id,
     this.type = ButtonType.button,
     this.href,
-    this.showArrow = false,
     this.styles,
     this.decoration,
     super.key,
@@ -132,9 +122,8 @@ class Button extends StatelessWidget {
 
   const Button.ghost({
     this.label,
-    this.child,
     this.icon,
-    this.trailing,
+    this.iconPosition = ButtonIconPosition.leading,
     this.onPressed,
     this.action,
     this.size = ButtonSize.medium,
@@ -145,7 +134,6 @@ class Button extends StatelessWidget {
     this.id,
     this.type = ButtonType.button,
     this.href,
-    this.showArrow = false,
     this.styles,
     this.decoration,
     super.key,
@@ -153,9 +141,8 @@ class Button extends StatelessWidget {
 
   const Button.destructive({
     this.label,
-    this.child,
     this.icon,
-    this.trailing,
+    this.iconPosition = ButtonIconPosition.leading,
     this.onPressed,
     this.action,
     this.size = ButtonSize.medium,
@@ -166,7 +153,6 @@ class Button extends StatelessWidget {
     this.id,
     this.type = ButtonType.button,
     this.href,
-    this.showArrow = false,
     this.styles,
     this.decoration,
     super.key,
@@ -174,9 +160,8 @@ class Button extends StatelessWidget {
 
   const Button.warning({
     this.label,
-    this.child,
     this.icon,
-    this.trailing,
+    this.iconPosition = ButtonIconPosition.leading,
     this.onPressed,
     this.action,
     this.size = ButtonSize.medium,
@@ -187,7 +172,6 @@ class Button extends StatelessWidget {
     this.id,
     this.type = ButtonType.button,
     this.href,
-    this.showArrow = false,
     this.styles,
     this.decoration,
     super.key,
@@ -195,9 +179,8 @@ class Button extends StatelessWidget {
 
   const Button.success({
     this.label,
-    this.child,
     this.icon,
-    this.trailing,
+    this.iconPosition = ButtonIconPosition.leading,
     this.onPressed,
     this.action,
     this.size = ButtonSize.medium,
@@ -208,7 +191,6 @@ class Button extends StatelessWidget {
     this.id,
     this.type = ButtonType.button,
     this.href,
-    this.showArrow = false,
     this.styles,
     this.decoration,
     super.key,
@@ -216,9 +198,8 @@ class Button extends StatelessWidget {
 
   const Button.link({
     this.label,
-    this.child,
     this.icon,
-    this.trailing,
+    this.iconPosition = ButtonIconPosition.leading,
     this.onPressed,
     this.action,
     this.size = ButtonSize.medium,
@@ -229,7 +210,6 @@ class Button extends StatelessWidget {
     this.id,
     this.type = ButtonType.button,
     this.href,
-    this.showArrow = false,
     this.styles,
     this.decoration,
     super.key,
@@ -237,9 +217,8 @@ class Button extends StatelessWidget {
 
   const Button.info({
     this.label,
-    this.child,
     this.icon,
-    this.trailing,
+    this.iconPosition = ButtonIconPosition.leading,
     this.onPressed,
     this.action,
     this.size = ButtonSize.medium,
@@ -250,43 +229,18 @@ class Button extends StatelessWidget {
     this.id,
     this.type = ButtonType.button,
     this.href,
-    this.showArrow = false,
     this.styles,
     this.decoration,
     super.key,
   }) : variant = ButtonVariant.info;
-
-  /// Accent variant with gradient background.
-  /// Useful for prominent CTA buttons.
-  const Button.accent({
-    this.label,
-    this.child,
-    this.icon,
-    this.trailing,
-    this.onPressed,
-    this.action,
-    this.size = ButtonSize.medium,
-    this.disabled = false,
-    this.loading = false,
-    this.fullWidth = false,
-    this.attributes,
-    this.id,
-    this.type = ButtonType.button,
-    this.href,
-    this.showArrow = false,
-    this.styles,
-    this.decoration,
-    super.key,
-  }) : variant = ButtonVariant.accent;
 
   @override
   Widget build(BuildContext context) {
     return context.renderers.button(
       ButtonProps(
         label: label,
-        child: child,
         icon: icon,
-        trailing: trailing,
+        iconPosition: iconPosition,
         onPressed: onPressed,
         action: action,
         variant: variant,
@@ -298,7 +252,6 @@ class Button extends StatelessWidget {
         attributes: attributes,
         href: href,
         type: type,
-        showArrow: showArrow,
         styles: styles,
         decoration: decoration,
       ),

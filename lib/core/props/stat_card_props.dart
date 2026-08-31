@@ -1,17 +1,17 @@
 import 'package:arcane_jaspr/flutter.dart';
 
 import '../../util/style_types/arcane_style_data.dart';
+import '../../component/view/icon.dart';
 import '../decoration/arcane_decoration.dart';
 
 /// Stat card component properties.
 class StatCardProps {
   final String label;
   final String value;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final String? trend;
   final bool trendPositive;
   final String? description;
-  final String? iconBackground;
 
   /// Literal, theme-permeable style override (always applied, wins over theme).
   final ArcaneStyleData? styles;
@@ -26,7 +26,6 @@ class StatCardProps {
     this.trend,
     this.trendPositive = true,
     this.description,
-    this.iconBackground,
     this.styles,
     this.decoration,
   });
@@ -38,11 +37,7 @@ class StatCardRowProps {
   final int columns;
   final String? gap;
 
-  const StatCardRowProps({
-    required this.cards,
-    this.columns = 4,
-    this.gap,
-  });
+  const StatCardRowProps({required this.cards, this.columns = 4, this.gap});
 }
 
 // ============================================================================

@@ -59,10 +59,7 @@ abstract class DialogRenderBase extends StatelessComponent {
 
     return dom.div(
       classes: '$themePrefix-dialog-overlay',
-      attributes: <String, String>{
-        ...surfAttrs,
-        'data-arcane-scrim': '',
-      },
+      attributes: <String, String>{...surfAttrs, 'data-arcane-scrim': ''},
       styles: dom.Styles(raw: overlayStyles),
       events: <String, EventCallback>{
         if (props.barrierDismissible && props.onClose != null)
@@ -180,7 +177,7 @@ abstract class SheetRenderBase extends StatelessComponent {
   /// true (the backdrop color and any blur).
   Map<String, String> get overlayBackdropStyles;
 
-  /// Background color of the drag handle pill.
+  /// Background color of the drag handle.
   String get dragHandleColor;
 
   /// Border applied to the header bottom and the footer top.
@@ -194,8 +191,7 @@ abstract class SheetRenderBase extends StatelessComponent {
   String generateAutoId();
 
   /// Per-instance decoration overrides. Default: none. A theme overrides this
-  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
-  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  /// to translate an [ArcaneDecoration] elevation intent into its own CSS.
   Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
       const <String, String>{};
 
@@ -319,7 +315,7 @@ abstract class SheetRenderBase extends StatelessComponent {
                         'width': '40px',
                         'height': '3px',
                         'background': dragHandleColor,
-                        'border-radius': '9999px',
+                        'border-radius': 'var(--radius-xs)',
                         'opacity': '0.7',
                       },
                     ),

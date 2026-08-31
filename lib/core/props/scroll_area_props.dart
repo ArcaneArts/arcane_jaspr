@@ -1,24 +1,10 @@
 import 'package:arcane_jaspr/flutter.dart';
 
-enum ScrollDirectionVariant {
-  vertical,
-  horizontal,
-  both,
-}
+enum ScrollDirectionVariant { vertical, horizontal, both }
 
-enum ScrollbarVisibilityVariant {
-  always,
-  hover,
-  auto_,
-  hidden,
-}
+enum ScrollbarVisibilityVariant { always, hover, auto_, hidden }
 
-enum ScrollbarStyleVariant {
-  default_,
-  thin,
-  minimal,
-  custom,
-}
+enum ScrollbarStyleVariant { default_, thin, minimal, custom }
 
 /// Scroll area component properties.
 class ScrollAreaProps {
@@ -33,7 +19,6 @@ class ScrollAreaProps {
   final String? trackColor;
   final String? thumbColor;
   final String scrollbarSize;
-  final bool showScrollShadows;
   final String? padding;
   final String? className;
   final int instanceId;
@@ -50,7 +35,6 @@ class ScrollAreaProps {
     this.trackColor,
     this.thumbColor,
     this.scrollbarSize = '8px',
-    this.showScrollShadows = false,
     this.padding,
     this.className,
     this.instanceId = 0,
@@ -68,7 +52,6 @@ class ScrollAreaProps {
     String? trackColor,
     String? thumbColor,
     String? scrollbarSize,
-    bool? showScrollShadows,
     String? padding,
     String? className,
     int? instanceId,
@@ -85,7 +68,6 @@ class ScrollAreaProps {
       trackColor: trackColor ?? this.trackColor,
       thumbColor: thumbColor ?? this.thumbColor,
       scrollbarSize: scrollbarSize ?? this.scrollbarSize,
-      showScrollShadows: showScrollShadows ?? this.showScrollShadows,
       padding: padding ?? this.padding,
       className: className ?? this.className,
       instanceId: instanceId ?? this.instanceId,

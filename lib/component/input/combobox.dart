@@ -4,6 +4,7 @@ import '../../core/decoration/arcane_decoration.dart';
 import '../../core/interaction/interaction.dart';
 import '../../core/theme_provider.dart';
 import '../../util/style_types/arcane_style_data.dart';
+import '../view/icon.dart';
 
 export '../../core/props/select_props.dart'
     show ComponentSize, SelectProps, SelectOptionProps;
@@ -103,54 +104,64 @@ class _ArcaneComboboxState<T> extends State<ArcaneCombobox<T>> {
   }
 
   ComponentSize get _propsSize => switch (component.size) {
-        ComboboxSize.sm => ComponentSize.sm,
-        ComboboxSize.md => ComponentSize.md,
-        ComboboxSize.lg => ComponentSize.lg,
-      };
+    ComboboxSize.sm => ComponentSize.sm,
+    ComboboxSize.md => ComponentSize.md,
+    ComboboxSize.lg => ComponentSize.lg,
+  };
 
   @override
   Widget build(BuildContext context) {
-    final selectOptions = component.options.map((opt) => SelectOptionProps<T>(
-      value: opt.value,
-      label: opt.label,
-      description: opt.description,
-      icon: opt.icon,
-      disabled: opt.disabled,
-      searchKeywords: opt.keywords,
-    )).toList();
+    final selectOptions = component.options
+        .map(
+          (opt) => SelectOptionProps<T>(
+            value: opt.value,
+            label: opt.label,
+            description: opt.description,
+            icon: opt.icon,
+            disabled: opt.disabled,
+            searchKeywords: opt.keywords,
+          ),
+        )
+        .toList();
 
-    final filteredSelectOptions = _filteredOptions.map((opt) => SelectOptionProps<T>(
-      value: opt.value,
-      label: opt.label,
-      description: opt.description,
-      icon: opt.icon,
-      disabled: opt.disabled,
-      searchKeywords: opt.keywords,
-    )).toList();
+    final filteredSelectOptions = _filteredOptions
+        .map(
+          (opt) => SelectOptionProps<T>(
+            value: opt.value,
+            label: opt.label,
+            description: opt.description,
+            icon: opt.icon,
+            disabled: opt.disabled,
+            searchKeywords: opt.keywords,
+          ),
+        )
+        .toList();
 
-    return context.renderers.select<T>(SelectProps<T>(
-      options: selectOptions,
-      value: component.value,
-      placeholder: component.placeholder ?? 'Select...',
-      disabled: component.disabled,
-      searchable: component.searchable,
-      label: component.label,
-      error: component.error,
-      size: _propsSize,
-      emptyMessage: component.emptyMessage,
-      searchPlaceholder: component.searchPlaceholder ?? 'Search...',
-      isOpen: _isOpen,
-      searchQuery: _searchQuery,
-      filteredOptions: filteredSelectOptions,
-      onToggle: _toggleOpen,
-      onSelect: _selectOption,
-      onSearchChange: _handleSearch,
-      id: component.id,
-      group: component.group,
-      onSelectAction: component.onChangedAction,
-      styles: component.styles,
-      decoration: component.decoration,
-    ));
+    return context.renderers.select<T>(
+      SelectProps<T>(
+        options: selectOptions,
+        value: component.value,
+        placeholder: component.placeholder ?? 'Select...',
+        disabled: component.disabled,
+        searchable: component.searchable,
+        label: component.label,
+        error: component.error,
+        size: _propsSize,
+        emptyMessage: component.emptyMessage,
+        searchPlaceholder: component.searchPlaceholder ?? 'Search...',
+        isOpen: _isOpen,
+        searchQuery: _searchQuery,
+        filteredOptions: filteredSelectOptions,
+        onToggle: _toggleOpen,
+        onSelect: _selectOption,
+        onSearchChange: _handleSearch,
+        id: component.id,
+        group: component.group,
+        onSelectAction: component.onChangedAction,
+        styles: component.styles,
+        decoration: component.decoration,
+      ),
+    );
   }
 }
 
@@ -159,7 +170,7 @@ class ComboboxOption<T> {
   final T value;
   final String label;
   final String? description;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final bool disabled;
   final List<String>? keywords;
 
@@ -174,8 +185,4 @@ class ComboboxOption<T> {
 }
 
 /// Size variants for combobox.
-enum ComboboxSize {
-  sm,
-  md,
-  lg,
-}
+enum ComboboxSize { sm, md, lg }

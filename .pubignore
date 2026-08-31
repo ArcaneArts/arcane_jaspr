@@ -1,9 +1,11 @@
 AGENTS.md
 arcane_jaspr.iml
 /arcane_jaspr_codex/
+/arcane_jaspr_docs/
+/.github/
+/test/
+/tool/
 component-audit.csv
 CONSOLIDATION_PLAN.md
 docs/
-tool/shadcn_codegen/
-tool/bundle_win95_loaders.dart
 assets/loaders/

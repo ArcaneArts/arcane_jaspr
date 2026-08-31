@@ -11,7 +11,6 @@ import 'mutable_text_scripts.dart';
 import 'number_input_scripts.dart';
 import 'otp_input_scripts.dart';
 import 'radio_scripts.dart';
-import 'tag_input_scripts.dart';
 import 'time_picker_scripts.dart';
 import 'toggle_switch_scripts.dart';
 
@@ -26,7 +25,6 @@ export 'mutable_text_scripts.dart';
 export 'number_input_scripts.dart';
 export 'otp_input_scripts.dart';
 export 'radio_scripts.dart';
-export 'tag_input_scripts.dart';
 export 'time_picker_scripts.dart';
 export 'toggle_switch_scripts.dart';
 
@@ -34,14 +32,14 @@ export 'toggle_switch_scripts.dart';
 class InputScripts {
   InputScripts._();
 
-  static String get code => '''
+  static String get code =>
+      '''
 ${ColorInputScripts.code}
 ${NumberInputScripts.code}
 ${CheckboxScripts.code}
 ${ToggleSwitchScripts.code}
 ${RadioScripts.code}
 ${MutableTextScripts.code}
-${TagInputScripts.code}
 ${FileUploadScripts.code}
 ${OtpInputScripts.code}
 ${ComboboxScripts.code}

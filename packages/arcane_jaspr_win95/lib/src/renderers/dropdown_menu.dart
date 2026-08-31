@@ -38,8 +38,11 @@ class Win95DropdownMenu extends DropdownMenuRenderBase {
   @override
   String get itemBorderRadius => 'var(--radius)';
 
+  /// Interpolated into a property list ("color $token, background-color
+  /// $token"), so this is a duration rather than the `none` keyword — a Win95
+  /// menu item highlighted in a single repaint.
   @override
-  String get transitionToken => 'var(--arcane-transition)';
+  String get transitionToken => '0s';
 
   @override
   String get shortcutLetterSpacing => '0';

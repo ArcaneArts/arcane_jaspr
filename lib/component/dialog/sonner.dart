@@ -1,4 +1,5 @@
 import 'package:arcane_jaspr/flutter.dart';
+import '../view/icon.dart';
 
 import 'toast.dart';
 
@@ -22,7 +23,7 @@ class ArcaneSonner extends StatelessWidget {
     String? description,
     int duration = 4000,
     ToastAction? action,
-    Widget? icon,
+    ArcaneGlyph? icon,
     ToastPosition? position,
   }) {
     return toast.info(
@@ -42,7 +43,7 @@ class ArcaneSonner extends StatelessWidget {
     String? description,
     int duration = 4000,
     ToastAction? action,
-    Widget? icon,
+    ArcaneGlyph? icon,
     ToastPosition? position,
   }) {
     return toast.success(
@@ -62,7 +63,7 @@ class ArcaneSonner extends StatelessWidget {
     String? description,
     int duration = 5000,
     ToastAction? action,
-    Widget? icon,
+    ArcaneGlyph? icon,
     ToastPosition? position,
   }) {
     return toast.warning(
@@ -82,7 +83,7 @@ class ArcaneSonner extends StatelessWidget {
     String? description,
     int duration = 6000,
     ToastAction? action,
-    Widget? icon,
+    ArcaneGlyph? icon,
     ToastPosition? position,
   }) {
     return toast.error(

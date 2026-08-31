@@ -11,7 +11,7 @@ import 'package:arcane_jaspr/core/props/date_picker_props.dart';
 /// Shared structural base for themed date picker renderers.
 ///
 /// Every theme renders the identical skeleton — a wrapper holding an optional
-/// label, a trigger button (calendar icon, display text, optional clear button),
+/// label, a trigger button (display text and one calendar or clear glyph),
 /// a popover dropdown that hosts the theme's calendar, and an optional error
 /// message — wired with the same id/anchor/popover interaction attributes. Only
 /// the CSS classes and inline styles diverge per theme, so this base factors the
@@ -130,10 +130,9 @@ abstract class DatePickerRenderBase extends StatelessComponent {
       styles: dom.Styles(raw: rootStyles),
       <Component>[
         if (props.label != null)
-          dom.span(
-            styles: dom.Styles(raw: labelStyles),
-            <Component>[Component.text(props.label!)],
-          ),
+          dom.span(styles: dom.Styles(raw: labelStyles), <Component>[
+            Component.text(props.label!),
+          ]),
         dom.button(
           classes: triggerClasses,
           attributes: <String, String>{
@@ -159,10 +158,10 @@ abstract class DatePickerRenderBase extends StatelessComponent {
             },
           ),
           <Component>[
-            dom.span(
-              styles: dom.Styles(raw: iconStyles),
-              <Component>[ArcaneIcon.calendar(size: IconSize.sm)],
-            ),
+            if (!hasValue || !props.clearable)
+              dom.span(styles: dom.Styles(raw: iconStyles), <Component>[
+                ArcaneIcon.calendar(size: IconSize.sm),
+              ]),
             dom.span(
               attributes: const <String, String>{
                 'data-arcane-calendar-display': '',

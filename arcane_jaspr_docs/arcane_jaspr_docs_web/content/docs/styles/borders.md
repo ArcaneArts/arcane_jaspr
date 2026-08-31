@@ -49,38 +49,21 @@ Complete border configurations combining width, style, and color.
 | `dashedSubtle` | 1px dashed subtle |
 | `dashedStandard` | 1px dashed standard |
 
-### Directional Borders
-
-| Value | Description |
-|-------|-------------|
-| `topSubtle` | Top border only |
-| `bottomSubtle` | Bottom border only |
-
-Directional borders are separators for adjoining regions. Do not use a
-one-sided colored border, inset strip, or pseudo-element stripe to emphasize a
-rounded card or container; use a complete perimeter, fill, badge, or symmetric
-ring instead.
-
 ### Usage
 
 ```dart
 ArcaneBox(
   style: const ArcaneStyleData(
     border: BorderPreset.subtle,
-    borderRadius: Radius.lg,
-  ),
-  children: [...],
-)
-
-// Bottom border separator
-ArcaneBox(
-  style: const ArcaneStyleData(
-    padding: PaddingPreset.md,
-    borderBottom: BorderPreset.subtle,
+    borderRadius: Radius.md,
   ),
   children: [...],
 )
 ```
+
+`ArcaneStyleData` intentionally has no one-sided border fields. Use a
+`Separator` between adjoining regions or a complete perimeter around a
+surface.
 
 ## Radius
 
@@ -92,11 +75,9 @@ Border radius presets. Many values are theme-reactive.
 | `xs` | `4px` | `4px` | Extra small |
 | `sm` | `var(--arcane-radius-sm)` | `6px` | Small |
 | `md` | `var(--arcane-radius-md)` | `8px` | Medium |
-| `lg` | `var(--arcane-radius-lg)` | `12px` | Large |
-| `xl` | `var(--arcane-radius-xl)` | `16px` | Extra large |
-| `xxl` | `var(--arcane-radius-2xl)` | `24px` | Double extra large |
-| `full` | `9999px` | `9999px` | Pill shape |
-| `circle` | `50%` | `50%` | Perfect circle |
+Generic radius values stop at 8px. Circular geometry is private to semantic
+components, so generic styles cannot turn a button, badge, tab, statistic, or
+card into a pill.
 
 ### Properties
 
@@ -111,24 +92,13 @@ Radius.md.staticCss // "8px" (static value)
 // Card radius
 Card(
   style: const ArcaneStyleData(
-    borderRadius: Radius.lg,
+    borderRadius: Radius.md,
   ),
   children: [...],
 )
 
-// Pill button
-Button(
-  style: const ArcaneStyleData(
-    borderRadius: Radius.full,
-  ),
-  label: 'Pill Button',
-)
-
-// Avatar circle
-ArcaneAvatar(
-  style: const ArcaneStyleData(
-    borderRadius: Radius.circle,
-  ),
+// Avatar circle uses the semantic component API.
+ArcaneAvatar.circle(
   imageUrl: 'avatar.jpg',
 )
 ```
@@ -151,11 +121,7 @@ Border width values.
 ```dart
 ArcaneBox(
   style: const ArcaneStyleData(
-    raw: {
-      'border-width': BorderWidth.medium.css,
-      'border-style': 'solid',
-      'border-color': 'var(--arcane-accent)',
-    },
+    borderCustom: '2px solid var(--arcane-accent)',
   ),
   children: [...],
 )
@@ -182,9 +148,7 @@ Border line styles.
 ```dart
 ArcaneBox(
   style: const ArcaneStyleData(
-    raw: {
-      'border': '2px dashed var(--arcane-border)',
-    },
+    borderCustom: '2px dashed var(--arcane-border)',
   ),
   children: [...],
 )
@@ -223,7 +187,7 @@ ArcaneBox(
     padding: PaddingPreset.lg,
     background: Background.card,
     border: BorderPreset.subtle,
-    borderRadius: Radius.lg,
+    borderRadius: Radius.md,
   ),
   children: [...],
 )
@@ -250,7 +214,7 @@ ArcaneBox(
 ArcaneBox(
   style: const ArcaneStyleData(
     height: Size.auto,
-    borderBottom: BorderPreset.subtle,
+    border: BorderPreset.subtle,
     margin: MarginPreset.verticalLg,
   ),
   children: [],
@@ -260,17 +224,9 @@ ArcaneBox(
 ### Avatar with Ring
 
 ```dart
-ArcaneBox(
-  style: const ArcaneStyleData(
-    borderRadius: Radius.circle,
-    raw: {
-      'border': '3px solid var(--arcane-accent)',
-      'padding': '2px',
-    },
-  ),
-  children: [
-    ArcaneAvatar(imageUrl: 'avatar.jpg'),
-  ],
+ArcaneAvatar.circle(
+  imageUrl: 'avatar.jpg',
+  borderColor: 'var(--arcane-accent)',
 )
 ```
 
@@ -281,10 +237,8 @@ ArcaneBox(
   style: const ArcaneStyleData(
     padding: PaddingPreset.xl,
     border: BorderPreset.dashedSubtle,
-    borderRadius: Radius.lg,
-    raw: {
-      'border-width': '2px',
-    },
+    borderRadius: Radius.md,
+    borderWidth: BorderWidth.medium,
   ),
   children: [
     Text('Drop files here'),

@@ -7,6 +7,7 @@ import '../../core/interaction/interaction.dart';
 import '../../core/theme_provider.dart';
 import '../../util/style_types/arcane_style_data.dart';
 import '../../core/decoration/arcane_decoration.dart';
+import '../view/icon.dart';
 
 /// Radio button option model.
 class RadioOption<T> {
@@ -14,7 +15,7 @@ class RadioOption<T> {
   final String label;
   final String? description;
   final bool disabled;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final String? id;
 
   const RadioOption({
@@ -76,34 +77,38 @@ class ArcaneRadioGroup<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<RadioOptionProps<T>> optionProps = options
-        .map((opt) => RadioOptionProps<T>(
-              value: opt.value,
-              label: opt.label,
-              description: opt.description,
-              disabled: opt.disabled,
-              icon: opt.icon,
-              id: opt.id,
-            ))
+        .map(
+          (opt) => RadioOptionProps<T>(
+            value: opt.value,
+            label: opt.label,
+            description: opt.description,
+            disabled: opt.disabled,
+            icon: opt.icon,
+            id: opt.id,
+          ),
+        )
         .toList();
 
-    return context.renderers.radioGroup<T>(RadioGroupProps<T>(
-      id: id,
-      value: value,
-      options: optionProps,
-      onChanged: onChanged,
-      onChangeAction: onChangeAction,
-      name: name,
-      layout: layout,
-      variant: variant,
-      disabled: disabled,
-      label: label,
-      helperText: helperText,
-      error: error,
-      required: required,
-      gap: gap,
-      gridColumns: gridColumns,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.radioGroup<T>(
+      RadioGroupProps<T>(
+        id: id,
+        value: value,
+        options: optionProps,
+        onChanged: onChanged,
+        onChangeAction: onChangeAction,
+        name: name,
+        layout: layout,
+        variant: variant,
+        disabled: disabled,
+        label: label,
+        helperText: helperText,
+        error: error,
+        required: required,
+        gap: gap,
+        gridColumns: gridColumns,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }

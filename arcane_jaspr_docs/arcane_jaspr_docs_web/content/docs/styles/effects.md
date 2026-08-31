@@ -25,20 +25,6 @@ Box shadow presets.
 | `xl` | Extra large shadow |
 | `card` | Card-specific shadow |
 
-### Glow Effects
-
-| Value | Description |
-|-------|-------------|
-| `glowAccent` | Accent color glow |
-| `glowSuccess` | Success color glow |
-| `glowError` | Error color glow |
-| `glowPrimary` | Primary color glow |
-| `glowGreen` | Green glow |
-| `glowCyan` | Cyan glow |
-| `glowPurple` | Purple glow |
-| `glowOrange` | Orange glow |
-| `glowPink` | Pink glow |
-
 ### Usage
 
 ```dart
@@ -50,12 +36,12 @@ Card(
   children: [...],
 )
 
-// Glow effect
-Button.primary(
+// Stronger neutral elevation
+Card(
   style: const ArcaneStyleData(
-    shadow: Shadow.glowAccent,
+    shadow: Shadow.lg,
   ),
-  label: 'Glowing Button',
+  children: [...],
 )
 ```
 
@@ -117,9 +103,6 @@ CSS transform presets.
 | Value | Description |
 |-------|-------------|
 | `none` | No transform |
-| `hoverLift` | Slight lift on hover (translateY -2px) |
-| `hoverScale` | Scale up on hover (1.05) |
-| `hoverScaleSubtle` | Subtle scale (1.02) |
 | `center` | Center with translate(-50%, -50%) |
 | `centerX` | Center X with translateX(-50%) |
 | `centerY` | Center Y with translateY(-50%) |
@@ -132,24 +115,13 @@ CSS transform presets.
 ### Usage
 
 ```dart
-// Hover lift effect
-Card(
-  style: ArcaneStyleData(
-    transform: isHovered ? Transform.hoverLift : Transform.none,
-    transition: Transition.transform,
-  ),
-  children: [...],
-)
-
 // Centered modal
 ArcaneBox(
   style: const ArcaneStyleData(
     position: Position.fixed,
     transform: Transform.center,
-    raw: {
-      'top': '50%',
-      'left': '50%',
-    },
+    top: '50%',
+    left: '50%',
   ),
   children: [...],
 )
@@ -267,31 +239,6 @@ Button(
 )
 ```
 
-## BackdropFilter
-
-Backdrop filter effects.
-
-| Value | Description |
-|-------|-------------|
-| `none` | No filter |
-| `blur` | Standard blur |
-| `blurStrong` | Strong blur |
-| `blurLight` | Light blur |
-
-### Usage
-
-```dart
-ArcaneBox(
-  style: const ArcaneStyleData(
-    backdropFilter: BackdropFilter.blur,
-    raw: {
-      'background': 'rgba(0, 0, 0, 0.5)',
-    },
-  ),
-  children: [...],
-)
-```
-
 ## Easing
 
 Animation easing functions.
@@ -307,35 +254,6 @@ Animation easing functions.
 
 ## Common Effect Patterns
 
-### Card Hover Effect
-
-```dart
-Card(
-  style: ArcaneStyleData(
-    shadow: isHovered ? Shadow.lg : Shadow.sm,
-    transform: isHovered ? Transform.hoverLift : Transform.none,
-    transition: Transition.allFast,
-  ),
-  children: [...],
-)
-```
-
-### Glassmorphism
-
-```dart
-ArcaneBox(
-  style: const ArcaneStyleData(
-    backdropFilter: BackdropFilter.blur,
-    borderRadius: Radius.lg,
-    border: BorderPreset.subtle,
-    raw: {
-      'background': 'rgba(255, 255, 255, 0.05)',
-    },
-  ),
-  children: [...],
-)
-```
-
 ### Loading Overlay
 
 ```dart
@@ -346,11 +264,8 @@ ArcaneBox(
     alignItems: AlignItems.center,
     justifyContent: JustifyContent.center,
     background: Background.overlay,
-    backdropFilter: BackdropFilter.blur,
     opacity: Opacity.full,
-    raw: {
-      'inset': '0',
-    },
+    inset: '0',
   ),
   children: [
     ArcaneLoader(),
@@ -371,14 +286,14 @@ Button(
 )
 ```
 
-### Glowing Accent Button
+### Elevated Surface
 
 ```dart
-Button.primary(
+Card(
   style: ArcaneStyleData(
-    shadow: isHovered ? Shadow.glowAccent : Shadow.none,
+    shadow: isHovered ? Shadow.lg : Shadow.none,
     transition: Transition.shadow,
   ),
-  label: 'Glow on Hover',
+  children: [...],
 )
 ```

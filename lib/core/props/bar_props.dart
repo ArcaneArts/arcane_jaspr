@@ -1,5 +1,1 @@
-enum BarBackButtonMode {
-  always,
-  never,
-  auto,
-}
+enum BarBackButtonMode { always, never, auto }

@@ -112,15 +112,15 @@ Plan: Comprehensive arcane_jaspr Documentation Site
      Typography (10+ components):
      - Text, ArcaneSpan, ArcaneHeading, ArcaneParagraph
      - ArcaneHeadline, ArcaneSubheadline, ArcaneBodyText
-     - ArcaneGradientText, ArcaneGlowText, RichText
+     - RichText
      - ArcaneCodeSnippet, ArcaneInlineCode, ArcanePre
 
      Phase 4: View Components (60+ components)
 
-     Cards: Card, ArcaneGlassCard, ArcaneStructuredCard, ArcaneFeatureCard, ArcanePricingCard, ArcaneTestimonialCard, ArcaneIntegrationCard, 
+     Cards: Card, ArcaneStructuredCard, ArcaneFeatureCard, ArcanePricingCard, ArcaneTestimonialCard, ArcaneIntegrationCard,
      ArcaneGameTile
 
-     Display: ArcaneAvatar, ArcaneAvatarGroup, ArcaneBadge, ArcaneBar, ArcaneGlass, ArcaneDivider, ArcaneVerticalDivider
+     Display: ArcaneAvatar, ArcaneAvatarGroup, ArcaneBadge, ArcaneBar, ArcaneDivider, ArcaneVerticalDivider
 
      Data: ArcaneDataTable, ArcaneStaticTable, ArcaneTimeline, ArcaneTimelineItem, ArcaneKeyValueTable
 
@@ -130,7 +130,7 @@ Plan: Comprehensive arcane_jaspr Documentation Site
 
      Loaders: ArcaneLoader, ArcaneLoadingSpinner, ArcaneDotsLoader, ArcanePulseLoader, ArcaneCircularProgress
 
-     Other: ArcaneExpander, ArcaneSkeleton, ArcaneChip, ArcaneChipGroup, ArcaneAnimatedCounter, ArcaneMetricDisplay
+     Other: ArcaneExpander, ArcaneSkeleton, ArcaneAnimatedCounter, ArcaneMetricDisplay
 
      Phase 5: Navigation (12+ components)
 

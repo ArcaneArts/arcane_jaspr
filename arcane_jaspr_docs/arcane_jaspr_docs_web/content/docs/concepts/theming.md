@@ -143,7 +143,7 @@ Stylesheets also define `--arcane-*` prefixed variables for package-level compon
 --arcane-radius
 --arcane-radius-sm
 --arcane-radius-md
---arcane-radius-lg
+--arcane-radius-md
 /* ... and more */
 ```
 
@@ -154,12 +154,10 @@ Reference these variables in your `ArcaneStyleData`:
 ```dart
 ArcaneBox(
   style: const ArcaneStyleData(
-    raw: {
-      'background': 'var(--card)',
-      'border': '1px solid var(--border)',
-      'color': 'var(--card-foreground)',
-      'border-radius': 'var(--radius)',
-    },
+    background: Background.card,
+    border: BorderPreset.standard,
+    textColor: TextColor.cardForeground,
+    borderRadius: Radius.md,
   ),
   children: [...],
 )
@@ -230,14 +228,14 @@ class MyStylesheet extends ArcaneStylesheet {
     }
   ''';
 
-  @override
-  get externalCssUrls => const [
-    'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
-  ];
 }
 ```
 
 Your custom `MyRenderers` class must implement all methods in `ComponentRenderers`, and `MyLayouts` must implement adaptive layout slots such as `ArcaneScaffold`.
+
+Fonts must be committed with the host site's assets and declared with local
+`@font-face` URLs. `ArcaneStylesheet` intentionally has no remote stylesheet
+hook, so activating a theme never adds a network font or CSS request.
 
 ## Theme Toggle
 

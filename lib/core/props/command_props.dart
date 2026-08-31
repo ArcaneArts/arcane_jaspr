@@ -1,4 +1,5 @@
 import 'package:arcane_jaspr/flutter.dart';
+import '../../component/view/icon.dart';
 
 import '../../util/style_types/arcane_style_data.dart';
 import '../decoration/arcane_decoration.dart';
@@ -6,7 +7,7 @@ import '../decoration/arcane_decoration.dart';
 /// Command item data.
 class CommandItemProps {
   final String label;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final String? shortcut;
   final void Function()? onSelect;
   final bool disabled;
@@ -37,10 +38,7 @@ class CommandGroupProps {
   final String? heading;
   final List<CommandItemProps> items;
 
-  const CommandGroupProps({
-    this.heading,
-    required this.items,
-  });
+  const CommandGroupProps({this.heading, required this.items});
 }
 
 /// Command palette component properties.

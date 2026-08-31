@@ -9,11 +9,7 @@ export '../../core/props/date_picker_props.dart'
     show DatePickerSizeVariant, DatePickerProps;
 
 /// Size variants for date picker.
-enum DatePickerSize {
-  sm,
-  md,
-  lg,
-}
+enum DatePickerSize { sm, md, lg }
 
 /// A date picker input with calendar dropdown.
 class ArcaneDatePicker extends StatefulWidget {
@@ -79,9 +75,9 @@ class ArcaneDatePicker extends StatefulWidget {
     this.styles,
     this.decoration,
     super.key,
-  })  : value = null,
-        onChanged = null,
-        mode = CalendarMode.range;
+  }) : value = null,
+       onChanged = null,
+       mode = CalendarMode.range;
 
   @override
   State<ArcaneDatePicker> createState() => _ArcaneDatePickerState();
@@ -92,8 +88,18 @@ class _ArcaneDatePickerState extends State<ArcaneDatePicker> {
   late DateTime _displayMonth;
 
   static const List<String> _months = [
-    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
   ];
 
   @override
@@ -147,21 +153,23 @@ class _ArcaneDatePickerState extends State<ArcaneDatePicker> {
 
   bool _isDisabled(DateTime date) {
     if (component.disabledDates?.call(date) ?? false) return true;
-    if (component.minDate != null && date.isBefore(component.minDate!)) return true;
-    if (component.maxDate != null && date.isAfter(component.maxDate!)) return true;
+    if (component.minDate != null && date.isBefore(component.minDate!))
+      return true;
+    if (component.maxDate != null && date.isAfter(component.maxDate!))
+      return true;
     return false;
   }
 
   DatePickerSizeVariant get _propsSize => switch (component.size) {
-        DatePickerSize.sm => DatePickerSizeVariant.sm,
-        DatePickerSize.md => DatePickerSizeVariant.md,
-        DatePickerSize.lg => DatePickerSizeVariant.lg,
-      };
+    DatePickerSize.sm => DatePickerSizeVariant.sm,
+    DatePickerSize.md => DatePickerSizeVariant.md,
+    DatePickerSize.lg => DatePickerSizeVariant.lg,
+  };
 
   CalendarModeVariant get _propsMode => switch (component.mode) {
-        CalendarMode.single => CalendarModeVariant.single,
-        CalendarMode.range => CalendarModeVariant.range,
-      };
+    CalendarMode.single => CalendarModeVariant.single,
+    CalendarMode.range => CalendarModeVariant.range,
+  };
 
   DateRangeValue? get _propsRangeValue {
     if (component.rangeValue == null) return null;
@@ -173,56 +181,68 @@ class _ArcaneDatePickerState extends State<ArcaneDatePicker> {
 
   @override
   Widget build(BuildContext context) {
-    final String resolvedId = component.id ?? 'datepicker-${identityHashCode(component)}';
+    final String resolvedId =
+        component.id ?? 'datepicker-${identityHashCode(component)}';
     final String calendarId = '$resolvedId-cal';
-    return context.renderers.datePicker(DatePickerProps(
-      id: resolvedId,
-      value: component.value,
-      label: component.label,
-      placeholder: component.placeholder,
-      minDate: component.minDate,
-      maxDate: component.maxDate,
-      disabled: component.disabled,
-      error: component.error,
-      clearable: component.clearable,
-      size: _propsSize,
-      mode: _propsMode,
-      rangeValue: _propsRangeValue,
-      isOpen: _isOpen,
-      displayText: _displayText,
-      onToggle: _toggleOpen,
-      onSelect: _selectDate,
-      onRangeSelect: (range) => _selectRange(DateRange(start: range.start, end: range.end)),
-      onClear: _clear,
-      styles: component.styles,
-      decoration: component.decoration,
-      calendarProps: CalendarProps(
-        id: calendarId,
-        selected: component.value,
-        displayMonth: _displayMonth,
+    return context.renderers.datePicker(
+      DatePickerProps(
+        id: resolvedId,
+        value: component.value,
+        label: component.label,
+        placeholder: component.placeholder,
         minDate: component.minDate,
         maxDate: component.maxDate,
+        disabled: component.disabled,
+        error: component.error,
+        clearable: component.clearable,
+        size: _propsSize,
         mode: _propsMode,
-        selectedRange: _propsRangeValue,
-        isDisabled: _isDisabled,
-        onPreviousMonth: () {
-          setState(() {
-            _displayMonth = DateTime(_displayMonth.year, _displayMonth.month - 1, 1);
-          });
-        },
-        onNextMonth: () {
-          setState(() {
-            _displayMonth = DateTime(_displayMonth.year, _displayMonth.month + 1, 1);
-          });
-        },
-        onGoToToday: () {
-          final DateTime now = DateTime.now();
-          setState(() {
-            _displayMonth = DateTime(now.year, now.month, 1);
-          });
-        },
-        onSelectDate: _selectDate,
+        rangeValue: _propsRangeValue,
+        isOpen: _isOpen,
+        displayText: _displayText,
+        onToggle: _toggleOpen,
+        onSelect: _selectDate,
+        onRangeSelect: (range) =>
+            _selectRange(DateRange(start: range.start, end: range.end)),
+        onClear: _clear,
+        styles: component.styles,
+        decoration: component.decoration,
+        calendarProps: CalendarProps(
+          id: calendarId,
+          selected: component.value,
+          displayMonth: _displayMonth,
+          minDate: component.minDate,
+          maxDate: component.maxDate,
+          mode: _propsMode,
+          selectedRange: _propsRangeValue,
+          isDisabled: _isDisabled,
+          onPreviousMonth: () {
+            setState(() {
+              _displayMonth = DateTime(
+                _displayMonth.year,
+                _displayMonth.month - 1,
+                1,
+              );
+            });
+          },
+          onNextMonth: () {
+            setState(() {
+              _displayMonth = DateTime(
+                _displayMonth.year,
+                _displayMonth.month + 1,
+                1,
+              );
+            });
+          },
+          onGoToToday: () {
+            final DateTime now = DateTime.now();
+            setState(() {
+              _displayMonth = DateTime(now.year, now.month, 1);
+            });
+          },
+          onSelectDate: _selectDate,
+        ),
       ),
-    ));
+    );
   }
 }

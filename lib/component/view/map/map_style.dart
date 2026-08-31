@@ -33,12 +33,6 @@ class MapStyle {
   /// Pin size in SVG units.
   final double pinSize;
 
-  /// Pin highlight intensity (0.0 to 1.0).
-  final double pinGlowIntensity;
-
-  /// Pin highlight color.
-  final String pinGlowColor;
-
   /// Tooltip background color.
   final String tooltipBackground;
 
@@ -60,14 +54,15 @@ class MapStyle {
     this.regionActiveFill = 'var(--arcane-map-region-active, var(--primary))',
     this.pinColor = 'var(--arcane-map-pin, var(--primary))',
     this.pinHoverColor = 'var(--arcane-map-pin-hover, var(--primary))',
-    this.pinActiveColor = 'var(--arcane-map-pin-active, var(--success, #22c55e))',
+    this.pinActiveColor =
+        'var(--arcane-map-pin-active, var(--success, #22c55e))',
     this.pinSize = 6,
-    this.pinGlowIntensity = 0.18,
-    this.pinGlowColor = 'var(--arcane-map-pin-glow, var(--primary))',
     this.tooltipBackground = 'var(--arcane-map-tooltip-bg, var(--popover))',
     this.tooltipBorder = 'var(--arcane-map-tooltip-border, var(--border))',
-    this.tooltipTextColor = 'var(--arcane-map-tooltip-text, var(--popover-foreground))',
-    this.tooltipSecondaryColor = 'var(--arcane-map-tooltip-secondary, var(--muted-foreground))',
+    this.tooltipTextColor =
+        'var(--arcane-map-tooltip-text, var(--popover-foreground))',
+    this.tooltipSecondaryColor =
+        'var(--arcane-map-tooltip-secondary, var(--muted-foreground))',
   });
 
   /// Default theme-aware preset (uses CSS variables).
@@ -83,7 +78,6 @@ class MapStyle {
     pinColor: '#3b82f6',
     pinHoverColor: '#60a5fa',
     pinActiveColor: '#22c55e',
-    pinGlowColor: '#3b82f6',
     tooltipBackground: '#1e1e2e',
     tooltipBorder: '#4b5563',
     tooltipTextColor: '#f8fafc',
@@ -100,7 +94,6 @@ class MapStyle {
     pinColor: '#2563eb',
     pinHoverColor: '#3b82f6',
     pinActiveColor: '#22c55e',
-    pinGlowColor: '#2563eb',
     tooltipBackground: '#ffffff',
     tooltipBorder: '#e2e8f0',
     tooltipTextColor: '#1e293b',
@@ -108,18 +101,10 @@ class MapStyle {
   );
 
   /// Subtle preset with thinner lines and smaller pins.
-  static const MapStyle subtle = MapStyle(
-    strokeWidth: '0.3',
-    pinSize: 5,
-    pinGlowIntensity: 0.2,
-  );
+  static const MapStyle subtle = MapStyle(strokeWidth: '0.3', pinSize: 5);
 
   /// Prominent preset with thicker lines and larger pins.
-  static const MapStyle prominent = MapStyle(
-    strokeWidth: '1',
-    pinSize: 8,
-    pinGlowIntensity: 0.4,
-  );
+  static const MapStyle prominent = MapStyle(strokeWidth: '1', pinSize: 8);
 
   MapStyle copyWith({
     String? backgroundColor,
@@ -132,8 +117,6 @@ class MapStyle {
     String? pinHoverColor,
     String? pinActiveColor,
     double? pinSize,
-    double? pinGlowIntensity,
-    String? pinGlowColor,
     String? tooltipBackground,
     String? tooltipBorder,
     String? tooltipTextColor,
@@ -150,12 +133,11 @@ class MapStyle {
       pinHoverColor: pinHoverColor ?? this.pinHoverColor,
       pinActiveColor: pinActiveColor ?? this.pinActiveColor,
       pinSize: pinSize ?? this.pinSize,
-      pinGlowIntensity: pinGlowIntensity ?? this.pinGlowIntensity,
-      pinGlowColor: pinGlowColor ?? this.pinGlowColor,
       tooltipBackground: tooltipBackground ?? this.tooltipBackground,
       tooltipBorder: tooltipBorder ?? this.tooltipBorder,
       tooltipTextColor: tooltipTextColor ?? this.tooltipTextColor,
-      tooltipSecondaryColor: tooltipSecondaryColor ?? this.tooltipSecondaryColor,
+      tooltipSecondaryColor:
+          tooltipSecondaryColor ?? this.tooltipSecondaryColor,
     );
   }
 }

@@ -142,6 +142,9 @@ class NeubrutalismEmptyState extends EmptyStateRenderBase {
     if (props.variant == EmptyStateStyleVariant.card) {
       return dom.div(
         classes: 'neubrutalism-empty-state neubrutalism-empty-state-card',
+        attributes: const <String, String>{
+          'data-arcane-surface': 'empty-state-card',
+        },
         styles: dom.Styles(
           raw: <String, String>{
             'padding': '2.5rem',

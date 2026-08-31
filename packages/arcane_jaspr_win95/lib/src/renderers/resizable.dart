@@ -97,7 +97,9 @@ Component _handle(
         'background-color': 'transparent',
         if (horizontal) 'border-left': '1px solid var(--border)',
         if (!horizontal) 'border-top': '1px solid var(--border)',
-        'cursor': horizontal ? 'col-resize' : 'row-resize',
+        // Win95 sized with the SIZEWE / SIZENS bitmap double-arrows, not the
+        // modern col-resize / row-resize glyphs.
+        'cursor': horizontal ? 'var(--w95-cursor-ew)' : 'var(--w95-cursor-ns)',
         'outline': 'none',
         'z-index': '10',
       },
@@ -111,7 +113,7 @@ Component _handle(
               'display': 'flex',
               'align-items': 'center',
               'justify-content': 'center',
-              'border-radius': '999px',
+              'border-radius': '1px',
               'border': '1px solid var(--border)',
               'background': 'var(--muted)',
               'width': horizontal ? '12px' : '18px',

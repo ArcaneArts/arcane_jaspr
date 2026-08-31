@@ -175,9 +175,7 @@ class _NeonSlotCounterState extends State<NeonSlotCounter> {
               'display': 'inline-flex',
               'align-items': 'baseline',
               'gap': 'var(--space-2)',
-              if (component.props.monospace)
-                'font-family':
-                    'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
+              if (component.props.monospace) 'font-family': 'var(--font-mono)',
             },
           ),
           [
@@ -271,6 +269,9 @@ class NeonSlotCounterCard extends StatelessComponent {
   Component build(BuildContext context) {
     return dom.div(
       classes: 'neon-slot-counter-card',
+      attributes: const <String, String>{
+        'data-arcane-surface': 'slot-counter-card',
+      },
       styles: dom.Styles(
         raw: {
           'display': 'inline-flex',
@@ -281,7 +282,7 @@ class NeonSlotCounterCard extends StatelessComponent {
             'background': 'var(--card)',
             'border-radius': 'var(--radius-md)',
           } else ...{
-            'border-radius': props.borderRadius,
+            'border-radius': 'var(--radius-sm)',
           },
           if (props.showBorder) 'border': '1px solid var(--border)',
           ...?props.decoration?.universalStyles(),

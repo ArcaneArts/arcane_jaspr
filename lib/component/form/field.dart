@@ -1,7 +1,29 @@
 import '../../core/dom_value.dart';
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
+import 'package:jaspr/jaspr.dart'
+    hide
+        BuildContext,
+        InheritedComponent,
+        Key,
+        State,
+        StatefulComponent,
+        StatelessComponent,
+        UniqueKey,
+        ValueKey,
+        runApp;
+import 'package:jaspr/dom.dart'
+    hide
+        Color,
+        Colors,
+        ColorScheme,
+        Gap,
+        Padding,
+        TextAlign,
+        TextOverflow,
+        Border,
+        BorderRadius,
+        BoxShadow,
+        FontWeight;
 
 import 'provider.dart';
 
@@ -31,7 +53,12 @@ class ArcaneFieldMetadata {
 class ArcaneField<T> extends StatefulWidget {
   final ArcaneFieldMetadata meta;
   final ArcaneFieldProvider<T> provider;
-  final Widget Function(BuildContext context, T value, void Function(T) onChanged) builder;
+  final Widget Function(
+    BuildContext context,
+    T value,
+    void Function(T) onChanged,
+  )
+  builder;
 
   Type get dataRuntimeType => T;
 
@@ -66,7 +93,9 @@ class _ArcaneFieldState<T> extends State<ArcaneField<T>> {
   }
 
   Future<void> _loadValue() async {
-    final T value = await component.provider.getValue(component.meta.effectiveKey);
+    final T value = await component.provider.getValue(
+      component.meta.effectiveKey,
+    );
     setState(() {
       _value = value;
       _loading = false;
@@ -83,12 +112,9 @@ class _ArcaneFieldState<T> extends State<ArcaneField<T>> {
   @override
   Widget build(BuildContext context) {
     if (_loading) {
-      return const div(
-        styles: Styles(raw: {
-          'opacity': '0.5',
-        }),
-        [Component.text('Loading...')],
-      );
+      return const div(styles: Styles(raw: {'opacity': '0.5'}), [
+        Component.text('Loading...'),
+      ]);
     }
 
     return component.builder(context, _value, _handleChange);
@@ -109,27 +135,26 @@ class ArcaneInput {
     String defaultValue = "",
     required Future<String> Function() getter,
     required Future<void> Function(String) setter,
-  }) =>
-      ArcaneField<String>(
-        meta: ArcaneFieldMetadata(
-          name: name,
-          description: description,
-          icon: icon,
-          placeholder: placeholder,
-        ),
-        provider: ArcaneFieldDirectProvider(
-          defaultValue: defaultValue,
-          getter: (_) => getter(),
-          setter: (_, v) => setter(v),
-        ),
-        builder: (context, value, onChanged) => _StringFieldBuilder(
-          value: value,
-          onChanged: onChanged,
-          placeholder: placeholder,
-          minLines: minLines,
-          maxLines: maxLines,
-        ),
-      );
+  }) => ArcaneField<String>(
+    meta: ArcaneFieldMetadata(
+      name: name,
+      description: description,
+      icon: icon,
+      placeholder: placeholder,
+    ),
+    provider: ArcaneFieldDirectProvider(
+      defaultValue: defaultValue,
+      getter: (_) => getter(),
+      setter: (_, v) => setter(v),
+    ),
+    builder: (context, value, onChanged) => _StringFieldBuilder(
+      value: value,
+      onChanged: onChanged,
+      placeholder: placeholder,
+      minLines: minLines,
+      maxLines: maxLines,
+    ),
+  );
 
   static ArcaneField<String> textArea({
     String? name,
@@ -141,18 +166,17 @@ class ArcaneInput {
     String defaultValue = "",
     required Future<String> Function() getter,
     required Future<void> Function(String) setter,
-  }) =>
-      textField(
-        name: name,
-        description: description,
-        icon: icon,
-        placeholder: placeholder,
-        minLines: minLines,
-        maxLines: maxLines,
-        defaultValue: defaultValue,
-        getter: getter,
-        setter: setter,
-      );
+  }) => textField(
+    name: name,
+    description: description,
+    icon: icon,
+    placeholder: placeholder,
+    minLines: minLines,
+    maxLines: maxLines,
+    defaultValue: defaultValue,
+    getter: getter,
+    setter: setter,
+  );
 
   static ArcaneField<bool> checkbox({
     String? name,
@@ -161,24 +185,16 @@ class ArcaneInput {
     bool defaultValue = false,
     required Future<bool> Function() getter,
     required Future<void> Function(bool) setter,
-  }) =>
-      ArcaneField<bool>(
-        meta: ArcaneFieldMetadata(
-          name: name,
-          description: description,
-          icon: icon,
-        ),
-        provider: ArcaneFieldDirectProvider(
-          defaultValue: defaultValue,
-          getter: (_) => getter(),
-          setter: (_, v) => setter(v),
-        ),
-        builder: (context, value, onChanged) => _BoolFieldBuilder(
-          value: value,
-          onChanged: onChanged,
-          labelText: name,
-        ),
-      );
+  }) => ArcaneField<bool>(
+    meta: ArcaneFieldMetadata(name: name, description: description, icon: icon),
+    provider: ArcaneFieldDirectProvider(
+      defaultValue: defaultValue,
+      getter: (_) => getter(),
+      setter: (_, v) => setter(v),
+    ),
+    builder: (context, value, onChanged) =>
+        _BoolFieldBuilder(value: value, onChanged: onChanged, labelText: name),
+  );
 
   static ArcaneField<T> select<T>({
     String? name,
@@ -189,25 +205,20 @@ class ArcaneInput {
     required Future<T> Function() getter,
     required Future<void> Function(T) setter,
     String Function(T)? labelBuilder,
-  }) =>
-      ArcaneField<T>(
-        meta: ArcaneFieldMetadata(
-          name: name,
-          description: description,
-          icon: icon,
-        ),
-        provider: ArcaneFieldDirectProvider(
-          defaultValue: defaultValue,
-          getter: (_) => getter(),
-          setter: (_, v) => setter(v),
-        ),
-        builder: (context, value, onChanged) => _SelectFieldBuilder<T>(
-          value: value,
-          options: options,
-          onChanged: onChanged,
-          labelBuilder: labelBuilder ?? (v) => v.toString(),
-        ),
-      );
+  }) => ArcaneField<T>(
+    meta: ArcaneFieldMetadata(name: name, description: description, icon: icon),
+    provider: ArcaneFieldDirectProvider(
+      defaultValue: defaultValue,
+      getter: (_) => getter(),
+      setter: (_, v) => setter(v),
+    ),
+    builder: (context, value, onChanged) => _SelectFieldBuilder<T>(
+      value: value,
+      options: options,
+      onChanged: onChanged,
+      labelBuilder: labelBuilder ?? (v) => v.toString(),
+    ),
+  );
 }
 
 class _StringFieldBuilder extends StatelessWidget {
@@ -236,18 +247,20 @@ class _StringFieldBuilder extends StatelessWidget {
           'placeholder': placeholder ?? '',
           'rows': '${maxLines ?? 3}',
         },
-        styles: const Styles(raw: {
-          'width': '100%',
-          'padding': '10px 1rem',
-          'border': '1px solid var(--border)',
-          'border-radius': '0.375rem',
-          'background-color': 'var(--card)',
-          'color': 'var(--foreground)',
-          'font-size': '0.875rem',
-          'resize': 'vertical',
-          'font-family': 'inherit',
-          'outline': 'none',
-        }),
+        styles: const Styles(
+          raw: {
+            'width': '100%',
+            'padding': '10px 1rem',
+            'border': '1px solid var(--border)',
+            'border-radius': '0.375rem',
+            'background-color': 'var(--card)',
+            'color': 'var(--foreground)',
+            'font-size': '0.875rem',
+            'resize': 'vertical',
+            'font-family': 'inherit',
+            'outline': 'none',
+          },
+        ),
         events: {
           'input': (event) {
             final dynamic target = event.target;
@@ -263,20 +276,19 @@ class _StringFieldBuilder extends StatelessWidget {
     return input(
       type: InputType.text,
       classes: 'arcane-field-input',
-      attributes: {
-        'value': value,
-        'placeholder': placeholder ?? '',
-      },
-      styles: const Styles(raw: {
-        'width': '100%',
-        'padding': '10px 1rem',
-        'border': '1px solid var(--border)',
-        'border-radius': '0.375rem',
-        'background-color': 'var(--card)',
-        'color': 'var(--foreground)',
-        'font-size': '0.875rem',
-        'outline': 'none',
-      }),
+      attributes: {'value': value, 'placeholder': placeholder ?? ''},
+      styles: const Styles(
+        raw: {
+          'width': '100%',
+          'padding': '10px 1rem',
+          'border': '1px solid var(--border)',
+          'border-radius': '0.375rem',
+          'background-color': 'var(--card)',
+          'color': 'var(--foreground)',
+          'font-size': '0.875rem',
+          'outline': 'none',
+        },
+      ),
       events: {
         'input': (event) {
           final dynamic target = event.target;
@@ -303,24 +315,26 @@ class _BoolFieldBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return label(
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'align-items': 'center',
-        'gap': '0.5rem',
-        'cursor': 'pointer',
-      }),
+      styles: const Styles(
+        raw: {
+          'display': 'flex',
+          'align-items': 'center',
+          'gap': '0.5rem',
+          'cursor': 'pointer',
+        },
+      ),
       [
         input(
           type: InputType.checkbox,
-          attributes: {
-            if (value) 'checked': 'true',
-          },
-          styles: const Styles(raw: {
-            'width': '18px',
-            'height': '18px',
-            'accent-color': 'var(--accent)',
-            'cursor': 'pointer',
-          }),
+          attributes: {if (value) 'checked': 'true'},
+          styles: const Styles(
+            raw: {
+              'width': '18px',
+              'height': '18px',
+              'accent-color': 'var(--accent)',
+              'cursor': 'pointer',
+            },
+          ),
           events: {
             'change': (event) {
               final dynamic target = event.target;
@@ -332,10 +346,9 @@ class _BoolFieldBuilder extends StatelessWidget {
         ),
         if (labelText != null)
           span(
-            styles: const Styles(raw: {
-              'color': 'var(--foreground)',
-              'font-size': '0.875rem',
-            }),
+            styles: const Styles(
+              raw: {'color': 'var(--foreground)', 'font-size': '0.875rem'},
+            ),
             [Component.text(labelText!)],
           ),
       ],
@@ -360,17 +373,19 @@ class _SelectFieldBuilder<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return select(
       classes: 'arcane-field-select',
-      styles: const Styles(raw: {
-        'width': '100%',
-        'padding': '10px 1rem',
-        'border': '1px solid var(--border)',
-        'border-radius': '0.375rem',
-        'background-color': 'var(--card)',
-        'color': 'var(--foreground)',
-        'font-size': '0.875rem',
-        'outline': 'none',
-        'cursor': 'pointer',
-      }),
+      styles: const Styles(
+        raw: {
+          'width': '100%',
+          'padding': '10px 1rem',
+          'border': '1px solid var(--border)',
+          'border-radius': '0.375rem',
+          'background-color': 'var(--card)',
+          'color': 'var(--foreground)',
+          'font-size': '0.875rem',
+          'outline': 'none',
+          'cursor': 'pointer',
+        },
+      ),
       events: {
         'change': (event) {
           final dynamic target = event.target;
@@ -384,11 +399,9 @@ class _SelectFieldBuilder<T> extends StatelessWidget {
       },
       [
         for (int i = 0; i < options.length; i++)
-          option(
-            value: i.toString(),
-            selected: options[i] == value,
-            [Component.text(labelBuilder(options[i]))],
-          ),
+          option(value: i.toString(), selected: options[i] == value, [
+            Component.text(labelBuilder(options[i])),
+          ]),
       ],
     );
   }
@@ -399,13 +412,19 @@ class ArcaneFieldStyles {
 
   @css
   static final List<StyleRule> styles = [
-    css('.arcane-field-textarea:focus, .arcane-field-input:focus').styles(raw: {
-      'border-color': 'var(--accent)',
-      'box-shadow': '0 0 0 2px color-mix(in srgb, var(--accent) 10%, transparent)',
-    }),
-    css('.arcane-field-select:focus').styles(raw: {
-      'border-color': 'var(--accent)',
-      'box-shadow': '0 0 0 2px color-mix(in srgb, var(--accent) 10%, transparent)',
-    }),
+    css('.arcane-field-textarea:focus, .arcane-field-input:focus').styles(
+      raw: {
+        'border-color': 'var(--accent)',
+        'box-shadow':
+            '0 0 0 2px color-mix(in srgb, var(--accent) 10%, transparent)',
+      },
+    ),
+    css('.arcane-field-select:focus').styles(
+      raw: {
+        'border-color': 'var(--accent)',
+        'box-shadow':
+            '0 0 0 2px color-mix(in srgb, var(--accent) 10%, transparent)',
+      },
+    ),
   ];
 }

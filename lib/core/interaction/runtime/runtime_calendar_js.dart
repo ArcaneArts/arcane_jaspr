@@ -89,27 +89,31 @@ function renderCalendar(root){
   const gridStart = new Date(year, month, 1 - startOffset);
   const id = root.getAttribute('data-arcane-id') || '';
   let html = '';
-  html += '<div class="arcane-calendar-header" data-arcane-calendar-header>';
-  html += '<button type="button" class="arcane-calendar-nav arcane-calendar-prev" data-arcane-action="calendar.prev:' + id + '" aria-label="Previous month">&#8249;</button>';
-  html += '<div class="arcane-calendar-label" data-arcane-calendar-label>' + _calMonthLabel(displayMonth) + '</div>';
-  html += '<button type="button" class="arcane-calendar-nav arcane-calendar-next" data-arcane-action="calendar.next:' + id + '" aria-label="Next month">&#8250;</button>';
-  html += '</div>';
+  // Keep generated markup out of the global script's literal DOM text. Jaspr
+  // hydrates inline scripts in the app tree, and raw tag-shaped strings can be
+  // exposed as hidden template controls by DOM/a11y tooling. JavaScript
+  // resolves \x3C to "<" only when this function actually renders a calendar.
+  html += '\x3Cdiv class="arcane-calendar-header" data-arcane-calendar-header>';
+  html += '\x3Cbutton type="button" class="arcane-calendar-nav arcane-calendar-prev" data-arcane-action="calendar.prev:' + id + '" aria-label="Previous month">&#8249;\x3C/button>';
+  html += '\x3Cdiv class="arcane-calendar-label" data-arcane-calendar-label>' + _calMonthLabel(displayMonth) + '\x3C/div>';
+  html += '\x3Cbutton type="button" class="arcane-calendar-nav arcane-calendar-next" data-arcane-action="calendar.next:' + id + '" aria-label="Next month">&#8250;\x3C/button>';
+  html += '\x3C/div>';
   if (showToday){
-    html += '<div class="arcane-calendar-today-row"><button type="button" class="arcane-calendar-today" data-arcane-action="calendar.today:' + id + '">Today</button></div>';
+    html += '\x3Cdiv class="arcane-calendar-today-row">\x3Cbutton type="button" class="arcane-calendar-today" data-arcane-action="calendar.today:' + id + '">Today\x3C/button>\x3C/div>';
   }
   const weekdays = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  html += '<div class="arcane-calendar-weekdays">';
-  if (showWeekNumbers) html += '<div class="arcane-calendar-weekday arcane-calendar-week-num">#</div>';
+  html += '\x3Cdiv class="arcane-calendar-weekdays">';
+  if (showWeekNumbers) html += '\x3Cdiv class="arcane-calendar-weekday arcane-calendar-week-num">#\x3C/div>';
   for (let i = 0; i < 7; i++){
-    html += '<div class="arcane-calendar-weekday">' + weekdays[(firstDayOfWeek + i) % 7] + '</div>';
+    html += '\x3Cdiv class="arcane-calendar-weekday">' + weekdays[(firstDayOfWeek + i) % 7] + '\x3C/div>';
   }
-  html += '</div>';
-  html += '<div class="arcane-calendar-grid">';
+  html += '\x3C/div>';
+  html += '\x3Cdiv class="arcane-calendar-grid">';
   let iter = new Date(gridStart.getFullYear(), gridStart.getMonth(), gridStart.getDate());
   for (let w = 0; w < 6; w++){
     if (showWeekNumbers){
       const weekNo = _calWeekNumber(iter);
-      html += '<div class="arcane-calendar-weeknum">' + weekNo + '</div>';
+      html += '\x3Cdiv class="arcane-calendar-weeknum">' + weekNo + '\x3C/div>';
     }
     for (let d = 0; d < 7; d++){
       const inMonth = iter.getMonth() === month;
@@ -132,15 +136,15 @@ function renderCalendar(root){
       const iso = _calFmtDate(iter);
       const label = iter.getDate();
       if (disabled){
-        html += '<button type="button" class="' + classes.join(' ') + '" disabled aria-disabled="true">' + label + '</button>';
+        html += '\x3Cbutton type="button" class="' + classes.join(' ') + '" disabled aria-disabled="true">' + label + '\x3C/button>';
       } else {
-        html += '<button type="button" class="' + classes.join(' ') + '" data-arcane-action="calendar.select:' + id + '" data-arcane-value="' + iso + '" aria-pressed="' + (isSelected || isRangeStart || isRangeEnd ? 'true' : 'false') + '">' + label + '</button>';
+        html += '\x3Cbutton type="button" class="' + classes.join(' ') + '" data-arcane-action="calendar.select:' + id + '" data-arcane-value="' + iso + '" aria-pressed="' + (isSelected || isRangeStart || isRangeEnd ? 'true' : 'false') + '">' + label + '\x3C/button>';
       }
       iter = new Date(iter.getFullYear(), iter.getMonth(), iter.getDate() + 1);
     }
     if (iter.getMonth() !== month && iter > monthEnd) break;
   }
-  html += '</div>';
+  html += '\x3C/div>';
   root.innerHTML = html;
 }
 function _calEmitChange(root, value){

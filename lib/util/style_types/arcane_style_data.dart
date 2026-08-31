@@ -74,21 +74,11 @@ class ArcaneStyleData {
 
   final BorderPreset? border;
   final String? borderCustom;
-  final BorderPreset? borderTop;
-  final BorderPreset? borderBottom;
-  final BorderPreset? borderLeft;
-  final BorderPreset? borderRight;
   final Radius? borderRadius;
-  final String? borderRadiusCustom;
-  final BorderRadius? borderRadiusClass;
   final OutlinePreset? outline;
   final String? outlineCustom;
   final String? outlineOffset;
   final BorderWidth? borderWidth;
-  final BorderWidth? borderLeftWidth;
-  final BorderWidth? borderRightWidth;
-  final BorderWidth? borderTopWidth;
-  final BorderWidth? borderBottomWidth;
 
   final FontSize? fontSize;
   final String? fontSizeCustom;
@@ -109,7 +99,6 @@ class ArcaneStyleData {
   final FontStyle? fontStyle;
 
   final Shadow? shadow;
-  final String? shadowCustom;
   final Transition? transition;
   final String? transitionCustom;
   final Opacity? opacity;
@@ -122,13 +111,9 @@ class ArcaneStyleData {
   final String? transformCustom;
   final TransformOrigin? transformOrigin;
   final String? transformOriginCustom;
-  final BackdropFilter? backdropFilter;
-  final String? filterCustom;
   final Easing? easing;
   final AnimationPreset? animation;
-  final String? animationCustom;
   final String? animationDelay;
-  final String? textShadowCustom;
 
   final ObjectFit? objectFit;
   final String? objectFitCustom;
@@ -140,16 +125,8 @@ class ArcaneStyleData {
   final String? paddingRight;
   final String? paddingBottom;
   final String? paddingLeft;
-  final String? borderTopCustom;
-  final String? borderRightCustom;
-  final String? borderBottomCustom;
-  final String? borderLeftCustom;
   final BoxSizing? boxSizing;
   final BackgroundClip? backgroundClip;
-  final String? backdropFilterCustom;
-
-  /// Raw CSS properties escape hatch
-  final Map<String, String>? raw;
 
   const ArcaneStyleData({
     this.display,
@@ -211,21 +188,11 @@ class ArcaneStyleData {
     this.textColorCustom,
     this.border,
     this.borderCustom,
-    this.borderTop,
-    this.borderBottom,
-    this.borderLeft,
-    this.borderRight,
     this.borderRadius,
-    this.borderRadiusCustom,
-    this.borderRadiusClass,
     this.outline,
     this.outlineCustom,
     this.outlineOffset,
     this.borderWidth,
-    this.borderLeftWidth,
-    this.borderRightWidth,
-    this.borderTopWidth,
-    this.borderBottomWidth,
     this.fontSize,
     this.fontSizeCustom,
     this.fontWeight,
@@ -244,7 +211,6 @@ class ArcaneStyleData {
     this.fontFamily,
     this.fontStyle,
     this.shadow,
-    this.shadowCustom,
     this.transition,
     this.transitionCustom,
     this.opacity,
@@ -257,13 +223,9 @@ class ArcaneStyleData {
     this.transformCustom,
     this.transformOrigin,
     this.transformOriginCustom,
-    this.backdropFilter,
-    this.filterCustom,
     this.easing,
     this.animation,
-    this.animationCustom,
     this.animationDelay,
-    this.textShadowCustom,
     this.objectFit,
     this.objectFitCustom,
     this.objectPosition,
@@ -272,14 +234,8 @@ class ArcaneStyleData {
     this.paddingRight,
     this.paddingBottom,
     this.paddingLeft,
-    this.borderTopCustom,
-    this.borderRightCustom,
-    this.borderBottomCustom,
-    this.borderLeftCustom,
     this.boxSizing,
     this.backgroundClip,
-    this.backdropFilterCustom,
-    this.raw,
   });
 
   /// Convert to Jaspr Styles object
@@ -292,7 +248,9 @@ class ArcaneStyleData {
     if (mainAxisAlignment != null) {
       css['justify-content'] = mainAxisAlignment!.css;
     }
-    if (crossAxisAlignment != null) css['align-items'] = crossAxisAlignment!.css;
+    if (crossAxisAlignment != null) {
+      css['align-items'] = crossAxisAlignment!.css;
+    }
     if (alignItems != null) css['align-items'] = alignItems!.css;
     if (justifyContent != null) css['justify-content'] = justifyContent!.css;
     if (alignSelf != null) css['align-self'] = alignSelf!.css;
@@ -349,31 +307,19 @@ class ArcaneStyleData {
     if (inset != null) css['inset'] = inset!;
 
     if (background != null) css['background-color'] = background!.css;
-    if (backgroundCustom != null) css['background'] = backgroundCustom!;
+    if (backgroundCustom != null) {
+      css['background'] = _flatBackground(backgroundCustom!);
+    }
     if (textColor != null) css['color'] = textColor!.css;
     if (textColorCustom != null) css['color'] = textColorCustom!;
 
     if (border != null) css['border'] = border!.css;
-    if (borderCustom != null) css['border'] = borderCustom!;
-    if (borderTop != null) css['border-top'] = borderTop!.css;
-    if (borderBottom != null) css['border-bottom'] = borderBottom!.css;
-    if (borderLeft != null) css['border-left'] = borderLeft!.css;
-    if (borderRight != null) css['border-right'] = borderRight!.css;
+    if (borderCustom != null) css['border'] = _uniformBorder(borderCustom!);
     if (borderRadius != null) css['border-radius'] = borderRadius!.css;
-    if (borderRadiusCustom != null) css['border-radius'] = borderRadiusCustom!;
-    if (borderRadiusClass != null) css['border-radius'] = borderRadiusClass!.css;
     if (outline != null) css['outline'] = outline!.css;
     if (outlineCustom != null) css['outline'] = outlineCustom!;
     if (outlineOffset != null) css['outline-offset'] = outlineOffset!;
     if (borderWidth != null) css['border-width'] = borderWidth!.css;
-    if (borderLeftWidth != null) css['border-left-width'] = borderLeftWidth!.css;
-    if (borderRightWidth != null) {
-      css['border-right-width'] = borderRightWidth!.css;
-    }
-    if (borderTopWidth != null) css['border-top-width'] = borderTopWidth!.css;
-    if (borderBottomWidth != null) {
-      css['border-bottom-width'] = borderBottomWidth!.css;
-    }
 
     if (fontSize != null) css['font-size'] = fontSize!.css;
     if (fontSizeCustom != null) css['font-size'] = fontSizeCustom!;
@@ -381,12 +327,16 @@ class ArcaneStyleData {
     if (fontWeightCustom != null) css['font-weight'] = fontWeightCustom!;
     if (lineHeight != null) css['line-height'] = lineHeight!.css;
     if (letterSpacing != null) css['letter-spacing'] = letterSpacing!.css;
-    if (letterSpacingCustom != null) css['letter-spacing'] = letterSpacingCustom!;
+    if (letterSpacingCustom != null) {
+      css['letter-spacing'] = letterSpacingCustom!;
+    }
     if (textAlign != null) css['text-align'] = textAlign!.css;
     if (textAlignCustom != null) css['text-align'] = textAlignCustom!;
     if (textDecoration != null) css['text-decoration'] = textDecoration!.css;
     if (textTransform != null) css['text-transform'] = textTransform!.css;
-    if (textTransformCustom != null) css['text-transform'] = textTransformCustom!;
+    if (textTransformCustom != null) {
+      css['text-transform'] = textTransformCustom!;
+    }
     if (whiteSpace != null) css['white-space'] = whiteSpace!.css;
     if (wordBreak != null) css['word-break'] = wordBreak!.css;
     if (textOverflow != null) css['text-overflow'] = textOverflow!.css;
@@ -394,7 +344,6 @@ class ArcaneStyleData {
     if (fontStyle != null) css['font-style'] = fontStyle!.css;
 
     if (shadow != null) css['box-shadow'] = shadow!.css;
-    if (shadowCustom != null) css['box-shadow'] = shadowCustom!;
     if (transition != null) css['transition'] = transition!.css;
     if (transitionCustom != null) css['transition'] = transitionCustom!;
     if (opacity != null) css['opacity'] = opacity!.css;
@@ -409,15 +358,8 @@ class ArcaneStyleData {
     if (transformOriginCustom != null) {
       css['transform-origin'] = transformOriginCustom!;
     }
-    if (backdropFilter != null) {
-      css['backdrop-filter'] = backdropFilter!.css;
-      css['-webkit-backdrop-filter'] = backdropFilter!.css;
-    }
-    if (filterCustom != null) css['filter'] = filterCustom!;
     if (animation != null) css['animation'] = animation!.css;
-    if (animationCustom != null) css['animation'] = animationCustom!;
     if (animationDelay != null) css['animation-delay'] = animationDelay!;
-    if (textShadowCustom != null) css['text-shadow'] = textShadowCustom!;
 
     if (objectFit != null) css['object-fit'] = objectFit!.css;
     if (objectFitCustom != null) css['object-fit'] = objectFitCustom!;
@@ -429,22 +371,11 @@ class ArcaneStyleData {
     if (paddingRight != null) css['padding-right'] = paddingRight!;
     if (paddingBottom != null) css['padding-bottom'] = paddingBottom!;
     if (paddingLeft != null) css['padding-left'] = paddingLeft!;
-    if (borderTopCustom != null) css['border-top'] = borderTopCustom!;
-    if (borderRightCustom != null) css['border-right'] = borderRightCustom!;
-    if (borderBottomCustom != null) css['border-bottom'] = borderBottomCustom!;
-    if (borderLeftCustom != null) css['border-left'] = borderLeftCustom!;
     if (boxSizing != null) css['box-sizing'] = boxSizing!.css;
     if (backgroundClip != null) {
       css['background-clip'] = backgroundClip!.css;
       css['-webkit-background-clip'] = backgroundClip!.css;
     }
-    if (backdropFilterCustom != null) {
-      css['backdrop-filter'] = backdropFilterCustom!;
-      css['-webkit-backdrop-filter'] = backdropFilterCustom!;
-    }
-
-    if (raw != null) css.addAll(raw!);
-
     return Styles(raw: css);
   }
 
@@ -458,7 +389,9 @@ class ArcaneStyleData {
     if (mainAxisAlignment != null) {
       css['justify-content'] = mainAxisAlignment!.css;
     }
-    if (crossAxisAlignment != null) css['align-items'] = crossAxisAlignment!.css;
+    if (crossAxisAlignment != null) {
+      css['align-items'] = crossAxisAlignment!.css;
+    }
     if (alignItems != null) css['align-items'] = alignItems!.css;
     if (justifyContent != null) css['justify-content'] = justifyContent!.css;
     if (alignSelf != null) css['align-self'] = alignSelf!.css;
@@ -515,31 +448,19 @@ class ArcaneStyleData {
     if (inset != null) css['inset'] = inset!;
 
     if (background != null) css['background-color'] = background!.css;
-    if (backgroundCustom != null) css['background'] = backgroundCustom!;
+    if (backgroundCustom != null) {
+      css['background'] = _flatBackground(backgroundCustom!);
+    }
     if (textColor != null) css['color'] = textColor!.css;
     if (textColorCustom != null) css['color'] = textColorCustom!;
 
     if (border != null) css['border'] = border!.css;
-    if (borderCustom != null) css['border'] = borderCustom!;
-    if (borderTop != null) css['border-top'] = borderTop!.css;
-    if (borderBottom != null) css['border-bottom'] = borderBottom!.css;
-    if (borderLeft != null) css['border-left'] = borderLeft!.css;
-    if (borderRight != null) css['border-right'] = borderRight!.css;
+    if (borderCustom != null) css['border'] = _uniformBorder(borderCustom!);
     if (borderRadius != null) css['border-radius'] = borderRadius!.css;
-    if (borderRadiusCustom != null) css['border-radius'] = borderRadiusCustom!;
-    if (borderRadiusClass != null) css['border-radius'] = borderRadiusClass!.css;
     if (outline != null) css['outline'] = outline!.css;
     if (outlineCustom != null) css['outline'] = outlineCustom!;
     if (outlineOffset != null) css['outline-offset'] = outlineOffset!;
     if (borderWidth != null) css['border-width'] = borderWidth!.css;
-    if (borderLeftWidth != null) css['border-left-width'] = borderLeftWidth!.css;
-    if (borderRightWidth != null) {
-      css['border-right-width'] = borderRightWidth!.css;
-    }
-    if (borderTopWidth != null) css['border-top-width'] = borderTopWidth!.css;
-    if (borderBottomWidth != null) {
-      css['border-bottom-width'] = borderBottomWidth!.css;
-    }
 
     if (fontSize != null) css['font-size'] = fontSize!.css;
     if (fontSizeCustom != null) css['font-size'] = fontSizeCustom!;
@@ -547,12 +468,16 @@ class ArcaneStyleData {
     if (fontWeightCustom != null) css['font-weight'] = fontWeightCustom!;
     if (lineHeight != null) css['line-height'] = lineHeight!.css;
     if (letterSpacing != null) css['letter-spacing'] = letterSpacing!.css;
-    if (letterSpacingCustom != null) css['letter-spacing'] = letterSpacingCustom!;
+    if (letterSpacingCustom != null) {
+      css['letter-spacing'] = letterSpacingCustom!;
+    }
     if (textAlign != null) css['text-align'] = textAlign!.css;
     if (textAlignCustom != null) css['text-align'] = textAlignCustom!;
     if (textDecoration != null) css['text-decoration'] = textDecoration!.css;
     if (textTransform != null) css['text-transform'] = textTransform!.css;
-    if (textTransformCustom != null) css['text-transform'] = textTransformCustom!;
+    if (textTransformCustom != null) {
+      css['text-transform'] = textTransformCustom!;
+    }
     if (whiteSpace != null) css['white-space'] = whiteSpace!.css;
     if (wordBreak != null) css['word-break'] = wordBreak!.css;
     if (textOverflow != null) css['text-overflow'] = textOverflow!.css;
@@ -560,7 +485,6 @@ class ArcaneStyleData {
     if (fontStyle != null) css['font-style'] = fontStyle!.css;
 
     if (shadow != null) css['box-shadow'] = shadow!.css;
-    if (shadowCustom != null) css['box-shadow'] = shadowCustom!;
     if (transition != null) css['transition'] = transition!.css;
     if (transitionCustom != null) css['transition'] = transitionCustom!;
     if (opacity != null) css['opacity'] = opacity!.css;
@@ -575,15 +499,8 @@ class ArcaneStyleData {
     if (transformOriginCustom != null) {
       css['transform-origin'] = transformOriginCustom!;
     }
-    if (backdropFilter != null) {
-      css['backdrop-filter'] = backdropFilter!.css;
-      css['-webkit-backdrop-filter'] = backdropFilter!.css;
-    }
-    if (filterCustom != null) css['filter'] = filterCustom!;
     if (animation != null) css['animation'] = animation!.css;
-    if (animationCustom != null) css['animation'] = animationCustom!;
     if (animationDelay != null) css['animation-delay'] = animationDelay!;
-    if (textShadowCustom != null) css['text-shadow'] = textShadowCustom!;
 
     if (objectFit != null) css['object-fit'] = objectFit!.css;
     if (objectFitCustom != null) css['object-fit'] = objectFitCustom!;
@@ -595,23 +512,42 @@ class ArcaneStyleData {
     if (paddingRight != null) css['padding-right'] = paddingRight!;
     if (paddingBottom != null) css['padding-bottom'] = paddingBottom!;
     if (paddingLeft != null) css['padding-left'] = paddingLeft!;
-    if (borderTopCustom != null) css['border-top'] = borderTopCustom!;
-    if (borderRightCustom != null) css['border-right'] = borderRightCustom!;
-    if (borderBottomCustom != null) css['border-bottom'] = borderBottomCustom!;
-    if (borderLeftCustom != null) css['border-left'] = borderLeftCustom!;
     if (boxSizing != null) css['box-sizing'] = boxSizing!.css;
     if (backgroundClip != null) {
       css['background-clip'] = backgroundClip!.css;
       css['-webkit-background-clip'] = backgroundClip!.css;
     }
-    if (backdropFilterCustom != null) {
-      css['backdrop-filter'] = backdropFilterCustom!;
-      css['-webkit-backdrop-filter'] = backdropFilterCustom!;
-    }
-
-    if (raw != null) css.addAll(raw!);
-
     return css;
+  }
+
+  static String _flatBackground(String value) {
+    if (value.toLowerCase().contains('gradient(')) {
+      throw ArgumentError.value(
+        value,
+        'backgroundCustom',
+        'Gradient backgrounds are not supported; use a flat color or token.',
+      );
+    }
+    return value;
+  }
+
+  static String _uniformBorder(String value) {
+    final String normalized = value.toLowerCase();
+    final bool containsDeclarationBoundary =
+        normalized.contains(';') ||
+        normalized.contains('{') ||
+        normalized.contains('}');
+    final bool containsDirectionalBorder = RegExp(
+      r'border\s*-\s*(top|right|bottom|left)',
+    ).hasMatch(normalized);
+    if (containsDeclarationBoundary || containsDirectionalBorder) {
+      throw ArgumentError.value(
+        value,
+        'borderCustom',
+        'Only one complete uniform border value is supported.',
+      );
+    }
+    return value;
   }
 
   /// Merge with another ArcaneStyleData (other takes precedence)
@@ -677,21 +613,11 @@ class ArcaneStyleData {
       textColorCustom: other.textColorCustom ?? textColorCustom,
       border: other.border ?? border,
       borderCustom: other.borderCustom ?? borderCustom,
-      borderTop: other.borderTop ?? borderTop,
-      borderBottom: other.borderBottom ?? borderBottom,
-      borderLeft: other.borderLeft ?? borderLeft,
-      borderRight: other.borderRight ?? borderRight,
       borderRadius: other.borderRadius ?? borderRadius,
-      borderRadiusCustom: other.borderRadiusCustom ?? borderRadiusCustom,
-      borderRadiusClass: other.borderRadiusClass ?? borderRadiusClass,
       outline: other.outline ?? outline,
       outlineCustom: other.outlineCustom ?? outlineCustom,
       outlineOffset: other.outlineOffset ?? outlineOffset,
       borderWidth: other.borderWidth ?? borderWidth,
-      borderLeftWidth: other.borderLeftWidth ?? borderLeftWidth,
-      borderRightWidth: other.borderRightWidth ?? borderRightWidth,
-      borderTopWidth: other.borderTopWidth ?? borderTopWidth,
-      borderBottomWidth: other.borderBottomWidth ?? borderBottomWidth,
       fontSize: other.fontSize ?? fontSize,
       fontSizeCustom: other.fontSizeCustom ?? fontSizeCustom,
       fontWeight: other.fontWeight ?? fontWeight,
@@ -710,7 +636,6 @@ class ArcaneStyleData {
       fontFamily: other.fontFamily ?? fontFamily,
       fontStyle: other.fontStyle ?? fontStyle,
       shadow: other.shadow ?? shadow,
-      shadowCustom: other.shadowCustom ?? shadowCustom,
       transition: other.transition ?? transition,
       transitionCustom: other.transitionCustom ?? transitionCustom,
       opacity: other.opacity ?? opacity,
@@ -722,14 +647,11 @@ class ArcaneStyleData {
       transform: other.transform ?? transform,
       transformCustom: other.transformCustom ?? transformCustom,
       transformOrigin: other.transformOrigin ?? transformOrigin,
-      transformOriginCustom: other.transformOriginCustom ?? transformOriginCustom,
-      backdropFilter: other.backdropFilter ?? backdropFilter,
-      filterCustom: other.filterCustom ?? filterCustom,
+      transformOriginCustom:
+          other.transformOriginCustom ?? transformOriginCustom,
       easing: other.easing ?? easing,
       animation: other.animation ?? animation,
-      animationCustom: other.animationCustom ?? animationCustom,
       animationDelay: other.animationDelay ?? animationDelay,
-      textShadowCustom: other.textShadowCustom ?? textShadowCustom,
       objectFit: other.objectFit ?? objectFit,
       objectFitCustom: other.objectFitCustom ?? objectFitCustom,
       objectPosition: other.objectPosition ?? objectPosition,
@@ -738,14 +660,8 @@ class ArcaneStyleData {
       paddingRight: other.paddingRight ?? paddingRight,
       paddingBottom: other.paddingBottom ?? paddingBottom,
       paddingLeft: other.paddingLeft ?? paddingLeft,
-      borderTopCustom: other.borderTopCustom ?? borderTopCustom,
-      borderRightCustom: other.borderRightCustom ?? borderRightCustom,
-      borderBottomCustom: other.borderBottomCustom ?? borderBottomCustom,
-      borderLeftCustom: other.borderLeftCustom ?? borderLeftCustom,
       boxSizing: other.boxSizing ?? boxSizing,
       backgroundClip: other.backgroundClip ?? backgroundClip,
-      backdropFilterCustom: other.backdropFilterCustom ?? backdropFilterCustom,
-      raw: {...?raw, ...?other.raw},
     );
   }
 
@@ -810,21 +726,11 @@ class ArcaneStyleData {
     String? textColorCustom,
     BorderPreset? border,
     String? borderCustom,
-    BorderPreset? borderTop,
-    BorderPreset? borderBottom,
-    BorderPreset? borderLeft,
-    BorderPreset? borderRight,
     Radius? borderRadius,
-    String? borderRadiusCustom,
-    BorderRadius? borderRadiusClass,
     OutlinePreset? outline,
     String? outlineCustom,
     String? outlineOffset,
     BorderWidth? borderWidth,
-    BorderWidth? borderLeftWidth,
-    BorderWidth? borderRightWidth,
-    BorderWidth? borderTopWidth,
-    BorderWidth? borderBottomWidth,
     FontSize? fontSize,
     String? fontSizeCustom,
     FontWeight? fontWeight,
@@ -843,7 +749,6 @@ class ArcaneStyleData {
     FontFamily? fontFamily,
     FontStyle? fontStyle,
     Shadow? shadow,
-    String? shadowCustom,
     Transition? transition,
     String? transitionCustom,
     Opacity? opacity,
@@ -856,13 +761,9 @@ class ArcaneStyleData {
     String? transformCustom,
     TransformOrigin? transformOrigin,
     String? transformOriginCustom,
-    BackdropFilter? backdropFilter,
-    String? filterCustom,
     Easing? easing,
     AnimationPreset? animation,
-    String? animationCustom,
     String? animationDelay,
-    String? textShadowCustom,
     ObjectFit? objectFit,
     String? objectFitCustom,
     ObjectPosition? objectPosition,
@@ -871,14 +772,8 @@ class ArcaneStyleData {
     String? paddingRight,
     String? paddingBottom,
     String? paddingLeft,
-    String? borderTopCustom,
-    String? borderRightCustom,
-    String? borderBottomCustom,
-    String? borderLeftCustom,
     BoxSizing? boxSizing,
     BackgroundClip? backgroundClip,
-    String? backdropFilterCustom,
-    Map<String, String>? raw,
   }) {
     return ArcaneStyleData(
       display: display ?? this.display,
@@ -940,21 +835,11 @@ class ArcaneStyleData {
       textColorCustom: textColorCustom ?? this.textColorCustom,
       border: border ?? this.border,
       borderCustom: borderCustom ?? this.borderCustom,
-      borderTop: borderTop ?? this.borderTop,
-      borderBottom: borderBottom ?? this.borderBottom,
-      borderLeft: borderLeft ?? this.borderLeft,
-      borderRight: borderRight ?? this.borderRight,
       borderRadius: borderRadius ?? this.borderRadius,
-      borderRadiusCustom: borderRadiusCustom ?? this.borderRadiusCustom,
-      borderRadiusClass: borderRadiusClass ?? this.borderRadiusClass,
       outline: outline ?? this.outline,
       outlineCustom: outlineCustom ?? this.outlineCustom,
       outlineOffset: outlineOffset ?? this.outlineOffset,
       borderWidth: borderWidth ?? this.borderWidth,
-      borderLeftWidth: borderLeftWidth ?? this.borderLeftWidth,
-      borderRightWidth: borderRightWidth ?? this.borderRightWidth,
-      borderTopWidth: borderTopWidth ?? this.borderTopWidth,
-      borderBottomWidth: borderBottomWidth ?? this.borderBottomWidth,
       fontSize: fontSize ?? this.fontSize,
       fontSizeCustom: fontSizeCustom ?? this.fontSizeCustom,
       fontWeight: fontWeight ?? this.fontWeight,
@@ -973,7 +858,6 @@ class ArcaneStyleData {
       fontFamily: fontFamily ?? this.fontFamily,
       fontStyle: fontStyle ?? this.fontStyle,
       shadow: shadow ?? this.shadow,
-      shadowCustom: shadowCustom ?? this.shadowCustom,
       transition: transition ?? this.transition,
       transitionCustom: transitionCustom ?? this.transitionCustom,
       opacity: opacity ?? this.opacity,
@@ -985,14 +869,11 @@ class ArcaneStyleData {
       transform: transform ?? this.transform,
       transformCustom: transformCustom ?? this.transformCustom,
       transformOrigin: transformOrigin ?? this.transformOrigin,
-      transformOriginCustom: transformOriginCustom ?? this.transformOriginCustom,
-      backdropFilter: backdropFilter ?? this.backdropFilter,
-      filterCustom: filterCustom ?? this.filterCustom,
+      transformOriginCustom:
+          transformOriginCustom ?? this.transformOriginCustom,
       easing: easing ?? this.easing,
       animation: animation ?? this.animation,
-      animationCustom: animationCustom ?? this.animationCustom,
       animationDelay: animationDelay ?? this.animationDelay,
-      textShadowCustom: textShadowCustom ?? this.textShadowCustom,
       objectFit: objectFit ?? this.objectFit,
       objectFitCustom: objectFitCustom ?? this.objectFitCustom,
       objectPosition: objectPosition ?? this.objectPosition,
@@ -1001,14 +882,8 @@ class ArcaneStyleData {
       paddingRight: paddingRight ?? this.paddingRight,
       paddingBottom: paddingBottom ?? this.paddingBottom,
       paddingLeft: paddingLeft ?? this.paddingLeft,
-      borderTopCustom: borderTopCustom ?? this.borderTopCustom,
-      borderRightCustom: borderRightCustom ?? this.borderRightCustom,
-      borderBottomCustom: borderBottomCustom ?? this.borderBottomCustom,
-      borderLeftCustom: borderLeftCustom ?? this.borderLeftCustom,
       boxSizing: boxSizing ?? this.boxSizing,
       backgroundClip: backgroundClip ?? this.backgroundClip,
-      backdropFilterCustom: backdropFilterCustom ?? this.backdropFilterCustom,
-      raw: raw ?? this.raw,
     );
   }
 
@@ -1036,10 +911,7 @@ class ArcaneStyleData {
     crossAxisAlignment: CrossAxisAlignment.center,
   );
 
-  static const fullSize = ArcaneStyleData(
-    width: Size.full,
-    height: Size.full,
-  );
+  static const fullSize = ArcaneStyleData(width: Size.full, height: Size.full);
 
   static const absoluteFill = ArcaneStyleData(
     position: Position.absolute,
@@ -1053,57 +925,31 @@ class ArcaneStyleData {
     placeItems: PlaceItems.center,
   );
 
-  static const padded = ArcaneStyleData(
-    padding: PaddingPreset.md,
-  );
+  static const padded = ArcaneStyleData(padding: PaddingPreset.md);
 
-  static const paddedLg = ArcaneStyleData(
-    padding: PaddingPreset.lg,
-  );
+  static const paddedLg = ArcaneStyleData(padding: PaddingPreset.lg);
 
-  static const paddedSm = ArcaneStyleData(
-    padding: PaddingPreset.sm,
-  );
+  static const paddedSm = ArcaneStyleData(padding: PaddingPreset.sm);
 
-  static const paddedXs = ArcaneStyleData(
-    padding: PaddingPreset.xs,
-  );
+  static const paddedXs = ArcaneStyleData(padding: PaddingPreset.xs);
 
-  static const paddedXl = ArcaneStyleData(
-    padding: PaddingPreset.xl,
-  );
+  static const paddedXl = ArcaneStyleData(padding: PaddingPreset.xl);
 
-  static const spaced = ArcaneStyleData(
-    gap: Gap.md,
-  );
+  static const spaced = ArcaneStyleData(gap: Gap.md);
 
-  static const spacedLg = ArcaneStyleData(
-    gap: Gap.lg,
-  );
+  static const spacedLg = ArcaneStyleData(gap: Gap.lg);
 
-  static const spacedSm = ArcaneStyleData(
-    gap: Gap.sm,
-  );
+  static const spacedSm = ArcaneStyleData(gap: Gap.sm);
 
-  static const spacedXs = ArcaneStyleData(
-    gap: Gap.xs,
-  );
+  static const spacedXs = ArcaneStyleData(gap: Gap.xs);
 
-  static const spacedXl = ArcaneStyleData(
-    gap: Gap.xl,
-  );
+  static const spacedXl = ArcaneStyleData(gap: Gap.xl);
 
-  static const fullWidth = ArcaneStyleData(
-    width: Size.full,
-  );
+  static const fullWidth = ArcaneStyleData(width: Size.full);
 
-  static const fullHeight = ArcaneStyleData(
-    height: Size.full,
-  );
+  static const fullHeight = ArcaneStyleData(height: Size.full);
 
-  static const scrollable = ArcaneStyleData(
-    overflow: Overflow.auto,
-  );
+  static const scrollable = ArcaneStyleData(overflow: Overflow.auto);
 
   static const scrollableY = ArcaneStyleData(
     overflowY: OverflowAxis.auto,
@@ -1115,17 +961,11 @@ class ArcaneStyleData {
     overflowY: OverflowAxis.hidden,
   );
 
-  static const clipContent = ArcaneStyleData(
-    overflow: Overflow.hidden,
-  );
+  static const clipContent = ArcaneStyleData(overflow: Overflow.hidden);
 
-  static const grow = ArcaneStyleData(
-    flex: FlexPreset.expand,
-  );
+  static const grow = ArcaneStyleData(flex: FlexPreset.expand);
 
-  static const noGrow = ArcaneStyleData(
-    flex: FlexPreset.none,
-  );
+  static const noGrow = ArcaneStyleData(flex: FlexPreset.none);
 
   static const columnSpaced = ArcaneStyleData(
     display: Display.flex,
@@ -1172,43 +1012,25 @@ class ArcaneStyleData {
     overflow: Overflow.hidden,
   );
 
-  static const textCenter = ArcaneStyleData(
-    textAlign: TextAlign.center,
-  );
+  static const textCenter = ArcaneStyleData(textAlign: TextAlign.center);
 
-  static const textRight = ArcaneStyleData(
-    textAlign: TextAlign.right,
-  );
+  static const textRight = ArcaneStyleData(textAlign: TextAlign.right);
 
-  static const textLeft = ArcaneStyleData(
-    textAlign: TextAlign.left,
-  );
+  static const textLeft = ArcaneStyleData(textAlign: TextAlign.left);
 
-  static const stack = ArcaneStyleData(
-    position: Position.relative,
-  );
+  static const stack = ArcaneStyleData(position: Position.relative);
 
-  static const stackChild = ArcaneStyleData(
-    position: Position.absolute,
-  );
+  static const stackChild = ArcaneStyleData(position: Position.absolute);
 
-  static const fixed = ArcaneStyleData(
-    position: Position.fixed,
-  );
+  static const fixed = ArcaneStyleData(position: Position.fixed);
 
-  static const sticky = ArcaneStyleData(
-    position: Position.sticky,
-  );
+  static const sticky = ArcaneStyleData(position: Position.sticky);
 
-  static const clickable = ArcaneStyleData(
-    cursor: Cursor.pointer,
-  );
+  static const clickable = ArcaneStyleData(cursor: Cursor.pointer);
 
   static const nonInteractive = ArcaneStyleData(
     pointerEvents: PointerEvents.none,
   );
 
-  static const unselectable = ArcaneStyleData(
-    userSelect: UserSelect.none,
-  );
+  static const unselectable = ArcaneStyleData(userSelect: UserSelect.none);
 }

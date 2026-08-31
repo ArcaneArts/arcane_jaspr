@@ -76,8 +76,8 @@ class _ArcaneLabelChildren extends ArcaneLabel {
     super.id,
     super.htmlFor,
     super.key,
-  })  : _children = children,
-        super(child: const _Placeholder());
+  }) : _children = children,
+       super(child: const _Placeholder());
 
   @override
   Component build(BuildContext context) {

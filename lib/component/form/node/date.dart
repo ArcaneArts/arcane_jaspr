@@ -20,13 +20,19 @@ class ArcaneDateField extends StatelessWidget {
   Widget build(BuildContext context) => ArcaneField<DateTime>(
     meta: ArcaneFieldMetadata(name: name, description: description),
     provider: provider,
-    builder: (BuildContext context, DateTime value, void Function(DateTime) onChanged) => ArcaneFieldWrapper(
-      labelText: name,
-      description: description,
-      field: ArcaneDatePicker(
-        value: value,
-        onChanged: (DateTime? next) => onChanged(next ?? provider.defaultValue),
-      ),
-    ),
+    builder:
+        (
+          BuildContext context,
+          DateTime value,
+          void Function(DateTime) onChanged,
+        ) => ArcaneFieldWrapper(
+          labelText: name,
+          description: description,
+          field: ArcaneDatePicker(
+            value: value,
+            onChanged: (DateTime? next) =>
+                onChanged(next ?? provider.defaultValue),
+          ),
+        ),
   );
 }

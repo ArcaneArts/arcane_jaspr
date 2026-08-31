@@ -60,9 +60,6 @@ class Win95Form extends StatelessComponent {
                       'color': 'var(--foreground)',
                       'background': 'var(--background)',
                       'border': '1px solid var(--border)',
-                      'cursor': 'pointer',
-                      'transition':
-                          'background 200ms ease, border-color 200ms ease, color 200ms ease',
                     },
                   ),
                   events: {'click': (_) => props.onCancel!()},
@@ -80,8 +77,6 @@ class Win95Form extends StatelessComponent {
                     'color': 'var(--primary-foreground)',
                     'background': 'var(--primary)',
                     'border': '1px solid var(--border)',
-                    'cursor': 'pointer',
-                    'transition': 'background 200ms ease',
                   },
                 ),
                 [Component.text(props.submitText ?? 'Submit')],

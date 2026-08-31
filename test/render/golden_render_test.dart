@@ -54,9 +54,6 @@ const Set<String> _win95SharedCases = <String>{'Card', 'TextInput', 'TextArea'};
 ///   * ArcaneScrollArea        -- the renderer derives its scroll class from
 ///                                `identityHashCode(this)` (every theme); the
 ///                                widget exposes no `id` prop.
-///   * ArcaneMarqueeTickerBar  -- the neon/neubrutalism renderers build the
-///                                marquee id from the renderer's `hashCode`;
-///                                the widget exposes no `id` prop.
 ///   * ArcaneRangeSlider       -- deprecated wrapper that forwards to
 ///                                `ArcaneSlider.range` without an id, and itself
 ///                                exposes no `id` prop, so the slider id falls
@@ -68,7 +65,6 @@ const Set<String> _win95SharedCases = <String>{'Card', 'TextInput', 'TextArea'};
 ///                                display month.
 const Set<String> _excluded = <String>{
   'ArcaneScrollArea',
-  'ArcaneMarqueeTickerBar',
   'ArcaneRangeSlider',
   'DialogDate',
   'DialogDateMulti',

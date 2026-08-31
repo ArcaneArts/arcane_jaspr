@@ -1,6 +1,6 @@
 ---
 title: Authoring like Flutter
-description: The two-surface permeability model — semantic decoration that each theme interprets, and a literal styles escape hatch that always wins
+description: Semantic decoration interpreted by each theme, plus bounded literal overrides
 layout: kb
 ---
 
@@ -13,9 +13,12 @@ Two per-instance surfaces sit on every decoratable component (`Card`, `Button`, 
 | Surface | Type | Role | Behavior |
 |---------|------|------|----------|
 | `decoration:` | `ArcaneDecoration?` | **Primary** | Semantic and theme-interpreted. The theme maps intent (like elevation) to its own visual language. |
-| `styles:` | `ArcaneStyleData?` | **Escape hatch** | Literal CSS. Always applied last, always wins over the theme. |
+| `styles:` | `ArcaneStyleData?` | **Bounded override** | Typed literal values. Applied last without exposing arbitrary CSS maps. |
 
-Reach for `decoration:` first. It is the surface that stays portable. Drop to `styles:` only when you need a literal, non-negotiable value that should override the theme entirely.
+Reach for `decoration:` first. It is the surface that stays portable. Use
+`styles:` only when a supported literal value must override the theme. Raw CSS,
+custom filters, custom shadows, custom animations, and gradient backgrounds are
+not part of this public surface.
 
 ## ArcaneDecoration
 
@@ -30,23 +33,18 @@ Universal fields render literally and identically on every theme. They are compi
 | Field | Type | Notes |
 |-------|------|-------|
 | `color` | `String?` | Background color as a CSS string (hex, `var(--x)`, an `ArcaneColor.*.css` token, or a runtime accent). |
-| `gradient` | `String?` | CSS gradient. Takes precedence over `color` for the background. |
-| `borderRadius` | `Radius?` | Typed radius token (`Radius.sm`, `Radius.lg`, `Radius.full`, ...). |
-| `borderRadiusCustom` | `String?` | Literal radius string when a token does not fit. |
+| `borderRadius` | `Radius?` | Typed bounded radius token (`Radius.xs`, `Radius.sm`, or `Radius.md`). |
 | `border` | `String?` | Full CSS `border` shorthand (e.g. `'1px solid var(--border)'`). |
 | `padding` | `EdgeInsets?` | Typed insets (`EdgeInsets.all`, `EdgeInsets.symmetric`, `EdgeInsets.only`). |
 | `paddingCustom` | `String?` | Literal padding string. |
-| `backdropFilter` | `BackdropFilter?` | `BackdropFilter.blur`, `blurStrong`, `blurLight`, or `none`. |
-| `backdropFilterCustom` | `String?` | Literal `backdrop-filter` string. |
 
 ```dart
 Card(
   decoration: const ArcaneDecoration(
     color: 'var(--card)',
-    borderRadius: Radius.lg,
+    borderRadius: Radius.md,
     border: '1px solid var(--border)',
     padding: EdgeInsets.all(24),
-    backdropFilter: BackdropFilter.blurLight,
   ),
   child: const Text.body('Universal fields look the same on every theme.'),
 )
@@ -65,7 +63,7 @@ The same `Elevation.lg` resolves through the selected stylesheet:
 | Theme | How elevation renders |
 |-------|-----------------------|
 | Shadcn | Ambient blurred drop shadow via the palette's generated `--shadow-*` variables (alpha-black). |
-| Neon | Ambient `--shadow-*` at low levels; a colored glow at `lg` and `xl` — its signature look. |
+| Neon | No elevation chrome; hierarchy comes from borders, spacing, and contrast. |
 | Neubrutalism | A hard offset block that grows with the level (`2px` at `xs` up to `10px` at `xl`). |
 
 ```dart
@@ -75,16 +73,6 @@ Card(
 )
 ```
 
-### Theme-specific: shadowColor
-
-`shadowColor` is read only by the themes that implement it and silently ignored by the rest:
-
-| Theme | shadowColor behavior |
-|-------|----------------------|
-| Neubrutalism | Recolors the hard offset shadow for this element only. |
-| Neon | Tints the colored glow (at `lg`/`xl`) for this element only. |
-| Shadcn | Ignored — Shadcn shadows are alpha-black and have no single flat color to recolor. |
-
 ## The killer example
 
 One decoration, three idioms. The exact same app code:
@@ -93,7 +81,6 @@ One decoration, three idioms. The exact same app code:
 Card(
   decoration: const ArcaneDecoration(
     elevation: Elevation.lg,
-    shadowColor: '#FF00FF',
   ),
   child: const Text.body('Same code, three renderings.'),
 )
@@ -103,13 +90,13 @@ renders as:
 
 | Theme | Result |
 |-------|--------|
-| Neubrutalism | A pink (`#FF00FF`) hard-offset block shadow. |
-| Neon | A pink glow around the card. |
-| Shadcn | A soft, neutral ambient shadow — `shadowColor` is ignored. |
+| Neubrutalism | A neutral hard-offset block shadow. |
+| Neon | A flat bordered surface with no decorative shadow. |
+| Shadcn | A soft, neutral ambient shadow. |
 
 Nothing at the call site knows which theme is active. Swap the stylesheet on `ArcaneApp` and the same `Card` restyles itself.
 
-## ArcaneStyleData: the escape hatch
+## ArcaneStyleData: bounded literal overrides
 
 `styles:` accepts a literal `ArcaneStyleData`. Whatever it sets is applied last and overrides both the theme and the decoration. Use it for values that must be exact regardless of theme.
 
@@ -132,9 +119,9 @@ Every decoratable component composes its inline `style` in a fixed order, and la
 
 1. Theme base styles
 2. Theme variant styles
-3. `decoration` universal fields (`color`, `gradient`, `borderRadius`, `border`, `padding`, `backdropFilter`)
-4. Theme-resolved `decorationStyles` (the theme's interpretation of `elevation` and `shadowColor`)
-5. Literal `styles:` (the escape hatch)
+3. `decoration` universal fields (`color`, `borderRadius`, `border`, `padding`)
+4. Theme-resolved `decorationStyles` (the theme's interpretation of `elevation`)
+5. Bounded literal `styles:` overrides
 
 That ordering is the permeability contract: intent flows through the theme, and the literal layer is always last.
 

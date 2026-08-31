@@ -12,7 +12,7 @@ import 'package:arcane_jaspr/core/props/command_props.dart';
 /// surface attribute wiring, the search-input markup, the group/item iteration
 /// and the (byte-identical) empty state and item attribute block. The themes
 /// diverge only in class strings, style maps, the keyboard-hint footer and the
-/// trailing shortcut chip. This base factors the shared structure and exposes
+/// trailing shortcut hint. This base factors the shared structure and exposes
 /// the divergent nodes as abstract sub-builders and the divergent values as
 /// abstract members.
 ///
@@ -40,8 +40,7 @@ abstract class CommandRenderBase extends StatelessComponent {
   Map<String, String> get dialogStyles;
 
   /// Per-instance decoration overrides. Default: none. A theme overrides this
-  /// to translate an [ArcaneDecoration] (elevation intent, theme-specific
-  /// fields) into its own CSS. Fields a theme does not implement are ignored.
+  /// to translate an [ArcaneDecoration] elevation intent into its own CSS.
   Map<String, String> decorationStyles(ArcaneDecoration? decoration) =>
       const <String, String>{};
 
@@ -80,7 +79,7 @@ abstract class CommandRenderBase extends StatelessComponent {
   /// Visual styles for a single command item row.
   Map<String, String> itemStyles(CommandItemProps item);
 
-  /// The shortcut chip shown at the trailing end of an item.
+  /// The shortcut hint shown at the trailing end of an item.
   Component buildShortcut(String shortcut);
 
   /// The keyboard-hint components shown in the footer.
@@ -125,25 +124,22 @@ abstract class CommandRenderBase extends StatelessComponent {
             },
           ),
           [
-            dom.div(
-              styles: dom.Styles(raw: searchRowStyles),
-              [
-                dom.span(
-                  styles: dom.Styles(raw: searchIconStyles),
-                  [ArcaneIcon.search(size: IconSize.md)],
-                ),
-                dom.RawText(
-                  '<input class="$inputClass" type="text" '
-                  'placeholder="${props.placeholder}" '
-                  'autofocus autocomplete="off" spellcheck="false" '
-                  'data-arcane-command-input="$surfaceId" '
-                  'data-arcane-input="command.filter:$surfaceId" '
-                  'value="${props.searchQuery}" '
-                  'style="flex:1;background:transparent;border:none;'
-                  '$inputStyleSuffix">',
-                ),
-              ],
-            ),
+            dom.div(styles: dom.Styles(raw: searchRowStyles), [
+              dom.span(styles: dom.Styles(raw: searchIconStyles), [
+                ArcaneIcon.search(size: IconSize.md),
+              ]),
+              dom.RawText(
+                '<input class="$inputClass" type="text" '
+                'aria-label="Search commands" '
+                'placeholder="${props.placeholder}" '
+                'autofocus autocomplete="off" spellcheck="false" '
+                'data-arcane-command-input="$surfaceId" '
+                'data-arcane-input="command.filter:$surfaceId" '
+                'value="${props.searchQuery}" '
+                'style="flex:1;background:transparent;border:none;'
+                '$inputStyleSuffix">',
+              ),
+            ]),
             dom.div(
               classes: listClasses,
               attributes: const <String, String>{'role': 'listbox'},
@@ -168,10 +164,7 @@ abstract class CommandRenderBase extends StatelessComponent {
                   _buildGroup(group, surfaceId),
               ],
             ),
-            dom.div(
-              styles: dom.Styles(raw: footerStyles),
-              buildKeyHints(),
-            ),
+            dom.div(styles: dom.Styles(raw: footerStyles), buildKeyHints()),
           ],
         ),
       ],
@@ -180,13 +173,11 @@ abstract class CommandRenderBase extends StatelessComponent {
 
   Component _buildGroup(CommandGroupProps group, String surfaceId) {
     final String groupId = (group.heading ?? 'group').toLowerCase().replaceAll(
-          RegExp(r'[^a-z0-9]+'),
-          '-',
-        );
+      RegExp(r'[^a-z0-9]+'),
+      '-',
+    );
     return dom.div(
-      attributes: <String, String>{
-        'data-arcane-command-group': groupId,
-      },
+      attributes: <String, String>{'data-arcane-command-group': groupId},
       [
         if (group.heading != null)
           dom.div(

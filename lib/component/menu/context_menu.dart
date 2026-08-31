@@ -39,13 +39,15 @@ class ArcaneContextMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String resolvedId = id ?? _autoId();
-    return context.renderers.contextMenu(ContextMenuProps(
-      id: resolvedId,
-      trigger: trigger,
-      items: items,
-      keepOpenOnAction: keepOpenOnAction,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.contextMenu(
+      ContextMenuProps(
+        id: resolvedId,
+        trigger: trigger,
+        items: items,
+        keepOpenOnAction: keepOpenOnAction,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }

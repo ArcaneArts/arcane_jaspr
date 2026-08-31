@@ -53,6 +53,26 @@ jobs:
       - name: Build static site
         run: dart pub global run jaspr_cli:jaspr build --dart-define=BASE_URL=/arcane_jaspr
 
+      - name: Install browser policy runner
+        working-directory: tool/browser_policy
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+
+      - name: Enforce browser design policy
+        working-directory: .
+        shell: bash
+        run: |
+          audit_root=$(mktemp -d)
+          ln -s "$GITHUB_WORKSPACE/arcane_jaspr_docs/arcane_jaspr_docs_web/build/jaspr" \
+            "$audit_root/arcane_jaspr"
+          python3 -m http.server 41737 --bind 127.0.0.1 \
+            --directory "$audit_root" &
+          server_pid=$!
+          trap 'kill "$server_pid"' EXIT
+          ARCANE_DOCS_URL=http://127.0.0.1:41737/arcane_jaspr \
+            npm --prefix tool/browser_policy run audit
+
       - name: Add .nojekyll
         run: touch build/jaspr/.nojekyll
 

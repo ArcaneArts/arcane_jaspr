@@ -14,7 +14,6 @@ class ArcaneBaseCss {
        url('../fonts/lucide/lucide.woff2') format('woff2'),
        url('../../assets/fonts/lucide/lucide.woff2') format('woff2'),
        url('../../fonts/lucide/lucide.woff2') format('woff2'),
-       url('https://cdn.jsdelivr.net/gh/ArcaneArts/arcane_jaspr@master/assets/fonts/lucide/lucide.woff2') format('woff2'),
        url('/assets/fonts/lucide/lucide.woff') format('woff'),
        url('/fonts/lucide/lucide.woff') format('woff'),
        url('assets/fonts/lucide/lucide.woff') format('woff'),
@@ -42,6 +41,11 @@ class ArcaneBaseCss {
   padding: 0;
 }
 
+/* Author-level display rules must never override the native hidden contract. */
+[hidden] {
+  display: none !important;
+}
+
 html, body {
   height: 100%;
   font-family: var(--font-sans);
@@ -67,7 +71,7 @@ html, body {
 
 *::-webkit-scrollbar-thumb {
   background: var(--primary);
-  border-radius: 9999px;
+  border-radius: var(--radius-xs);
   border: 2px solid transparent;
   background-clip: padding-box;
 }
@@ -106,7 +110,7 @@ html.dark body::-webkit-scrollbar-thumb,
 html.light::-webkit-scrollbar-thumb,
 html.light body::-webkit-scrollbar-thumb {
   background: var(--primary);
-  border-radius: 9999px;
+  border-radius: var(--radius-xs);
   border: 2px solid transparent;
   background-clip: padding-box;
 }
@@ -142,14 +146,51 @@ html.light body::-webkit-scrollbar-corner {
   box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--ring);
 }
 
-/* Text tooltips use a shared CSS-only interaction contract. Theme renderers
-   own their appearance and hidden state; this rule owns discoverability for
-   both pointer hover and keyboard focus. The specificity and !important
-   declarations intentionally beat theme-specific hidden-state rules. */
-#arcane-root .arcane-css-tooltip-trigger:is(:hover, :focus-within)
-  > .arcane-css-tooltip-content {
-  opacity: 1 !important;
-  visibility: visible !important;
+/* Native single-select values reserve enough inline space for either the
+   browser arrow or the renderer-owned Arcane chevron. ArcaneSelect renders its
+   own glyph as a sibling so controls never depend on a background image. */
+#arcane-root select:not([multiple]) {
+  padding-inline-end: 40px;
+}
+
+/* Text fields use one focus perimeter. When a prefix/suffix shell owns the
+   border, its inner input must stay borderless and shadowless; focus changes
+   the shell border instead of painting a second ring around the input. Win95
+   keeps its intentional inset dotted focus rectangle. */
+#arcane-root:not(.arcane-theme-win95)
+  [data-arcane-field-shell="true"]:focus-within {
+  outline: none !important;
+  border-color: var(--ring, var(--primary)) !important;
+  box-shadow: none !important;
+}
+
+#arcane-root:not(.arcane-theme-win95)
+  [data-arcane-field-shell="true"]
+  > input[data-arcane-field-inner="true"][data-arcane-field-control="true"] {
+  border: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+#arcane-root:not(.arcane-theme-win95)
+  [data-arcane-field-shell="true"]
+  > input[data-arcane-field-inner="true"][data-arcane-field-control="true"]:focus-visible,
+#arcane-root:not(.arcane-theme-win95)
+  [data-arcane-field-control="true"][data-arcane-field-control="true"][data-arcane-field-control="true"]:focus-visible,
+#arcane-root.arcane-theme-neon select:not([multiple]):focus-visible {
+  outline: none !important;
+  border-color: var(--ring, var(--primary)) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* Nested marketing surfaces become open content regions. The renderer owns
+   this marker so custom classes and per-instance styles cannot restore a
+   second frame inside another frame. */
+[data-arcane-surface] [data-arcane-surface] {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
 }
 
 /* iOS Safari zooms the viewport when a focused text control renders below
@@ -159,6 +200,12 @@ html.light body::-webkit-scrollbar-corner {
 @media (pointer: coarse) {
   #arcane-root :is(input, textarea, select) {
     font-size: max(16px, 1em) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arcane-carousel-track {
+    animation: none !important;
   }
 }
 
@@ -254,7 +301,7 @@ html.light body::-webkit-scrollbar-corner {
 
 .arcane-carousel-track.dragging {
   animation: none !important;
-  cursor: grabbing;
+  cursor: var(--arcane-drag-cursor-active, grabbing);
 }
 
 .arcane-carousel-track.dragging * {
@@ -263,6 +310,12 @@ html.light body::-webkit-scrollbar-corner {
 
 .arcane-carousel-track.resuming {
   transition: none;
+}
+
+/* Shift-held coordinate picking on a map. The script toggles the class instead
+   of writing an inline cursor so themes can swap the glyph. */
+.arcane-map-picking {
+  cursor: crosshair;
 }
 
 .arcane-page {
@@ -419,7 +472,6 @@ html.light body::-webkit-scrollbar-corner {
   border-radius: var(--radius);
   background: var(--card);
   color: var(--card-foreground);
-  box-shadow: 0 18px 55px rgb(0 0 0 / 0.12);
 }
 
 .arcane-not-found-banner {

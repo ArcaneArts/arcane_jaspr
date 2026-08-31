@@ -1,198 +1,72 @@
-import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' as dom;
-
 import 'package:arcane_jaspr/core/props/promo_props.dart';
+import 'package:jaspr/dom.dart' as dom;
+import 'package:jaspr/jaspr.dart';
 
-/// ShadCN Inline Hero Banner renderer.
-///
-/// An inline promotional banner that integrates with the hero section.
-class ShadcnInlineHeroBanner extends StatefulComponent {
+/// Flat inline announcement renderer.
+class ShadcnInlineHeroBanner extends StatelessComponent {
   final InlineHeroBannerProps props;
 
   const ShadcnInlineHeroBanner(this.props, {super.key});
 
   @override
-  State<ShadcnInlineHeroBanner> createState() => _ShadcnInlineHeroBannerState();
-}
-
-class _ShadcnInlineHeroBannerState extends State<ShadcnInlineHeroBanner> {
-  bool _isDismissed = false;
-
-  void _handleDismiss() {
-    setState(() {
-      _isDismissed = true;
-    });
-    component.props.onDismiss?.call();
-  }
-
-  Map<String, String> _getStyleVariantStyles() {
-    return switch (component.props.variant) {
-      PromoInlineHeroBannerStyle.badge => {
-        'display': 'inline-flex',
-        'align-items': 'center',
-        'gap': '8px',
-        'padding': '4px 12px',
-        'background-color': 'var(--muted)',
-        'border': '1px solid var(--border)',
-        'border-radius': 'var(--radius-full)',
-      },
-      PromoInlineHeroBannerStyle.ribbon => {
-        'display': 'inline-flex',
-        'align-items': 'center',
-        'gap': '8px',
-        'padding': '6px 16px',
-        'background-color': 'var(--primary)',
-        'color': 'var(--primary-foreground)',
-        'border-radius': '0',
-      },
-      PromoInlineHeroBannerStyle.pill => {
-        'display': 'inline-flex',
-        'align-items': 'center',
-        'gap': '8px',
-        'padding': '6px 16px',
-        'background-color': 'var(--muted)',
-        'color': 'var(--foreground)',
-        'border': '1px solid var(--border)',
-        'border-radius': 'var(--radius-full)',
-      },
-      PromoInlineHeroBannerStyle.card => {
+  Component build(BuildContext context) => dom.div(
+    classes: 'shadcn-inline-hero-banner',
+    styles: const dom.Styles(
+      raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': '12px',
-        'padding': '12px 16px',
-        'background-color': 'var(--card)',
+        'gap': '1rem',
+        'padding': '0.75rem 1rem',
+        'background': 'var(--card)',
+        'color': 'var(--foreground)',
         'border': '1px solid var(--border)',
-        'border-radius': 'var(--radius-md)',
-        'box-shadow': 'var(--shadow-lg)',
+        'border-radius': '0',
       },
-    };
-  }
-
-  @override
-  Component build(BuildContext context) {
-    if (_isDismissed) {
-      return const dom.div(styles: dom.Styles(raw: {'display': 'none'}), []);
-    }
-
-    final bool isRibbon =
-        component.props.variant == PromoInlineHeroBannerStyle.ribbon;
-
-    return dom.div(
-      classes:
-          'arcane-inline-hero-banner arcane-inline-hero-banner-${component.props.variant.name}',
-      styles: dom.Styles(
-        raw: {
-          'font-size': 'var(--font-size-sm)',
-          ..._getStyleVariantStyles(),
-          ...?component.props.decoration?.universalStyles(),
-          ...?component.props.styles?.toMap(),
-        },
-      ),
-      [
-        // Icon
-        if (component.props.icon != null)
-          dom.div(
-            styles: const dom.Styles(
-              raw: {
-                'width': '16px',
-                'height': '16px',
-                'flex-shrink': '0',
-                'display': 'flex',
-                'align-items': 'center',
-                'justify-content': 'center',
-              },
-            ),
-            [component.props.icon!],
-          ),
-
-        // Message
-        dom.span(
-          styles: dom.Styles(
+    ),
+    [
+      if (props.icon != null)
+        dom.span(styles: const dom.Styles(raw: {'flex-shrink': '0'}), [
+          props.icon!,
+        ]),
+      dom.span(styles: const dom.Styles(raw: {'flex': '1'}), [
+        Component.text(props.message),
+      ]),
+      if (props.ctaText != null)
+        dom.a(
+          href: props.ctaHref ?? '#',
+          styles: const dom.Styles(
             raw: {
-              'font-weight': 'var(--font-weight-medium)',
-              'color': isRibbon ? 'inherit' : 'var(--foreground)',
-              'line-height': '1.5',
+              'color': 'var(--primary)',
+              'text-decoration': 'underline',
+              'text-underline-offset': '0.2em',
             },
           ),
-          [Component.text(component.props.message)],
+          events: props.onCtaClick == null
+              ? null
+              : {
+                  'click': (event) {
+                    event.preventDefault();
+                    props.onCtaClick!();
+                  },
+                },
+          [Component.text(props.ctaText!)],
         ),
-
-        // Promo code
-        if (component.props.promoCode != null)
-          dom.span(
-            styles: dom.Styles(
-              raw: {
-                'padding': '2px 8px',
-                'background-color': isRibbon
-                    ? 'rgba(255, 255, 255, 0.2)'
-                    : 'var(--background)',
-                'border': isRibbon ? 'none' : '1px solid var(--border)',
-                'border-radius': 'var(--radius-xs)',
-                'font-family':
-                    'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
-                'font-weight': 'var(--font-weight-semibold)',
-                'font-size': 'var(--font-size-xs)',
-                'color': isRibbon ? 'inherit' : 'var(--foreground)',
-              },
-            ),
-            [Component.text(component.props.promoCode!)],
-          ),
-
-        // CTA
-        if (component.props.ctaText != null)
-          dom.a(
-            href: component.props.ctaHref ?? '#',
-            styles: dom.Styles(
-              raw: {
-                'display': 'inline-flex',
-                'align-items': 'center',
-                'gap': '4px',
-                'font-weight': 'var(--font-weight-medium)',
-                'text-decoration': 'none',
-                'color': isRibbon ? 'inherit' : 'var(--primary)',
-                'transition': 'opacity var(--transition)',
-                if (isRibbon) 'text-decoration': 'underline',
-              },
-            ),
-            events: {
-              'click': (e) {
-                if (component.props.onCtaClick != null) {
-                  e.preventDefault();
-                  component.props.onCtaClick!();
-                }
-              },
+      if (props.dismissible && props.onDismiss != null)
+        dom.button(
+          attributes: const {'aria-label': 'Dismiss announcement'},
+          styles: const dom.Styles(
+            raw: {
+              'padding': '0.25rem',
+              'background': 'transparent',
+              'border': '0',
+              'border-radius': '0',
+              'color': 'var(--muted-foreground)',
+              'cursor': 'pointer',
             },
-            [
-              Component.text(component.props.ctaText!),
-              const Component.text('\u2192'),
-            ],
           ),
-
-        // Dismiss button
-        if (component.props.dismissible)
-          dom.button(
-            attributes: {'type': 'button', 'aria-label': 'Dismiss'},
-            styles: dom.Styles(
-              raw: {
-                'display': 'inline-flex',
-                'align-items': 'center',
-                'justify-content': 'center',
-                'width': '20px',
-                'height': '20px',
-                'margin-left': '4px',
-                'padding': '0',
-                'background': 'transparent',
-                'border': 'none',
-                'border-radius': 'var(--radius-xs)',
-                'color': isRibbon ? 'inherit' : 'var(--muted-foreground)',
-                'cursor': 'pointer',
-                'transition': 'background-color var(--transition)',
-              },
-            ),
-            events: {'click': (_) => _handleDismiss()},
-            [const Component.text('\u00D7')],
-          ),
-      ],
-    );
-  }
+          events: {'click': (_) => props.onDismiss!()},
+          [Component.text('\u00d7')],
+        ),
+    ],
+  );
 }

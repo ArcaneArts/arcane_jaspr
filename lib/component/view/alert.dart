@@ -3,6 +3,7 @@ import 'package:arcane_jaspr/flutter.dart';
 import '../../core/theme_provider.dart';
 import '../../core/decoration/arcane_decoration.dart';
 import '../../util/style_types/arcane_style_data.dart';
+import 'icon.dart';
 
 /// Inline alert component for important messages that need user attention.
 class ArcaneAlert extends StatelessWidget {
@@ -11,7 +12,7 @@ class ArcaneAlert extends StatelessWidget {
   final String? message;
   final Widget? child;
   final AlertStyle variant;
-  final Widget? icon;
+  final ArcaneGlyph? icon;
   final bool showIcon;
   final bool dismissible;
   final void Function()? onDismiss;
@@ -101,19 +102,21 @@ class ArcaneAlert extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.alert(AlertProps(
-      color: color,
-      title: title,
-      message: message,
-      child: child,
-      variant: variant,
-      icon: icon,
-      showIcon: showIcon,
-      dismissible: dismissible,
-      onDismiss: onDismiss,
-      action: action,
-      styles: styles,
-      decoration: decoration,
-    ));
+    return context.renderers.alert(
+      AlertProps(
+        color: color,
+        title: title,
+        message: message,
+        child: child,
+        variant: variant,
+        icon: icon,
+        showIcon: showIcon,
+        dismissible: dismissible,
+        onDismiss: onDismiss,
+        action: action,
+        styles: styles,
+        decoration: decoration,
+      ),
+    );
   }
 }

@@ -7,18 +7,7 @@ class NeonFloating extends FloatingRenderBase {
   const NeonFloating(super.props, {super.key});
 
   @override
-  String get triggerClass => 'neon-floating-trigger';
-
-  @override
   String get containerClass => 'neon-floating-container';
-
-  @override
-  String get cssTooltipClasses =>
-      'neon-floating neon-floating-tooltip neon-tooltip';
-
-  @override
-  Map<String, String> cssTooltipStyles(Map<String, String> positionStyles) =>
-      const <String, String>{};
 
   @override
   String floatingContentClasses(bool hasRichContent) => hasRichContent
